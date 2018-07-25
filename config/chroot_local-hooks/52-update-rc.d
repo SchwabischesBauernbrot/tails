@@ -59,6 +59,10 @@ systemctl enable  cups.socket
 systemctl disable NetworkManager.service
 systemctl disable NetworkManager-wait-online.service
 
+# We seed the entropy pool ourselves in initramfs, so we don't need the
+# systemd-random-seed.service. We disable it to avoid confusion.
+systemctl disable systemd-random-seed.service
+
 # tracker-extract-3.service is a helper service that is controlled by
 # tracker-miner-fs-3.service. It should not be started automatically
 # by systemd. In Bookworm, it has a WantedBy=default.target dependency,
@@ -95,3 +99,4 @@ systemctl mask man-db.timer
 # before we enable it
 systemctl mask avahi-daemon.socket
 systemctl mask avahi-daemon.service
+
