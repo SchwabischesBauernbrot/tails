@@ -11,17 +11,6 @@ set -u
 . /usr/local/lib/tails-shell-library/log.sh
 . /usr/local/lib/tails-shell-library/tails-greeter.sh
 
-# Get LIVE_USERNAME
-. /etc/live/config.d/username.conf
-
-# Get LANG
-. /etc/default/locale
-export LANG
-
-. /usr/bin/gettext.sh
-TEXTDOMAIN="tails"
-export TEXTDOMAIN
-
 stop_and_disable_NM() {
    for s in NetworkManager-dispatcher.service \
             NetworkManager-wait-online.service \
@@ -31,41 +20,6 @@ stop_and_disable_NM() {
        systemctl mask "${s}"
    done
    log "Networking disabled"
-}
-
-show_notification() {
-    # We must wait until all the facilities necessary for showing the
-    # notification to the Live user is available to prevent it from
-    # getting lost.
-    until pgrep -u "${LIVE_USERNAME}" '^ibus-daemon' >/dev/null ; do
-        sleep 1
-    done
-    # The above doesn't seem to be enough. The best we can do seems to
-    # be to statically wait a bit longer. The amount chosen is just
-    # arbitrarily picked, and may not work on slow hardware or even
-    # DVD boot, but should at least work in our automated test suite.
-    sleep 10
-    /usr/local/sbin/tails-notify-user "${1}" "${2}" 0
-}
-
-notify_panic_success() {
-    local nic
-    local nic_name
-    nic="${1}"
-    nic_name="${2}"
-    show_notification "`eval_gettext \"Network card \\\${nic} disabled\"`" \
-"`eval_gettext \"MAC spoofing failed for network card \\\${nic_name} (\\\${nic}) so it is temporarily disabled.
-You might prefer to restart Tails and disable MAC spoofing.\"`"
-}
-
-notify_panic_failure() {
-    local nic
-    local nic_name
-    nic="${1}"
-    nic_name="${2}"
-    show_notification "`gettext \"All networking disabled\"`" \
-"`eval_gettext \"MAC spoofing failed for network card \\\${nic_name} (\\\${nic}). The error recovery also failed so all networking is disabled.
-You might prefer to restart Tails and disable MAC spoofing.\"`"
 }
 
 mac_spoof_panic() {
@@ -85,10 +39,12 @@ mac_spoof_panic() {
     if nic_exists "${nic}"; then
         log "Failed to unload module ${module} of NIC ${nic}."
         stop_and_disable_NM
-        notify_panic_failure "${nic}" "${nic_name}" &
+        echo ${nic_name} > /run/tails-spoof-mac-notify-${nic}
+        systemctl --global enable tails-mac-spoof-failed-panic-failure@${nic}.service || :
     else
         log "Successfully unloaded module ${module} of NIC ${nic}."
-        notify_panic_success "${nic}" "${nic_name}" &
+        echo ${nic_name} > /run/tails-spoof-mac-notify-${nic}
+	systemctl --global enable tails-mac-spoof-failed-panic-success@${nic}.service || :
     fi
 }
 

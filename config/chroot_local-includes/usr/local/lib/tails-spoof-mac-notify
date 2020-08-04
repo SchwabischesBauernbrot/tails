@@ -1,0 +1,73 @@
+#!/bin/sh
+
+set -e
+set -u
+
+# Get LIVE_USERNAME
+. /etc/live/config.d/username.conf
+
+# Get LANG
+. /etc/default/locale
+export LANG
+
+. /usr/bin/gettext.sh
+TEXTDOMAIN="tails"
+export TEXTDOMAIN
+
+show_notification() {
+    # We must wait until all the facilities necessary for showing the
+    # notification to the Live user is available to prevent it from
+    # getting lost.
+    until pgrep -u "${LIVE_USERNAME}" '^ibus-daemon' >/dev/null ; do
+        sleep 1
+    done
+    # The above doesn't seem to be enough. The best we can do seems to
+    # be to statically wait a bit longer. The amount chosen is just
+    # arbitrarily picked, and may not work on slow hardware or even
+    # DVD boot, but should at least work in our automated test suite.
+    sleep 10
+    notify-send --expire-time=60 "${1}" "${2}"
+}
+
+notify_panic_success() {
+    local nic
+    local nic_name
+    nic="${1}"
+    nic_name="$(cat /run/tails-spoof-mac-notify-${nic})"
+    show_notification "`eval_gettext \"Network card \\\${nic} disabled\"`" \
+"`eval_gettext \"MAC spoofing failed for network card \\\${nic_name} (\\\${nic}) so it is temporarily disabled.
+You might prefer to restart Tails and disable MAC spoofing.\"`"
+}
+
+notify_panic_failure() {
+    local nic
+    local nic_name
+    nic="${1}"
+    nic_name="$(cat /run/tails-spoof-mac-notify-${nic})"
+    show_notification "`gettext \"All networking disabled\"`" \
+"`eval_gettext \"MAC spoofing failed for network card \\\${nic_name} (\\\${nic}). The error recovery also failed so all networking is disabled.
+You might prefer to restart Tails and disable MAC spoofing.\"`"
+}
+
+if [ $# -ne 2 ]; then
+        log "Unexpected number of parameters for $(basename ${0})"
+        exit 64
+fi
+
+NIC="${1}"
+STATUS="${2}"
+
+case ${STATUS} in
+success)
+    notify_panic_success $NIC
+    ;;
+failure)
+    notify_panic_failure $NIC
+    ;;
+*)
+   log "Unexpected parameter for $(basename ${0}): ${STATUS}"
+   exit 64
+   ;;
+esac
+
+exit 0

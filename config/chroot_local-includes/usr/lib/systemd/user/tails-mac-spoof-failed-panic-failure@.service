@@ -1,0 +1,10 @@
+[Unit]
+Description=Notify user of MAC spoofing panic failure
+Documentation=https://gitlab.tails.boum.org/tails/tails/-/issues/17813
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/lib/tails-spoof-mac-notify %i failure
+
+[Install]
+WantedBy=desktop.target
