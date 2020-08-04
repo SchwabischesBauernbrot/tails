@@ -11,6 +11,9 @@ set -u
 . /usr/local/lib/tails-shell-library/log.sh
 . /usr/local/lib/tails-shell-library/tails-greeter.sh
 
+# Get LIVE_USERNAME
+. /etc/live/config.d/username.conf
+
 stop_and_disable_NM() {
    for s in NetworkManager-dispatcher.service \
             NetworkManager-wait-online.service \
@@ -20,6 +23,39 @@ stop_and_disable_NM() {
        systemctl mask "${s}"
    done
    log "Networking disabled"
+}
+
+schedule_notify_panic_success() {
+    local nic
+    local nic_name
+    local username
+    local uid
+    nic="${1}"
+    nic_name="${2}"
+    username="${LIVE_USERNAME}"
+    echo ${nic_name} > /run/tails-spoof-mac-notify-${nic}
+    systemctl --global enable tails-mac-spoof-failed-panic-success@${nic}.service || :
+    if [ -d /run/user/${uid} ]; then
+        su ${username} -c "XDG_RUNTIME_DIR=/run/user/${uid} \
+            systemctl --no-block --user start tails-mac-spoof-failed-panic-success@${nic}.service" || :
+    fi
+}
+
+schedule_notify_panic_failure() {
+    local nic
+    local nic_name
+    local username
+    local uid
+    nic="${1}"
+    nic_name="${2}"
+    username="${LIVE_USERNAME}"
+    uid="$(id -u ${username})"
+    echo ${nic_name} > /run/tails-spoof-mac-notify-${nic}
+    systemctl --global enable tails-mac-spoof-failed-panic-failure@${nic}.service || :
+    if [ -d /run/user/${uid} ]; then
+        su ${username} -c "XDG_RUNTIME_DIR=/run/user/${uid} \
+            systemctl --no-block --user start tails-mac-spoof-failed-panic-failure@${nic}.service" || :
+    fi
 }
 
 mac_spoof_panic() {
@@ -39,12 +75,10 @@ mac_spoof_panic() {
     if nic_exists "${nic}"; then
         log "Failed to unload module ${module} of NIC ${nic}."
         stop_and_disable_NM
-        echo ${nic_name} > /run/tails-spoof-mac-notify-${nic}
-        systemctl --global enable tails-mac-spoof-failed-panic-failure@${nic}.service || :
+        schedule_notify_panic_failure "${nic}" "${nic_name}"
     else
         log "Successfully unloaded module ${module} of NIC ${nic}."
-        echo ${nic_name} > /run/tails-spoof-mac-notify-${nic}
-	systemctl --global enable tails-mac-spoof-failed-panic-success@${nic}.service || :
+        schedule_notify_panic_success "${nic}" "${nic_name}"
     fi
 }
 
