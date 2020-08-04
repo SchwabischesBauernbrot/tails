@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /bin/sh -x
 
 set -e
 set -u
@@ -40,7 +40,7 @@ PYTHON_PROGS="/etc/whisperback/config.py \
     /usr/local/sbin/tails-additional-software"
 SHELL_PROGS="/etc/NetworkManager/dispatcher.d/60-tor-ready.sh \
     /usr/local/bin/keepassxc \
-    /usr/local/lib/tails-spoof-mac \
+    /usr/local/lib/tails-spoof-mac-notify \
     /usr/local/bin/tor-browser \
     /usr/local/sbin/unsafe-browser"
 JAVASCRIPT_PROGS=" \
@@ -143,7 +143,7 @@ intltool_update_pot () {
     (
         cd po
         cp -a tails.pot tails.pot.orig
-        intltool-update --pot --gettext-package=tails
+        intltool-update --pot --gettext-package=tails --verbose
         normalize_pot tails.pot tails.pot.orig
 
         if [ "${FORCE:-}" = yes ]; then
