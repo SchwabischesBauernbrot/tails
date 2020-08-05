@@ -15,17 +15,6 @@ TEXTDOMAIN="tails"
 export TEXTDOMAIN
 
 show_notification() {
-    # We must wait until all the facilities necessary for showing the
-    # notification to the Live user is available to prevent it from
-    # getting lost.
-    until pgrep -u "${LIVE_USERNAME}" '^ibus-daemon' >/dev/null ; do
-        sleep 1
-    done
-    # The above doesn't seem to be enough. The best we can do seems to
-    # be to statically wait a bit longer. The amount chosen is just
-    # arbitrarily picked, and may not work on slow hardware or even
-    # DVD boot, but should at least work in our automated test suite.
-    sleep 10
     notify-send --expire-time=60 "${1}" "${2}"
 }
 
