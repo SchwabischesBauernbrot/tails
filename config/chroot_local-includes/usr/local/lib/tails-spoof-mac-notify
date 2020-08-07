@@ -3,9 +3,6 @@
 set -e
 set -u
 
-# Get LIVE_USERNAME
-. /etc/live/config.d/username.conf
-
 # Get LANG
 . /etc/default/locale
 export LANG
@@ -22,7 +19,7 @@ notify_panic_success() {
     local nic
     local nic_name
     nic="${1}"
-    nic_name="$(cat /run/tails-spoof-mac-notify-${nic})"
+    nic_name=$(< "/run/tails-spoof-mac/${nic}-display-name")
     show_notification "`eval_gettext \"Network card \\\${nic} disabled\"`" \
 "`eval_gettext \"MAC spoofing failed for network card \\\${nic_name} (\\\${nic}) so it is temporarily disabled.
 You might prefer to restart Tails and disable MAC spoofing.\"`"
@@ -32,14 +29,14 @@ notify_panic_failure() {
     local nic
     local nic_name
     nic="${1}"
-    nic_name="$(cat /run/tails-spoof-mac-notify-${nic})"
+    nic_name=$(< "/run/tails-spoof-mac/${nic}-display-name")
     show_notification "`gettext \"All networking disabled\"`" \
 "`eval_gettext \"MAC spoofing failed for network card \\\${nic_name} (\\\${nic}). The error recovery also failed so all networking is disabled.
 You might prefer to restart Tails and disable MAC spoofing.\"`"
 }
 
 if [ $# -ne 2 ]; then
-        log "Unexpected number of parameters for $(basename ${0})"
+        echo "Unexpected number of parameters for $(basename ${0})" 2>&1
         exit 64
 fi
 
@@ -54,7 +51,7 @@ failure)
     notify_panic_failure $NIC
     ;;
 *)
-   log "Unexpected parameter for $(basename ${0}): ${STATUS}"
+   echo "Unexpected parameter for $(basename ${0}): ${STATUS}"  2>&1
    exit 64
    ;;
 esac

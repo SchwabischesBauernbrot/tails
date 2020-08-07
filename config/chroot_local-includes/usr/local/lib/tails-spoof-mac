@@ -33,11 +33,11 @@ schedule_notify_panic_success() {
     nic="${1}"
     nic_name="${2}"
     username="${LIVE_USERNAME}"
-    echo ${nic_name} > /run/tails-spoof-mac-notify-${nic}
-    systemctl --global enable tails-mac-spoof-failed-panic-success@${nic}.service || :
+    echo "${nic_name}" > "/run/tails-spoof-mac/${nic}-display-name"
+    systemctl --global enable "tails-mac-spoof-failed-panic-success@${nic}.service" || :
     if [ -d /run/user/${uid} ]; then
-        su ${username} -c "XDG_RUNTIME_DIR=/run/user/${uid} \
-            systemctl --no-block --user start tails-mac-spoof-failed-panic-success@${nic}.service" || :
+        su "${LIVE_USERNAME}" -c "XDG_RUNTIME_DIR='/run/user/${uid}' \
+            systemctl --no-block --user start 'tails-mac-spoof-failed-panic-success@${nic}.service'" || :
     fi
 }
 
@@ -48,13 +48,12 @@ schedule_notify_panic_failure() {
     local uid
     nic="${1}"
     nic_name="${2}"
-    username="${LIVE_USERNAME}"
-    uid="$(id -u ${username})"
-    echo ${nic_name} > /run/tails-spoof-mac-notify-${nic}
-    systemctl --global enable tails-mac-spoof-failed-panic-failure@${nic}.service || :
+    uid="$(id -u ${LIVE_USERNAME})"
+    echo "${nic_name}" > "/run/tails-spoof-mac/${nic}-display-name"
+    systemctl --global enable "tails-mac-spoof-failed-panic-failure@${nic}.service" || :
     if [ -d /run/user/${uid} ]; then
-        su ${username} -c "XDG_RUNTIME_DIR=/run/user/${uid} \
-            systemctl --no-block --user start tails-mac-spoof-failed-panic-failure@${nic}.service" || :
+        su "${LIVE_USERNAME}" -c "XDG_RUNTIME_DIR='/run/user/${uid}' \
+            systemctl --no-block --user start 'tails-mac-spoof-failed-panic-failure@${nic}.service'" || :
     fi
 }
 
