@@ -18,7 +18,6 @@ Feature: Localization
 
   # Not necessarily fragile, but not worth making every single test
   # suite run 20+ minutes longer
-  @fragile
   Scenario Outline: Tails is localized for every tier-1 language
     Given I have started Tails from DVD without network and stopped at Tails Greeter's login screen
     When I log in to a new session in <language>
@@ -39,14 +38,14 @@ Feature: Localization
     #  - Arabic's layout should be "ara": #12638
     Examples:
       | language   | layout | osk_layout |
-      | Arabic     | us     | us         |
+      | Arabic     | ara    | us         |
       | Chinese    | cn     | us         |
       | English    | us     | us         |
       | French     | fr     | fr         |
       | German     | de     | de         |
     # Tests disabled due to #18076
     # | Hindi      | in     | us         |
-    # | Indonesian | id     | us         |
+      | Indonesian | us     | us         |
       | Italian    | it     | us         |
       | Persian    | ir     | ir         |
       | Portuguese | pt     | us         |

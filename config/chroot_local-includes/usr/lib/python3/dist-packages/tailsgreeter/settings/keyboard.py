@@ -1,5 +1,6 @@
 import gi
 import logging
+from typing import List, Dict, Tuple, Set, Optional
 
 import tailsgreeter.config
 from tailsgreeter.settings import SettingNotFoundError
@@ -15,7 +16,11 @@ gi.require_version('Gtk', '3.0')
 from gi.repository import Gio, GLib, GnomeDesktop, GObject, Gtk
 
 
+
 class KeyboardSetting(LocalizationSetting):
+    LOCALE_HARDCODE: Dict[str, str] = {
+            'id_ID': 'us',
+            }
 
     def __init__(self):
         super().__init__()
@@ -37,7 +42,7 @@ class KeyboardSetting(LocalizationSetting):
             'IS_DEFAULT': is_default,
         })
 
-    def load(self) -> (str, bool):
+    def load(self) -> Tuple[str, bool]:
         try:
             settings = read_settings(self.settings_file)
         except FileNotFoundError:
@@ -79,7 +84,7 @@ class KeyboardSetting(LocalizationSetting):
     def get_name(self, value: str) -> str:
         return self._layout_name(value)
 
-    def get_all(self) -> [str]:
+    def get_all(self) -> List[str]:
         """Return a list of all keyboard layout codes
 
         """
@@ -92,8 +97,8 @@ class KeyboardSetting(LocalizationSetting):
             logging.warning("Layout code '%s' does not exist", layout_code)
         return display_name
 
-    def _layouts_split_names(self, layout_codes) -> [str]:
-        layouts_names = {}
+    def _layouts_split_names(self, layout_codes) -> Dict[str, Set[str]]:
+        layouts_names: Dict[str, Set[str]] = {}
         for layout_code in layout_codes:
             layout_name = self._layout_name(layout_code)
             country_name, s, v = layout_name.partition(' (')
@@ -103,7 +108,7 @@ class KeyboardSetting(LocalizationSetting):
                 layouts_names[country_name].add(layout_code)
         return layouts_names
 
-    def _layouts_for_language(self, lang_code) -> [str]:
+    def _layouts_for_language(self, lang_code) -> List[str]:
         """Return the list of available layouts for given language
         """
         try:
@@ -130,24 +135,27 @@ class KeyboardSetting(LocalizationSetting):
         logging.debug('got %d layouts for %s', len(layouts), lang_code)
         return layouts
 
-    def _layouts_for_country(self, country) -> [str]:
-        """Return the list of available layouts for given country
-        """
-        # XXX: it would be logical to use:
-        #     self.__xklinfo.get_layouts_for_language(country)
-        # but it doesn't actually return the list of all layouts matching a
-        # country.
+    def _layouts_for_country(self, country: str) -> List[str]:
+        """Return the list of available layouts for given country"""
         def country_filter(layout):
             cc = country.lower()
             return (layout == cc) or ('+' in layout) and (layout.split('+')[0] == cc)
 
+        # look for a country-specific keyboard layout
         layouts = list(filter(country_filter, self.get_all()))
+
+        # See #12638: not every locale has a country-specific keyboard layout
+        # so let's also look at xkbinfo. Even this method is not perfect: not every country has
+        # proper values, but that still improves the output for some locale.
+        if not layouts:
+            logging.debug('first country-based method found nothing')
+            layouts = self.xkbinfo.get_layouts_for_country(country.upper())
 
         logging.debug('got %d layouts for %s', len(layouts), country)
         return layouts
 
     @staticmethod
-    def _split_variant(layout_code) -> (str, str):
+    def _split_variant(layout_code) -> Tuple[str, Optional[str]]:
         if '+' in layout_code:
             return layout_code.split('+')
         else:
@@ -184,16 +192,19 @@ class KeyboardSetting(LocalizationSetting):
                 layouts = filtered_layouts
         return layouts
 
-    def get_layout_for_locale(self, locale: str):
+    def get_layout_for_locale(self, locale: str) -> str:
+        if locale in self.__class__.LOCALE_HARDCODE:
+            return self.__class__.LOCALE_HARDCODE[locale]
         language = language_from_locale(locale)
         country = country_from_locale(locale)
+
 
         # First, build a list of layouts to consider for the language
         language_layouts = self._layouts_for_language(language)
         logging.debug("Language %s layouts: %s", language, language_layouts)
         country_layouts = self._layouts_for_country(country)
         logging.debug("Country %s layouts: %s", country, country_layouts)
-        layouts = set(language_layouts).intersection(country_layouts)
+        layouts: Set[str] = set(language_layouts).intersection(country_layouts)
         logging.debug("Intersection of language %s and country %s: %s",
                       language, country, layouts)
 
@@ -206,7 +217,7 @@ class KeyboardSetting(LocalizationSetting):
             logging.debug("List still empty, filter by language %s only: %s",
                           language, layouts)
         if not layouts:
-            layouts = language_layouts
+            layouts = set(language_layouts)
             logging.debug("List still empty, use all language %s layouts: %s",
                           language, layouts)
 
@@ -214,7 +225,7 @@ class KeyboardSetting(LocalizationSetting):
         layouts = self._filter_layouts(layouts, country, language)
         if len(layouts) != 1:
             # Can't find a single result, build a new list for the country
-            layouts = country_layouts
+            layouts = set(country_layouts)
             logging.debug("Still not 1 layouts. Try again using all country "
                           "%s layouts: %s", country, layouts)
             layouts = self._filter_layouts(layouts, country, language)
