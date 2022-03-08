@@ -36,14 +36,16 @@ DEBIAN_SERIAL="$(get_serial debian)"
 DEBIAN_SECURITY_SERIAL="$(get_serial debian-security)"
 TAILS_SERIAL="$(get_serial tails)"
 
+# Input keyring contains concatenated armored certificates.  Join them
+# into the standard form for communicating OpenPGP keyrings.
 DEBOOTSTRAP_GNUPG_HOMEDIR="$(mktemp -d --tmpdir tmp.debootstrap-gnupg-XXXXXXXX)"
+DEBOOTSTRAP_GNUPG_PUBRING="${DEBOOTSTRAP_GNUPG_HOMEDIR}/tails.chroot.pgp"
 gpg --homedir "${DEBOOTSTRAP_GNUPG_HOMEDIR}" \
     --no-tty \
     --import config/chroot_sources/tails.chroot.gpg
-DEBOOTSTRAP_GNUPG_PUBRING="${DEBOOTSTRAP_GNUPG_HOMEDIR}/pubring.kbx"
-if [ ! -e "${DEBOOTSTRAP_GNUPG_PUBRING}" ]; then
-    DEBOOTSTRAP_GNUPG_PUBRING="${DEBOOTSTRAP_GNUPG_HOMEDIR}/pubring.gpg"
-fi
+gpg --homedir "${DEBOOTSTRAP_GNUPG_HOMEDIR}" \
+    --no-tty \
+    --export > "${DEBOOTSTRAP_GNUPG_PUBRING}"
 
 trap 'rm --preserve-root=all -rf "${SPECFILE}" "${TARGET_IMG}" "${TARGET_QCOW2}" "${TARGET_FS_TAR}" "${DEBOOTSTRAP_GNUPG_HOMEDIR}"' EXIT
 
