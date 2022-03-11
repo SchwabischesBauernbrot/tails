@@ -124,6 +124,23 @@ previous_version_in_changelog() {
 	dpkg-parsechangelog --offset 1 --count 1 | awk '/^Version: / { print $2 }'
 }
 
+# Input keyring contains concatenated armored certificates.  Join them
+# into the standard form for communicating OpenPGP keyrings.
+pgp_flatten_keyring() {
+	( # subshell for resource cleanup
+		set -e
+		set -u
+		GNUPG_HOMEDIR="$(mktemp -d --tmpdir tmp.gnupg-XXXXXXXX)"
+		trap 'rm --preserve-root=all -rf "${GNUPG_HOMEDIR}"' EXIT
+		gpg --homedir "${GNUPG_HOMEDIR}" \
+		    --no-tty \
+		    --import "$1"
+		gpg --homedir "${GNUPG_HOMEDIR}" \
+		    --no-tty \
+		    --export
+	)
+}
+
 # Make it so that when this script is called, any function defined in
 # this script can be invoked via arguments, e.g.:
 #
