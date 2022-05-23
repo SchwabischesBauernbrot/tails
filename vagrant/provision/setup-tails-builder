@@ -91,7 +91,9 @@ cat /etc/apt/sources.list /etc/apt/sources.list.d/*
 
 if ! already_provisioned; then
     echo "I: Upgrading system..."
-    apt-key add /amnesia.git/config/chroot_sources/tails.binary.gpg
+    /amnesia.git/auto/scripts/utils.sh \
+        pgp_flatten_keyring /amnesia.git/config/chroot_sources/tails.binary.gpg \
+        > /etc/apt/trusted.gpg.d/tails.gpg
     apt-get update
     apt-get -y dist-upgrade
 

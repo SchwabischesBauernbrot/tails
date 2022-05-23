@@ -36,16 +36,14 @@ DEBIAN_SERIAL="$(get_serial debian)"
 DEBIAN_SECURITY_SERIAL="$(get_serial debian-security)"
 TAILS_SERIAL="$(get_serial tails)"
 
-DEBOOTSTRAP_GNUPG_HOMEDIR="$(mktemp -d --tmpdir tmp.debootstrap-gnupg-XXXXXXXX)"
-gpg --homedir "${DEBOOTSTRAP_GNUPG_HOMEDIR}" \
-    --no-tty \
-    --import config/chroot_sources/tails.chroot.gpg
-DEBOOTSTRAP_GNUPG_PUBRING="${DEBOOTSTRAP_GNUPG_HOMEDIR}/pubring.kbx"
-if [ ! -e "${DEBOOTSTRAP_GNUPG_PUBRING}" ]; then
-    DEBOOTSTRAP_GNUPG_PUBRING="${DEBOOTSTRAP_GNUPG_HOMEDIR}/pubring.gpg"
-fi
+# Input keyring contains concatenated armored certificates.  Join them
+# into the standard form for communicating OpenPGP keyrings.
+DEBOOTSTRAP_GNUPG_PUBRING="$(mktemp --tmpdir tmp.debootstrap-gnupg-XXXXXXXX)"
+"${GIT_DIR}/auto/scripts/utils.sh" \
+    pgp_flatten_keyring config/chroot_sources/tails.chroot.gpg \
+    > "${DEBOOTSTRAP_GNUPG_PUBRING}"
 
-trap 'rm --preserve-root=all -rf "${SPECFILE}" "${TARGET_IMG}" "${TARGET_QCOW2}" "${TARGET_FS_TAR}" "${DEBOOTSTRAP_GNUPG_HOMEDIR}"' EXIT
+trap 'rm --preserve-root=all -rf "${SPECFILE}" "${TARGET_IMG}" "${TARGET_QCOW2}" "${TARGET_FS_TAR}" "${DEBOOTSTRAP_GNUPG_PUBRING}"' EXIT
 
 # Create specification file for vmdb2
 cat > "${SPECFILE}" <<EOF
@@ -81,6 +79,11 @@ steps:
     keyring: ${DEBOOTSTRAP_GNUPG_PUBRING}
     target: rootfs
 
+  # Install the archive cert so that we can use it to authenticate the
+  # Tails repositories.
+  - copy-file: /usr/share/keyrings/tails-archive-keyring.gpg
+    src: ${DEBOOTSTRAP_GNUPG_PUBRING}
+
   - create-file: /etc/network/interfaces.d/wired
     contents: |
       auto eth0
@@ -91,20 +94,6 @@ steps:
     shell: |
       echo ${HOSTNAME} > /etc/hostname
       echo 127.0.0.1 ${HOSTNAME} >> /etc/hosts
-
-  - copy-file: /tmp/tails.binary.gpg
-    src: config/chroot_sources/tails.binary.gpg
-
-  - apt: install
-    packages:
-      - gnupg
-    tag: rootfs
-
-  # Until here, vmdb2.log will contain some warning about missing
-  # APT keys since several steps above runs apt-get update before
-  # this key imported.
-  - chroot: rootfs
-    shell: apt-key add /tmp/tails.binary.gpg
 
   - create-file: /etc/apt/apt.conf.d/99recommends
     contents: |
@@ -122,6 +111,12 @@ steps:
     contents: |
       APT::Periodic::Enable "0";
 
+  # This entry is written by debootstrap and we need to add Tails'
+  # signing key.
+  - chroot: rootfs
+    shell: |
+      sed -e 's#^deb #deb [signed-by=/usr/share/keyrings/tails-archive-keyring.gpg] #' -i /etc/apt/sources.list
+
   - chroot: rootfs
     shell: |
       sed -e 's/${DISTRIBUTION}/${DISTRIBUTION}-updates/' /etc/apt/sources.list \\
@@ -134,11 +129,11 @@ steps:
 
   - create-file: /etc/apt/sources.list.d/${DISTRIBUTION}-security.list
     contents: |
-      deb http://time-based.snapshots.deb.tails.boum.org/debian-security/${DEBIAN_SECURITY_SERIAL}/ ${DISTRIBUTION}-security main
+      deb [signed-by=/usr/share/keyrings/tails-archive-keyring.gpg] http://time-based.snapshots.deb.tails.boum.org/debian-security/${DEBIAN_SECURITY_SERIAL}/ ${DISTRIBUTION}-security main
 
   - create-file: /etc/apt/sources.list.d/tails.list
     contents: |
-      deb http://time-based.snapshots.deb.tails.boum.org/tails/${TAILS_SERIAL}/ builder-jessie main
+      deb [signed-by=/usr/share/keyrings/tails-archive-keyring.gpg] http://time-based.snapshots.deb.tails.boum.org/tails/${TAILS_SERIAL}/ builder-jessie main
 
   - create-file: /etc/apt/preferences.d/tails
     contents: |
@@ -154,7 +149,7 @@ steps:
 
   - create-file: /etc/apt/sources.list.d/buster.list
     contents: |
-      deb http://time-based.snapshots.deb.tails.boum.org/debian/${DEBIAN_SERIAL}/ buster main
+      deb [signed-by=/usr/share/keyrings/tails-archive-keyring.gpg] http://time-based.snapshots.deb.tails.boum.org/debian/${DEBIAN_SERIAL}/ buster main
 
   - create-file: /etc/apt/preferences.d/buster
     contents: |
@@ -184,6 +179,7 @@ steps:
       - gdisk
       - gettext
       - git
+      - gnupg
       - grub2
       - ikiwiki
       - intltool
