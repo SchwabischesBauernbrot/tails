@@ -1,0 +1,30 @@
+[Application]
+name=org.boum.tails.TorBrowser
+runtime=org.boum.tails.Platform/x86_64/stable
+sdk=org.boum.tails.Platform/x86_64/stable
+command=/usr/bin/tor-browser
+
+# Copied from https://github.com/flathub/com.github.micahflee.torbrowser-launcher/blob/master/com.github.micahflee.torbrowser-launcher.yaml#L17-L26
+# XXX: Remove access which is not required in Tails
+[Context]
+shared=network;ipc;
+sockets=x11;wayland;pulseaudio;fallback-x11;
+devices=dri;
+filesystems=xdg-download;xdg-config/kdeglobals:ro;
+
+[Session Bus Policy]
+com.canonical.AppMenu.Registrar=talk
+org.kde.kconfig.notify=talk
+org.kde.KGlobalSettings=talk
+org.freedesktop.Notifications=talk
+
+[Environment]
+MOZ_ENABLE_WAYLAND=1
+
+[Extension com.github.micahflee.torbrowser_launcher.Debug]
+directory=lib/debug
+autodelete=true
+no-autodownload=true
+
+[Build]
+built-extensions=com.github.micahflee.torbrowser_launcher.Debug;com.github.micahflee.torbrowser_launcher.Sources;

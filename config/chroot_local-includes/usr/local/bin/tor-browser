@@ -23,7 +23,7 @@ def main():
     if skip_offline:
         os.environ["TOR_BROWSER_SKIP_OFFLINE_WARNING"] = "yes"
 
-    cmdline = ["/usr/local/lib/run-tor-browser", *args]
+    cmdline = ["/usr/local/lib/tails-run-tor-browser-in-flatpak", *args]
     os.execv(cmdline[0], cmdline)
 
 

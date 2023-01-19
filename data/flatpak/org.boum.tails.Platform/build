@@ -1,0 +1,50 @@
+#!/bin/bash
+
+set -eu
+set -x
+
+# This script rebuilds the org.boum.tails.Platform flatpak runtime
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+GIT_TOPLEVEL_DIR=$(git rev-parse --show-toplevel)
+TARGET_DIR="${GIT_TOPLEVEL_DIR}/config/chroot_local-includes/var/lib/flatpak/runtime/org.boum.tails.Platform"
+
+# We didn't find a way to make flatpak-builder install to a custom
+# directory directly, so we install to the default user installation
+# directory first and move it to the git repo
+RUNTIME_DIR=${HOME}/.local/share/flatpak/runtime/org.boum.tails.Platform
+FILES_DIR=${RUNTIME_DIR}/x86_64/stable/active/files/
+
+# Check that the working tree is clean, because we automatically commit
+# the changes to the flatpak app to the git repo and we don't want to
+# commit other uncommitted changes.
+# Check that the working tree is clean (at least in `$TARGET_DIR)`, because we automatically commit
+# the changes to the flatpak app to the git repo and we don't want to
+# commit other uncommitted changes.
+if [ -n "$(git status --porcelain "${TARGET_DIR}")" ]; then
+    echo >&2 "Error: The working tree has uncommitted changes."
+    exit 1
+fi
+
+# Build the runtime
+cd "${DIR}"
+flatpak-builder --user --install --force-clean build-dir org.boum.tails.Platform.yaml "$@"
+
+# Remove all files that were installed from org.freedesktop.Platform
+rm -rf "${FILES_DIR}"
+mkdir "${FILES_DIR}"
+
+# Create the .ref file which is needed to run the flatpak
+touch "${FILES_DIR}/.ref"
+
+# Remove the existing runtime from the git repo
+rm -rf "${TARGET_DIR}"
+
+# Copy the runtime to the git repo
+cp -a "${RUNTIME_DIR}" "${TARGET_DIR}"
+
+# Commit the changes to the git repo
+git add "${TARGET_DIR}"
+git commit -m "Rebuild org.boum.tails.Platform flatpak runtime"
+git show

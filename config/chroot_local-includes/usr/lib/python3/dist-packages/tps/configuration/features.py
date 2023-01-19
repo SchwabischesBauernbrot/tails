@@ -19,7 +19,7 @@ class BrowserBookmarks(Feature):
     conflicting_apps = [
         ConflictingApp(
             name="Tor Browser",
-            desktop_id="tor-browser.desktop",
+            desktop_id="org.boum.tails.TorBrowser.desktop",
             process_names=["firefox.real"],
         )
     ]

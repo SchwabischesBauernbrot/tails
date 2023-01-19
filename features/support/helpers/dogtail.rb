@@ -229,6 +229,10 @@ module Dogtail
       get_field('focused') == 'True'
     end
 
+    def selected
+      get_field('selected') == 'True'
+    end
+
     def sensitive
       get_field('sensitive') == 'True'
     end
@@ -356,6 +360,10 @@ module Dogtail
       end
     end
 
+    def select
+      call_tree_node_method('select')
+    end
+
     def activate
       doActionNamed('activate')
     end
@@ -370,10 +378,6 @@ module Dogtail
 
     def press
       doActionNamed('press')
-    end
-
-    def select
-      doActionNamed('select')
     end
 
     def toggle

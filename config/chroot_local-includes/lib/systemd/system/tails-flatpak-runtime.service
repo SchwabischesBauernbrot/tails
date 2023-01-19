@@ -1,0 +1,13 @@
+[Unit]
+Description=Prepare our pseudo flatpak runtime
+# TODO: Update ticket when we have a separate flatpak ticket
+Documentation=https://gitlab.tails.boum.org/tails/tails/-/issues/10422
+
+[Service]
+Type=oneshot
+RemainAfterExit=yes
+ExecStart=/usr/local/lib/tails-flatpak-runtime --create
+ExecStop=/usr/local/lib/tails-flatpak-runtime --destroy
+
+[Install]
+WantedBy=multi-user.target

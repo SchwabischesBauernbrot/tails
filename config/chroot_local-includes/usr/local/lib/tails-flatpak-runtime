@@ -1,0 +1,123 @@
+#!/bin/bash
+
+set -eu
+set -x
+
+# This script is used to create a pseudo flatpak runtime from the Tails
+# squashfs filesystem.
+
+MERGEBASE=/var/lib/flatpak/runtime/org.boum.tails.Platform/x86_64/stable/active/files
+RUNDIR=/run/tails-flatpak-runtime-overlay
+DIRS="/bin /etc /lib /lib64 /sbin /var /include /libexec /local /share"
+ROOTFS_DIRS_PATH=/lib/live/mount/rootfs
+TAILS_MODULES=$(cat "/lib/live/mount/medium/live/Tails.module")
+
+usage() {
+  cat <<EOF
+Usage: $0 [--create|--destroy|--help]
+
+--create: create the runtime
+--destroy: destroy the runtime
+--help: print help
+EOF
+}
+
+create() {
+  # Bind-mount the squashfs filesystem to our pseudo flatpak runtime.
+  # Flatpak runtimes are mounted to /usr in the sandbox, so we can't just
+  # bind-mount the whole squashfs filesystem to the runtime root, because
+  # that would cause /bin to be mounted over /usr/bin, /lib over /usr/lib
+  # etc. Instead, we create overlayfs to merge /bin and /usr/bin in /bin
+  # in the runtime, /lib and /usr/lib in /lib etc.
+  local lowerdirs upperdir workdir mergeddir
+  local rootfs_dirs rootfs_dir
+
+  for module in ${TAILS_MODULES}; do
+    rootfs_dir="${ROOTFS_DIRS_PATH}/${module}"
+    if mountpoint -q "${rootfs_dir}"; then
+      # We prepend the rootfs dir to the array to effectively reverse
+      # the order of the array, because we need to specify the newest dir
+      # first in the lowerdir option of the overlayfs mount, and the
+      # .module file lists the oldest first.
+      rootfs_dirs=("${rootfs_dir}" "${rootfs_dirs[@]}")
+    fi
+  done
+
+  for dir in ${DIRS}; do
+    upperdir="${RUNDIR}/upper${dir}"
+    workdir="${RUNDIR}/work${dir}"
+    lowerdirs=
+
+    # Add the top-level rootfs dirs to the lowerdirs
+    for rootfs_dir in "${rootfs_dirs[@]}"; do
+      if [ -d "${rootfs_dir}${dir}" ]; then
+        if [ -n "${lowerdirs:-}" ]; then
+          lowerdirs="${lowerdirs}:${rootfs_dir}${dir}"
+        else
+          lowerdirs="${rootfs_dir}${dir}"
+        fi
+      fi
+    done
+
+    # Same for the /usr subdirs
+    for rootfs_dir in "${rootfs_dirs[@]}"; do
+      if [ -d "${rootfs_dir}/usr${dir}" ]; then
+        if [ -n "${lowerdirs:-}" ]; then
+          lowerdirs="${lowerdirs}:${rootfs_dir}/usr${dir}"
+        else
+          lowerdirs="${rootfs_dir}/usr${dir}"
+        fi
+      fi
+    done
+
+    if [ -z "${lowerdirs:-}" ]; then
+      # Nothing to do for this dir
+      continue
+    fi
+
+    mergeddir="${MERGEBASE}/${dir#/usr}"
+    install -d "${upperdir}" "${workdir}" "${mergeddir}"
+    mount -t overlay overlay \
+      -o lowerdir="${lowerdirs}",upperdir="${upperdir}",workdir="${workdir}" \
+      "${mergeddir}"
+  done
+
+  # Flatpak expects the .ref file to exist
+  install /dev/null "${MERGEBASE}/.ref"
+}
+
+destroy() {
+  # Unmount the overlayfs filesystems
+  for dir in ${DIRS}; do
+    mergeddir="${MERGEBASE}${dir#/usr}"
+    if mountpoint -q "${mergeddir}"; then
+      umount --recursive "${mergeddir}"
+    fi
+  done
+  # Remove the run directory
+  rm -rf "${RUNDIR}"
+}
+
+if [ $# -eq 1 ]; then
+  if [ "$1" = "--create" ]; then
+    # Create the runtime
+    create
+    exit 0
+  elif [ "$1" = "--destroy" ]; then
+    # destroy the runtime
+    destroy
+    exit 0
+  elif [ "$1" = "--help" ]; then
+    # Print help
+    usage
+    exit 0
+  else
+    echo "Unknown argument: $1" >&2
+    usage >&2
+    exit 1
+  fi
+elif [ $# -ne 0 ]; then
+  echo "Too many arguments" >&2
+  usage >&2
+  exit 1
+fi

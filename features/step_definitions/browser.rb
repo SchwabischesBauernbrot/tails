@@ -2,6 +2,14 @@ def browser
   Dogtail::Application.new('Firefox')
 end
 
+def desktop_portal
+  Dogtail::Application.new('xdg-desktop-portal-gtk')
+end
+
+def desktop_portal_save_as_dialog
+  desktop_portal.child('Save As', roleName: 'file chooser')
+end
+
 def save_page_as
   browser.child(
     description: 'Open application menu',
@@ -11,7 +19,7 @@ def save_page_as
     name:     'Save page as\u2026',
     roleName: 'push button'
   ).press
-  browser.child('Save As', roleName: 'file chooser')
+  desktop_portal_save_as_dialog
 end
 
 def browser_url_entry
@@ -538,12 +546,18 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
     output_dir = "/home/#{LIVE_USER}/Persistent/Tor Browser"
     # Select the "Tor Browser (persistent)" bookmark in the file chooser's
     # sidebar. It doesn't expose an action via the accessibility API, so we
-    # have to grab focus and use the keyboard to activate it.
-    file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
-    # Give the UI some time to update the selection. This is workaround
-    # for #20159.
-    sleep 3
-    @screen.press('Space')
+    # have to select it and use the keyboard to activate it.
+    bookmark = file_dialog.child(
+      description: output_dir,
+      roleName:    'list item',
+      showingOnly: true
+    )
+    try_for(3) do
+      bookmark.select
+      bookmark.grabFocus
+      bookmark.selected and bookmark.focused
+    end
+    @screen.press('Enter')
   when 'default downloads'
     output_dir = "/home/#{LIVE_USER}/Tor Browser"
   else

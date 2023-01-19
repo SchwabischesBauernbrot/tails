@@ -41,15 +41,11 @@ fi
 #    config/chroot_local-includes/usr/lib/python3/dist-packages/tailslib/userenv.py
 #    for the list of allowed variables).
 #
-# 4. `run-with-ibus-and-a11y-bus-proxy` sets up the accessibility bus
-#    proxy and the IBus bus proxy, so that Tor Browser can use them even
-#    though it is running in a separate network namespace.
-#
-# 5. `/usr/bin/tor-browser` runs the actual Tor Browser process.
+# 4. `flatpak run --command=tor-browser org.boum.tails.TorBrowser` runs
+#    the actual Tor Browser process in a Flatpak sandbox.
 
 exec \
   /bin/ip netns exec tbb \
   sudo -u amnesia -- \
   /usr/local/lib/run-with-env --env-file="${ENVFILE}" --delete -- \
-  /usr/local/lib/run-with-ibus-and-a11y-bus-proxy -- \
-  /usr/bin/tor-browser "$@"
+  flatpak run --command=tor-browser org.boum.tails.TorBrowser "$@"
