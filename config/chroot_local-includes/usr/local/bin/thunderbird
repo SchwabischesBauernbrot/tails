@@ -7,6 +7,7 @@ set -x
 # Import set_mozilla_pref()
 . /usr/local/lib/tails-shell-library/tor-browser.sh
 
+APP_ID="org.mozilla.Thunderbird"
 THUNDERBIRD_CONFIG_DIR="${HOME}/.thunderbird"
 PROFILE="${THUNDERBIRD_CONFIG_DIR}/profile.default"
 
@@ -65,7 +66,36 @@ start_thunderbird() {
     unset SESSION_MANAGER
     reconfigure_profile
     enigmail_migration
-    exec /usr/bin/thunderbird --class "Thunderbird" -profile "${PROFILE}" "${@}"
+
+    # Ensure that the xdg-document-portal service has started, because
+    # if it hasn't started *before* the bwrap command is executed,
+    # binding /run/user/1000/doc/by-app/$APP_ID fails.
+    dbus-send \
+        --session \
+        --print-reply=literal \
+        --dest=org.freedesktop.portal.Documents \
+        /org/freedesktop/portal/documents \
+        org.freedesktop.portal.Documents.GetMountPoint
+
+    bwrap \
+        --proc /proc \
+        --dev /dev \
+        --bind /bin /bin \
+        --bind /etc /etc \
+        --bind /home /home \
+        --bind /lib /lib \
+        --bind /lib64 /lib64 \
+        --bind /live /live \
+        --bind /media /media \
+        --bind /tmp /tmp \
+        --bind /usr /usr \
+        --bind /run /run \
+        --bind /sbin /sbin \
+        --bind /sys /sys \
+        --bind /var /var \
+        --bind /usr/share/tails/thunderbird/.flatpak-info /.flatpak-info \
+        --bind "/run/user/1000/doc/by-app/${APP_ID}" /run/user/1000/doc \
+        -- /usr/bin/thunderbird --class "Thunderbird" -profile "${PROFILE}" "${@}"
 }
 
 start_thunderbird "${@}"
