@@ -17,12 +17,15 @@ export TEXTDOMAIN
 PROFILE="${HOME}/.tor-browser/profile.default"
 
 # Import exec_firefox() and configure_best_tor_browser_locale()
+# shellcheck source=../local/lib/tails-shell-library/tor-browser.sh
 . /usr/local/lib/tails-shell-library/tor-browser.sh
 
 # Get LIVE_USERNAME
+# shellcheck source=../../etc/live/config.d/username.conf
 . /etc/live/config.d/username.conf
 
 # Import tor_has_bootstrapped()
+# shellcheck source=../local/lib/tails-shell-library/systemd.sh
 . /usr/local/lib/tails-shell-library/systemd.sh
 
 # Allow Torbutton access to the control port filter (for new identity).
