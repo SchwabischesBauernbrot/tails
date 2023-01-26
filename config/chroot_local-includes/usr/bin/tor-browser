@@ -82,6 +82,10 @@ start_browser() {
                  "${@}"
 }
 
+if ! [ -f /.flatpak-info ]; then
+  echo >&2 "Error: Must be run in flatpak"
+  exit 1
+fi
 
 if tor_has_bootstrapped || ask_for_confirmation; then
     # Torbutton 1.5.1+ uses those environment variables
