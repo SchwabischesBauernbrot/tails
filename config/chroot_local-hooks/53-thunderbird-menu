@@ -7,6 +7,6 @@ sed -i --regexp-extended \
     's;^Exec=\S+;Exec=/usr/local/bin/thunderbird;' \
     /usr/share/applications/thunderbird.desktop
 
-# There must be a desktop entry with a filename which matches the
-# application name in the .flatpak-info file.
-ln -s thunderbird.desktop /usr/share/applications/org.mozilla.Thunderbird.desktop
+# The desktop entry must match the application name in the .flatpak-info
+# file.
+mv /usr/share/applications/thunderbird.desktop /usr/share/applications/org.mozilla.Thunderbird.desktop
