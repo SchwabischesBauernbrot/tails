@@ -915,12 +915,14 @@ Given /^I switch to the "([^"]+)" NetworkManager connection$/ do |con_name|
 end
 
 When /^I run "([^"]+)" in GNOME Terminal$/ do |command|
-  unless $vm.process_running?('gnome-terminal-server')
-    step 'I start "GNOME Terminal" via GNOME Activities Overview'
-  end
-  try_for(40) do
-    terminal = Dogtail::Application.new('gnome-terminal-server')
-                                   .child('Terminal', roleName: 'terminal')
+  app = if $vm.process_running?('gnome-terminal-server')
+          Dogtail::Application.new('gnome-terminal-server')
+        else
+          launch_gnome_terminal
+        end
+  terminal = app.child('Terminal', roleName: 'terminal')
+
+  try_for(5) do
     terminal.text['amnesia@amnesia:']
     terminal.grabFocus
     terminal.focused
@@ -989,6 +991,90 @@ def switch_input_source
   sleep 1
 end
 
+def launch_app(desktop_file_name, app_name, **options)
+  options[:user] ||= LIVE_USER
+  options[:timeout] ||= 30
+  options[:check_started] = true unless options.key?(:check_started)
+  # We use systemd-run to launch the app, because we want the app to run
+  # in the active systemd login session, so that polkit rules for active
+  # sessions apply to it.
+  cmd = ['systemd-run', '--user',
+         '--remain-after-exit',
+         'gtk-launch', desktop_file_name,].join(' ')
+  $vm.execute(cmd, **options)
+
+  unless options[:check_started]
+    return
+  end
+
+  app = nil
+  try_for(options[:timeout]) do
+    app = Dogtail::Application.new(app_name)
+  rescue Dogtail::Failure
+    false
+  end
+  app
+end
+
+def launch_persistent_storage
+  launch_app(
+    'org.boum.tails.PersistentStorage.desktop',
+    'tps-frontend'
+  )
+end
+
+def launch_gnome_disks
+  launch_app(
+    'org.gnome.DiskUtility.desktop',
+    'gnome-disks'
+  )
+end
+
+def launch_gnome_terminal
+  launch_app(
+    'org.gnome.Terminal.desktop',
+    'gnome-terminal-server'
+  )
+end
+
+def launch_nautilus
+  launch_app(
+    'org.gnome.Nautilus.desktop',
+    'org.gnome.Nautilus'
+  )
+end
+
+def launch_thunderbird
+  launch_app(
+    'thunderbird.desktop',
+    'Thunderbird'
+  )
+end
+
+def launch_tor_browser(**options)
+  launch_app(
+    'tor-browser.desktop',
+    'Firefox',
+    **options
+  )
+end
+
+def launch_unlock_veracrypt_volumes
+  launch_app(
+    'unlock-veracrypt-volumes.desktop',
+    'unlock-veracrypt-volumes'
+  )
+end
+
+def launch_unsafe_browser(**options)
+  options[:timeout] ||= 60
+  launch_app(
+    'unsafe-browser.desktop',
+    'Firefox',
+    **options
+  )
+end
+
 Given /^I start "([^"]+)" via GNOME Activities Overview$/ do |app_name|
   # Search disambiguations: below we assume that there is only one
   # result, since multiple results introduces a race that leads to a
@@ -1029,6 +1115,47 @@ Given /^I start "([^"]+)" via GNOME Activities Overview$/ do |app_name|
   if language_has_non_latin_input_source($language)
     # Switch back to $language's default keyboard layout
     switch_input_source
+  end
+end
+
+When /^I close the "([^"]+)" window$/ do |app_name|
+  app = nil
+  try_for(60) do
+    app = Dogtail::Application.new(app_name)
+  end
+
+  close_button = app.child(
+    'Close',
+    roleName:    'push button',
+    # For some reason, the 'showing' attribute of the close button is
+    # false in some apps (e.g. Nautilus), even though it's visible.
+    showingOnly: false
+  )
+
+  # Some close buttons have a "click" action, some have a "press"
+  # action (for example Thunderbird).
+  if close_button.actions.include?('click')
+    close_button.click
+  elsif close_button.actions.include?('press')
+    close_button.press
+  else
+    raise 'Close button has no click or press action'
+  end
+
+  # Wait for the app to close
+  try_for(10) do
+    !app.showing
+  end
+end
+
+When /^I close the "([^"]+)" window via Alt\+F4$/ do |app_name|
+  app = Dogtail::Application.new(app_name)
+
+  @screen.press('alt', 'F4')
+
+  # Wait for the app to close
+  try_for(10) do
+    !app.showing
   end
 end
 
@@ -1440,10 +1567,6 @@ Given /^I create a symlink "(\S+)" to "(\S+)"$/ do |link, target|
   $vm.execute_successfully(
     "ln -s --no-target-directory '#{target}' '#{link}'"
   )
-end
-
-def gnome_disks_app
-  Dogtail::Application.new('gnome-disks')
 end
 
 def select_path_in_file_chooser(file_chooser, path, button_label: 'Open')
