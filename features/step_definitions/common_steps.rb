@@ -931,7 +931,21 @@ When /^I run "([^"]+)" in GNOME Terminal$/ do |command|
     terminal.grabFocus
     terminal.focused
   end
-  @screen.paste(command, app: :terminal)
+
+  try_for(20) do
+    @screen.paste(command, app: :terminal)
+    if terminal.text[command]
+      # The command was pasted successfully
+      true
+    else
+      # The command was not pasted successfully. Press Ctrl+C to cancel
+      # whatever keyboard input the terminal received (if any) and try
+      # again.
+      @screen.press('ctrl', 'c')
+      false
+    end
+  end
+
   @screen.press('Return')
 end
 
