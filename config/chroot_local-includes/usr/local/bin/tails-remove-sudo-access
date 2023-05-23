@@ -1,0 +1,32 @@
+POLKIT=/etc/polkit-1/localauthority.conf.d/52-tails-greeter.conf
+SUDOERS=/etc/sudoers.d/tails-greeter
+NO_PASSWORD_LECTURE=/etc/sudoers.d/tails-greeter-no-password-lecture
+
+log() {
+    echo "$1" >&2
+}
+
+log_n_exit() {
+    log "$1"
+    exit 1
+}
+
+if [ id != 0] ; then
+    log_n_exit "Please run this script as root (with `sudo`)."
+fi
+
+. /etc/live/config.d/username.conf || log_n_exit "Username file not found."
+if [ -z "${LIVE_USERNAME}" ] ; then
+    log_n_exit "Username variable not found."
+fi
+
+rm -f "${POLKIT}" "${SUDOERS}"
+deluser "${LIVE_USERNAME}" sudo
+install -o root -g root -m 0440 /dev/null "${NO_PASSWORD_LECTURE}"
+echo "Defaults:amnesia lecture=always" > "${NO_PASSWORD_LECTURE}"
+echo "Defaults:amnesia lecture_file=/usr/share/tails/greeter/no-password-lecture.txt" >> "${NO_PASSWORD_LECTURE}"
+echo "Defaults:amnesia badpass_message=\"The administration password is disabled.\"" >> "${NO_PASSWORD_LECTURE}"
+
+log "Sudo access successfully disabled."
+log "Reboot to reactivate it"
+exit 0
