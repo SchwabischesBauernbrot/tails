@@ -5,10 +5,47 @@ set -x
 
 # This script rebuilds the org.boum.tails.TorBrowser flatpak app
 
+usage() {
+  cat <<EOF
+Usage: $0 [--no-download] [--help]
+
+Rebuild the org.boum.tails.TorBrowser flatpak app.
+
+Options:
+  --no-download  Don't download the latest Tor Browser Launcher flatpak.
+  --help         Show this help message.
+EOF
+}
+
+# Support the --no-download and --help options
+NAME=$(basename "${0}")
+LONGOPTS="no-download,help"
+if ! getopt -Qq -o "" --longoptions $LONGOPTS -n "${NAME}" -- "$@"
+then
+    usage >&2
+    exit 2
+fi
+OPTS=$(getopt -o "" --longoptions $LONGOPTS -n "${NAME}" -- "$@")
+eval set -- "$OPTS"
+while [ $# -gt 0 ]; do
+    case $1 in
+        --no-download)
+            NO_DOWNLOAD=1
+            shift
+            ;;
+        --help)
+            usage
+            exit 0
+            ;;
+    esac
+    shift
+done
+
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
 GIT_TOPLEVEL_DIR=$(git rev-parse --show-toplevel)
 TARGET_DIR="${GIT_TOPLEVEL_DIR}/config/chroot_local-includes/var/lib/flatpak/app/org.boum.tails.TorBrowser"
+METADATA_FILE="${DIR}/metadata"
 
 # We didn't find a way to make flatpak-builder install to a custom
 # directory directly, so we install to the default user installation
@@ -26,6 +63,29 @@ if [ -n "$(git status --porcelain "${TARGET_DIR}")" ]; then
     echo >&2 "Error: The working tree has uncommitted changes."
     exit 1
 fi
+
+# Setup flatpak
+flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# Install the com.github.micahflee.torbrowser-launcher flatpak app to
+# get the updated metadata file
+if [ -z "${NO_DOWNLOAD:-}" ]; then
+  flatpak install --user --assumeyes --reinstall flathub com.github.micahflee.torbrowser-launcher
+fi
+METADATA=$(flatpak info --show-metadata com.github.micahflee.torbrowser-launcher)
+
+# Rename the old metadata file
+mv "${METADATA_FILE}" "${METADATA_FILE}.old"
+
+# Copy the [Application] section of the old metadata file
+sed -n '/^\[Application\]/,/^\[/p' "${METADATA_FILE}.old" >> "${METADATA_FILE}"
+
+# Delete the old metadata file
+rm "${METADATA_FILE}.old"
+
+# Copy everything except for the [Application] section of the new
+# metadata
+echo "${METADATA}" | sed '/^\[Application\]/,/^\[/d' >> "${METADATA_FILE}"
 
 # Build the app
 cd "${DIR}"
