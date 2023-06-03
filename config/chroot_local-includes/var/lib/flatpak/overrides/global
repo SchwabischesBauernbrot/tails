@@ -1,0 +1,14 @@
+# This file overrides the application specified runtime permissions to
+# put us in control of what the application can access. These permissions
+# can be overridden on a per-app basis by creating a file with the app's
+# name in the same directory as this file.
+
+[Context]
+# Disallow access to any files on the host, ignoring all --filesystem
+# permissions inherited from the app manifest
+filesystems=!host:reset;!host;
+devices=!all;
+# Disallow access to x11
+sockets=!x11;!fallback-x11;
+# Disallow access to features that are not needed
+features=!devel;!bluetooth;!canbus;
