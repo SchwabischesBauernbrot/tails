@@ -2,6 +2,7 @@
 import os
 import gettext
 import sys
+import tempfile
 
 from tailslib.greeter import get_greeter_variable_bool
 import tca.config
@@ -30,8 +31,20 @@ def display_error_message_dialog():
 def main():
     if not get_greeter_variable_bool("TAILS_NETWORK"):
         display_error_message_dialog()
-    else:
-        os.execvp("sudo", ["sudo", "-n", "/usr/local/lib/run-tca-in-netns"] + sys.argv[1:])
+
+    # Dump the current environment to a temporary file with '\0' as
+    # separator between key-value pairs, so that we can read it back
+    # in the child process.
+    envfile = tempfile.NamedTemporaryFile(mode="w", delete=False,
+                                          prefix="tca-env-")
+    for key, value in os.environ.items():
+        envfile.write("%s=%s\0" % (key, value))
+
+    args = [
+        "sudo", "-n", "/usr/local/lib/run-tca-in-netns", envfile.name,
+    ] + sys.argv[1:]
+
+    os.execvp(args[0], args)
 
 
 if __name__ == "__main__":

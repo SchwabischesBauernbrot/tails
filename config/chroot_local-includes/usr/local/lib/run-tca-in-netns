@@ -29,6 +29,7 @@ def main():
     parser.add_argument("--debug", action="store_true",
                         default=(os.getenv("DEBUG") or "debug" in Path("/proc/cmdline").read_text().split())
                         )
+    parser.add_argument("ENV_FILE")
     args = parser.parse_args()
 
     # Set up logging
@@ -66,7 +67,7 @@ def main():
 
     # TODO: Use `sudo --close-from` in run_in_netns to close all
     # file descriptors except the ones we want to inherit.
-    run_in_netns(*tca_cmd, netns=NETNS)
+    run_in_netns(*tca_cmd, netns=NETNS, env_file=args.ENV_FILE)
 
 
 if __name__ == "__main__":
