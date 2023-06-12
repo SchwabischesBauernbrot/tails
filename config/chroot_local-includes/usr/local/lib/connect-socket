@@ -52,7 +52,6 @@ def main():
             raise RuntimeError(f"Unexpected fd {fd} (expected {len(fds) + 3})")
         fds.append(fd)
 
-    os.environ["INHERIT_FD"] = ",".join(str(fd) for fd in fds)
     os.execvp(args.CMD, [args.CMD] + args.ARGS)
 
 

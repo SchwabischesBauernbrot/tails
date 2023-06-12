@@ -53,7 +53,8 @@ def main():
 
     statefile_fd = tailslib.fd.open_file(statefile, os.O_RDWR)
     portalsock_fd = tailslib.fd.connect_socket(socket.AF_UNIX, portalsock)
-    os.environ["INHERIT_FD"] = f"{statefile_fd},{portalsock_fd}"
+    if statefile_fd != 3 or portalsock_fd != 4:
+        raise RuntimeError("Unexpected fds %d %d" % (statefile_fd, portalsock_fd))
 
     tca_cmd = [
         python_bin,
@@ -65,9 +66,7 @@ def main():
     if has_unlocked_persistence():
         tca_cmd.append("--has-unlocked-persistence")
 
-    # TODO: Use `sudo --close-from` in run_in_netns to close all
-    # file descriptors except the ones we want to inherit.
-    run_in_netns(*tca_cmd, netns=NETNS, env_file=args.ENV_FILE)
+    run_in_netns(*tca_cmd, netns=NETNS, env_file=args.ENV_FILE, close_from_fd=5)
 
 
 if __name__ == "__main__":

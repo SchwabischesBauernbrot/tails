@@ -11,7 +11,7 @@ def _get_proxy() -> Gio.DBusProxy:
     # Connect to D-Bus via the open file descriptor we inherited from
     # connect-drop-tails-installer which is connected to the system bus
     # and already authenticated as user tails-persistent-storage.
-    authenticated_dbus_fd = os.environ["INHERIT_FD"]
+    authenticated_dbus_fd = 3
     socket = Gio.Socket.new_from_fd(fd=int(authenticated_dbus_fd))
     socket_connection = socket.connection_factory_create_connection()
     bus: Gio.DBusConnection = Gio.DBusConnection.new_sync(

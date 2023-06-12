@@ -42,13 +42,10 @@ class StemFDSocket(stem.socket.ControlSocket):
 
 
 def recover_fd_from_parent() -> tuple:
-    fds = [int(fd) for fd in os.getenv("INHERIT_FD", "").split(",")]
-    # fds[0] must be a rw fd for state file
-    # fds[1] must be a socket to tca-portal
-
-    statefile = os.fdopen(fds[0], "r+")
-    portal = socket.socket(fileno=fds[1])
-
+    # file descriptor 3 must be a rw fd for state file
+    # file descriptor 4 must be a socket to tca-portal
+    statefile = os.fdopen(3, "r+")
+    portal = socket.socket(fileno=4)
     return (statefile, portal)
 
 
