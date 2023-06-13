@@ -10,26 +10,6 @@ from tailslib.website import (
     resolve_if_tails_website,
 )
 
-AT_SPI_PROXY_SERVICE = "tails-a11y-bus-proxy.service"
-IBUS_PROXY_SERVICE = "tails-ibus-proxy.service"
-
-
-def run_torbrowser(args: list, skip_offline: bool = False):
-    cmdline = [
-        "systemd-run",
-        "--user",
-        "--scope",
-        f'--property=Requires="{AT_SPI_PROXY_SERVICE}"',
-        f'--property=After="{AT_SPI_PROXY_SERVICE}"',
-        f'--property=Requires="{IBUS_PROXY_SERVICE}"',
-        f'--property=After="{IBUS_PROXY_SERVICE}"',
-        f'--setenv=TOR_BROWSER_SKIP_OFFLINE_WARNING={"yes" if skip_offline else "no"}',
-        "sudo",
-        "/usr/local/lib/run-tor-browser-in-netns",
-        *args,
-    ]
-    os.execv("/usr/bin/systemd-run", cmdline)
-
 
 def main():
     args = sys.argv[1:]
@@ -40,7 +20,11 @@ def main():
             args = [resolved]
             skip_offline = is_local_page(resolved)
 
-    run_torbrowser(args, skip_offline=skip_offline)
+    if skip_offline:
+        os.environ["TOR_BROWSER_SKIP_OFFLINE_WARNING"] = "yes"
+
+    cmdline = ["/usr/local/lib/run-tor-browser", *args]
+    os.execv(cmdline[0], cmdline)
 
 
 if __name__ == "__main__":

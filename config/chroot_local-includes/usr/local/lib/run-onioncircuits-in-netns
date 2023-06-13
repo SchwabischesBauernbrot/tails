@@ -1,7 +1,0 @@
-#!/usr/bin/env python3
-
-import sys
-
-from tailslib.netnsdrop import run_in_netns_as_amnesia
-
-run_in_netns_as_amnesia("/usr/bin/onioncircuits", *sys.argv[1:], netns="onioncircs")
