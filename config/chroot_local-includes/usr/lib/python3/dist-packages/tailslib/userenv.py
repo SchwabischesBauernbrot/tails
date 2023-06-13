@@ -22,6 +22,7 @@ ALLOWED_ENV_VARS = ENV_VARS_TO_DUMP + [
     "DEBUG",
     "DESKTOP_STARTUP_ID",
     "INHERIT_FD",
+    "NOTIFY_SOCKET",
 ]
 
 USER_ENV_FILE_TEMPLATE = "/run/user/{uid}/user-env"
