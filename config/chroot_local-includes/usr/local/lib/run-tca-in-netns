@@ -7,7 +7,7 @@ from pathlib import Path
 import socket
 
 import tailslib.fd
-from tailslib.netnsdrop import run_in_netns
+from tailslib.netnsdrop import run_in_netns_as_amnesia
 from tailslib.persistence import (
     has_persistence,
     has_unlocked_persistence,
@@ -66,7 +66,7 @@ def main():
     if has_unlocked_persistence():
         tca_cmd.append("--has-unlocked-persistence")
 
-    run_in_netns(*tca_cmd, netns=NETNS, env_file=args.ENV_FILE, close_from_fd=5)
+    run_in_netns_as_amnesia(*tca_cmd, netns=NETNS, env_file=args.ENV_FILE, close_from_fd=5)
 
 
 if __name__ == "__main__":

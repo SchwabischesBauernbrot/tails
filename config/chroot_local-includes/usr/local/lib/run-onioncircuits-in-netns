@@ -2,6 +2,6 @@
 
 import sys
 
-from tailslib.netnsdrop import run_in_netns
+from tailslib.netnsdrop import run_in_netns_as_amnesia
 
-run_in_netns("/usr/bin/onioncircuits", *sys.argv[1:], netns="onioncircs")
+run_in_netns_as_amnesia("/usr/bin/onioncircuits", *sys.argv[1:], netns="onioncircs")

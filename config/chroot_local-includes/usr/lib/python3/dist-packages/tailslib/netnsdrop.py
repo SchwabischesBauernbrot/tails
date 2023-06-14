@@ -19,8 +19,8 @@ A11Y_BUS_SANDBOX_PATH = "/run/user/1000/tails-sandbox/a11y-bus-proxy.sock"
 IBUS_SANDBOX_PATH = "/run/user/1000/tails-sandbox/ibus-proxy.sock"
 
 
-def run_in_netns(*args, netns, root="/", bind_mounts=None, env_file=None,
-                 close_from_fd=3):
+def run_in_netns_as_amnesia(*args, netns, root="/", bind_mounts=None, env_file=None,
+                            close_from_fd=3):
     if bind_mounts is None:
         bind_mounts = []
 
