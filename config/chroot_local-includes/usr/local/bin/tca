@@ -1,51 +1,73 @@
-#!/usr/bin/python3
-import os
-import gettext
-import sys
-import tempfile
+#!/bin/sh
 
-from tailslib.greeter import get_greeter_variable_bool
-import tca.config
+set -eu
 
+# Import tails_network_enabled()
+. /usr/local/lib/tails-shell-library/tails-greeter.sh
 
-def display_error_message_dialog():
-    _ = gettext.gettext
-    title = tca.config.LOCALIZED_APPLICATION_TITLE
-    textlines = [
-        _("You turned on Offline Mode in the Welcome Screen."),
-        _("It is impossible to connect to Tor in Offline Mode."),
-        _("To connect to Tor and the Internet, restart Tails without Offline Mode."),
-    ]
-    zenity = [
-        "zenity",
-        "--error",
-        "--no-wrap",
-        "--title",
-        title,
-        "--text",
-        "\n".join(textlines),
-    ]
-    os.execvp(zenity[0], zenity)
+if ! tails_network_enabled; then
+  local dialog_title dialog_text
+  dialog_title=$(gettext "Tor Connection")
+  dialog_text=$(gettext "You turned on Offline Mode in the Welcome Screen.
+It is impossible to connect to Tor in Offline Mode.
+To connect to Tor and the Internet, restart Tails without Offline Mode.")
+  exec zenity --error --no-wrap --title "$dialog_title" --text="$dialog_text"
+fi
 
+# If this script is run as amnesia, re-run it as root, so that we have
+# the privileges required to run tca in a separate network namespace.
+# Before doing so, save the environment in a file, so that we can pass
+# it to the tca process later.
+if [ "$(id -u)" = 1000 ]; then
+  ENVFILE=$(mktemp --suffix -env)
+  export ENVFILE
+  env --null >"${ENVFILE}"
+  exec sudo "$0" "$@"
+fi
 
-def main():
-    if not get_greeter_variable_bool("TAILS_NETWORK"):
-        display_error_message_dialog()
+CONFIG_FILE=/var/lib/tca/tca.conf
+STATE_FILE=/run/tca/tca.state
+PORTAL_SOCKET=/run/tca-portal.sock
 
-    # Dump the current environment to a temporary file with '\0' as
-    # separator between key-value pairs, so that we can read it back
-    # in the child process.
-    envfile = tempfile.NamedTemporaryFile(mode="w", delete=False,
-                                          prefix="tca-env-")
-    for key, value in os.environ.items():
-        envfile.write("%s=%s\0" % (key, value))
+# Create empty config and state files if they don't exist yet.
+mkdir -p "$(dirname "${CONFIG_FILE}")" "$(dirname "${STATE_FILE}")"
+chmod 700 "$(dirname "${CONFIG_FILE}")" "$(dirname "${STATE_FILE}")"
+touch "${CONFIG_FILE}" "${STATE_FILE}"
+chmod 600 "${CONFIG_FILE}" "${STATE_FILE}"
 
-    args = [
-        "sudo", "-n", "/usr/local/lib/run-tca-in-netns", envfile.name,
-    ] + sys.argv[1:]
+# Explanation of the following command:
+#
+# 1. `/usr/local/lib/connect-socket` opens the state file read-write as
+#    file descriptor 3 and the portal socket as file descriptor 4.
+#
+# 2. `ip netns exec tca` runs the following command in the `tca` network
+#    namespace, which enforces that the tor control port traffic is
+#    filtered by the tca onion-grater profile configured in
+#    config/chroot_local-includes/etc/onion-grater.d/tor-connection-assistant.yml.
+#
+# 3. `sudo --close-from=4 -u amnesia` drops privileges to the amnesia
+#    user and closes all file descriptors greater than 4, with 3 and 4
+#    being the file descriptors opened above by connect-socket. This is
+#    to avoid inadvertently having the unprivileged tps-frontend process
+#    inherit any other file descriptors opened as a privileged user.
+#
+# 4. `/usr/local/lib/run-with-env` reads the environment from
+#    the file we created above and passes the allowed environment
+#    variables to the tps-frontend process (see
+#    config/chroot_local-includes/usr/lib/python3/dist-packages/tailslib/userenv.py
+#    for the list of allowed variables).
+#
+# 5. `run-with-ibus-and-a11y-bus-proxy` sets up the accessibility bus
+#    proxy and the IBus bus proxy, so that tca can use them even though
+#    it is running in a separate network namespace.
+#
+# 6. `/usr/bin/python3 /usr/lib/python3/dist-packages/tca/application.py`
+#    runs the actual tca process.
 
-    os.execvp(args[0], args)
-
-
-if __name__ == "__main__":
-    main()
+exec \
+  /usr/local/lib/connect-socket --file "${STATE_FILE}" --socket "${PORTAL_SOCKET}" \
+  /bin/ip netns exec tca \
+  sudo --close-from=5 -u amnesia \
+  /usr/local/lib/run-with-env --env-file="${ENVFILE}" --delete -- \
+  /usr/local/lib/run-with-ibus-and-a11y-bus-proxy -- \
+  /usr/bin/python3 /usr/lib/python3/dist-packages/tca/application.py

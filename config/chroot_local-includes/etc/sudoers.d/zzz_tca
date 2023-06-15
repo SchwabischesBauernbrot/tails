@@ -1,4 +1,5 @@
-Cmnd_Alias TCA = /usr/local/lib/run-tca-in-netns /tmp/tca-env-*
+Cmnd_Alias TCA = /usr/local/bin/tca
+Defaults!TCA env_keep+="ENVFILE"
 amnesia   ALL = NOPASSWD: TCA
 
 # Allow root to use the --close-from option which is needed to close

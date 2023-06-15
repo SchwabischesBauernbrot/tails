@@ -25,6 +25,8 @@ def main():
                         help="Open the specified socket")
     parser.add_argument("--dbus-system-bus", action="store_true",
                         help="Open the D-Bus system bus socket")
+    parser.add_argument("--file", action="append", default=[], metavar="PATH",
+                        help="Open the specified file")
     parser.add_argument("CMD", help="Command to run")
     parser.add_argument("ARGS", nargs=argparse.REMAINDER,
                         help="Arguments to pass to the command")
@@ -40,6 +42,13 @@ def main():
 
     # Open socket and/or files
     fds = []
+
+    for path in args.file:
+        fd = tailslib.fd.open_file(path, os.O_RDWR)
+        if fd != len(fds) + 3:
+            raise RuntimeError(f"Unexpected fd {fd} (expected {len(fds) + 3})")
+        fds.append(fd)
+
     for path in args.socket:
         fd = tailslib.fd.connect_socket(socket.AF_UNIX, path)
         if fd != len(fds) + 3:
