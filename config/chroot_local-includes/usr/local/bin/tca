@@ -37,7 +37,7 @@ chmod 600 "${CONFIG_FILE}" "${STATE_FILE}"
 
 # Explanation of the following command:
 #
-# 1. `/usr/local/lib/connect-socket` opens the state file read-write as
+# 1. `/usr/local/lib/inherit-fd` opens the state file read-write as
 #    file descriptor 3 and the portal socket as file descriptor 4.
 #
 # 2. `ip netns exec tca` runs the following command in the `tca` network
@@ -47,7 +47,7 @@ chmod 600 "${CONFIG_FILE}" "${STATE_FILE}"
 #
 # 3. `sudo --close-from=4 -u amnesia` drops privileges to the amnesia
 #    user and closes all file descriptors greater than 4, with 3 and 4
-#    being the file descriptors opened above by connect-socket. This is
+#    being the file descriptors opened above by inherit-fd. This is
 #    to avoid inadvertently having the unprivileged tps-frontend process
 #    inherit any other file descriptors opened as a privileged user.
 #
@@ -65,7 +65,7 @@ chmod 600 "${CONFIG_FILE}" "${STATE_FILE}"
 #    runs the actual tca process.
 
 exec \
-  /usr/local/lib/connect-socket --file "${STATE_FILE}" --socket "${PORTAL_SOCKET}" \
+  /usr/local/lib/inherit-fd --file "${STATE_FILE}" --socket "${PORTAL_SOCKET}" \
   /bin/ip netns exec tca \
   sudo --close-from=5 -u amnesia \
   /usr/local/lib/run-with-env --env-file="${ENVFILE}" --delete -- \

@@ -8,10 +8,10 @@ from pathlib import Path
 import tailslib.fd
 
 
-# Open Unix domain sockets and pass the file descriptors to the specified
-# command. This is useful when you want to open a socket with higher
-# privileges and then drop privileges and pass the file descriptor to
-# another process.
+# Open Unix domain sockets and files and pass the file descriptors to
+# the specified command. This is useful when you want to open a socket
+# or file with higher privileges and then drop privileges and pass the
+# file descriptor to another process.
 
 
 def main():
@@ -40,7 +40,7 @@ def main():
     log_format = "%(levelname)s:%(filename)s:%(lineno)d: %(message)s"
     logging.basicConfig(level=log_level, format=log_format)
 
-    # Open socket and/or files
+    # Open sockets and/or files
     fds = []
 
     for path in args.file:
