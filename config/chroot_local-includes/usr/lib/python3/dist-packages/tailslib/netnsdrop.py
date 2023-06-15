@@ -19,9 +19,7 @@ A11Y_BUS_SANDBOX_PATH = "/run/user/1000/tails-sandbox/a11y-bus-proxy.sock"
 IBUS_SANDBOX_PATH = "/run/user/1000/tails-sandbox/ibus-proxy.sock"
 
 
-def run_in_netns_as_amnesia(
-    *args, netns, root="/", bind_mounts=None, env_file=None, close_from_fd=3
-):
+def run_in_netns_as_amnesia(*args, netns, root="/", bind_mounts=None, close_from_fd=3):
     if bind_mounts is None:
         bind_mounts = []
 
@@ -73,20 +71,9 @@ def run_in_netns_as_amnesia(
         "--",
         *bwrap,
         "--",
+        "/usr/local/lib/run-with-user-env",
+        *args,
     ]
-    if env_file:
-        cmd += [
-            "/usr/local/lib/run-with-env",
-            "--env-file",
-            env_file,
-            "--delete",
-            "--",
-        ]
-    else:
-        cmd += [
-            "/usr/local/lib/run-with-user-env",
-        ]
-    cmd += args
 
     logging.info("Running %s", cmd)
     os.execvp(cmd[0], cmd)
