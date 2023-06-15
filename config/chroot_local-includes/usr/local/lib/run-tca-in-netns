@@ -8,10 +8,6 @@ import socket
 
 import tailslib.fd
 from tailslib.netnsdrop import run_in_netns_as_amnesia
-from tailslib.persistence import (
-    has_persistence,
-    has_unlocked_persistence,
-)
 
 A11Y_BUS_PROXY_PATH="/run/user/1000/.dbus-proxy/a11y-bus-proxy.sock"
 IBUS_PROXY_PATH="/run/user/1000/.dbus-proxy/ibus-proxy.sock"
@@ -61,10 +57,6 @@ def main():
         program,
         *sys.argv[1:],
     ]
-    if has_persistence():
-        tca_cmd.append("--has-persistence")
-    if has_unlocked_persistence():
-        tca_cmd.append("--has-unlocked-persistence")
 
     run_in_netns_as_amnesia(*tca_cmd, netns=NETNS, env_file=args.ENV_FILE, close_from_fd=5)
 
