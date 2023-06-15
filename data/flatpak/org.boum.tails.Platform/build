@@ -16,6 +16,13 @@ TARGET_DIR="${GIT_TOPLEVEL_DIR}/config/chroot_local-includes/var/lib/flatpak/run
 RUNTIME_DIR=${HOME}/.local/share/flatpak/runtime/org.boum.tails.Platform
 FILES_DIR=${RUNTIME_DIR}/x86_64/stable/active/files/
 
+# Check that the dependencies are installed
+if ! which flatpak-builder >/dev/null; then
+    echo >&2 "Error: flatpak-builder is not installed. Please install it
+ via 'apt install flatpak-builder'".
+    exit 1
+fi
+
 # Check that the working tree is clean, because we automatically commit
 # the changes to the flatpak app to the git repo and we don't want to
 # commit other uncommitted changes.
