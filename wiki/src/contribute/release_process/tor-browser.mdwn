@@ -385,6 +385,11 @@ Tor Browser, so it doesn't necessarily have to be done at the same time
 as the Tor Browser update, but like the Tor Browser update, it should be
 done once per release cycle, so we can just do it at the same time.
 
+1. If you have never built the runtime on this computer, do so now:
+
+        cd "${TAILS_GIT_REPO:?}" && \
+        ./data/flatpak/org.boum.tails.Platform/build
+
 1. Update the Tor Browser Launcher Flatpak app:
 
         cd "${TAILS_GIT_REPO:?}" && \
