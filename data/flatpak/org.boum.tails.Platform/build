@@ -36,7 +36,7 @@ fi
 
 # Build the runtime
 cd "${DIR}"
-flatpak-builder --user --install --force-clean build-dir org.boum.tails.Platform.yaml "$@"
+flatpak-builder --user --install --force-clean build-dir --install-deps-from=flathub org.boum.tails.Platform.yaml "$@"
 
 # Remove all files that were installed from org.freedesktop.Platform
 rm -rf "${FILES_DIR}"
