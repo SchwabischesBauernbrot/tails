@@ -1,3 +1,22 @@
+# This file overrides the runtime permissions specified by the application
+# to put us in control of what the application can access.
+
 [Context]
-filesystems=/run/tor-has-bootstrapped;~/Tor Browser:create;~/Persistent/Tor Browser;~/.mozilla:create;~/.tor-browser:create
-sockets=session-bus;
+
+# Disallow access to any devices on the host, ignoring all devices
+# permissions inherited from the app's metadata file.
+devices=!all;
+
+# Explanations:
+# * !host:reset;!host: Disallow access to any files on the host,
+#   ignoring all filesystem permissions inherited from the app's
+#   metadata file
+# * Remainder: Allow access to directories which should be accessible to
+#   Tor Browser.
+filesystems=!host:reset;!host;/run/tor-has-bootstrapped;~/Tor Browser:create;~/Persistent/Tor Browser;~/.mozilla:create;~/.tor-browser:create;
+
+# Explanations:
+# * !x11;!fallback-x11: Disallow access to the X11 server, overriding
+#   the permissions inherited from the app's metadata file.
+# * Allow access to the session bus
+sockets=!x11;!fallback-x11;session-bus;
