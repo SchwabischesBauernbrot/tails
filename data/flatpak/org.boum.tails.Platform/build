@@ -10,18 +10,13 @@ DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 GIT_TOPLEVEL_DIR=$(git rev-parse --show-toplevel)
 TARGET_DIR="${GIT_TOPLEVEL_DIR}/config/chroot_local-includes/var/lib/flatpak/runtime/org.boum.tails.Platform"
 
-# We didn't find a way to make flatpak-builder install to a custom
+# We didn't find a way to make flatpak install to a custom
 # directory directly, so we install to the default user installation
 # directory first and move it to the git repo
 RUNTIME_DIR=${HOME}/.local/share/flatpak/runtime/org.boum.tails.Platform
-FILES_DIR=${RUNTIME_DIR}/x86_64/stable/active/files/
 
-# Check that the dependencies are installed
-if ! which flatpak-builder >/dev/null; then
-    echo >&2 "Error: flatpak-builder is not installed. Please install it
- via 'apt install flatpak-builder'".
-    exit 1
-fi
+BUILD_DIR="${DIR}/build-dir"
+REPO_DIR="${DIR}/repo"
 
 # Check that the working tree is clean, because we automatically commit
 # the changes to the flatpak app to the git repo and we don't want to
@@ -34,16 +29,22 @@ if [ -n "$(git status --porcelain "${TARGET_DIR}")" ]; then
     exit 1
 fi
 
-# Build the runtime
-cd "${DIR}"
-flatpak-builder --user --install --force-clean build-dir --install-deps-from=flathub org.boum.tails.Platform.yaml "$@"
+# Create a new OSTree repository
+rm -rf "${REPO_DIR}"
+ostree init --mode archive-z2 --repo="${REPO_DIR}"
 
-# Remove all files that were installed from org.freedesktop.Platform
-rm -rf "${FILES_DIR}"
-mkdir "${FILES_DIR}"
+# Export the runtime to the OSTree repository
+rm -rf "${BUILD_DIR}"
+mkdir -p "${BUILD_DIR}"/{export,files,usr}
+cp "${DIR}/metadata" "${BUILD_DIR}"
+flatpak build-export "${REPO_DIR}" "${BUILD_DIR}" stable
 
-# Create the .ref file which is needed to run the flatpak
-touch "${FILES_DIR}/.ref"
+# Install the runtime from the OSTree repository
+if flatpak --user remote-ls --runtime platform-origin > /dev/null 2>&1; then
+    flatpak --user remote-delete --force platform-origin
+fi
+flatpak remote-add --user --no-gpg-verify platform-origin "${REPO_DIR}"
+flatpak install --reinstall -y platform-origin org.boum.tails.Platform
 
 # Remove the existing runtime from the git repo
 rm -rf "${TARGET_DIR}"
