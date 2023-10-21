@@ -10,8 +10,6 @@ NEW_INCLUDES_DIR=/mnt/config/chroot_local-includes
 MERGEBASE=/var/lib/flatpak/runtime/org.boum.tails.Platform/x86_64/stable/active/files
 RUNDIR=/run/tails-flatpak-runtime-overlay
 DIRS="/bin /etc /lib /lib64 /sbin /var /include /libexec /local /share"
-ROOTFS_DIRS_PATH=/lib/live/mount/rootfs
-TAILS_MODULES=$(cat "/lib/live/mount/medium/live/Tails.module")
 
 usage() {
   cat <<EOF
@@ -31,18 +29,6 @@ create() {
   # etc. Instead, we create overlayfs to merge /bin and /usr/bin in /bin
   # in the runtime, /lib and /usr/lib in /lib etc.
   local lowerdirs upperdir workdir mergeddir
-  local rootfs_dirs rootfs_dir
-
-  for module in ${TAILS_MODULES}; do
-    rootfs_dir="${ROOTFS_DIRS_PATH}/${module}"
-    if mountpoint -q "${rootfs_dir}"; then
-      # We prepend the rootfs dir to the array to effectively reverse
-      # the order of the array, because we need to specify the newest dir
-      # first in the lowerdir option of the overlayfs mount, and the
-      # .module file lists the oldest first.
-      rootfs_dirs=("${rootfs_dir}" "${rootfs_dirs[@]}")
-    fi
-  done
 
   for dir in ${DIRS}; do
     upperdir="${RUNDIR}/upper${dir}"
@@ -50,26 +36,22 @@ create() {
     lowerdirs=
 
     # Add the top-level rootfs dirs to the lowerdirs
-    for rootfs_dir in "${rootfs_dirs[@]}"; do
-      if [ -d "${rootfs_dir}${dir}" ]; then
-        if [ -n "${lowerdirs:-}" ]; then
-          lowerdirs="${lowerdirs}:${rootfs_dir}${dir}"
-        else
-          lowerdirs="${rootfs_dir}${dir}"
-        fi
+    if [ -d "${dir}" ]; then
+      if [ -n "${lowerdirs:-}" ]; then
+        lowerdirs="${lowerdirs}:${dir}"
+      else
+        lowerdirs="${dir}"
       fi
-    done
+    fi
 
     # Same for the /usr subdirs
-    for rootfs_dir in "${rootfs_dirs[@]}"; do
-      if [ -d "${rootfs_dir}/usr${dir}" ]; then
-        if [ -n "${lowerdirs:-}" ]; then
-          lowerdirs="${lowerdirs}:${rootfs_dir}/usr${dir}"
-        else
-          lowerdirs="${rootfs_dir}/usr${dir}"
-        fi
+    if [ -d "/usr${dir}" ]; then
+      if [ -n "${lowerdirs:-}" ]; then
+        lowerdirs="${lowerdirs}:/usr${dir}"
+      else
+        lowerdirs="/usr${dir}"
       fi
-    done
+    fi
 
     # If the early_patch boot parameter is used, we also overlay the
     # /mnt/config/chroot_local-includes directory over the runtime, so
