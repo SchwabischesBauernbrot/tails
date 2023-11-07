@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -eu
+
+echo "Compiling and installing arti"
+
+# Import ensure_hook_dependency_is_installed()
+. /usr/local/lib/tails-shell-library/build.sh
+
+ensure_hook_dependency_is_installed cargo libsqlite3-dev libssl-dev pkgconf rustc
+
+cd /usr/src
+# We do not use the torsocks git-wrapper during build time
+/usr/bin/git clone 'https://gitlab.torproject.org/tpo/core/arti/'
+cd arti
+git checkout "${LATEST_VERSION_TAG}"
+cargo build -p arti --release
+mv target/release/arti /usr/bin
+cd ..
+rm -rf arti /root/.cargo
