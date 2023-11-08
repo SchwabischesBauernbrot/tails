@@ -9,11 +9,16 @@ echo "Compiling and installing arti"
 
 # XXX: we should enable trixie in our Debian snapshots infra instead
 # of this ugly hack
+# We need rustc >= 1.65 to compile Arti, but it is not in Debian
+# bookworm
 echo "deb http://ftp.us.debian.org/debian/ trixie main" \
      > /etc/apt/sources.list.d/trixie.list
 apt update
+apt install --yes rustc/trixie gcc-13-base/trixie libllvm16/trixie \
+                  libstdc++6/trixie libzstd1/trixie
 
-ensure_hook_dependency_is_installed cargo libsqlite3-dev libssl-dev pkgconf rustc
+ensure_hook_dependency_is_installed cargo libsqlite3-dev libssl-dev pkgconf
+
 
 # By default DNS is set up to use Tor, which we aren't running at
 # build time. So let's use OpenDNS temporarily.
@@ -40,6 +45,13 @@ rm -rf arti /root/.cargo
 
 # Restore DNS
 mv /etc/resolv.conf.orig /etc/resolv.conf
+
+# We don't need trixie or any of the packages we installed from it any
+# more after we're done compiling
+rm /etc/apt/sources.list.d/trixie.list
+apt update
+apt install --purge --yes --allow-downgrades libstdc++6/bookworm libzstd1/bookworm
+apt purge --yes gcc-13-base
 
 addgroup --system --quiet arti
 adduser --system --quiet --no-create-home arti
