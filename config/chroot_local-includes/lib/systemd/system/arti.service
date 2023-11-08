@@ -1,0 +1,16 @@
+[Unit]
+Description=Arti is a Tor-implementation in Rust
+Documentation=https://tpo.pages.torproject.net/core/arti/
+
+[Service]
+User=arti
+Type=simple
+ExecStart=arti proxy -c /etc/arti/arti.toml
+CapabilityBoundingSet=
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=full
+
+[Install]
+WantedBy=multi-user.target

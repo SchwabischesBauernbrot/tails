@@ -40,3 +40,9 @@ rm -rf arti /root/.cargo
 
 # Restore DNS
 mv /etc/resolv.conf.orig /etc/resolv.conf
+
+addgroup --system --quiet arti
+adduser --system --quiet --no-create-home arti
+chown -R arti:arti /etc/arti/
+mkdir -p /var/lib/arti/cache /var/lib/arti/state
+chown -R arti:arti /var/lib/arti

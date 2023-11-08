@@ -9,6 +9,7 @@ set -u
 systemctl enable memlockd.service
 
 # Enable our own systemd unit files
+systemctl enable arti.service
 systemctl enable initramfs-shutdown.service
 systemctl enable onion-grater.service
 systemctl enable tails-allow-external-TailsData-access.service
