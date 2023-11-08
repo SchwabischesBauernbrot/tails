@@ -15,6 +15,11 @@ apt update
 
 ensure_hook_dependency_is_installed cargo libsqlite3-dev libssl-dev pkgconf rustc
 
+# By default DNS is set up to use Tor, which we aren't running at
+# build time. So let's use OpenDNS temporarily.
+mv /etc/resolv.conf /etc/resolv.conf.orig
+echo 'nameserver 208.67.220.220' > /etc/resolv.conf
+
 cd /usr/src
 # We do not use the torsocks git-wrapper during build time
 /usr/bin/git clone 'https://gitlab.torproject.org/tpo/core/arti/'
@@ -32,3 +37,6 @@ cargo build -p arti --release
 mv target/release/arti /usr/bin
 cd ..
 rm -rf arti /root/.cargo
+
+# Restore DNS
+mv /etc/resolv.conf.orig /etc/resolv.conf
