@@ -7,6 +7,12 @@ echo "Compiling and installing arti"
 # Import ensure_hook_dependency_is_installed()
 . /usr/local/lib/tails-shell-library/build.sh
 
+# XXX: we should enable trixie in our Debian snapshots infra instead
+# of this ugly hack
+echo "deb http://ftp.us.debian.org/debian/ trixie main" \
+     > /etc/apt/sources.list.d/trixie.list
+apt update
+
 ensure_hook_dependency_is_installed cargo libsqlite3-dev libssl-dev pkgconf rustc
 
 cd /usr/src

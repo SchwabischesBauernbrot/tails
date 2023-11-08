@@ -22,6 +22,26 @@ Package: intel-microcode
 Pin: release o=Debian,n=sid
 Pin-Priority: 999
 
+Explanation: Arti
+Package: gcc-13-base
+Pin: release o=Debian,n=trixie
+Pin-Priority: 999
+
+Explanation: Arti
+Package: libllvm16
+Pin: release o=Debian,n=trixie
+Pin-Priority: 999
+
+Explanation: Arti
+Package: libstdc++6
+Pin: release o=Debian,n=trixie
+Pin-Priority: 999
+
+Explanation: Arti
+Package: libzstd1
+Pin: release o=Debian,n=trixie
+Pin-Priority: 999
+
 Explanation: #15477
 Package: src:live-boot
 Pin: origin deb.tails.boum.org
@@ -39,6 +59,11 @@ Pin-Priority: 999
 Explanation: We forward-port bullseye's onionshare to bookworm (#20135)
 Package: onionshare
 Pin: origin deb.tails.boum.org
+Pin-Priority: 999
+
+Explanation: Arti
+Package: src:rustc
+Pin: release o=Debian,n=trixie
 Pin-Priority: 999
 
 Explanation: Dependency forward-ported from bullseye for our forward-ported onionshare (#20135): the version in bookworm has dropped the soft_unicode module which OnionShare 2.2 imports.
