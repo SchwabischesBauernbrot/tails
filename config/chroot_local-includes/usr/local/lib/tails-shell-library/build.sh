@@ -3,12 +3,6 @@
 # Import is_package_installed
 . /usr/local/lib/tails-shell-library/common.sh
 
-strip_nondeterminism_wrapper() {
-    apt-get --yes install strip-nondeterminism
-    strip-nondeterminism "${@}"
-    apt-get --yes purge strip-nondeterminism '^libfile-stripnondeterminism-perl'
-}
-
 # Ensure that the packages whose names are passed as arguments are
 # installed. If they are installed now, they will be marked as
 # "automatically installed" so the next `apt-get autoremove` action
@@ -33,6 +27,11 @@ ensure_hook_dependency_is_installed() {
     fi
     apt-get install --yes "${@}"
     apt-mark auto "${@}"
+}
+
+strip_nondeterminism_wrapper() {
+    ensure_hook_dependency_is_installed strip-nondeterminism
+    strip-nondeterminism "${@}"
 }
 
 install_fake_package() {
