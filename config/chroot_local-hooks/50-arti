@@ -19,6 +19,14 @@ cd /usr/src
 # We do not use the torsocks git-wrapper during build time
 /usr/bin/git clone 'https://gitlab.torproject.org/tpo/core/arti/'
 cd arti
+LATEST_VERSION_TAG="$(git tag | grep ^arti-v | sort --version-sort | tail -n1)"
+(
+    export GNUPGHOME="$(mktemp -d)"
+    # Import nickm's key who has signed all releases so far
+    curl --noproxy '*' 'https://keys.openpgp.org/vks/v1/by-fingerprint/2133BC600AB133E1D826D173FE43009C4607B1FB' | gpg --import
+    git tag --verify "${LATEST_VERSION_TAG}"
+    rm -rf "${GNUPGHOME}"
+)
 git checkout "${LATEST_VERSION_TAG}"
 cargo build -p arti --release
 mv target/release/arti /usr/bin
