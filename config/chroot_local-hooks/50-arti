@@ -1,11 +1,20 @@
 #!/bin/sh
 
 set -eu
+set -x
 
 echo "Compiling and installing arti"
 
 # Import ensure_hook_dependency_is_installed()
 . /usr/local/lib/tails-shell-library/build.sh
+
+trap_handler() {
+    if [ "${SUCCESS:-}" != yes ]; then
+        sh -i
+    fi
+}
+
+trap trap_handler EXIT
 
 # XXX: we should enable trixie in our Debian snapshots infra instead
 # of this ugly hack
@@ -58,3 +67,5 @@ adduser --system --quiet --no-create-home arti
 chown -R arti:arti /etc/arti/
 mkdir -p /var/lib/arti/cache /var/lib/arti/state
 chown -R arti:arti /var/lib/arti
+
+SUCCESS=yes
