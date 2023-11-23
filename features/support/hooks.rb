@@ -86,7 +86,7 @@ at_exit do
   $vm&.destroy_and_undefine
   if $virt
     unless KEEP_SNAPSHOTS
-      VM.remove_all_snapshots
+      $snapshots.delete_all
       $vmstorage&.clear_pool
     end
     $vmnet&.destroy_and_undefine
@@ -219,7 +219,8 @@ BeforeFeature('@product') do
 
   unless $started_first_product_feature
     $virt = Libvirt.open('qemu:///system')
-    VM.remove_all_snapshots unless KEEP_SNAPSHOTS
+    $snapshots = SnapshotManager.new
+    $snapshots.delete_all unless KEEP_SNAPSHOTS
     $vmnet = VMNet.new($virt, VM_XML_PATH)
     $vmstorage = VMStorage.new($virt, VM_XML_PATH)
     $started_first_product_feature = true
@@ -230,8 +231,8 @@ end
 AfterFeature('@product') do
   unless KEEP_SNAPSHOTS
     CHECKPOINTS
-      .select   { |name, vals| vals[:temporary] && VM.snapshot_exists?(name) }
-      .each_key { |name| VM.remove_snapshot(name) }
+      .select   { |name, vals| vals[:temporary] && $snapshots.exists?(name) }
+      .each_key { |name| $snapshots.delete(name) }
   end
   $vmstorage
     .list_volumes

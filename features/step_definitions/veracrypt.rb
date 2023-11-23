@@ -41,7 +41,7 @@ def prepare_veracrypt_volume(type, with_keyfile)
   @veracrypt_needs_keyfile = with_keyfile
   step 'I temporarily create a 100 MiB raw disk named ' \
        "\"#{$veracrypt_volume_name}\""
-  disk_path = $vm.storage.disk_path($veracrypt_volume_name)
+  disk_path = $vm.disk_path($veracrypt_volume_name)
   keyfile = create_veracrypt_keyfile
   fatal_system "losetup -f '#{disk_path}'"
   loop_dev = `losetup -j '#{disk_path}'`.split(':').first
@@ -145,7 +145,7 @@ When /^I plug and mount a USB drive containing a (.+) VeraCrypt file container( 
     @veracrypt_needs_pim = false
     prepare_veracrypt_volume(type, with_options)
     @veracrypt_shared_dir_in_guest = share_host_files(
-      $vm.storage.disk_path($veracrypt_volume_name)
+      $vm.disk_path($veracrypt_volume_name)
     )
   end
   $vm.execute_successfully(

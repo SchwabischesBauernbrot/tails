@@ -103,7 +103,7 @@ end
 Given /^I (temporarily )?create an? (\d+) ([[:alpha:]]+) (?:([[:alpha:]]+) )?disk named "([^"]+)"$/ do |temporary, size, unit, type, name|
   type ||= 'qcow2'
   begin
-    $vm.storage.create_new_disk(name, size: size, unit: unit, type: type)
+    $vm.storage.create_new_volume(name, size: size, unit: unit, type: type)
   rescue NoSpaceLeftError => e
     cmd = "du -ah \"#{$config['TMPDIR']}\" | sort -hr | head -n20"
     info_log("#{cmd}\n" + `#{cmd}`)
@@ -1195,7 +1195,7 @@ def share_host_files(files)
   step "I temporarily create an #{disk_size} bytes disk named \"#{disk}\""
   step "I create a gpt partition labeled \"#{disk}\" with an ext4 " \
        "filesystem on disk \"#{disk}\""
-  $vm.storage.guestfs_disk_helper(disk) do |g, _|
+  $vm.guestfs_with_disks(disk) do |g, _|
     partition = g.list_partitions.first
     g.mount(partition, '/')
     files.each { |f| g.upload(f, "/#{File.basename(f)}") }
@@ -1412,12 +1412,12 @@ Given /^I write (|an old version of )the Tails (ISO|USB) image to disk "([^"]+)"
     },
   }
   dest_disk = {
-    path: $vm.storage.disk_path(name),
+    path: $vm.disk_path(name),
     opts: {
-      format: $vm.storage.disk_format(name),
+      format: $vm.storage.volume_format(name),
     },
   }
-  $vm.storage.guestfs_disk_helper(
+  $vm.guestfs_with_disks(
     src_disk,
     dest_disk
   ) do |g, src_disk_handle, dest_disk_handle|

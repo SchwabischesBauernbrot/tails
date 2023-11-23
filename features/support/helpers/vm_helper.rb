@@ -120,6 +120,10 @@ class VM
     REXML::Document.new(@domain.xml_desc)
   end
 
+  def refresh_domain
+    @domain = $virt.lookup_domain_by_name(@domain_name)
+  end
+
   def update(xml: nil)
     xml = if block_given?
             xml = domain_xml
@@ -147,6 +151,113 @@ class VM
     rescue StandardError
       # Nothing to clean up
     end
+  end
+
+  def save_snapshot(name)
+    @snapshots.save(name)
+  end
+
+  def restore_snapshot(name)
+    @snapshots.restore(name)
+  end
+
+  def disk_path(name)
+    # Returns the source file of the specified disk. In case that a
+    # snapshot is used, the disk file of the snapshot is returned.
+    # Find a disk where the basename of the source file starts with the
+    # name of the disk, because that's both the case both for snapshot
+    # disks and non-snapshot disks.
+    domain_xml.elements.each("domain/devices/disk[@device='disk']") do |disk|
+      basename = File.basename(disk.elements['source'].attributes['file'])
+      if basename.start_with?(name)
+        return disk.elements['source'].attributes['file']
+      end
+    end
+
+    # We found no disk with a matching basename in the domain XML. Try
+    # getting it from the storage pool instead.
+    storage.volume_path(name)
+  end
+
+  def guestfs_with_disks(*disks)
+    assert(block_given?)
+    g = Guestfs::Guestfs.new
+    g.set_trace(1)
+    message_callback = proc do |event, _, message, _|
+      debug_log("libguestfs: #{Guestfs.event_to_string(event)}: #{message}")
+    end
+    g.set_event_callback(message_callback,
+                         Guestfs::EVENT_ALL)
+    g.set_autosync(1)
+    disks.each do |disk|
+      if disk.instance_of?(String)
+        g.add_drive_opts(disk_path(disk), format: @storage.volume_format(disk))
+      elsif disk.instance_of?(Hash)
+        g.add_drive_opts(disk[:path], disk[:opts])
+      else
+        raise "cannot handle type '#{disk.class}'"
+      end
+    end
+    g.launch
+    yield(g, *g.list_devices)
+  ensure
+    g.close
+  end
+
+  def disk_mklabel(name, parttype)
+    guestfs_with_disks(name) do |g, disk_handle|
+      g.part_init(disk_handle, parttype)
+    end
+  end
+
+  # XXX: giving up on a few worst offenders for now
+  # rubocop:disable Metrics/AbcSize
+  def disk_mkpartfs(name, parttype, fstype, **opts)
+    opts[:label] ||= nil
+    opts[:luks_password] ||= nil
+    opts[:size] ||= nil
+    opts[:unit] ||= nil
+    guestfs_with_disks(name) do |g, disk_handle|
+      if !opts[:size].nil? && !opts[:unit].nil?
+        g.part_init(disk_handle, parttype)
+        size_in_bytes = convert_to_bytes(opts[:size].to_f, opts[:unit])
+        sector_size = g.blockdev_getss(disk_handle)
+        size_in_sectors = (size_in_bytes / sector_size).floor
+        # leave some room for the partition table
+        offset_in_sectors = (convert_to_bytes(4, 'MiB') / sector_size).floor
+        g.part_add(disk_handle, 'primary',
+                   offset_in_sectors,
+                   offset_in_sectors + size_in_sectors - 1)
+      else
+        g.part_disk(disk_handle, parttype)
+      end
+      g.part_set_name(disk_handle, 1, opts[:label]) if opts[:label]
+      primary_partition = g.list_partitions[0]
+      if opts[:luks_password]
+        g.luks_format(primary_partition, opts[:luks_password], 0)
+        luks_mapping = File.basename(primary_partition) + '_unlocked'
+        g.cryptsetup_open(primary_partition, opts[:luks_password], luks_mapping)
+        luks_dev = "/dev/mapper/#{luks_mapping}"
+        g.mkfs(fstype, luks_dev)
+        g.cryptsetup_close(luks_dev)
+      else
+        g.mkfs(fstype, primary_partition)
+      end
+    end
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  def disk_mkswap(name, parttype)
+    guestfs_with_disks(name) do |g, disk_handle|
+      g.part_disk(disk_handle, parttype)
+      primary_partition = g.list_partitions[0]
+      g.mkswap(primary_partition)
+    end
+  end
+
+  def clone_to_new_disk(from, to)
+    from_disk_name = File.basename(disk_path(from))
+    @storage.clone_to_new_disk(from_disk_name, to)
   end
 
   def real_mac(alias_name)
@@ -281,12 +392,28 @@ class VM
     set_boot_device('cdrom')
   end
 
-  def list_disk_devs
-    ret = []
-    domain_xml.elements.each('domain/devices/disk') do |e|
-      ret << e.elements['target'].attribute('dev').to_s
+  def disk_xml_elements
+    res = []
+    domain_xml.elements.each("domain/devices/disk[@device='disk']") do |e|
+      res << e
     end
-    ret
+    res
+  end
+
+  def disk_devs
+    res = []
+    disk_xml_elements.each do |e|
+      res << e.elements['target'].attribute('dev').to_s
+    end
+    res
+  end
+
+  def disk_source_files
+    res = []
+    disk_xml_elements.each do |e|
+      res << e.elements['source'].attribute('file').to_s
+    end
+    res
   end
 
   def plug_device(device_xml)
@@ -302,6 +429,7 @@ class VM
   # XXX: giving up on a few worst offenders for now
   # rubocop:disable Metrics/AbcSize
   def plug_drive(name, type)
+    debug_log("Plugging drive '#{name}' of type '#{type}'")
     raise "disk '#{name}' already plugged" if disk_plugged?(name)
 
     removable_usb = nil
@@ -316,15 +444,15 @@ class VM
     # Get the next free /dev/sdX on guest
     letter = 'a'
     dev = 'sd' + letter
-    while list_disk_devs.include?(dev)
+    while disk_devs.include?(dev)
       letter = (letter[0].ord + 1).chr
       dev = 'sd' + letter
     end
     assert letter <= 'z'
 
     xml = REXML::Document.new(File.read("#{@xml_path}/disk.xml"))
-    xml.elements['disk/source'].attributes['file'] = @storage.disk_path(name)
-    xml.elements['disk/driver'].attributes['type'] = @storage.disk_format(name)
+    xml.elements['disk/source'].attributes['file'] = disk_path(name)
+    xml.elements['disk/driver'].attributes['type'] = @storage.volume_format(name)
     xml.elements['disk/target'].attributes['dev'] = dev
     xml.elements['disk/target'].attributes['bus'] = type
     if removable_usb
@@ -337,10 +465,15 @@ class VM
 
   def disk_xml_desc(name)
     domain_xml.elements.each('domain/devices/disk') do |e|
-      if e.elements['source'].attribute('file').to_s \
-         == @storage.disk_path(name)
+      # We check if the basename of the file attribute starts with the
+      # basename of the disk path because if we created a snapshot, the
+      # disk file is in a different directory and has a suffix added to
+      # it.
+      file = e.elements['source'].attribute('file').to_s
+      if File.basename(file).start_with?(name)
         return e.to_s
       end
+
     rescue StandardError
       next
     end
@@ -633,145 +766,6 @@ class VM
 
   def get_clipboard
     execute_successfully('xsel --output --clipboard', user: LIVE_USER).stdout
-  end
-
-  def internal_snapshot_xml(name)
-    disk_devs = list_disk_devs
-    disks_xml = "    <disks>\n"
-    disk_devs.each do |dev|
-      snapshot_type = disk_type(dev) == 'qcow2' ? 'internal' : 'no'
-      disks_xml +=
-        "      <disk name='#{dev}' snapshot='#{snapshot_type}'></disk>\n"
-    end
-    disks_xml += '    </disks>'
-    <<~XML
-      <domainsnapshot>
-        <name>#{name}</name>
-        <description>Snapshot for #{name}</description>
-      #{disks_xml}
-        </domainsnapshot>
-    XML
-  end
-
-  def self.ram_only_snapshot_path(name)
-    "#{$config['TMPDIR']}/#{name}-snapshot.memstate"
-  end
-
-  def save_internal_snapshot(name)
-    xml = internal_snapshot_xml(name)
-    @domain.snapshot_create_xml(xml)
-  end
-
-  def save_ram_only_snapshot(name)
-    snapshot_path = VM.ram_only_snapshot_path(name)
-    begin
-      @domain.save(snapshot_path)
-    rescue Guestfs::Error => e
-      no_space_left_error =
-        'Call to virDomainSaveFlags failed: operation failed: ' \
-        '/usr/lib/libvirt/libvirt_iohelper: failure with .*: ' \
-        'Unable to write .*: No space left on device'
-      if Regexp.new(no_space_left_error).match(e.to_s)
-        cmd = "du -ah \"#{$config['TMPDIR']}\" | sort -hr | head -n20"
-        info_log("Output of \"#{cmd}\":\n" + `#{cmd}`)
-        raise NoSpaceLeftError.New(e)
-      else
-        info_log('saving snapshot failed but was not a no-space-left error')
-        raise e
-      end
-    end
-  end
-
-  def save_snapshot(name)
-    debug_log("Saving snapshot '#{name}'...")
-    # If we have no qcow2 disk device, we'll use "memory state"
-    # snapshots, and if we have at least one qcow2 disk device, we'll
-    # use internal "system checkpoint" (memory + disks) snapshots. We
-    # have to do this since internal snapshots don't work when no
-    # such disk is available. We can do this with external snapshots,
-    # which are better in many ways, but libvirt doesn't know how to
-    # restore (revert back to) them yet.
-    # WARNING: If only transient disks, i.e. disks that were plugged
-    # after starting the domain, are used then the memory state will
-    # be dropped. External snapshots would also fix this.
-    internal_snapshot = false
-    domain_xml.elements.each('domain/devices/disk') do |e|
-      if e.elements['driver'].attribute('type').to_s == 'qcow2'
-        internal_snapshot = true
-        break
-      end
-    end
-
-    # NOTE: In this case the "opposite" of `internal_snapshot` is not
-    # anything relating to external snapshots, but actually "memory
-    # state"(-only) snapshots.
-    if internal_snapshot
-      save_internal_snapshot(name)
-    else
-      save_ram_only_snapshot(name)
-      # For consistency with the internal snapshot case (which is
-      # "live", so the domain doesn't go down) we immediately restore
-      # the snapshot.
-      # Assumption: that *immediate* save + restore doesn't mess up
-      # with network state and similar, and is fast enough to not make
-      # the clock drift too much.
-      restore_snapshot(name)
-    end
-  end
-
-  def restore_snapshot(name)
-    debug_log("Restoring snapshot '#{name}'...")
-    @domain.destroy if running?
-    @display.stop if @display&.active?
-    # See comment in save_snapshot() for details on why we use two
-    # different type of snapshots.
-    potential_ram_only_snapshot_path = VM.ram_only_snapshot_path(name)
-    if File.exist?(potential_ram_only_snapshot_path)
-      Libvirt::Domain.restore(@virt, potential_ram_only_snapshot_path)
-      @domain = @virt.lookup_domain_by_name(@domain_name)
-    else
-      begin
-        potential_internal_snapshot = @domain.lookup_snapshot_by_name(name)
-        @domain.revert_to_snapshot(potential_internal_snapshot)
-      rescue Guestfs::Error, Libvirt::RetrieveError
-        raise "The (internal nor external) snapshot #{name} may be known " \
-              'by libvirt but it cannot be restored. ' \
-              "To investigate, use 'virsh snapshot-list TailsToaster'. " \
-              "To clean up old dangling snapshots, use 'virsh snapshot-delete'."
-      end
-    end
-    @display.start
-  end
-
-  def self.remove_snapshot(name)
-    old_domain = $virt.lookup_domain_by_name(LIBVIRT_DOMAIN_NAME)
-    potential_ram_only_snapshot_path = VM.ram_only_snapshot_path(name)
-    if File.exist?(potential_ram_only_snapshot_path)
-      File.delete(potential_ram_only_snapshot_path)
-    else
-      snapshot = old_domain.lookup_snapshot_by_name(name)
-      snapshot.delete
-    end
-  end
-
-  def self.snapshot_exists?(name)
-    return true if File.exist?(VM.ram_only_snapshot_path(name))
-
-    old_domain = $virt.lookup_domain_by_name(LIBVIRT_DOMAIN_NAME)
-    snapshot = old_domain.lookup_snapshot_by_name(name)
-    !snapshot.nil?
-  rescue Libvirt::RetrieveError
-    false
-  end
-
-  def self.remove_all_snapshots
-    Dir.glob("#{$config['TMPDIR']}/*-snapshot.memstate").each do |file|
-      File.delete(file)
-    end
-    old_domain = $virt.lookup_domain_by_name(LIBVIRT_DOMAIN_NAME)
-    old_domain.list_all_snapshots.each(&:delete)
-  rescue Libvirt::RetrieveError
-    # No such domain, so no snapshots either.
   end
 
   def start

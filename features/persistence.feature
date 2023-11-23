@@ -4,8 +4,7 @@ Feature: Tails persistence
   I want to use a Persistent Storage
 
   Scenario: Tails Persistent Storage behave tests
-    Given I have started Tails from DVD and logged in with an administration password and the network is connected
-    And I update APT using apt
+    Given I have started Tails from a USB drive and logged in with an administration password and Persistent Storage enabled and the network is connected and I updated APT
     And I install "python3-behave" using apt
     Then the Tails Persistent Storage behave tests pass
 

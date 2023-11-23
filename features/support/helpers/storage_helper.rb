@@ -1,6 +1,6 @@
 # Helper class for manipulating VM storage *volumes*, i.e. it deals
-# only with creation of images and keeps a name => volume path lookup
-# table (plugging drives or getting info of plugged devices is done in
+# only with creation of images and their deletion.
+# (plugging drives or getting info of plugged devices is done in
 # the VM class). We'd like better coupling, but given the ridiculous
 # disconnect between Libvirt::StoragePool and Libvirt::Domain (hint:
 # they have nothing with each other to do whatsoever) it's what makes
@@ -87,7 +87,7 @@ class VMStorage
 
   # XXX: giving up on a few worst offenders for now
   # rubocop:disable Metrics/AbcSize
-  def create_new_disk(name, **options)
+  def create_new_volume(name, **options)
     options[:size] ||= 2
     options[:unit] ||= 'GiB'
     options[:type] ||= 'qcow2'
@@ -141,89 +141,13 @@ class VMStorage
     @pool.create_volume_xml_from(xml.to_s, from_vol)
   end
 
-  def disk_format(name)
+  def volume_format(name)
     vol = @pool.lookup_volume_by_name(name)
     vol_xml = REXML::Document.new(vol.xml_desc)
     vol_xml.elements['volume/target/format'].attributes['type']
   end
 
-  def disk_path(name)
+  def volume_path(name)
     @pool.lookup_volume_by_name(name).path
-  end
-
-  def disk_mklabel(name, parttype)
-    guestfs_disk_helper(name) do |g, disk_handle|
-      g.part_init(disk_handle, parttype)
-    end
-  end
-
-  # XXX: giving up on a few worst offenders for now
-  # rubocop:disable Metrics/AbcSize
-  def disk_mkpartfs(name, parttype, fstype, **opts)
-    opts[:label] ||= nil
-    opts[:luks_password] ||= nil
-    opts[:size] ||= nil
-    opts[:unit] ||= nil
-    guestfs_disk_helper(name) do |g, disk_handle|
-      if !opts[:size].nil? && !opts[:unit].nil?
-        g.part_init(disk_handle, parttype)
-        size_in_bytes = convert_to_bytes(opts[:size].to_f, opts[:unit])
-        sector_size = g.blockdev_getss(disk_handle)
-        size_in_sectors = (size_in_bytes / sector_size).floor
-        # leave some room for the partition table
-        offset_in_sectors = (convert_to_bytes(4, 'MiB') / sector_size).floor
-        g.part_add(disk_handle, 'primary',
-                   offset_in_sectors,
-                   offset_in_sectors + size_in_sectors - 1)
-      else
-        g.part_disk(disk_handle, parttype)
-      end
-      g.part_set_name(disk_handle, 1, opts[:label]) if opts[:label]
-      primary_partition = g.list_partitions[0]
-      if opts[:luks_password]
-        g.luks_format(primary_partition, opts[:luks_password], 0)
-        luks_mapping = File.basename(primary_partition) + '_unlocked'
-        g.cryptsetup_open(primary_partition, opts[:luks_password], luks_mapping)
-        luks_dev = "/dev/mapper/#{luks_mapping}"
-        g.mkfs(fstype, luks_dev)
-        g.cryptsetup_close(luks_dev)
-      else
-        g.mkfs(fstype, primary_partition)
-      end
-    end
-  end
-  # rubocop:enable Metrics/AbcSize
-
-  def disk_mkswap(name, parttype)
-    guestfs_disk_helper(name) do |g, disk_handle|
-      g.part_disk(disk_handle, parttype)
-      primary_partition = g.list_partitions[0]
-      g.mkswap(primary_partition)
-    end
-  end
-
-  def guestfs_disk_helper(*disks)
-    assert(block_given?)
-    g = Guestfs::Guestfs.new
-    g.set_trace(1)
-    message_callback = proc do |event, _, message, _|
-      debug_log("libguestfs: #{Guestfs.event_to_string(event)}: #{message}")
-    end
-    g.set_event_callback(message_callback,
-                         Guestfs::EVENT_ALL)
-    g.set_autosync(1)
-    disks.each do |disk|
-      if disk.instance_of?(String)
-        g.add_drive_opts(disk_path(disk), format: disk_format(disk))
-      elsif disk.instance_of?(Hash)
-        g.add_drive_opts(disk[:path], disk[:opts])
-      else
-        raise "cannot handle type '#{disk.class}'"
-      end
-    end
-    g.launch
-    yield(g, *g.list_devices)
-  ensure
-    g.close
   end
 end

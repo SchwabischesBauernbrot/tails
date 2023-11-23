@@ -1,5 +1,5 @@
 Given /^I create an? ([[:alnum:]]+) swap partition on disk "([^"]+)"$/ do |parttype, name|
-  $vm.storage.disk_mkswap(name, parttype)
+  $vm.disk_mkswap(name, parttype)
 end
 
 Then /^an? "([^"]+)" partition was detected by Tails on drive "([^"]+)"$/ do |type, name|
@@ -26,7 +26,7 @@ Given /^I create an?( (\d+) ([[:alpha:]]+))? ([[:alnum:]]+) partition( labeled "
   opts.merge!(luks_password: luks_password) if is_encrypted
   opts.merge!(size: size) if with_size
   opts.merge!(unit: unit) if with_size
-  $vm.storage.disk_mkpartfs(name, parttype, fstype, **opts)
+  $vm.disk_mkpartfs(name, parttype, fstype, **opts)
 end
 
 Then /^drive "([^"]+)" is not mounted$/ do |name|

@@ -111,7 +111,7 @@ def greeter
 end
 
 Given /^I clone USB drive "([^"]+)" to a (new|temporary) USB drive "([^"]+)"$/ do |from, mode, to|
-  $vm.storage.clone_to_new_disk(from, to)
+  $vm.clone_to_new_disk(from, to)
   if mode == 'temporary'
     add_after_scenario_hook { $vm.storage.delete_volume(to) }
   end
@@ -1044,13 +1044,13 @@ end
 Then /^only the expected files are present on the persistence partition on USB drive "([^"]+)"$/ do |name|
   assert(!$vm.running?)
   disk = {
-    path: $vm.storage.disk_path(name),
+    path: $vm.disk_path(name),
     opts: {
-      format:   $vm.storage.disk_format(name),
+      format:   $vm.storage.volume_format(name),
       readonly: true,
     },
   }
-  $vm.storage.guestfs_disk_helper(disk) do |g, disk_handle|
+  $vm.guestfs_with_disks(disk) do |g, disk_handle|
     partitions = g.part_list(disk_handle).map do |part_desc|
       disk_handle + part_desc['part_num'].to_s
     end
@@ -1107,7 +1107,7 @@ Then /^Tails has started in UEFI mode$/ do
 end
 
 Given /^I create a ([[:alpha:]]+) label on disk "([^"]+)"$/ do |type, name|
-  $vm.storage.disk_mklabel(name, type)
+  $vm.disk_mklabel(name, type)
 end
 
 # The (crude) bin/create-test-iuks script can be used to generate the IUKs,

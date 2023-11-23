@@ -4,9 +4,8 @@ require 'yaml'
 require "#{Dir.pwd}/features/support/helpers/misc_helpers.rb"
 
 TRUE_VALUES = ['1', 'y', 'yes', 'true']
-def config_bool(name)
-  value = $config[name]
 
+def bool(value)
   if value.nil?
     return false
   end
@@ -17,6 +16,10 @@ def config_bool(name)
 
   # It's not a boolean so we assume it's a string
   TRUE_VALUES.include?(value.downcase)
+end
+
+def config_bool(name)
+  bool($config[name])
 end
 
 # These files deal with options like some of the settings passed
@@ -57,11 +60,11 @@ ENV['TMPDIR'] = $config['TMPDIR']
 DEBUG_LOG_PSEUDO_FIFO = "#{$config['TMPDIR']}/debug_log_pseudo_fifo".freeze
 DISPLAY = ENV['DISPLAY']
 GIT_DIR = ENV['PWD']
-KEEP_CHUTNEY = !ENV['KEEP_CHUTNEY'].nil?
-KEEP_SNAPSHOTS = !ENV['KEEP_SNAPSHOTS'].nil?
-DISABLE_CHUTNEY = !ENV['DISABLE_CHUTNEY'].nil?
+KEEP_CHUTNEY = bool(ENV['KEEP_CHUTNEY'])
+KEEP_SNAPSHOTS = bool(ENV['KEEP_SNAPSHOTS'])
+DISABLE_CHUTNEY = bool(ENV['DISABLE_CHUTNEY'])
 LATE_PATCH = ENV['LATE_PATCH']
-EARLY_PATCH = !ENV['EARLY_PATCH'].nil?
+EARLY_PATCH = bool(ENV['EARLY_PATCH'])
 EXTRA_BOOT_OPTIONS = ENV['EXTRA_BOOT_OPTIONS']
 LIVE_USER = cmd_helper(
   '. config/chroot_local-includes/etc/live/config.d/username.conf; ' \
