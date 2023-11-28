@@ -62,6 +62,7 @@ class ProgressThread(threading.Thread):
     progress bar.
     """
     totalsize = 0
+    tps_totalsize = 0
     orig_free = 0
     drive = None
     get_free_bytes = None
@@ -76,15 +77,33 @@ class ProgressThread(threading.Thread):
         self.drive = drive
         self.get_free_bytes = freebytes
         self.orig_free = self.get_free_bytes()
+    
+    def set_tps_data(self, size):
+        self.tps_totalsize = size
 
     def run(self):
+        target_tailsdata_storage_used = 0
         while not self.terminate:
             free = self.get_free_bytes()
             if free is None:
                 break
             value = (self.orig_free - free) / 1024
-            GLib.idle_add(self.parent.progress, float(value) / self.totalsize)
+            GLib.idle_add(self.parent.progress, float(value) / (self.totalsize + self.tps_totalsize))
             if value >= self.totalsize:
+                break
+            sleep(3)
+        # Begin loop monitoring Persistent Storage cloning
+        while not self.terminate:
+            if subprocess.run(['test', '-d', '/media/amnesia/TailsData']).returncode == 0:
+                target_tps_used = subprocess.check_output(
+                    ['df', '--output=used', '/media/amnesia/TailsData'])
+                new_used = int(''.join(filter(str.isdigit, str(target_tps_used))))
+                if new_used > target_tailsdata_storage_used:
+                    target_tailsdata_storage_used = new_used
+            value = self.totalsize + target_tailsdata_storage_used
+            GLib.idle_add(self.parent.progress,
+                          float(value) / (self.totalsize + self.tps_totalsize))
+            if value >= self.totalsize + self.tps_totalsize:
                 break
             sleep(3)
 
@@ -155,6 +174,11 @@ class TailsInstallerThread(threading.Thread):
             self.live.check_free_space()
 
             # Setup the progress bar
+            if self.parent.opts.clone_persistent_storage_requested:
+                source_tps_used = subprocess.check_output(
+                    ['df', '--output=used', '/dev/mapper/TailsData_unlocked'])
+                self.progress.set_tps_data(size=int(
+                    ''.join(filter(str.isdigit, str(source_tps_used)))))
             self.progress.set_data(size=self.live.totalsize,
                                    drive=self.live.drive['device'],
                                    freebytes=self.live.get_free_bytes)
@@ -169,6 +193,11 @@ class TailsInstallerThread(threading.Thread):
             # self.live.bootable_partition()
 
             self.live.clone_persistent_storage()
+
+            # Set progress to 100% after cloning persistent storage
+            self.set_max_progress(float(1))
+            self.update_progress(1)
+
 
             self.progress.stop()
 
