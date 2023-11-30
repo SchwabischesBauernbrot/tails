@@ -575,7 +575,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.__label_infobar_title.set_text(
                         _('No device suitable to install Tails could be found'))
                 self.__label_infobar_details.set_text(
-                        _('Plug in a USB flash drive or SD card of at least %0.1f GB.')
+                        _('Plug in a USB stick or SD card of at least %0.1f GB.')
                         % (CONFIG['official_min_installation_device_size'] / 1000.))
                 self.__infobar.set_visible(True)
                 self.target_available = False
