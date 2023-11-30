@@ -1,32 +1,30 @@
 import logging
 import gi
+from typing import Callable, Optional
 
 from tailsgreeter import TRANSLATION_DOMAIN
 import tailsgreeter.config
 from tailsgreeter.settings import SettingNotFoundError
+from tailsgreeter.settings.formats import FormatsSetting
+from tailsgreeter.settings.keyboard import KeyboardSetting
+from tailsgreeter.settings.language import LanguageSetting
+from tailsgreeter.settings.localization import LocalizationSetting
 from tailsgreeter.ui import _
 from tailsgreeter.ui.setting import GreeterSetting
 from tailsgreeter.ui.popover import Popover
-from typing import TYPE_CHECKING, Callable
 
-gi.require_version('Gtk', '3.0')
-gi.require_version('Pango', '1.0')
+gi.require_version("Gtk", "3.0")
+gi.require_version("Pango", "1.0")
 from gi.repository import Gtk, Pango
-
-if TYPE_CHECKING:
-    from tailsgreeter.settings.localization import LocalizationSetting
-    from tailsgreeter.settings.language import LanguageSetting
-    from tailsgreeter.settings.formats import FormatsSetting
-    from tailsgreeter.settings.keyboard import KeyboardSetting
 
 
 REGION_SETTINGS_UI_FILE = "region_settings.ui"
 
 
 class LocalizationSettingUI(GreeterSetting):
-    def __init__(self, localization_setting: "LocalizationSetting"):
+    def __init__(self, localization_setting: LocalizationSetting):
         self._setting = localization_setting
-        self.value = self.default  # type: {str, None}
+        self.value: Optional[str] = self.default
         self.value_changed_by_user = False
         super().__init__()
 
@@ -36,7 +34,9 @@ class LocalizationSettingUI(GreeterSetting):
 
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain(TRANSLATION_DOMAIN)
-        self.builder.add_from_file(tailsgreeter.config.data_path + REGION_SETTINGS_UI_FILE)
+        self.builder.add_from_file(
+            tailsgreeter.config.data_path + REGION_SETTINGS_UI_FILE
+        )
         popover_box = self.builder.get_object("box_{}_popover".format(self.id))
         self.popover = Popover(self.listboxrow, popover_box)
 
@@ -54,7 +54,9 @@ class LocalizationSettingUI(GreeterSetting):
         searchentry.connect("activate", self.cb_searchentry_activate)
 
         self.treestore_filtered = self.treestore.filter_new()
-        self.treestore_filtered.set_visible_func(self.cb_liststore_filtered_visible_func, data=searchentry)
+        self.treestore_filtered.set_visible_func(
+            self.cb_liststore_filtered_visible_func, data=searchentry
+        )
         self.treeview.set_model(self.treestore_filtered)
 
     def apply(self):
@@ -76,7 +78,7 @@ class LocalizationSettingUI(GreeterSetting):
         return True
 
     @property
-    def default(self) -> {str, None}:
+    def default(self) -> Optional[str]:
         return None
 
     def on_language_changed(self, locale: str):
@@ -85,8 +87,9 @@ class LocalizationSettingUI(GreeterSetting):
     def cb_searchentry_activate(self, searchentry, user_data=None):
         """Selects the topmost item in the treeview when pressing Enter"""
         if searchentry.get_text():
-            self.treeview.row_activated(Gtk.TreePath.new_from_string("0"),
-                                        self.treeview.get_column(0))
+            self.treeview.row_activated(
+                Gtk.TreePath.new_from_string("0"), self.treeview.get_column(0)
+            )
         else:
             self.popover.close(Gtk.ResponseType.CANCEL)
 
@@ -99,8 +102,7 @@ class LocalizationSettingUI(GreeterSetting):
             self.treeview.collapse_all()
         return False
 
-    def cb_treeview_row_activated(self, treeview, path, column,
-                                  user_data=None):
+    def cb_treeview_row_activated(self, treeview, path, column, user_data=None):
         treemodel = treeview.get_model()
         self.value = treemodel.get_value(treemodel.get_iter(path), 0)
         self.value_changed_by_user = True
@@ -112,23 +114,22 @@ class LocalizationSettingUI(GreeterSetting):
         def treeview_select_line(model, path, iter_, data):
             if model.get_value(iter_, 0) == data:
                 self.treeview.get_selection().select_iter(iter_)
-                self.treeview.scroll_to_cell(path, use_align=True,
-                                             row_align=0.5)
+                self.treeview.scroll_to_cell(path, use_align=True, row_align=0.5)
                 return True
             else:
                 return False
 
-        self.treestore_filtered.foreach(
-                treeview_select_line,
-                self._setting.value)
+        self.treestore_filtered.foreach(treeview_select_line, self._setting.value)
 
     def cb_liststore_filtered_visible_func(self, model, treeiter, searchentry):
         search_stings = searchentry.get_text().lower().split()
         if not search_stings:
             return True
 
-        return all(self.node_visible_func(model, treeiter, search_string)
-                   for search_string in search_stings)
+        return all(
+            self.node_visible_func(model, treeiter, search_string)
+            for search_string in search_stings
+        )
 
     def node_visible_func(self, model, treeiter, search_string):
         """Returns True if the node itself or the parent node or any of the
@@ -153,33 +154,33 @@ class LocalizationSettingUI(GreeterSetting):
                 # code, because we don't want to show all children if the
                 # search string matches the default language code (which is
                 # the language code of the parent node).
-                return self.node_matches_string(model, parent_treeiter,
-                                                search_string,
-                                                only_check_name=True)
+                return self.node_matches_string(
+                    model, parent_treeiter, search_string, only_check_name=True
+                )
 
         # Does any of the children nodes match the search?
         children_treeiter = model.iter_children(treeiter)
         while children_treeiter:
-            if self.node_matches_string(model, children_treeiter,
-                                        search_string):
+            if self.node_matches_string(model, children_treeiter, search_string):
                 return True
             children_treeiter = model.iter_next(children_treeiter)
 
         return False
 
-    def node_matches_string(self, model, node, search_string,
-                            only_check_name=False):
+    def node_matches_string(self, model, node, search_string, only_check_name=False):
         """Returns True if any of the columns of the node match the search
         string"""
         if only_check_name:
             return search_string in model.get_value(node, 1).lower()
 
-        return any(search_string in model.get_value(node, i).lower()
-                   for i in range(0, model.get_n_columns()))
+        return any(
+            search_string in model.get_value(node, i).lower()
+            for i in range(0, model.get_n_columns())
+        )
 
 
 class LanguageSettingUI(LocalizationSettingUI):
-    _setting = None  # type: LanguageSetting
+    _setting: LanguageSetting = None
 
     @property
     def id(self) -> str:
@@ -199,9 +200,9 @@ class LanguageSettingUI(LocalizationSettingUI):
 
     @property
     def default(self) -> str:
-        return 'en_US'
+        return "en_US"
 
-    def __init__(self, setting: "LanguageSetting", changed_cb: Callable):
+    def __init__(self, setting: LanguageSetting, changed_cb: Callable):
         self.changed_cb = changed_cb
         super().__init__(setting)
 
@@ -222,7 +223,7 @@ class LanguageSettingUI(LocalizationSettingUI):
 
 
 class FormatsSettingUI(LocalizationSettingUI):
-    _setting = None  # type: FormatsSetting
+    _setting: FormatsSetting = None
 
     @property
     def id(self) -> str:
@@ -242,7 +243,7 @@ class FormatsSettingUI(LocalizationSettingUI):
 
     @property
     def default(self) -> str:
-        return 'en_US'
+        return "en_US"
 
     def on_language_changed(self, locale: str):
         """Set the formats according to the new language"""
@@ -259,7 +260,7 @@ class FormatsSettingUI(LocalizationSettingUI):
 
 
 class KeyboardSettingUI(LocalizationSettingUI):
-    _setting = None  # type: KeyboardSetting
+    _setting: KeyboardSetting = None
 
     @property
     def id(self) -> str:
@@ -279,7 +280,7 @@ class KeyboardSettingUI(LocalizationSettingUI):
 
     @property
     def default(self) -> str:
-        return 'us'
+        return "us"
 
     def apply(self):
         super().apply()

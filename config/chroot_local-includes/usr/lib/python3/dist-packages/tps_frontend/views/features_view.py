@@ -6,8 +6,12 @@ from logging import getLogger
 import subprocess
 from typing import TYPE_CHECKING, List
 
-from tps_frontend import FEATURES_VIEW_UI_FILE, DBUS_FEATURES_PATH, \
-    DBUS_SERVICE_NAME, DBUS_FEATURE_INTERFACE
+from tps_frontend import (
+    FEATURES_VIEW_UI_FILE,
+    DBUS_FEATURES_PATH,
+    DBUS_SERVICE_NAME,
+    DBUS_FEATURE_INTERFACE,
+)
 from tps_frontend.view import View
 from tps_frontend.feature import Feature
 
@@ -17,55 +21,72 @@ if TYPE_CHECKING:
 
 logger = getLogger(__name__)
 
+
 class PersistentDirectory(Feature):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.open_button = self.builder.get_object("persistent_directory_open_button")  # type: Gtk.Button
+        self.open_button = self.builder.get_object(
+            "persistent_directory_open_button"
+        )  # type: Gtk.Button
         self.open_button.set_visible(self.switch.get_state())
 
     @property
     def widgets_to_show_while_active(self) -> List[Gtk.Widget]:
         return [self.open_button]
 
+
 class BrowserBookmarks(Feature):
     pass
+
 
 class WelcomeScreen(Feature):
     pass
 
+
 class Printers(Feature):
     pass
+
 
 class NetworkConnections(Feature):
     pass
 
+
 class TorConfiguration(Feature):
     pass
+
 
 class Electrum(Feature):
     pass
 
+
 class Thunderbird(Feature):
     pass
+
 
 class GnuPG(Feature):
     widget_name_prefix = "gnupg"
 
+
 class Pidgin(Feature):
     pass
+
 
 class SSHClient(Feature):
     pass
 
+
 class AdditionalSoftware(Feature):
     pass
+
 
 class Dotfiles(Feature):
     pass
 
+
 def get_feature_classes():
-    return [g for g in globals().values() if inspect.isclass(g)
-            and Feature in g.__bases__]
+    return [
+        g for g in globals().values() if inspect.isclass(g) and Feature in g.__bases__
+    ]
 
 
 class FeaturesView(View):
@@ -81,7 +102,7 @@ class FeaturesView(View):
             DBUS_FEATURES_PATH,
             None,
             None,
-            None
+            None,
         )  # type: Gio.DBusObjectManagerClient
         self.features = list()
 
@@ -89,23 +110,30 @@ class FeaturesView(View):
         # paths
         # noinspection PyArgumentList
         icon_theme = Gtk.IconTheme.get_default()  # type: Gtk.IconTheme
-        icon_theme.append_search_path(
-            '/usr/share/pixmaps/cryptui/48x48')
+        icon_theme.append_search_path("/usr/share/pixmaps/cryptui/48x48")
 
         # Set listbox header functions. This is required to add
         # separators between listboxrows.
-        for listbox_name in ["personal_data_list_box",
-                             "system_settings_list_box",
-                             "network_list_box",
-                             "applications_list_box",
-                             "advanced_settings_list_box"]:
+        for listbox_name in [
+            "personal_data_list_box",
+            "system_settings_list_box",
+            "network_list_box",
+            "applications_list_box",
+            "advanced_settings_list_box",
+        ]:
             listbox = self.builder.get_object(listbox_name)  # type: Gtk.ListBox
             listbox.set_header_func(self.add_separator)
 
         # Show custom features
-        self.custom_features_box = self.builder.get_object("custom_features_box")  # type: Gtk.Box
-        self.custom_features_list_box = self.builder.get_object("custom_features_list_box")  # type: Gtk.ListBox
-        dbus_objects = self.object_manager.get_objects()  # type: List[Gio.DBusObjectProxy]
+        self.custom_features_box = self.builder.get_object(
+            "custom_features_box"
+        )  # type: Gtk.Box
+        self.custom_features_list_box = self.builder.get_object(
+            "custom_features_list_box"
+        )  # type: Gtk.ListBox
+        dbus_objects = (
+            self.object_manager.get_objects()
+        )  # type: List[Gio.DBusObjectProxy]
         for obj in dbus_objects:
             path = obj.get_object_path()
             if os.path.basename(path).startswith("CustomFeature"):
@@ -113,7 +141,9 @@ class FeaturesView(View):
                 # DBusObject instead via get_interface() but for some
                 # reason that only returns None.
                 proxy = Gio.DBusProxy.new_sync(
-                    bus, Gio.DBusProxyFlags.NONE, None,
+                    bus,
+                    Gio.DBusProxyFlags.NONE,
+                    None,
                     DBUS_SERVICE_NAME,
                     path,
                     DBUS_FEATURE_INTERFACE,
@@ -124,8 +154,9 @@ class FeaturesView(View):
     def show(self):
         super().show()
         if not self.features:
-            self.features = [c(self.window, self.builder, self.bus)
-                             for c in get_feature_classes()]
+            self.features = [
+                c(self.window, self.builder, self.bus) for c in get_feature_classes()
+            ]
         # Show the change passphrase button
         self.window.change_passphrase_button.show()
         self.window.delete_button.show()
@@ -138,8 +169,7 @@ class FeaturesView(View):
         if not before:
             row.set_header(None)
         elif not row.get_header():
-            row.set_header(
-                Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
+            row.set_header(Gtk.Separator(orientation=Gtk.Orientation.HORIZONTAL))
 
     def on_persistent_directory_open_button_clicked(self, button: Gtk.Button):
         # noinspection PyArgumentList

@@ -5,11 +5,15 @@ import os
 import re
 from typing import TYPE_CHECKING, Dict, List
 
-from tps.dbus.errors import TargetIsBusyError, SymlinkSourceDirectoryError, \
-    DBusError
+from tps.dbus.errors import TargetIsBusyError, SymlinkSourceDirectoryError, DBusError
 
-from tps_frontend import _, DBUS_SERVICE_NAME, DBUS_FEATURES_PATH, \
-    DBUS_FEATURE_INTERFACE, DBUS_JOB_INTERFACE
+from tps_frontend import (
+    _,
+    DBUS_SERVICE_NAME,
+    DBUS_FEATURES_PATH,
+    DBUS_FEATURE_INTERFACE,
+    DBUS_JOB_INTERFACE,
+)
 
 if TYPE_CHECKING:
     from gi.repository import Atk
@@ -19,7 +23,6 @@ logger = logging.getLogger(__name__)
 
 
 class Feature(object):
-
     @property
     def dbus_object_name(self) -> str:
         """The name of the D-Bus object representing this feature
@@ -39,15 +42,15 @@ class Feature(object):
     def widgets_to_show_while_active(self) -> List[Gtk.Widget]:
         return list()
 
-    def __init__(self, window: "Window", builder: Gtk.Builder,
-                 bus: Gio.DBusConnection):
+    def __init__(self, window: "Window", builder: Gtk.Builder, bus: Gio.DBusConnection):
         logger.debug(f"Initializing feature {self.__class__.__name__}")
         self.window = window
         self.builder = builder
-        self.object_path = os.path.join(DBUS_FEATURES_PATH,
-                                        self.dbus_object_name)
+        self.object_path = os.path.join(DBUS_FEATURES_PATH, self.dbus_object_name)
         self.proxy = Gio.DBusProxy.new_sync(
-            bus, Gio.DBusProxyFlags.NONE, None,
+            bus,
+            Gio.DBusProxyFlags.NONE,
+            None,
             DBUS_SERVICE_NAME,
             self.object_path,
             DBUS_FEATURE_INTERFACE,
@@ -68,9 +71,10 @@ class Feature(object):
             raise RuntimeError(f"Could not find {box_name}")
 
         action_row_name = self.widget_name_prefix + "_row"
-        self.action_row = self.builder.get_object(action_row_name)  # type: Handy.ActionRow
-        self.action_row.__setattr__('original_subtitle',
-                                    self.action_row.get_subtitle())
+        self.action_row = self.builder.get_object(
+            action_row_name
+        )  # type: Handy.ActionRow
+        self.action_row.__setattr__("original_subtitle", self.action_row.get_subtitle())
         if not self.action_row:
             raise RuntimeError(f"Could not find {action_row_name}")
 
@@ -85,16 +89,18 @@ class Feature(object):
         atk = self.delete_data_button.get_accessible()  # type: Atk.Object
         # Translators: Don't translate {feature}, it's a placeholder
         # and will be replaced.
-        atk.set_name(_("Delete {feature} data").
-                     format(feature=self.translated_name))
+        atk.set_name(_("Delete {feature} data").format(feature=self.translated_name))
         self.delete_data_button.connect("clicked", self.on_delete_data_button_clicked)
-        Gtk.StyleContext.add_class(self.delete_data_button.get_style_context(),
-                                   'destructive-action')
+        Gtk.StyleContext.add_class(
+            self.delete_data_button.get_style_context(), "destructive-action"
+        )
         self.box.add(self.delete_data_button)
         self.box.reorder_child(self.delete_data_button, 0)
 
         # Change style context of the subtitle label of the HdyActionRow
-        self.subtitle_label = self.action_row.get_child().get_children()[2].get_children()[1]
+        self.subtitle_label = (
+            self.action_row.get_child().get_children()[2].get_children()[1]
+        )
         self.subtitle_style_context = self.subtitle_label.get_style_context()
         Gtk.StyleContext.add_class(self.subtitle_style_context, "caption")
         Gtk.StyleContext.remove_class(self.subtitle_style_context, "subtitle")
@@ -210,12 +216,14 @@ class Feature(object):
         # Create a cancellable that can be used to cancel the activation job
         self.cancellable = Gio.Cancellable()
 
-        self.proxy.call(method_name="Activate",
-                        parameters=None,
-                        flags=Gio.DBusCallFlags.NONE,
-                        timeout_msec=GLib.MAXINT,
-                        cancellable=self.cancellable,
-                        callback=self.on_activate_call_finished)
+        self.proxy.call(
+            method_name="Activate",
+            parameters=None,
+            flags=Gio.DBusCallFlags.NONE,
+            timeout_msec=GLib.MAXINT,
+            cancellable=self.cancellable,
+            callback=self.on_activate_call_finished,
+        )
 
     def deactivate(self):
         logger.debug(f"Deactivating feature {self.name}")
@@ -232,15 +240,16 @@ class Feature(object):
         # Create a cancellable that can be used to cancel the activation job
         self.cancellable = Gio.Cancellable()
 
-        self.proxy.call(method_name="Deactivate",
-                   parameters=None,
-                   flags=Gio.DBusCallFlags.NONE,
-                   timeout_msec=GLib.MAXINT,
-                   cancellable=self.cancellable,
-                   callback=self.on_deactivate_call_finished)
+        self.proxy.call(
+            method_name="Deactivate",
+            parameters=None,
+            flags=Gio.DBusCallFlags.NONE,
+            timeout_msec=GLib.MAXINT,
+            cancellable=self.cancellable,
+            callback=self.on_deactivate_call_finished,
+        )
 
-    def on_activate_call_finished(self, proxy: Gio.DBusProxy,
-                                  res: Gio.AsyncResult):
+    def on_activate_call_finished(self, proxy: Gio.DBusProxy, res: Gio.AsyncResult):
         self.hide_spinner()
 
         if self.dialog:
@@ -254,24 +263,30 @@ class Feature(object):
             if e.matches(Gio.io_error_quark(), Gio.IOErrorEnum.CANCELLED):
                 # The operation was cancelled by the user, so we cancel
                 # the job of the backend.
-                self.backend_job.call_sync(method_name="Cancel",
-                                           parameters=None,
-                                           flags=Gio.DBusCallFlags.NONE,
-                                           timeout_msec=-1,
-                                           cancellable=None)
+                self.backend_job.call_sync(
+                    method_name="Cancel",
+                    parameters=None,
+                    flags=Gio.DBusCallFlags.NONE,
+                    timeout_msec=-1,
+                    cancellable=None,
+                )
             elif SymlinkSourceDirectoryError.is_instance(e):
                 # The user did not create the source directory of a
                 # feature that uses symlinks.
                 # This is an expected error which we don't want error
                 # reports for.
                 SymlinkSourceDirectoryError.strip_remote_error(e)
-                self.window.display_error(_("Error activating feature {}").format(self.translated_name),
-                                          e.message,
-                                          with_send_report_button=False)
+                self.window.display_error(
+                    _("Error activating feature {}").format(self.translated_name),
+                    e.message,
+                    with_send_report_button=False,
+                )
             else:
                 DBusError.strip_remote_error(e)
-                self.window.display_error(_("Error activating feature {}").format(self.translated_name),
-                                          e.message)
+                self.window.display_error(
+                    _("Error activating feature {}").format(self.translated_name),
+                    e.message,
+                )
 
             # Ensure that the switch displays the correct state
             is_enabled = self.proxy.get_cached_property("IsEnabled").get_boolean()
@@ -283,8 +298,7 @@ class Feature(object):
 
         logger.debug(f"Feature {self.name} successfully activated")
 
-    def on_deactivate_call_finished(self, proxy: Gio.DBusProxy,
-                                  res: Gio.AsyncResult):
+    def on_deactivate_call_finished(self, proxy: Gio.DBusProxy, res: Gio.AsyncResult):
         self.hide_spinner()
 
         if self.dialog:
@@ -298,23 +312,29 @@ class Feature(object):
             if e.matches(Gio.io_error_quark(), Gio.IOErrorEnum.CANCELLED):
                 # The operation was cancelled by the user, so we cancel
                 # the job of the backend.
-                self.backend_job.call_sync(method_name="Cancel",
-                                           parameters=None,
-                                           flags=Gio.DBusCallFlags.NONE,
-                                           timeout_msec=-1,
-                                           cancellable=None)
+                self.backend_job.call_sync(
+                    method_name="Cancel",
+                    parameters=None,
+                    flags=Gio.DBusCallFlags.NONE,
+                    timeout_msec=-1,
+                    cancellable=None,
+                )
             elif TargetIsBusyError.is_instance(e):
                 # Some process is still accessing the target. This is
                 # an expected error which we don't want error reports
                 # for.
                 TargetIsBusyError.strip_remote_error(e)
-                self.window.display_error(_("Error deactivating feature {}").format(self.translated_name),
-                                          e.message,
-                                          with_send_report_button=False)
+                self.window.display_error(
+                    _("Error deactivating feature {}").format(self.translated_name),
+                    e.message,
+                    with_send_report_button=False,
+                )
             else:
                 DBusError.strip_remote_error(e)
-                self.window.display_error(_("Error deactivating feature {}").format(self.translated_name),
-                                          e.message)
+                self.window.display_error(
+                    _("Error deactivating feature {}").format(self.translated_name),
+                    e.message,
+                )
 
             # Ensure that the switch displays the correct state
             is_enabled = self.proxy.get_cached_property("IsEnabled").get_boolean()
@@ -335,12 +355,13 @@ class Feature(object):
             "Delete all the data of the {} feature that is saved in the Persistent Storage?\n\n"
             "If you cancel, the data will be restored when you turn this feature on again.",
         ).format(self.translated_name)
-        self.dialog = Gtk.MessageDialog(self.window,
-                                        Gtk.DialogFlags.MODAL | \
-                                        Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                                        Gtk.MessageType.WARNING,
-                                        Gtk.ButtonsType.NONE,
-                                        msg)
+        self.dialog = Gtk.MessageDialog(
+            self.window,
+            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+            Gtk.MessageType.WARNING,
+            Gtk.ButtonsType.NONE,
+            msg,
+        )
         self.dialog.add_button(_("Cancel"), Gtk.ResponseType.CANCEL)
         self.dialog.add_button(_("_Delete Data"), Gtk.ResponseType.OK)
         self.dialog.set_default_response(Gtk.ResponseType.CANCEL)
@@ -354,15 +375,16 @@ class Feature(object):
 
         self.show_spinner()
         self.delete_data_button.hide()
-        self.proxy.call(method_name="Delete",
-                        parameters=None,
-                        flags=Gio.DBusCallFlags.NONE,
-                        timeout_msec=GLib.MAXINT,
-                        cancellable=None,
-                        callback=self.on_delete_call_finished)
+        self.proxy.call(
+            method_name="Delete",
+            parameters=None,
+            flags=Gio.DBusCallFlags.NONE,
+            timeout_msec=GLib.MAXINT,
+            cancellable=None,
+            callback=self.on_delete_call_finished,
+        )
 
-    def on_delete_call_finished(self, proxy: Gio.DBusProxy,
-                                  res: Gio.AsyncResult):
+    def on_delete_call_finished(self, proxy: Gio.DBusProxy, res: Gio.AsyncResult):
         self.hide_spinner()
 
         try:
@@ -370,17 +392,22 @@ class Feature(object):
         except GLib.Error as e:
             DBusError.strip_remote_error(e)
             logger.error(f"Error deleting data of feature {self.name}: {e.message}")
-            self.window.display_error(_("Error deleting data of feature {}").format(self.translated_name),
-                                      e.message)
+            self.window.display_error(
+                _("Error deleting data of feature {}").format(self.translated_name),
+                e.message,
+            )
             return
         finally:
             self.refresh_ui()
 
         logger.debug(f"Data of feature {self.name} successfully deleted")
 
-    def on_properties_changed(self, proxy: Gio.DBusProxy,
-                              changed_properties: GLib.Variant,
-                              invalidated_properties: List[str]):
+    def on_properties_changed(
+        self,
+        proxy: Gio.DBusProxy,
+        changed_properties: GLib.Variant,
+        invalidated_properties: List[str],
+    ):
         logger.debug("changed properties: %s", changed_properties)
         keys = set(changed_properties.keys())
 
@@ -426,12 +453,16 @@ class Feature(object):
                 cancellable=None,
             )  # type: Gio.DBusProxy
 
-            self.backend_job.connect("g-properties-changed",
-                                     self.on_job_properties_changed)
+            self.backend_job.connect(
+                "g-properties-changed", self.on_job_properties_changed
+            )
 
-    def on_job_properties_changed(self, proxy: Gio.DBusProxy,
-                                  changed_properties: GLib.Variant,
-                                  invalidated_properties: List[str]):
+    def on_job_properties_changed(
+        self,
+        proxy: Gio.DBusProxy,
+        changed_properties: GLib.Variant,
+        invalidated_properties: List[str],
+    ):
         logger.debug("changed job properties: %s", changed_properties)
         if "ConflictingApps" in changed_properties.keys():
             apps = changed_properties["ConflictingApps"]
@@ -440,12 +471,13 @@ class Feature(object):
     def show_conflicting_apps_message(self, apps: Dict[str, List[int]]):
         msg = self.get_conflicting_apps_message(apps)
 
-        self.dialog = Gtk.MessageDialog(self.window,
-                                        Gtk.DialogFlags.MODAL | \
-                                        Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                                        Gtk.MessageType.INFO,
-                                        Gtk.ButtonsType.CANCEL,
-                                        msg)
+        self.dialog = Gtk.MessageDialog(
+            self.window,
+            Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
+            Gtk.MessageType.INFO,
+            Gtk.ButtonsType.CANCEL,
+            msg,
+        )
         result = self.dialog.run()  # type: Gtk.ResponseType
         if result == Gtk.ResponseType.CANCEL:
             self.dialog.destroy()
@@ -481,11 +513,12 @@ class Feature(object):
         finally:
             self._ignore_switch_state_change = False
 
+
 def camel_to_snake(name):
     """From https://stackoverflow.com/a/1176023
     Original authors:
     epost (https://stackoverflow.com/users/129879/epost)
     Zarathustra (https://stackoverflow.com/users/1248724/zarathustra)
     danijar (https://stackoverflow.com/users/1079110/danijar)"""
-    name = re.sub('(.)([A-Z][a-z]+)', r'\1_\2', name)
-    return re.sub('([a-z0-9])([A-Z])', r'\1_\2', name).lower()
+    name = re.sub("(.)([A-Z][a-z]+)", r"\1_\2", name)
+    return re.sub("([a-z0-9])([A-Z])", r"\1_\2", name).lower()

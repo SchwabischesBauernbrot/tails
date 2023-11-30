@@ -30,8 +30,12 @@ class ConflictingApp(object):
           process_belongs_to_app.
     """
 
-    def __init__(self, name: str, desktop_id: Optional[str] = None,
-                 process_names: Optional[List[str]] = None):
+    def __init__(
+        self,
+        name: str,
+        desktop_id: Optional[str] = None,
+        process_names: Optional[List[str]] = None,
+    ):
         self.name = name
         self.desktop_id = desktop_id
         self.process_names = process_names if process_names else []
@@ -40,8 +44,7 @@ class ConflictingApp(object):
         return process.name() in self.process_names
 
     def get_processes(self) -> List[psutil.Process]:
-        return [p for p in psutil.process_iter()
-                if self.process_belongs_to_app(p)]
+        return [p for p in psutil.process_iter() if self.process_belongs_to_app(p)]
 
     def try_get_translated_name(self):
         """Returns a translated name for the app if one can be found
@@ -51,8 +54,7 @@ class ConflictingApp(object):
             return self.name
 
         # Try to get the translated app name for the desktop ID
-        names = [app.get_name() for app in all_apps
-                 if app.get_id() == self.desktop_id]
+        names = [app.get_name() for app in all_apps if app.get_id() == self.desktop_id]
         if not names:
             return self.name
 

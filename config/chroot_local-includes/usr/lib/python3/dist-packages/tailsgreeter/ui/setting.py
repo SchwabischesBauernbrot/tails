@@ -1,46 +1,47 @@
-from typing import TYPE_CHECKING
+from typing import Optional, TYPE_CHECKING
 import gi
 
 from tailsgreeter import TRANSLATION_DOMAIN
 import tailsgreeter.config
-from tailsgreeter.ui.popover import Popover, Union
 
 if TYPE_CHECKING:
     from tailsgreeter.ui.main_window import GreeterMainWindow
+    from tailsgreeter.ui.popover import Popover
 
-gi.require_version('Gtk', '3.0')
+gi.require_version("Gtk", "3.0")
 from gi.repository import Gtk
 
 
 SETTING_UI_FILE = "setting.ui"
 
 
-class GreeterSetting(object):
+class GreeterSetting:
     """Base class of all settings in the greeter"""
+
     @property
     def id(self) -> str:
-        return str()
+        return ""
 
     @property
     def title(self) -> str:
-        return str()
+        return ""
 
     @property
     def icon_name(self) -> str:
-        return str()
+        return ""
 
     @property
     def value_for_display(self) -> str:
-        return str()
+        return ""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.accel_key = None
-        self.popover = None  # type: Union[None, Popover]
-        self.main_window = None  # type:  Union[None, GreeterMainWindow]
+        self.popover: Optional[Popover] = None
+        self.main_window: Optional[GreeterMainWindow] = None
 
         self.builder = Gtk.Builder()
         self.builder.set_translation_domain(TRANSLATION_DOMAIN)
-        self.builder.add_from_file((tailsgreeter.config.data_path + SETTING_UI_FILE))
+        self.builder.add_from_file(tailsgreeter.config.data_path + SETTING_UI_FILE)
         self.listboxrow = self.builder.get_object("listboxrow")  # type: Gtk.ListBoxRow
         image = self.builder.get_object("image")  # type: Gtk.Image
         image.set_from_icon_name(self.icon_name, Gtk.IconSize.LARGE_TOOLBAR)
@@ -49,7 +50,7 @@ class GreeterSetting(object):
         self.title_label.set_label(self.title)
 
         # Strip the underscore which marks the mnemonic
-        setting_name = self.title.replace('_', '', 1)
+        setting_name = self.title.replace("_", "", 1)
         # This is a hack to make the listboxrow usable in the Test Suite:
         # We configure a tooltip text which allows us to use it through
         # AT-SPI, but we set has_tooltip to false to not display that

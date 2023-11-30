@@ -2,8 +2,7 @@ from logging import getLogger
 from gi.repository import Gio, GLib, Gtk
 from typing import TYPE_CHECKING, List
 
-from tps_frontend import CREATION_VIEW_UI_FILE, DBUS_SERVICE_NAME, \
-    DBUS_JOB_INTERFACE
+from tps_frontend import CREATION_VIEW_UI_FILE, DBUS_SERVICE_NAME, DBUS_JOB_INTERFACE
 from tps_frontend.view import View
 
 if TYPE_CHECKING:
@@ -18,16 +17,24 @@ class CreationView(View):
     def __init__(self, window: "Window"):
         super().__init__(window)
         self.backend_job = None
-        self.status_label = self.builder.get_object("creation_status_label")  # type: Gtk.Label
-        self.progress_bar = self.builder.get_object("creation_progress_bar")  # type: Gtk.ProgressBar
+        self.status_label = self.builder.get_object(
+            "creation_status_label"
+        )  # type: Gtk.Label
+        self.progress_bar = self.builder.get_object(
+            "creation_progress_bar"
+        )  # type: Gtk.ProgressBar
 
         # Connect to properties-changed signal
-        self.window.service_proxy.connect("g-properties-changed",
-                                          self.on_properties_changed)
+        self.window.service_proxy.connect(
+            "g-properties-changed", self.on_properties_changed
+        )
 
-    def on_properties_changed(self, proxy: Gio.DBusProxy,
-                              changed_properties: GLib.Variant,
-                              invalidated_properties: List[str]):
+    def on_properties_changed(
+        self,
+        proxy: Gio.DBusProxy,
+        changed_properties: GLib.Variant,
+        invalidated_properties: List[str],
+    ):
         if not "Job" in changed_properties.keys():
             return
 
@@ -51,12 +58,14 @@ class CreationView(View):
         if progress_variant is not None:
             self.set_progress(progress_variant.get_uint32())
 
-        self.backend_job.connect("g-properties-changed",
-                                 self.on_job_properties_changed)
+        self.backend_job.connect("g-properties-changed", self.on_job_properties_changed)
 
-    def on_job_properties_changed(self, proxy: Gio.DBusProxy,
-                                  changed_properties: GLib.Variant,
-                                  invalidated_properties: List[str]):
+    def on_job_properties_changed(
+        self,
+        proxy: Gio.DBusProxy,
+        changed_properties: GLib.Variant,
+        invalidated_properties: List[str],
+    ):
         if "Status" in changed_properties.keys():
             self.set_status(changed_properties["Status"])
         if "Progress" in changed_properties.keys():

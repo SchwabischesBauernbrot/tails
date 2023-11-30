@@ -2,7 +2,7 @@ import logging
 import os.path
 import json
 import gettext
-from typing import Dict, Any, Tuple, Optional
+from typing import Any, Optional
 import copy
 
 import gi
@@ -33,7 +33,7 @@ CSS_FILE = "tca.css"
 IMG_FOOTPRINTS = "/usr/share/doc/tails/website/about/footprints.svg"
 IMG_RELAYS = "/usr/share/doc/tails/website/about/relays.svg"
 IMG_WALKIE = "/usr/share/doc/tails/website/about/walkie-talkie.svg"
-IMG_SIDE: Dict[str, str] = {
+IMG_SIDE: dict[str, str] = {
     "bridge": IMG_FOOTPRINTS,
     "hide": IMG_RELAYS,
     "connect": IMG_WALKIE,
@@ -80,8 +80,8 @@ class StepChooseHideMixin:
 
     def before_show_hide(self, coming_from):
         self.state.setdefault("hide", {})
-        first_time = self.state['hide'].get('first', True)
-        self.state['hide'].setdefault('first', False)
+        first_time = self.state["hide"].get("first", True)
+        self.state["hide"].setdefault("first", False)
 
         self.builder.get_object("radio_unnoticed_none").set_active(True)
         self.builder.get_object("radio_unnoticed_yes").set_active(False)
@@ -105,8 +105,8 @@ class StepChooseHideMixin:
         if first_time:
             log.debug("Initialize easy-bridge widget based on data+config (first run)")
             self.builder.get_object("radio_unnoticed_no_bridge").set_active(
-                    self.state["hide"].get("bridge", False)
-                    )
+                self.state["hide"].get("bridge", False)
+            )
 
     def _step_hide_next(self):
         if self.state["hide"]["bridge"]:
@@ -155,8 +155,8 @@ class StepChooseHideMixin:
 
 
 class StepChooseBridgeMixin:
-    def before_show_bridge(self, coming_from):
-        self.state["bridge"]: Dict[str, Any] = {}
+    def before_show_bridge(self, coming_from) -> None:
+        self.state["bridge"]: dict[str, Any] = {}
         self.persistence_config_failed = False
 
         self.builder.get_object("step_bridge_box").show()
@@ -294,15 +294,17 @@ class StepChooseBridgeMixin:
         self.builder.get_object("step_bridge_btn_scanqrcode").set_sensitive(scan)
         self.builder.get_object("step_bridge_label_scanresult").set_sensitive(scan)
         self.builder.get_object("step_bridge_btn_submit").set_sensitive(
-            default or (manual and self._step_bridge_is_text_valid())
-            or (scan and self.get_object('label_scanresult').get_property('visible'))
+            default
+            or (manual and self._step_bridge_is_text_valid())
+            or (scan and self.get_object("label_scanresult").get_property("visible"))
         )
 
     def cb_step_bridge_radio_changed(self, *args):
         self._step_bridge_set_actives()
-        can_persist = \
-            self.builder.get_object("step_bridge_radio_type").get_active() \
+        can_persist = (
+            self.builder.get_object("step_bridge_radio_type").get_active()
             or self.builder.get_object("step_bridge_radio_scan").get_active()
+        )
         self._step_bridge_set_persistence_sensitivity(can_persist)
 
     def cb_step_bridge_text_changed(self, *args):
@@ -365,41 +367,48 @@ class StepChooseBridgeMixin:
         # yes, the *exactly* same code is run, no matter if you are calling
         # this from "bridge" step or from "error" step
 
-        error_box = self.builder.get_object('step_bridge_box_scanerror')
-        error_label = self.builder.get_object('step_bridge_label_scanerror')
+        error_box = self.builder.get_object("step_bridge_box_scanerror")
+        error_label = self.builder.get_object("step_bridge_label_scanerror")
         error_box.hide()
-        step_called_from = self.state['step']
+        step_called_from = self.state["step"]
 
         def set_error(msg):
             error_label.set_label(msg)
             error_box.show_all()
 
         def on_qrcode_scanned(gjsonrpcclient, res, error, errordata):
-            if self.state['step'] != step_called_from:
-                log.info("QR code scanned (exitcode: %d) too late, ignoring",
-                         res.get('returncode', -1) if res else -1)
+            if self.state["step"] != step_called_from:
+                log.info(
+                    "QR code scanned (exitcode: %d) too late, ignoring",
+                    res.get("returncode", -1) if res else -1,
+                )
                 return
 
             if not res or res.get("returncode", 1) != 0:
-                set_error(_(
-                    "Failed to detect a webcam. Maybe your webcam is too old."
-                ))
+                set_error(_("Failed to detect a webcam. Maybe your webcam is too old."))
                 return
 
-            raw_content = res.get('stdout', '').strip()
+            raw_content = res.get("stdout", "").strip()
             if not raw_content:
-                # if the output is empty, we assume that the user closed the window by themself
+                # if the output is empty, we assume that the user closed the window
+                # by themself.
                 # to be really sure, we should use zbarcam --xml;
                 # however, do "empty" QR codes even exists?
-                set_error(_("Failed to scan QR code. Try with more light or closer to the camera."))
+                set_error(
+                    _(
+                        "Failed to scan QR code. Try with more light or closer to the camera."
+                    )
+                )
                 return
 
             try:
-                self.last_scanned_qrcode = TorConnectionConfig.parse_qr_content(raw_content)
+                self.last_scanned_qrcode = TorConnectionConfig.parse_qr_content(
+                    raw_content
+                )
             except Exception:
-                set_error(_(
-                    "Invalid QR code. Try sending another email and scanning again."
-                ))
+                set_error(
+                    _("Invalid QR code. Try sending another email and scanning again.")
+                )
                 return
             else:
                 self._step_bridge_set_actives()
@@ -431,6 +440,7 @@ class StepChooseBridgeMixin:
             self.state["bridge"]["kind"] = "manual"
             self.state["bridge"]["bridges"] = self.last_scanned_qrcode
 
+
 class StepConnectProgressMixin:
     def before_show_progress(self, coming_from):
         self.save_conf()
@@ -448,7 +458,9 @@ class StepConnectProgressMixin:
         self.show_connect_pbar()
         if not self.state["progress"]["success"]:
             if not self.state["hide"]["hide"]:
-                self.get_object("label_status").set_text(_("Synchronizing the system's clock…"))
+                self.get_object("label_status").set_text(
+                    _("Synchronizing the system's clock…")
+                )
                 self.app.set_time_from_network(self.cb_system_time_set_from_network)
             else:
                 self.spawn_tor_connect()
@@ -624,9 +636,9 @@ class StepConnectProgressMixin:
             status = _("Connected to Tor successfully")
 
         self.get_object("label_connected").set_text(status)
-        self.get_object("label_connected_explain").set_text(_(
-            "You can now browse the Internet anonymously and uncensored."
-        ))
+        self.get_object("label_connected_explain").set_text(
+            _("You can now browse the Internet anonymously and uncensored.")
+        )
         self.get_object("box_start").show()
 
     def cb_internet_test(self, spawn, retval):
@@ -666,7 +678,7 @@ class StepConnectProgressMixin:
 
 
 class StepErrorMixin:
-    def before_show_error(self, coming_from):
+    def before_show_error(self, coming_from) -> None:
         label_explain = self.get_object("label_explain")
 
         self.state["error"] = {
@@ -692,9 +704,8 @@ class StepErrorMixin:
             "status"
         ] == "success"
         time_sync_failure_reason = (
-                None if time_synced
-                else self.app.get_network_time_result.get('reason')
-                )
+            None if time_synced else self.app.get_network_time_result.get("reason")
+        )
 
         # Bridges are compulsory in hide mode, so the user has
         # already seen the explanation about bridges and we don't
@@ -706,7 +717,7 @@ class StepErrorMixin:
         label_explain.set_text(
             _("This local network seems to be blocking access to Tor.")
         )
-        if time_sync_failure_reason == 'captive-portal':
+        if time_sync_failure_reason == "captive-portal":
             self.get_object("box_wrong_clock").set_visible(False)
             label_explain.set_visible(True)
         else:
@@ -755,9 +766,7 @@ class StepErrorMixin:
             aware_dt = time_dialog.get_date()
             utc_dt = aware_dt.astimezone(pytz.utc)
             timestr = utc_dt.isoformat("T", "seconds")
-            self.app.portal.call_async(
-                "set-system-time", on_set_system_time, timestr
-            )
+            self.app.portal.call_async("set-system-time", on_set_system_time, timestr)
         else:
             time_dialog.destroy()
 
@@ -921,8 +930,8 @@ class TCAMainWindow(
     StepErrorMixin,
     StepProxyMixin,
 ):
-
     STEPS_ORDER = ["offline", "hide", "bridge", "proxy", "error", "progress"]
+
     # l10n {{{
     def get_translation_domain(self):
         return "tails"
@@ -931,15 +940,13 @@ class TCAMainWindow(
 
     def __init__(self, app):
         Gtk.ApplicationWindow.__init__(
-            self,
-            title=tca.config.LOCALIZED_APPLICATION_TITLE,
-            application=app
+            self, title=tca.config.LOCALIZED_APPLICATION_TITLE, application=app
         )
         self.app = app
 
-    def finish_init(self):
+    def finish_init(self) -> None:
         # self.state collects data from user interactions. Its main key is the step name
-        self.state: Dict[str, Any] = {
+        self.state: dict[str, Any] = {
             "hide": {},
             "bridge": {},
             "proxy": {},
@@ -1004,15 +1011,15 @@ class TCAMainWindow(
 
     @property
     def last_scanned_qrcode(self):
-        return self.state.get('bridges', {}).get('last_scanned_qrcode', [])
+        return self.state.get("bridges", {}).get("last_scanned_qrcode", [])
 
     @last_scanned_qrcode.setter
     def last_scanned_qrcode(self, value):
-        '''
+        """
         When setting the QR code, we're also refreshing the relevant part of the UI: step_bridge_label_scanresult
-        '''
-        self.state.setdefault('bridges', {})
-        self.state['bridges']['last_scanned_qrcode'] = value
+        """
+        self.state.setdefault("bridges", {})
+        self.state["bridges"]["last_scanned_qrcode"] = value
 
         bridge_info = value[0].split()[1]  # IP address
         bridge_type = value[0].split()[0]
@@ -1020,11 +1027,11 @@ class TCAMainWindow(
 
         label_scanresult = self.builder.get_object("step_bridge_label_scanresult")
         label_scanresult.set_text(
-                informative_message.format(
-                    bridge_info=bridge_info,
-                    bridge_type=bridge_type,
-                    )
-                )
+            informative_message.format(
+                bridge_info=bridge_info,
+                bridge_type=bridge_type,
+            )
+        )
         label_scanresult.set_property("use-markup", True)
         label_scanresult.show()
 
@@ -1032,15 +1039,14 @@ class TCAMainWindow(
         text = self.builder.get_object("step_error_text")
         text.get_buffer().set_text(content, len(content))
 
-
     @property
     def user_wants_hide(self) -> Optional[bool]:
-        '''
+        """
         If the user decided already: returns what they decided, as a boolean.
 
         Else (first screen), returns None.
-        '''
-        return self.state.get('hide', {}).get('hide', None)
+        """
+        return self.state.get("hide", {}).get("hide", None)
 
     def save_conf(self, successful_connect=False):
         log.info("Saving configuration (success=%s)", successful_connect)
@@ -1053,7 +1059,7 @@ class TCAMainWindow(
         if successful_connect:
             self.app.configurator.save_conf()
 
-    def get_screen_size(self) -> Tuple[int, int]:
+    def get_screen_size(self) -> tuple[int, int]:
         disp = Gdk.Display.get_default()
         win = self.get_window()
         mon = disp.get_monitor_at_window(win)
@@ -1078,8 +1084,7 @@ class TCAMainWindow(
         else:
             # Don't fail if the image can't be set (for example because
             # the file is not there)
-            log.error("Image file not found for step %s",
-                      self.state["step"])
+            log.error("Image file not found for step %s", self.state["step"])
         self.stack.set_visible_child_name(name)
 
         if hasattr(self, "before_show_%s" % name):
@@ -1117,8 +1122,10 @@ class TCAMainWindow(
         ]
         d.format_secondary_markup("\n".join(secondary))
         d.add_buttons(
-            _("Close and Lose Progress"), Gtk.ResponseType.YES,
-            _("Wait"), Gtk.ResponseType.NO
+            _("Close and Lose Progress"),
+            Gtk.ResponseType.YES,
+            _("Wait"),
+            Gtk.ResponseType.NO,
         )
         d.set_default_response(Gtk.ResponseType.NO)
 

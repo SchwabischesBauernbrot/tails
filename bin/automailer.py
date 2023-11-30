@@ -33,6 +33,7 @@ Supported options are:
  - thunderbird_cmd: must be a list of strings. default value is ["thunderbird"].
 """
 
+
 @lru_cache(maxsize=1)
 def read_config() -> dict:
     config_files = sorted((Path(xdg_config_home) / "tails/automailer/").glob("*.toml"))
@@ -64,7 +65,7 @@ def get_attachments(msg) -> List[str]:
     attachments: List[str] = []
 
     if "x-attach" in msg:
-        for attachment_list in msg.get_all('x-attach'):
+        for attachment_list in msg.get_all("x-attach"):
             for fpath in attachment_list.split(","):
                 fpath = fpath.strip()
                 if not fpath:
@@ -80,6 +81,7 @@ def get_attachments(msg) -> List[str]:
 def markdown_to_html(body: str) -> str:
     # Having import inside a function is a simple way of having optional dependencies
     import markdown
+
     html = markdown.markdown(body)
     return html
 
@@ -87,7 +89,7 @@ def markdown_to_html(body: str) -> str:
 def mailer_thunderbird(body: str):
     msg, body = parse(body)
     spec = []
-    html = msg.get('Content-Type', 'text/plain') == 'text/html'
+    html = msg.get("Content-Type", "text/plain") == "text/html"
     for key in ["to", "cc", "subject"]:
         if key in msg:
             spec.append(f"{key}='{msg[key]}'")
@@ -98,7 +100,7 @@ def mailer_thunderbird(body: str):
     if html:
         body = markdown_to_html(body)
 
-    thunderbird_cmd = read_config().get('thunderbird_cmd', ['thunderbird'])
+    thunderbird_cmd = read_config().get("thunderbird_cmd", ["thunderbird"])
     with tempfile.TemporaryDirectory() as tmpdir:
         fpath = Path(tmpdir) / "email.eml"
         with fpath.open("w") as fp:
@@ -122,11 +124,16 @@ def mailer_notmuch(body: str):
             cmdline.append(f"--{key}={msg[key]}")
     attachments = get_attachments(msg)
     if attachments:
-        body = "\n".join([f'<#part filename="{attachment}" '
-                          "disposition=attachment><#/part>"
-                          for attachment in attachments]) \
-                + "\n\n" \
-                + body
+        body = (
+            "\n".join(
+                [
+                    f'<#part filename="{attachment}" ' "disposition=attachment><#/part>"
+                    for attachment in attachments
+                ]
+            )
+            + "\n\n"
+            + body
+        )
 
     with tempfile.TemporaryDirectory() as tmpdir:
         fpath = Path(tmpdir) / "email.eml"
@@ -161,7 +168,7 @@ def add_parser_mailer(parser: ArgumentParser, config: dict):
 def get_parser():
     config = read_config()
     argparser = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
-    argparser.add_argument("--long-help", action='store_true', default=False)
+    argparser.add_argument("--long-help", action="store_true", default=False)
     add_parser_mailer(argparser, config)
     return argparser
 

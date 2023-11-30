@@ -4,15 +4,16 @@ from gi.repository import Gtk
 from tps_frontend import _
 
 
-def set_passphrase_strength_hint(progress_bar: Gtk.ProgressBar,
-                                 passhrase: str):
+def set_passphrase_strength_hint(progress_bar: Gtk.ProgressBar, passhrase: str):
     def get_passphrase_strength() -> float:
         # Compute passphrase strength
-        p = subprocess.run(["pwscore"],
-                           input=passhrase,
-                           stdout=subprocess.PIPE,
-                           stderr=subprocess.DEVNULL,
-                           text=True)
+        p = subprocess.run(
+            ["pwscore"],
+            input=passhrase,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.DEVNULL,
+            text=True,
+        )
         if p.returncode != 0:
             # We assume that an error return code always means that the
             # password quality check failed
@@ -28,7 +29,9 @@ def set_passphrase_strength_hint(progress_bar: Gtk.ProgressBar,
             progress_bar_style_context.remove_class(c)
         progress_bar_style_context.add_class(class_name)
 
-    progress_bar_style_context = progress_bar.get_style_context()  # type: Gtk.StyleContext
+    progress_bar_style_context = (
+        progress_bar.get_style_context()
+    )  # type: Gtk.StyleContext
 
     if len(passhrase) == 0:
         hint = ""

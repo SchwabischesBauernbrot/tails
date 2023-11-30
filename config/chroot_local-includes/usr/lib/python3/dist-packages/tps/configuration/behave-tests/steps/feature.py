@@ -9,7 +9,9 @@ from tps.service import ConfigFile, Service, State
 
 
 class MockBinding(Mock):
-    def __init__(self,  src: Union[str, Path] = None, dest: Union[str, Path] = None, **kwargs):
+    def __init__(
+        self, src: Union[str, Path] = None, dest: Union[str, Path] = None, **kwargs
+    ):
         super().__init__(**kwargs)
         self.src = src
         self.dest = dest
@@ -47,7 +49,7 @@ class TestContext(object):
     service: Service
 
 
-@given('an unlocked Persistent Storage with an empty config file')
+@given("an unlocked Persistent Storage with an empty config file")
 def step_impl(context: TestContext):
     context.service.config_file = ConfigFile(context.mount_point)
     context.service.config_file.save([])
@@ -55,7 +57,7 @@ def step_impl(context: TestContext):
     context.service.connection = Mock()
 
 
-@given('a feature with bind mounts')
+@given("a feature with bind mounts")
 def step_impl(context: TestContext):
     bind_mount_1 = MockBinding(spec=Binding, src="/src1", dest="dest1")  # type: Binding
     bind_mount_2 = MockBinding(spec=Binding, src="/src2", dest="dest2")  # type: Binding
@@ -68,14 +70,15 @@ def step_impl(context: TestContext):
     context.tps_feature = FeatureWithBindMount(context.service)
 
 
-@given('a feature with a bind mount')
+@given("a feature with a bind mount")
 def step_impl(context: TestContext):
     # We need an actual binding here instead of a mock binding because this
     # step is used in the "Deleting a feature" scenario which tests
     # Feature.Delete which checks binding.HasData after deleting the
     # source directory, so binding.HasData needs to be implemented.
-    bind_mount = Binding("src", Path(context.tmpdir, "dest"),
-                         tps_mount_point=context.mount_point)
+    bind_mount = Binding(
+        "src", Path(context.tmpdir, "dest"), tps_mount_point=context.mount_point
+    )
 
     class FeatureWithBindMount(Feature):
         Id = "FeatureWithBindMount"
@@ -86,70 +89,70 @@ def step_impl(context: TestContext):
     context.binding = bind_mount
 
 
-@given('the feature is active')
+@given("the feature is active")
 def step_impl(context: TestContext):
     context.tps_feature._is_active = True
 
 
-@given('the feature is not active')
+@given("the feature is not active")
 def step_impl(context: TestContext):
     context.tps_feature._is_active = False
 
 
-@given('the feature is enabled in the config file')
+@given("the feature is enabled in the config file")
 def step_impl(context: TestContext):
     context.service.config_file.save([context.tps_feature])
 
 
-@given('the feature is not enabled in the config file')
+@given("the feature is not enabled in the config file")
 def step_impl(context: TestContext):
     context.service.config_file.save([])
 
 
-@given('the bind mounts are active')
+@given("the bind mounts are active")
 def step_impl(context: TestContext):
     for binding in context.tps_feature.Bindings:
         binding.activate()
 
 
-@given('the bind mounts are not active')
+@given("the bind mounts are not active")
 def step_impl(context: TestContext):
     for binding in context.tps_feature.Bindings:
         binding.deactivate()
 
 
-@when('the feature is activated')
+@when("the feature is activated")
 def step_impl(context: TestContext):
     context.tps_feature.Activate()
 
 
-@when('the feature is deactivated')
+@when("the feature is deactivated")
 def step_impl(context: TestContext):
     context.tps_feature.Deactivate()
 
 
-@when('the feature is deleted')
+@when("the feature is deleted")
 def step_impl(context: TestContext):
     context.tps_feature.Delete()
 
 
-@then('the feature is active')
+@then("the feature is active")
 def step_impl(context: TestContext):
     assert context.tps_feature.IsActive
 
 
-@then('the feature is not active')
+@then("the feature is not active")
 def step_impl(context: TestContext):
     assert not context.tps_feature.IsActive
 
 
-@then('the bind mounts are active')
+@then("the bind mounts are active")
 def step_impl(context: TestContext):
     for bind_mount in context.tps_feature.Bindings:
         assert bind_mount.is_active()
 
 
-@then('the bind mounts are not active')
+@then("the bind mounts are not active")
 def step_impl(context: TestContext):
     for bind_mount in context.tps_feature.Bindings:
         assert not bind_mount.is_active()

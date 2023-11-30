@@ -21,7 +21,7 @@ import gi
 import pycountry
 from typing import TYPE_CHECKING
 
-gi.require_version('GObject', '2.0')
+gi.require_version("GObject", "2.0")
 from gi.repository import GObject
 
 if TYPE_CHECKING:
@@ -29,10 +29,9 @@ if TYPE_CHECKING:
 
 
 class LocalizationSetting(GObject.Object, object):
-
-    def __init__(self):
+    def __init__(self) -> None:
         GObject.Object.__init__(self)
-        self.value = ""
+        self.value: str = ""
         self.value_changed_by_user = False
 
     def get_value(self) -> str:
@@ -47,7 +46,7 @@ class LocalizationSetting(GObject.Object, object):
     def save(self, value: str, is_default: bool):
         pass
 
-    def load(self) -> (str, bool):
+    def load(self):
         pass
 
 
@@ -55,8 +54,7 @@ def ln_iso639_tri(ln_CC):
     """get iso639 3-letter code from a language code
 
     example: en -> eng"""
-    return pycountry.languages.get(
-            alpha2=language_from_locale(ln_CC)).terminology
+    return pycountry.languages.get(alpha2=language_from_locale(ln_CC)).terminology
 
 
 def ln_iso639_2_T_to_B(lng):
@@ -65,21 +63,21 @@ def ln_iso639_2_T_to_B(lng):
     return pycountry.languages.get(terminology=lng).bibliographic
 
 
-def language_from_locale(locale):
+def language_from_locale(locale: str) -> str:
     """Obtain the language code from a locale code
 
     example: fr_FR -> fr"""
-    return locale.split('_')[0]
+    return locale.split("_")[0]
 
 
 def country_from_locale(locale):
     """Obtain the country code from a locale code
 
     example: fr_FR -> FR"""
-    return locale.split('_')[1]
+    return locale.split("_")[1]
 
 
-def countries_from_locales(locales) -> [str]:
+def countries_from_locales(locales) -> list[str]:
     """Obtain a country code list from a locale code list
 
     example: [fr_FR, en_GB] -> [FR, GB]"""
@@ -87,7 +85,7 @@ def countries_from_locales(locales) -> [str]:
 
 
 def add_encoding(locale_code: str) -> str:
-    '''
+    """
     Given a locale_code with or without encoding, make sure the encoding is specified
-    '''
-    return locale_code if '.' in locale_code else locale_code + '.UTF-8'
+    """
+    return locale_code if "." in locale_code else locale_code + ".UTF-8"

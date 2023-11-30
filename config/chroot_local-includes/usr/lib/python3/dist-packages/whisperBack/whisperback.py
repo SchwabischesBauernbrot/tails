@@ -295,7 +295,7 @@ class WhisperBack:
         if self.bug_specific_text is None:
             prefill_extra = ""
         else:
-            prefill_extra = f"Bug-specific details: {self.bug_specific_text}\n"
+            prefill_extra = self.bug_specific_text
         body += (
             f"{self.prepended_data.rstrip()}\n"
             f"{prefill_extra}"

@@ -25,8 +25,8 @@ def get_persistence_path(return_nonexistent=False) -> str:
         return PERSISTENCE_DIR
     else:
         raise FileNotFoundError(
-            "No persistence directory found in {dir}".format(
-                dir=PERSISTENCE_DIR))
+            "No persistence directory found in {dir}".format(dir=PERSISTENCE_DIR)
+        )
 
 
 def has_persistence():
@@ -46,19 +46,24 @@ def has_unlocked_persistence():
 
 def is_tails_media_writable():
     """Return true iff tails is started from a writable media."""
-    return subprocess.run(
-        "/usr/local/lib/tails-boot-device-can-have-persistence"
-    ).returncode == 0
+    return (
+        subprocess.run(
+            "/usr/local/lib/tails-boot-device-can-have-persistence"
+        ).returncode
+        == 0
+    )
 
 
 def spawn_tps_frontend(*args):
     """Launch tps-frontend, don't wait for its completion."""
-    start_as_transient_user_scope_unit("/usr/local/bin/tails-persistent-storage",
-                                       *args)
+    start_as_transient_user_scope_unit("/usr/local/bin/tails-persistent-storage", *args)
 
 
 def additional_software_persistence_feature_is_active() -> bool:
     """Return True iff the AdditionalSoftware feature is active."""
-    return subprocess.run(
-        ["/usr/local/lib/tpscli", "is-active", "AdditionalSoftware"]
-    ).returncode == 0
+    return (
+        subprocess.run(
+            ["/usr/local/lib/tpscli", "is-active", "AdditionalSoftware"]
+        ).returncode
+        == 0
+    )

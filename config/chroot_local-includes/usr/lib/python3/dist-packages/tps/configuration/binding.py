@@ -10,22 +10,30 @@ from tailslib import LIVE_USERNAME, LIVE_USER_UID
 import tps.logging
 from tps import _, TPS_MOUNT_POINT
 from tps import executil
-from tps.mountutil import mount, MOUNTFLAG_BIND, MOUNTFLAG_NOSYMFOLLOW, \
-    MOUNTFLAG_REMOUNT
+from tps.mountutil import (
+    mount,
+    MOUNTFLAG_BIND,
+    MOUNTFLAG_NOSYMFOLLOW,
+    MOUNTFLAG_REMOUNT,
+)
 from tps.dbus.errors import TargetIsBusyError
 
 logger = tps.logging.get_logger(__name__)
 
 NOSYMFOLLOW_MOUNTPOINT = "/run/nosymfollow"
 
+
 class FailedPrecondition(Exception):
     pass
+
 
 class InvalidBindingError(Exception):
     pass
 
+
 class IsActiveException(Exception):
     pass
+
 
 class IsInactiveException(Exception):
     pass
@@ -57,12 +65,17 @@ class Binding(object):
     any  other files in DIR. These files must be manually added to the source directory to
     make use of this option, and they will appear in DIR  in  addition  to  files  already
     there.  This  option  is useful when only certain files need to be persistent, not the
-    whole directory they're in, e.g. some configuration files in a user's home directory."""
+    whole directory they're in, e.g. some configuration files in a user's home directory.
+    """
 
-    def __init__(self, src: Union[str, Path], dest: Union[str, Path],
-                 is_file=False, uses_symlinks=False,
-                 tps_mount_point: str = TPS_MOUNT_POINT):
-
+    def __init__(
+        self,
+        src: Union[str, Path],
+        dest: Union[str, Path],
+        is_file=False,
+        uses_symlinks=False,
+        tps_mount_point: str = TPS_MOUNT_POINT,
+    ):
         self.tps_mount_point = Path(tps_mount_point)
 
         # If the source is not an absolute path, we make it an absolute
@@ -90,24 +103,26 @@ class Binding(object):
         # bind-mount we created at NOSYMFOLLOW_MOUNTPOINT with the
         # nosymfollow option (see
         # config/chroot_local-includes/usr/local/lib/persistent-storage/pre-start)
-        self.tps_mount_point = Path(self.nosymfollow_mountpoint +
-                                    str(tps_mount_point))
+        self.tps_mount_point = Path(self.nosymfollow_mountpoint + str(tps_mount_point))
         self.dest = Path(self.nosymfollow_mountpoint + str(self.dest))
         self.src = Path(self.nosymfollow_mountpoint + str(self.src))
 
         try:
-            self._relative_src = \
-                self.src.relative_to(self.tps_mount_point)
+            self._relative_src = self.src.relative_to(self.tps_mount_point)
         except ValueError:
-            raise InvalidBindingError(f"Binding source {self.src} is outside of "
-                                    f"the Persistent Storage mount point "
-                                    f"{self.tps_mount_point}")
+            raise InvalidBindingError(
+                f"Binding source {self.src} is outside of "
+                f"the Persistent Storage mount point "
+                f"{self.tps_mount_point}"
+            )
 
         # Check that the binding's source is below the Persistent Storage
         # mount point
         if self.tps_mount_point not in self.src.parents:
-            raise InvalidBindingError(f"Binding's source is outside of the "
-                                    f"Persistent Storage mount point: {self}")
+            raise InvalidBindingError(
+                f"Binding's source is outside of the "
+                f"Persistent Storage mount point: {self}"
+            )
 
     def __str__(self):
         """The string representation of a binding."""
@@ -117,8 +132,8 @@ class Binding(object):
         """
         Representation of this binding as a persistence.conf line
         """
-        options = ','.join(shlex.quote(option) for option in self.options)
-        return shlex.quote(str(self.dest_orig)) + '\t' + options
+        options = ",".join(shlex.quote(option) for option in self.options)
+        return shlex.quote(str(self.dest_orig)) + "\t" + options
 
     def __repr__(self):
         return "%s(%r)" % (self.__class__, self.__dict__)
@@ -144,7 +159,7 @@ class Binding(object):
             # The destination doesn't match
             return False
 
-        options = set(elements[1].split(','))
+        options = set(elements[1].split(","))
         if options != set(self.options):
             # The options don't match
             return False
@@ -177,8 +192,9 @@ class Binding(object):
                 return False
             if any(d.name != "Tor Browser" for d in self.src.iterdir()):
                 return True
-            return Path(self.src, "Tor Browser").exists() and \
-                any(Path(self.src, "Tor Browser").iterdir())
+            return Path(self.src, "Tor Browser").exists() and any(
+                Path(self.src, "Tor Browser").iterdir()
+            )
 
         return self.src.exists() and any(self.src.iterdir())
 
@@ -321,8 +337,10 @@ class Binding(object):
         # remounts the mount point below the nosymfollow mountpoint
         # (self.dest) not the actual destination (self.dest_orig).
         logger.debug(f"Executing: mount -o remount,nosymfollow {self.dest}")
-        mount(src="", dest=self.dest,
-              flags=MOUNTFLAG_REMOUNT | MOUNTFLAG_NOSYMFOLLOW,
+        mount(
+            src="",
+            dest=self.dest,
+            flags=MOUNTFLAG_REMOUNT | MOUNTFLAG_NOSYMFOLLOW,
         )
 
         # Hide the mount point from the desktop environment, to avoid
@@ -395,8 +413,9 @@ class Binding(object):
     def _deactivate_using_bind_mount(self):
         # Unmount the destination directory
         try:
-            executil.run(["umount", self.dest], check=True, text=True,
-                         stderr=subprocess.PIPE)
+            executil.run(
+                ["umount", self.dest], check=True, text=True, stderr=subprocess.PIPE
+            )
         except subprocess.CalledProcessError as e:
             # Print the subprocess stderr
             print(e.stderr, file=sys.stderr)
@@ -434,11 +453,15 @@ class Binding(object):
     def _check_is_active_using_symlinks(self):
         if not self.src.exists():
             # If the source doesn't exist, the feature can't be active.
-            raise IsInactiveException(f"Binding {self.dest} is inactive: Symlink source {self.src} does not exist")
+            raise IsInactiveException(
+                f"Binding {self.dest} is inactive: Symlink source {self.src} does not exist"
+            )
 
         if not self.dest.is_symlink() and not self.dest.exists():
             # If the destination doesn't exist, the feature can't be active.
-            raise IsInactiveException(f"Binding {self.dest} is inactive: Destination {self.dest} does not exist")
+            raise IsInactiveException(
+                f"Binding {self.dest} is inactive: Destination {self.dest} does not exist"
+            )
 
         for dir, _, files in os.walk(self.src):
             dest_dir = os.path.join(self.dest, os.path.relpath(dir, self.src))
@@ -446,16 +469,21 @@ class Binding(object):
                 src = Path(dir, f)
                 dest = Path(dest_dir, f)
                 if not dest.is_symlink():
-                    raise IsInactiveException(f"Binding {self.dest} is inactive: Symlink {dest} does not exist")
+                    raise IsInactiveException(
+                        f"Binding {self.dest} is inactive: Symlink {dest} does not exist"
+                    )
                 if dest.readlink() != src:
                     raise IsInactiveException(
-                        f"Binding {self.dest} is inactive: Symlink {dest} does not resolve to the symlink source {src} but to {dest.resolve()}")
+                        f"Binding {self.dest} is inactive: Symlink {dest} does not resolve to the symlink source {src} but to {dest.resolve()}"
+                    )
 
     def _check_is_active_using_bind_mount(self):
         # Check if the Persistent Storage cleartext device is already
         # mounted on the destination
         if not _is_mountpoint(self.dest):
-            raise IsInactiveException(f"Binding {self.dest} is inactive: {self.dest} it not a mountpoint")
+            raise IsInactiveException(
+                f"Binding {self.dest} is inactive: {self.dest} it not a mountpoint"
+            )
 
     def _create_dest_directory(self, path: Path):
         """Create the destination directory of a binding in the same way as
@@ -469,10 +497,11 @@ class Binding(object):
                 # Delete existing files that are in the way
                 p.unlink()
             p.mkdir(mode=0o700, parents=True, exist_ok=True)
-            if Path(f"{self.nosymfollow_mountpoint}/home/{LIVE_USERNAME}") in \
-                    p.parents:
-                logger.debug(f"Changing owner of binding destination {path} to "
-                             f"UID {LIVE_USER_UID}")
+            if Path(f"{self.nosymfollow_mountpoint}/home/{LIVE_USERNAME}") in p.parents:
+                logger.debug(
+                    f"Changing owner of binding destination {path} to "
+                    f"UID {LIVE_USER_UID}"
+                )
                 # If dest is in /home/amnesia, set ownership to the amnesia
                 # user.
                 os.chown(p, LIVE_USER_UID, LIVE_USER_UID)
@@ -481,8 +510,14 @@ class Binding(object):
 def _what_is_mounted_on(path: Union[str, Path]) -> Optional[str]:
     try:
         output = executil.check_output(
-            ["findmnt", "--output=SOURCE", "--noheadings", "--notruncate",
-             "--canonicalize", f"--mountpoint={path}"],
+            [
+                "findmnt",
+                "--output=SOURCE",
+                "--noheadings",
+                "--notruncate",
+                "--canonicalize",
+                f"--mountpoint={path}",
+            ],
         )
     except subprocess.CalledProcessError:
         # We assume that any non-zero exit code means that no mount was

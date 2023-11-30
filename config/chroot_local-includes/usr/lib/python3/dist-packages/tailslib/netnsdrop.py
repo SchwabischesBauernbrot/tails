@@ -29,14 +29,24 @@ def run_in_netns(*args, netns, root="/", bind_mounts=None):
         bwrap += ["--bind", src, dest]
 
     bwrap += [
-        "--bind", A11Y_BUS_PROXY_PATH, A11Y_BUS_SANDBOX_PATH,
-        "--bind", IBUS_PROXY_PATH, IBUS_SANDBOX_PATH,
-        "--setenv", "AT_SPI_BUS_ADDRESS", f"unix:path={A11Y_BUS_SANDBOX_PATH}",
-        "--setenv", "IBUS_ADDRESS", f"unix:path={IBUS_SANDBOX_PATH}",
+        "--bind",
+        A11Y_BUS_PROXY_PATH,
+        A11Y_BUS_SANDBOX_PATH,
+        "--bind",
+        IBUS_PROXY_PATH,
+        IBUS_SANDBOX_PATH,
+        "--setenv",
+        "AT_SPI_BUS_ADDRESS",
+        f"unix:path={A11Y_BUS_SANDBOX_PATH}",
+        "--setenv",
+        "IBUS_ADDRESS",
+        f"unix:path={IBUS_SANDBOX_PATH}",
         # TODO: This has nothing to do with network namespaces and we
         #       should set it in the caller instead, but that's not
         #       supported currently.
-        "--setenv", "TOR_CONTROL_PORT", "951",
+        "--setenv",
+        "TOR_CONTROL_PORT",
+        "951",
     ]
 
     # We run the command with several wrappers to accomplish our privilege-isolation-magic:
@@ -48,11 +58,18 @@ def run_in_netns(*args, netns, root="/", bind_mounts=None):
     # run-with-user-env: Set the user environment variables, see userenv.py
     #                    and tails-dump-user-env.service.
     cmd = [
-        "ip", "netns", "exec", netns,
-        "/sbin/runuser", "-u", LIVE_USERNAME, "--",
-        *bwrap, "--",
+        "ip",
+        "netns",
+        "exec",
+        netns,
+        "/sbin/runuser",
+        "-u",
+        LIVE_USERNAME,
+        "--",
+        *bwrap,
+        "--",
         "/usr/local/lib/run-with-user-env",
-        *args
+        *args,
     ]
     logging.info("Running %s", cmd)
     os.execvp(cmd[0], cmd)
