@@ -78,7 +78,7 @@ class ProgressThread(threading.Thread):
         self.drive = drive
         self.get_free_bytes = freebytes
         self.orig_free = self.get_free_bytes()
-    
+
     def set_tps_data(self, size):
         self.tps_totalsize = size
 
