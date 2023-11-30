@@ -205,7 +205,6 @@ class TailsInstallerThread(threading.Thread):
             self.set_max_progress(float(1))
             self.update_progress(1)
 
-
             self.progress.stop()
 
             # Flush all filesystem buffers and unmount
