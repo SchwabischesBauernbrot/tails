@@ -21,21 +21,28 @@ sys.path.insert(0, os.path.join(SCRIPT_DIR, "..", ".."))
 # we don't need it here and it may not be running.
 os.environ["NO_UDISKS"] = "1"
 
-from tps.configuration.config_file import ConfigFile, InvalidStatError  # noqa: E402,E501
+from tps.configuration.config_file import (
+    ConfigFile,
+    InvalidStatError,
+)  # noqa: E402,E501
 from tps.configuration.binding import Binding  # noqa: E402
 
 logging.basicConfig(level=logging.DEBUG)
 
 test_features = [
-    Mock(Bindings=[
-        Binding("foo", "/dest/foo"),
-        Binding("bar", "/dest/bar"),
-        Binding("dotfiles", "/dest", uses_symlinks=True)
-    ]),
-    Mock(Bindings=[
-        Binding("foo", "/dest/foo"),
-        Binding("bla bla", "/dest/bla bla"),
-    ]),
+    Mock(
+        Bindings=[
+            Binding("foo", "/dest/foo"),
+            Binding("bar", "/dest/bar"),
+            Binding("dotfiles", "/dest", uses_symlinks=True),
+        ]
+    ),
+    Mock(
+        Bindings=[
+            Binding("foo", "/dest/foo"),
+            Binding("bla bla", "/dest/bla bla"),
+        ]
+    ),
 ]
 
 
@@ -146,7 +153,6 @@ class TestCheckFileStat(ConfigFileTestCase):
         with self.assertRaises(InvalidStatError):
             self.config_file.check_file_stat()
 
-
     def test_invalid_acl(self):
         self.create_valid_config_file()
 
@@ -180,8 +186,8 @@ class TestDisableAndCreateEmpty(ConfigFileTestCase):
         # Check if an empty file was created
         self.assert_empty_file()
 
-class TestContains(ConfigFileTestCase):
 
+class TestContains(ConfigFileTestCase):
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -195,8 +201,7 @@ class TestContains(ConfigFileTestCase):
         self.path.write_text(content)
 
         # Assert that the config file contains all the expected features
-        self.assertTrue(all(self.config_file.contains(feature)
-                            for feature in features))
+        self.assertTrue(all(self.config_file.contains(feature) for feature in features))
 
     def test_feature_1(self):
         # Check that test feature 1 can be extracted
@@ -206,7 +211,7 @@ class TestContains(ConfigFileTestCase):
             /dest/bar source=bar
             /dest    source=dotfiles,link
             """,
-            test_features[0]
+            test_features[0],
         )
 
     def test_feature_1_reordered(self):
@@ -217,7 +222,7 @@ class TestContains(ConfigFileTestCase):
             /dest    link,source=dotfiles
             /dest/foo source=foo
             """,
-            test_features[0]
+            test_features[0],
         )
 
     def test_feature_2(self):
@@ -227,7 +232,7 @@ class TestContains(ConfigFileTestCase):
             /dest/bla\ bla source=bla\ bla
             /dest/foo source=foo
             """,
-            test_features[1]
+            test_features[1],
         )
 
     def test_feature_1_and_2(self):
@@ -239,7 +244,7 @@ class TestContains(ConfigFileTestCase):
             /dest/bla\ bla source=bla\ bla
             /dest    link,source=dotfiles
             """,
-            [test_features[0], test_features[1]]
+            [test_features[0], test_features[1]],
         )
 
     def test_feature_1_incomplete(self):
@@ -256,7 +261,6 @@ class TestContains(ConfigFileTestCase):
 
 
 class TestParse(ConfigFileTestCase):
-
     @classmethod
     def setUpClass(cls):
         super().setUpClass()
@@ -275,7 +279,7 @@ class TestParse(ConfigFileTestCase):
         self.path.write_text(content)
 
         # Parse bindings
-        parsed  = self.config_file.parse()
+        parsed = self.config_file.parse()
 
         # Assert that the expected bindings were extracted
         self.assertEqual(set(bindings), set(parsed))
@@ -288,7 +292,7 @@ class TestParse(ConfigFileTestCase):
             /dest/bar source=bar
             /dest    source=dotfiles,link
             """,
-            test_features[0]
+            test_features[0],
         )
 
     def test_feature_2(self):
@@ -298,7 +302,7 @@ class TestParse(ConfigFileTestCase):
             /dest/bla\ bla source=bla\ bla
             /dest/foo source=foo
             """,
-            test_features[1]
+            test_features[1],
         )
 
     def test_feature_1_and_2(self):
@@ -310,7 +314,7 @@ class TestParse(ConfigFileTestCase):
             /dest/bla\ bla source=bla\ bla
             /dest    link,source=dotfiles
             """,
-            [test_features[0], test_features[1]]
+            [test_features[0], test_features[1]],
         )
 
 
@@ -358,7 +362,7 @@ class TestSave(ConfigFileTestCase):
         self.assert_extracts_features(test_features[1])
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     # We set the module name explicitly to be able to run the tests
     # with `trace`, see https://stackoverflow.com/a/25300465.
     unittest.main("config_file_test", failfast=True, buffer=True)

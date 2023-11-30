@@ -182,7 +182,7 @@ class TorConnectionConfig:
         self.proxy: TorConnectionProxy = proxy
 
     def bridge_line_is_simple(self, line):
-        if line.split()[0].lower() == 'bridge':
+        if line.split()[0].lower() == "bridge":
             return True
         try:
             ipaddress.ip_address(line.split(":")[0])
@@ -320,12 +320,12 @@ class TorConnectionConfig:
             # " was never used in bridge lines, so we can parse them as
             # JSON even though they are Python.
             try:
-                lines = json.loads(bridge_strings.replace('\'', '"'))
+                lines = json.loads(bridge_strings.replace("'", '"'))
             except json.decoder.JSONDecodeError:
                 raise ValueError("Not a valid QR code")
         else:
             # "New" format: strings separated by \n
-            lines = bridge_strings.split('\n')
+            lines = bridge_strings.split("\n")
         # TODO: implement bridge:// URIs when they will be used
         return cls.parse_bridge_lines(lines)
 
@@ -364,8 +364,8 @@ class TorConnectionConfig:
 
     @classmethod
     def load_from_tor_stem(
-            cls,
-            stem_controller: Controller,
+        cls,
+        stem_controller: Controller,
     ):
         bridges: List[str] = []
         if stem_controller.get_conf("UseBridges") != "0":
@@ -412,8 +412,9 @@ class TorConnectionConfig:
             "bridges": self.bridges,
             "proxy": self.proxy.to_dict() if self.proxy is not None else None,
         }
-        if not include_default_bridges and \
-           set(data.get("bridges", [])) == set(self.get_default_bridges()):
+        if not include_default_bridges and set(data.get("bridges", [])) == set(
+            self.get_default_bridges()
+        ):
             data["bridges"] = []
         return data
 
@@ -432,16 +433,20 @@ class TorConnectionConfig:
         """
         Returns True iff. we can enable Tor's Sandbox configuration option.
         """
-        return (not self.bridges
-                or all([self.bridge_line_is_simple(b) for b in self.bridges]))
+        return not self.bridges or all(
+            [self.bridge_line_is_simple(b) for b in self.bridges]
+        )
 
 
 class TorLauncherUtils:
-    def __init__(self, stem_controller: Controller,
-                 read_config_fn: AsyncCallback,
-                 write_config_fn: AsyncCallback,
-                 state_buf,
-                 set_tor_sandbox_fn: AsyncCallback):
+    def __init__(
+        self,
+        stem_controller: Controller,
+        read_config_fn: AsyncCallback,
+        write_config_fn: AsyncCallback,
+        state_buf,
+        set_tor_sandbox_fn: AsyncCallback,
+    ):
         """
         Arguments:
         stem_controller -- an already connected and authorized stem Controller
@@ -533,6 +538,8 @@ class TorLauncherUtils:
         Rationale: Tor's Sandbox conf needs special care since this value
         cannot be changed at runtime, only through torrc and a tor restart.
         """
+        if self.tor_connection_config is None:
+            raise NotImplementedError
         tor_conf = self.tor_connection_config.to_tor_conf()
         log.debug("applying TorConf: %s", tor_conf)
         self.stem_controller.set_options(tor_conf)
@@ -577,13 +584,13 @@ class TorLauncherUtils:
         return progress
 
     def tor_has_bootstrapped(self) -> bool:
-        resp = self.stem_controller.get_info('status/circuit-established')
+        resp = self.stem_controller.get_info("status/circuit-established")
         if resp is None:
-            log.warn('No response from Controlport')
+            log.warn("No response from Controlport")
             return False
-        if resp == '1':
+        if resp == "1":
             return True
-        if resp == '0':
+        if resp == "0":
             return False
         log.warn("Unexpected reply to enough-dir-info: %s", str(resp))
         return False
@@ -635,7 +642,7 @@ class TorLauncherNetworkUtils:
 def backoff_wait(
     total_wait: float = 30.0, initial_sleep: float = 0.5, increment=lambda x: x + 0.5
 ):
-    total_sleep = 0
+    total_sleep: float = 0
     sleep_time = initial_sleep
     while total_sleep < total_wait:
         time.sleep(sleep_time)

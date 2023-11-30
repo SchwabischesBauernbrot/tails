@@ -13,14 +13,15 @@ from gi.repository import GLib
 
 
 class TailsError(Exception):
-    """ A generic Exception the allows us to manage error
-        messages encoded in unicode """
+    """A generic Exception the allows us to manage error
+    messages encoded in unicode"""
+
     def __init__(self, message):
         super(TailsError, self).__init__(message)
 
 
-def _to_unicode(obj, encoding='utf-8'):
-    if hasattr(obj, 'toUtf8'):  # PyQt4.QtCore.QString
+def _to_unicode(obj, encoding="utf-8"):
+    if hasattr(obj, "toUtf8"):  # PyQt4.QtCore.QString
         obj = str(obj.toUtf8())
     if isinstance(obj, str):
         if not isinstance(obj, str):
@@ -30,40 +31,44 @@ def _to_unicode(obj, encoding='utf-8'):
 
 def bytes_to_unicode(string):
     if isinstance(string, bytes):
-        return string.decode('utf-8')
+        return string.decode("utf-8")
     return string
 
 
 def unicode_to_filesystemencoding(string):
     if isinstance(string, bytes):
-        return string.decode(sys.getfilesystemencoding(), 'replace')
+        return string.decode(sys.getfilesystemencoding(), "replace")
     return string
 
 
 def extract_file_content_from_iso(iso_path, path):
-    """ Return the content of that file read from inside self.iso """
+    """Return the content of that file read from inside self.iso"""
 
-    cmd = ['isoinfo', '-R', '-i', bytes_to_unicode(iso_path),
-           '-x', bytes_to_unicode(path)]
+    cmd = [
+        "isoinfo",
+        "-R",
+        "-i",
+        bytes_to_unicode(iso_path),
+        "-x",
+        bytes_to_unicode(path),
+    ]
 
     proc = subprocess.Popen(cmd, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
     out, err = proc.communicate()
     out = bytes_to_unicode(out)
     err = bytes_to_unicode(err)
     if proc.returncode:
-        raise Exception(_("There was a problem executing `%(cmd)s`."
-                          "%(out)s\n%(err)s") % {
-                              'cmd': cmd,
-                              'out': out,
-                              'err': err
-                          })
+        raise Exception(
+            _("There was a problem executing `%(cmd)s`." "%(out)s\n%(err)s")
+            % {"cmd": cmd, "out": out, "err": err}
+        )
     return out
 
 
 def iso_is_live_system(iso_path):
-    """ Return true iff a Live system is detected inside the iso_path file """
-    version = extract_file_content_from_iso(iso_path, '/.disk/info')
-    return version.startswith('Debian GNU/Linux')
+    """Return true iff a Live system is detected inside the iso_path file"""
+    version = extract_file_content_from_iso(iso_path, "/.disk/info")
+    return version.startswith("Debian GNU/Linux")
 
 
 def _dir_size(source):
@@ -88,11 +93,12 @@ def _unlink_if_exists(path):
 
 
 def underlying_physical_device(path):
-    """ Returns the physical block device UDI on which the specified file is
+    """Returns the physical block device UDI on which the specified file is
     stored (e.g. /org/freedesktop/UDisks2/block_devices/sdb).
     """
     rawdev = os.stat(path)[stat.ST_DEV]
     from gi.repository import UDisks
+
     udisksclient = UDisks.Client.new_sync()
     block = udisksclient.get_block_for_dev(rawdev)
     drive = udisksclient.get_drive_for_block(block)
@@ -101,7 +107,7 @@ def underlying_physical_device(path):
 
 
 def _format_bytes_in_gb(value):
-    return '%0.1f GB' % (value / 10.0**9)
+    return "%0.1f GB" % (value / 10.0**9)
 
 
 def mebibytes_to_bytes(size_in_mebibytes):
@@ -110,29 +116,31 @@ def mebibytes_to_bytes(size_in_mebibytes):
 
 def _get_datadir():
     script_path = os.path.abspath(sys.argv[0])
-    if not script_path.startswith('/usr/'):
-        if os.path.exists('data/tails-installer.ui'):
-            return('data')
+    if not script_path.startswith("/usr/"):
+        if os.path.exists("data/tails-installer.ui"):
+            return "data"
     else:
-        return('/usr/share/tails-installer')
+        return "/usr/share/tails-installer"
+
 
 def get_open_write_fd(block):
-    """ @returns the file descriptor for a block """
+    """@returns the file descriptor for a block"""
     (fd_index, fd_list) = block.call_open_for_restore_sync(
-        arg_options=GLib.Variant('a{sv}', None)
+        arg_options=GLib.Variant("a{sv}", None)
     )
     file_desc = fd_list.get(fd_index.get_handle())
     if file_desc == -1:
-        raise Exception(_('Could not open device for writing.'))
+        raise Exception(_("Could not open device for writing."))
     return file_desc
 
 
 def write_to_block_device(block, string):
-    """ Writes a string to a block """
+    """Writes a string to a block"""
     file_desc = get_open_write_fd(block)
     os.write(file_desc, string)
     os.fsync(file_desc)
     os.close(file_desc)
+
 
 def _set_liberal_perms_recursive(path):
     if os.path.isfile(path):

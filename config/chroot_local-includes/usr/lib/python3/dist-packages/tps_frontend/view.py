@@ -7,6 +7,7 @@ from tps_frontend import TRANSLATION_DOMAIN
 if TYPE_CHECKING:
     from tps_frontend.window import Window
 
+
 class View(object, metaclass=ABCMeta):
     @property
     @abstractmethod

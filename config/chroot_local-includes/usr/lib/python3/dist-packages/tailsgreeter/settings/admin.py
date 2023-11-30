@@ -24,17 +24,20 @@ class AdminSetting(object):
         )
         hashed_and_salted_pw = proc.stdout.decode().strip()
 
-        write_settings(self.settings_file, {
-            'TAILS_USER_PASSWORD': hashed_and_salted_pw,
-            'TAILS_PASSWORD_HASH_FUNCTION': 'SHA512',
-        })
-        logging.debug('password written to %s', self.settings_file)
+        write_settings(
+            self.settings_file,
+            {
+                "TAILS_USER_PASSWORD": hashed_and_salted_pw,
+                "TAILS_PASSWORD_HASH_FUNCTION": "SHA512",
+            },
+        )
+        logging.debug("password written to %s", self.settings_file)
 
     def delete(self):
         # Try to remove the password file
         try:
             os.unlink(self.settings_file)
-            logging.debug('removed %s', self.settings_file)
+            logging.debug("removed %s", self.settings_file)
         except OSError:
             # It's bad if the file exists and couldn't be removed, so we
             # we raise the exception in that case
@@ -46,10 +49,16 @@ class AdminSetting(object):
         try:
             settings = read_settings(self.settings_file)
         except FileNotFoundError:
-            raise SettingNotFoundError("No persistent admin settings file found (path: %s)" % self.settings_file)
+            raise SettingNotFoundError(
+                "No persistent admin settings file found (path: %s)"
+                % self.settings_file
+            )
 
-        hashed_and_salted_pw = settings.get('TAILS_USER_PASSWORD')
+        hashed_and_salted_pw = settings.get("TAILS_USER_PASSWORD")
         if hashed_and_salted_pw is None:
-            raise SettingNotFoundError("No admin password setting found in settings file (path: %s)" % self.settings_file)
+            raise SettingNotFoundError(
+                "No admin password setting found in settings file (path: %s)"
+                % self.settings_file
+            )
 
         return hashed_and_salted_pw

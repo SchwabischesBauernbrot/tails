@@ -20,8 +20,12 @@ sys.path.insert(0, os.path.join(SCRIPT_DIR, "..", "..", ".."))
 from tps import executil
 from tps.service import Service
 from tps.configuration.binding import Binding
-from tps.mountutil import mount, MOUNTFLAG_NOSYMFOLLOW, \
-    MOUNTFLAG_BIND, MOUNTFLAG_REMOUNT
+from tps.mountutil import (
+    mount,
+    MOUNTFLAG_NOSYMFOLLOW,
+    MOUNTFLAG_BIND,
+    MOUNTFLAG_REMOUNT,
+)
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -66,15 +70,20 @@ def before_feature(context: EnvironmentContext, feature: Feature):
     context.device_backing_file = f.name
 
     # Extend the file to 2MB
-    f.truncate(2*1024**2)
+    f.truncate(2 * 1024**2)
 
     # Format it as ext4
     executil.check_call(["mkfs.ext4", f.name])
 
     # Associate a loop device with it
-    context.device = executil.check_output([
-        "losetup", "--find", "--show", f.name,
-    ]).strip()
+    context.device = executil.check_output(
+        [
+            "losetup",
+            "--find",
+            "--show",
+            f.name,
+        ]
+    ).strip()
 
     # Mount the loop device
     context.mount_point = mkdtemp(prefix="TailsData-", dir="/var/cache")
@@ -195,7 +204,8 @@ def before_all(context):
     Path(NOSYMFOLLOW_MOUNTPOINT).mkdir(exist_ok=True)
     mount(src="/", dest=NOSYMFOLLOW_MOUNTPOINT, flags=MOUNTFLAG_BIND)
     mount(
-        src="", dest=NOSYMFOLLOW_MOUNTPOINT,
+        src="",
+        dest=NOSYMFOLLOW_MOUNTPOINT,
         flags=MOUNTFLAG_REMOUNT | MOUNTFLAG_NOSYMFOLLOW,
     )
 
@@ -210,4 +220,5 @@ def after_step(context, step):
         # -- ENTER DEBUGGER: Zoom in on failure location.
         # NOTE: Use IPython debugger, same for pdb (basic python debugger).
         import ipdb
+
         ipdb.post_mortem(step.exc_traceback)

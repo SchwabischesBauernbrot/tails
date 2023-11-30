@@ -29,8 +29,13 @@ class PassphraseDialog(Gtk.Dialog):
     verify_hint_box = Gtk.Template.Child()  # type: Gtk.Box
     passphrase_hint_progress_bar = Gtk.Template.Child()  # type: Gtk.ProgressBar
 
-    def __init__(self, parent: "TailsInstallerWindow", creator: "TailsInstallerCreator",
-                 *args, **kwargs):
+    def __init__(
+        self,
+        parent: "TailsInstallerWindow",
+        creator: "TailsInstallerCreator",
+        *args,
+        **kwargs,
+    ):
         super().__init__(use_header_bar=1, *args, **kwargs)
         self.parent = parent
         self.live = creator
@@ -46,9 +51,9 @@ class PassphraseDialog(Gtk.Dialog):
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),
             style_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
         )
-        set_passphrase_strength_hint(self.passphrase_hint_progress_bar, '')
+        set_passphrase_strength_hint(self.passphrase_hint_progress_bar, "")
 
     def run(self):
         self.passphrase_entry.grab_focus()
@@ -74,8 +79,7 @@ class PassphraseDialog(Gtk.Dialog):
     @Gtk.Template.Callback()
     def on_passphrase_entry_changed(self, entry: Gtk.Entry):
         passphrase = entry.get_text()
-        set_passphrase_strength_hint(self.passphrase_hint_progress_bar,
-                                     passphrase)
+        set_passphrase_strength_hint(self.passphrase_hint_progress_bar, passphrase)
         self.update_passphrase_match()
 
     @Gtk.Template.Callback()

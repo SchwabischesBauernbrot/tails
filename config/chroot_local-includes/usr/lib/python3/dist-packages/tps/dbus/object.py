@@ -57,18 +57,19 @@ class DBusObject(object, metaclass=ABCMeta):
         for interface in self.node_info.interfaces:
             for signal in interface.signals:
                 args = {arg.name: arg.signature for arg in signal.args}
-                self.signals[signal.name] = {
-                    'interface': interface.name, 'args': args}
+                self.signals[signal.name] = {"interface": interface.name, "args": args}
 
     def register(self, connection: Gio.DBusConnection):
         logger.debug("Registering %s", self.dbus_path)
 
         for interface in self.node_info.interfaces:
-            reg_id = connection.register_object(self.dbus_path,
-                                                interface,
-                                                self.handle_method_call_async,
-                                                self.handle_get_property,
-                                                self.handle_set_property)
+            reg_id = connection.register_object(
+                self.dbus_path,
+                interface,
+                self.handle_method_call_async,
+                self.handle_get_property,
+                self.handle_set_property,
+            )
             if not reg_id:
                 raise RegistrationFailedError(
                     f"Failed to register interface {interface} of object {self}"
@@ -87,39 +88,51 @@ class DBusObject(object, metaclass=ABCMeta):
         self.reg_ids = list()
         self.registered = False
 
-    def emit_signal(self, connection: Gio.DBusConnection,
-                    signal_name: str,
-                    values: Dict[str, Any]):
+    def emit_signal(
+        self, connection: Gio.DBusConnection, signal_name: str, values: Dict[str, Any]
+    ):
         signal = self.signals[signal_name]
         parameters = []
-        for arg_name, arg_signature in signal['args'].items():
+        for arg_name, arg_signature in signal["args"].items():
             value = values[arg_name]
             parameters.append(GLib.Variant(arg_signature, value))
 
         variant = GLib.Variant.new_tuple(*parameters)
         connection.emit_signal(
-            None, self.dbus_path, signal['interface'], signal_name, variant,
+            None,
+            self.dbus_path,
+            signal["interface"],
+            signal_name,
+            variant,
         )
 
-    def emit_properties_changed_signal(self, connection: Gio.DBusConnection,
-                                       interface_name: str,
-                                       changed_properties: Dict[str, GLib.Variant],
-                                       invalidated_properties: List[str] = None):
-            if invalidated_properties is None:
-                invalidated_properties = list()
+    def emit_properties_changed_signal(
+        self,
+        connection: Gio.DBusConnection,
+        interface_name: str,
+        changed_properties: Dict[str, GLib.Variant],
+        invalidated_properties: List[str] = None,
+    ):
+        if invalidated_properties is None:
+            invalidated_properties = list()
 
-            parameters = GLib.Variant.new_tuple(
-                GLib.Variant("s", interface_name),
-                GLib.Variant("a{sv}", changed_properties),
-                GLib.Variant("as", invalidated_properties)
-            )
-            connection.emit_signal(
-                None, self.dbus_path, "org.freedesktop.DBus.Properties",
-                'PropertiesChanged', parameters
-            )
+        parameters = GLib.Variant.new_tuple(
+            GLib.Variant("s", interface_name),
+            GLib.Variant("a{sv}", changed_properties),
+            GLib.Variant("as", invalidated_properties),
+        )
+        connection.emit_signal(
+            None,
+            self.dbus_path,
+            "org.freedesktop.DBus.Properties",
+            "PropertiesChanged",
+            parameters,
+        )
 
     def handle_method_call_async(self, *args, **kwargs) -> None:
-        thread = Thread(target=self.handle_method_call, args=args, kwargs=kwargs, daemon=True)
+        thread = Thread(
+            target=self.handle_method_call, args=args, kwargs=kwargs, daemon=True
+        )
         thread.start()
 
     def handle_method_call(self, *args, **kwargs) -> None:
@@ -135,15 +148,24 @@ class DBusObject(object, metaclass=ABCMeta):
         try:
             if tps.PROFILING:
                 uptime = Path("/proc/uptime").read_text().split()[0]
-                with tempfile.NamedTemporaryFile(mode="w+", prefix=f"{uptime}-{full_method_name}.",
-                                                 dir=tps.PROFILES_DIR,
-                                                 delete=False) as profile_file:
+                with tempfile.NamedTemporaryFile(
+                    mode="w+",
+                    prefix=f"{uptime}-{full_method_name}.",
+                    dir=tps.PROFILES_DIR,
+                    delete=False,
+                ) as profile_file:
                     logger.info(f"Creating profile in {profile_file.name}")
                     prof = cProfile.Profile()
-                    prof.runctx("self.handle_method_call_inner(*args, **kwargs)",
-                                    globals=globals(),
-                                    locals=locals())
-                    stats = pstats.Stats(prof, stream=profile_file).strip_dirs().sort_stats(pstats.SortKey.CUMULATIVE)
+                    prof.runctx(
+                        "self.handle_method_call_inner(*args, **kwargs)",
+                        globals=globals(),
+                        locals=locals(),
+                    )
+                    stats = (
+                        pstats.Stats(prof, stream=profile_file)
+                        .strip_dirs()
+                        .sort_stats(pstats.SortKey.CUMULATIVE)
+                    )
                     stats.print_stats()
             else:
                 self.handle_method_call_inner(*args, **kwargs)
@@ -153,15 +175,19 @@ class DBusObject(object, metaclass=ABCMeta):
                 self.num_ongoing_calls -= 1
             logger.debug(f"Done handling method call {full_method_name}")
 
-    def handle_method_call_inner(self,
-                                 connection: Gio.DBusConnection,
-                                 sender: str,
-                                 object_path: str,
-                                 interface_name: str,
-                                 method_name: str,
-                                 parameters: GLib.Variant,
-                                 invocation: Gio.DBusMethodInvocation) -> None:
-        method_info = self.node_info.lookup_interface(interface_name).lookup_method(method_name)
+    def handle_method_call_inner(
+        self,
+        connection: Gio.DBusConnection,
+        sender: str,
+        object_path: str,
+        interface_name: str,
+        method_name: str,
+        parameters: GLib.Variant,
+        invocation: Gio.DBusMethodInvocation,
+    ) -> None:
+        method_info = self.node_info.lookup_interface(interface_name).lookup_method(
+            method_name
+        )
 
         try:
             # If the method has a special handler function, then call that.
@@ -184,7 +210,9 @@ class DBusObject(object, metaclass=ABCMeta):
             if len(method_info.out_args) == 1:
                 result = (result,)
 
-            return_signature = "(%s)" % "".join(arg.signature for arg in method_info.out_args)
+            return_signature = "(%s)" % "".join(
+                arg.signature for arg in method_info.out_args
+            )
             invocation.return_value(GLib.Variant(return_signature, result))
         except DBusError as e:
             logger.exception(e)
@@ -207,34 +235,42 @@ class DBusObject(object, metaclass=ABCMeta):
             if e.__class__.__module__ in ("__builtin__", "builtins"):
                 error_name = "python." + error_name
             if not Gio.dbus_is_name(error_name):
-                logger.warning(f"Can't use \"{error_name}\" as a D-Bus error name, using \"python.UnknownError\" instead")
+                logger.warning(
+                    f'Can\'t use "{error_name}" as a D-Bus error name, using "python.UnknownError" instead'
+                )
                 error_name = "python.UnknownError"
             invocation.return_dbus_error(error_name, str(e))
 
-    def handle_get_property(self,
-                            connection: Gio.DBusConnection,
-                            sender: str,
-                            object_path: str,
-                            interface_name: str,
-                            property_name: str) -> GLib.Variant:
+    def handle_get_property(
+        self,
+        connection: Gio.DBusConnection,
+        sender: str,
+        object_path: str,
+        interface_name: str,
+        property_name: str,
+    ) -> GLib.Variant:
         logger.debug("Handling property read of %s.%s", object_path, property_name)
         try:
             interface_info = self.node_info.lookup_interface(interface_name)
             property_info = interface_info.lookup_property(property_name)
             value = getattr(self, property_name)
 
-            logger.debug("Converting value %r to Variant type %r", value, property_info.signature)
+            logger.debug(
+                "Converting value %r to Variant type %r", value, property_info.signature
+            )
             return GLib.Variant(property_info.signature, value)
         except Exception as e:
             logger.exception(e)
 
-    def handle_set_property(self,
-                            connection: Gio.DBusConnection,
-                            sender: str,
-                            object_path: str,
-                            interface_name: str,
-                            property_name: str,
-                            value: GLib.Variant) -> bool:
+    def handle_set_property(
+        self,
+        connection: Gio.DBusConnection,
+        sender: str,
+        object_path: str,
+        interface_name: str,
+        property_name: str,
+        value: GLib.Variant,
+    ) -> bool:
         logger.debug("Handling property write of %s.%s", object_path, property_name)
         setattr(self, property_name, value.unpack())
         return True

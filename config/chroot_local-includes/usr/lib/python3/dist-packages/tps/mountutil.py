@@ -14,17 +14,21 @@ class MountException(Exception):
 
 def mount(src: Union[str, Path], dest: Union[str, Path], flags: int):
     libc = ctypes.CDLL("libc.so.6", use_errno=True)
-    libc.mount.argtypes = [ctypes.c_char_p, ctypes.c_char_p,
-                           ctypes.c_char_p, ctypes.c_ulong,
-                           ctypes.c_void_p]
+    libc.mount.argtypes = [
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_char_p,
+        ctypes.c_ulong,
+        ctypes.c_void_p,
+    ]
     b_src = str(src).encode()
     b_dest = str(dest).encode()
     ret = libc.mount(
-        b_src,   # source
+        b_src,  # source
         b_dest,  # target
-        None,    # filesystemtype, empty for bind mounts
-        flags,   # mountflags
-        None,    # data
+        None,  # filesystemtype, empty for bind mounts
+        flags,  # mountflags
+        None,  # data
     )
     if ret != 0:
         error = os.strerror(ctypes.get_errno())

@@ -5,8 +5,8 @@ import tailsgreeter
 from tailsgreeter.translatable_window import TranslatableWindow
 from tailsgreeter.ui import _
 
-gi.require_version('Gtk', '3.0')
-gi.require_version('WebKit2', '4.0')
+gi.require_version("Gtk", "3.0")
+gi.require_version("WebKit2", "4.0")
 from gi.repository import Gtk, WebKit2
 
 PREFERRED_WIDTH = 800
@@ -37,17 +37,16 @@ class GreeterHelpWindow(Gtk.Window, TranslatableWindow):
 
         # Create webview with custom stylesheet
         css = WebKit2.UserStyleSheet(
-                ".sidebar, .banner { display: none; }",
-                WebKit2.UserContentInjectedFrames.ALL_FRAMES,
-                WebKit2.UserStyleLevel.USER,
-                None,
-                None)
+            ".sidebar, .banner { display: none; }",
+            WebKit2.UserContentInjectedFrames.ALL_FRAMES,
+            WebKit2.UserStyleLevel.USER,
+            None,
+            None,
+        )
         content_manager = WebKit2.UserContentManager()
         content_manager.add_style_sheet(css)
-        self.webview = WebKit2.WebView.new_with_user_content_manager(
-                content_manager)
-        self.webview.connect("resource-load-started",
-                             self.cb_load_started)
+        self.webview = WebKit2.WebView.new_with_user_content_manager(content_manager)
+        self.webview.connect("resource-load-started", self.cb_load_started)
         self.webview.show()
 
         scrolledwindow = Gtk.ScrolledWindow()
@@ -61,9 +60,9 @@ class GreeterHelpWindow(Gtk.Window, TranslatableWindow):
     def load_uri(self, uri):
         self.webview.load_uri(uri)
         self.resize(
-                min(PREFERRED_WIDTH,
-                    self.get_screen().get_width()),
-                self.get_screen().get_height())
+            min(PREFERRED_WIDTH, self.get_screen().get_width()),
+            self.get_screen().get_height(),
+        )
         self.present()
 
     def cb_load_started(self, web_view, ressource, request):

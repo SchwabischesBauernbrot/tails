@@ -1,7 +1,5 @@
-
-
 def shell_value_to_bool(value: str) -> bool:
-    '''
+    """
     Convert a string to a boolean, using shell typical conventions.
 
     >>> shell_value_to_bool("true")
@@ -12,7 +10,7 @@ def shell_value_to_bool(value: str) -> bool:
     True
     >>> shell_value_to_bool("0")
     False
-    '''
+    """
     value = value.strip()
     if value == "false":
         return False

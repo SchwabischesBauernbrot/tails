@@ -2,8 +2,10 @@ from abc import abstractmethod
 
 from gi.repository import Gio, GLib
 
+
 class DBusError(Exception):
     """An exception that can be returned as an error by a D-Bus method"""
+
     @property
     @abstractmethod
     def name(self) -> str:
@@ -25,43 +27,53 @@ class DBusError(Exception):
         # https://gitlab.gnome.org/GNOME/pygobject/-/issues/342
         prefix = f"GDBus.Error:{cls.name}: "
         if err.message.startswith(prefix):
-            err.message = err.message[len(prefix):]
+            err.message = err.message[len(prefix) :]
             return
 
         prefix = "GDBus.Error:"
         if err.message.startswith(prefix):
-            err.message = err.message[len(prefix):]
+            err.message = err.message[len(prefix) :]
 
 
 class ActivationFailedError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.ActivationFailed"
 
+
 class DeactivationFailedError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.DeactivationFailed"
+
 
 class DeletionFailedError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.DeletionFailed"
 
+
 class FailedPreconditionError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.FailedPrecondition"
+
 
 class JobCancelledError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.JobCancelled"
 
+
 class TargetIsBusyError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.TargetIsBusyError"
+
 
 class NotEnoughMemoryError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.NotEnoughMemoryError"
 
+
 class IncorrectPassphraseError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.IncorrectPassphraseError"
+
 
 class SymlinkSourceDirectoryError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.SymlinkSourceDirectoryError"
 
+
 class InvalidConfigFileError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.InvalidConfigFileError"
+
 
 class FeatureActivationFailedError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.FeatureActivationFailedError"

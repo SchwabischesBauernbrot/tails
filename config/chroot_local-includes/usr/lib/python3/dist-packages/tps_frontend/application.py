@@ -2,9 +2,16 @@ from logging import getLogger
 import tempfile
 import json
 from gi.repository import Gdk, Gio, GLib, Gtk
+from typing import Optional
 
-from tps_frontend import _, DBUS_SERVICE_NAME, DBUS_ROOT_OBJECT_PATH, \
-    DBUS_SERVICE_INTERFACE, APPLICATION_ID, CSS_FILE
+from tps_frontend import (
+    _,
+    DBUS_SERVICE_NAME,
+    DBUS_ROOT_OBJECT_PATH,
+    DBUS_SERVICE_INTERFACE,
+    APPLICATION_ID,
+    CSS_FILE,
+)
 from tps_frontend.error_dialog import ErrorDialog
 from tps_frontend.window import Window
 
@@ -12,7 +19,6 @@ logger = getLogger(__name__)
 
 
 class Application(Gtk.Application):
-
     def __init__(self, bus: Gio.DBusConnection):
         logger.debug("Initializing Application")
         self.bus = bus
@@ -31,16 +37,19 @@ class Application(Gtk.Application):
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),
             style_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
         )
 
         # Initialize the D-Bus proxy
         try:
             self.service_proxy = Gio.DBusProxy.new_sync(
-                bus, Gio.DBusProxyFlags.NONE, None,
+                bus,
+                Gio.DBusProxyFlags.NONE,
+                None,
                 DBUS_SERVICE_NAME,
                 DBUS_ROOT_OBJECT_PATH,
-                DBUS_SERVICE_INTERFACE, None,
+                DBUS_SERVICE_INTERFACE,
+                None,
             )  # type: Gio.DBusProxy
         except GLib.Error as e:
             logger.error(f"Failed to create D-Bus proxy: {e.message}")
@@ -57,33 +66,39 @@ class Application(Gtk.Application):
         self.add_window(self.window)
         self.window.present()
 
-    def display_error(self, title: str, msg: str = "",
-                      with_send_report_button: bool = True):
-        dialog = ErrorDialog(self, title, msg,
-                             with_send_report_button=with_send_report_button)
+    def display_error(
+        self, title: str, msg: str = "", with_send_report_button: bool = True
+    ):
+        dialog = ErrorDialog(
+            self, title, msg, with_send_report_button=with_send_report_button
+        )
         dialog.run()
         return
 
-    def launch_whisperback(self,
-                           error_summary="PersistentStorage",
-                           error_report_msg=None):
+    def launch_whisperback(
+        self,
+        error_summary: str = "PersistentStorage",
+        error_report_msg: Optional[str] = None,
+    ) -> None:
         # Get the WhisperBack app
         # noinspection PyArgumentList
-        apps = [a for a in Gio.AppInfo.get_all()
-                if a.get_executable() == "whisperback"]
+        apps = [a for a in Gio.AppInfo.get_all() if a.get_executable() == "whisperback"]
         if not apps:
             logger.error("Could not find whisperback app")
-            self.display_error(_("Error"),
-                               _("Could not find the WhisperBack application"),
-                               with_send_report_button=False)
+            self.display_error(
+                _("Error"),
+                _("Could not find the WhisperBack application"),
+                with_send_report_button=False,
+            )
         app = apps[0]  # type: Gtk.AppInfo
 
         prefill_data = {
-                "summary": error_summary,
-                }
+            "app": "tps_frontend",
+            "summary": error_summary,
+        }
         if error_report_msg is not None:
-            prefill_data['details'] = error_report_msg
-        prefill_tmp = tempfile.NamedTemporaryFile(mode='w', delete=False)
+            prefill_data["details"] = error_report_msg
+        prefill_tmp = tempfile.NamedTemporaryFile(mode="w", delete=False)
         json.dump(prefill_data, prefill_tmp.file)
         # noinspection PyArgumentList
         display = Gdk.Display.get_default()  # type: Gdk.Display

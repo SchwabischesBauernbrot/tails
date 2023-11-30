@@ -10,7 +10,10 @@ from gi.repository import Gtk, Gio, UDisks, GUdev, GLib
 from unlock_veracrypt_volumes import _
 from unlock_veracrypt_volumes.volume_list import ContainerList, DeviceList
 from unlock_veracrypt_volumes.volume import Volume
-from unlock_veracrypt_volumes.exceptions import UdisksObjectNotFoundError, VolumeNotFoundError
+from unlock_veracrypt_volumes.exceptions import (
+    UdisksObjectNotFoundError,
+    VolumeNotFoundError,
+)
 from unlock_veracrypt_volumes.config import MAIN_UI_FILE, TRANSLATION_DOMAIN
 
 
@@ -91,7 +94,9 @@ class VolumeManager(object):
         gio_volumes = self.gio_volume_monitor.get_volumes()
 
         for gio_volume in gio_volumes:
-            device_file = gio_volume.get_identifier(Gio.VOLUME_IDENTIFIER_KIND_UNIX_DEVICE)
+            device_file = gio_volume.get_identifier(
+                Gio.VOLUME_IDENTIFIER_KIND_UNIX_DEVICE
+            )
             if not device_file:
                 continue
 
@@ -111,15 +116,21 @@ class VolumeManager(object):
         path = self.choose_container_path()
 
         if path in self.container_list.backing_file_paths:
-            self.show_warning(title=_("Container already added"),
-                              body=_("The file container %s should already be listed.") % path)
+            self.show_warning(
+                title=_("Container already added"),
+                body=_("The file container %s should already be listed.") % path,
+            )
             return
 
         if path:
             self.unlock_file_container(path)
 
     def attach_file_container(self, path: str) -> Union[Volume, None]:
-        logger.debug("attaching file %s. backing_file_paths: %s", path, self.container_list.backing_file_paths)
+        logger.debug(
+            "attaching file %s. backing_file_paths: %s",
+            path,
+            self.container_list.backing_file_paths,
+        )
         warning = dict()
 
         try:
@@ -130,20 +141,24 @@ class VolumeManager(object):
                 fd = os.open(path, os.O_RDONLY)
                 warning["title"] = _("Container opened read-only")
                 # Translators: Don't translate {path}, it's a placeholder  and will be replaced.
-                warning["body"] = _("The file container {path} could not be opened with write access. "
-                                    "It was opened read-only instead. You will not be able to modify the "
-                                    "content of the container.\n"
-                                    "{error_message}").format(path=path, error_message=str(e))
+                warning["body"] = _(
+                    "The file container {path} could not be opened with write access. "
+                    "It was opened read-only instead. You will not be able to modify the "
+                    "content of the container.\n"
+                    "{error_message}"
+                ).format(path=path, error_message=str(e))
             except PermissionError as e:
                 self.show_warning(title=_("Error opening file"), body=str(e))
                 return None
 
         fd_list = Gio.UnixFDList()
         fd_list.append(fd)
-        udisks_path, __ = self.udisks_manager.call_loop_setup_sync(GLib.Variant('h', 0),  # fd index
-                                                                   GLib.Variant('a{sv}', {}),  # options
-                                                                   fd_list,  # the fd list
-                                                                   None)  # cancellable
+        udisks_path, __ = self.udisks_manager.call_loop_setup_sync(
+            GLib.Variant("h", 0),  # fd index
+            GLib.Variant("a{sv}", {}),  # options
+            fd_list,  # the fd list
+            None,
+        )  # cancellable
         logger.debug("Created loop device %s", udisks_path)
 
         volume = self._wait_for_loop_setup(path)
@@ -153,16 +168,25 @@ class VolumeManager(object):
             return volume
         elif not self._udisks_object_is_tcrypt(udisks_path):
             # Remove the loop device
-            self.udisks_client.get_object(udisks_path).get_loop().call_delete(GLib.Variant('a{sv}', {}),  # options
-                                                                              None,  # cancellable
-                                                                              None,  # callback
-                                                                              None)  # user data
-            self.show_warning(title=_("Not a VeraCrypt container"),
-                              body=_("The file %s does not seem to be a VeraCrypt container.") % path)
+            self.udisks_client.get_object(udisks_path).get_loop().call_delete(
+                GLib.Variant("a{sv}", {}),  # options
+                None,  # cancellable
+                None,  # callback
+                None,
+            )  # user data
+            self.show_warning(
+                title=_("Not a VeraCrypt container"),
+                body=_("The file %s does not seem to be a VeraCrypt container.") % path,
+            )
         else:
-            self.show_warning(title=_("Failed to add container"),
-                              body=_("Could not add file container %s: Timeout while waiting for loop setup.\n"
-                                     "Please try using the <i>Disks</i> application instead.") % path)
+            self.show_warning(
+                title=_("Failed to add container"),
+                body=_(
+                    "Could not add file container %s: Timeout while waiting for loop setup.\n"
+                    "Please try using the <i>Disks</i> application instead."
+                )
+                % path,
+            )
 
     def _wait_for_loop_setup(self, path: str) -> Union[Volume, None]:
         start_time = time.perf_counter()
@@ -206,11 +230,17 @@ class VolumeManager(object):
             return self.attach_file_container(path)
 
     def choose_container_path(self):
-        dialog = Gtk.FileChooserDialog(_("Choose File Container"),
-                                       self.window,
-                                       Gtk.FileChooserAction.OPEN,
-                                       (Gtk.STOCK_CANCEL, Gtk.ResponseType.CANCEL,
-                                        Gtk.STOCK_OPEN, Gtk.ResponseType.ACCEPT))
+        dialog = Gtk.FileChooserDialog(
+            _("Choose File Container"),
+            self.window,
+            Gtk.FileChooserAction.OPEN,
+            (
+                Gtk.STOCK_CANCEL,
+                Gtk.ResponseType.CANCEL,
+                Gtk.STOCK_OPEN,
+                Gtk.ResponseType.ACCEPT,
+            ),
+        )
         result = dialog.run()
         if result != Gtk.ResponseType.ACCEPT:
             dialog.destroy()
@@ -220,9 +250,13 @@ class VolumeManager(object):
         dialog.destroy()
         return path
 
-    def on_volume_changed(self, volume_monitor: Gio.VolumeMonitor, gio_volume: Gio.Volume):
-        logger.debug("in on_volume_changed. volume: %s",
-                     gio_volume.get_identifier(Gio.VOLUME_IDENTIFIER_KIND_UNIX_DEVICE))
+    def on_volume_changed(
+        self, volume_monitor: Gio.VolumeMonitor, gio_volume: Gio.Volume
+    ):
+        logger.debug(
+            "in on_volume_changed. volume: %s",
+            gio_volume.get_identifier(Gio.VOLUME_IDENTIFIER_KIND_UNIX_DEVICE),
+        )
         try:
             volume = Volume(self, gio_volume)
             if volume.is_tcrypt:
@@ -230,27 +264,37 @@ class VolumeManager(object):
         except UdisksObjectNotFoundError:
             self.remove_volume(Volume(self, gio_volume, with_udisks=False))
 
-    def on_volume_added(self, volume_monitor: Gio.VolumeMonitor, gio_volume: Gio.Volume):
-        logger.debug("in on_volume_added. volume: %s",
-                     gio_volume.get_identifier(Gio.VOLUME_IDENTIFIER_KIND_UNIX_DEVICE))
+    def on_volume_added(
+        self, volume_monitor: Gio.VolumeMonitor, gio_volume: Gio.Volume
+    ):
+        logger.debug(
+            "in on_volume_added. volume: %s",
+            gio_volume.get_identifier(Gio.VOLUME_IDENTIFIER_KIND_UNIX_DEVICE),
+        )
         volume = Volume(self, gio_volume)
         if volume.is_tcrypt:
             self.add_volume(volume)
 
-    def on_volume_removed(self, volume_monitor: Gio.VolumeMonitor, gio_volume: Gio.Volume):
-        logger.debug("in on_volume_removed. volume: %s",
-                     gio_volume.get_identifier(Gio.VOLUME_IDENTIFIER_KIND_UNIX_DEVICE))
+    def on_volume_removed(
+        self, volume_monitor: Gio.VolumeMonitor, gio_volume: Gio.Volume
+    ):
+        logger.debug(
+            "in on_volume_removed. volume: %s",
+            gio_volume.get_identifier(Gio.VOLUME_IDENTIFIER_KIND_UNIX_DEVICE),
+        )
         self.remove_volume(Volume(self, gio_volume, with_udisks=False))
 
     def open_uri(self, uri: str):
         Gtk.show_uri_on_window(self.window, uri, Gtk.get_current_event_time())
 
     def show_warning(self, title: str, body: str):
-        dialog = Gtk.MessageDialog(self.window,
-                                   Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                                   Gtk.MessageType.WARNING,
-                                   Gtk.ButtonsType.CLOSE,
-                                   title)
+        dialog = Gtk.MessageDialog(
+            self.window,
+            Gtk.DialogFlags.DESTROY_WITH_PARENT,
+            Gtk.MessageType.WARNING,
+            Gtk.ButtonsType.CLOSE,
+            title,
+        )
         dialog.format_secondary_markup(body)
         # Make the body selectable to allow users to easily copy/paste the error message
         dialog.get_message_area().get_children()[-1].set_selectable(True)

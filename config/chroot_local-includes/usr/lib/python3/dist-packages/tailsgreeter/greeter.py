@@ -33,15 +33,27 @@ from tailsgreeter.settings.localization_settings import LocalisationSettings
 from tailsgreeter.settings.macspoof import MacSpoofSetting
 from tailsgreeter.settings.network import NetworkSetting
 from tailsgreeter.settings.persistence import PersistentStorageSettings
-from tailsgreeter.settings.persistent_storage_create import PersistentStorageCreateSetting
+from tailsgreeter.settings.persistent_storage_create import (
+    PersistentStorageCreateSetting,
+)
 from tailsgreeter.settings.unsafe_browser import UnsafeBrowserSetting
 from tailsgreeter.translatable_window import TranslatableWindow
-from tailsgreeter.ui.additional_settings import AdminSettingUI, MACSpoofSettingUI, NetworkSettingUI, UnsafeBrowserSettingUI, ObsoleteNetworkSettingUI
+from tailsgreeter.ui.additional_settings import (
+    AdminSettingUI,
+    MACSpoofSettingUI,
+    NetworkSettingUI,
+    UnsafeBrowserSettingUI,
+    ObsoleteNetworkSettingUI,
+)
 from tailsgreeter.ui.main_window import GreeterMainWindow
-from tailsgreeter.ui.region_settings import LanguageSettingUI, KeyboardSettingUI, FormatsSettingUI
+from tailsgreeter.ui.region_settings import (
+    LanguageSettingUI,
+    KeyboardSettingUI,
+    FormatsSettingUI,
+)
 from tailsgreeter.ui.settings_collection import GreeterSettingsCollection
 
-gi.require_version('Gio', '2.0')
+gi.require_version("Gio", "2.0")
 gi.require_version("Gtk", "3.0")
 from gi.repository import Gio, Gtk
 
@@ -60,12 +72,13 @@ class GreeterApplication(object):
         self.translated = False
 
         self._sessionmanager = Gio.DBusProxy.new_for_bus_sync(
-                Gio.BusType.SESSION,
-                Gio.DBusProxyFlags.NONE,
-                None,
-                "org.gnome.SessionManager",
-                "/org/gnome/SessionManager",
-                "org.gnome.SessionManager")
+            Gio.BusType.SESSION,
+            Gio.DBusProxyFlags.NONE,
+            None,
+            "org.gnome.SessionManager",
+            "/org/gnome/SessionManager",
+            "org.gnome.SessionManager",
+        )
 
         # Create the settings directories
         os.makedirs(persistent_settings_dir, mode=0o700, exist_ok=True)
@@ -86,7 +99,9 @@ class GreeterApplication(object):
 
         # Initialize the settings
         self.settings = GreeterSettingsCollection(
-            LanguageSettingUI(self.localisationsettings.language, self.on_language_changed),
+            LanguageSettingUI(
+                self.localisationsettings.language, self.on_language_changed
+            ),
             KeyboardSettingUI(self.localisationsettings.keyboard),
             FormatsSettingUI(self.localisationsettings.formats),
             AdminSettingUI(self.admin_setting),
@@ -147,9 +162,6 @@ class GreeterApplication(object):
 
     def inhibit_idle(self):
         cookie = self._sessionmanager.Inhibit(
-                "(susu)",
-                "org.boum.tails.Greeter",
-                0,
-                "Greeter session shouldn't idle",
-                8)  # Inhibit the session being marked as idle
+            "(susu)", "org.boum.tails.Greeter", 0, "Greeter session shouldn't idle", 8
+        )  # Inhibit the session being marked as idle
         logging.debug("inhibitor cookie=%i", cookie)

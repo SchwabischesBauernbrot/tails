@@ -16,4 +16,6 @@ class SpinnerView(View):
 
     def __init__(self, window: "Window"):
         super().__init__(window)
-        self.status_label = self.builder.get_object("spinner_status_label")  # type: Gtk.Label
+        self.status_label = self.builder.get_object(
+            "spinner_status_label"
+        )  # type: Gtk.Label

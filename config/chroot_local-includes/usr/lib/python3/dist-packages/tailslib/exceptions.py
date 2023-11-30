@@ -2,14 +2,18 @@
 #
 # Handles our errors.
 
+
 class TailsLibException(Exception):
-	pass
+    pass
+
 
 class UnreadableGitRepo(TailsLibException):
-	pass
+    pass
+
 
 class CheckDirectoryExists(TailsLibException):
-	pass
+    pass
+
 
 class TorFailedToBoostrapError(Exception):
-	pass
+    pass

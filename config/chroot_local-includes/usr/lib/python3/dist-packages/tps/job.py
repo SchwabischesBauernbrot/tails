@@ -49,7 +49,7 @@ class Job(DBusObject):
     conflicting processes, in which case the ConflictingProcesses
     property should be set by the owner of the job."""
 
-    dbus_info = '''
+    dbus_info = """
     <node>
         <interface name='org.boum.tails.PersistentStorage.Job'>
             <method name='Cancel'/>
@@ -59,7 +59,7 @@ class Job(DBusObject):
             <property name="Progress" type="u" access="read"/>
         </interface>
     </node>
-    '''
+    """
 
     @property
     def dbus_path(self):
@@ -90,8 +90,9 @@ class Job(DBusObject):
     def __exit__(self, exc_type, exc_val, exc_tb):
         self.unregister(self.connection)
 
-    def refresh_properties(self, status: Optional[str] = None,
-                           progress: Optional[int] = None):
+    def refresh_properties(
+        self, status: Optional[str] = None, progress: Optional[int] = None
+    ):
         """Refresh the properties of the job"""
         changed_properties = dict()
         if status is not None and status != self._status:

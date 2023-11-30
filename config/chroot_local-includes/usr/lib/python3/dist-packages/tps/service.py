@@ -12,15 +12,27 @@ from tps import executil, SYSTEM_PARTITION_MOUNT_POINT, LUKS_HEADER_BACKUP_PATH
 from tps.configuration import features
 from tps.configuration.config_file import ConfigFile, InvalidStatError
 from tps.configuration.feature import Feature, ConflictingProcessesError
-from tps.dbus.errors import InvalidConfigFileError, FailedPreconditionError, \
-    FeatureActivationFailedError, ActivationFailedError, DeactivationFailedError
+from tps.dbus.errors import (
+    InvalidConfigFileError,
+    FailedPreconditionError,
+    FeatureActivationFailedError,
+    ActivationFailedError,
+    DeactivationFailedError,
+)
 from tps.dbus.object import DBusObject
 from tps.device import udisks, BootDevice, TPSPartition, InvalidBootDeviceError
 from tps.job import ServiceUsingJobs
-from tps import State, IN_PROGRESS_STATES, DBUS_ROOT_OBJECT_PATH, \
-    DBUS_SERVICE_INTERFACE, TPS_MOUNT_POINT, TPS_BACKUP_MOUNT_POINT, \
-    ON_ACTIVATED_HOOKS_DIR, ON_DEACTIVATED_HOOKS_DIR, \
-    DBUS_FEATURES_PATH
+from tps import (
+    State,
+    IN_PROGRESS_STATES,
+    DBUS_ROOT_OBJECT_PATH,
+    DBUS_SERVICE_INTERFACE,
+    TPS_MOUNT_POINT,
+    TPS_BACKUP_MOUNT_POINT,
+    ON_ACTIVATED_HOOKS_DIR,
+    ON_DEACTIVATED_HOOKS_DIR,
+    DBUS_FEATURES_PATH,
+)
 
 if TYPE_CHECKING:
     from tps.job import Job
@@ -45,7 +57,7 @@ class NotUnlockedError(Exception):
 
 
 class Service(DBusObject, ServiceUsingJobs):
-    dbus_info = '''
+    dbus_info = """
         <node>
             <interface name='org.boum.tails.PersistentStorage'>
                 <method name='Quit'/>
@@ -82,7 +94,7 @@ class Service(DBusObject, ServiceUsingJobs):
                 <property name="Job" type="o" access="read"/>
             </interface>
         </node>
-        '''
+        """
 
     dbus_path = DBUS_ROOT_OBJECT_PATH
 
@@ -120,9 +132,12 @@ class Service(DBusObject, ServiceUsingJobs):
 
     # ----- Exported methods ----- #
 
-    def Quit_method_call_handler(self, connection: Gio.DBusConnection,
-                                 parameters: GLib.Variant,
-                                 invocation: Gio.DBusMethodInvocation):
+    def Quit_method_call_handler(
+        self,
+        connection: Gio.DBusConnection,
+        parameters: GLib.Variant,
+        invocation: Gio.DBusMethodInvocation,
+    ):
         """Terminate the Persistent Storage service."""
         # Make the D-Bus method return first, else our main thread
         # might exit before we can call return, resulting in a NoReply
@@ -153,8 +168,7 @@ class Service(DBusObject, ServiceUsingJobs):
 
         # Check if we can create the Persistent Storage
         if self.state != State.NOT_CREATED:
-            msg = "Can't create Persistent Storage when state is '%s'" % \
-                  self.state.name
+            msg = "Can't create Persistent Storage when state is '%s'" % self.state.name
             raise FailedPreconditionError(msg)
 
         try:
@@ -191,8 +205,10 @@ class Service(DBusObject, ServiceUsingJobs):
         logger.info(f"Creating Persistent Storage backup on device {device}...")
 
         if self.state != State.UNLOCKED:
-            msg = "Can't create backup of Persistent Storage when state is '%s'" % \
-                  self.state.name
+            msg = (
+                "Can't create backup of Persistent Storage when state is '%s'"
+                % self.state.name
+            )
             raise FailedPreconditionError(msg)
 
         dev_num = os.stat(device).st_rdev
@@ -202,11 +218,10 @@ class Service(DBusObject, ServiceUsingJobs):
         # Mount the cleartext device
         Path(TPS_BACKUP_MOUNT_POINT).mkdir(parents=True, exist_ok=True)
         cleartext_device_path = partition.get_cleartext_device().device_path
-        executil.check_call(["mount", cleartext_device_path,
-                             TPS_BACKUP_MOUNT_POINT])
+        executil.check_call(["mount", cleartext_device_path, TPS_BACKUP_MOUNT_POINT])
 
         # Copy the data from the Persistent Storage to the new device
-        executil.check_call(['/usr/local/lib/tails-backup-rsync'])
+        executil.check_call(["/usr/local/lib/tails-backup-rsync"])
 
         # Unmount the cleartext device. We don't do that in a finally
         # block, because we want to keep the device mounted in case
@@ -219,15 +234,14 @@ class Service(DBusObject, ServiceUsingJobs):
 
         # Close the LUKS device
         partition._get_encrypted().call_lock_sync(
-            arg_options=GLib.Variant('a{sv}', {}),
+            arg_options=GLib.Variant("a{sv}", {}),
         )
 
     def Delete(self):
         """Delete the Persistent Storage partition"""
         # Check if we can delete the Persistent Storage
         if self.state not in (State.NOT_UNLOCKED, State.UNLOCKED):
-            msg = "Can't delete Persistent Storage when state is '%s'" % \
-                  self.state.name
+            msg = "Can't delete Persistent Storage when state is '%s'" % self.state.name
             raise FailedPreconditionError(msg)
 
         logger.info("Deleting Persistent Storage...")
@@ -262,8 +276,7 @@ class Service(DBusObject, ServiceUsingJobs):
 
         # Check if we can activate the Persistent Storage
         if self.state != State.UNLOCKED:
-            msg = "Can't activate features when state is '%s'" % \
-                  self.state.name
+            msg = "Can't activate features when state is '%s'" % self.state.name
             raise FailedPreconditionError(msg)
 
         partition = TPSPartition.find()
@@ -605,7 +618,9 @@ class Service(DBusObject, ServiceUsingJobs):
             for FeatureClass in features.get_classes():
                 feature = FeatureClass(self)
                 feature.register(self.connection)
-                self.object_manager.export(Gio.DBusObjectSkeleton.new(feature.dbus_path))
+                self.object_manager.export(
+                    Gio.DBusObjectSkeleton.new(feature.dbus_path)
+                )
                 self.features.append(feature)
 
             # Export the object manager on the connection. We do this
@@ -634,8 +649,7 @@ class Service(DBusObject, ServiceUsingJobs):
 
     def enable_feature(self, feature: Feature):
         with self.enable_features_lock:
-            enabled_features = [ftr for ftr in self.features
-                                if ftr.IsEnabled]
+            enabled_features = [ftr for ftr in self.features if ftr.IsEnabled]
             self.config_file.save(enabled_features + [feature])
             feature.refresh_state(["IsEnabled"])
             if not feature.IsEnabled:
@@ -644,8 +658,7 @@ class Service(DBusObject, ServiceUsingJobs):
 
     def disable_feature(self, feature: Feature):
         with self.enable_features_lock:
-            enabled_features = [ftr for ftr in self.features
-                                if ftr.IsEnabled]
+            enabled_features = [ftr for ftr in self.features if ftr.IsEnabled]
             enabled_features.remove(feature)
             self.config_file.save(enabled_features)
             feature.refresh_state(["IsEnabled"])
@@ -658,19 +671,25 @@ class Service(DBusObject, ServiceUsingJobs):
         bindings = list()
         if self.config_file.exists():
             bindings = self.config_file.parse()
-            known_bindings = [binding for feature in self.features
-                              for binding in feature.Bindings]
-            unknown_bindings = [binding for binding in bindings
-                                if binding not in known_bindings]
+            known_bindings = [
+                binding for feature in self.features for binding in feature.Bindings
+            ]
+            unknown_bindings = [
+                binding for binding in bindings if binding not in known_bindings
+            ]
             for i, binding in enumerate(unknown_bindings):
+
                 class CustomFeature(Feature):
                     Id = f"CustomFeature{i}"
                     translatable_name = f"Custom Feature ({binding.dest_orig})"
                     Description = str(binding.dest_orig)
                     Bindings = [binding]
+
                 custom_feature = CustomFeature(self, is_custom=True)
                 custom_feature.register(self.connection)
-                self.object_manager.export(Gio.DBusObjectSkeleton.new(custom_feature.dbus_path))
+                self.object_manager.export(
+                    Gio.DBusObjectSkeleton.new(custom_feature.dbus_path)
+                )
                 self.features.append(custom_feature)
 
         # Remove the ones whose binding entry was removed from the config
@@ -740,31 +759,56 @@ class Service(DBusObject, ServiceUsingJobs):
     @staticmethod
     def erase_luks_header_backup():
         luks_header_backup = Path(LUKS_HEADER_BACKUP_PATH)
-        executil.check_call([
-            "shred", "--force", "-n", "1", "-u", str(luks_header_backup),
-        ])
+        executil.check_call(
+            [
+                "shred",
+                "--force",
+                "-n",
+                "1",
+                "-u",
+                str(luks_header_backup),
+            ]
+        )
 
     @contextlib.contextmanager
     def ensure_system_partition_mounted_read_write(self):
         """Mount the system partition read-write if it isn't already,
         and remount it read-only when the context manager exits."""
-        mount_options = executil.check_output([
-            'findmnt',
-            '--noheadings',
-            '--output', 'OPTIONS',
-            '--mountpoint', SYSTEM_PARTITION_MOUNT_POINT,
-        ]).strip().split(',')
-        already_mounted_read_write = 'rw' in mount_options
+        mount_options = (
+            executil.check_output(
+                [
+                    "findmnt",
+                    "--noheadings",
+                    "--output",
+                    "OPTIONS",
+                    "--mountpoint",
+                    SYSTEM_PARTITION_MOUNT_POINT,
+                ]
+            )
+            .strip()
+            .split(",")
+        )
+        already_mounted_read_write = "rw" in mount_options
 
         if not already_mounted_read_write:
-            executil.check_call([
-                'mount', '-o', 'remount,rw', SYSTEM_PARTITION_MOUNT_POINT,
-            ])
+            executil.check_call(
+                [
+                    "mount",
+                    "-o",
+                    "remount,rw",
+                    SYSTEM_PARTITION_MOUNT_POINT,
+                ]
+            )
 
         try:
             yield
         finally:
             if not already_mounted_read_write:
-                executil.check_call([
-                    'mount', '-o', 'remount,ro', SYSTEM_PARTITION_MOUNT_POINT,
-                ])
+                executil.check_call(
+                    [
+                        "mount",
+                        "-o",
+                        "remount,ro",
+                        SYSTEM_PARTITION_MOUNT_POINT,
+                    ]
+                )

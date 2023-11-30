@@ -9,13 +9,21 @@ from typing import TYPE_CHECKING, Dict, List, Optional
 
 import tps.logging
 from tps import executil
-from tps import State, DBUS_FEATURE_INTERFACE, DBUS_FEATURES_PATH, \
-    ON_ACTIVATED_HOOKS_DIR, ON_DEACTIVATED_HOOKS_DIR
-from tps.configuration.binding import Binding, IsActiveException, \
-    IsInactiveException
-from tps.dbus.errors import ActivationFailedError, \
-    DeletionFailedError, JobCancelledError, FailedPreconditionError, \
-    DeactivationFailedError
+from tps import (
+    State,
+    DBUS_FEATURE_INTERFACE,
+    DBUS_FEATURES_PATH,
+    ON_ACTIVATED_HOOKS_DIR,
+    ON_DEACTIVATED_HOOKS_DIR,
+)
+from tps.configuration.binding import Binding, IsActiveException, IsInactiveException
+from tps.dbus.errors import (
+    ActivationFailedError,
+    DeletionFailedError,
+    JobCancelledError,
+    FailedPreconditionError,
+    DeactivationFailedError,
+)
 from tps.dbus.object import DBusObject
 from tps.job import ServiceUsingJobs
 
@@ -31,7 +39,7 @@ class ConflictingProcessesError(Exception):
 
 
 class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
-    dbus_info = '''
+    dbus_info = """
     <node>
         <interface name='org.boum.tails.PersistentStorage.Feature'>
             <method name='Activate'/>
@@ -45,7 +53,7 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
             <property name="Job" type="o" access="read"/>
         </interface>
     </node>
-    '''
+    """
 
     @property
     def dbus_path(self):
@@ -71,8 +79,7 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
     def Activate(self):
         # Check if we can activate the feature
         if self.service.state != State.UNLOCKED:
-            msg = "Can't activate features when state is '%s'" % \
-                  self.service.state.name
+            msg = "Can't activate features when state is '%s'" % self.service.state.name
             raise FailedPreconditionError(msg)
 
         # If there is still a job running, cancel it
@@ -110,7 +117,8 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
             # for debugging purposes.
             raise ConflictingProcessesError(
                 f"Can't activate feature {self.Id}: Conflicting "
-                f"applications are running ({' '.join(apps)})")
+                f"applications are running ({' '.join(apps)})"
+            )
         elif apps:
             # Wait for conflicting processes to terminate. If the job is
             # cancelled by the user before the conflicting processes
@@ -123,7 +131,8 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
 
         # Check if the bindings were actually activated
         try:
-            for binding in self.Bindings: binding.check_is_active()
+            for binding in self.Bindings:
+                binding.check_is_active()
         except IsInactiveException as e:
             msg = f"Activation of feature '{self.Id}' failed unexpectedly"
             raise ActivationFailedError(msg) from e
@@ -134,8 +143,9 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
     def Deactivate(self):
         # Check if we can deactivate the feature
         if self.service.state != State.UNLOCKED:
-            msg = "Can't deactivate features when state is '%s'" % \
-                  self.service.state.name
+            msg = (
+                "Can't deactivate features when state is '%s'" % self.service.state.name
+            )
             raise FailedPreconditionError(msg)
 
         # If there is still a job running, cancel it
@@ -164,7 +174,8 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
 
         # Check if the bindings were actually deactivated
         try:
-            for binding in self.Bindings: binding.check_is_inactive()
+            for binding in self.Bindings:
+                binding.check_is_inactive()
         except IsActiveException as e:
             msg = f"Deactivation of feature '{self.Id}' failed unexpectedly"
             raise DeactivationFailedError(msg) from e
@@ -182,8 +193,7 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
     def do_delete(self):
         # Check if we can delete the feature
         if self.service.state != State.UNLOCKED:
-            msg = "Can't delete features when state is '%s'" % \
-                  self.service.state.name
+            msg = "Can't delete features when state is '%s'" % self.service.state.name
             raise FailedPreconditionError(msg)
 
         # Check if feature is active
@@ -211,6 +221,7 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
     @property
     def IsEnabled(self) -> bool:
         return self._is_enabled
+
     @property
     def HasData(self) -> bool:
         return self._has_data
@@ -223,9 +234,9 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
     def Job(self, job: "Job"):
         self._job = job
         changed_properties = {"Job": GLib.Variant("s", self.Job)}
-        self.emit_properties_changed_signal(self.service.connection,
-                                            DBUS_FEATURE_INTERFACE,
-                                            changed_properties)
+        self.emit_properties_changed_signal(
+            self.service.connection, DBUS_FEATURE_INTERFACE, changed_properties
+        )
 
     @property
     @abc.abstractmethod
@@ -277,8 +288,9 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
         hooks_dir = Path(ON_DEACTIVATED_HOOKS_DIR, self.Id)
         executil.execute_hooks(hooks_dir)
 
-    def refresh_state(self, properties: List[str] = None,
-                      emit_properties_changed_signal=False):
+    def refresh_state(
+        self, properties: List[str] = None, emit_properties_changed_signal=False
+    ):
         if not properties:
             properties = ["IsEnabled", "HasData", "IsActive"]
 
@@ -287,17 +299,18 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
         if "IsEnabled" in properties:
             try:
                 config_file = self.service.config_file
-                self._is_enabled = config_file.exists() and \
-                                   config_file.contains(self)
+                self._is_enabled = config_file.exists() and config_file.contains(self)
             except Exception as e:
-                if exceptions: logging.exception(e)
+                if exceptions:
+                    logging.exception(e)
                 exceptions.append(e)
 
         if "HasData" in properties:
             try:
                 self._has_data = any(binding.has_data() for binding in self.Bindings)
             except Exception as e:
-                if exceptions: logging.exception(e)
+                if exceptions:
+                    logging.exception(e)
                 exceptions.append(e)
                 # Figuring out if there is data or not failed. We set
                 # HasData to True in this case because then we display
@@ -310,7 +323,8 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
             try:
                 self._is_active = all(binding.is_active() for binding in self.Bindings)
             except Exception as e:
-                if exceptions: logging.exception(e)
+                if exceptions:
+                    logging.exception(e)
                 exceptions.append(e)
 
         if emit_properties_changed_signal:
@@ -335,9 +349,9 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
             self._last_signaled_is_active = self._is_active
 
         if changed_properties:
-            self.emit_properties_changed_signal(self.service.connection,
-                                                DBUS_FEATURE_INTERFACE,
-                                                changed_properties)
+            self.emit_properties_changed_signal(
+                self.service.connection, DBUS_FEATURE_INTERFACE, changed_properties
+            )
 
     def wait_for_conflicting_processes_to_terminate(self, job: "Job"):
         """Waits until all conflicting processes were terminated.
@@ -379,8 +393,7 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
             # to wait for anything
             return
 
-        logger.info(f"Waiting for the user to terminate processes "
-                    f"{apps}")
+        logger.info(f"Waiting for the user to terminate processes " f"{apps}")
         while any(job.ConflictingApps.values()):
             if job.cancellable.is_cancelled():
                 logger.info("Job was cancelled")
@@ -395,8 +408,7 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
             for app in job.ConflictingApps:
                 for pid in job.ConflictingApps[app]:
                     if not psutil.pid_exists(pid):
-                        logger.info(f"Conflicting process {pid} was "
-                                    f"terminated")
+                        logger.info(f"Conflicting process {pid} was " f"terminated")
                         job.ConflictingApps[app].remove(pid)
 
             time.sleep(0.2)

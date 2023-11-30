@@ -18,7 +18,7 @@ def get_syslog_handler(ident=None) -> Handler:
         else:
             handler.ident = "%s: " % prctl.get_name()
     else:
-        handler.ident = '%s: ' % ident
+        handler.ident = "%s: " % ident
     return handler
 
 
@@ -55,7 +55,7 @@ if __name__ == "__main__":
 
     p = argparse.ArgumentParser()
     p.add_argument("--hint", default="auto", choices=["auto", "stderr", "syslog"])
-    p.add_argument('message')
+    p.add_argument("message")
     args = p.parse_args()
     print(get_best_handler_hint())
     configure_logging(hint=args.hint)

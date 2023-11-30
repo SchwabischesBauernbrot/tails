@@ -13,6 +13,7 @@ if TYPE_CHECKING:
 
 logger = getLogger(__name__)
 
+
 @Gtk.Template.from_file(CHANGE_PASSPHRASE_DIALOG_UI_FILE)
 class ChangePassphraseDialog(Gtk.Dialog):
     __gtype_name__ = "ChangePassphraseDialog"
@@ -27,8 +28,7 @@ class ChangePassphraseDialog(Gtk.Dialog):
     error_infobar = Gtk.Template.Child()  # type: Gtk.InfoBar
     error_infobar_label = Gtk.Template.Child()  # type: Gtk.Label
 
-    def __init__(self, parent: "Window", service_proxy: Gio.DBusProxy,
-                 *args, **kwargs):
+    def __init__(self, parent: "Window", service_proxy: Gio.DBusProxy, *args, **kwargs):
         super().__init__(use_header_bar=1, *args, **kwargs)
         self.service_proxy = service_proxy
         self.parent = parent
@@ -39,7 +39,7 @@ class ChangePassphraseDialog(Gtk.Dialog):
 
         self.passphrases_match = False
 
-        set_passphrase_strength_hint(self.progress_bar, '')
+        set_passphrase_strength_hint(self.progress_bar, "")
 
     def run(self):
         self.old_passphrase_entry.grab_focus()
@@ -60,19 +60,23 @@ class ChangePassphraseDialog(Gtk.Dialog):
         self.set_sensitive(False)
 
         # Try to change the passphrase
-        parameters = GLib.Variant("(ss)",
-                                  (self.old_passphrase_entry.get_text(),
-                                   self.passphrase_entry.get_text()))
+        parameters = GLib.Variant(
+            "(ss)",
+            (self.old_passphrase_entry.get_text(), self.passphrase_entry.get_text()),
+        )
 
-        self.service_proxy.call(method_name="ChangePassphrase",
-                                parameters=parameters,
-                                flags=Gio.DBusCallFlags.NONE,
-                                timeout_msec=-1,
-                                cancellable=None,
-                                callback=self.on_change_passphrase_finished)
+        self.service_proxy.call(
+            method_name="ChangePassphrase",
+            parameters=parameters,
+            flags=Gio.DBusCallFlags.NONE,
+            timeout_msec=-1,
+            cancellable=None,
+            callback=self.on_change_passphrase_finished,
+        )
 
-    def on_change_passphrase_finished(self, proxy: "GObject.Object",
-                                      res: Gio.AsyncResult):
+    def on_change_passphrase_finished(
+        self, proxy: "GObject.Object", res: Gio.AsyncResult
+    ):
         try:
             proxy.call_finish(res)
         except GLib.Error as e:
@@ -80,7 +84,8 @@ class ChangePassphraseDialog(Gtk.Dialog):
             if IncorrectPassphraseError.is_instance(e):
                 # Show a warning icon in the old passphrase entry
                 self.old_passphrase_entry.set_icon_from_stock(
-                    Gtk.EntryIconPosition.SECONDARY, "gtk-dialog-warning")
+                    Gtk.EntryIconPosition.SECONDARY, "gtk-dialog-warning"
+                )
                 # Show an error message in an infobar
                 msg = _("The current passphrase is incorrect")
                 self.error_infobar_label.set_text(msg)
@@ -91,8 +96,9 @@ class ChangePassphraseDialog(Gtk.Dialog):
                 return
             else:
                 self.destroy()
-                self.parent.display_error(_("Changing the passphrase failed"),
-                                          e.message)
+                self.parent.display_error(
+                    _("Changing the passphrase failed"), e.message
+                )
                 self.response(Gtk.ResponseType.NONE)
 
         logger.info("Passphrase was changed successfully")
@@ -104,8 +110,7 @@ class ChangePassphraseDialog(Gtk.Dialog):
         self.error_infobar.hide()
         # Hide the warning icon (if there is any)
         entry.set_icon_from_icon_name(1, None)
-        self.ok_button.set_sensitive(self.passphrases_match and
-                                     entry.get_text())
+        self.ok_button.set_sensitive(self.passphrases_match and entry.get_text())
 
     @Gtk.Template.Callback()
     def on_passphrase_entry_changed(self, entry: Gtk.Entry):
@@ -126,8 +131,9 @@ class ChangePassphraseDialog(Gtk.Dialog):
 
         self.passphrases_match = verify == self.passphrase_entry.get_text()
         self.verify_hint_box.set_visible(not self.passphrases_match)
-        self.ok_button.set_sensitive(self.passphrases_match and
-                                     self.old_passphrase_entry.get_text())
+        self.ok_button.set_sensitive(
+            self.passphrases_match and self.old_passphrase_entry.get_text()
+        )
 
     @Gtk.Template.Callback()
     def on_show_passphrase_button_toggled(self, button: Gtk.Button):

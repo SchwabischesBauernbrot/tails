@@ -53,6 +53,13 @@ bandit:
     reports:
       junit: bandit.xml
 
+check-black:
+  image: debian:bookworm
+  script:
+  - apt-get -qy install black
+  - black --version
+  - black --check .
+
 check-website-core-pages:
   script:
     - apt-get -qy install git

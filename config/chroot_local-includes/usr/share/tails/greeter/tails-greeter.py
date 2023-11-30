@@ -32,17 +32,16 @@ from tailsgreeter.greeter import GreeterApplication
 import tailsgreeter.config
 import tailsgreeter.gdmclient
 
-gi.require_version('GLib', '2.0')
+gi.require_version("GLib", "2.0")
 gi.require_version("Gtk", "3.0")
 from gi.repository import GLib, Gtk
 
 # Logging
-logging.config.fileConfig('tails-logging.conf')
+logging.config.fileConfig("tails-logging.conf")
 # Set loglevel if debug is found in kernel command line
-with open('/proc/cmdline') as cmdline_fd:
+with open("/proc/cmdline") as cmdline_fd:
     cmdline = cmdline_fd.read()
-if "debug" in cmdline.split() or \
-        (len(sys.argv) > 1 and sys.argv[1] == "--debug"):
+if "debug" in cmdline.split() or (len(sys.argv) > 1 and sys.argv[1] == "--debug"):
     logging.getLogger().setLevel(logging.DEBUG)
 
 

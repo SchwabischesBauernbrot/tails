@@ -57,12 +57,8 @@ class TCAApplication(Gtk.Application):
         set_tor_sandbox_fn = functools.partial(
             self.portal.call_async, "set-tor-sandbox"
         )
-        read_config_fn = functools.partial(
-            self.portal.call_async, "read-tca-config"
-        )
-        write_config_fn = functools.partial(
-            self.portal.call_async, "write-tca-config"
-        )
+        read_config_fn = functools.partial(self.portal.call_async, "read-tca-config")
+        write_config_fn = functools.partial(self.portal.call_async, "write-tca-config")
         self.configurator = TorLauncherUtils(
             self.controller,
             read_config_fn,
@@ -182,9 +178,7 @@ class TCAApplication(Gtk.Application):
     def finish_startup_if_configuration_has_been_loaded(self):
         """If configuration has been loaded, finish startup of the app."""
         if self.configurator.tor_connection_config is None:
-            self.log.debug(
-                "Our configuration was not loaded yet, let's wait some more"
-            )
+            self.log.debug("Our configuration was not loaded yet, let's wait some more")
             return True
         else:
             self.log.debug(
@@ -277,9 +271,9 @@ class TCAApplication(Gtk.Application):
             if error:
                 self.get_network_time_result["status"] = "error"
                 if (
-                        errordata.get("code") ==
-                        GET_NETWORK_TIME_RETURN_CODE["captive-portal"]
-                        ):
+                    errordata.get("code")
+                    == GET_NETWORK_TIME_RETURN_CODE["captive-portal"]
+                ):
                     self.get_network_time_result["reason"] = "captive-portal"
                     self.log.info("Detected captive portal")
                 else:
@@ -364,7 +358,7 @@ class RemoveUselessStemMessages(logging.Filter):
         Even when we want to debug messages to the control port,
         let's avoid this frequent polling messages
         """
-        return 'disablenetwork' not in record.getMessage()
+        return "disablenetwork" not in record.getMessage()
 
 
 if __name__ == "__main__":

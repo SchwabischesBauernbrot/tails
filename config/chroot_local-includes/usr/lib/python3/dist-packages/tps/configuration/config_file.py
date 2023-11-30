@@ -18,7 +18,7 @@ if TYPE_CHECKING:
     from tps.configuration.feature import Feature
 
 CONFIG_FILE_NAME = "persistence.conf"
-if 'unittest' in sys.modules:
+if "unittest" in sys.modules:
     TPS_UID = os.getuid()
     TPS_GID = os.getgid()
 else:
@@ -53,6 +53,7 @@ class ConfigFile(object):
     it's not clear which lines should be removed on feature
     deactivation.
     """
+
     def __init__(self, mount_point: str):
         self.path = Path(mount_point, CONFIG_FILE_NAME)
         # A lock for ensuring that the config file is not read or
@@ -78,27 +79,35 @@ class ConfigFile(object):
 
         # Check ownership
         if stat.st_uid != TPS_UID:
-            msg = f"File {self.path} has UID {stat.st_uid}, expected " \
-                  f"{TPS_UID} (tails-persistent-storage)"
+            msg = (
+                f"File {self.path} has UID {stat.st_uid}, expected "
+                f"{TPS_UID} (tails-persistent-storage)"
+            )
             raise InvalidStatError(msg)
         if stat.st_gid != TPS_GID:
-            msg = f"File {self.path} has GID {stat.st_gid}, expected " \
-                  f"{TPS_GID} (tails-persistent-storage)"
+            msg = (
+                f"File {self.path} has GID {stat.st_gid}, expected "
+                f"{TPS_GID} (tails-persistent-storage)"
+            )
             raise InvalidStatError(msg)
 
         # Check mode. Expected is:
         #  * 0o100000, which means the file is a regular file
         #  * 0o600, which means it's only readable by the owner
         if stat.st_mode != 0o100600:
-            raise InvalidStatError(f"File {self.path} has unexpected mode "
-                                   f"{stat.st_mode}, expected {oct(0o100600)}")
+            raise InvalidStatError(
+                f"File {self.path} has unexpected mode "
+                f"{stat.st_mode}, expected {oct(0o100600)}"
+            )
 
         # Check ACL
-        acl = subprocess.check_output(["getfacl", "--omit-header",
-                                       "--skip-base", self.path]).strip()
+        acl = subprocess.check_output(
+            ["getfacl", "--omit-header", "--skip-base", self.path]
+        ).strip()
         if acl:
-            raise InvalidStatError(f"File {self.path} has unexpected ACL "
-                                   f"{acl}, expected no ACLs.")
+            raise InvalidStatError(
+                f"File {self.path} has unexpected ACL " f"{acl}, expected no ACLs."
+            )
 
     def parse(self) -> List[Binding]:
         """Parse the config file into bindings"""
@@ -198,7 +207,7 @@ class ConfigFile(object):
             return
 
         dest = elements[0]
-        options = elements[1].split(',')
+        options = elements[1].split(",")
 
         # Parse the options
         for option in options:
@@ -209,8 +218,9 @@ class ConfigFile(object):
             elif option == "file":
                 is_file = True
             else:
-                logger.warning("Ignoring config line with invalid option "
-                               "%r: %r", option, line)
+                logger.warning(
+                    "Ignoring config line with invalid option " "%r: %r", option, line
+                )
                 return
 
         if not src:
