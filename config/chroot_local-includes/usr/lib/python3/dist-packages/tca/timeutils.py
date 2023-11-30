@@ -1,4 +1,3 @@
-
 GET_NETWORK_TIME_RETURN_CODE = {
     "missing-date-header": 2,
     "malformed-date-header": 3,

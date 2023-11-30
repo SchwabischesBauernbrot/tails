@@ -12,7 +12,6 @@ logger = getLogger(__name__)
 
 
 class VolumeList(object, metaclass=abc.ABCMeta):
-
     placeholder_label = str()
 
     def __init__(self):
@@ -80,6 +79,7 @@ class VolumeList(object, metaclass=abc.ABCMeta):
 
 class ContainerList(VolumeList):
     """Manages attached file containers"""
+
     placeholder_label = _("No file containers added")
 
     @property
@@ -95,4 +95,5 @@ class ContainerList(VolumeList):
 
 class DeviceList(VolumeList):
     """Manages physically connected drives and partitions"""
+
     placeholder_label = _("No VeraCrypt devices detected")

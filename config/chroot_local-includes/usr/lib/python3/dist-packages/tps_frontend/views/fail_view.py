@@ -7,6 +7,7 @@ from tps_frontend.view import View
 
 logger = getLogger(__name__)
 
+
 class FailView(View):
     _ui_file = FAIL_VIEW_UI_FILE
 

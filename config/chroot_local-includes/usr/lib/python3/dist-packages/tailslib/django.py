@@ -1,4 +1,3 @@
-
 # Copyright (c) Django Software Foundation and individual contributors.
 # All rights reserved.
 #
@@ -32,6 +31,7 @@ from os.path import abspath, dirname, join, normcase, sep
 
 class SuspiciousFileOperation(Exception):
     """A Suspicious filesystem operation was attempted"""
+
     pass
 
 

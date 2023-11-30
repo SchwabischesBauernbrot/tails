@@ -89,6 +89,11 @@ otherwise is too easy to forget pushing updated submodules:
 
     git config push.recurseSubmodules check
 
+To have `git blame` ignore specific commits that would make its output less
+useful, such as automated code reformatting, run in your local clone:g ap
+
+    git config --local blame.ignoreRevsFile .git-blame-ignore-revs
+
 <a id="branches"></a>
 
 ### Branches

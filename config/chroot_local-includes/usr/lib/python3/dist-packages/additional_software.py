@@ -23,7 +23,7 @@ INSTALLED_PACKAGES_FILE = "/run/live-additional-software/packages/installed"
 REMOVED_PACKAGES_FILE = "/run/live-additional-software/packages/removed"
 ASP_STATE_INSTALLER_ASKED = "/run/live-additional-software/installer-asked"
 ASP_LOG_FILE = "/run/live-additional-software/log"
-OLD_APT_LISTS_DIR = os.path.join(PERSISTENCE_DIR, 'apt', 'lists.old')
+OLD_APT_LISTS_DIR = os.path.join(PERSISTENCE_DIR, "apt", "lists.old")
 APT_ARCHIVES_DIR = "/var/cache/apt/archives"
 APT_LISTS_DIR = "/var/lib/apt/lists"
 PACKAGES_LIST_FILE = "live-additional-software.conf"
@@ -34,17 +34,17 @@ _ = gettext.gettext
 
 
 class ASPError(Exception):
-    """Base class for exceptions raised by """
+    """Base class for exceptions raised by"""
 
 
 class ASPDataError(ASPError):
     """Raised when the data read does not have the expected format."""
+
     pass
 
 
 def set_up_logging(log_to_journal=False):
-    debug = os.getenv("DEBUG") or \
-            "debug" in Path("/proc/cmdline").read_text().split()
+    debug = os.getenv("DEBUG") or "debug" in Path("/proc/cmdline").read_text().split()
     log_level = logging.DEBUG if debug else logging.INFO
     log_format = "%(levelname)s:%(filename)s:%(lineno)d: %(message)s"
     stderr_handler = logging.StreamHandler()
@@ -71,7 +71,7 @@ def write_config(packages):
     os.fchown(fd, uid=config_file_owner_uid, gid=config_file_owner_gid)
     os.fchmod(fd, 0o0644)
     path = Path(tmpfile)
-    path.write_text('\n'.join(sorted(packages)))
+    path.write_text("\n".join(sorted(packages)))
     path.rename(packages_list_path)
 
 
@@ -120,9 +120,15 @@ def remove_additional_packages(old_packages):
     write_config(packages)
 
 
-def notify(title, body="", accept_label="", deny_label="",
-           documentation_target="", urgent=False, return_id=False,
-           ):
+def notify(
+    title,
+    body="",
+    accept_label="",
+    deny_label="",
+    documentation_target="",
+    urgent=False,
+    return_id=False,
+):
     """Display a notification to the user of the live system.
 
     The notification will show title and body.
@@ -151,12 +157,17 @@ def notify(title, body="", accept_label="", deny_label="",
         completed_process = subprocess.run(
             [
                 "/usr/local/lib/run-with-user-env",
-                cmd, title, body, accept_label, deny_label,
-                documentation_target, urgent
+                cmd,
+                title,
+                body,
+                accept_label,
+                deny_label,
+                documentation_target,
+                urgent,
             ],
             stdout=subprocess.PIPE,
             stderr=subprocess.PIPE,
-            text=True
+            text=True,
         )
         if completed_process.stderr:
             logging.warning("%s", completed_process.stderr)
@@ -190,17 +201,22 @@ def notify_failure(summary, details=None):
     if details:
         # Translators: Don't translate {details}, it's a placeholder and will
         # be replaced.
-        details = _("{details} Please check your list of additional "
-                    "software or read the system log to "
-                    "understand the problem.").format(details=details)
+        details = _(
+            "{details} Please check your list of additional "
+            "software or read the system log to "
+            "understand the problem."
+        ).format(details=details)
 
     else:
-        details = _("Please check your list of additional "
-                    "software or read the system log to "
-                    "understand the problem.")
+        details = _(
+            "Please check your list of additional "
+            "software or read the system log to "
+            "understand the problem."
+        )
 
-    action_clicked = notify(summary, details, _("Show Log"), _("Configure"),
-                            urgent=True)
+    action_clicked = notify(
+        summary, details, _("Show Log"), _("Configure"), urgent=True
+    )
     if action_clicked == 1:
         show_system_log()
     elif action_clicked == 0:

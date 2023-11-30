@@ -8,11 +8,14 @@ from typing import TYPE_CHECKING, Callable
 
 from tailsgreeter.ui import _
 from tailsgreeter.config import persistent_settings_dir
-from tailsgreeter.errors import PersistentStorageError, \
-    FeatureActivationFailedError, WrongPassphraseError
+from tailsgreeter.errors import (
+    PersistentStorageError,
+    FeatureActivationFailedError,
+    WrongPassphraseError,
+)
 
-gi.require_version('GLib', '2.0')
-gi.require_version('Gtk', '3.0')
+gi.require_version("GLib", "2.0")
+gi.require_version("Gtk", "3.0")
 from gi.repository import GLib, Gtk
 
 if TYPE_CHECKING:
@@ -20,33 +23,46 @@ if TYPE_CHECKING:
 
 
 class PersistentStorage(object):
-    def __init__(self, persistence_setting: "PersistentStorageSettings",
-                 load_settings_cb, apply_settings_cb: Callable, builder):
+    def __init__(
+        self,
+        persistence_setting: "PersistentStorageSettings",
+        load_settings_cb,
+        apply_settings_cb: Callable,
+        builder,
+    ):
         self.persistence_setting = persistence_setting
         self.load_settings_cb = load_settings_cb
         self.apply_settings_cb = apply_settings_cb
         self.upgrade_failed = False
 
-        self.box_storage = builder.get_object('box_storage')
-        self.box_storagecreate = builder.get_object('box_storagecreate')
-        self.box_storage_unlock = builder.get_object('box_storage_unlock')
-        self.box_storage_unlocked = builder.get_object('box_storage_unlocked')
-        self.button_storage_unlock = builder.get_object('button_storage_unlock')  # type: Gtk.Button
-        self.checkbutton_storage_show_passphrase = builder.get_object('checkbutton_storage_show_passphrase')
-        self.entry_storage_passphrase = builder.get_object('entry_storage_passphrase')
-        self.image_storage_state = builder.get_object('image_storage_state')
-        self.infobar_persistence = builder.get_object('infobar_persistence')
-        self.label_infobar_persistence = builder.get_object('label_infobar_persistence')
-        self.spinner_storage_unlock = builder.get_object('spinner_storage_unlock')
+        self.box_storage = builder.get_object("box_storage")
+        self.box_storagecreate = builder.get_object("box_storagecreate")
+        self.box_storage_unlock = builder.get_object("box_storage_unlock")
+        self.box_storage_unlocked = builder.get_object("box_storage_unlocked")
+        self.button_storage_unlock = builder.get_object(
+            "button_storage_unlock"
+        )  # type: Gtk.Button
+        self.checkbutton_storage_show_passphrase = builder.get_object(
+            "checkbutton_storage_show_passphrase"
+        )
+        self.entry_storage_passphrase = builder.get_object("entry_storage_passphrase")
+        self.image_storage_state = builder.get_object("image_storage_state")
+        self.infobar_persistence = builder.get_object("infobar_persistence")
+        self.label_infobar_persistence = builder.get_object("label_infobar_persistence")
+        self.spinner_storage_unlock = builder.get_object("spinner_storage_unlock")
         self.button_start = builder.get_object("button_start")
 
         self.checkbutton_storage_show_passphrase.connect(
-            'toggled', self.cb_checkbutton_storage_show_passphrase_toggled)
+            "toggled", self.cb_checkbutton_storage_show_passphrase_toggled
+        )
 
-        self.box_storage.set_focus_chain([
-            self.box_storage_unlock,
-            self.box_storage_unlocked,
-            self.checkbutton_storage_show_passphrase])
+        self.box_storage.set_focus_chain(
+            [
+                self.box_storage_unlock,
+                self.box_storage_unlocked,
+                self.checkbutton_storage_show_passphrase,
+            ]
+        )
 
         is_created = self.persistence_setting.is_created
         self.box_storagecreate.set_visible(not is_created)
@@ -110,28 +126,35 @@ class PersistentStorage(object):
         self.image_storage_state.set_visible(True)
         self.spinner_storage_unlock.set_visible(False)
         self.label_infobar_persistence.set_label(
-                _("Cannot unlock encrypted storage with this passphrase."))
+            _("Cannot unlock encrypted storage with this passphrase.")
+        )
         self.infobar_persistence.set_visible(True)
         self.entry_storage_passphrase.select_region(0, -1)
         self.entry_storage_passphrase.set_icon_from_icon_name(
-                Gtk.EntryIconPosition.SECONDARY,
-                'dialog-warning-symbolic')
+            Gtk.EntryIconPosition.SECONDARY, "dialog-warning-symbolic"
+        )
         self.entry_storage_passphrase.grab_focus()
 
     def on_upgrade_failed(self):
-        label = _("Failed to upgrade the Persistent Storage. "
-                  "Please start Tails and send an error report.")
+        label = _(
+            "Failed to upgrade the Persistent Storage. "
+            "Please start Tails and send an error report."
+        )
         self.on_activation_failed(label)
 
     def on_unlock_failed(self):
-        label = _("Failed to unlock the Persistent Storage. "
-                  "Please start Tails and send an error report.")
+        label = _(
+            "Failed to unlock the Persistent Storage. "
+            "Please start Tails and send an error report."
+        )
         self.on_activation_failed(label)
 
     def on_activation_failed(self, label=None):
         if not label:
-            label = _("Failed to activate the Persistent Storage. "
-                      "Please start Tails and send an error report.")
+            label = _(
+                "Failed to activate the Persistent Storage. "
+                "Please start Tails and send an error report."
+            )
         self.button_storage_unlock.set_label(_("Unlock Encryption"))
         self.image_storage_state.set_visible(True)
         self.spinner_storage_unlock.set_visible(False)
@@ -151,7 +174,13 @@ class PersistentStorage(object):
         try:
             self.persistence_setting.activate_persistent_storage()
         except FeatureActivationFailedError as e:
-            label = str(e) + "\n" + _("Start Tails and open the Persistent Storage settings to find out more.")
+            label = (
+                str(e)
+                + "\n"
+                + _(
+                    "Start Tails and open the Persistent Storage settings to find out more."
+                )
+            )
             self.on_activation_failed(label)
         except PersistentStorageError as e:
             logging.error(e)
@@ -167,8 +196,9 @@ class PersistentStorage(object):
         self.spinner_storage_unlock.set_visible(False)
         self.entry_storage_passphrase.set_visible(False)
         self.button_storage_unlock.set_visible(False)
-        self.image_storage_state.set_from_icon_name('tails-unlocked',
-                                                    Gtk.IconSize.BUTTON)
+        self.image_storage_state.set_from_icon_name(
+            "tails-unlocked", Gtk.IconSize.BUTTON
+        )
 
         if not os.listdir(persistent_settings_dir):
             self.apply_settings_cb()

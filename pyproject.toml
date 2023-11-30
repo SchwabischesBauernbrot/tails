@@ -1,3 +1,12 @@
+[tool.black]
+# XXX:Bookworm: bump to py311
+target-version = ["py39"]
+extend-exclude = '''
+(
+  ^/(submodules|tmp)/
+)
+'''
+
 [tool.mypy]
 mypy_path = "config/chroot_local-includes/usr/lib/python3/dist-packages"
 warn_no_return = true

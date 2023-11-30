@@ -30,5 +30,4 @@ LOCKED_VIEW_UI_FILE = path.join(DATA_DIR, "locked_view.ui")
 WELCOME_VIEW_UI_FILE = path.join(DATA_DIR, "welcome_view.ui")
 WINDOW_UI_FILE = path.join(DATA_DIR, "window.ui")
 
-CHANGE_PASSPHRASE_DIALOG_UI_FILE = path.join(DATA_DIR,
-                                             "change_passphrase_dialog.ui")
+CHANGE_PASSPHRASE_DIALOG_UI_FILE = path.join(DATA_DIR, "change_passphrase_dialog.ui")

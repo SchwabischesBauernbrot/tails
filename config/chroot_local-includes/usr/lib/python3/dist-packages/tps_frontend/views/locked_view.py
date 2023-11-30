@@ -16,7 +16,9 @@ class LockedView(View):
 
     def __init__(self, window: "Window"):
         super().__init__(window)
-        self.restart_button = self.builder.get_object("restart_button")  # type: Gtk.Button
+        self.restart_button = self.builder.get_object(
+            "restart_button"
+        )  # type: Gtk.Button
 
     def show(self):
         super().show()

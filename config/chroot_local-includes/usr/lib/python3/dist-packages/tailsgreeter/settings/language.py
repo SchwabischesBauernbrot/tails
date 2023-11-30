@@ -24,20 +24,23 @@ import locale
 
 import tailsgreeter.config
 from tailsgreeter.settings import SettingNotFoundError
-from tailsgreeter.settings.localization import LocalizationSetting, \
-    language_from_locale, country_from_locale, add_encoding
+from tailsgreeter.settings.localization import (
+    LocalizationSetting,
+    language_from_locale,
+    country_from_locale,
+    add_encoding,
+)
 from tailsgreeter.settings.utils import read_settings, write_settings
 
-gi.require_version('GLib', '2.0')
-gi.require_version('GObject', '2.0')
-gi.require_version('GnomeDesktop', '3.0')
-gi.require_version('Gtk', '3.0')
+gi.require_version("GLib", "2.0")
+gi.require_version("GObject", "2.0")
+gi.require_version("GnomeDesktop", "3.0")
+gi.require_version("Gtk", "3.0")
 from gi.repository import GLib, GObject, GnomeDesktop, Gtk
 
 
 class LanguageSetting(LocalizationSetting):
-
-    def __init__(self, locales: [str]):
+    def __init__(self, locales: list[str]):
         super().__init__()
         self.locales = locales
         self._user_account = None
@@ -45,31 +48,45 @@ class LanguageSetting(LocalizationSetting):
 
         self.lang_codes = self._languages_from_locales(locales)
         self.locales_per_language = self._make_language_to_locale_dict(locales)
-        self.language_names_per_language = self._make_language_to_language_name_dict(self.lang_codes)
+        self.language_names_per_language = self._make_language_to_language_name_dict(
+            self.lang_codes
+        )
 
     def save(self, language: str, is_default: bool):
-        write_settings(self.settings_file, {
-            'TAILS_LOCALE_NAME': language,
-            'IS_DEFAULT': is_default,
-        })
+        write_settings(
+            self.settings_file,
+            {
+                "TAILS_LOCALE_NAME": language,
+                "IS_DEFAULT": is_default,
+            },
+        )
 
-    def load(self) -> (str, bool):
+    def load(self) -> tuple[str, bool]:
         try:
             settings = read_settings(self.settings_file)
         except FileNotFoundError:
-            raise SettingNotFoundError("No persistent language settings file found (path: %s)" % self.settings_file)
+            raise SettingNotFoundError(
+                "No persistent language settings file found (path: %s)"
+                % self.settings_file
+            )
 
-        language = settings.get('TAILS_LOCALE_NAME')
+        language = settings.get("TAILS_LOCALE_NAME")
         if language is None:
-            raise SettingNotFoundError("No language setting found in settings file (path: %s)" % self.settings_file)
+            raise SettingNotFoundError(
+                "No language setting found in settings file (path: %s)"
+                % self.settings_file
+            )
 
-        is_default = settings.get('IS_DEFAULT') == 'true'
-        logging.debug("Loaded language setting '%s' (is default: %s)", language, is_default)
+        is_default = settings.get("IS_DEFAULT") == "true"
+        logging.debug(
+            "Loaded language setting '%s' (is default: %s)", language, is_default
+        )
         return language, is_default
 
     def get_tree(self) -> Gtk.TreeStore:
-        treestore = Gtk.TreeStore(GObject.TYPE_STRING,  # id
-                                  GObject.TYPE_STRING)  # name
+        treestore = Gtk.TreeStore(
+            GObject.TYPE_STRING, GObject.TYPE_STRING  # id
+        )  # name
 
         for lang_code, language_name in self.language_names_per_language.items():
             print("%s: %s" % (lang_code, language_name))
@@ -80,8 +97,10 @@ class LanguageSetting(LocalizationSetting):
             treeiter_language = treestore.append(parent=None)
             treestore.set(treeiter_language, 0, self.get_default_locale(lang_code))
             treestore.set(treeiter_language, 1, language_name)
-            locales = sorted(self.locales_per_language[lang_code],
-                             key=lambda x: self._locale_name(x).lower())
+            locales = sorted(
+                self.locales_per_language[lang_code],
+                key=lambda x: self._locale_name(x).lower(),
+            )
             if len(locales) > 1:
                 for locale_code in locales:
                     treeiter_locale = treestore.append(parent=treeiter_language)
@@ -102,17 +121,18 @@ class LanguageSetting(LocalizationSetting):
         """
         locales = self.locales_per_language[lang_code]
         if not locales:
-            return 'en_US'
+            return "en_US"
 
         for locale_code in locales:
-            if (country_from_locale(locale_code).lower() ==
-                    self._language_from_locale(locale_code)):
+            if country_from_locale(locale_code).lower() == self._language_from_locale(
+                locale_code
+            ):
                 return locale_code
 
         return locales[0]
 
     def _language_name(self, lang_code: str) -> str:
-        default_locale = 'C'
+        default_locale = "C"
 
         if lang_code in ("zhs", "zht"):
             custom_lang_code = lang_code
@@ -123,12 +143,14 @@ class LanguageSetting(LocalizationSetting):
             local_locale = self.get_default_locale(lang_code)
 
         try:
-            native_name = GnomeDesktop.get_language_from_code(
-                    lang_code, local_locale).capitalize()
+            native_name: str = GnomeDesktop.get_language_from_code(
+                lang_code, local_locale
+            ).capitalize()
         except AttributeError:
             native_name = ""
-        localized_name = GnomeDesktop.get_language_from_code(
-                lang_code, default_locale).capitalize()
+        localized_name: str = GnomeDesktop.get_language_from_code(
+            lang_code, default_locale
+        ).capitalize()
 
         if custom_lang_code:
             if custom_lang_code == "zhs":
@@ -142,7 +164,8 @@ class LanguageSetting(LocalizationSetting):
             return native_name
 
         ret = "{native} ({localized})".format(
-                native=native_name, localized=localized_name)
+            native=native_name, localized=localized_name
+        )
         return ret
 
     def _locale_name(self, locale_code: str) -> str:
@@ -156,18 +179,25 @@ class LanguageSetting(LocalizationSetting):
 
         country_code = country_from_locale(locale_code)
         language_name_locale = GnomeDesktop.get_language_from_code(lang_code)
-        language_name_native = GnomeDesktop.get_language_from_code(
-                lang_code, add_encoding(locale_code)) or language_name_locale
+        language_name_native = (
+            GnomeDesktop.get_language_from_code(lang_code, add_encoding(locale_code))
+            or language_name_locale
+        )
         country_name_locale = GnomeDesktop.get_country_from_code(country_code)
-        country_name_native = GnomeDesktop.get_country_from_code(
-                country_code, add_encoding(locale_code)) or country_name_locale
+        country_name_native = (
+            GnomeDesktop.get_country_from_code(country_code, add_encoding(locale_code))
+            or country_name_locale
+        )
 
         try:
-            if (language_name_native == language_name_locale and
-                    country_name_native == country_name_locale):
+            if (
+                language_name_native == language_name_locale
+                and country_name_native == country_name_locale
+            ):
                 return "{language} - {country}".format(
-                        language=language_name_native.capitalize(),
-                        country=country_name_native)
+                    language=language_name_native.capitalize(),
+                    country=country_name_native,
+                )
 
             if custom_lang_code:
                 if custom_lang_code == "zhs":
@@ -175,17 +205,22 @@ class LanguageSetting(LocalizationSetting):
                 else:
                     country_name_locale = "traditional, " + country_name_locale
 
-            return "{language} - {country} " \
-                   "({local_language} - {local_country})".format(
+            return (
+                "{language} - {country} "
+                "({local_language} - {local_country})".format(
                     language=language_name_native.capitalize(),
                     country=country_name_native,
                     local_language=language_name_locale.capitalize(),
-                    local_country=country_name_locale)
+                    local_country=country_name_locale,
+                )
+            )
         except AttributeError:
             return locale_code
 
     def apply_language(self, language_code: str):
-        normalized_code = locale.normalize(language_code + '.' + locale.getpreferredencoding())
+        normalized_code = locale.normalize(
+            language_code + "." + locale.getpreferredencoding()
+        )
         logging.debug("Setting session language to %s", normalized_code)
         if self._user_account:
             # For some reason, this produces the following warning, but
@@ -196,11 +231,13 @@ class LanguageSetting(LocalizationSetting):
         else:
             logging.warning("AccountsManager not ready")
 
-    def _make_language_to_locale_dict(self, locale_codes: [str]) -> {str: str}:
+    def _make_language_to_locale_dict(
+        self, locale_codes: list[str]
+    ) -> dict[str, list[str]]:
         """assemble dictionary of language codes to corresponding locales list
 
         example {en: [en_US, en_GB], ...}"""
-        languages_dict = {}
+        languages_dict: dict[str, list[str]] = {}
         for locale_code in locale_codes:
             lang_code = self._language_from_locale(locale_code)
             if lang_code not in languages_dict:
@@ -209,7 +246,9 @@ class LanguageSetting(LocalizationSetting):
                 languages_dict[lang_code].append(locale_code)
         return languages_dict
 
-    def _make_language_to_language_name_dict(self, lang_codes: [str]) -> {str: str}:
+    def _make_language_to_language_name_dict(
+        self, lang_codes: list[str]
+    ) -> dict[str, str]:
         """assemble dictionary of language code to corresponding language name,
          sorted by the language name.
 
@@ -234,7 +273,7 @@ class LanguageSetting(LocalizationSetting):
             return "zht"
         return lang_code
 
-    def _languages_from_locales(self, locale_codes: [str]) -> [str]:
+    def _languages_from_locales(self, locale_codes: list[str]) -> list[str]:
         """Obtain a language code list from a locale code list
 
         example: [fr_FR, en_GB] -> [fr, en]"""

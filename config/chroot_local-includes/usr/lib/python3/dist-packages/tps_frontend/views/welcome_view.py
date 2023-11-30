@@ -13,17 +13,19 @@ class WelcomeView(View):
 
     def __init__(self, window):
         super().__init__(window)
-        self.continue_button = self.builder.get_object("continue_button")  # type: Gtk.Button
-        self.device_not_supported_label = \
-            self.builder.get_object("device_not_support_label")  # type: Gtk.Box
+        self.continue_button = self.builder.get_object(
+            "continue_button"
+        )  # type: Gtk.Button
+        self.device_not_supported_label = self.builder.get_object(
+            "device_not_support_label"
+        )  # type: Gtk.Box
         self.warning_icon = self.builder.get_object("warning_icon")  # type: Gtk.Image
 
     def show(self):
         super().show()
 
         # Check if the boot device is supported
-        variant = self.window.service_proxy.get_cached_property(
-            "BootDeviceIsSupported")
+        variant = self.window.service_proxy.get_cached_property("BootDeviceIsSupported")
         device_is_supported = bool(variant and variant.get_boolean())
 
         if device_is_supported:

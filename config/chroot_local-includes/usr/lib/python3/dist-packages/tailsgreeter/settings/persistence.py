@@ -20,7 +20,6 @@ import logging
 import os
 
 import gettext
-from typing import List
 
 _ = gettext.gettext
 
@@ -28,7 +27,7 @@ from gi.repository import Gio, GLib
 
 import tps.dbus.errors as tps_errors
 
-import tailsgreeter         # NOQA: E402
+import tailsgreeter  # NOQA: E402
 from tailsgreeter import config  # NOQA: E402
 import tailsgreeter.errors  # NOQA: E402
 
@@ -40,25 +39,35 @@ INTERFACE_NAME = "org.boum.tails.PersistentStorage"
 
 class PersistentStorageSettings(object):
     """Controller for settings related to Persistent Storage"""
+
     def __init__(self):
         self.failed_with_unexpected_error = False
-        self.cleartext_name = 'TailsData_unlocked'
-        self.cleartext_device = '/dev/mapper/' + self.cleartext_name
+        self.cleartext_name = "TailsData_unlocked"
+        self.cleartext_device = "/dev/mapper/" + self.cleartext_name
         self.service_proxy = Gio.DBusProxy.new_sync(
             Gio.bus_get_sync(Gio.BusType.SYSTEM, None),
-            Gio.DBusProxyFlags.NONE, None,
-            BUS_NAME, OBJECT_PATH, INTERFACE_NAME, None,
+            Gio.DBusProxyFlags.NONE,
+            None,
+            BUS_NAME,
+            OBJECT_PATH,
+            INTERFACE_NAME,
+            None,
         )  # type: Gio.DBusProxy
-        device_variant = self.service_proxy.get_cached_property("Device")  # type: GLib.Variant
+        device_variant = self.service_proxy.get_cached_property(
+            "Device"
+        )  # type: GLib.Variant
         self.device = device_variant.get_string() if device_variant else "/"
         self.is_unlocked = False
         self.is_created = self.service_proxy.get_cached_property("IsCreated")
         self.is_upgraded = self.service_proxy.get_cached_property("IsUpgraded")
         self.service_proxy.connect("g-properties-changed", self.on_properties_changed)
 
-    def on_properties_changed(self, proxy: Gio.DBusProxy,
-                              changed_properties: GLib.Variant,
-                              invalidated_properties: List[str]):
+    def on_properties_changed(
+        self,
+        proxy: Gio.DBusProxy,
+        changed_properties: GLib.Variant,
+        invalidated_properties: list[str],
+    ):
         """Callback for when the Persistent Storage properties change"""
         logging.debug("changed properties: %s", changed_properties)
         keys = set(changed_properties.keys())
@@ -78,8 +87,9 @@ class PersistentStorageSettings(object):
             PersistentStorageError if something else went wrong."""
         logging.debug("Unlocking Persistent Storage")
         if os.path.exists(self.cleartext_device):
-            logging.warning(f"Cleartext device {self.cleartext_device} already"
-                            f"exists")
+            logging.warning(
+                f"Cleartext device {self.cleartext_device} already" f"exists"
+            )
             self.is_unlocked = True
             return
 
@@ -148,8 +158,9 @@ class PersistentStorageSettings(object):
                 features = [config.gettext(feature) for feature in features]
                 # Translators: Don't translate {features}, it's a placeholder
                 # and will be replaced.
-                msg = config.gettext("Failed to activate some features of the Persistent Storage: {features}.").\
-                    format(features=", ".join(features))
+                msg = config.gettext(
+                    "Failed to activate some features of the Persistent Storage: {features}."
+                ).format(features=", ".join(features))
                 raise tailsgreeter.errors.FeatureActivationFailedError(msg)
             self.failed_with_unexpected_error = True
             raise tailsgreeter.errors.PersistentStorageError(

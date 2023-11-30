@@ -17,25 +17,26 @@ class BrowserBookmarks(Feature):
     translatable_name = "Tor Browser Bookmarks"
     Bindings = [Binding("bookmarks", "/home/amnesia/.mozilla/firefox/bookmarks")]
     conflicting_apps = [
-        ConflictingApp(name="Tor Browser",
-                       desktop_id="tor-browser.desktop",
-                       process_names=["firefox.real"])
+        ConflictingApp(
+            name="Tor Browser",
+            desktop_id="tor-browser.desktop",
+            process_names=["firefox.real"],
+        )
     ]
 
 
 class WelcomeScreen(Feature):
     Id = "WelcomeScreen"
     translatable_name = "Welcome Screen"
-    Bindings = [
-        Binding("greeter-settings", "/var/lib/gdm3/settings/persistent")
-    ]
+    Bindings = [Binding("greeter-settings", "/var/lib/gdm3/settings/persistent")]
 
 
 class NetworkConnections(Feature):
     Id = "NetworkConnections"
     translatable_name = "Network Connections"
-    Bindings = [Binding("nm-system-connections",
-                    "/etc/NetworkManager/system-connections")]
+    Bindings = [
+        Binding("nm-system-connections", "/etc/NetworkManager/system-connections")
+    ]
 
 
 class TorConfiguration(Feature):
@@ -47,16 +48,18 @@ class TorConfiguration(Feature):
 class AdditionalSoftware(Feature):
     Id = "AdditionalSoftware"
     translatable_name = "Additional Software"
-    Bindings = [Binding("apt/cache", "/var/cache/apt/archives"),
-              Binding("apt/lists", "/var/lib/apt/lists")]
+    Bindings = [
+        Binding("apt/cache", "/var/cache/apt/archives"),
+        Binding("apt/lists", "/var/lib/apt/lists"),
+    ]
     enabled_by_default = True
     conflicting_apps = [
         ConflictingApp(name="apt", process_names=["apt"]),
         ConflictingApp(name="apt-get", process_names=["apt-get"]),
         ConflictingApp(name="dpkg", process_names=["dpkg"]),
-        ConflictingApp(name="Synaptic",
-                       desktop_id="synaptic.desktop",
-                       process_names=["synaptic"]),
+        ConflictingApp(
+            name="Synaptic", desktop_id="synaptic.desktop", process_names=["synaptic"]
+        ),
     ]
 
 
@@ -71,9 +74,11 @@ class Thunderbird(Feature):
     translatable_name = "Thunderbird Email Client"
     Bindings = [Binding("thunderbird", "/home/amnesia/.thunderbird")]
     conflicting_apps = [
-        ConflictingApp(name="Thunderbird",
-                       desktop_id="thunderbird.desktop",
-                       process_names=["thunderbird"])
+        ConflictingApp(
+            name="Thunderbird",
+            desktop_id="thunderbird.desktop",
+            process_names=["thunderbird"],
+        )
     ]
 
 
@@ -91,9 +96,9 @@ class Electrum(Feature):
     translatable_name = "Electrum Bitcoin Wallet"
     Bindings = [Binding("electrum", "/home/amnesia/.electrum")]
     conflicting_apps = [
-        ConflictingApp(name="Electrum",
-                       desktop_id="electrum.desktop",
-                       process_names=["electrum"])
+        ConflictingApp(
+            name="Electrum", desktop_id="electrum.desktop", process_names=["electrum"]
+        )
     ]
 
 
@@ -102,9 +107,9 @@ class Pidgin(Feature):
     translatable_name = "Pidgin Internet Messenger"
     Bindings = [Binding("pidgin", "/home/amnesia/.purple")]
     conflicting_apps = [
-        ConflictingApp(name="Pidgin",
-                       desktop_id="pidgin.desktop",
-                       process_names=["pidgin"])
+        ConflictingApp(
+            name="Pidgin", desktop_id="pidgin.desktop", process_names=["pidgin"]
+        )
     ]
 
 
@@ -124,5 +129,6 @@ class Dotfiles(Feature):
 
 
 def get_classes():
-    return [g for g in globals().values() if inspect.isclass(g)
-            and Feature in g.__bases__]
+    return [
+        g for g in globals().values() if inspect.isclass(g) and Feature in g.__bases__
+    ]

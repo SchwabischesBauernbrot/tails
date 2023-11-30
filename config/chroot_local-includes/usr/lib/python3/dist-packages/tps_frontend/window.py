@@ -3,14 +3,14 @@ import subprocess
 from gi.repository import Gio, GLib, GObject, Gtk
 
 import gi
-gi.require_version('Handy', '1')
+
+gi.require_version("Handy", "1")
 from gi.repository import Handy
 
 Handy.init()
 
 from tps import State, IN_PROGRESS_STATES
-from tps.dbus.errors import \
-    TargetIsBusyError, NotEnoughMemoryError, DBusError
+from tps.dbus.errors import TargetIsBusyError, NotEnoughMemoryError, DBusError
 
 from tps_frontend import _, WINDOW_UI_FILE
 from tps_frontend.change_passphrase_dialog import ChangePassphraseDialog
@@ -32,9 +32,9 @@ if TYPE_CHECKING:
 
 logger = getLogger(__name__)
 
+
 @Gtk.Template.from_file(WINDOW_UI_FILE)
 class Window(Gtk.ApplicationWindow):
-
     __gtype_name__ = "Window"
 
     view_box = Gtk.Template.Child()  # type: Gtk.Box
@@ -65,13 +65,11 @@ class Window(Gtk.ApplicationWindow):
 
         # Subscribe to changes of the service name owner, so that we
         # notice when the service exits unexpectedly.
-        self.service_proxy.connect("notify::g-name-owner",
-                                   self.on_name_owner_changed)
+        self.service_proxy.connect("notify::g-name-owner", self.on_name_owner_changed)
 
         # Subscribe to changes of the service's properties, so that we
         # can react to the Persistent Storage being created or deleted.
-        self.service_proxy.connect("g-properties-changed",
-                                   self.on_properties_changed)
+        self.service_proxy.connect("g-properties-changed", self.on_properties_changed)
 
         self.name_owner = self.service_proxy.get_name_owner()
 
@@ -102,8 +100,7 @@ class Window(Gtk.ApplicationWindow):
         else:
             self.fail_view.show()
 
-    def on_name_owner_changed(self, proxy: Gio.DBusProxy,
-                              pspec: GObject.ParamSpec):
+    def on_name_owner_changed(self, proxy: Gio.DBusProxy, pspec: GObject.ParamSpec):
         self.name_owner = proxy.get_name_owner()
         if self.name_owner:
             logger.info("Persistent Storage D-Bus service appeared")
@@ -113,9 +110,12 @@ class Window(Gtk.ApplicationWindow):
             self.state = State.UNKNOWN
         self.refresh_view()
 
-    def on_properties_changed(self, proxy: Gio.DBusProxy,
-                              changed_properties: GLib.Variant,
-                              invalidated_properties: List[str]):
+    def on_properties_changed(
+        self,
+        proxy: Gio.DBusProxy,
+        changed_properties: GLib.Variant,
+        invalidated_properties: List[str],
+    ):
         if not any(p for p in changed_properties.keys() if p == "State"):
             return
 
@@ -137,15 +137,19 @@ class Window(Gtk.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_delete_button_clicked(self, button: Gtk.Button):
         if self.active_view == self.locked_view:
-            dialog = Gtk.MessageDialog(self,
-                                       Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                                       Gtk.MessageType.WARNING,
-                                       Gtk.ButtonsType.NONE,
-                                       _("Delete Persistent Storage"))
-            dialog.format_secondary_text(_(
-                "Are you sure that you want to delete your Persistent Storage? "
-                "This action cannot be undone."
-            ))
+            dialog = Gtk.MessageDialog(
+                self,
+                Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                Gtk.MessageType.WARNING,
+                Gtk.ButtonsType.NONE,
+                _("Delete Persistent Storage"),
+            )
+            dialog.format_secondary_text(
+                _(
+                    "Are you sure that you want to delete your Persistent Storage? "
+                    "This action cannot be undone."
+                )
+            )
             dialog.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL)
             dialog.add_button(_("_Delete Persistent Storage"), Gtk.ResponseType.OK)
             dialog.set_default_response(Gtk.ResponseType.CANCEL)
@@ -168,16 +172,20 @@ class Window(Gtk.ApplicationWindow):
                     callback=self.on_delete_call_finished,
                 )
         else:
-            dialog = Gtk.MessageDialog(self,
-                                       Gtk.DialogFlags.DESTROY_WITH_PARENT,
-                                       Gtk.MessageType.INFO,
-                                       Gtk.ButtonsType.NONE,
-                                       _("Delete Persistent Storage"))
-            dialog.format_secondary_text(_(
-                "To delete the Persistent Storage, restart Tails without "
-                "unlocking the Persistent Storage and open "
-                "the Persistent Storage settings again."
-            ))
+            dialog = Gtk.MessageDialog(
+                self,
+                Gtk.DialogFlags.DESTROY_WITH_PARENT,
+                Gtk.MessageType.INFO,
+                Gtk.ButtonsType.NONE,
+                _("Delete Persistent Storage"),
+            )
+            dialog.format_secondary_text(
+                _(
+                    "To delete the Persistent Storage, restart Tails without "
+                    "unlocking the Persistent Storage and open "
+                    "the Persistent Storage settings again."
+                )
+            )
             dialog.add_button(_("_OK"), Gtk.ResponseType.OK)
             dialog.set_default_response(Gtk.ResponseType.OK)
             dialog.run()
@@ -186,8 +194,10 @@ class Window(Gtk.ApplicationWindow):
     @Gtk.Template.Callback()
     def on_close(self, window: Gtk.Window, event: "Gdk.Event"):
         if self.state in IN_PROGRESS_STATES:
-            msg = _("Sorry, you can't close this app until the "
-                    "ongoing operation has completed.")
+            msg = _(
+                "Sorry, you can't close this app until the "
+                "ongoing operation has completed."
+            )
             self.display_error(_("Please wait"), msg, False)
             return True
         return False
@@ -201,8 +211,7 @@ class Window(Gtk.ApplicationWindow):
     def on_restart_button_clicked(self, button: Gtk.Button):
         subprocess.run(["sudo", "-n", "/sbin/reboot"])
 
-    def on_create_call_finished(self, proxy: GObject.Object,
-                                res: Gio.AsyncResult):
+    def on_create_call_finished(self, proxy: GObject.Object, res: Gio.AsyncResult):
         try:
             proxy.call_finish(res)
         except GLib.Error as e:
@@ -213,20 +222,20 @@ class Window(Gtk.ApplicationWindow):
                 # Persistent Storage. This is an expected error which
                 # we don't want error reports for.
                 NotEnoughMemoryError.strip_remote_error(e)
-                self.display_error(_("Not enough memory to create Persistent Storage"),
-                                   e.message,
-                                   with_send_report_button=False)
+                self.display_error(
+                    _("Not enough memory to create Persistent Storage"),
+                    e.message,
+                    with_send_report_button=False,
+                )
             else:
                 DBusError.strip_remote_error(e)
-                self.display_error(_("Failed to create Persistent Storage"),
-                                   e.message)
+                self.display_error(_("Failed to create Persistent Storage"), e.message)
 
             if self.active_view == self.creation_view:
                 self.close()
             return
 
-    def on_delete_call_finished(self, proxy: GObject.Object,
-                                res: Gio.AsyncResult):
+    def on_delete_call_finished(self, proxy: GObject.Object, res: Gio.AsyncResult):
         try:
             proxy.call_finish(res)
         except GLib.Error as e:
@@ -237,17 +246,17 @@ class Window(Gtk.ApplicationWindow):
                 # an expected error which we don't want error reports
                 # for.
                 TargetIsBusyError.strip_remote_error(e)
-                self.display_error(_("Error deleting Persistent Storage"),
-                                   e.message,
-                                   with_send_report_button=False)
+                self.display_error(
+                    _("Error deleting Persistent Storage"),
+                    e.message,
+                    with_send_report_button=False,
+                )
             else:
                 DBusError.strip_remote_error(e)
-                self.display_error(_("Error deleting Persistent Storage"),
-                                   e.message)
+                self.display_error(_("Error deleting Persistent Storage"), e.message)
         self.refresh_view()
 
-    def display_error(self, title: str, msg: str,
-                      with_send_report_button: bool = None):
+    def display_error(self, title: str, msg: str, with_send_report_button: bool = None):
         if with_send_report_button is None:
             # Don't show the send report button if the failure view is the
             # active view, because we already show a send report button

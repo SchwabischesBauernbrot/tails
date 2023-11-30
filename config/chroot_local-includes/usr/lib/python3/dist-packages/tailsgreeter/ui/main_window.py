@@ -20,8 +20,8 @@ from typing import TYPE_CHECKING
 import gi
 import os
 
-import tailsgreeter                                             # NOQA: E402
-from tailsgreeter import config                                 # NOQA: E402
+import tailsgreeter  # NOQA: E402
+from tailsgreeter import config  # NOQA: E402
 from tailsgreeter.settings import SettingNotFoundError
 from tailsgreeter.translatable_window import TranslatableWindow
 from tailsgreeter.ui.popover import Popover
@@ -35,9 +35,9 @@ from tailsgreeter import TRANSLATION_DOMAIN
 from tailsgreeter.ui.persistent_storage import PersistentStorage
 
 
-gi.require_version('Gdk', '3.0')
-gi.require_version('Gtk', '3.0')
-gi.require_version('Handy', '1')
+gi.require_version("Gdk", "3.0")
+gi.require_version("Gtk", "3.0")
+gi.require_version("Handy", "1")
 from gi.repository import Gdk, Gtk, GdkPixbuf, Handy
 
 Handy.init()
@@ -47,15 +47,20 @@ if TYPE_CHECKING:
     from tailsgreeter.ui.settings_collection import GreeterSettingsCollection
 
 
-MAIN_UI_FILE = 'main.ui'
-CSS_FILE = 'greeter.css'
-ICON_DIR = 'icons/'
+MAIN_UI_FILE = "main.ui"
+CSS_FILE = "greeter.css"
+ICON_DIR = "icons/"
 PREFERRED_WIDTH = 620
 PREFERRED_HEIGHT = 470
 
 
 class GreeterMainWindow(Gtk.Window, TranslatableWindow):
-    def __init__(self, greeter, persistence_setting: "PersistentStorageSettings", settings: "GreeterSettingsCollection"):
+    def __init__(
+        self,
+        greeter,
+        persistence_setting: "PersistentStorageSettings",
+        settings: "GreeterSettingsCollection",
+    ):
         Gtk.Window.__init__(self, title=_(tailsgreeter.APPLICATION_TITLE))
         TranslatableWindow.__init__(self, self)
         self.greeter = greeter
@@ -68,7 +73,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         for setting in self.settings:
             setting.main_window = self
 
-        self.connect('delete-event', self.cb_window_delete_event, None)
+        self.connect("delete-event", self.cb_window_delete_event, None)
         self.set_position(Gtk.WindowPosition.CENTER)
 
         # Load custom CSS
@@ -77,7 +82,8 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         Gtk.StyleContext.add_provider_for_screen(
             Gdk.Screen.get_default(),
             css_provider,
-            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION)
+            Gtk.STYLE_PROVIDER_PRIORITY_APPLICATION,
+        )
 
         # Load UI interface definition
         builder = Gtk.Builder()
@@ -92,50 +98,53 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             # gtk_widget_show:
             # https://bugzilla.gnome.org/show_bug.cgi?id=710888
             if isinstance(widget, Gtk.InfoBar):
-                revealer = widget.get_template_child(Gtk.InfoBar, 'revealer')
+                revealer = widget.get_template_child(Gtk.InfoBar, "revealer")
                 revealer.set_transition_type(Gtk.RevealerTransitionType.NONE)
 
-        self.box_language = builder.get_object('box_language')
-        self.box_language_header = builder.get_object('box_language_header')
-        self.box_main = builder.get_object('box_main')
-        self.box_settings = builder.get_object('box_settings')
-        self.box_settings_header = builder.get_object('box_settings_header')
-        self.box_settings_values = builder.get_object('box_settings_values')
-        self.box_storage = builder.get_object('box_storage')
-        self.box_storage_unlock = builder.get_object('box_storage_unlock')
-        self.box_storage_unlocked = builder.get_object('box_storage_unlocked')
-        self.entry_storage_passphrase = builder.get_object('entry_storage_passphrase')
-        self.button_storagecreate_create = builder.get_object('button_storagecreate_create')
-        self.box_create_tps = builder.get_object('create_tps_box')
+        self.box_language = builder.get_object("box_language")
+        self.box_language_header = builder.get_object("box_language_header")
+        self.box_main = builder.get_object("box_main")
+        self.box_settings = builder.get_object("box_settings")
+        self.box_settings_header = builder.get_object("box_settings_header")
+        self.box_settings_values = builder.get_object("box_settings_values")
+        self.box_storage = builder.get_object("box_storage")
+        self.box_storage_unlock = builder.get_object("box_storage_unlock")
+        self.box_storage_unlocked = builder.get_object("box_storage_unlocked")
+        self.entry_storage_passphrase = builder.get_object("entry_storage_passphrase")
+        self.button_storagecreate_create = builder.get_object(
+            "button_storagecreate_create"
+        )
+        self.box_create_tps = builder.get_object("create_tps_box")
 
-        self.frame_language = builder.get_object('frame_language')
-        self.infobar_settings_loaded = builder.get_object('infobar_settings_loaded')
-        self.label_settings_default = builder.get_object('label_settings_default')
-        self.listbox_add_setting = builder.get_object('listbox_add_setting')
-        self.listbox_settings = builder.get_object('listbox_settings')
-        self.toolbutton_settings_add = builder.get_object('toolbutton_settings_add')
+        self.frame_language = builder.get_object("frame_language")
+        self.infobar_settings_loaded = builder.get_object("infobar_settings_loaded")
+        self.label_settings_default = builder.get_object("label_settings_default")
+        self.listbox_add_setting = builder.get_object("listbox_add_setting")
+        self.listbox_settings = builder.get_object("listbox_settings")
+        self.toolbutton_settings_add = builder.get_object("toolbutton_settings_add")
         self.listbox_settings = builder.get_object("listbox_settings")
         self.listbox_region = builder.get_object("listbox_region")
         self.button_start = builder.get_object("button_start")
         self.headerbar = builder.get_object("headerbar")
 
         # Set preferred width
-        self.set_default_size(min(Gdk.Screen.get_default().get_width(),
-                                  PREFERRED_WIDTH),
-                              min(Gdk.Screen.get_default().get_height(),
-                                  PREFERRED_HEIGHT))
+        self.set_default_size(
+            min(Gdk.Screen.get_default().get_width(), PREFERRED_WIDTH),
+            min(Gdk.Screen.get_default().get_height(), PREFERRED_HEIGHT),
+        )
         self.set_valign(Gtk.Align.START)
 
         # Add our icon dir to icon theme
         icon_theme = Gtk.IconTheme.get_default()
-        icon_theme.prepend_search_path(
-            config.data_path + ICON_DIR)
+        icon_theme.prepend_search_path(config.data_path + ICON_DIR)
 
         # Add placeholder to settings ListBox
         self.listbox_settings.set_placeholder(self.label_settings_default)
 
         # Persistent storage
-        self.persistent_storage = PersistentStorage(self.persistence_setting, self.load_settings, self.apply_settings, builder)
+        self.persistent_storage = PersistentStorage(
+            self.persistence_setting, self.load_settings, self.apply_settings, builder
+        )
 
         # Add children to ApplicationWindow
         self.add(self.box_main)
@@ -157,7 +166,9 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.confirm_dialog = MessageDialog(
             message_type=Gtk.MessageType.WARNING,
             title=_("Persistent Storage Still Locked"),
-            text=_("Do you really want to start Tails without unlocking your Persistent Storage?"),
+            text=_(
+                "Do you really want to start Tails without unlocking your Persistent Storage?"
+            ),
             cancel_label=_("Cancel"),
             ok_label=_("Start Without Persistent Storage"),
         )
@@ -178,15 +189,16 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                 accel_key,
                 Gdk.ModifierType.SHIFT_MASK | Gdk.ModifierType.CONTROL_MASK,
                 Gtk.AccelFlags.VISIBLE,
-                self.cb_accelgroup_setting_activated)
+                self.cb_accelgroup_setting_activated,
+            )
 
     def _set_focus_chain(self):
-        self.box_language.set_focus_chain([
-                self.frame_language,
-                self.box_language_header])
-        self.box_settings.set_focus_chain([
-                self.box_settings_values,
-                self.box_settings_header])
+        self.box_language.set_focus_chain(
+            [self.frame_language, self.box_language_header]
+        )
+        self.box_settings.set_focus_chain(
+            [self.box_settings_values, self.box_settings_header]
+        )
 
     # Actions
 
@@ -262,7 +274,8 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             self.add_setting(id_)
         else:
             old_details = self.dialog_add_setting.stack.get_child_by_name(
-                    'setting-details')
+                "setting-details"
+            )
             if old_details:
                 self.dialog_add_setting.stack.remove(old_details)
             self.dialog_add_setting.set_visible(False)
@@ -297,15 +310,15 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
 
     # Callbacks
 
-    def cb_accelgroup_setting_activated(self, accel_group, accelerable,
-                                        keyval, modifier):
+    def cb_accelgroup_setting_activated(
+        self, accel_group, accelerable, keyval, modifier
+    ):
         for setting in self.settings:
             if setting.accel_key == keyval:
                 self.edit_setting(setting.id)
         return False
 
     def cb_linkbutton_help_activate(self, linkbutton, user_data=None):
-
         def localize_page(page: str) -> str:
             """Try to get a localized version of the page"""
             if config.current_language == "en":
@@ -314,7 +327,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             localized_page = page.replace(".en.", ".%s." % config.current_language)
 
             # Strip the fragment identifier
-            index = localized_page.find('#')
+            index = localized_page.find("#")
             filename = localized_page[:index] if index > 0 else localized_page
 
             if os.path.isfile("/usr/share/doc/tails/website/" + filename):
@@ -347,8 +360,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             linkbutton.set_sensitive(True)
             return False
 
-        helpwindow.connect('delete-event', restore_linkbutton_status,
-                           linkbutton)
+        helpwindow.connect("delete-event", restore_linkbutton_status, linkbutton)
         # Restore default cursor
         self.get_window().set_cursor(None)
 
@@ -359,9 +371,11 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
     def cb_button_start_clicked(self, widget, user_data=None):
         # Ask for confirmation when Persistent Storage exists but is not
         # unlocked
-        if self.persistence_setting.is_created \
-                and not self.persistence_setting.is_unlocked \
-                and not self.persistence_setting.failed_with_unexpected_error:
+        if (
+            self.persistence_setting.is_created
+            and not self.persistence_setting.is_unlocked
+            and not self.persistence_setting.failed_with_unexpected_error
+        ):
             response = self.confirm_dialog.run()
             self.confirm_dialog.set_visible(False)
             if response != Gtk.ResponseType.OK:
@@ -420,7 +434,9 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             setting.popover.open(self.on_region_setting_popover_closed, setting)
         return False
 
-    def on_region_setting_popover_closed(self, popover: Popover, setting: LocalizationSettingUI):
+    def on_region_setting_popover_closed(
+        self, popover: Popover, setting: LocalizationSettingUI
+    ):
         # Unselect the listbox row
         self.listbox_region.unselect_all()
 
@@ -435,7 +451,9 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             setting.popover.open(self.on_additional_setting_popover_closed, setting)
         return False
 
-    def on_additional_setting_popover_closed(self, popover: Popover, setting: AdditionalSetting):
+    def on_additional_setting_popover_closed(
+        self, popover: Popover, setting: AdditionalSetting
+    ):
         logging.debug("'%s' popover closed. response: %s", setting.id, popover.response)
         # Unselect the listbox row
         self.listbox_settings.unselect_all()
@@ -457,10 +475,9 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
 
 
 class GreeterBackgroundWindow(Gtk.ApplicationWindow):
-
     def __init__(self, app):
         super().__init__(app)
-        Gtk.Window.__init__(self, title=_(tailsgreeter.APPLICATION_TITLE),
-                            application=app)
-        self.override_background_color(
-                Gtk.StateFlags.NORMAL, Gdk.RGBA(0, 0, 0, 1))
+        Gtk.Window.__init__(
+            self, title=_(tailsgreeter.APPLICATION_TITLE), application=app
+        )
+        self.override_background_color(Gtk.StateFlags.NORMAL, Gdk.RGBA(0, 0, 0, 1))

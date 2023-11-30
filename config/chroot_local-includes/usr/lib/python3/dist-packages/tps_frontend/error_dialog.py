@@ -8,8 +8,13 @@ if TYPE_CHECKING:
 
 
 class ErrorDialog(Gtk.MessageDialog):
-    def __init__(self, app: "Application", title: str, msg: str,
-                 with_send_report_button: bool = True):
+    def __init__(
+        self,
+        app: "Application",
+        title: str,
+        msg: str,
+        with_send_report_button: bool = True,
+    ):
         super().__init__(
             app.window,
             Gtk.DialogFlags.DESTROY_WITH_PARENT,
@@ -35,7 +40,8 @@ class ErrorDialog(Gtk.MessageDialog):
 
         if with_send_report_button:
             error_report_msg = _(
-                "You can send an error report to help solve the issue.")
+                "You can send an error report to help solve the issue."
+            )
             if msg:
                 msg += "\n\n" + error_report_msg
             else:
@@ -52,7 +58,8 @@ class ErrorDialog(Gtk.MessageDialog):
 
     def do_response(self, response_id: int):
         if response_id == Gtk.ResponseType.OK:
-            self.app.launch_whisperback(error_summary="PersistentStorage - %s" % self.title,
-                                        error_report_msg=self.msg
-                                        )
+            self.app.launch_whisperback(
+                error_summary="PersistentStorage - %s" % self.title,
+                error_report_msg=self.msg,
+            )
         self.destroy()

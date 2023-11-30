@@ -51,7 +51,7 @@ def copy(e_old, e_new):
                 # keep existing translation at pos if any
                 e_new.msgstr_plural[pos]
             except KeyError:
-                e_new.msgstr_plural[pos] = ''
+                e_new.msgstr_plural[pos] = ""
 
 
 def parse_args():
@@ -59,9 +59,16 @@ def parse_args():
     Parse command line arguments.
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument('--width', '-w', type=int, default=80, help='Width to wrap lines')
-    parser.add_argument('old_ref', help='commit before the problematic commit')
-    parser.add_argument('new_ref', default='HEAD', help='commit onto you recover. normally you want  to use HEAD here.', nargs='?')
+    parser.add_argument(
+        "--width", "-w", type=int, default=80, help="Width to wrap lines"
+    )
+    parser.add_argument("old_ref", help="commit before the problematic commit")
+    parser.add_argument(
+        "new_ref",
+        default="HEAD",
+        help="commit onto you recover. normally you want  to use HEAD here.",
+        nargs="?",
+    )
     return parser.parse_args()
 
 
@@ -83,13 +90,21 @@ def recover_lost_translations(args, logger):
             continue
 
         try:
-            pofile_old = polib.pofile(f.a_blob.data_stream.read().decode("utf-8"), encoding="utf-8", wrapwidth=args.width)
+            pofile_old = polib.pofile(
+                f.a_blob.data_stream.read().decode("utf-8"),
+                encoding="utf-8",
+                wrapwidth=args.width,
+            )
         except OSError as e:
             logger.warning(f"{f.a_path}@{args.old_ref}: {e}")
             continue
 
         try:
-            pofile_new = polib.pofile(f.b_blob.data_stream.read().decode("utf-8"), encoding="utf-8", wrapwidth=args.width)
+            pofile_new = polib.pofile(
+                f.b_blob.data_stream.read().decode("utf-8"),
+                encoding="utf-8",
+                wrapwidth=args.width,
+            )
         except OSError as e:
             logger.warning(f"{f.b_path}@{args.new_ref}: {e}")
             continue
@@ -107,12 +122,23 @@ def recover_lost_translations(args, logger):
 
         if changed_file:
             newpath = f.b_path
-            subprocess.run(['msgcat', '--width', str(args.width), '-t', 'utf-8' ,'-o', str(git_base/newpath), '-'],
-                           input=pofile_new.__unicode__().encode('utf-8'),
-                           check=True)
+            subprocess.run(
+                [
+                    "msgcat",
+                    "--width",
+                    str(args.width),
+                    "-t",
+                    "utf-8",
+                    "-o",
+                    str(git_base / newpath),
+                    "-",
+                ],
+                input=pofile_new.__unicode__().encode("utf-8"),
+                check=True,
+            )
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     logging.basicConfig()
     logger = logging.getLogger(__name__)
     args = parse_args()

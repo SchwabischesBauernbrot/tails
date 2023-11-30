@@ -55,11 +55,13 @@ def read_allowed_env_from_file(envfile: str, allow_root=False) -> dict:
 
     uid = os.getuid()
     if uid != LIVE_USER_UID and not (allow_root and uid == 0):
-        raise RuntimeError(f"This function must be called as amnesia (UID 1000) not UID {uid}")
+        raise RuntimeError(
+            f"This function must be called as amnesia (UID 1000) not UID {uid}"
+        )
 
     env = dict()
 
-    for line in Path(envfile).read_text().split('\0'):
+    for line in Path(envfile).read_text().split("\0"):
         if not line:
             continue
 

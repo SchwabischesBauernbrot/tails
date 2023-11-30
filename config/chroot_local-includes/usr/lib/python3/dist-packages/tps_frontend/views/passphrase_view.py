@@ -18,17 +18,19 @@ def wordlist():
     # XXX:Bookworm: These wordlists are supported on Bookworm (Bullseye only supports English)
     # wordlist_dict = {'pt_BR':'pt-br', 'de_DE':'de'}
     wordlist_dict = dict()
-    default_wordlist = 'en_securedrop'
+    default_wordlist = "en_securedrop"
     return wordlist_dict.get(locale.getlocale()[0], default_wordlist)
 
 
 def get_passphrase_suggestion():
-    passphrase = ''
+    passphrase = ""
     try:
-        p = subprocess.run(["/usr/bin/diceware", "--no-caps", "-d", " ", "--wordlist", wordlist()],
-                           stdout=subprocess.PIPE,
-                           check=True,
-                           text=True)
+        p = subprocess.run(
+            ["/usr/bin/diceware", "--no-caps", "-d", " ", "--wordlist", wordlist()],
+            stdout=subprocess.PIPE,
+            check=True,
+            text=True,
+        )
         if p.returncode == 0:
             passphrase = p.stdout.rstrip()
     except Exception as e:
@@ -41,16 +43,26 @@ class PassphraseView(View):
 
     def __init__(self, window: "Window"):
         super().__init__(window)
-        self.passphrase_entry = self.builder.get_object("passphrase_entry")  # type: Gtk.Entry
+        self.passphrase_entry = self.builder.get_object(
+            "passphrase_entry"
+        )  # type: Gtk.Entry
         self.verify_entry = self.builder.get_object("verify_entry")  # type: Gtk.Entry
-        self.progress_bar = self.builder.get_object("passphrase_hint_progress_bar")  # type: Gtk.ProgressBar
-        self.verify_hint_box = self.builder.get_object("verify_hint_box")  # type: Gtk.Box
-        self.create_button = self.builder.get_object("create_button")  # type: Gtk.Button
-        self.passphrase_hint_label = self.builder.get_object("passphrase_suggestion_label")
+        self.progress_bar = self.builder.get_object(
+            "passphrase_hint_progress_bar"
+        )  # type: Gtk.ProgressBar
+        self.verify_hint_box = self.builder.get_object(
+            "verify_hint_box"
+        )  # type: Gtk.Box
+        self.create_button = self.builder.get_object(
+            "create_button"
+        )  # type: Gtk.Button
+        self.passphrase_hint_label = self.builder.get_object(
+            "passphrase_suggestion_label"
+        )
         self.example_label = self.builder.get_object("placeholder_label3")
         self.refresh_image = self.builder.get_object("refresh_image")
         self.set_new_passphrase_hint()
-        set_passphrase_strength_hint(self.progress_bar, '')
+        set_passphrase_strength_hint(self.progress_bar, "")
 
     def show(self):
         super().show()

@@ -10,8 +10,9 @@ _ = gettext.gettext
 # which would cause this line to throw an exception
 udisks = None
 if not os.getenv("BEHAVE") and not os.getenv("NO_UDISKS"):
-    gi.require_version('UDisks', '2.0')
+    gi.require_version("UDisks", "2.0")
     from gi.repository import UDisks
+
     # noinspection PyArgumentList
     udisks = UDisks.Client.new_sync()  # type: UDisks.Client
 

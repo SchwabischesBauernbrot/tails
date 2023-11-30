@@ -1,5 +1,5 @@
 import os
-from typing import List, Callable, Optional, Any
+from typing import Callable, Optional, Any
 import socket
 from logging import getLogger
 
@@ -12,12 +12,11 @@ gi.require_version("GLib", "2.0")
 from gi.repository import GObject  # noqa: E402
 from gi.repository import GLib  # noqa: E402
 
-log = getLogger('asyncutils')
+log = getLogger("asyncutils")
 
 AsyncCallback = Callable[
-        [GObject.GObject, Optional[dict], Optional[str], Optional[dict]],
-        Any
-        ]
+    [GObject.GObject, Optional[dict], Optional[str], Optional[dict]], Any
+]
 
 
 class GJsonRpcClient(GObject.GObject):
@@ -62,17 +61,19 @@ class GJsonRpcClient(GObject.GObject):
         GLib.io_add_watch(self.sock.fileno(), GLib.IO_IN, self._on_data)
         GLib.io_add_watch(self.sock.fileno(), GLib.IO_HUP | GLib.IO_ERR, self._on_close)
 
-    def call_async(self, method: str, callback: Optional[AsyncCallback], *args, **kwargs):
+    def call_async(
+        self, method: str, callback: Optional[AsyncCallback], *args, **kwargs
+    ):
         req = self.protocol.create_request(method, args, kwargs)
-        log.debug('call async %s %s %s %d', method, args, kwargs, req.unique_id)
+        log.debug("call async %s %s %s %d", method, args, kwargs, req.unique_id)
         if callback is not None:
-            self.connect('response::%d' % req.unique_id, callback)
+            self.connect("response::%d" % req.unique_id, callback)
         output = req.serialize() + "\n"
         self.sock.send(output.encode("utf8"))
         return req
 
     def _on_close(self, *args):
-        self.emit('connection-closed')
+        self.emit("connection-closed")
 
     def _on_data(self, *args):
         self.buffer += self.sock.recv(self.MAX_LINESIZE)
@@ -83,21 +84,29 @@ class GJsonRpcClient(GObject.GObject):
             try:
                 response = self.protocol.parse_reply(msg)
             except BadReplyError:
-                return
+                return None
             if hasattr(response, "error"):
                 errordata = {}
-                if hasattr(response, '_jsonrpc_error_code'):
-                    errordata['code'] = response._jsonrpc_error_code
-                self.emit("response-error::%d" % response.unique_id, response.error, errordata)
-                self.emit("response::%d" % response.unique_id, None, response.error, errordata)
+                if hasattr(response, "_jsonrpc_error_code"):
+                    errordata["code"] = response._jsonrpc_error_code
+                self.emit(
+                    "response-error::%d" % response.unique_id, response.error, errordata
+                )
+                self.emit(
+                    "response::%d" % response.unique_id, None, response.error, errordata
+                )
             else:
-                self.emit("response-success::%d" % response.unique_id, response.result, None)
-                self.emit("response::%d" % response.unique_id, response.result, None, None)
+                self.emit(
+                    "response-success::%d" % response.unique_id, response.result, None
+                )
+                self.emit(
+                    "response::%d" % response.unique_id, response.result, None, None
+                )
         return True
 
 
 class GAsyncSpawn(GObject.GObject):
-    """ GObject class to wrap GLib.spawn_async().
+    """GObject class to wrap GLib.spawn_async().
 
     Use:
         s = GAsyncSpawn()
@@ -162,14 +171,17 @@ class GAsyncSpawn(GObject.GObject):
         return True
 
 
-def idle_add_chain(functions: List[Callable]):
+def idle_add_chain(functions: list[Callable]):
     """
     Wrap GLib.idle_add allowing chains of functions.
 
-    Use case: idle_add is very cool, but modifications to widgets aren't applied until the whole method add.
-    A simple solution to this shortcoming is split your function in many small ones, and call them in a chain.
+    Use case: idle_add is very cool, but modifications to widgets aren't applied
+    until the whole method add.
+    A simple solution to this shortcoming is split your function in many small ones,
+    and call them in a chain.
 
-    Using idle_add_chain, you can write each step as a separate function, then call idle_add_chain with a list
+    Using idle_add_chain, you can write each step as a separate function,
+    then call idle_add_chain with a list
     of those functions. The chain will continue ONLY if you return True.
     """
     if not functions:

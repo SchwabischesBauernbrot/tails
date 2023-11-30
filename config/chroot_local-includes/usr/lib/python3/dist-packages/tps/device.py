@@ -15,13 +15,17 @@ from tailslib import LIVE_USER_UID, LIVE_USERNAME
 import tps.logging
 from tps import executil, LUKS_HEADER_BACKUP_PATH
 from tps import _, TPS_MOUNT_POINT, udisks
-from tps.dbus.errors import IncorrectPassphraseError, TargetIsBusyError, NotEnoughMemoryError
+from tps.dbus.errors import (
+    IncorrectPassphraseError,
+    TargetIsBusyError,
+    NotEnoughMemoryError,
+)
 from tps.job import Job
 
 logger = tps.logging.get_logger(__name__)
 
 TAILS_MOUNTPOINT = "/lib/live/mount/medium"
-PARTITION_GUID = "8DA63339-0007-60C0-C436-083AC8230908" # Linux reserved
+PARTITION_GUID = "8DA63339-0007-60C0-C436-083AC8230908"  # Linux reserved
 TPS_PARTITION_LABEL = "TailsData"
 
 # Leave at least 200 MiB of memory to the system to avoid triggering the
@@ -44,14 +48,18 @@ DESIRED_PBKDF_MEMORY_KIB = 1 * 1024 * 1024
 class InvalidPartitionError(Exception):
     pass
 
+
 class PartitionNotUnlockedError(Exception):
     pass
+
 
 class InvalidBootDeviceError(Exception):
     pass
 
+
 class InvalidCleartextDeviceError(Exception):
     pass
+
 
 class InvalidStatError(Exception):
     pass
@@ -60,10 +68,11 @@ class InvalidStatError(Exception):
 class BootDevice(object):
     def __init__(self, udisks_object: UDisks.Object):
         self.udisks_object = udisks_object
-        self.partition_table = \
-            udisks_object.get_partition_table() # type: UDisks.PartitionTable
+        self.partition_table = (
+            udisks_object.get_partition_table()
+        )  # type: UDisks.PartitionTable
         partition_table_type = self.partition_table.props.type
-        if partition_table_type != 'gpt':
+        if partition_table_type != "gpt":
             logger.debug(f"Partition table type: {partition_table_type}")
             raise InvalidBootDeviceError(
                 "You can only create a Persistent Storage on a USB stick "
@@ -86,8 +95,10 @@ class BootDevice(object):
 
         block = udisks.get_block_for_dev(dev_num)
         if not block or not block.get_object():
-            msg = f"Could not get udisks object of boot device " \
-                  f"{os.major(dev_num)}:{os.minor(dev_num)}"
+            msg = (
+                f"Could not get udisks object of boot device "
+                f"{os.major(dev_num)}:{os.minor(dev_num)}"
+            )
             raise InvalidBootDeviceError(msg)
         device_object = block.get_object()
 
@@ -97,7 +108,7 @@ class BootDevice(object):
             msg = f"Boot device {block.props.device} is not a partition"
             raise InvalidBootDeviceError(msg)
         partition_name = partition.props.name
-        if partition_name != 'Tails':
+        if partition_name != "Tails":
             logger.debug(f"Partition name: {partition_name}")
             raise InvalidBootDeviceError(
                 "You can only create a Persistent Storage on a USB stick "
@@ -109,8 +120,10 @@ class BootDevice(object):
     def get_beginning_of_free_space(self) -> int:
         """Get the beginning of the free space on the device, in bytes"""
         # Get the partitions
-        partitions = [udisks.get_object(p).get_partition()
-                      for p in self.partition_table.props.partitions]
+        partitions = [
+            udisks.get_object(p).get_partition()
+            for p in self.partition_table.props.partitions
+        ]
         # Get the ends of the partitions, in bytes
         partition_ends = [p.props.offset + p.props.size for p in partitions]
         # Return the end of the last partition, which is the beginning
@@ -129,8 +142,9 @@ class TPSPartition(object):
         self.device_path = self.block.props.device
         self.partition = self.udisks_object.get_partition()  # type: UDisks.Partition
         if not self.partition:
-            raise InvalidPartitionError(f"Device {self.device_path} is not a "
-                                        f"partition")
+            raise InvalidPartitionError(
+                f"Device {self.device_path} is not a " f"partition"
+            )
 
     def get_cleartext_device(self) -> "CleartextDevice":
         """Get the cleartext device of Persistent Storage encrypted
@@ -138,8 +152,9 @@ class TPSPartition(object):
         encrypted = self._get_encrypted()
         cleartext_device_path = encrypted.props.cleartext_device
         if cleartext_device_path == "/":
-            raise PartitionNotUnlockedError(f"Device {self.device_path} is "
-                                            f"not unlocked")
+            raise PartitionNotUnlockedError(
+                f"Device {self.device_path} is " f"not unlocked"
+            )
         return CleartextDevice(udisks.get_object(cleartext_device_path))
 
     def try_get_cleartext_device(self) -> Optional["CleartextDevice"]:
@@ -155,8 +170,9 @@ class TPSPartition(object):
         """Get the UDisks.Encrypted interface of the partition"""
         encrypted = self.udisks_object.get_encrypted()
         if not encrypted:
-            raise InvalidPartitionError(f"Device {self.device_path} is not "
-                                        f"encrypted")
+            raise InvalidPartitionError(
+                f"Device {self.device_path} is not " f"encrypted"
+            )
         return encrypted
 
     def is_unlocked(self) -> bool:
@@ -179,9 +195,13 @@ class TPSPartition(object):
         p = executil.run(cmd, stdout=subprocess.PIPE)
         if p.returncode != 0:
             m = "Command 'cryptsetup luksDump' failed"
-            if p.stderr.startswith("Dump operation is not supported for this device type"):
-                m += ": dump operation was not supported for the device which implies " \
-                     "it uses LUKS version 1"
+            if p.stderr.startswith(
+                "Dump operation is not supported for this device type"
+            ):
+                m += (
+                    ": dump operation was not supported for the device which implies "
+                    "it uses LUKS version 1"
+                )
             else:
                 m += f": {p.stderr.strip()}"
             logger.debug(m)
@@ -191,9 +211,9 @@ class TPSPartition(object):
         except json.decoder.JSONDecodeError:
             logger.exception("Could not parse luksDump output as JSON")
             return False
-        keyslots = luks_json['keyslots']
+        keyslots = luks_json["keyslots"]
         for keyslot in keyslots:
-            luks_json['keyslots'][keyslot]['kdf']['salt'] = 'redacted'
+            luks_json["keyslots"][keyslot]["kdf"]["salt"] = "redacted"
         logger.debug(f"LUKS keyslots JSON dump: {keyslots}")
 
         # The parameters we want for the LUKS header are:
@@ -208,19 +228,29 @@ class TPSPartition(object):
         #   amount of RAM. For details, see:
         #   • cryptsetup-2.3.7/lib/utils.c:45:uint64_t crypt_getphysmemory_kb(void)
         #   • cryptsetup-2.3.7/lib/utils_pbkdf.c:64:static uint32_t adjusted_phys_memory(void)
-        cryptsetup_adjusted_memory_kib = os.sysconf('SC_PAGESIZE') // 1024 * os.sysconf('SC_PHYS_PAGES') // 2
-        required_memory_cost_kib = min(cryptsetup_adjusted_memory_kib, DESIRED_PBKDF_MEMORY_KIB)
-        logger.debug(f"cryptsetup_adjusted_memory_kib = {cryptsetup_adjusted_memory_kib}")
+        cryptsetup_adjusted_memory_kib = (
+            os.sysconf("SC_PAGESIZE") // 1024 * os.sysconf("SC_PHYS_PAGES") // 2
+        )
+        required_memory_cost_kib = min(
+            cryptsetup_adjusted_memory_kib, DESIRED_PBKDF_MEMORY_KIB
+        )
+        logger.debug(
+            f"cryptsetup_adjusted_memory_kib = {cryptsetup_adjusted_memory_kib}"
+        )
 
         def keyslot_is_upgraded(keyslot):
             try:
-                return keyslot["type"] == "luks2" and \
-                    keyslot["kdf"]["type"] == "argon2id" and \
-                    keyslot["kdf"]["memory"] >= required_memory_cost_kib
+                return (
+                    keyslot["type"] == "luks2"
+                    and keyslot["kdf"]["type"] == "argon2id"
+                    and keyslot["kdf"]["memory"] >= required_memory_cost_kib
+                )
             except KeyError:
                 return False
 
-        upgraded_keyslots = [slot for slot in keyslots if keyslot_is_upgraded(keyslots[slot])]
+        upgraded_keyslots = [
+            slot for slot in keyslots if keyslot_is_upgraded(keyslots[slot])
+        ]
         logger.debug(f"upgraded_keyslots = {upgraded_keyslots}")
 
         # We only require a single key to be upgraded since we have
@@ -276,8 +306,12 @@ class TPSPartition(object):
         return params
 
     @classmethod
-    def create(cls, job: Optional[Job], passphrase: str,
-               parent_device: Optional["BootDevice"] = None) -> "TPSPartition":
+    def create(
+        cls,
+        job: Optional[Job],
+        passphrase: str,
+        parent_device: Optional["BootDevice"] = None,
+    ) -> "TPSPartition":
         """Create the Persistent Storage encrypted partition"""
 
         if parent_device is None:
@@ -312,11 +346,14 @@ class TPSPartition(object):
         # in a weak key derivation function.
         if mem_cost_kib < MINIMUM_PBKDF_MEMORY_KIB:
             required_mem_kib = MEMORY_LEFT_TO_SYSTEM_KIB + MINIMUM_PBKDF_MEMORY_KIB
-            msg = _("Only {available_memory} KiB of memory is available, need "
-                    "at least {required_memory} KiB.\n\n"
-                    "Try again after closing some applications or rebooting."
-                    "").format(available_memory=available_mem_kib,
-                               required_memory=required_mem_kib)
+            msg = _(
+                "Only {available_memory} KiB of memory is available, need "
+                "at least {required_memory} KiB.\n\n"
+                "Try again after closing some applications or rebooting."
+                ""
+            ).format(
+                available_memory=available_mem_kib, required_memory=required_mem_kib
+            )
             raise NotEnoughMemoryError(msg)
 
         # Check that the memory cost is not above the desired amount
@@ -332,7 +369,7 @@ class TPSPartition(object):
             arg_size=0,
             arg_type=PARTITION_GUID,
             arg_name=TPS_PARTITION_LABEL,
-            arg_options=GLib.Variant('a{sv}', {}),
+            arg_options=GLib.Variant("a{sv}", {}),
         )
         udisks.settle()
 
@@ -344,20 +381,27 @@ class TPSPartition(object):
         # derivation function which we want to set to argon2id.
         # See https://mjg59.dreamwidth.org/66429.html
         logger.info("Initializing LUKS header")
-        next_step(_("Initializing the LUKS encryption... The computer might stop responding for a few seconds."))
+        next_step(
+            _(
+                "Initializing the LUKS encryption... The computer might stop responding for a few seconds."
+            )
+        )
 
-        cmd = ["cryptsetup", "luksFormat",
-               "--batch-mode",
-               "--key-file=-",
-               "--type=luks2",
-               # Note that the PBKDF memory cost we set here might be
-               # lower than what is_upgraded() requires, so an upgrade
-               # might be triggered next boot. This is intentional as
-               # the upgrade will fixup the memory cost to the desired
-               # amount. This should only happen on the lowest-end
-               # devices we support (2 GiB RAM).
-               *cls.pbkdf_parameters(memory_cost=mem_cost_kib),
-               partition.device_path]
+        cmd = [
+            "cryptsetup",
+            "luksFormat",
+            "--batch-mode",
+            "--key-file=-",
+            "--type=luks2",
+            # Note that the PBKDF memory cost we set here might be
+            # lower than what is_upgraded() requires, so an upgrade
+            # might be triggered next boot. This is intentional as
+            # the upgrade will fixup the memory cost to the desired
+            # amount. This should only happen on the lowest-end
+            # devices we support (2 GiB RAM).
+            *cls.pbkdf_parameters(memory_cost=mem_cost_kib),
+            partition.device_path,
+        ]
         executil.check_call(cmd, input=passphrase)
 
         # Wait for the encrypted partition to become available to udisks
@@ -377,9 +421,12 @@ class TPSPartition(object):
         next_step(_("Formatting the file system..."))
         cleartext_device.block.call_format_sync(
             arg_type="ext4",
-            arg_options=GLib.Variant('a{sv}', {
-                "label": GLib.Variant('s', TPS_PARTITION_LABEL),
-            }),
+            arg_options=GLib.Variant(
+                "a{sv}",
+                {
+                    "label": GLib.Variant("s", TPS_PARTITION_LABEL),
+                },
+            ),
         )
         udisks.settle()
 
@@ -406,15 +453,25 @@ class TPSPartition(object):
         # Delete the partition. By setting tear-down to true, udisks
         # automatically locks the encrypted device if it is currently
         # unlocked.
-        self.partition.call_delete_sync(arg_options=GLib.Variant('a{sv}', {
-            "tear-down": GLib.Variant('b', True),
-        }))
+        self.partition.call_delete_sync(
+            arg_options=GLib.Variant(
+                "a{sv}",
+                {
+                    "tear-down": GLib.Variant("b", True),
+                },
+            )
+        )
 
-    def test_passphrase(self, passphrase: str,
-                        header_file: Optional[Path] = None):
+    def test_passphrase(self, passphrase: str, header_file: Optional[Path] = None):
         """Try to unlock the encrypted partition with the given passphrase."""
-        cmd = ["cryptsetup", "luksOpen", "--batch-mode", "--key-file=-",
-               self.device_path, "TailsData"]
+        cmd = [
+            "cryptsetup",
+            "luksOpen",
+            "--batch-mode",
+            "--key-file=-",
+            self.device_path,
+            "TailsData",
+        ]
         if header_file:
             cmd += ["--header", str(header_file)]
         try:
@@ -455,28 +512,49 @@ class TPSPartition(object):
     def backup_luks_header(self):
         luks_header_backup = Path(LUKS_HEADER_BACKUP_PATH)
         executil.check_call(
-            ["cryptsetup", "luksHeaderBackup", "--batch-mode",
-             "--header-backup-file", luks_header_backup, self.device_path],
+            [
+                "cryptsetup",
+                "luksHeaderBackup",
+                "--batch-mode",
+                "--header-backup-file",
+                luks_header_backup,
+                self.device_path,
+            ],
         )
 
     def restore_luks_header_backup(self):
         luks_header_backup = Path(LUKS_HEADER_BACKUP_PATH)
         executil.check_call(
-            ["cryptsetup", "luksHeaderRestore", "--batch-mode",
-             "--header-backup-file", str(luks_header_backup), self.device_path],
+            [
+                "cryptsetup",
+                "luksHeaderRestore",
+                "--batch-mode",
+                "--header-backup-file",
+                str(luks_header_backup),
+                self.device_path,
+            ],
         )
 
     def upgrade_luks2(self):
         """Upgrade a LUKS1 header to LUKS2"""
         try:
             executil.check_call(
-                ["cryptsetup", "convert", "--debug", "--type", "luks2", "--batch-mode",
-                 self.device_path],
+                [
+                    "cryptsetup",
+                    "convert",
+                    "--debug",
+                    "--type",
+                    "luks2",
+                    "--batch-mode",
+                    self.device_path,
+                ],
             )
         except subprocess.CalledProcessError as err:
             # Ignore the error if the device is already LUKS2
-            if err.returncode == 1 and \
-                    err.stderr.strip() == "Device is already LUKS2 type.":
+            if (
+                err.returncode == 1
+                and err.stderr.strip() == "Device is already LUKS2 type."
+            ):
                 return
             raise
 
@@ -484,20 +562,23 @@ class TPSPartition(object):
         """Convert the PBKDF to argon2id with fixed iterations and
         memory cost"""
         executil.check_call(
-            ["cryptsetup", "luksConvertKey",
-             "--debug",
-             # This conversion occurs only while at Tails' Welcome
-             # Screen, where even the lowest-end devices we support (2
-             # GiB RAM) will have enough RAM for the desired PBKDF
-             # memory cost. So here we are either converting a LUKS1
-             # key created in an older Tails, or we are fixing up the
-             # memory cost of a newly created (via create()) volume
-             # where enough memory wasn't available since a fully
-             # logged in Tails system was running.
-             *self.pbkdf_parameters(memory_cost=DESIRED_PBKDF_MEMORY_KIB),
-             "--key-file=-",
-             "--batch-mode",
-             self.device_path],
+            [
+                "cryptsetup",
+                "luksConvertKey",
+                "--debug",
+                # This conversion occurs only while at Tails' Welcome
+                # Screen, where even the lowest-end devices we support (2
+                # GiB RAM) will have enough RAM for the desired PBKDF
+                # memory cost. So here we are either converting a LUKS1
+                # key created in an older Tails, or we are fixing up the
+                # memory cost of a newly created (via create()) volume
+                # where enough memory wasn't available since a fully
+                # logged in Tails system was running.
+                *self.pbkdf_parameters(memory_cost=DESIRED_PBKDF_MEMORY_KIB),
+                "--key-file=-",
+                "--batch-mode",
+                self.device_path,
+            ],
             input=passphrase,
         )
 
@@ -507,7 +588,7 @@ class TPSPartition(object):
             encrypted = self._get_encrypted()
             encrypted.call_unlock_sync(
                 arg_passphrase=passphrase,
-                arg_options=GLib.Variant('a{sv}', {}),
+                arg_options=GLib.Variant("a{sv}", {}),
                 cancellable=None,
             )
         except InvalidPartitionError as err:
@@ -525,10 +606,11 @@ class TPSPartition(object):
                 unlocked = self._try_restore_luks_header_backup(passphrase)
 
             if not unlocked:
-                if err.matches(UDisks.error_quark(), UDisks.Error.FAILED) and \
-                        re.search('Failed to activate device: (Operation not '
-                                  'permitted|Incorrect passphrase)',
-                                  err.message):
+                if err.matches(UDisks.error_quark(), UDisks.Error.FAILED) and re.search(
+                    "Failed to activate device: (Operation not "
+                    "permitted|Incorrect passphrase)",
+                    err.message,
+                ):
                     raise IncorrectPassphraseError(err) from err
                 raise
 
@@ -543,9 +625,11 @@ class TPSPartition(object):
                 # Log the output of `udisksctl dump` to help debug spurious
                 # failures to get the cleartext device after unlocking
                 output = executil.check_output(["udisksctl", "dump"])
-                logger.error("Failed to get cleartext device after unlocking"
-                             " partition. udisksctl dump output:\n%s",
-                             output)
+                logger.error(
+                    "Failed to get cleartext device after unlocking"
+                    " partition. udisksctl dump output:\n%s",
+                    output,
+                )
                 raise
 
             # Rename the cleartext device to "TailsData_unlocked", which
@@ -568,13 +652,16 @@ class TPSPartition(object):
         try:
             self.test_passphrase(passphrase, luks_header_backup)
         except IncorrectPassphraseError as err:
-            logger.info("Failed to unlock LUKS header backup with the "
-                        f"provided passphrase: {err}")
+            logger.info(
+                "Failed to unlock LUKS header backup with the "
+                f"provided passphrase: {err}"
+            )
             return False
 
         # Restore the LUKS header backup
-        logger.info(f"Unlocking LUKS header backup succeeded, "
-                    f"restoring the backup header.")
+        logger.info(
+            f"Unlocking LUKS header backup succeeded, " f"restoring the backup header."
+        )
         self.restore_luks_header_backup()
 
         # Try to get the encrypted device. We use wait_for_udisks_object()
@@ -586,7 +673,7 @@ class TPSPartition(object):
         logger.info(f"Unlocking {self.device_path} with the restored header.")
         encrypted.call_unlock_sync(
             arg_passphrase=passphrase,
-            arg_options=GLib.Variant('a{sv}', {}),
+            arg_options=GLib.Variant("a{sv}", {}),
             cancellable=None,
         )
         return True
@@ -623,11 +710,13 @@ class TPSPartition(object):
             encrypted.call_change_passphrase_sync(
                 arg_passphrase=passphrase,
                 arg_new_passphrase=new_passphrase,
-                arg_options=GLib.Variant('a{sv}', {}),
+                arg_options=GLib.Variant("a{sv}", {}),
             )
         except GLib.Error as err:
-            if err.matches(UDisks.error_quark(), UDisks.Error.FAILED) and \
-                    "No keyslot with given passphrase found" in err.message:
+            if (
+                err.matches(UDisks.error_quark(), UDisks.Error.FAILED)
+                and "No keyslot with given passphrase found" in err.message
+            ):
                 raise IncorrectPassphraseError(err) from err
             raise
 
@@ -642,8 +731,13 @@ class CleartextDevice(object):
         self.mount_point = Path(TPS_MOUNT_POINT)
 
     def is_mounted(self):
-        p = executil.run(["findmnt", f"--source={self.device_path}",
-                          f"--mountpoint={str(self.mount_point)}"])
+        p = executil.run(
+            [
+                "findmnt",
+                f"--source={self.device_path}",
+                f"--mountpoint={str(self.mount_point)}",
+            ]
+        )
         if p.returncode == 0:
             return True
         if p.returncode == 1:
@@ -657,8 +751,7 @@ class CleartextDevice(object):
         self.mount_point.mkdir(mode=0o770, parents=True, exist_ok=True)
 
         # Mount the Persistent Storage partition
-        executil.check_call(["mount", "-o", "acl", self.device_path,
-                             self.mount_point])
+        executil.check_call(["mount", "-o", "acl", self.device_path, self.mount_point])
 
         # Ensure that the mount point has the correct owner, permissions
         # and ACL.
@@ -668,10 +761,10 @@ class CleartextDevice(object):
         # refs: #7465
         os.chown(self.mount_point, uid=0, gid=0)
         self.mount_point.chmod(0o770)
-        executil.check_call(["/bin/setfacl", "--remove-all",
-                             self.mount_point])
-        executil.check_call(["/bin/setfacl", "--modify",
-                             f"user:{LIVE_USERNAME}:x", self.mount_point])
+        executil.check_call(["/bin/setfacl", "--remove-all", self.mount_point])
+        executil.check_call(
+            ["/bin/setfacl", "--modify", f"user:{LIVE_USERNAME}:x", self.mount_point]
+        )
 
         # Ensure that all persistent directories have safe permissions.
         # refs: #7458
@@ -686,8 +779,7 @@ class CleartextDevice(object):
             # a system directory. This e.g. avoids setting wrong
             # permissions on the APT, CUPS and NetworkManager
             # persistent directories.
-            if d.stat().st_uid != LIVE_USER_UID or \
-                    d.stat().st_gid != LIVE_USER_UID:
+            if d.stat().st_uid != LIVE_USER_UID or d.stat().st_gid != LIVE_USER_UID:
                 continue
             # Remove all permissions for group and others
             current = stat.S_IMODE(d.stat().st_mode)
@@ -700,17 +792,22 @@ class CleartextDevice(object):
             return
         # Unmount the filesystem until no mount points are left
         while filesystem.props.mount_points:
-            filesystem.call_unmount_sync(arg_options=GLib.Variant('a{sv}', {
-                # We do not unmount with force, because if force is
-                # necessary, locking the encrypted device will fail with
-                # "device is still in use", which would leave the
-                # device unlocked and unmounted, which is an
-                # inconsistent state. Instead, if the device is still
-                # in use, we let the unmount call fail already, which
-                # will leave the device in a "good" state (unlocked and
-                # mounted).
-                "force": GLib.Variant('b', False),
-            }))
+            filesystem.call_unmount_sync(
+                arg_options=GLib.Variant(
+                    "a{sv}",
+                    {
+                        # We do not unmount with force, because if force is
+                        # necessary, locking the encrypted device will fail with
+                        # "device is still in use", which would leave the
+                        # device unlocked and unmounted, which is an
+                        # inconsistent state. Instead, if the device is still
+                        # in use, we let the unmount call fail already, which
+                        # will leave the device in a "good" state (unlocked and
+                        # mounted).
+                        "force": GLib.Variant("b", False),
+                    },
+                )
+            )
 
     def get_dm_name(self) -> Optional[str]:
         udisks_devno = self.block.props.device_number
@@ -729,9 +826,9 @@ class CleartextDevice(object):
         executil.check_call(["dmsetup", "rename", dm_name, new_name])
 
 
-def wait_for_udisks_object(func: Callable[[...], Optional[object]],
-                           *args,
-                           timeout: int = 20) -> object:
+def wait_for_udisks_object(
+    func: Callable[[...], Optional[object]], *args, timeout: int = 20
+) -> object:
     """Repeatedly call `udevadm trigger` and then func() until func()
     returns a udisks object or timeout is reached."""
     start = time.time()

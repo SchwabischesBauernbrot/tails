@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-
-
 """ Functions to open sockets and files and make them inheritable.
 
 This is useful when you want to open a socket or file with higher
@@ -10,17 +7,16 @@ from pathlib import Path
 import logging
 import os
 import socket
-from typing import Union
+from typing import Any, Union
 
 from gi.repository import Gio
 
 # We add all open sockets / file descriptors to this list to avoid them
 # being garbage collected.
-objects = []
+objects: list[Any] = []
 
 
-def connect_socket(family: socket.AddressFamily,
-                   address: str) -> int:
+def connect_socket(family: socket.AddressFamily, address: str) -> int:
     s = socket.socket(family=family, type=socket.SOCK_STREAM)
     objects.append(s)
     fd = s.fileno()

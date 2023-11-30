@@ -100,14 +100,23 @@ class WhisperBackUI:
         except GObject.GError as e:
             print(e)
 
-        bug_specific_text = None
+        def add_to_bug_specific(header: str, value: str):
+            text = (
+                self.bug_specific_details.get_buffer().get_property("text")
+                + f"{header}: {value}\n"
+            )
+            self.bug_specific_details.get_buffer().set_text(text)
+            self.bug_specific_details_frame.set_visible(True)
+
         if prefill is not None:
+            if "app" in prefill:
+                add_to_bug_specific("Bug-specific app", prefill["app"].rstrip())
+
             if "summary" in prefill:
-                self.subject.set_text(prefill["summary"])
+                add_to_bug_specific("Bug-specific summary", prefill["summary"].rstrip())
+
             if "details" in prefill:
-                bug_specific_text = prefill["details"]
-                self.bug_specific_details.get_buffer().set_text(bug_specific_text)
-                self.bug_specific_details_frame.set_visible(True)
+                add_to_bug_specific("Bug-specific details", prefill["details"].rstrip())
 
         for textview in [self.messageGoal, self.messageProblem, self.messageSteps]:
             textview.get_buffer().create_tag(family="Monospace")
@@ -118,7 +127,9 @@ class WhisperBackUI:
         try:
             self.backend = whisperBack.whisperback.WhisperBack(
                 debugging_info=debugging_info,
-                bug_specific_text=bug_specific_text,
+                bug_specific_text=self.bug_specific_details.get_buffer().get_property(
+                    "text"
+                ),
             )
         except whisperBack.exceptions.MisconfigurationException as e:
             self.show_exception_dialog(
