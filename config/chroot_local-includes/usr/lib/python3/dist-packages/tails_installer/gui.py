@@ -405,11 +405,10 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         drive = self.get_selected_drive()
         if drive is None:
             self.enable_widgets(False)
-            return
+        else:
+            device = self.live.drives[drive]
 
-        device = self.live.drives[drive]
-
-        if self.live.device_can_be_upgraded(device):
+        if drive and self.live.device_can_be_upgraded(device):
             self.opts.partition = False
             self.force_reinstall = False
             self.__button_start.set_label(_("Upgrade"))
