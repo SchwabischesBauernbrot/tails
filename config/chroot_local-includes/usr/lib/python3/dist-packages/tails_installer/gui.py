@@ -347,6 +347,9 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         rgba = Gdk.RGBA()
         rgba.parse(CONFIG["branding"]["color"])
         self.__image_header.override_background_color(Gtk.StateFlags.NORMAL, rgba)
+        
+        # Let enter press start button
+        self.__button_start.grab_focus()
 
     def on_radio_button_source_iso_toggled(self, radio_button):
         self.live.log.debug("Entering on_radio_button_source_iso_toggled")
@@ -608,6 +611,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.target_available = True
                 self.__combobox_target.set_active(0)
                 self.update_start_button()
+                if len(target_list) > 1:
+                    self.__combobox_target.grab_focus()
             else:
                 self.__infobar.set_message_type(Gtk.MessageType.INFO)
                 self.__label_infobar_title.set_text(
