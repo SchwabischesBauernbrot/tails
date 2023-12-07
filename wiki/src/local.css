@@ -26,6 +26,11 @@
   --light-yellow: #ffec8c;
   --background-yellow: #fffff0;
   --red: #ef1f31;
+
+  /* Shadows */
+  --banner-button-shadow: 1px 1px 1px black, 2px 2px 5px var(--dark-gray), inset 1px 1px 1px var(--background-green);
+  --green-button-shadow:  1px 1px 1px var(--medium-dark-gray), 2px 2px 5px var(--light-gray), inset 1px 1px 1px var(--background-green);
+  --gray-button-shadow:  1px 1px 1px black, 2px 2px 5px var(--dark-gray), inset 1px 1px 1px var(--background-gray);
 }
 
 /* Fonts */
@@ -86,7 +91,6 @@ h3 {
   margin: 1.5em 0 0.75em 0;
 }
 
-.donate-button,
 p, ul, ol, h1, h2, h3, h4, h5, h6, blockquote {
   max-width: 45em; /* Avoid super-long lines */
 }
@@ -160,8 +164,11 @@ blockquote p:last-child {
 /* Tables */
 
 table {
-  margin: 1.5em 0;
+  margin: 1.5em auto;
   border-collapse: collapse;
+  border-radius: 5px 5px 0 0;
+  overflow: hidden;
+  border: 1px solid var(--background-gray);
 }
 
 th.w30 {
@@ -169,28 +176,38 @@ th.w30 {
 }
 
 th, td {
-  border: 1px solid black;
-  padding: 0.5em 1em;
+  padding: 0.7em 1.5em;
 }
 
 th {
-  background: var(--light-purple);
+  background: var(--medium-purple);
+  color: white;
+  text-align: left;
+}
+
+tr:nth-child(even) {
+  background: white;
 }
 
 tr:nth-child(odd) {
   background: var(--background-gray);
 }
 
+tr:last-of-type {
+  border-bottom: 2px solid var(--medium-purple);
+}
+
 td.check, td.cross {
   padding-left: 42px;
+  background-size: 20px !important;
 }
 
 td.check {
-  background: url(lib/check.png) no-repeat 10px 8px;
+  background: url(lib/check.png) no-repeat 10px 12px;
 }
 
 td.cross {
-  background: url(lib/cross.png) no-repeat 10px 6px;
+  background: url(lib/cross.png) no-repeat 10px 12px;
 }
 
 /* Images */
@@ -215,7 +232,7 @@ img.right-margin { /* Overwrite style.css */
 
 /* Images with caption */
 
-table.img, table.img td {
+table.img, table.img td, table.img tr {
   border: none;
 }
 
@@ -240,6 +257,10 @@ video {
 
 /* Forms */
 
+form {
+  margin: 30px 0;
+}
+
 label {
   display: block;
   margin-bottom: 0;
@@ -257,9 +278,8 @@ button, input, textarea {
   border-radius: 5px;
 }
 
-input:focus, textarea:focus {
-  border: 2px solid var(--medium-light-green);
-  outline: 0;
+input, textarea {
+  border: 1px solid var(--medium-light-gray);
 }
 
 /* Layout */
@@ -331,7 +351,7 @@ header.title { /* Override style.css */
   width: 40px;
   border: 0;
   border-radius: 0 5px 5px 0;
-  box-shadow: 1px 1px 1px black, 1px 1px 4px var(--dark-gray), inset 1px 1px 1px var(--background-green);
+  box-shadow: var(--banner-button-shadow);
   cursor: pointer;
 }
 
@@ -357,7 +377,7 @@ label[for="searchbox"]{
   padding: 0.2em;
   display: flex;
   justify-content: center;
-  box-shadow: 1px 1px 1px black, 1px 1px 4px var(--dark-gray), inset 1px 1px 1px var(--background-green);
+  box-shadow: var(--banner-button-shadow);
   width: 180px;
   height: 28px;
 }
@@ -449,6 +469,7 @@ label[for="searchbox"]{
 }
 
 .topbar a:hover {
+  color: black;
   text-decoration: none;
   border-bottom: 5px solid var(--medium-dark-green) !important;
 }
@@ -513,6 +534,7 @@ label[for="searchbox"]{
   margin-top: 7px;
   width: 120px; /* Force size to prevent overflowing breadcrumbs */
   height: 35px;
+  z-index: 5;
 }
 
 #language-switcher-bottom {
@@ -652,23 +674,82 @@ a {
   padding-right: 0;
 }
 
-/* Support page */
+/* Focus */
 
-#talk h1, #bugs h1, #wishlist h1, #tools h1 {
-  margin-top: 18px;
-  color: var(--medium-purple);
-  line-height: 1.6em;
-  border-bottom: 5px solid var(--medium-purple);
+a:focus, button:focus, input:focus, textarea:focus, video:focus {
+  outline: 1px solid var(--yellow);
+  outline-offset: 1px;
 }
 
-#talk h1 {
-  width: 90%;
+/* Blocks */
+
+.blocks {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin-top: 30px;
+}
+
+.block {
+  display: block;
+  background-color: var(--background-gray);
+  border: 1px solid var(--light-gray);
+  padding: 30px;
+  border-radius: 5px;
+  margin-top: 30px;
+}
+
+.blocks .block-full {
+  width: 100%;
+}
+
+.blocks .block-half {
+  width: calc(100% / 2 - 15px);
+}
+
+.blocks .block-third {
+  width: calc(100% / 3 - 20px);
+}
+
+.block .block-half {
+  width: calc(100% / 2 - 15px); /* Nested blocks like in /support/talk */
+}
+
+@media (max-width: 986px) {
+  .blocks .block-half, .blocks .block-third {
+    width: 100%;
+  }
+}
+
+.block h1, .block h2 {
+  color: var(--medium-purple);
+  margin-top: 0;
+}
+
+.blocks .block img {
+  margin: 15px auto;
+  display: block;
+}
+
+.blocks .block h3 {
+  text-align: center;
+  margin-top: 0;
+}
+
+.block *:last-child {
+  margin-bottom: 0;
 }
 
 /* News */
 
 article.inlinepage {
-  margin-bottom: 18px;
+  margin-bottom: 60px;
+  border-radius: 5px;
+  border: 1px solid var(--light-gray);
+  background: var(--background-gray);
+  padding: 30px;
 }
 
 .inlinepage .inlineheader .header {
@@ -710,41 +791,16 @@ article.inlinepage {
   height: auto;
 }
 
-/* Columns */
-
-div.blocks {
-  display: inline-block;
-  margin: 0 5% 0 0;
-  text-align: center;
-  vertical-align: top;
-}
-
-div.two-blocks {
-  width: 44%;
-  margin-top: 2em;
-}
-
-div.blocks p, div.blocks ul, div.blocks h1, div.blocks div {
-  text-align: left;
-}
-
-div.blocks img {
-  text-decoration: none;
-  display: block;
-  margin: 0 auto;
-  max-width: 100%;
-  height: auto
-}
-
 /* Buttons and calls for action */
 
-.button {
+.button, input[type="submit"] {
   color: black !important;
   background: var(--medium-light-green) !important;
+  border: none !important;
   text-decoration: none !important;
   padding: 6px 12px !important;
   border-radius: 5px;
-  box-shadow: 1px 1px 1px var(--medium-dark-gray), 2px 2px 10px var(--light-gray), inset 2px 2px 2px var(--background-green);
+  box-shadow: var(--green-button-shadow);
   display: inline-block;
   cursor: pointer;
   margin-bottom: 1.5em;
@@ -752,6 +808,11 @@ div.blocks img {
 
 .button:hover {
   background: var(--medium-dark-green) !important;
+}
+
+.button a {
+  color: black !important;
+  text-decoration: none !important;
 }
 
 .cfa {
@@ -769,9 +830,13 @@ div.blocks img {
   padding: 1em 0.5em;
   display: block;
   text-align: center;
-  box-shadow: 1px 1px 1px var(--medium-dark-gray), 2px 2px 10px var(--light-gray), inset 2px 2px 2px var(--background-green);
+  box-shadow: var(--green-button-shadow);
   width: 100%;
   font-family: "Source Sans Pro Regular", "DejaVu Sans", "Verdana", sans-serif;
+}
+
+.cfa a:hover {
+  background: var(--medium-dark-green) !important;
 }
 
 .cfa a:visited {
@@ -782,30 +847,29 @@ div.blocks img {
 
 #pagebody div.toggleable {
   position: relative;
-  background: var(--background-purple);
-  border-top: solid 5px black;
-  border-bottom: solid 5px black;
-  padding: 15px 2em;
-  margin: 2em 0;
+  background: var(--background-gray);
+  padding: 15px 30px;
+  margin: 0 0 30px;
+  border-radius: 5px;
+  border: 1px solid var(--light-gray);
 }
 
 #pagebody div.toggleable span.hide a.toggle, span.hide-button {
   display: block;
-  height: 48px;
-  width: 78px;
+  height: 30px;
+  width: 30px;
   position: absolute;
-  right: 0;
-  background: url('lib/close.png') no-repeat 15px 0px;
-  border: none;
+  right: 16px;
+  background: url('lib/close.png') no-repeat;
   cursor: pointer;
 }
 
 #pagebody .floating-toggleable div.toggleable {
   display: none;
   background: white;
-  border: 1px solid var(--medium-light-green);
-  box-shadow: 5px 5px var(--medium-light-green);
-  padding: 15px 30px;
+  border: 5px solid var(--medium-dark-green);
+  border-radius: 15px;
+  padding: 30px 30px 15px 30px;
   margin: 0;
   position: absolute;
   text-align: left;
@@ -813,14 +877,15 @@ div.blocks img {
   width: 37em;
 }
 
-/* X for closing the toggle */
-
 #pagebody .floating-toggleable a.toggle {
   border: none !important;
   cursor: pointer;
   position: absolute;
-  right: 7px;
+  height: 30px;
+  width: 30px;
+  right: 5px;
   top: 5px;
+  background: url('lib/close.png') no-repeat;
 }
 
 /* Icons */
@@ -871,7 +936,7 @@ div.bug, div.caution, div.next, div.note, div.tip, div.trophy, div.attack {
   background-repeat: no-repeat;
   min-height: 48px;
   padding-left: 66px;
-  margin: 1.5em 0;
+  margin: 30px 0;
   max-width: 52em;
 }
 div.bug {
@@ -919,13 +984,13 @@ code {
 
 pre, p.pre {
   background-color: var(--background-gray);
-  border: thin solid var(--medium-light-gray);
+  border: 1px solid var(--light-gray);
+  border-radius: 5px;
   color: var(--dark-gray);
   margin: 1.5em 1em 1.5em 1.5em;
   padding: 0.25em 0.5em;
   max-width: 61em !important;
   width: 61em !important;
-  max-width: 90%;
 }
 
 p.command-example, p.command-output {
@@ -951,35 +1016,6 @@ img.symbolic {
   top: 3px;
 }
 
-/* Contribute section */
-
-div.contribute-roles-1 {
-  display: inline-block;
-  margin-right: 2em;
-  width: 31%;
-}
-
-div.contribute-roles-3 div.contribute-role {
-  width: 29%;
-}
-
-div.contribute-role {
-  display: inline-block;
-  margin-right: 2em;
-  vertical-align: top;
-}
-
-div.contribute-role p {
-  font-style: italic;
-}
-
-div.contribute-role img {
-  display: block;
-  margin: 0 auto 0.5em;
-  max-width: 100%;
-  height: auto;
-}
-
 /* Highlight */
 
 div#highlight {
@@ -990,23 +1026,6 @@ div#highlight {
 }
 div#highlight p {
   margin: 0.5em 0;
-}
-
-/* Donate buttons outside of sidebar */
-
-.donate-button a {
-  border-bottom: none;
-  width: 100%;
-  display: block;
-  box-shadow: 1px 1px 5px var(--medium-light-gray);
-  border-radius: 5px;
-  padding: 0.5em 1em;
-  background: var(--medium-light-green) url('lib/donate.png') no-repeat scroll 10px 50% !important;
-  font-size: 26px;
-  padding-left: 70px;
-  line-height: 1em;
-  font-weight: normal;
-  color: black !important;
 }
 
 /* Charts */
@@ -1072,7 +1091,6 @@ div#highlight p {
 .key-label, .key-percent {
   font-weight: bold;
 }
-
 
 .chart {
   /* Accessible color palette */
@@ -1146,6 +1164,14 @@ div#highlight p {
   margin-top: 30px;
 }
 
+#footer button {
+  border: 0;
+  font-weight: normal;
+  padding: 6px;
+  background: var(--light-gray);
+  box-shadow: var(--gray-button-shadow);
+}
+
 #footer p a {
   text-decoration: underline;
 }
@@ -1199,15 +1225,6 @@ html[dir="rtl"] .pageheader #otherlanguages {
   left: 0;
   right: auto;
   width: 100%;
-}
-
-html[dir="rtl"] #news, html[dir="rtl"] #bugs {
-  margin-right: 0;
-  margin-left: 2em;
-}
-
-html[dir="rtl"] div.contribute-roles-1 {
-  margin: 0;
 }
 
 html[dir="rtl"] #pagebody div.toggleable span.hide a.toggle {

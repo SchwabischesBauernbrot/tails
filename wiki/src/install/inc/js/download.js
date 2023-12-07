@@ -11,10 +11,10 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function show(elm) {
     elm.style.display = "initial";
-    if (elm.classList.contains("block")) {
+    if (elm.classList.contains("display-as-block")) {
       elm.style.display = "block";
     }
-    if (elm.classList.contains("inline-block")) {
+    if (elm.classList.contains("display-as-inline-block")) {
       elm.style.display = "inline-block";
     }
   }
