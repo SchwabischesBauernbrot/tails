@@ -55,6 +55,7 @@ from tails_installer.utils import (
     write_to_block_device,
     mebibytes_to_bytes,
     TailsError,
+    get_persistent_storage_size,
 )
 from tails_installer import _  # NOQA: E402
 from tails_installer.config import CONFIG  # NOQA: E402
@@ -204,6 +205,7 @@ class TailsInstallerCreator(object):
             "is_device_big_enough_for_installation": True,
             "is_device_big_enough_for_upgrade": True,
             "is_device_big_enough_for_reinstall": True,
+            "is_device_big_enough_for_backup": True,
             "removable": drive.props.removable,
         }
 
@@ -255,6 +257,13 @@ class TailsInstallerCreator(object):
             # is done, the size of the device has to be bigger than
             # min_installation_device_size in all cases.
             data["is_device_big_enough_for_reinstall"] = False
+        if not self.is_device_big_enough_for_backup(
+            data["parent_size"] if data["parent_size"] else data["size"]
+        ):
+            self.log.warning(
+                "Device is too small for creating a backup: %s" % data["device"]
+            )
+            data["is_device_big_enough_for_backup"] = False
 
         # To be more accurate we would need to either mount the candidate
         # device (which causes UX problems down the road) or to recursively
@@ -399,6 +408,15 @@ class TailsInstallerCreator(object):
         return device_size_in_bytes >= mebibytes_to_bytes(
             self.min_installation_device_size
         )
+
+    def is_device_big_enough_for_backup(self, device_size_in_bytes):
+        try:
+            return (
+                device_size_in_bytes - self.system_partition_size(device_size_in_bytes)
+                >= get_persistent_storage_size()
+            )
+        except NotImplementedError:
+            return False
 
     def can_read_partition_table(self, device=None):
         if not device:
