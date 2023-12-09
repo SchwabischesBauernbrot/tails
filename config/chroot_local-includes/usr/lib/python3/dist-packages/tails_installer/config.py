@@ -4,7 +4,7 @@ CONFIG = {
     # Minimum device size we accept as valid target for initial
     # installation, in MiB as in 1 MiB = 1024**2 bytes. I've seen USB
     # sticks labeled "8 GB" that were 7759462400 bytes = 7400 MiB
-    # large, and one can probably fine even smaller ones, so let's be
+    # large, and one can probably find even smaller ones, so let's be
     # nice with users who believed what was written on the box and
     # accept slightly smaller devices than what the theory
     # would dictate.
