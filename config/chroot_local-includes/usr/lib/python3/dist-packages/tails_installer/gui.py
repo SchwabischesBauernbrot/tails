@@ -45,7 +45,12 @@ from tails_installer import TailsInstallerCreator, TailsInstallerError, _
 from tails_installer.config import CONFIG
 from tails_installer.source import LocalIsoSource
 from tails_installer.source import RunningLiveSystemSource
-from tails_installer.utils import _to_unicode, _format_bytes_in_gb, _get_datadir
+from tails_installer.utils import (
+    _to_unicode,
+    _format_bytes_in_gb,
+    _get_datadir,
+    get_official_min_backup_device_size,
+)
 
 MAX_FAT16 = 2047
 MAX_FAT32 = 3999
@@ -254,6 +259,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 raise
             self.persistent_storage_is_unlocked = False
 
+        self.official_min_backup_device_size = get_official_min_backup_device_size()
+
         self._build_ui()
 
         self.opts.clone = True
@@ -381,6 +388,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
     def on_check_button_clone_persistent_storage_toggled(self, check_button):
         self.live.log.debug("Entering on_check_button_clone_persistent_storage_toggled")
         self.opts.clone_persistent_storage_requested = check_button.get_active()
+        # Repopulate devices in case any are too small to create backup
+        self.populate_devices()
         self.update_start_button()
         self.on_target_partitions_changed(None)
 
@@ -540,6 +549,10 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
 
         def add_devices():
             self.__liststore_target.clear()
+            # previous error messages may be invalid now
+            self.clear_log()
+            # some previously rejected devices may now be valid candidates
+            # and vice-versa
             self.live.log.debug("drives: %s" % self.live.drives)
             target_list = []
             self.devices_with_persistence = []
@@ -575,6 +588,23 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                         " manufacturer and Tails will fail to start from it."
                         " Please try installing on a different model."
                     ) % {"pretty_name": pretty_name}
+                    self.status(message)
+                    continue
+                # Skip devices too small for backup, if requested, but inform the user
+                if (
+                    self.opts.clone_persistent_storage_requested
+                    and not info["is_device_big_enough_for_backup"]
+                ):
+                    message = _(
+                        'The device "%(pretty_name)s"'
+                        " is too small to back up your"
+                        " Tails (at least %(size)s GB is required)."
+                    ) % {
+                        "pretty_name": pretty_name,
+                        "size": "{:.1f}".format(
+                            self.official_min_backup_device_size / 1000
+                        ),
+                    }
                     self.status(message)
                     continue
                 # Skip too small devices, but inform the user
@@ -618,9 +648,16 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.__label_infobar_title.set_text(
                     _("No device suitable to install Tails could be found")
                 )
+                official_size = CONFIG["official_min_installation_device_size"] / 1000.0
+                if self.opts.clone_persistent_storage_requested:
+                    self.__label_infobar_title.set_text(
+                        _("No device suitable to back up Tails could be found")
+                    )
+                    # Display next power of two device size
+                    while self.official_min_backup_device_size / 1000 > official_size:
+                        official_size *= 2
                 self.__label_infobar_details.set_text(
-                    _("Plug in a USB stick of at least %0.1f GB.")
-                    % (CONFIG["official_min_installation_device_size"] / 1000.0)
+                    _("Plug in a USB stick of at least %0.0f GB.") % official_size
                 )
                 self.__infobar.set_visible(True)
                 self.target_available = False
