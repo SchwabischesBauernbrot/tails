@@ -167,7 +167,7 @@ class TailsInstallerCreator(object):
         self, obj: UDisks.Object, force_partitions=False
     ) -> Optional[dict]:
         """
-        Returns a dictionarty containing our own description of a udisk object
+        Returns a dictionary containing our own description of a udisk object
         """
         block = obj.props.block
         self.log.debug("looking at %s" % obj.get_object_path())
@@ -253,7 +253,7 @@ class TailsInstallerCreator(object):
                     "Device is too small for installation: %s" % data["device"]
                 )
                 data["is_device_big_enough_for_installation"] = False
-            # Since reinstalling is a special case where full overitting
+            # Since reinstalling is a special case where full overwriting
             # is done, the size of the device has to be bigger than
             # min_installation_device_size in all cases.
             data["is_device_big_enough_for_reinstall"] = False
