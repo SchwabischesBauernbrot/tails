@@ -190,12 +190,18 @@ class TailsInstallerThread(threading.Thread):
             self.live.flush_buffers()
 
             duration = str(datetime.now() - self.now).split(".")[0]
-            self.status(_("Installation complete! (%s)") % duration)
+            if self.parent.opts.clone_persistent_storage_requested:
+                self.status(_("Backup complete! (%s)") % duration)
+            else:
+                self.status(_("Installation complete! (%s)") % duration)
             self.installation_complete()
 
         except Exception as ex:
             self.status(ex)
-            self.status(_("Tails installation failed!"))
+            if self.parent.opts.clone_persistent_storage_requested:
+                self.status(_("Tails backup failed!"))
+            else:
+                self.status(_("Tails installation failed!"))
             self.live.log.exception(str(ex))
             self.live.log.debug(traceback.format_exc())
 
@@ -224,7 +230,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
 
     def __init__(self, app=None, opts=None, args=None):
         Gtk.ApplicationWindow.__init__(self, application=app)
-
         self.opts = opts
         self.args = args
         self.signals_connected = []
@@ -234,7 +239,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self.devices_with_persistence = []
         self.force_reinstall = False
         self.force_reinstall_button_available = False
-
         try:
             subprocess.check_call(["/usr/local/lib/tpscli", "is-created"])
             self.persistent_storage_is_created = True
@@ -242,7 +246,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             if e.returncode != 1:
                 raise
             self.persistent_storage_is_created = False
-
         try:
             subprocess.check_call(["/usr/local/lib/tpscli", "is-unlocked"])
             self.persistent_storage_is_unlocked = True
@@ -417,6 +420,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             if device["is_device_big_enough_for_reinstall"]:
                 self.force_reinstall_button_available = True
                 self.__button_force_reinstall.set_visible(True)
+                if self.opts.clone_persistent_storage_requested:
+                    self.__button_start.set_label(_("Recreate Backup"))
             else:
                 self.force_reinstall_button_available = False
                 self.__button_force_reinstall.set_visible(False)
@@ -429,6 +434,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             self.__help_link.set_label(_("Installation Instructions"))
             self.__help_link.set_uri("https://tails.net/install/")
             if self.opts.clone_persistent_storage_requested:
+                self.__button_start.set_label(_("Back Up"))
                 self.__help_link.set_label(_("Backup Instructions"))
                 self.__help_link.set_uri(
                     "https://tails.net/doc/persistent_storage/backup/"
@@ -613,7 +619,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     _("No device suitable to install Tails could be found")
                 )
                 self.__label_infobar_details.set_text(
-                    _("Please plug a USB flash drive or SD card of at least %0.1f GB.")
+                    _("Plug in a USB stick of at least %0.1f GB.")
                     % (CONFIG["official_min_installation_device_size"] / 1000.0)
                 )
                 self.__infobar.set_visible(True)
@@ -679,12 +685,16 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
 
     def on_installation_complete(self, data=None):
         # FIXME: replace content by a specific page
+        if self.opts.clone_persistent_storage_requested:
+            message_format = _("Backup complete!")
+        else:
+            message_format = _("Installation complete!")
         dialog = Gtk.MessageDialog(
             parent=self,
             flags=Gtk.DialogFlags.DESTROY_WITH_PARENT,
             message_type=Gtk.MessageType.INFO,
             buttons=Gtk.ButtonsType.CLOSE,
-            message_format=_("Installation complete!"),
+            message_format=message_format,
         )
         dialog.run()
         self.close()
