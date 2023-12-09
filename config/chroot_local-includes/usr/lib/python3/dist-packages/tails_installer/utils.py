@@ -66,7 +66,7 @@ def extract_file_content_from_iso(iso_path, path):
 
 
 def iso_is_live_system(iso_path):
-    """Return true iff a Live system is detected inside the iso_path file"""
+    """Return true if a Live system is detected inside the iso_path file"""
     version = extract_file_content_from_iso(iso_path, "/.disk/info")
     return version.startswith("Debian GNU/Linux")
 
