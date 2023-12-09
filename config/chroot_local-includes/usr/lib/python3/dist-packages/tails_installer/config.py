@@ -13,8 +13,11 @@ CONFIG = {
     # as in 1000 MB = 1 GB, i.e. let's use a unit close to what they will
     # see displayed in shops.
     "official_min_installation_device_size": 8000,
+    # Space used in MiB for the luks2 header.
+    "luks2_header_size": 16,
     "main_liveos_dir": "live",
     "running_liveos_mountpoint": "/lib/live/mount/medium",
+    "persistence_mountpoint": "/live/persistence/TailsData_unlocked",
     "liveos_toplevel_files": [
         "autorun.bat",
         "autorun.inf",
