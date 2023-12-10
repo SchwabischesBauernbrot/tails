@@ -259,8 +259,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 raise
             self.persistent_storage_is_unlocked = False
 
-        self.official_min_backup_device_size = get_official_min_backup_device_size()
-
         self._build_ui()
 
         self.opts.clone = True
@@ -602,7 +600,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     ) % {
                         "pretty_name": pretty_name,
                         "size": "{:.1f}".format(
-                            self.official_min_backup_device_size / 1000
+                            get_official_min_backup_device_size() / 1000
                         ),
                     }
                     self.status(message)
@@ -654,7 +652,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                         _("No device suitable to back up Tails could be found")
                     )
                     # Display next power of two device size
-                    while self.official_min_backup_device_size / 1000 > official_size:
+                    while get_official_min_backup_device_size() / 1000 > official_size:
                         official_size *= 2
                 self.__label_infobar_details.set_text(
                     _("Plug in a USB stick of at least %0.0f GB.") % official_size
