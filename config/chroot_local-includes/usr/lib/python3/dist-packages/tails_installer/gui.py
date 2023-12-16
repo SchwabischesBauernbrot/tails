@@ -428,7 +428,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.force_reinstall_button_available = True
                 self.__button_force_reinstall.set_visible(True)
                 if self.opts.clone_persistent_storage_requested:
-                    self.__button_start.set_label(_("Recreate Backup"))
+                    self.__button_start.set_label(_("Update Backup"))
             else:
                 self.force_reinstall_button_available = False
                 self.__button_force_reinstall.set_visible(False)
