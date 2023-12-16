@@ -596,7 +596,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     message = _(
                         'The device "%(pretty_name)s"'
                         " is too small to back up your"
-                        " Tails (at least %(size)s GB is required)."
+                        " Tails and Persistent Storage (%(size)s GB in total)."
                     ) % {
                         "pretty_name": pretty_name,
                         "size": "{:.1f}".format(
