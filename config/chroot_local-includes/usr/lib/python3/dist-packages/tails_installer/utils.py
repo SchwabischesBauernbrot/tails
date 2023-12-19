@@ -6,6 +6,7 @@ import subprocess
 import shutil
 import stat
 import sys
+import psutil
 from tails_installer import _
 from tails_installer.config import CONFIG
 
@@ -66,9 +67,19 @@ def extract_file_content_from_iso(iso_path, path):
 
 
 def iso_is_live_system(iso_path):
-    """Return true iff a Live system is detected inside the iso_path file"""
+    """Return true if a Live system is detected inside the iso_path file"""
     version = extract_file_content_from_iso(iso_path, "/.disk/info")
     return version.startswith("Debian GNU/Linux")
+
+
+def get_persistent_storage_size():
+    """If unlocked, return the minimum partition size (bytes) we accept as a valid target to
+    back up the current Tails, else None."""
+    if os.path.exists(CONFIG["persistence_mountpoint"]):
+        return psutil.disk_usage(
+            CONFIG["persistence_mountpoint"]
+        ).used + mebibytes_to_bytes(CONFIG["luks2_header_size"])
+
 
 
 def _dir_size(source):
