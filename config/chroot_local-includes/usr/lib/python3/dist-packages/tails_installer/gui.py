@@ -553,6 +553,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             # and vice-versa
             self.live.log.debug("drives: %s" % self.live.drives)
             target_list = []
+            message = None
             self.devices_with_persistence = []
             for device, info in list(self.live.drives.items()):
                 # Skip the device that is the source of the copy
@@ -577,6 +578,9 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     )
                     self.devices_with_persistence.append(info["parent"])
                     continue
+                if message:
+                    self.status('\n')
+                    message = None
                 pretty_name = self.get_device_pretty_name(info)
                 # Skip devices with non-removable bit enabled
                 if not info["removable"]:
