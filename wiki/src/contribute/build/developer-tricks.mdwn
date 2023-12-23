@@ -67,3 +67,45 @@ The shared directory can be used as `early_patch` source (needs the hook script 
 ```sh
 sudo mount -t 9p -o trans=virtio src /mnt/
 ```
+
+# Use the remote shell
+
+It may be very handsome to have a propper shell without the need to login into Tails. To do so you need to add `autotest_never_use_this_option` to the kernel commandline, to enable the support for remote shell on Tails side.
+
+You need to add a virtio channel device to your client config:
+```xml
+<channel type='unix'>
+  <source mode="bind" path='/path/to/remote-shell.socket'/>
+  <target type='virtio' name='org.tails.remote_shell.0'/>
+</channel>
+```
+
+After the iso has started you can now connect to the socket and communicate with Tails.
+Here an example how to use in Python:
+
+```py
+import json
+import socket
+
+
+client = socket.socket( socket.AF_UNIX, socket.SOCK_STREAM )
+client.connect("/path/to/remote-shell.socket")
+
+id = 1
+_type = "sh_call"
+env = {}
+user = "root"
+cmd = "echo 'huhu?"
+data = [id, _type, user, env, cmd]
+client.send(json.dumps(data).encode()+b"\n")
+
+answer = json.loads(client.recv(1024).decode())
+print(answer)
+>>> '[1, "success", 1, "huhu?", ""]\n'
+
+```
+
+For more information you have to look into the source of the remote shell:
+
+[[!tails_gitweb config/chroot_local-includes/usr/local/lib/tails-autotest-remote-shell]]
+
