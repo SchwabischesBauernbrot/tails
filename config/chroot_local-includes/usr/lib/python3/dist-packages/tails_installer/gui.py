@@ -190,7 +190,7 @@ class TailsInstallerThread(threading.Thread):
             self.live.flush_buffers()
 
             duration = str(datetime.now() - self.now).split(".")[0]
-            self.status(_("Installation complete! (%s)") % duration)
+            self.status(_("Cloning complete! (%s)") % duration)
             self.installation_complete()
 
         except Exception as ex:
