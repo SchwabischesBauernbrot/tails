@@ -198,7 +198,7 @@ class TailsInstallerThread(threading.Thread):
             if self.parent.opts.clone_persistent_storage_requested:
                 self.status(_("Backup complete! (%s)") % duration)
             else:
-                self.status(_("Installation complete! (%s)") % duration)
+                self.status(_("Cloning complete! (%s)") % duration)
             self.installation_complete()
 
         except Exception as ex:
