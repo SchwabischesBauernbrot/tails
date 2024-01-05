@@ -49,7 +49,8 @@ from tails_installer.utils import (
     _to_unicode,
     _format_bytes_in_gb,
     _get_datadir,
-    get_official_min_backup_device_size,
+    mebibytes_to_bytes,
+    get_persistent_storage_size,
 )
 
 MAX_FAT16 = 2047
@@ -449,12 +450,12 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self.update_clone_persistent_storage_check_button()
         self.update_start_button()
 
+    def get_device_size(self, device):
+        return device["parent_size"] if device["parent_size"] else device["size"]
+
     def get_device_pretty_name(self, device):
-        size = _format_bytes_in_gb(
-            device["parent_size"] if device["parent_size"] else device["size"]
-        )
         pretty_name = _("%(size)s %(vendor)s %(model)s device (%(device)s)") % {
-            "size": size,
+            "size": _format_bytes_in_gb(self.get_device_size(device)),
             "vendor": device["vendor"],
             "model": device["model"],
             "device": device["device"],
@@ -579,7 +580,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     self.devices_with_persistence.append(info["parent"])
                     continue
                 if message:
-                    self.status('\n')
+                    self.status("\n")
                     message = None
                 pretty_name = self.get_device_pretty_name(info)
                 # Skip devices with non-removable bit enabled
@@ -592,39 +593,22 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     ) % {"pretty_name": pretty_name}
                     self.status(message)
                     continue
-                # Skip devices too small for backup, if requested, but inform the user
-                if (
-                    self.opts.clone_persistent_storage_requested
-                    and not info["is_device_big_enough_for_backup"]
-                ):
-                    message = _(
-                        'The device "%(pretty_name)s"'
-                        " is too small to back up your"
-                        " Tails and Persistent Storage (%(size)s GB in total)."
-                    ) % {
-                        "pretty_name": pretty_name,
-                        "size": "{:.1f}".format(
-                            get_official_min_backup_device_size() / 1000
-                        ),
-                    }
-                    self.status(message)
-                    continue
                 # Skip too small devices, but inform the user
-                if not info["is_device_big_enough_for_installation"]:
+                official_size = CONFIG["official_min_installation_device_size"]
+                if self.get_device_size(info) < mebibytes_to_bytes(
+                    CONFIG["min_installation_device_size"]
+                ):
                     message = _(
                         'The device "%(pretty_name)s"'
                         " is too small to install"
                         " Tails (at least %(size)s GB is required)."
                     ) % {
                         "pretty_name": pretty_name,
-                        "size": (
-                            float(CONFIG["official_min_installation_device_size"])
-                            / 1000
-                        ),
+                        "size": float(official_size) / 1000,
                     }
                     self.status(message)
                     continue
-                # Skip devices too small for cloning, but inform the user
+                # Skip devices too small for upgrade, but inform the user
                 if self.opts.clone and not info["is_device_big_enough_for_upgrade"]:
                     message = _(
                         'To upgrade device "%(pretty_name)s"'
@@ -637,6 +621,46 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     }
                     self.status(message)
                     continue
+                # Skip devices too small for cloning, but inform the user
+                if (
+                    self.opts.clone
+                    and not info["is_device_big_enough_for_installation"]
+                ):
+                    message = _(
+                        'The USB stick "%(pretty_name)s"'
+                        " is too small to clone this"
+                        " Tails (at least %(size)s GB is required), you"
+                        " need to use a downloaded Tails ISO image:\n"
+                        "%(dl_url)s"
+                    ) % {
+                        "pretty_name": pretty_name,
+                        "size": float(official_size) / 500,
+                        "dl_url": "https://tails.net/install/download",
+                    }
+                    self.status(message)
+                    continue
+                # Skip devices too small for backup, but inform the user
+                if (
+                    self.opts.clone_persistent_storage_requested
+                    and not info["is_device_big_enough_for_backup"]
+                ):
+                    message = _(
+                        'The device "%(pretty_name)s"'
+                        " is too small to back up your"
+                        " Tails and Persistent Storage (%(size)s GB in total)."
+                    ) % {
+                        "pretty_name": pretty_name,
+                        "size": "{:.1f}".format(
+                            (
+                                self.get_device_size(info)
+                                + get_persistent_storage_size()
+                                - self.live.space_for_backup(self.get_device_size(info))
+                            )
+                            / 1000**3
+                        ),
+                    }
+                    self.status(message)
+                    continue
                 target_list.append([pretty_name, device])
             if len(target_list):
                 self.__infobar.set_visible(False)
@@ -646,20 +670,28 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.__combobox_target.set_active(0)
                 self.update_start_button()
             else:
+                title = _("No USB stick suitable to install Tails could be found")
+                clone = _("No USB stick suitable to clone this Tails could be found")
+                backup = _("No USB stick suitable to back up Tails could be found")
                 self.__infobar.set_message_type(Gtk.MessageType.INFO)
-                self.__label_infobar_title.set_text(
-                    _("No device suitable to install Tails could be found")
-                )
-                official_size = CONFIG["official_min_installation_device_size"] / 1000.0
-                if self.opts.clone_persistent_storage_requested:
-                    self.__label_infobar_title.set_text(
-                        _("No device suitable to back up Tails could be found")
-                    )
-                    # Display next power of two device size
-                    while get_official_min_backup_device_size() / 1000 > official_size:
+                # The device size passed below reduces 8000 MB to 7200 MiB, 16000 to 14500
+                #  this is to be nice to users who believe what was written on the box.
+                if self.opts.clone:
+                    while not self.live.is_device_big_enough_for_installation(
+                        mebibytes_to_bytes(73 * official_size / 80 - 100)
+                    ):
                         official_size *= 2
+                        title = clone
+                if self.opts.clone_persistent_storage_requested:
+                    while not self.live.is_device_big_enough_for_backup(
+                        mebibytes_to_bytes(73 * official_size / 80 - 100)
+                    ):
+                        official_size *= 2
+                        title = backup
+                self.__label_infobar_title.set_text(title)
                 self.__label_infobar_details.set_text(
-                    _("Plug in a USB stick of at least %0.0f GB.") % official_size
+                    _("Plug in a USB stick of at least %0.0f GB.")
+                    % (official_size // 1000)
                 )
                 self.__infobar.set_visible(True)
                 self.target_available = False
