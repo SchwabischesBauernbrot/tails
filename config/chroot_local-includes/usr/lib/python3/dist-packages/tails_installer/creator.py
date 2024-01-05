@@ -409,11 +409,26 @@ class TailsInstallerCreator(object):
             self.min_installation_device_size
         )
 
+    def space_for_backup(self, device_size_in_bytes):
+        filesystem_size = (
+            device_size_in_bytes
+            - self.system_partition_size(device_size_in_bytes)
+            - CONFIG["luks2_header_size"]
+        )
+        filesystem_block_count = filesystem_size // 4096
+        num_blocks = 4096 * 1024
+        while filesystem_block_count >= num_blocks:
+            num_blocks *= 2
+        journal_size_bytes = 4096 * num_blocks // 256
+        # There are more filesystem structures than the journal, these
+        #  constants return available space within +/- 44 MB accuracy
+        return (filesystem_size - journal_size_bytes - 42473767) / 1.01741885526065
+
     def is_device_big_enough_for_backup(self, device_size_in_bytes):
         try:
             return (
-                device_size_in_bytes - self.system_partition_size(device_size_in_bytes)
-                >= get_persistent_storage_size()
+                self.space_for_backup(device_size_in_bytes)
+                > get_persistent_storage_size()
             )
         except NotImplementedError:
             return False
