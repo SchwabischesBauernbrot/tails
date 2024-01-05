@@ -405,6 +405,14 @@ class TailsInstallerCreator(object):
             return mebibytes_to_bytes(4 * 1024)
 
     def is_device_big_enough_for_installation(self, device_size_in_bytes):
+        if hasattr(self, "source") and self.source is not None:
+            try:
+                return (
+                    self.system_partition_size(device_size_in_bytes)
+                    >= self.source.size * 1.05
+                )
+            except NotImplementedError:
+                return False
         return device_size_in_bytes >= mebibytes_to_bytes(
             self.min_installation_device_size
         )
