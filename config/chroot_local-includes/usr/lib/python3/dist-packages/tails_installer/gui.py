@@ -599,7 +599,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     CONFIG["min_installation_device_size"]
                 ):
                     message = _(
-                        'The device "%(pretty_name)s"'
+                        'The USB stick "%(pretty_name)s"'
                         " is too small to install"
                         " Tails (at least %(size)s GB is required)."
                     ) % {
@@ -611,7 +611,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 # Skip devices too small for upgrade, but inform the user
                 if self.opts.clone and not info["is_device_big_enough_for_upgrade"]:
                     message = _(
-                        'To upgrade device "%(pretty_name)s"'
+                        'To upgrade USB stick "%(pretty_name)s"'
                         " from this Tails, you need to use"
                         " a downloaded Tails ISO image:\n"
                         "%(dl_url)s"
@@ -645,7 +645,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     and not info["is_device_big_enough_for_backup"]
                 ):
                     message = _(
-                        'The device "%(pretty_name)s"'
+                        'The USB stick "%(pretty_name)s"'
                         " is too small to back up your"
                         " Tails and Persistent Storage (%(size)s GB in total)."
                     ) % {
