@@ -119,7 +119,7 @@ class TailsInstallerCreator(object):
                 except Exception as e:
                     args[0].log.debug(e)
                     args[0].log.debug("Retrying %d" % attempt)
-                    time.sleep(1)
+                    time.sleep(0.1)
             raise e
 
         return wrapper
@@ -779,7 +779,6 @@ class TailsInstallerCreator(object):
         # write_to_block_device() -> get_open_write_fd()
         # -> call_open_for_restore_sync() from opening it for writing.
         self.flush_buffers(silent=True)
-        time.sleep(3)
 
     @retry
     def get_system_partition(self):
@@ -790,7 +789,7 @@ class TailsInstallerCreator(object):
         at path /org/freedesktop/UDisks2/block_devices/sda1'
         """
         self.rescan_block_device(self._get_object(prop="block").props.block)
-        time.sleep(1)
+        time.sleep(0.1)
         system_partition = self.first_partition(self.drive["udi"])
         return system_partition
 
@@ -828,7 +827,6 @@ class TailsInstallerCreator(object):
                         % e.message
                     )
                     self.flush_buffers(silent=True)
-                    time.sleep(5)
 
         self.log.debug("Creating partition")
         for attempt in [1, 2]:
@@ -846,7 +844,6 @@ class TailsInstallerCreator(object):
                 "Failed to get a partition table. Trying again, which could solve the issue"
             )
             self.flush_buffers(silent=True)
-            time.sleep(5)
 
         try:
             partition_udi = partition_table.call_create_partition_sync(
@@ -1184,7 +1181,6 @@ class TailsInstallerCreator(object):
                     % e.message
                 )
                 self.flush_buffers(silent=True)
-                time.sleep(5)
                 block.call_format_sync(
                     "vfat",
                     arg_options=GLib.Variant(
@@ -1200,7 +1196,6 @@ class TailsInstallerCreator(object):
 
         self.fstype = self.drive["fstype"] = "vfat"
         self.flush_buffers(silent=True)
-        time.sleep(3)
         self._get_object(prop="block").props.block.call_rescan_sync(
             GLib.Variant("a{" "sv}", None)
         )
@@ -1268,11 +1263,11 @@ class TailsInstallerCreator(object):
         if not silent:
             self.log.info(_("Synchronizing data on disk..."))
         self.popen("sync")
+        time.sleep(0.1)
 
     def rescan_block_device(self, block):
         self._udisksclient.settle()
         self.flush_buffers(silent=True)
-        time.sleep(30)
         block.call_rescan_sync(GLib.Variant("a{sv}", None))
 
     def connect_drive_monitor(self, callback, data=None):
