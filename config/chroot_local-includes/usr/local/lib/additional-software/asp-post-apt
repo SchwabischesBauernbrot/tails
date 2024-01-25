@@ -12,4 +12,4 @@ CMD=/usr/local/lib/additional-software/asp-handle-package-changes
 # hook in parallel.
 UUID=$(cat /proc/sys/kernel/random/uuid)
 UNIT=tails-additional-software-post-apt-hook-${UUID}
-systemd-run --unit="${UNIT}" "${CMD}" "$@"
+systemd-run --unit="${UNIT}" --setenv=DEBUG "${CMD}" "$@"

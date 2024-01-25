@@ -2,6 +2,7 @@
 
 import os
 import subprocess
+import uuid
 
 from tailslib.utils import start_as_transient_systemd_service
 
@@ -54,9 +55,16 @@ def is_tails_media_writable():
     )
 
 
-def spawn_tps_frontend(*args):
-    """Launch tps-frontend, don't wait for its completion."""
-    start_as_transient_systemd_service("/usr/local/bin/tails-persistent-storage", *args)
+def spawn_tps_frontend(*args) -> str:
+    """Launch tps-frontend as a transient systemd user service and
+    return the service name. Do not wait for the service to exit."""
+    service_name = "tails-persistent-storage-" + str(uuid.uuid4())
+    start_as_transient_systemd_service(
+        service_name,
+        "/usr/local/bin/tails-persistent-storage",
+        *args,
+    )
+    return service_name
 
 
 def additional_software_persistence_feature_is_active() -> bool:
