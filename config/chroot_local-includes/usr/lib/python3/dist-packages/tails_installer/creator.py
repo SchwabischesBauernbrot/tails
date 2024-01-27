@@ -77,6 +77,12 @@ class TailsInstallerError(TailsError):
     pass
 
 
+class UDisksObjectNotFound(TailsInstallerError):
+    """Thrown when referring to a Udisks object that does not exist"""
+
+    pass
+
+
 class TailsInstallerCreator(object):
     """An OS-independent parent class for Tails Installer Creators"""
 
@@ -156,7 +162,7 @@ class TailsInstallerCreator(object):
             if udisks_object is not None and hasattr(udisks_object.props, prop):
                 return udisks_object
             time.sleep(0.1)
-        raise Exception("Could not get udisks object %s" % object_path)
+        raise UDisksObjectNotFound("Could not get udisks object %s" % object_path)
 
     @retry
     def detect_partition(self, udi: str, callback=None, force_partitions=False):
@@ -218,7 +224,6 @@ class TailsInstallerCreator(object):
             "parent_size": None,
             "parent_data": None,
             "size": block.props.size,
-            "mounted_partitions": {},
             "is_device_big_enough_for_installation": True,
             "is_device_big_enough_for_upgrade": True,
             "is_device_big_enough_for_reinstall": True,
@@ -296,11 +301,6 @@ class TailsInstallerCreator(object):
         else:
             mount = data["mount"] = None
 
-        if parent_block and mount:
-            if not data["parent"] in data["mounted_partitions"]:
-                data["mounted_partitions"][data["parent"]] = set()
-            data["mounted_partitions"][data["parent"]].add(data["udi"])
-
         data["free"] = mount and self.get_free_bytes(mount) / 1024**2 or None
         data["free"] = None  # XXX ?
 
@@ -329,7 +329,6 @@ class TailsInstallerCreator(object):
     @retry
     def detect_supported_drives(self, callback=None, force_partitions=False):
         """Detect all supported (USB and SDIO) storage devices using UDisks."""
-        mounted_parts = {}  # type: dict[str, set]
         self.drives = {}
         for obj in self._udisksclient.get_object_manager().get_objects():
             data = self._get_udisks_object_data(obj, force_partitions=force_partitions)
@@ -339,7 +338,6 @@ class TailsInstallerCreator(object):
                 # Tails is installed, so we can upgrade them.
                 if self.device_can_be_upgraded(data) or data["parent"] is None:
                     self.drives[data["device"]] = data
-                    mounted_parts.update(data["mounted_partitions"])
 
         # Remove parent drives if a valid partition exists.
         # This is always made to avoid listing both the devices
@@ -353,22 +351,6 @@ class TailsInstallerCreator(object):
                 drives_to_delete.add(parent)
         for d in drives_to_delete:
             del self.drives[d]
-
-        self.log.debug(pformat(mounted_parts))
-
-        for device, data in self.drives.items():
-            if self.source and self.source.dev and data["udi"] == self.source.dev:
-                continue
-            if device in mounted_parts and len(mounted_parts[device]) > 0:
-                data["mounted_partitions"] = mounted_parts[device]
-                self.log.debug(
-                    _(
-                        "Some partitions of the target device %(device)s are mounted. "
-                        "They will be unmounted before starting the "
-                        "installation process."
-                    )
-                    % {"device": data["device"]}
-                )
 
         if callback:
             callback()
@@ -775,7 +757,7 @@ class TailsInstallerCreator(object):
                     continue
         return False
 
-    def unmount_device(self):
+    def unmount_device(self, unmount_all=False):
         """Unmount our device"""
         self.log.debug(
             _('Entering unmount_device for "%(device)s"')
@@ -783,26 +765,70 @@ class TailsInstallerCreator(object):
         )
 
         self.log.debug(pformat(self.drive))
-        if self.drive["mount"] is None:
-            udis = self.drive["mounted_partitions"]
-        else:
-            udis = [self.drive["udi"]]
-        if udis:
-            self.log.info(
-                _('Unmounting mounted filesystems on "%(device)s"')
-                % {"device": self.drive["device"]}
-            )
 
-        for udi in udis:
+        target = self.try_getting_udisks_object(self.drive["udi"], "block")
+        if unmount_all:
+            if self.drive["parent"]:
+                target = self.try_getting_udisks_object(
+                    self.drive["parent_udi"], "block"
+                )
+        if target.props.partition_table:
             self.log.debug(
-                _('Unmounting "%(udi)s" on "%(device)s"')
-                % {"device": self.drive["device"], "udi": udi}
+                'Unmounting all partitions on "%(device)s"'
+                % {"device": target.get_object_path()}
             )
-            filesystem = self._get_object(udi, prop="filesystem").props.filesystem
-            filesystem.call_unmount_sync(
-                arg_options=GLib.Variant("a{sv}", None), cancellable=None
-            )
-        self.drive["mount"] = None
+            unmount_candidates = [
+                self.try_getting_udisks_object(udi, "partition")
+                for udi in target.props.partition_table.props.partitions
+            ]
+        else:
+            unmount_candidates = [target]
+
+        for obj in unmount_candidates:
+            dev_path = obj.props.block.props.device
+            udi = obj.get_object_path()
+            self.log.debug('Looking if "%(object)s" needs unmounting' % {"object": udi})
+            encrypted = obj.props.encrypted
+            if encrypted:
+                # cleartext_device is '/' when locked
+                if encrypted.props.cleartext_device == "/":
+                    continue
+                old_udi = udi
+                udi = encrypted.props.cleartext_device
+                obj = self._get_object(udi, prop="block")
+                self.log.debug(
+                    'Found unlocked encrypted mapping "%(udi)s" in "%(old_udi)s"'
+                    % {"udi": udi, "old_udi": old_udi}
+                )
+            filesystem = obj.props.filesystem
+            if filesystem:
+                try:
+                    filesystem.call_unmount_sync(
+                        arg_options=GLib.Variant("a{sv}", None), cancellable=None
+                    )
+                    self.log.debug('Unmounted filesystem "%(udi)s"' % {"udi": udi})
+                except GLib.Error as e:
+                    if "is not mounted" not in e.message:
+                        raise e
+            if encrypted:
+                try:
+                    encrypted.call_lock_sync(
+                        arg_options=GLib.Variant("a{sv}", None), cancellable=None
+                    )
+                    self.log.debug('Locked "%(udi)s"' % {"udi": udi})
+                except gi.repository.GLib.GError as e:
+                    if "is not unlocked" not in e.message:
+                        raise e
+            try:
+                self.drives[dev_path]["mount"] = None
+            except KeyError:
+                # If we are unmounting all partitions on a device we
+                # often do not track them in self.drives (we only
+                # track partitions with Tails installed for upgrading
+                # purposes) and we end up here.
+                pass
+            if not unmount_all:
+                break
         if (
             not self.opts.partition
             and self.dest is not None
@@ -1054,7 +1080,7 @@ class TailsInstallerCreator(object):
             os.stat(tmp_syslinux).st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH,
         )
         self.flush_buffers()
-        self.unmount_device()
+        self.unmount_device(unmount_all=True)
         self.popen(
             "%s %s -d %s %s"
             % (
