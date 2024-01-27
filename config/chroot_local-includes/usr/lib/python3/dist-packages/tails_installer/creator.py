@@ -113,14 +113,17 @@ class TailsInstallerCreator(object):
 
     def retry(func):
         def wrapper(*args, **kwargs):
+            exception = None
             for attempt in range(1, 11):
                 try:
                     return func(*args, **kwargs)
                 except Exception as e:
+                    exception = e
                     args[0].log.debug(e)
                     args[0].log.debug("Retrying %d" % attempt)
                     time.sleep(1)
-            raise e
+            if exception:
+                raise exception
 
         return wrapper
 
