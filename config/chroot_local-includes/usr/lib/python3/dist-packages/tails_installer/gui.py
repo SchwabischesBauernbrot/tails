@@ -32,6 +32,7 @@ import subprocess
 import threading
 import traceback
 import time
+import psutil
 
 from time import sleep
 from datetime import datetime
@@ -45,7 +46,12 @@ from tails_installer import TailsInstallerCreator, TailsInstallerError, _
 from tails_installer.config import CONFIG
 from tails_installer.source import LocalIsoSource
 from tails_installer.source import RunningLiveSystemSource
-from tails_installer.utils import _to_unicode, _format_bytes_in_gb, _get_datadir
+from tails_installer.utils import (
+    _to_unicode,
+    _format_bytes_in_gb,
+    _get_datadir,
+    get_persistent_storage_backup_size,
+)
 
 MAX_FAT16 = 2047
 MAX_FAT32 = 3999
@@ -63,6 +69,7 @@ class ProgressThread(threading.Thread):
     """
 
     totalsize = 0
+    tps_totalsize = 0
     orig_free = 0
     drive = None
     get_free_bytes = None
@@ -77,17 +84,23 @@ class ProgressThread(threading.Thread):
         self.drive = drive
         self.get_free_bytes = freebytes
         self.orig_free = self.get_free_bytes()
+        if self.parent.opts.clone_persistent_storage_requested:
+            self.tps_totalsize = get_persistent_storage_backup_size() / 1024
 
     def run(self):
+        value = 0
+        tps_value = 0
         while not self.terminate:
-            free = self.get_free_bytes()
-            if free is None:
-                break
-            value = (self.orig_free - free) / 1024
-            GLib.idle_add(self.parent.progress, float(value) / self.totalsize)
-            if value >= self.totalsize:
-                break
-            sleep(3)
+            if os.path.ismount("/media/amnesia/Tails/"):
+                free = self.get_free_bytes()
+                value = (self.orig_free - free) / 1024
+            if os.path.ismount("/media/amnesia/TailsData"):
+                tps_value = psutil.disk_usage("/media/amnesia/TailsData").used / 1024
+            GLib.idle_add(
+                self.parent.progress,
+                float(value + tps_value) / (self.totalsize + self.tps_totalsize),
+            )
+            sleep(0.1)
 
     def stop(self):
         self.terminate = True
@@ -178,6 +191,10 @@ class TailsInstallerThread(threading.Thread):
             if self.parent.opts.clone_persistent_storage_requested:
                 self.live.clone_persistent_storage()
 
+            # Set progress to 100% after cloning persistent storage
+            self.set_max_progress(float(1))
+            self.update_progress(1)
+
             self.progress.stop()
 
             # Flush all filesystem buffers and unmount
@@ -255,7 +272,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self._build_ui()
 
         self.opts.clone = True
-        self.opts.clone_persistent_storage_requested = False
         self.live = TailsInstallerCreator(opts=opts)
 
         # Intercept all tails_installer.INFO log messages, and display them
@@ -271,6 +287,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         if self.opts.clone:
             self.__radio_button_source_device.set_active(True)
             self.__filechooserbutton_source_file.set_sensitive(False)
+            if self.opts.clone_persistent_storage_requested:
+                self.__check_button_clone_persistent_storage.set_active(True)
         # - outside of Tails
         else:
             self.__radio_button_source_device.set_visible(False)
@@ -406,11 +424,10 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         drive = self.get_selected_drive()
         if drive is None:
             self.enable_widgets(False)
-            return
+        else:
+            device = self.live.drives[drive]
 
-        device = self.live.drives[drive]
-
-        if self.live.device_can_be_upgraded(device):
+        if drive and self.live.device_can_be_upgraded(device):
             self.opts.partition = False
             self.force_reinstall = False
             self.__button_start.set_label(_("Upgrade"))
@@ -615,7 +632,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     _("No device suitable to install Tails could be found")
                 )
                 self.__label_infobar_details.set_text(
-                    _("Please plug a USB flash drive or SD card of at least %0.1f GB.")
+                    _("Plug in a USB stick of at least %0.1f GB.")
                     % (CONFIG["official_min_installation_device_size"] / 1000.0)
                 )
                 self.__infobar.set_visible(True)
@@ -767,7 +784,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 }
                 if self.live.drive["parent"] in self.devices_with_persistence:
                     delete_message = _(
-                        "\n\nThe persistent storage on this USB stick will be lost."
+                        "\n\nThe Persistent Storage on this USB stick will be lost."
                     )
                     confirmation_label = _("Delete Persistent Storage and Reinstall")
                 else:
