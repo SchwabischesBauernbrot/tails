@@ -37,6 +37,21 @@ Package: onioncircuits
 Pin: release o=Debian,n=sid
 Pin-Priority: 999
 
+Explanation: We forward-port bullseye's onionshare to bookworm (#20135)
+Package: onionshare
+Pin: origin deb.tails.boum.org
+Pin-Priority: 999
+
+Explanation: Dependency forward-ported from bullseye for our forward-ported onionshare (#20135). This package is in our custom APT suite so I would like to pin it just like onionshare above, but I have to pin the exact version otherwise it installs this package from bookworm.
+Package: python3-markupsafe
+Pin: version 1.1.1-1+deb12u1
+Pin-Priority: 999
+
+Explanation: Dependencies from bullseye for our forward-ported onionshare (#20135)
+Package: python3-flask python3-flask-httpauth python3-flask-socketio python3-itsdangerous python3-jinja2 python3-werkzeug
+Pin: release o=Debian,n=bullseye
+Pin-Priority: 999
+
 Package: webext-ublock-origin-firefox
 Pin: release o=Debian,n=sid
 Pin-Priority: 999
