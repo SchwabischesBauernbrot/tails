@@ -114,11 +114,21 @@ export MKSQUASHFS_OPTIONS
 if [ "${TAILS_WEBSITE_CACHE:-0}" = 1 ]; then
    export WEBSITE_DEST_DIR=.
    export WEBSITE_CACHE_BASEDIR
+
+   echo "Website cache filesystem usage before garbage collection:"
+   df "$WEBSITE_CACHE_BASEDIR"
+
    website-cache gc
+
+   echo "Website cache filesystem usage after garbage collection:"
+   df "$WEBSITE_CACHE_BASEDIR"
+
    WEBSITE_CACHE_KEY=$(website-cache key)
    if ! website-cache get "$WEBSITE_CACHE_KEY"; then
       ./build-website
       website-cache put "$WEBSITE_CACHE_KEY"
+      echo "Website cache filesystem usage after storing new cache entry:"
+      df "$WEBSITE_CACHE_BASEDIR"
    fi
 else
    ./build-website
