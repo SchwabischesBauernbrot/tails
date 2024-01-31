@@ -275,7 +275,7 @@ class ASPConfigApplication(Gtk.Application):
         return packages_with_description
 
     def remove_additional_software(self, package_name):
-        subprocess.run(["pkexec",
+        subprocess.run(["/usr/bin/pkexec",
                         "/usr/local/lib/additional-software/asp-remove-package",
                         package_name],
                        check=True)
