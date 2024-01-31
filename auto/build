@@ -132,6 +132,7 @@ if [ "${TAILS_WEBSITE_CACHE:-0}" = 1 ]; then
 
       if ! website-cache put "$WEBSITE_CACHE_KEY"; then
           # Delete incomplete cache entry
+          # shellcheck disable=SC2115
           rm -rf "${WEBSITE_CACHE_BASEDIR}/${WEBSITE_CACHE_KEY}"
       fi
       echo "Website cache filesystem usage after storing new cache entry:"
