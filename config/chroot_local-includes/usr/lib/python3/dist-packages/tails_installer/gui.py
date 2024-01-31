@@ -841,7 +841,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             % {"filename": str(os.path.basename(self.live.source.path))}
         )
         self.source_available = True
-        self.live.log.debug("Calling populate_devices()" " from select_source_iso")
+        self.live.log.debug("Calling populate_devices() from select_source_iso")
         self.populate_devices()
 
     def terminate(self):
