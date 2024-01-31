@@ -145,7 +145,7 @@ class ASPConfigApplicationWindow(Gtk.ApplicationWindow):
                 hbox.set_border_width(3)
 
                 vbox = Gtk.Box.new(Gtk.Orientation.VERTICAL, 0)
-                name_label = Gtk.Label.new("<b>{}</b>".format(package_name))
+                name_label = Gtk.Label.new(f"<b>{package_name}</b>")
                 name_label.set_use_markup(True)
                 name_label.set_xalign(0)
                 vbox.pack_start(name_label, expand=True, fill=True, padding=0)
