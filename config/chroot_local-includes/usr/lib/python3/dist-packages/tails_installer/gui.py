@@ -688,8 +688,14 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self.close()
 
     def show_confirmation_dialog(
-        self, title, message, warning, label_string=_("Install")
+        self,
+        title,
+        message,
+        warning,
+        label_string=None,
     ):
+        if label_string is None:
+            label_string = _("Install")
         if warning:
             buttons = Gtk.ButtonsType.OK
         else:
