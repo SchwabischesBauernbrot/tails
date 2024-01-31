@@ -348,7 +348,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
 
     def on_radio_button_source_iso_toggled(self, radio_button):
         self.live.log.debug("Entering on_radio_button_source_iso_toggled")
-        active_radio = [r for r in radio_button.get_group() if r.get_active()][0]
+        active_radio = next(r for r in radio_button.get_group() if r.get_active())
         if active_radio.get_label() == _("Clone the current Tails"):
             self.live.log.debug("Mode: clone")
             self.opts.clone = True
