@@ -368,7 +368,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         # some previously rejected devices may now be valid candidates
         # and vice-versa
         self.live.log.debug(
-            "Calling populate_devices()" " from on_radio_button_source_iso_toggled"
+            "Calling populate_devices() from on_radio_button_source_iso_toggled"
         )
         self.populate_devices()
         self.update_clone_persistent_storage_check_button()
