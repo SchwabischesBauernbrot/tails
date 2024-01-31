@@ -1592,7 +1592,7 @@ Then /^(no )?persistent Greeter options were restored$/ do |no|
   $language, $lang_code = greeter_language
   # Our Dogtail wrapper code automatically translates strings to $language
   settings_restored = greeter
-                      .child?('Settings were loaded from the persistent storage.',
+                      .child?('Settings were loaded from the Persistent Storage.',
                               roleName: 'label')
   if no
     assert(!settings_restored)

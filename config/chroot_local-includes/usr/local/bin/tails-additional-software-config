@@ -196,7 +196,7 @@ class ASPConfigApplicationWindow(Gtk.ApplicationWindow):
                 pass
             elif has_persistence():
                 self.install_label.set_markup(
-                    _('To do so, unlock your persistent storage '
+                    _('To do so, unlock your Persistent Storage '
                       'when starting Tails and '
                       'install some software using '
                       '<a href="synaptic.desktop">Synaptic Package '
@@ -206,7 +206,7 @@ class ASPConfigApplicationWindow(Gtk.ApplicationWindow):
             elif is_tails_media_writable():
                 self.persistence_button.set_visible(True)
                 self.install_label.set_markup(
-                    _('To do so, create a persistent storage and install some '
+                    _('To do so, create a Persistent Storage and install some '
                       'software using '
                       '<a href="synaptic.desktop">Synaptic Package '
                       'Manager</a> or '
@@ -221,7 +221,7 @@ class ASPConfigApplicationWindow(Gtk.ApplicationWindow):
             else:   # It's impossible to have a persistent storage
                 self.install_label.set_markup(
                     _('To do so, install Tails on a USB stick '
-                      'and create a persistent storage.'))
+                      'and create a Persistent Storage.'))
 
 
 class ASPConfigApplication(Gtk.Application):
