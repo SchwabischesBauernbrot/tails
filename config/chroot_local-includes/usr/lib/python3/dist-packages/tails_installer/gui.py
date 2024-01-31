@@ -382,7 +382,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
     def on_activate_link_button(self, link_button: Gtk.LinkButton):
         uri = link_button.get_uri()
         self.live.log.debug("Opening Documentation: %s", uri)
-        subprocess.run(["/usr/local/bin/tails-documentation", uri])
+        subprocess.run(["/usr/local/bin/tails-documentation", uri], check=False)
         return True
 
     def on_force_reinstall_clicked(self, button):
