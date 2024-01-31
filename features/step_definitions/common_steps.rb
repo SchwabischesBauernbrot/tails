@@ -375,7 +375,7 @@ def enter_boot_menu_cmdline
   end
 end
 
-Given /^the computer boots$/ do
+def the_computer_boots
   enter_boot_menu_cmdline
   boot_key = @os_loader == 'UEFI' ? 'F10' : 'Return'
   early_patch = config_bool('EARLY_PATCH') ? ' early_patch=umount' : ''
@@ -390,7 +390,7 @@ Given /^the computer boots$/ do
 end
 
 Given /^the computer (?:re)?boots Tails( with genuine APT sources)?$/ do |keep_apt_sources|
-  step 'the computer boots'
+  the_computer_boots
 
   try_for(60) do
     !greeter.nil?

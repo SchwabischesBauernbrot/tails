@@ -3,7 +3,7 @@ Given /^I start the computer from DVD with network unplugged$/ do
   step 'the computer is set to boot from the Tails DVD'
   step 'the network is unplugged'
   step 'I start the computer'
-  step 'the computer boots'
+  the_computer_boots
 end
 
 When /^Tails detects disk read failures$/ do
