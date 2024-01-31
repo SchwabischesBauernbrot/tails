@@ -34,10 +34,9 @@ import time
 from time import sleep
 from datetime import datetime
 
-from gi.repository import Gdk, GLib, Gtk, Gio, GObject
+from gi.repository import Gdk, GLib, Gtk
 
 from tails_installer.passphrase_dialog import PassphraseDialog
-from tps.dbus.errors import DBusError
 
 from tails_installer import TailsInstallerCreator, TailsInstallerError, _
 from tails_installer.config import CONFIG
