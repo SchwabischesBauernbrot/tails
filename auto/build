@@ -123,7 +123,10 @@ if [ "${TAILS_WEBSITE_CACHE:-0}" = 1 ]; then
    WEBSITE_CACHE_KEY=$(website-cache key)
    if ! website-cache get "$WEBSITE_CACHE_KEY"; then
       ./build-website
-      website-cache put "$WEBSITE_CACHE_KEY"
+      if ! website-cache put "$WEBSITE_CACHE_KEY"; then
+          # Delete incomplete cache entry
+          rm -rf "${WEBSITE_CACHE_BASEDIR}/${WEBSITE_CACHE_KEY}"
+      fi
       echo "Website cache filesystem usage after storing new cache entry:"
       df "$WEBSITE_CACHE_BASEDIR"
    fi
