@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Copyright © 2008-2013  Red Hat, Inc. All rights reserved.
 # Copyright © 2008-2013  Luke Macken <lmacken@redhat.com>
 # Copyright © 2008  Kushal Das <kushal@fedoraproject.org>
