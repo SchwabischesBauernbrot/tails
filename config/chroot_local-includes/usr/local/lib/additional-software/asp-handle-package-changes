@@ -5,6 +5,7 @@
 Retrieve the list of packages saved by apt_hook_pre, filter packages not
 interesting and pass the resulting list to the appropriate method.
 """
+import fcntl
 import gettext
 import logging
 import os
@@ -26,6 +27,8 @@ from tailslib.persistence import has_unlocked_persistence, has_persistence,\
 
 gettext.install("tails")
 _ = gettext.gettext
+
+LOCK_FILE = "/run/live-additional-software/handle-package-changes-lock"
 
 
 def handle_installed_packages(packages: set[str]):
@@ -203,6 +206,14 @@ def add_additional_packages(new_packages):
 
 def main():
     additional_software.set_up_logging()
+
+    # Acquire a lock to avoid running multiple instances of this script
+    # concurrently, which would lead to race conditions (see #16034) and
+    # incorrect behavior (asking the user twice about the same package).
+    logging.info("Acquiring lock")
+    lock_file = open(LOCK_FILE, "w")
+    fcntl.flock(lock_file, fcntl.LOCK_EX)
+
     logging.info("Examining package changes")
 
     installed_packages = list()
@@ -243,6 +254,8 @@ def main():
         additional_packages_names)
     if additional_packages_removed:
         handle_removed_packages(additional_packages_removed)
+
+    logging.info("Exiting")
 
 
 if __name__ == "__main__":
