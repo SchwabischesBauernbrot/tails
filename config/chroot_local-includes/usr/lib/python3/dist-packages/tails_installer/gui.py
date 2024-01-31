@@ -743,7 +743,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.status(e.args[0])
                 self.enable_widgets(True)
                 return
-            except OSError as e:
+            except OSError:
                 self.status(_("Unable to mount device"))
                 self.enable_widgets(True)
                 return
