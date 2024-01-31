@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-23 00:41+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2023-01-08 17:17+0000\n"
 "Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
@@ -40,8 +40,8 @@ msgstr "<a id=\"disks\"></a>\n"
 
 #. type: Title =
 #, no-wrap
-msgid "Using <span class=\"application\">GNOME Disks</span>"
-msgstr "En utilisant <span class=\"application\">GNOME Disques</span>"
+msgid "Using the *Disks* utility"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -50,9 +50,15 @@ msgstr "<div class=\"caution\">\n"
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"<strong>You might overwrite any hard disk on the computer.</strong> If at some\n"
-"point you are not sure about which device to choose, stop proceeding.\n"
+msgid "<p><b>You might overwrite any hard disk on the computer.</b></p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<strong>You might overwrite any hard disk on the computer.</strong> If at some\n"
+#| "point you are not sure about which device to choose, stop proceeding.\n"
+msgid "<p>If at some point you are not sure about which device to choose, stop proceeding.</p>\n"
 msgstr ""
 "<strong>Vous pourriez écraser n'importe quel disque dur sur l'ordinateur.</strong>\n"
 "Si à un moment vous n'êtes pas sûr du choix du périphérique, arrêtez-vous là.\n"
@@ -67,24 +73,11 @@ msgid "Make sure that the USB stick that you want to reset is unplugged."
 msgstr ""
 "Assurez-vous que la clé USB que vous voulez réinitialiser est débranchée."
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '1. '
 msgid ""
-"1. Choose\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Disks</span>\n"
-"   </span>\n"
-"   to start <span class=\"application\">GNOME Disks</span>.\n"
+"Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to start the "
+"*Disks* utility."
 msgstr ""
-"1. Choisir\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilitaires</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Disques</span>\n"
-"   </span>\n"
-"   pour lancer <span class=\"application\">GNOME Disques</span>.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -119,10 +112,15 @@ msgstr ""
 "à la clé USB que vous voulez réinitialiser, sa marque, sa taille, etc."
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "To reset the USB stick, click on the <span class=\"guimenu\">[[!img lib/"
+#| "open-menu.png alt=\"Menu\" class=symbolic link=no]]</span> button in the "
+#| "titlebar and choose <span class=\"guilabel\">Format Disk…</span>."
 msgid ""
-"To reset the USB stick, click on the <span class=\"guimenu\">[[!img lib/open-"
-"menu.png alt=\"Menu\" class=symbolic link=no]]</span> button in the titlebar "
-"and choose <span class=\"guilabel\">Format Disk…</span>."
+"To reset the USB stick, click on the [[!img lib/view-more.png alt=\"Drive "
+"Options\" class=\"symbolic\" link=\"no\"]] button in the titlebar and choose "
+"**Format Disk** to erase all the existing partitions on the device."
 msgstr ""
 "Pour réinitialiser la clé USB, cliquez sur le bouton <span "
 "class=\"guimenu\">[[!img lib/open-menu.png alt=\"Menu\" class=symbolic "
@@ -130,7 +128,9 @@ msgstr ""
 "class=\"guilabel\">Formater le disque…</span>."
 
 #. type: Bullet: '1. '
-msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+#, fuzzy
+#| msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+msgid "In the **Format Disk** dialog:"
 msgstr ""
 "Dans la boîte de dialogue <span class=\"guilabel\">Formater le disque</"
 "span> :"
@@ -208,9 +208,13 @@ msgid "    See [[using the *Boot Loader*|advanced_topics/boot_options]].\n"
 msgstr ""
 
 #. type: Bullet: '2.  '
+#, fuzzy
+#| msgid ""
+#| "If Tails starts as usual, follow the instructions for [[resetting a USB "
+#| "stick using <span class=\"application\">GNOME Disks</span>|linux#disks]]."
 msgid ""
 "If Tails starts as usual, follow the instructions for [[resetting a USB "
-"stick using <span class=\"application\">GNOME Disks</span>|linux#disks]]."
+"stick using the *Disks* utility|linux#disks]]."
 msgstr ""
 "Si Tails démarre comme d'habitude, suivre les instructions pour "
 "[[réinitialiser une clé USB en utilisant <span class=\"application\">GNOME "
@@ -226,6 +230,28 @@ msgstr ""
 "    **Si le système n'arrive pas à démarrer**, cela signifie que l'ordinateur n'a\n"
 "    pas assez de mémoire pour ce mode opératoire. Essayez avec un autre\n"
 "    ordinateur, ou trouvez un autre système Linux, comme une autre clé USB Tails, pour effectuer la réinitialisation.\n"
+
+#, no-wrap
+#~ msgid "Using <span class=\"application\">GNOME Disks</span>"
+#~ msgstr "En utilisant <span class=\"application\">GNOME Disques</span>"
+
+#, no-wrap
+#~ msgid ""
+#~ "1. Choose\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Disks</span>\n"
+#~ "   </span>\n"
+#~ "   to start <span class=\"application\">GNOME Disks</span>.\n"
+#~ msgstr ""
+#~ "1. Choisir\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilitaires</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Disques</span>\n"
+#~ "   </span>\n"
+#~ "   pour lancer <span class=\"application\">GNOME Disques</span>.\n"
 
 #~ msgid ""
 #~ "When starting Tails, add the <span class=\"command\">toram</span> boot "

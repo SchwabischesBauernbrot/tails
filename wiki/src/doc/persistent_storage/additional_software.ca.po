@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-03 23:17+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2024-01-30 14:43+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -242,26 +242,59 @@ msgstr ""
 "biblioteques."
 
 #. type: Plain text
-#, no-wrap
-msgid "<a id=\"language-packs\"></a>\n"
+msgid ""
+"- [*GtkHash*](https://gtkhash.org/), a utility to calculate the checksum of "
+"files."
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<a id=\"language-packs\"></a>\n"
+msgid "<a id=\"language-packages\"></a>\n"
 msgstr "<a id=\"language-packs\"></a>\n"
 
 #. type: Title -
-#, no-wrap
-msgid "Language packs"
+#, fuzzy, no-wrap
+#| msgid "Language packs"
+msgid "Language packages"
 msgstr "Paquets d'idiomes"
 
-#. type: Bullet: '- '
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "Replace <span class=\"command-placeholder\">lang</span> with the code for your\n"
+#| "language. For example, `es` for Spanish or `de` for German.\n"
 msgid ""
-"For *LibreOffice*: <code>libreoffice-l10n-<span class=\"command-"
+"Replace <span class=\"command-placeholder\">lang</span> with the code for your\n"
+"language. For example, `es` for Spanish or `pt-br` for Brazilian Portuguese.\n"
+msgstr ""
+"Substituïu <span class=\"command-placeholder\">lang</span> pel codi del vostre\n"
+"idioma. Per exemple, `es` per al castellà o `de` per a l'alemany.\n"
+
+#. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "For *LibreOffice*: <code>libreoffice-l10n-<span class=\"command-"
+#| "placeholder\">lang</span></code>"
+msgid ""
+"*LibreOffice* language package: <code>libreoffice-l10n-<span class=\"command-"
 "placeholder\">lang</span></code>"
 msgstr ""
 "Per a *LibreOffice*: <code>libreoffice-l10n-<span class=\"command-"
 "placeholder\">lang</span></code>"
 
+#. type: Plain text
+#, no-wrap
+msgid "  [List of all *LibreOffice* language packages](https://packages.debian.org/search?keywords=libreoffice-l10n&searchon=names&suite=stable&section=all)\n"
+msgstr ""
+
 #. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "For *Thunderbird*: <code>thunderbird-l10n-<span class=\"command-"
+#| "placeholder\">lang</span></code>"
 msgid ""
-"For *Thunderbird*: <code>thunderbird-l10n-<span class=\"command-"
+"*Thunderbird* language package: <code>thunderbird-l10n-<span class=\"command-"
 "placeholder\">lang</span></code>"
 msgstr ""
 "Per a *Thunderbird*: <code>thunderbird-l10n-<span class=\"command-"
@@ -269,29 +302,36 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"Replace <span class=\"command-placeholder\">lang</span> with the code for your\n"
-"language. For example, `es` for Spanish or `de` for German.\n"
+msgid "  [List of all *Thunderbird* language packages](https://packages.debian.org/search?keywords=thunderbird-l10n&searchon=names&suite=stable&section=all)\n"
 msgstr ""
-"Substituïu <span class=\"command-placeholder\">lang</span> pel codi del vostre\n"
-"idioma. Per exemple, `es` per al castellà o `de` per a l'alemany.\n"
 
 #. type: Title -
-#, no-wrap
-msgid "Spell-checking dictionaries"
+#, fuzzy, no-wrap
+#| msgid "Spell-checking dictionaries"
+msgid "Spell checking dictionaries"
 msgstr "Diccionaris de correcció ortogràfica"
 
 #. type: Bullet: '- '
-msgid "<code>hunspell-<span class=\"command-placeholder\">lang</span></code>"
+#, fuzzy
+#| msgid ""
+#| "<code>hunspell-<span class=\"command-placeholder\">lang</span></code>"
+msgid ""
+"*Hunspell* dictionnary: <code>hunspell-<span class=\"command-"
+"placeholder\">lang</span></code>"
 msgstr "<code>hunspell-<span class=\"command-placeholder\">lang</span></code>"
 
 #. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "The `hunspell` dictionaries are used for spell-checking by *Tor Browser*, *LibreOffice*, *Thunderbird*, and many other applications."
 msgid ""
-"The `hunspell` dictionaries are used for spell-checking by *Tor Browser*, "
-"*LibreOffice*, *Thunderbird*, and many other applications."
+"  The *Hunspell* dictionaries are used for spell-checking by *Tor Browser*,\n"
+"  *LibreOffice*, *Thunderbird*, and many other applications.\n"
+msgstr "S'utilitzen els diccionaris `hunspell` de correcció ortogràfica pel *Navegador Tor*, *LibreOffice*, *Thunderbird* i moltes altres aplicacions."
+
+#. type: Plain text
+#, no-wrap
+msgid "  [List of all *Hunspell* dictionnaries](https://packages.debian.org/search?keywords=hunspell&searchon=names&suite=stable&section=all)\n"
 msgstr ""
-"S'utilitzen els diccionaris `hunspell` de correcció ortogràfica pel "
-"*Navegador Tor*, *LibreOffice*, *Thunderbird* i moltes altres aplicacions."
 
 #. type: Title =
 #, no-wrap
@@ -853,8 +893,7 @@ msgid ""
 "   with the following content:\n"
 msgstr ""
 "   Per exemple, per afegir\n"
-"   les seccions `no lliures` de Debian 11 (Bullseye), backports i "
-"actualitzacions de\n"
+"   les seccions `no lliures` de Debian 11 (Bullseye), backports i actualitzacions de\n"
 "   seguretat, podeu crear un fitxer anomenat\n"
 "   */live/persistence/TailsData_unlocked/apt-sources.list.d/non-free.list*\n"
 "   amb el contingut següent:\n"
