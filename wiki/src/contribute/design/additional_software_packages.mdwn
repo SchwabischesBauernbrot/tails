@@ -140,12 +140,12 @@ end of the build process.
 The first hook `DPkg::Pre-Install-Pkgs` runs before any actual
 installation happens and calls
 `/usr/local/sbin/tails-additional-software apt-pre` which saves a list
-of installed and removed packages as JSON in
+of installed and removed packages in
 `/run/live-additional-software/packages`.
 
 The second hook `DPkg::Post-Invoke` runs in the end of the installation
 process and calls `/usr/local/sbin/tails-additional-software apt-post`.
-It double forks so that APT properly returns, then parses the JSON file
+It double forks so that APT properly returns, then reads the files
 written beforehand in order to check which packages were manually
 installed or removed.
 
