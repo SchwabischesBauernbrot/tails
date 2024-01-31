@@ -11,7 +11,6 @@ import os
 import subprocess
 import time
 from pathlib import Path
-from typing import Set
 
 import apt.cache
 
@@ -28,7 +27,7 @@ gettext.install("tails")
 _ = gettext.gettext
 
 
-def handle_installed_packages(packages: Set[str]):
+def handle_installed_packages(packages: set[str]):
     """Configure packages as additional software packages if the user wants to.
 
     Ask the user if packages should be added to additional software, and
@@ -100,7 +99,7 @@ def handle_installed_packages(packages: Set[str]):
                    urgent=True)
 
 
-def create_persistence_and_setup_additional_packages(packages: Set[str]):
+def create_persistence_and_setup_additional_packages(packages: set[str]):
     """Create persistence and add packages to its configuration.
 
     Create a new persistence with additional packages enabled.
@@ -126,7 +125,7 @@ def setup_additional_packages():
     subprocess.check_call(["/usr/local/lib/tpscli", "ensure-is-active", "AdditionalSoftware"])
 
 
-def handle_removed_packages(packages: Set[str]):
+def handle_removed_packages(packages: set[str]):
     """Removes packages from additional software packages if the user wants to.
 
     Ask the user if packages should be removed from additional software, and
