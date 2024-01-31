@@ -126,6 +126,10 @@ if [ "${TAILS_WEBSITE_CACHE:-0}" = 1 ]; then
    WEBSITE_CACHE_KEY=$(website-cache key)
    if ! website-cache get "$WEBSITE_CACHE_KEY"; then
       ./build-website
+
+      WEBSITE_BUILD_DIR="config/chroot_local-includes/usr/share/doc/tails/website"
+      echo "Website cache entry size: $(du --apparent-size --summarize "${WEBSITE_BUILD_DIR}" | cut -f1)"
+
       if ! website-cache put "$WEBSITE_CACHE_KEY"; then
           # Delete incomplete cache entry
           rm -rf "${WEBSITE_CACHE_BASEDIR}/${WEBSITE_CACHE_KEY}"
