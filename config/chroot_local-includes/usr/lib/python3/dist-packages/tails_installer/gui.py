@@ -651,9 +651,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             self.append_to_log(text)
         except Exception as ex:
             self.live.log.exception(
-                'Failed to set status to object of type "{type}"'.format(
-                    type=type(obj).__name__
-                )
+                "Failed to set status to object of type %s",
+                type(obj).__name__,
             )
             raise ex
 
