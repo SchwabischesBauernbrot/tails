@@ -215,27 +215,9 @@ Please, report any new problem before February 18 to either:
 
 ## To upgrade your Tails USB stick and keep your Persistent Storage
 
-- Automatic upgrades are available from 4.2 or later to {{version}}.
+Automatic upgrades are not available to 6.0~rc1.
 
-  To do an automatic upgrade to Tails {{version}}:
-
-  1. Start Tails 4.2 or later and
-     [[set an administration password|doc/first_steps/welcome_screen/administration_password]].
-
-  1. Run this command in a *Terminal*:
-
-         echo TAILS_CHANNEL=\"alpha\" | sudo tee -a /etc/os-release && \
-              tails-upgrade-frontend-wrapper
-
-     Enter the administration password when asked for the "password
-     for amnesia".
-
-  1. After the upgrade is applied, restart Tails and choose
-     **Applications&nbsp;▸ Tails&nbsp;▸ About Tails**
-     to verify that you are running Tails {{version}}.
-
-- If you cannot do an automatic upgrade or if Tails fails to start after an
-  automatic upgrade, please try to do a [[manual upgrade|doc/upgrade/#manual]].
+All users have to do a [[manual upgrade|doc/upgrade#manual]].
 
 ## To download 6.0~rc1
 
