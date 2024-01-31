@@ -5,6 +5,7 @@
 Retrieve the list of packages saved by apt_hook_pre, filter packages not
 interesting and pass the resulting list to the appropriate method.
 """
+import argparse
 import fcntl
 import gettext
 import logging
@@ -205,6 +206,13 @@ def add_additional_packages(new_packages):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Handle package changes")
+    parser.add_argument("--installed", help="File containing the list of "
+                        "installed packages")
+    parser.add_argument("--removed", help="File containing the list of "
+                        "removed packages")
+    args = parser.parse_args()
+
     additional_software.set_up_logging()
 
     # Acquire a lock to avoid running multiple instances of this script
@@ -217,13 +225,13 @@ def main():
     logging.info("Examining package changes")
 
     installed_packages = list()
-    installed_packages_file = Path(additional_software.INSTALLED_PACKAGES_FILE)
+    installed_packages_file = Path(args.installed)
     if installed_packages_file.exists():
         installed_packages = installed_packages_file.read_text().splitlines()
         installed_packages_file.unlink()
 
     removed_packages = list()
-    removed_packages_file = Path(additional_software.REMOVED_PACKAGES_FILE)
+    removed_packages_file = Path(args.removed)
     if removed_packages_file.exists():
         removed_packages = removed_packages_file.read_text().splitlines()
         removed_packages_file.unlink()

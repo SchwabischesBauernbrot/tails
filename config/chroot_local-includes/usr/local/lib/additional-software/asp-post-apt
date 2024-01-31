@@ -7,9 +7,34 @@ if [ -n "${SOURCE_DATE_EPOCH:-}" ]; then
   exit 0
 fi
 
-CMD=/usr/local/lib/additional-software/asp-handle-package-changes
+INSTALLED_PACKAGES_FILE=/run/live-additional-software/packages/installed
+REMOVED_PACKAGES_FILE=/run/live-additional-software/packages/removed
+
 # Use a unique unit name, so that we can run multiple instances of the
 # hook in parallel.
 UUID=$(cat /proc/sys/kernel/random/uuid)
-UNIT=tails-additional-software-post-apt-hook-${UUID}
-systemd-run --unit="${UNIT}" --setenv=DEBUG "${CMD}" "$@"
+
+# Rename the installed and removed package files to contain the UUID,
+# to avoid that subsequent runs of the hook use the same files.
+if [ -f "${INSTALLED_PACKAGES_FILE}" ]; then
+  UNIQUE_INSTALLED_PACKAGES_FILE="${INSTALLED_PACKAGES_FILE}-${UUID}"
+  mv "${INSTALLED_PACKAGES_FILE}" "${UNIQUE_INSTALLED_PACKAGES_FILE}"
+fi
+if [ -f "${REMOVED_PACKAGES_FILE}" ]; then
+  UNIQUE_REMOVED_PACKAGES_FILE="${REMOVED_PACKAGES_FILE}-${UUID}"
+  mv "${REMOVED_PACKAGES_FILE}" "${UNIQUE_REMOVED_PACKAGES_FILE}"
+fi
+
+# If neither installed nor removed packages are present, there's
+# nothing to do.
+if [ -z "${UNIQUE_INSTALLED_PACKAGES_FILE:-}" ] && \
+   [ -z "${UNIQUE_REMOVED_PACKAGES_FILE:-}" ]; then
+  exit 0
+fi
+
+CMD=/usr/local/lib/additional-software/asp-handle-package-changes
+UNIT="tails-additional-software-post-apt-hook-${UUID}"
+systemd-run --unit="${UNIT}" --setenv=DEBUG "${CMD}" \
+  --installed="${UNIQUE_INSTALLED_PACKAGES_FILE}" \
+  --removed="${UNIQUE_REMOVED_PACKAGES_FILE}" \
+  "$@"
