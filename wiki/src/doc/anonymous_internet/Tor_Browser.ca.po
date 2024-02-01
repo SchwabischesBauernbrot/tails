@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-01-29 11:28+0100\n"
-"PO-Revision-Date: 2024-01-30 14:36+0000\n"
+"PO-Revision-Date: 2024-02-01 11:36+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -126,12 +126,20 @@ msgstr "<h1 id=\"confinement\">Confinament d'AppArmor, baixada i càrrega de fit
 #, no-wrap
 msgid "*Tor Browser* can only read and write to the following folders:\n"
 msgstr ""
+"El *Navegador Tor* només pot llegir i escriure a les carpetes següents:\n"
 
 #. type: Plain text
 msgid ""
 "- *Documents* - *Downloads* - *Music* - *Pictures* - *Videos* - *Tor "
 "Browser* - *Persistent/Tor Browser*, if you have a Persistent Storage"
 msgstr ""
+"- *Documents*\n"
+"- *Baixades*\n"
+"- *Música*\n"
+"- *Imatges*\n"
+"- *Vídeos*\n"
+"- *Navegador Tor*\n"
+"- *Persistent/Navegador Tor*, si teniu un Emmagatzematge Persistent"
 
 #. type: Plain text
 msgid ""
@@ -139,6 +147,9 @@ msgid ""
 "AppArmor]]* to protect your files from some types of attacks against *Tor "
 "Browser*."
 msgstr ""
+"Això es deu al fet que, a Tails, el *Navegador Tor* està confinat amb *[["
+"!debwiki AppArmor]]* per protegir els vostres fitxers d'alguns tipus d'atacs "
+"contra el *Navegador Tor*."
 
 #. type: Plain text
 msgid ""
@@ -146,6 +157,9 @@ msgid ""
 "exploit a security vulnerability in *Tor Browser*, they wouldn't be able to "
 "access all the content of your Persistent Storage."
 msgstr ""
+"Per exemple, gràcies a aquest confinament, fins i tot si un atacant "
+"aconsegueix explotar una vulnerabilitat de seguretat al *Navegador Tor*, no "
+"podria accedir a tot el contingut del vostre Emmagatzematge Persistent."
 
 #. type: Plain text
 #, no-wrap
@@ -153,28 +167,27 @@ msgid "<div class=\"note\">\n"
 msgstr "<div class=\"note\">\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<p>This is why, for example, you might face <em>Permission\n"
-#| "denied</em> errors if you try to download files to the\n"
-#| "<em>Home</em> folder.</p>\n"
+#, no-wrap
 msgid ""
 "<p>This is why you get the following error if you try to download files to\n"
 "another folder:</p>\n"
 msgstr ""
-"<p>És per això que, per exemple, podeu tenir error de <em>Denegació\n"
-"de permisos</em> si intenteu baixar fitxers a la\n"
-"carpeta <em>Home</em>.</p>\n"
+"<p>És per això que obteniu l'error següent si intenteu baixar fitxers\n"
+"a una altra carpeta:</p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<p class=\"code\">Could not read the contents of <span class=\"command-placeholder\">folder</span>.</p>\n"
 msgstr ""
+"<p class=\"code\">No s'ha pogut llegir el contingut de <span class=\"command-"
+"placeholder\">carpeta</span>.</p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<p class=\"code\">Error opening directory <span class=\"command-placeholder\">folder</span>: Permission denied</p>\n"
 msgstr ""
+"<p class=\"code\">S'ha produït un error en obrir el directori <span class"
+"=\"command-placeholder\">carpeta</span>: permís denegat</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -186,18 +199,16 @@ msgid ""
 "If you want to download a file from *Tor Browser*, save it to one of these "
 "folders."
 msgstr ""
+"Si voleu baixar-vos un fitxer del *Navegador Tor*, deseu-lo en una "
+"d'aquestes carpetes."
 
 #. type: Bullet: '- '
-#, fuzzy
-#| msgid ""
-#| "- If you want to upload files with <span class=\"application\">Tor\n"
-#| "Browser</span>, copy them to that folder first.\n"
 msgid ""
 "If you want to upload a file from *Tor Browser*, copy it first to one of "
 "these folders."
 msgstr ""
-"- Si voleu carregar fitxers amb el <span class=\"application\">Navegador\n"
-"Tor</span>, copieu-los primer a aquella carpeta.\n"
+"Si voleu carregar un fitxer des del *Navegador Tor*, copieu-lo primer a una "
+"d'aquestes carpetes."
 
 #. type: Plain text
 #, no-wrap
