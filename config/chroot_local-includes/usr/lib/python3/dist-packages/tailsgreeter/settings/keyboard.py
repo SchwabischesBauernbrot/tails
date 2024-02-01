@@ -18,7 +18,7 @@ gi.require_version("GLib", "2.0")
 gi.require_version("GnomeDesktop", "3.0")
 gi.require_version("GObject", "2.0")
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gio, GLib, GnomeDesktop, GObject, Gtk
+from gi.repository import Gio, GLib, GnomeDesktop, GObject, Gtk  # noqa: E402
 
 
 class KeyboardSetting(LocalizationSetting):
@@ -48,11 +48,11 @@ class KeyboardSetting(LocalizationSetting):
     def load(self) -> tuple[str, bool]:
         try:
             settings = read_settings(self.settings_file)
-        except FileNotFoundError:
+        except FileNotFoundError as e:
             raise SettingNotFoundError(
                 "No persistent keyboard settings file found (path: %s)"
                 % self.settings_file
-            )
+            ) from e
 
         keyboard_layout = settings.get("TAILS_XKBLAYOUT")
         if keyboard_layout is None:
@@ -99,7 +99,10 @@ class KeyboardSetting(LocalizationSetting):
 
     def get_all(self) -> list[str]:
         """Return a list of all keyboard layout codes"""
-        return self.xkbinfo.get_all_layouts()
+        layouts = set(self.xkbinfo.get_all_layouts())
+        # Filter out unwanted layouts
+        layouts -= {"custom"}
+        return list(layouts)
 
     def _layout_name(self, layout_code) -> str:
         (
@@ -226,9 +229,9 @@ class KeyboardSetting(LocalizationSetting):
 
         if not layouts:
             layouts = set(
-                l
-                for l in language_layouts
-                if self._split_variant(l)[0] == country.lower
+                layout
+                for layout in language_layouts
+                if self._split_variant(layout)[0] == country.lower
             )
             logging.debug(
                 "Empty intersection of language and country, filter "
@@ -238,7 +241,9 @@ class KeyboardSetting(LocalizationSetting):
             )
         if not layouts:
             layouts = set(
-                l for l in language_layouts if self._split_variant(l)[0] == language
+                layout
+                for layout in language_layouts
+                if self._split_variant(layout)[0] == language
             )
             logging.debug(
                 "List still empty, filter by language %s only: %s", language, layouts

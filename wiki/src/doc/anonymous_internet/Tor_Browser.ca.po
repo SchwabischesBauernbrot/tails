@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-21 23:10+0000\n"
-"PO-Revision-Date: 2023-12-21 00:19+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"PO-Revision-Date: 2024-01-30 14:36+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -85,7 +85,7 @@ msgid ""
 "[[the FAQ|support/faq#browser]].\n"
 msgstr ""
 "Algunes preguntes freqüents sobre el <span class=\"application\">Navegador Tor</span> es poden trobar a\n"
-"[[les PMF|support/faq#browser]].\n"
+"[[les preguntes més freqüents|support/faq#browser]].\n"
 
 #. type: Plain text
 #, no-wrap
@@ -124,18 +124,28 @@ msgstr "<h1 id=\"confinement\">Confinament d'AppArmor, baixada i càrrega de fit
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"<span class=\"application\">Tor Browser</span> in Tails is confined with\n"
-"[[!debwiki AppArmor]] to protect the system and your data from some\n"
-"types of attacks against <span class=\"application\">Tor Browser</span>.\n"
-"As a consequence, <span class=\"application\">Tor Browser</span> in Tails can\n"
-"only read and write to a limited number of folders.\n"
+msgid "*Tor Browser* can only read and write to the following folders:\n"
 msgstr ""
-"<span class=\"application\">El Navegador Tor</span> a Tails està limitat amb\n"
-"[[!debwiki AppArmor]] per protegir el sistema i les vostres dades d'alguns\n"
-"tipus d'atacs contra el <span class=\"application\">Navegador Tor</span>.\n"
-"Com a conseqüència, el <span class=\"application\">Navegador Tor</span> a Tails pot\n"
-"només llegir i escriure a un nombre limitat de carpetes.\n"
+
+#. type: Plain text
+msgid ""
+"- *Documents* - *Downloads* - *Music* - *Pictures* - *Videos* - *Tor "
+"Browser* - *Persistent/Tor Browser*, if you have a Persistent Storage"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"This is because, in Tails, *Tor Browser* is confined using *[[!debwiki "
+"AppArmor]]* to protect your files from some types of attacks against *Tor "
+"Browser*."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"For example, thanks to this confinement, even if an attacker manages to "
+"exploit a security vulnerability in *Tor Browser*, they wouldn't be able to "
+"access all the content of your Persistent Storage."
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -143,11 +153,14 @@ msgid "<div class=\"note\">\n"
 msgstr "<div class=\"note\">\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<p>This is why, for example, you might face <em>Permission\n"
+#| "denied</em> errors if you try to download files to the\n"
+#| "<em>Home</em> folder.</p>\n"
 msgid ""
-"<p>This is why, for example, you might face <em>Permission\n"
-"denied</em> errors if you try to download files to the\n"
-"<em>Home</em> folder.</p>\n"
+"<p>This is why you get the following error if you try to download files to\n"
+"another folder:</p>\n"
 msgstr ""
 "<p>És per això que, per exemple, podeu tenir error de <em>Denegació\n"
 "de permisos</em> si intenteu baixar fitxers a la\n"
@@ -155,44 +168,36 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
+msgid "<p class=\"code\">Could not read the contents of <span class=\"command-placeholder\">folder</span>.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "<p class=\"code\">Error opening directory <span class=\"command-placeholder\">folder</span>: Permission denied</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
 msgid "</div>\n"
 msgstr "</div>\n"
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '- '
 msgid ""
-"- You can save files from <span class=\"application\">Tor\n"
-"Browser</span> to the <span class=\"filename\">Tor Browser</span> folder\n"
-"that is located in the <span class=\"filename\">Home</span> folder.\n"
-"The content of this folder will disappear once you shut down Tails.\n"
+"If you want to download a file from *Tor Browser*, save it to one of these "
+"folders."
 msgstr ""
-"- Podeu desar fitxers des del <span class=\"application\">Navegador\n"
-"Tor</span> a la carpeta <span class=\"filename\">Navegador Tor</span>\n"
-"que es troba a la carpeta <span class=\"filename\">Home</span>.\n"
-"El contingut d'aquesta carpeta desapareixerà un cop tanqueu Tails.\n"
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "- If you want to upload files with <span class=\"application\">Tor\n"
+#| "Browser</span>, copy them to that folder first.\n"
 msgid ""
-"- If you want to upload files with <span class=\"application\">Tor\n"
-"Browser</span>, copy them to that folder first.\n"
+"If you want to upload a file from *Tor Browser*, copy it first to one of "
+"these folders."
 msgstr ""
 "- Si voleu carregar fitxers amb el <span class=\"application\">Navegador\n"
 "Tor</span>, copieu-los primer a aquella carpeta.\n"
-
-#. type: Plain text
-msgid ""
-"- If you turned on the [[Persistent Folder|persistent_storage/"
-"configure#persistent_folder]] feature of the Persistent Storage, you can "
-"also use the *Persistent/Tor Browser* folder to download and upload files "
-"from *Tor Browser*. The content of the *Persistent/Tor Browser* folder is "
-"saved across different working sessions."
-msgstr ""
-"- Si heu activat la funció de [[Carpeta Persistent|persistent_storage/"
-"configure#persistent_folder]] de l'Emmagatzematge Persistent, també podeu "
-"utilitzar la carpeta *Persistent/Navegador Tor* per baixar i carregar "
-"fitxers des del *Navegador Tor*. El contingut de la carpeta *Persistent/"
-"Navegador Tor* es desa en diferents sessions de treball."
 
 #. type: Plain text
 #, no-wrap
@@ -415,21 +420,15 @@ msgid "To learn more about HTTPS Everywhere, you can see:"
 msgstr "Per obtenir més informació sobre HTTPS Everywhere, podeu llegir:"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "the [HTTPS Everywhere homepage](https://www.eff.org/https-everywhere)"
 msgid "- The [HTTPS Everywhere homepage](https://www.eff.org/https-everywhere)"
 msgstr ""
-"la [pàgina principal d'HTTPS Everywhere](https://www.eff.org/https-"
+"- La [pàgina principal d'HTTPS Everywhere](https://www.eff.org/https-"
 "everywhere) (en anglès)"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "the [HTTPS Everywhere FAQ](https://www.eff.org/https-everywhere/faq/)"
 msgid "- The [HTTPS Everywhere FAQ](https://www.eff.org/https-everywhere/faq/)"
 msgstr ""
-"les [preguntes freqüents d'HTTPS Everywhere](https://www.eff.org/https-"
+"- Les [preguntes freqüents d'HTTPS Everywhere](https://www.eff.org/https-"
 "everywhere/faq/) (en anglès)"
 
 #. type: Plain text
@@ -497,12 +496,16 @@ msgstr ""
 "ofereix la millor experiència d'ús."
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "To change the security level, click on the [[!img security-level.png\n"
+#| "class=\"symbolic\" link=\"no\"]] icon on the right of the address bar\n"
+#| "and choose\n"
+#| "<span class=\"guilabel\">Advanced Security Settings&hellip;</span>.\n"
 msgid ""
 "To change the security level, click on the [[!img security-level.png\n"
 "class=\"symbolic\" link=\"no\"]] icon on the right of the address bar\n"
-"and choose\n"
-"<span class=\"guilabel\">Advanced Security Settings&hellip;</span>.\n"
+"and choose **Settings&hellip;**.\n"
 msgstr ""
 "Per canviar el nivell de seguretat, feu clic a la icona [[!img security-level.png\n"
 "class=\"symbolic\" link=\"no\"]] a la dreta de la barra d'adreces\n"
@@ -598,12 +601,15 @@ msgid "<h1 id=\"new-identity\"><span class=\"guilabel\">New Identity</span> feat
 msgstr "<h1 id=\"new-identity\">Funció de <span class=\"guilabel\">Nova identitat</span></h1>\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "To switch to a new identity, choose\n"
+#| "<span class=\"menuchoice\">\n"
+#| "  <span class=\"guimenu\">[[!img lib/open-menu.png alt=\"\" class=symbolic link=no]]</span>&nbsp;▸\n"
+#| "  <span class=\"guimenuitem\">New Identity</span></span>.\n"
 msgid ""
-"To switch to a new identity, choose\n"
-"<span class=\"menuchoice\">\n"
-"  <span class=\"guimenu\">[[!img lib/open-menu.png alt=\"\" class=symbolic link=no]]</span>&nbsp;▸\n"
-"  <span class=\"guimenuitem\">New Identity</span></span>.\n"
+"To switch to a new identity, choose [[!img lib/open-menu.png alt=\"\"\n"
+"class=\"symbolic\" link=\"no\"]]&nbsp;▸ **New identity**.\n"
 msgstr ""
 "Per canviar a una nova identitat, trieu\n"
 "<span class=\"menuchoice\">\n"
@@ -620,24 +626,18 @@ msgstr ""
 "<i>Navegador Tor</i>:\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "Closes all open tabs."
 msgid "- Closes all open tabs."
-msgstr "Tanca totes les pestanyes obertes."
+msgstr "- Tanca totes les pestanyes obertes."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "Clears the session state including cache, history, and cookies."
 msgid "- Clears the session state including cache, history, and cookies."
 msgstr ""
-"Esborra l'estat de la sessió, incloent la memòria cau, l'historial i les "
+"- Esborra l'estat de la sessió, incloent la memòria cau, l'historial i les "
 "galetes."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "Closes all existing web connections and creates new Tor circuits."
 msgid "- Closes all existing web connections and creates new Tor circuits."
-msgstr "Tanca totes les connexions web existents i crea nous circuits Tor."
+msgstr "- Tanca totes les connexions web existents i crea nous circuits Tor."
 
 #. type: Plain text
 #, no-wrap
@@ -651,7 +651,7 @@ msgid ""
 "as the Tor circuits used ouside of\n"
 "<i>Tor Browser</i> are not changed.</p>\n"
 msgstr ""
-"<p>Aquesta característica no és suficient per [[separar identitats contextuals|about/warnings/identity#contextual]]\n"
+"<p>Aquesta funcionalitat no és suficient per [[separar identitats contextuals|about/warnings/identity#contextual]]\n"
 "ja que els circuits de Tor utilitzats fora del\n"
 "<i>Navegador Tor</i> no es modifiquen.</p>\n"
 
@@ -676,11 +676,6 @@ msgstr "<h1 id=\"noscript\">NoScript per tenir encara més control sobre JavaScr
 
 #. type: Plain text
 #, no-wrap
-msgid "[[!img noscript.png link=no alt=\"\"]]\n"
-msgstr "[[!img noscript.png link=no alt=\"\"]]\n"
-
-#. type: Plain text
-#, no-wrap
 msgid ""
 "<span class=\"application\">Tor Browser</span> includes the\n"
 "<span class=\"application\">NoScript</span> extension to:\n"
@@ -697,11 +692,10 @@ msgstr ""
 "scripting (XSS)."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "Allow you to disable JavaScript completely on some websites only."
 msgid "- Allow you to disable JavaScript completely on some websites only."
 msgstr ""
-"Permetre-us desactivar completament el JavaScript només en alguns llocs web."
+"- Permetre-us desactivar completament el JavaScript només en alguns llocs "
+"web."
 
 #. type: Plain text
 msgid ""
@@ -746,6 +740,49 @@ msgstr ""
 "afegint marges grisos a la finestra del navegador quan es canvia la mida de la finestra. La\n"
 "pàgina web es manté el més a prop possible de la mida desitjada sense revelar la\n"
 "mida real de la finestra.\n"
+
+#, no-wrap
+#~ msgid "[[!img noscript.png link=no alt=\"\"]]\n"
+#~ msgstr "[[!img noscript.png link=no alt=\"\"]]\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<span class=\"application\">Tor Browser</span> in Tails is confined with\n"
+#~ "[[!debwiki AppArmor]] to protect the system and your data from some\n"
+#~ "types of attacks against <span class=\"application\">Tor Browser</span>.\n"
+#~ "As a consequence, <span class=\"application\">Tor Browser</span> in Tails can\n"
+#~ "only read and write to a limited number of folders.\n"
+#~ msgstr ""
+#~ "<span class=\"application\">El Navegador Tor</span> a Tails està limitat amb\n"
+#~ "[[!debwiki AppArmor]] per protegir el sistema i les vostres dades d'alguns\n"
+#~ "tipus d'atacs contra el <span class=\"application\">Navegador Tor</span>.\n"
+#~ "Com a conseqüència, el <span class=\"application\">Navegador Tor</span> a Tails pot\n"
+#~ "només llegir i escriure a un nombre limitat de carpetes.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "- You can save files from <span class=\"application\">Tor\n"
+#~ "Browser</span> to the <span class=\"filename\">Tor Browser</span> folder\n"
+#~ "that is located in the <span class=\"filename\">Home</span> folder.\n"
+#~ "The content of this folder will disappear once you shut down Tails.\n"
+#~ msgstr ""
+#~ "- Podeu desar fitxers des del <span class=\"application\">Navegador\n"
+#~ "Tor</span> a la carpeta <span class=\"filename\">Navegador Tor</span>\n"
+#~ "que es troba a la carpeta <span class=\"filename\">Home</span>.\n"
+#~ "El contingut d'aquesta carpeta desapareixerà un cop tanqueu Tails.\n"
+
+#~ msgid ""
+#~ "- If you turned on the [[Persistent Folder|persistent_storage/"
+#~ "configure#persistent_folder]] feature of the Persistent Storage, you can "
+#~ "also use the *Persistent/Tor Browser* folder to download and upload files "
+#~ "from *Tor Browser*. The content of the *Persistent/Tor Browser* folder is "
+#~ "saved across different working sessions."
+#~ msgstr ""
+#~ "- Si heu activat la funció de [[Carpeta Persistent|persistent_storage/"
+#~ "configure#persistent_folder]] de l'Emmagatzematge Persistent, també podeu "
+#~ "utilitzar la carpeta *Persistent/Navegador Tor* per baixar i carregar "
+#~ "fitxers des del *Navegador Tor*. El contingut de la carpeta *Persistent/"
+#~ "Navegador Tor* es desa en diferents sessions de treball."
 
 #, fuzzy
 #~ msgid "[[!img doc/about/warning/htw2-tails.png link=\"no\"]]\n"

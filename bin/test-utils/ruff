@@ -30,7 +30,7 @@ shift 2
 
 git diff -z --name-only "${baseCommit}...${newCommit}" -- | \
     xargs -0 --no-run-if-empty stat --printf '%n\0' | \
-    grep -z '\.py$' | \
+    "$(dirname "$0")/is-file-type" filter --zero python | \
     xargs -0 --verbose --no-run-if-empty \
     ruff "--config=$conf" "$@"
 

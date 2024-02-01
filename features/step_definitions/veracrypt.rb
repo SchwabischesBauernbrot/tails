@@ -116,7 +116,6 @@ def populate_veracrypt_volume(unlocked_veracrypt_mapping)
   fatal_system "mkfs.vfat '#{unlocked_block_device}' >/dev/null"
   Dir.mktmpdir('veracrypt-mountpoint', $config['TMPDIR']) do |mountpoint|
     fatal_system "mount -t vfat '#{unlocked_block_device}' '#{mountpoint}'"
-    # must match SecretFileOnVeraCryptVolume.png when displayed in GNOME Files
     FileUtils.cp('/usr/share/common-licenses/GPL-3', "#{mountpoint}/GPL-3")
     fatal_system "umount '#{mountpoint}'"
   end
@@ -154,35 +153,57 @@ When /^I plug and mount a USB drive containing a (.+) VeraCrypt file container( 
   )
 end
 
+def veracrypt_unlock_app
+  Dogtail::Application.new('unlock-veracrypt-volumes')
+end
+
 When /^I unlock and mount this VeraCrypt (volume|file container) with Unlock VeraCrypt Volumes$/ do |support|
   step 'I start "Unlock VeraCrypt Volumes" via GNOME Activities Overview'
+  app = veracrypt_unlock_app
   case support
   when 'volume'
-    @screen.wait('Gtk3UnlockButton.png', 10).click
+    app.child('Unlock', roleName: 'push button').click
   when 'file container'
-    @screen.wait('UnlockVeraCryptVolumesAddButton.png', 10).click
-    @screen.wait('Gtk3FileChooserDocumentsButton.png', 10)
-    @screen.paste("#{@veracrypt_shared_dir_in_guest}/#{$veracrypt_volume_name}",
-                  app: :gtk_file_chooser)
-    sleep 2 # avoid ENTER being eaten by the auto-completion system
+    # Clicking on this button breaks accessibility of the app,
+    # so we instead use the keyboard
+    try_for(10) do
+      button = app.child('Add', roleName: 'push button')
+      button.grabFocus
+      button.focused
+    end
     @screen.press('Return')
+
+    select_path_in_file_chooser(
+      app.child('Choose File Container', roleName: 'file chooser'),
+      "#{@veracrypt_shared_dir_in_guest}/#{$veracrypt_volume_name}"
+    )
   end
-  @screen.wait('VeraCryptUnlockDialog.png', 10)
-  @screen.paste(
-    @veracrypt_is_hidden ? $veracrypt_hidden_passphrase : $veracrypt_passphrase,
-    app: :gtk_file_chooser
-  )
+  dialog = gnome_shell_unlock_dialog
+  passphrase =
+    @veracrypt_is_hidden ? $veracrypt_hidden_passphrase : $veracrypt_passphrase
+  assert(dialog.focused_child.roleName == 'password text')
+  dialog.focused_child.text = passphrase
   if @veracrypt_needs_pim
-    # Go back to the PIM entry text field
-    @screen.press('shift', 'Tab')
-    sleep 1 # Otherwise typing the PIM goes in the void
-    @screen.type($veracrypt_pim)
+    pim_entry = dialog.children(roleName: 'password text').first
+    assert(pim_entry.text == '')
+    pim_entry.text = $veracrypt_pim
   end
   if @veracrypt_is_hidden
-    @screen.click('VeraCryptUnlockDialogHiddenVolumeLabel.png')
+    checkbox = dialog.childLabelled('Hidden Volume')
+    try_for(10) do
+      checkbox.grabFocus
+      checkbox.focused
+    end
+    @screen.press('Space')
+    try_for(10) { checkbox.get_field('checked') == 'True' }
+  end
+  try_for(10) do
+    button = dialog.button('Unlock')
+    button.grabFocus
+    button.focused
   end
   @screen.press('Return')
-  @screen.wait_vanish('VeraCryptUnlockDialog.png', 10)
+  try_for(10) { !gnome_shell_unlock_dialog? }
   try_for(30) do
     !$vm.file_glob('/media/amnesia/*/GPL-3').empty?
   end
@@ -201,10 +222,10 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with GNOME Disk
          .find { |row| /^#{size} Drive/.match(row.name) }
          .grabFocus
   when 'file container'
-    @screen.wait('GnomeDisksApplicationsMenuButton.png', 10).click
+    disks.child('', description: 'Application Menu').click
     # Clicking this button using Dogtail works, but afterwards the
     # GNOME Disks GUI becomes inaccessible.
-    disks.child('Attach Disk Image… (.iso, .img)', roleName: 'push button').grabFocus
+    disks.button('Attach Disk Image… (.iso, .img)').grabFocus
     @screen.press('Return')
     # Otherwise Disks is sometimes minimized, for some reason I don't understand
     sleep 2
@@ -227,6 +248,7 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with GNOME Disk
                   app: :gtk_file_chooser)
     sleep 2 # avoid ENTER being eaten by the auto-completion system
     @screen.press('Return')
+    step 'I cancel the GNOME authentication prompt'
     try_for(15) do
       disks.children(roleName: 'table cell')
            .find { |row| /^#{size} Loop Device/.match(row.name) }
@@ -236,54 +258,52 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with GNOME Disk
       false
     end
   end
-  disks.child('', roleName:    'panel',
-                  description: 'Unlock selected encrypted partition')
-       .child('Unlock', roleName: 'push button').click
+  disks.child(
+    roleName:    'push button',
+    description: 'Unlock selected encrypted partition'
+  ).click
   unlock_dialog = disks.dialog('Set options to unlock')
-  unlock_dialog.child('', roleName: 'password text').grabFocus
-  @screen.paste(
-    @veracrypt_is_hidden ? $veracrypt_hidden_passphrase : $veracrypt_passphrase,
-    app: :gtk_file_chooser
-  )
+  unlock_dialog.child('', roleName: 'password text').text =
+    @veracrypt_is_hidden ? $veracrypt_hidden_passphrase : $veracrypt_passphrase
   if @veracrypt_needs_pim
-    unlock_dialog.child('PIM', roleName: 'label').labelee.grabFocus
-    @screen.paste(
-      $veracrypt_pim,
-      app: :gtk_file_chooser
-    )
+    unlock_dialog.childLabelled('PIM').text = $veracrypt_pim
   end
   if @veracrypt_needs_keyfile
-    # XXX:Bullseye: port to Dogtail, as #15952 was fixed in GNOME Disks 3.35.2
-    @screen.wait('GnomeDisksUnlockDialogKeyfileComboBox.png', 5)
-    @screen.click('GnomeDisksUnlockDialogKeyfileComboBox.png')
-    @screen.wait('Gtk3FileChooserDocumentsButton.png', 10)
     $vm.file_overwrite('/tmp/keyfile', 'asdf')
-    @screen.paste('/tmp/keyfile',
-                  app: :gtk_file_chooser)
+    # Focus the keyfiles combo box using the workaround for #15952
+    # that we implemented upstream
+    @screen.press('alt', 'k')
     @screen.press('Return')
-    @screen.wait_vanish('Gtk3FileChooserDocumentsButton.png', 10)
+    select_path_in_file_chooser(
+      disks.child('Select a Keyfile', roleName: 'file chooser'),
+      '/tmp/keyfile'
+    )
   end
   if @veracrypt_is_hidden
-    @screen.wait('GnomeDisksUnlockDialogHiddenVolumeLabel.png', 10).click
+    check_box = unlock_dialog.child('Hidden', roleName: 'check box')
+    check_box.click
+    try_for(10) { check_box.checked }
   end
-  # Clicking is robust neither with Dogtail (no visible effect) nor
-  # with image matching (that sometimes clicks just a little bit
-  # outside of the button)
-  @screen.wait('Gtk3UnlockButton.png', 10)
-  @screen.press('alt', 'u') # "Unlock" button
+  unlock_dialog.button('Unlock').click
   try_for(30, msg: 'Failed to mount the unlocked volume') do
-    disks.child("#{size} VeraCrypt/TrueCrypt",
-                roleName: 'panel')
-         .grabFocus
-    # Move the focus down to the "Filesystem\n107 MB FAT" item (that Dogtail
+    outer = disks.child("#{size} VeraCrypt/TrueCrypt",
+                        roleName: 'panel')
+    outer.grabFocus
+    try_for(10) { outer.focused }
+    # Move the focus down to the "Filesystem\n#{size} FAT" item (that Dogtail
     # is not able to find) using the 'Down' arrow, in order to display
     # the "Mount selected partition" button.
-    sleep 0.5 # otherwise the following key press is sometimes lost
     @screen.press('down')
-    disks.child('', roleName:    'panel',
-                    description: 'Mount selected partition')
-         .child('Mount', roleName: 'push button')
-         .click
+    try_for(10) do
+      disks.children(roleName: 'panel')
+           .find { |c| /Filesystem\n\d+ [KM]B FAT/.match(c.name) }
+           .focused
+    end
+    disks.child(
+      '',
+      description: 'Mount selected partition',
+      roleName:    'push button'
+    ).click
     true
   rescue Dogtail::Failure
     # we probably did something too early, which triggered a Dogtail error
@@ -295,8 +315,7 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with GNOME Disk
   end
 end
 
-When /^I open this VeraCrypt volume in GNOME Files$/ do
-  $vm.spawn('nautilus /media/amnesia/*', user: LIVE_USER)
+def nautilus_with_open_veracrypt_volume
   volume_size_in_nautilus = veracrypt_volume_size_in_nautilus(
     isHidden: @veracrypt_is_hidden,
     needsPim: @veracrypt_needs_pim
@@ -304,6 +323,19 @@ When /^I open this VeraCrypt volume in GNOME Files$/ do
   Dogtail::Application.new('org.gnome.Nautilus').window(
     "#{volume_size_in_nautilus} Volume"
   )
+end
+
+When /^I open this VeraCrypt volume in GNOME Files$/ do
+  $vm.spawn('nautilus /media/amnesia/*', user: LIVE_USER)
+  nautilus_with_open_veracrypt_volume
+end
+
+Then /^I see the expected contents in this VeraCrypt volume$/ do
+  # Since Bookworm Nautilus behaves odd with our default showingOnly
+  # == true, it just lists a single frame as the only child.
+  nautilus_with_open_veracrypt_volume.child('GPL-3',
+                                            roleName:    'table cell',
+                                            showingOnly: false)
 end
 
 When /^I lock the currently opened VeraCrypt (volume|file container)$/ do |support|

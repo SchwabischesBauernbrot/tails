@@ -1,53 +1,93 @@
-[[!meta title="Sharing files with OnionShare"]]
+[[!meta title="Sharing files, websites, and chat rooms using OnionShare"]]
 
-[OnionShare](https://onionshare.org/) is a tool to share files of any
-size securely and anonymously.
+[*OnionShare*](https://onionshare.org/) allows you to create secure, anonymous,
+and disposable services that other people can connect to.
 
-<span class="application">OnionShare</span> creates an onion address
-that someone else can visit in <span class="application">Tor
-Browser</span> to access the files that you want to share.
+To start *OnionShare*, choose **Applications**&nbsp;▸ **Internet**&nbsp;▸
+**OnionShare**.
 
-To share files with <span class="application">OnionShare</span>:
+From the welcome screen of *OnionShare*, you can choose between 4 different
+services:
 
-1. Open the <span class="application">Files</span> browser.
+- Share files
+- Receive files
+- Host a website
+- Chat anonymously
 
-1. Right-click (on Mac, click with two fingers) on the files or folders that you want to share and choose
-   <span class="guilabel">Share via OnionShare</span>.
-   <span class="application">OnionShare</span> starts.
+[[!img services.png link="no" class="screenshot" alt=""]]
 
-1. To share more files or folders, you can either:
+All these services are provided as Tor onion services and are only available
+through the Tor network. You can share the address of these onion services with
+other people to create temporary and anonymous communication channels.
 
-   - Drag and drop them from the <span class="application">Files</span>
-     browser onto <span class="application">OnionShare</span>.
-
-   - Click the <span class="guilabel">Add</span> button in
-     <span class="application">OnionShare</span>.
-
-1. Click <span class="guilabel">Start Sharing</span>.
-
-   <div class="bug">
-   <p>Starting to share the files can take up to several minutes.</p>
-   </div>
-
-   When the files are available for sharing, an onion address appears at
-   the bottom of <span class="application">OnionShare</span>.
-
-   [[!img onionshare.png link="no" alt=""]]
-
-1. Send this onion address to someone else, for example, by email.
-
-   The other person can download the files by visiting the onion address
-   in <span class="application">Tor Browser</span>.
-
-1. <span class="application">OnionShare</span> informs you when the
-   files are being accessed.
-
-   The files are not shared anymore as soon as you close
-   <span class="application">OnionShare</span> or shut down Tails.
+People who know their onion addresses can connect to these services from *Tor
+Browser*, either in Tails or outside of Tails.
 
 <div class="tip">
 
-<p>To learn more about how to use <i>OnionShare</i>, see the
-<a href="https://docs.onionshare.org/"><i>OnionShare</i> documentation.</p>
+<p>Unlike most Internet services, people using your <i>OnionShare</i> services
+connect directly to your Tails over the Tor network. Your data is never shared
+with or stored on any third-party server. Your Tails becomes a temporary and
+anonymous server.</p>
 
 </div>
+
+These services become unavailable as soon as you close *OnionShare* or shut
+down Tails.
+
+Sharing files
+=============
+
+With the Share service of *OnionShare*:
+
+- You select in *OnionShare* some files from your Tails that you want to share.
+
+- People with the onion address can download these files from their *Tor
+  Browser*.
+
+[[!img share.png class="screenshot" alt="" size="719x"]]
+
+<div class="note">
+
+<p>Since Tails 6.0 (XXX 2024), the shortcut the share files via
+<i>OnionShare</i> directly from the <i>Files</i> browser is not available
+anymore.</p>
+
+</div>
+
+Receiving files
+===============
+
+With the Receive service of *OnionShare*:
+
+- You specify in *OnionShare* a folder of your Tails in which you want to
+  receive files.
+
+- People with the onion address can upload files directly to this folder or
+  send you text messages from their *Tor Browser*.
+
+[[!img receive.png class="screenshot" alt="" size="719x"]]
+
+Hosting a website
+=================
+
+With the Website service of *OnionShare*:
+
+- You specify in *OnionShare* a folder that contains HTML pages in your Tails.
+
+- People with the onion address can visit these HTML pages as a website from
+  their *Tor Browser*.
+
+[[!img website.png class="screenshot" alt="" size="719x"]]
+
+Chatting anonymously
+====================
+
+With the Chat service of *OnionShare*:
+
+- You start a chat room from *OnionShare*.
+
+- People with the onion address can enter this chat room from their *Tor
+  Browser* and chat with you or other people.
+
+[[!img chat.png class="screenshot" alt="" size="719x"]]

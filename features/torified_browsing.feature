@@ -69,13 +69,13 @@ Feature: Browsing the web using the Tor Browser
     Given I restart monitoring the AppArmor log of "torbrowser_firefox"
     When I open the address "file:///lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html" in the Tor Browser
     Then I do not see "TorBrowserSynapticManual.png" after at most 5 seconds
-    And AppArmor has denied "torbrowser_firefox" from opening "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html"
+    And AppArmor has denied "torbrowser_firefox" from opening "/usr/lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html"
     Given I restart monitoring the AppArmor log of "torbrowser_firefox"
     When I open the address "file:///live/overlay/rw/home/amnesia/.gnupg/synaptic.html" in the Tor Browser
     Then I do not see "TorBrowserSynapticManual.png" after at most 5 seconds
     # Due to our AppArmor aliases, /live/overlay will be treated
     # as /lib/live/mount/overlay.
-    And AppArmor has denied "torbrowser_firefox" from opening "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html"
+    And AppArmor has denied "torbrowser_firefox" from opening "/usr/lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html"
     # We do not get any AppArmor log for when access to files in /tmp is denied
     # since we explictly override (commit 51c0060) the rules (from the user-tmp
     # abstraction) that would otherwise allow it, and we do so with "deny", which
@@ -130,6 +130,20 @@ Feature: Browsing the web using the Tor Browser
     And I open the address "file:///home/amnesia/Persistent/Tor Browser/index.html" in the Tor Browser
     Then "Tails - How Tails works" has loaded in the Tor Browser
     And I can print the current page as "output.pdf" to the persistent Tor Browser directory
+
+  Scenario Outline: The default XDG directories are usable in Tor Browser
+    Given I have started Tails from DVD without network and logged in
+    Then the amnesiac <dir> directory exists
+    And there is a GNOME bookmark for the amnesiac <dir> directory
+    Then I start the Tor Browser in offline mode
+    And I can save the current page as "index.html" to the <dir> GNOME bookmark
+    Examples:
+      | dir |
+      | Documents |
+      | Downloads |
+      | Music |
+      | Pictures |
+      | Videos |
 
   Scenario: Persistent browser bookmarks
     Given I have started Tails without network from a USB drive with a persistent partition enabled and logged in

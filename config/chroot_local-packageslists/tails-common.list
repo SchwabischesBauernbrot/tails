@@ -58,6 +58,8 @@ gir1.2-webkit2-4.0
 python3-gi
 python3-pycountry
 python3-tz
+# Needed for GNOME's screen recording capability
+pipewire-media-session
 
 ### Software
 
@@ -86,8 +88,7 @@ dosfstools
 electrum
 eog
 evince
-exfat-fuse
-exfat-utils
+exfatprogs
 exiv2
 file-roller
 fonts-cantarell
@@ -95,24 +96,24 @@ fonts-dejavu
 fonts-liberation
 fonts-linuxlibertine
 gdm3
-gedit
 gimp
 git
 gkbd-capplet
 gnome-calculator
 gnome-control-center
 gnome-disk-utility
+gnome-keyring
 gnome-menus
 gnome-power-manager
-gnome-screenshot
 gnome-session
 gnome-shell
-gnome-shell-extension-desktop-icons
+gnome-shell-extension-desktop-icons-ng
 gnome-shell-extensions
 gnome-sound-recorder
 gnome-system-monitor
 gnome-terminal
-gnome-themes-standard
+gnome-text-editor
+gnome-themes-extra
 gnome-user-docs
 gnupg-agent
 gnupg2
@@ -157,8 +158,6 @@ mesa-utils
 metadata-cleaner
 nautilus
 nautilus-extension-gnome-terminal
-nautilus-wipe
-nautilus-gtkhash
 network-manager
 network-manager-gnome
 ntfs-3g
@@ -235,6 +234,7 @@ usbutils
 user-setup
 vim-tiny
 wireless-tools
+wpasupplicant
 xdg-user-dirs-gtk
 xsel
 xz-utils
@@ -352,7 +352,6 @@ pcscd
 spice-vdagent
 
 ### Wireless regulation
-crda
 wireless-regdb
 
 ### Automated test suite
@@ -412,6 +411,18 @@ libu2f-udev
 # Allow running Qt applications as native Wayland
 qtwayland5
 
+# Needed by our curl wrapper
+xxd
+
+# Needed by root-terminal.desktop
+dbus-x11
+
+# Needed by the GNOME USB protection feature
+usbguard
+
 # Useful to fix PGP keys with a SHA-1 signature in airgapped/offline setups.
 # See https://sequoia-pgp.org/blog/2023/02/01/202302-happy-sha1-day/
 sq-keyring-linter
+
+# Needed by Electrum
+python3-pyqt5

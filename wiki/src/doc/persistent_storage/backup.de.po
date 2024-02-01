@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:56+0200\n"
+"POT-Creation-Date: 2023-12-27 22:20+0000\n"
 "PO-Revision-Date: 2023-11-28 14:43+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
@@ -21,16 +21,12 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "[[!meta title=\"Making a backup of your Persistent Storage\"]]\n"
-msgstr ""
-"[[!meta title=\"Erstellen einer Sicherungskopie Ihres dauerhaften Speichers\""
-"]]\n"
+msgstr "[[!meta title=\"Erstellen einer Sicherungskopie Ihres dauerhaften Speichers\"]]\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<!-- XXX: These instructions should be kept in sync with rescue.mdwn -->\n"
-msgstr ""
-"<!-- XXX: Diese Anweisungen sollten mit rescue.mdwn synchronisiert werden -->"
-"\n"
+msgstr "<!-- XXX: Diese Anweisungen sollten mit rescue.mdwn synchronisiert werden -->\n"
 
 #. type: Plain text
 #, no-wrap
@@ -44,8 +40,7 @@ msgid ""
 "see our [[instructions on rescuing the Persistent\n"
 "Storage of a broken Tails|rescue]].</p>\n"
 msgstr ""
-"<p>Wenn Ihr Tails kaputt ist und Sie versuchen, Ihren persistenten Speicher "
-"zu retten,\n"
+"<p>Wenn Ihr Tails kaputt ist und Sie versuchen, Ihren persistenten Speicher zu retten,\n"
 "siehe unsere [[Anleitung zur Rettung des persistenten\n"
 "Speichers eines defekten Tails|rescue]].</p>\n"
 
@@ -55,16 +50,20 @@ msgid "</div>\n"
 msgstr "</div>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"creating\">Creating a new backup Tails USB stick</h1>\n"
-msgstr ""
-"<h1 id=\"creating\">Erstellen eines neuen Backup-Tails-USB-Sticks</h1>\n"
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"creating\">Creating a new backup Tails USB stick</h1>\n"
+msgid "<h1 id=\"creating\">Creating a backup Tails USB stick using <i>Tails Cloner</i></h1>\n"
+msgstr "<h1 id=\"creating\">Erstellen eines neuen Backup-Tails-USB-Sticks</h1>\n"
 
 #. type: Plain text
 msgid ""
-"We recommend you to create another Tails to store your backup. This way, if "
-"your Tails is lost or damaged, you can replace it immediately with your "
-"backup Tails."
+"We recommend you to create another Tails to store your backup by cloning "
+"from your current Tails. This way, if your Tails is lost or damaged, you can "
+"replace it immediately with your backup Tails."
+msgstr ""
+
+#. type: Bullet: '1. '
+msgid "Start on the Tails USB stick that you want to back up and clone *from*."
 msgstr ""
 
 #. type: Bullet: '1. '
@@ -77,7 +76,7 @@ msgstr "Beim Starten von Tails entsperren Sie Ihren Persistenzspeicher."
 #| "Plug in the old Tails USB stick from which you want to rescue your data."
 msgid ""
 "Plug in the new USB stick on which you want to create your backup Tails USB "
-"stick."
+"stick and clone *to*."
 msgstr ""
 "Schließen Sie den alten USB-Stick mit Tails an, von welchem Sie Ihre Daten "
 "sichern möchten."
@@ -158,12 +157,13 @@ msgid "   </div>\n"
 msgstr "   </div>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"updating\">Updating your backup</h1>\n"
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"updating\">Updating your backup</h1>\n"
+msgid "<h1 id=\"updating\">Updating your backup Tails using the <i>Back Up Persistent Storage</i> utility</h1>\n"
 msgstr "<h1 id=\"updating\">Ihr Backup aktualisieren</h1>\n"
 
 #. type: Bullet: '1. '
-msgid "Start on your current Tails and unlock the Persistent Storage."
+msgid "Start on your current Tails."
 msgstr ""
 
 #. type: Bullet: '1. '
@@ -183,8 +183,7 @@ msgstr ""
 "   <span class=\"menuchoice\">\n"
 "     <span class=\"guimenu\">Anwendungen</span>&nbsp;▸\n"
 "     <span class=\"guisubmenu\">Systemwerkzeuge</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Persistente Speicherung "
-"sichern</span></span>.\n"
+"     <span class=\"guimenuitem\">Persistente Speicherung sichern</span></span>.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -206,10 +205,11 @@ msgid ""
 "how to [[manually upgrade from another Tails|upgrade/clone#upgrade]]."
 msgstr ""
 
-#. type: Title =
-#, no-wrap
-msgid "Updating your backup Tails from a terminal"
-msgstr ""
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"updating\">Updating your backup</h1>\n"
+msgid "<h1 id=\"terminal\">Updating your backup Tails from a terminal</h1>\n"
+msgstr "<h1 id=\"updating\">Ihr Backup aktualisieren</h1>\n"
 
 #. type: Plain text
 msgid "If you prefer updating your backup Tails from a terminal:"
@@ -250,9 +250,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "       rsync -PaSHAXv --del /live/persistence/TailsData_unlocked/ /media/amnesia/TailsData\n"
-msgstr ""
-"       rsync -PaSHAXv --del /live/persistence/TailsData_unlocked/ /media/"
-"amnesia/TailsData\n"
+msgstr "       rsync -PaSHAXv --del /live/persistence/TailsData_unlocked/ /media/amnesia/TailsData\n"
 
 #. type: Plain text
 #, no-wrap

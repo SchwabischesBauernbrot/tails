@@ -163,11 +163,11 @@ method _build_initial_install_os_release_file () {
 }
 method _build_proc_dir () { path('/proc') }
 method _build_run_dir () { path('/var/run') }
-method _build_product_name () { $self->os_release_get('TAILS_PRODUCT_NAME') }
-method _build_product_version () { $self->os_release_get('TAILS_VERSION_ID') }
+method _build_product_name () { $self->os_release_get('NAME') }
+method _build_product_version () { $self->os_release_get('VERSION') }
 method _build_initial_install_version () {
     $self->os_release_get(
-        'TAILS_VERSION_ID',
+        'VERSION',
         'os_release_file' => $self->initial_install_os_release_file,
     )
 }

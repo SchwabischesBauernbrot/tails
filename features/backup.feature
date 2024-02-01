@@ -14,6 +14,7 @@ Feature: Backing up the persistent storage
     When I start Tails' custom backup tool
     Then the backup tool displays "Plug in your backup Tails USB stick"
     When I plug USB drive "backup"
+    And I cancel the GNOME authentication prompt
     And I give the Persistent Storage on drive "backup" its own UUID
     And I click "Retry" in the backup tool
     Then the backup tool displays "Do you want to back up your Persistent Storage now?"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
+"POT-Creation-Date: 2024-01-23 00:41+0000\n"
 "PO-Revision-Date: 2018-05-26 20:17+0200\n"
 "Last-Translator: Tails translators\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
@@ -119,34 +119,34 @@ msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
-"In the terminal, execute the following command, replacing `[device]` with "
-"the device name found in step 8:"
+"In the terminal, execute the following command. Replace <span "
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 8:"
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "        fsck -y [device]\n"
+msgid "   <p class=\"command-template\">fsck -y <span class=\"command-placeholder\">device</span></p>\n"
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   To do so, you can type <span class=\"command\">fsck -y&nbsp;</span> and press\n"
-"   <span class=\"keycap\">Shift+Ctrl+V</span> to paste the device name from the\n"
+"   To do so, you can type <code>fsck -y&nbsp;</code> and press\n"
+"   **Shift+Ctrl+V** to paste the device name from the\n"
 "   clipboard.\n"
 msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
-"If the file system is free of errors, the last line from the output of <span "
-"class=\"command\">fsck</span> starts with <span class=\"command\">TailsData: "
-"clean</span>."
+"If the file system is free of errors, the last line from the output of "
+"`fsck` starts with `TailsData: clean`."
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   If the file system has errors, <span class=\"command\">fsck</span> tries to\n"
+"   If the file system has errors, `fsck` tries to\n"
 "   fix them automatically. After it finishes, you can try executing the same\n"
 "   command again to check if all errors are solved.\n"
 msgstr ""

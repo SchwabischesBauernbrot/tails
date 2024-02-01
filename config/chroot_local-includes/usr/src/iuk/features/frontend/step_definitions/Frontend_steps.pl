@@ -78,8 +78,8 @@ Given qr{^Tails is running from a (DVD|(|manually installed )USB thumb drive)$},
         = $c->{stash}->{scenario}->{os_release_file}
         = path($c->{stash}->{scenario}->{tempdir}, 'os_release_file');
     my %os_release = (
-        TAILS_PRODUCT_NAME => "Tails",
-        TAILS_VERSION_ID   => "0.11",
+        NAME => "Tails",
+        VERSION   => "0.11",
         TAILS_CHANNEL      => "stable",
     );
     while (my ($key, $value) = each %os_release) {
@@ -514,7 +514,7 @@ Then qr{^the downloaded IUK should be installed$}, fun ($c) {
     # Ensure the next "I run tails-upgrade-frontend in batch mode"
     # is aware that the upgrade was applied
     $c->{stash}->{scenario}->{os_release_file}->edit_lines(
-        sub { s{\ATAILS_VERSION_ID="0[.]11"$}{TAILS_VERSION_ID="0.12.1"}xms }
+        sub { s{\AVERSION="0[.]11"$}{VERSION="0.12.1"}xms }
     );
 };
 

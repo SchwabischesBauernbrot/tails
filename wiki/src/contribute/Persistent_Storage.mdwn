@@ -13,7 +13,9 @@ Take these steps to add a new preset feature to the Persistent Storage:
 
 
 You might need to add on-activated/on-deactivated hooks:
+
 * [[!tails_gitweb config/chroot_local-includes/usr/local/lib/persistent-storage/on-activated-hooks]]
+
 * [[!tails_gitweb config/chroot_local-includes/usr/local/lib/persistent-storage/on-deactivated-hooks]]
 
 If you do, it's **important** that all privileged accesses of paths which
@@ -25,4 +27,3 @@ information, see the section on symlink attacks in
 Note that's is possible that on-activated hooks are run multiple times
 without the on-deactivated hooks being run in between, so they must
 handle that case gracefully.
-

@@ -7,16 +7,22 @@ Configuration
 =============
 
 - master:
+
   * [[!tails_gitlab tails/puppet-jenkins/-/blob/master/manifests/init.pp
     desc="`jenkins` class"]]
+
   * [[!tails_gitweb_puppet_tails manifests/jenkins/master.pp
     desc="`tails::jenkins::master` class"]]
+
   * a few Jenkins plugins installed with `jenkins::plugin`
+
   * YAML jobs configuration lives in a
     [[!tails_gitweb_repo jenkins-jobs desc="dedicated Git repository"]];
     [Jenkins Job Builder](https://docs.openstack.org/infra/jenkins-job-builder/)
     uses it to configure Jenkins
+
 - slaves:
+
   * [[!tails_gitweb_puppet_tails manifests/profile/jenkins/isoworker.pp
     desc="`tails::profile::jenkins::isoworker`"]],
     [[!tails_gitweb_puppet_tails manifests/iso_builder.pp
@@ -30,7 +36,9 @@ Configuration
     and [[!tails_gitweb_puppet_tails manifests/tester.pp
     desc="`tails::tester`"]]
     classes
+
 - web server:
+
   * [[!tails_gitweb_puppet_tails manifests/jenkins/reverse_proxy.pp
     desc="`tails::jenkins::reverse_proxy` class"]]
 
@@ -67,23 +75,38 @@ Upgrade steps
 =============
 
 - Preparation:
+
   - [ ] Go through the [changelog](https://www.jenkins.io/changelog/), paying attention to changes on how agents connect to controller, config changes that may need update, important changes in plugins, etc.
+
 - Deployment:
+
   - [ ] Take note of currently running builds before starting the upgrades.
+
   - [ ] Deploy Jenkins upgrade to latest version available using Puppet.
+
   - [ ] Generate a list of up-to-date plugins by running [[this Groovy script|contribute/working_together/roles/sysadmins/Jenkins/1.generate-plugins-list.groovy]] in [[the Jenkins Script Console|https://jenkins.tails.boum.org/script]]. Make sure to update the initial list containing actively used plugins if there were changes.
+
   - [ ] Generate updated Puppet code for `tails::jenkins::master` using [[this Python3 script|contribute/working_together/roles/sysadmins/Jenkins/2.generate-puppet-code.py]] and the output of the above script.
+
   - [ ] Deploy plugin upgrades using the code generated above.
+
   - [ ] Restart all agents.
+
   - [ ] Manually run the Update jobs script (may be needed so XML is valid with current Jenkins):
+
     ```
     sudo -u jenkins /usr/local/sbin/deploy_jenkins_jobs update
     ```
 - Wrap up:
+
   - [ ] Go through warnings in Jenkins interface.
+
   - [ ] Manually remove uneeded plugins from /var/lib/jenkins/plugins.
+
   - [ ] Restart builds that were interrupted by Jenkins restart.
+
   - [ ] Update the [[Jenkins upgrade steps documentation|https://tails.net/contribute/working_together/roles/sysadmins/Jenkins#upgrade-steps]] in case there were changes.
+
   - [ ] Schedule next update.
 
 Agent to controller connections
@@ -92,10 +115,15 @@ Agent to controller connections
 These are the steps a Jenkins agent does when connecting to the controller:
 
 1. Fetch connection info from `http://jenkins.dragon:8080` (see the `tails::jenkins::slave` Puppet class).
+
 2. Receive the connection URL `https://jenkins.tails.boum.org` ("Jenkins URL", manually configured in [Configure System](https://jenkins.tails.boum.org/configure)).
+
 3. Resolve `jenkins.tails.boum.org` to `192.168.122.1` (because of libvirt config).
+
 4. Connect using HTTPS to `jenkins.tails.boum.org:443`.
+
 5. Learn about port `42585` (fixed "TCP port for inbound agents", manually configured in [Configure Global Security](https://jenkins.tails.boum.org/configureSecurity/)).
+
 6. Finally, connect using HTTP to `jenkins.tails.boum.org:42585`.
 
 Generating jobs
@@ -141,8 +169,10 @@ testing, test suite) via two means:
 
    * In the build job, a script collects the needed information and
      writes it to a file that's saved as a build artifact.
+
    * This file is used by the build job itself, to setup the variables it
      needs (currently only `$NOTIFY_TO`).
+
    * Follow-up jobs imported this file in the workspace along with the
      build artifacts, then use an EnvInject pre-build step to load it
      and set up variables accordingly.

@@ -86,9 +86,14 @@ h2, h2 .code {
   margin: 2em 0 1em 0;
 }
 
-h3. h3 .code {
+h3, h3 .code {
   font-size: 20px;
   margin: 1.5em 0 0.75em 0;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 p, h1, h2, h3, h4, h5, h6, blockquote {
@@ -105,8 +110,7 @@ p + p, table + p {
 }
 
 ol, ul {
-  padding: 0;
-  margin-left: 1.5em;
+  padding-left: 30px;
 }
 
 .remove-extra-space {
@@ -138,7 +142,7 @@ div#feedlink {
 .toc {
   float: none;
   margin: 30px 0;
-  padding: 1em 1em 1em 2em;
+  padding: 15px 30px;
   max-width: 45em;
   background-color: var(--background-gray);
   border: 1px solid var(--light-gray);
@@ -208,11 +212,6 @@ td.cross {
 
 /* Images */
 
-img {
-  max-width: 100%;
-  height: auto;
-}
-
 img.img { /* Overwrite style.css */
   margin: 0em;
 }
@@ -224,6 +223,10 @@ img.top-margin { /* Overwrite style.css */
 
 img.right-margin { /* Overwrite style.css */
   margin-right: 4em;
+}
+
+img.screenshot {
+  box-shadow: 5px 5px 5px var(--medium-light-gray);
 }
 
 /* Images with caption */
@@ -507,7 +510,7 @@ label[for="searchbox"]{
 
 #crumbs li {
   display: inline-block;
-  background: url(lib/go-right.png) no-repeat right 2px;
+  background: url(lib/crumbs.png) no-repeat right 2px;
   padding-right: 18px;
   color: var(--medium-dark-gray);
 }
@@ -697,6 +700,10 @@ a:focus, button:focus, input:focus, textarea:focus, video:focus {
   padding: 30px;
   border-radius: 5px;
   margin-top: 30px;
+}
+
+.block .block {
+  border: none;
 }
 
 .blocks .block-full {
@@ -889,20 +896,14 @@ article.inlinepage {
 /* Icons */
 
 div.icon {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
   margin-bottom: 1.5em;
-  position: relative;
 }
 
-div.icon img {
-  display: inline-block;
-}
-
-div.icon div.text {
-  position: absolute;
-  top: 0;
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 1em;
+div.icon div.text h2 {
+  margin-top: 20px;
 }
 
 /* Documentation styling */
@@ -927,8 +928,6 @@ span.keycap { font-weight: bold; }
 
 span.menuchoice { font-weight: bold; }
 
-span.replaceable { font-style: italic; }
-
 div.bug, div.caution, div.next, div.note, div.tip, div.trophy, div.attack {
   background-color: var(--background-yellow);
   border: 1px solid var(--light-gray);
@@ -951,7 +950,7 @@ div.caution {
 }
 
 div.next {
-  background-image: url(lib/go-next.png);
+  background-image: url(lib/next.png);
 }
 
 div.note {
@@ -981,7 +980,7 @@ div.bug > *:only-child, div.caution > *:only-child, div.next > *:only-child, div
 
 /* Code, preformatted text, and command lines */
 
-pre, code, .code, .command, .command-root, .command-template, .command-placeholder {
+pre, code, .code, .command, .command-root, .command-windows, .command-template, .command-placeholder {
   font-family: "Source Code Pro Regular", "Courier", monospace;
   font-size: 14px;
   color: var(--dark-gray);
@@ -990,11 +989,11 @@ pre, code, .code, .command, .command-root, .command-template, .command-placehold
   border-radius: 5px;
 }
 
-code, span.code, span.command, span.command-root, span.command-template, span.command-placeholder {
+code, span.code, span.command, span.command-root, span.command-windows, span.command-template, span.command-placeholder {
   padding: 0 2px;
 }
 
-pre, p.code, p.command, p.command-root, p.command-template, p.command-placeholder {
+pre, p.code, p.command, p.command-root, p.command-windows, p.command-template, p.command-placeholder {
   margin: 1.5em 1em 1.5em 1.5em;
   padding: 2px 5px;
   max-width: none;
@@ -1008,11 +1007,15 @@ pre, p.code, p.command, p.command-root, p.command-template, p.command-placeholde
   content: '# ' !important;
 }
 
+.command-windows::before {
+  content: '> ' !important;
+}
+
 .command-template, .command-placeholder {
   user-select: none;
 }
 
-.nowrap, .command, .command-template, .command-root {
+.nowrap, .command, .command-template, .command-root, .command-windows {
   white-space: nowrap;
 }
 
@@ -1027,7 +1030,7 @@ pre, p.code, p.command, p.command-root, p.command-template, p.command-placeholde
   padding-right: 4px !important;
 }
 
-code .command-placeholder, .code .command-placeholder, .command .command-placeholder, .command-root .command-placeholder, .command-template .command-placeholder,
+code .command-placeholder, .code .command-placeholder, .command .command-placeholder, .command-root .command-placeholder, .command-windows .command-placeholder, .command-template .command-placeholder,
 pre code {
   border: none;
   padding: 0 2px 0 0 !important;
@@ -1038,7 +1041,7 @@ pre code {
 img.symbolic {
   display: inline-block;
   position: relative;
-  top: 3px;
+  top: 2px;
 }
 
 /* Highlight */

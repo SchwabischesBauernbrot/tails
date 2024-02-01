@@ -7,6 +7,8 @@ Feature: GNOME is well-integrated into Tails
     And I wait 10 seconds
     And there is no screenshot in the live user's Pictures directory
     When I press the "PRINTSCREEN" key
+    And GNOME offers me various screenshot options
+    And I press the "Return" key
     Then a screenshot is saved to the live user's Pictures directory
 
   Scenario: GNOME notifications are shown to the user

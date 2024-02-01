@@ -175,7 +175,8 @@ class TailsInstallerThread(threading.Thread):
             self.live.install_bootloader()
             # self.live.bootable_partition()
 
-            self.live.clone_persistent_storage()
+            if self.parent.opts.clone_persistent_storage_requested:
+                self.live.clone_persistent_storage()
 
             self.progress.stop()
 
@@ -732,11 +733,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self.target_selected = True
         for signal_match in self.signals_connected:
             signal_match.remove()
-
-        # Unmount the device if needed
-        if self.live.drive["mount"]:
-            self.live.dest = self.live.drive["mount"]
-            self.live.unmount_device()
 
         if not self.opts.partition:
             try:

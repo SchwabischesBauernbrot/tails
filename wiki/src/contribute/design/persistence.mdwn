@@ -24,15 +24,22 @@ volume.
 ### Technical overview
 
 * Encrypted (LUKS) volume on the Tails device
+
 * Configuration file containing source paths and destination paths
+
 * Files are either bind-mounted or linked via symlinks
+
 * Hooks are executed on activation / deactivation
+
 * Setup and configuration is done via the Persistent Storage settings
   app
+
 * User can choose which data and configuration (features) to
   store persistently from a pre-configured list
+
 * In addition, users can make arbitrary files persistent by editing
   the config file manually
+
 * Files and directories which are made persistent are copied to the
   Persistent Storage
 
@@ -40,11 +47,14 @@ volume.
 
 * A privileged backend (tps backend): A D-Bus activated systemd service
   which exposes an API via the D-Bus system bus.
+
 * A GTK app (Persistent Storage settings) which uses the API to allow
   the user to easily set up and configure the Persistent Storage.
+
 * A command-line tool (`tpscli`) and shell library (`libtps.sh`) to
   allow other components of Tails to easily use the API to configure the
   Persistent Storage
+
 * The [[Welcome Screen|doc/first_steps/welcome_screen]] allows to unlock
   and activate the Persistent Storage during boot.
 
@@ -52,7 +62,9 @@ volume.
 
 The backend is implemented as a D-Bus activated systemd service using
 the D-Bus system bus. It exposes two interfaces:
+
 * [[!tails_gitweb desc="org.boum.tails.PersistentStorage" config/chroot_local-includes/usr/lib/python3/dist-packages/tps/service.py]]
+
 * [[!tails_gitweb desc="org.boum.tails.PersistentStorage.Feature" config/chroot_local-includes/usr/lib/python3/dist-packages/tps/configuration/feature.py]]
 
 These interfaces are used by the frontend to make the properties and
@@ -149,13 +161,16 @@ Brings the user to the configuration screen if they have an unlocked
 Persistent Storage.
 
 Else, we:
+
  * ask the user for a passphrase for the encryption (welcome bonus: pointing to
    the relevant documentation about choosing a *strong* passphrase)
+
  * create a LUKS-encrypted partition on the Tails USB stick
    - uses all the free space
    - labeled `TailsData`
    - create an ext4 filesystem in the encrypted container
    - set appropriate ownership (`CleartextDevice.mount()` in [[!tails_gitweb config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py]])
+
  * switch to the settings view
 
 ### Configure Persistent Storage features (i.e. which bits are persistent)
@@ -196,12 +211,16 @@ later without rebooting.
 
  1. The Welcome Screen asks the tps backend if there's a
     Persistent Storage available.
+
  2. The user enters the passphrase and clicks _Unlock_ in the
     Welcome Screen.
+
  3. The Welcome Screen calls the tps backend to unlock and activate
     the Persistent Storage.
+
  4. The tps backend decrypts the partition, mounts it, reads the
     config file and activates the bindings configured in the config file.
+
  5. The Welcome Screen displays a success or error message.
 
 #### Implementation details
@@ -248,14 +267,19 @@ The Welcome Screen is only started during boot and runs as its own user
 The Persistent Storage settings app is started by the user in the
 running Tails session and runs as the unprivileged `amnesia` user. To
 still allow it access to the privileged methods, we do this:
+
 * A wrapper script runs as the user `tails-persistent-storage` which is
   allowed to access the `org.boum.tails.PersistentStorage` bus via D-Bus:
+
   * [[!tails_gitweb config/chroot_local-includes/usr/local/bin/tails-persistent-storage]]
   * [[!tails_gitweb config/chroot_local-includes/etc/dbus-1/system.d/org.boum.tails.PersistentStorage.conf]]
+
 * The wrapper script opens a file descriptor for the D-Bus system bus
   and drops privileges by executing the tps frontend as `amnesia` but
   passes the open file descriptor on to the tps frontend:
+
   * [[!tails_gitweb config/chroot_local-includes/usr/local/lib/connect-drop-tps]]
+
 * The tps frontend uses the open file descriptor to access the
   `org.boum.tails.PersistentStorage` bus.
 

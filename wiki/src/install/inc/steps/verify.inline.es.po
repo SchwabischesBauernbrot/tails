@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-07 00:11+0000\n"
-"PO-Revision-Date: 2023-01-20 18:17+0000\n"
-"Last-Translator: cacukin <cacukin@cryptolab.net>\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"PO-Revision-Date: 2024-01-21 11:38+0000\n"
+"Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: Spanish <http://translate.tails.boum.org/projects/tails/"
 "downloadinline/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Content of: outside any tag (error?)
 msgid "[[!meta robots=\"noindex\"]]"
@@ -72,21 +72,19 @@ msgid "Enable JavaScript and reload this page."
 msgstr "Habilitar JavaScript y recargar esta página."
 
 #. type: Content of: <div><div><ul><li><p>
+#, fuzzy
+#| msgid ""
+#| "Compare manually the checksum of your download with [[the checksum of our "
+#| "images|install/v2/Tails/amd64/stable/latest.json]]."
 msgid ""
 "Compare manually the checksum of your download with [[the checksum of our "
-"images|install/v2/Tails/amd64/stable/latest.json]]."
+"images|install/v2/Tails/amd64/stable/latest.json]].  In Tails, you can "
+"install <a href=\"https://gtkhash.org/\"><i>GtkHash</i></a> as [[Additional "
+"Software|doc/persistent_storage/additional_software]]"
 msgstr ""
-"Comparar la suma de comprobación de tu descarga con [[la suma de "
-"comprobación de nuestras imágenes|install/v2/Tails/amd64/stable/latest."
+"Comparar la suma de verificación de tu descarga con [[la suma de "
+"verificación de nuestras imágenes|install/v2/Tails/amd64/stable/latest."
 "json]]."
-
-#. type: Content of: <div><div><ul><li><p>
-msgid ""
-"See our documentation on [[calculating checksums using GtkHash|doc/"
-"encryption_and_privacy/checksums]]."
-msgstr ""
-"Lee nuestra documentación sobre [[calcular sumas de comprobación usando "
-"GtkHash|doc/encryption_and_privacy/checksums]]."
 
 #. type: Content of: <div><div><ul><li><p>
 #, fuzzy
@@ -249,16 +247,12 @@ msgid "[[!toggle id=\"why-failed\" text=\"Why?\"]]"
 msgstr "[[!toggle id=\"why-failed\" text=\"¿Por qué?\"]]"
 
 #. type: Content of: <div><div><div>
-#, fuzzy
-#| msgid ""
-#| "[[!toggleable id=\"why-failed\" text=\"\"\" [[!toggle id=\"why-failed\" "
-#| "text=\"X\"]]"
 msgid ""
 "[[!toggleable id=\"why-failed\" text=\"\"\" [[!toggle id=\"why-failed\" "
 "text=\"\"]]"
 msgstr ""
 "[[!toggleable id=\"why-failed\" text=\"\"\" [[!toggle id=\"why-failed\" "
-"text=\"X\"]]"
+"text=\"\"]]"
 
 #. type: Content of: <div><div><div><p>
 msgid ""
@@ -303,34 +297,24 @@ msgstr ""
 "[[¿Cómo funciona la verificación?|contribute/design/download_verification]]"
 
 #. type: Content of: <div><div><p>
-#, fuzzy
-#| msgid ""
-#| "<a href=\"[[!inline pages=\"inc/stable_amd64_img_url\" raw=\"yes\" "
-#| "sort=\"age\"]]\" id=\"download-img-again\" class=\"use-mirror-pool-on-"
-#| "retry\">Please try to download again&hellip;</a>"
 msgid ""
 "<a href=\"[[!inline pages=\"inc/stable_amd64_img_url\" raw=\"yes\" "
 "sort=\"age\"]]\" id=\"download-img-again\">Please try to download "
 "again&hellip;</a>"
 msgstr ""
 "<a href=\"[[!inline pages=\"inc/stable_amd64_img_url\" raw=\"yes\" "
-"sort=\"age\"]]\" id=\"download-img-again\" class=\"use-mirror-pool-on-"
-"retry\">Por favor, intenta la descarga nuevamente&hellip;</a>"
+"sort=\"age\"]]\" id=\"download-img-again\">Por favor, intenta la descarga "
+"nuevamente&hellip;</a>"
 
 #. type: Content of: <div><div><p>
-#, fuzzy
-#| msgid ""
-#| "<a href=\"[[!inline pages=\"inc/stable_amd64_iso_url\" raw=\"yes\" "
-#| "sort=\"age\"]]\" id=\"download-iso-again\" class=\"use-mirror-pool-on-"
-#| "retry\">Please try to download again&hellip;</a>"
 msgid ""
 "<a href=\"[[!inline pages=\"inc/stable_amd64_iso_url\" raw=\"yes\" "
 "sort=\"age\"]]\" id=\"download-iso-again\">Please try to download "
 "again&hellip;</a>"
 msgstr ""
 "<a href=\"[[!inline pages=\"inc/stable_amd64_iso_url\" raw=\"yes\" "
-"sort=\"age\"]]\" id=\"download-iso-again\" class=\"use-mirror-pool-on-"
-"retry\">Por favor, intenta la descarga nuevamente&hellip;</a>"
+"sort=\"age\"]]\" id=\"download-iso-again\">Por favor, intenta la descarga "
+"nuevamente&hellip;</a>"
 
 #. type: Content of: <div><div><p>
 msgid ""
@@ -373,7 +357,7 @@ msgid ""
 "image <em><span class=\"verify-filename\">$FILENAME</span></em>.</b>"
 msgstr ""
 "[[!img lib/cross.png class=\"icon\" link=\"no\" alt=\"\"]]<b>Error al leer "
-"la  imagen <em><span class=\"verify-filename\">$FILENAME</span></em>.</b>"
+"la imagen <em><span class=\"verify-filename\">$FILENAME</span></em>.</b>"
 
 #. type: Content of: <div><div><p>
 msgid ""
@@ -386,6 +370,13 @@ msgstr ""
 #. type: Content of: <div><div><p>
 msgid "<a id=\"retry-image\">Retry&hellip;</a>"
 msgstr "<a id=\"retry-image\">Reintenta&hellip;</a>"
+
+#~ msgid ""
+#~ "See our documentation on [[calculating checksums using GtkHash|doc/"
+#~ "encryption_and_privacy/checksums]]."
+#~ msgstr ""
+#~ "Lee nuestra documentación sobre [[calcular sumas de verificación usando "
+#~ "GtkHash|doc/encryption_and_privacy/checksums]]."
 
 #~ msgid ""
 #~ "Download Tails [[!inline pages=\"inc/stable_amd64_version\" raw=\"yes\" "

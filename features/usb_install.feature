@@ -67,6 +67,7 @@ Feature: Installing Tails to a USB drive
     And I have started Tails from DVD without network and logged in
     And I clone USB drive "__internal" to a temporary USB drive "install"
     And I plug USB drive "install"
+    And I cancel the GNOME authentication prompt
     # This second part is done with Tails Installer, that's what this scenario is about
     When I reinstall Tails to USB drive "install" by cloning
     Then the running Tails is installed on USB drive "install"

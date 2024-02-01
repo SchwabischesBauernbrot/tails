@@ -23,9 +23,8 @@ feature of the Persistent Storage.</p>
 
 </div>
 
-For more detailed documentation, refer to the [official
-<span class="application">Thunderbird</span>
-help](https://support.mozilla.org/en-US/products/thunderbird).
+For more documentation, visit the official [*Thunderbird*
+Support](https://support.mozilla.org/en-US/products/thunderbird) website.
 
 <h1 id="account">Configuring an email account</h1>
 
@@ -57,26 +56,6 @@ help](https://support.mozilla.org/en-US/products/thunderbird).
    If the automatic configuration fails, consult your email provider
    about how to configure your email account manually.
 
-   <div class="tip" id="gmail">
-
-   <h2>Configuring a Gmail account</h2>
-
-   <p>If you are using Gmail, you need to first configure your account to
-   allow access from other email clients, such as
-   <span class="application">Thunderbird</span>.</p>
-
-   <p>To configure your Gmail account to allow access from
-   <span class="application">Thunderbird</span>, you need to:</p>
-
-   <ol>
-     <li>Enable IMAP or POP. See <a href="https://support.google.com/mail/answer/7126229">Gmail Help: Check Gmail through other email platforms</a>.</li>
-     <li>Turn on 2-Step Verification. See <a href="https://support.google.com/accounts/answer/185839">Google Account Help: 2-Step Verification</a>.</li>
-     <li>Create an App Password. See <a href="https://support.google.com/mail/answer/185833">Gmail Help: Sign in with App Passwords</a>.</li>
-     <li>Use the App Password in <em>Thunderbird</em>.</li>
-   </ol>
-
-   </div>
-
 1. If the automatic configuration succeeds, you might have to specify
    which protocol to use to connect to your email provider, either
    <span class="guilabel">IMAP</span> or <span class="guilabel">POP</span>.
@@ -96,6 +75,25 @@ help](https://support.mozilla.org/en-US/products/thunderbird).
    To know more, see also this [comparison between POP and
    IMAP](https://help.riseup.net/en/email/clients/#choose-imap-or-pop) by
    Riseup.
+
+<div class="tip" id="gmail">
+
+<h2>Gmail</h2>
+
+<p>You can use your Gmail account with <i>Thunderbird</i> in Tails.</p>
+
+<ol>
+  <li>
+    <p>Make sure that you have 2-Step Verification turned on in your Gmail account.</p>
+    <p>See <a href="https://support.google.com/accounts/answer/185839">Google Account Help: 2-Step Verification</a>.</p>
+  </li>
+  <li>
+    <p>Configure the new account as IMAP when <i>Thunderbird</i> asks you to
+    choose between POP and IMAP.</p>
+  </li>
+</ol>
+
+</div>
 
 <h1 id="privacy">Enhanced privacy</h1>
 
@@ -134,8 +132,9 @@ To use *Thunderbird* in another language, you can
 install the <code>thunderbird-l10n-<span class="command-placeholder">lang</span></code>
 package using the [[Additional Software|persistent_storage/additional_software]]
 feature. Replace <span class="command-placeholder">lang</span> with the code
-for your language. For example, `es` for Spanish or
-`de` for German.
+for your language. For example, `fr` for French or `pt-br` for Brazilian Portuguese.
+
+[List of all *Thunderbird* language packages](https://packages.debian.org/search?keywords=thunderbird-l10n&searchon=names&suite=stable&section=all)
 
 <h1 id="openpgp">OpenPGP encryption</h1>
 

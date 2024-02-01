@@ -169,8 +169,8 @@ end
 Then /^I can open the Additional Software log file from the notification$/ do
   click_gnome_shell_notification_button('Show Log')
   try_for(60) do
-    Dogtail::Application.new('gedit').child(
-      "log [Read-Only] (#{ASP_STATE_DIR}) - gedit", roleName: 'frame'
+    Dogtail::Application.new('gnome-text-editor').child(
+      "log (#{ASP_STATE_DIR}) - Text Editor", roleName: 'frame'
     )
   end
 end

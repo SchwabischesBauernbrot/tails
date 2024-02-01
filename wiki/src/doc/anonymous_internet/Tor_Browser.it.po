@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-21 23:10+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2023-10-05 23:13+0000\n"
 "Last-Translator: _ignifugo <ignifugo@insicuri.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
@@ -124,18 +124,28 @@ msgstr "<h1 id=\"confinement\">AppArmor isolamento, scaricando e caricando files
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"<span class=\"application\">Tor Browser</span> in Tails is confined with\n"
-"[[!debwiki AppArmor]] to protect the system and your data from some\n"
-"types of attacks against <span class=\"application\">Tor Browser</span>.\n"
-"As a consequence, <span class=\"application\">Tor Browser</span> in Tails can\n"
-"only read and write to a limited number of folders.\n"
+msgid "*Tor Browser* can only read and write to the following folders:\n"
 msgstr ""
-"<span class=\"application\">Tor Browser</span> in Tails è confinato con\n"
-"[[!debwiki AppArmor]] per proteggere il sistema e i tuoi dati da certi\n"
-"tipi di attacchi contro <span class=\"application\">Tor Browser</span>.\n"
-"Di conseguenza, <span class=\"application\">Tor Browser</span> in Tails può\n"
-"leggere e scrivere solo in un numero limitato di cartelle.\n"
+
+#. type: Plain text
+msgid ""
+"- *Documents* - *Downloads* - *Music* - *Pictures* - *Videos* - *Tor "
+"Browser* - *Persistent/Tor Browser*, if you have a Persistent Storage"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"This is because, in Tails, *Tor Browser* is confined using *[[!debwiki "
+"AppArmor]]* to protect your files from some types of attacks against *Tor "
+"Browser*."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"For example, thanks to this confinement, even if an attacker manages to "
+"exploit a security vulnerability in *Tor Browser*, they wouldn't be able to "
+"access all the content of your Persistent Storage."
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -143,55 +153,50 @@ msgid "<div class=\"note\">\n"
 msgstr "<div class=\"note\">\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<p>This is why, for example, you might face <em>Permission\n"
+#| "denied</em> errors if you try to download files to the\n"
+#| "<em>Home</em> folder.</p>\n"
 msgid ""
-"<p>This is why, for example, you might face <em>Permission\n"
-"denied</em> errors if you try to download files to the\n"
-"<em>Home</em> folder.</p>\n"
+"<p>This is why you get the following error if you try to download files to\n"
+"another folder:</p>\n"
 msgstr ""
 "<p>Questo è il motivo per cui, ad esempio, puoi incontrare errori <em>Permission\n"
 "denied</em> se tenti di scaricare i file nella cartella <em>Home</em> </p>\n"
 
 #. type: Plain text
 #, no-wrap
+msgid "<p class=\"code\">Could not read the contents of <span class=\"command-placeholder\">folder</span>.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "<p class=\"code\">Error opening directory <span class=\"command-placeholder\">folder</span>: Permission denied</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
 msgid "</div>\n"
 msgstr "</div>\n"
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '- '
 msgid ""
-"- You can save files from <span class=\"application\">Tor\n"
-"Browser</span> to the <span class=\"filename\">Tor Browser</span> folder\n"
-"that is located in the <span class=\"filename\">Home</span> folder.\n"
-"The content of this folder will disappear once you shut down Tails.\n"
+"If you want to download a file from *Tor Browser*, save it to one of these "
+"folders."
 msgstr ""
-"- Puoi salvare i file da <span class=\"application\">Tor\n"
-"Browser</span> nella cartella <span class=\"filename\">Tor Browser</span>\n"
-"che si trova nella cartella <span class=\"filename\">Home</span>.\n"
-"Il contenuto di questa cartella scomparirà allo spegnimento di Tails.\n"
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "- If you want to upload files with <span class=\"application\">Tor\n"
+#| "Browser</span>, copy them to that folder first.\n"
 msgid ""
-"- If you want to upload files with <span class=\"application\">Tor\n"
-"Browser</span>, copy them to that folder first.\n"
+"If you want to upload a file from *Tor Browser*, copy it first to one of "
+"these folders."
 msgstr ""
 "- Se vuoi caricare dei file con <span class=\"application\">Tor\n"
 "Browser</span>, copiali prima in questa cartella.\n"
-
-#. type: Plain text
-msgid ""
-"- If you turned on the [[Persistent Folder|persistent_storage/"
-"configure#persistent_folder]] feature of the Persistent Storage, you can "
-"also use the *Persistent/Tor Browser* folder to download and upload files "
-"from *Tor Browser*. The content of the *Persistent/Tor Browser* folder is "
-"saved across different working sessions."
-msgstr ""
-"- Se hai attivato la [[Cartella Persistente|persistent_storage/"
-"configure#persistent_folder]] funzionalità dell'Archivio Persistente, puoi "
-"anche usare la cartella *Persistente/Tor Browser* per scaricare e caricare "
-"file da *Tor Browser*. Il contenuto della cartella*Persistente/Tor Browser* "
-"viene salvato in diverse sessioni di lavoro."
 
 #. type: Plain text
 #, no-wrap
@@ -495,12 +500,16 @@ msgstr ""
 "*Standard* per ottenere la massima usabilità."
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "To change the security level, click on the [[!img security-level.png\n"
+#| "class=\"symbolic\" link=\"no\"]] icon on the right of the address bar\n"
+#| "and choose\n"
+#| "<span class=\"guilabel\">Advanced Security Settings&hellip;</span>.\n"
 msgid ""
 "To change the security level, click on the [[!img security-level.png\n"
 "class=\"symbolic\" link=\"no\"]] icon on the right of the address bar\n"
-"and choose\n"
-"<span class=\"guilabel\">Advanced Security Settings&hellip;</span>.\n"
+"and choose **Settings&hellip;**.\n"
 msgstr ""
 "Per cambiare il livello di sicurezza, fai clic sull'icona [[!img security-level.png\n"
 "class=\"symbolic\" link=\"no\"]] a destra della barra degli indirizzi\n"
@@ -596,12 +605,15 @@ msgid "<h1 id=\"new-identity\"><span class=\"guilabel\">New Identity</span> feat
 msgstr "<h1 id=\"new-identity\"><span class=\"guilabel\">Nuova Identità </span> funzionalità</h1>\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "To switch to a new identity, choose\n"
+#| "<span class=\"menuchoice\">\n"
+#| "  <span class=\"guimenu\">[[!img lib/open-menu.png alt=\"\" class=symbolic link=no]]</span>&nbsp;▸\n"
+#| "  <span class=\"guimenuitem\">New Identity</span></span>.\n"
 msgid ""
-"To switch to a new identity, choose\n"
-"<span class=\"menuchoice\">\n"
-"  <span class=\"guimenu\">[[!img lib/open-menu.png alt=\"\" class=symbolic link=no]]</span>&nbsp;▸\n"
-"  <span class=\"guimenuitem\">New Identity</span></span>.\n"
+"To switch to a new identity, choose [[!img lib/open-menu.png alt=\"\"\n"
+"class=\"symbolic\" link=\"no\"]]&nbsp;▸ **New identity**.\n"
 msgstr ""
 "Per passare a una nuova identità, seleziona\n"
 "<span class=\"menuchoice\">\n"
@@ -671,11 +683,6 @@ msgstr "<h1 id=\"noscript\">NoScript per avere ancora maggior controllo su JavaS
 
 #. type: Plain text
 #, no-wrap
-msgid "[[!img noscript.png link=no alt=\"\"]]\n"
-msgstr "[[!img noscript.png link=no alt=\"\"]]\n"
-
-#. type: Plain text
-#, no-wrap
 msgid ""
 "<span class=\"application\">Tor Browser</span> includes the\n"
 "<span class=\"application\">NoScript</span> extension to:\n"
@@ -741,6 +748,49 @@ msgstr ""
 "aggiungendo dei margini grigi attorno alla finestra del browser quando la stessa è ridimensionata. La\n"
 "pagina web rimane il più vicino possibile alla grandezza desiderata senza rivelare \n"
 "l'attuale grandezza della finestra.\n"
+
+#, no-wrap
+#~ msgid "[[!img noscript.png link=no alt=\"\"]]\n"
+#~ msgstr "[[!img noscript.png link=no alt=\"\"]]\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<span class=\"application\">Tor Browser</span> in Tails is confined with\n"
+#~ "[[!debwiki AppArmor]] to protect the system and your data from some\n"
+#~ "types of attacks against <span class=\"application\">Tor Browser</span>.\n"
+#~ "As a consequence, <span class=\"application\">Tor Browser</span> in Tails can\n"
+#~ "only read and write to a limited number of folders.\n"
+#~ msgstr ""
+#~ "<span class=\"application\">Tor Browser</span> in Tails è confinato con\n"
+#~ "[[!debwiki AppArmor]] per proteggere il sistema e i tuoi dati da certi\n"
+#~ "tipi di attacchi contro <span class=\"application\">Tor Browser</span>.\n"
+#~ "Di conseguenza, <span class=\"application\">Tor Browser</span> in Tails può\n"
+#~ "leggere e scrivere solo in un numero limitato di cartelle.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "- You can save files from <span class=\"application\">Tor\n"
+#~ "Browser</span> to the <span class=\"filename\">Tor Browser</span> folder\n"
+#~ "that is located in the <span class=\"filename\">Home</span> folder.\n"
+#~ "The content of this folder will disappear once you shut down Tails.\n"
+#~ msgstr ""
+#~ "- Puoi salvare i file da <span class=\"application\">Tor\n"
+#~ "Browser</span> nella cartella <span class=\"filename\">Tor Browser</span>\n"
+#~ "che si trova nella cartella <span class=\"filename\">Home</span>.\n"
+#~ "Il contenuto di questa cartella scomparirà allo spegnimento di Tails.\n"
+
+#~ msgid ""
+#~ "- If you turned on the [[Persistent Folder|persistent_storage/"
+#~ "configure#persistent_folder]] feature of the Persistent Storage, you can "
+#~ "also use the *Persistent/Tor Browser* folder to download and upload files "
+#~ "from *Tor Browser*. The content of the *Persistent/Tor Browser* folder is "
+#~ "saved across different working sessions."
+#~ msgstr ""
+#~ "- Se hai attivato la [[Cartella Persistente|persistent_storage/"
+#~ "configure#persistent_folder]] funzionalità dell'Archivio Persistente, "
+#~ "puoi anche usare la cartella *Persistente/Tor Browser* per scaricare e "
+#~ "caricare file da *Tor Browser*. Il contenuto della cartella*Persistente/"
+#~ "Tor Browser* viene salvato in diverse sessioni di lavoro."
 
 #~ msgid "Erases the content of the clipboard."
 #~ msgstr "Cancella il contenuto degli appunti."

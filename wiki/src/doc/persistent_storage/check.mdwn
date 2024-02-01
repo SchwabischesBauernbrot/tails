@@ -9,13 +9,8 @@ Unlock the Persistent Storage
 1. When starting Tails, keep the Persistent Storage locked and [[set up an administration
    password|doc/first_steps/welcome_screen/administration_password]].
 
-1. Choose
-   <span class="menuchoice">
-     <span class="guimenu">Applications</span>&nbsp;▸
-     <span class="guisubmenu">Utilities</span>&nbsp;▸
-     <span class="guimenuitem">Disks</span>
-   </span>
-   to open <span class="application">GNOME Disks</span>.
+1. Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to open the
+   *Disks* utility.
 
 1. In the left pane, click on the device corresponding to your Tails USB stick.
 
@@ -50,18 +45,18 @@ Check the file system using the terminal
       <span class="guimenuitem">Root Terminal</span></span>
    and enter your administration password to open a root terminal.
 
-1. In the terminal, execute the following command, replacing `[device]` with
+1. In the terminal, execute the following command. Replace <span class="command-placeholder">device</span> with
    the device name found in step 8:
 
-        fsck -y [device]
+   <p class="command-template">fsck -y <span class="command-placeholder">device</span></p>
 
-   To do so, you can type <span class="command">fsck -y&nbsp;</span> and press
-   <span class="keycap">Shift+Ctrl+V</span> to paste the device name from the
+   To do so, you can type <code>fsck -y&nbsp;</code> and press
+   **Shift+Ctrl+V** to paste the device name from the
    clipboard.
 
 1. If the file system is free of errors, the last line from the output of
-   <span class="command">fsck</span> starts with <span class="command">TailsData: clean</span>.
+   `fsck` starts with `TailsData: clean`.
 
-   If the file system has errors, <span class="command">fsck</span> tries to
+   If the file system has errors, `fsck` tries to
    fix them automatically. After it finishes, you can try executing the same
    command again to check if all errors are solved.

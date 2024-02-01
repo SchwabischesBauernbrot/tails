@@ -22,28 +22,28 @@ Feature: Using Totem
     And the file "/home/amnesia/.gnupg/video.mp4" exists
     And I restart monitoring the AppArmor log of "/usr/bin/totem"
     When I try to open "/home/amnesia/.gnupg/video.mp4" with Totem
-    Then I see "TotemUnableToOpen.png" after at most 10 seconds
+    Then Totem tells me it is not allowed to open this file
     And AppArmor has denied "/usr/bin/totem" from opening "/home/amnesia/.gnupg/video.mp4"
     Given I close Totem
     And the file "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/video.mp4" exists
     And I restart monitoring the AppArmor log of "/usr/bin/totem"
     When I try to open "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/video.mp4" with Totem
-    Then I see "TotemUnableToOpen.png" after at most 10 seconds
-    And AppArmor has denied "/usr/bin/totem" from opening "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/video.mp4"
+    Then Totem tells me it is not allowed to open this file
+    And AppArmor has denied "/usr/bin/totem" from opening "/usr/lib/live/mount/overlay/rw/home/amnesia/.gnupg/video.mp4"
     Given I close Totem
     And the file "/live/overlay/rw/home/amnesia/.gnupg/video.mp4" exists
     And I restart monitoring the AppArmor log of "/usr/bin/totem"
     When I try to open "/live/overlay/rw/home/amnesia/.gnupg/video.mp4" with Totem
-    Then I see "TotemUnableToOpen.png" after at most 10 seconds
+    Then Totem tells me it is not allowed to open this file
     # Due to our AppArmor aliases, /live/overlay will be treated
-    # as /lib/live/mount/overlay.
-    And AppArmor has denied "/usr/bin/totem" from opening "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/video.mp4"
+    # as /usr/lib/live/mount/overlay.
+    And AppArmor has denied "/usr/bin/totem" from opening "/usr/lib/live/mount/overlay/rw/home/amnesia/.gnupg/video.mp4"
     Given I close Totem
     And I copy "/home/amnesia/video.mp4" to "/home/amnesia/.purple/otr.private_key" as user "amnesia"
     And the file "/home/amnesia/.purple/otr.private_key" exists
     And I restart monitoring the AppArmor log of "/usr/bin/totem"
     When I try to open "/home/amnesia/.purple/otr.private_key" with Totem
-    Then I see "TotemUnableToOpen.png" after at most 10 seconds
+    Then Totem tells me it is not allowed to open this file
     And AppArmor has denied "/usr/bin/totem" from opening "/home/amnesia/.purple/otr.private_key"
 
   @check_tor_leaks
@@ -61,5 +61,5 @@ Feature: Using Totem
     And I start monitoring the AppArmor log of "/usr/bin/totem"
     And I copy the sample videos to "/home/amnesia/.gnupg" as user "amnesia"
     When I try to open "/home/amnesia/.gnupg/video.mp4" with Totem
-    Then I see "TotemUnableToOpen.png" after at most 10 seconds
+    Then Totem tells me it is not allowed to open this file
     And AppArmor has denied "/usr/bin/totem" from opening "/home/amnesia/.gnupg/video.mp4"

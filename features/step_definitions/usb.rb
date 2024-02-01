@@ -602,20 +602,9 @@ Then /^a Tails persistence partition exists( with LUKS version 1)? on USB drive 
   dev = $vm.persistent_storage_dev_on_disk(name)
   check_part_integrity(name, dev, 'crypto', 'crypto_LUKS',
                        part_label: 'TailsData')
-
-  luks_dev = nil
   # The LUKS container may already be opened, e.g. by udisks after
   # we've created the Persistent Storage.
-  c = $vm.execute("ls -1 --hide 'control' /dev/mapper/")
-  if c.success?
-    c.stdout.split("\n").each do |candidate|
-      luks_info = $vm.execute("cryptsetup status '#{candidate}'")
-      if luks_info.success? && luks_info.stdout.match("^\s+device:\s+#{dev}$")
-        luks_dev = "/dev/mapper/#{candidate}"
-        break
-      end
-    end
-  end
+  luks_dev = luks_mapping(dev)
   if luks_dev.nil?
     assert_vmcommand_success(
       $vm.execute("echo #{@persistence_password} | " \
@@ -831,7 +820,40 @@ def parse_udisksctl_info(input)
       tree[section][key] += line
     end
   end
+  fs_section = tree['org.freedesktop.UDisks2.Filesystem']
+  if fs_section && fs_section['MountPoints']
+    fs_section['MountPoints'] = fs_section['MountPoints'].split
+  end
   tree
+end
+
+# Get the LUKS mapping of device, or nil if there is none
+def luks_mapping(device)
+  c = $vm.execute("ls -1 --hide 'control' /dev/mapper/")
+  if c.success?
+    c.stdout.split("\n").each do |candidate|
+      luks_info = $vm.execute("cryptsetup status '#{candidate}'")
+      if luks_info.success? && luks_info.stdout.match("^\s+device:\s+#{device}$")
+        return "/dev/mapper/#{candidate}"
+      end
+    end
+  end
+  nil
+end
+
+# Returns the first non-nosymfollow mountpoint of device. If the
+# device has a LUKS mapping we instead return where it is mounted.
+def mountpoint(device)
+  info = parse_udisksctl_info(
+    $vm.execute_successfully("udisksctl info -b #{device}").stdout
+  )
+  if info['org.freedesktop.UDisks2.Block']['IdType'] == 'crypto_LUKS'
+    luks_device = luks_mapping(device)
+    mountpoint(luks_device) if luks_device
+  else
+    info['org.freedesktop.UDisks2.Filesystem']['MountPoints']
+      .find { |p| !p.match?(Regexp.new('^/run/nosymfollow/')) }
+  end
 end
 
 Then /^Tails is running from (.*) drive "([^"]+)"$/ do |bus, name|
@@ -1131,23 +1153,11 @@ def iuk_changes(version) # rubocop:disable Metrics/MethodLength
     },
     {
       filesystem:  :rootfs,
-      path:        'etc/amnesia/version',
-      status:      :modified,
-      new_content: <<~CONTENT,
-        #{version} - 20380119
-        ffffffffffffffffffffffffffffffffffffffff
-        live-build: 3.0.5+really+is+2.0.12-0.tails2
-        live-boot: 4.0.2-1
-        live-config: 4.0.4-1
-      CONTENT
-    },
-    {
-      filesystem:  :rootfs,
       path:        'etc/os-release',
       status:      :modified,
       new_content: <<~CONTENT,
-        TAILS_PRODUCT_NAME="Tails"
-        TAILS_VERSION_ID="#{version}"
+        NAME="Tails"
+        VERSION="#{version}"
       CONTENT
     },
     {
@@ -1168,16 +1178,16 @@ def iuk_changes(version) # rubocop:disable Metrics/MethodLength
   ]
 
   case version
-  when '2.2~testoverlayfsng'
+  when '6.2~testoverlayfs'
     changes
-  when '2.3~testoverlayfsng'
+  when '6.3~testoverlayfs'
     changes + [
       {
         filesystem:  :rootfs,
-        path:        'some_new_file_2.3',
+        path:        'some_new_file_6.3',
         status:      :added,
         new_content: <<~CONTENT,
-          Some content 2.3
+          Some content 6.3
         CONTENT
       },
       {
@@ -1197,7 +1207,7 @@ def iuk_changes(version) # rubocop:disable Metrics/MethodLength
 end
 
 Given /^the file system changes introduced in version (.+) are (not )?present(?: in the (\S+) Browser's chroot)?$/ do |version, not_present, chroot_browser|
-  assert(['2.2~testoverlayfsng', '2.3~testoverlayfsng'].include?(version))
+  assert(['6.2~testoverlayfs', '6.3~testoverlayfs'].include?(version))
   upgrade_applied = not_present.nil?
   chroot_browser = "#{chroot_browser.downcase}-browser" if chroot_browser
   changes = iuk_changes(version)
@@ -1313,11 +1323,8 @@ Given /^Tails is fooled to think a (.+) SquashFS delta is installed$/ do |versio
     'Implementation error, alert the test suite maintainer!'
   )
   $vm.execute_successfully(
-    "sed --regexp-extended -i '1s/^\S+ /#{version}/' /etc/amnesia/version"
-  )
-  $vm.execute_successfully(
-    "sed -i 's/^TAILS_VERSION_ID=.*/TAILS_VERSION_ID=#{version}/' " \
-    '/etc/amnesia/version'
+    "sed -i 's/^VERSION=.*/VERSION=\"#{version}\"/' " \
+    '/etc/os-release'
   )
 end
 

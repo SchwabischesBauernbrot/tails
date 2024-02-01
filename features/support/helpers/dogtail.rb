@@ -14,7 +14,7 @@ module Dogtail
   # left intact when doing new (proxied) method calls.  This way we
   # can support stuff like:
   #
-  #     app = Dogtail::Application.new('gedit')
+  #     app = Dogtail::Application.new('evince')
   #     menu = app.menu('Menu')
   #     menu.click()
   #     menu.something_else()
@@ -197,12 +197,20 @@ module Dogtail
       Node.new(node_var.to_s, **@opts)
     end
 
+    def methods
+      run("print(dir(#{@var}))").stdout.chomp
+    end
+
     def get_field(key)
       run("print(#{@var}.#{key})").stdout.chomp
     end
 
     def set_field(key, value)
       run("#{@var}.#{key} = #{self.class.value_to_s(value)}")
+    end
+
+    def actions
+      get_field('actions')
     end
 
     def combovalue

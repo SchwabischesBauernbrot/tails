@@ -1,15 +1,13 @@
 [[!meta title="Reporting an error"]]
 
-In this documentation we use the term *bug* to refer to a software error.
+Reporting errors is a great way of helping us improve Tails.
 
-Reporting bugs is a great way of helping us improve Tails.
-
-Remember that **the more effectively you report a bug**, the more likely we are
+Remember that **the more effectively you report an error**, the more likely we are
 to fix it.
 
 [[!toc levels=2]]
 
-<h1 id="already-known">Check if the bug is already known</h1>
+<h1 id="known">Check if the error is already known</h1>
 
 Have a look at:
 
@@ -19,9 +17,9 @@ Have a look at:
   [[!tails_gitlab groups/tails/-/milestones
   desc="list of things that will be fixed or improved in the next release"]]
 
-<h1 id="useful-bug-report">How to write a useful bug report</h1>
+<h1 id="useful">How to write a useful error report</h1>
 
-- The first aim of a bug report is to **tell the developers exactly
+- The first aim of a error report is to **tell the developers exactly
   how to reproduce the failure**, so try to reproduce the issue
   yourself and describe how you did that.
 
@@ -39,30 +37,27 @@ You can also refer to the great [How to Report Bugs
 Effectively](http://www.chiark.greenend.org.uk/~sgtatham/bugs.html), by
 Simon Tatham.
 
-<h1 id="whisperback">Use WhisperBack</h1>
+<h1 id="whisperback">Use <i>WhisperBack</i></h1>
 
-**WhisperBack is an application written specifically to report bugs anonymously
-from inside Tails. If you are not able to use WhisperBack, see the [[special
-cases|bug_reporting#special-cases]].**
+***WhisperBack* is an application written specifically to report errors anonymously
+from inside Tails. If you are not able to use *WhisperBack*, see the [[special
+cases|bug_reporting#special]].**
 
-WhisperBack will help you fill-up a bug report, including relevant technical
+*WhisperBack* will help you fill-up an error report, including relevant technical
 details and send it to us encrypted and through Tor.
 
-Start WhisperBack
------------------
+Start *WhisperBack*
+-------------------
 
-To start <span class="application">WhisperBack</span>, choose
-<span class="menuchoice">
-  <span class="guimenu">Applications</span>&nbsp;▸
-  <span class="guisubmenu">System Tools</span>&nbsp;▸
-  <span class="guimenuitem">WhisperBack Error Reporting</span></span>.
+To start *WhisperBack*, **Applications**&nbsp;▸ **System Tools**&nbsp;▸
+**WhisperBack Error Reporting**.
 
 Write the report
 ----------------
 
-WhisperBack lets you give plenty of useful information about your bug:
+*WhisperBack* lets you give plenty of useful information about your error:
 
-- **Summary** a summary of the bug, try to be short, clear and informative
+- **Summary** a summary of the error, try to be short, clear and informative
 
 - **Name of the affected software**
 
@@ -72,8 +67,8 @@ WhisperBack lets you give plenty of useful information about your bug:
 
 - **Desired result**
 
-You can also have a look at the <span class="guilabel">technical details
-to include</span> in your bug report. It will give us information about
+You can also have a look at the **technical details
+to include** in your error report. It will give us information about
 your hardware, your version of Tails and the startup process.
 
 <div class="note">
@@ -82,41 +77,6 @@ your hardware, your version of Tails and the startup process.
 reply from us.</p>
 
 </div>
-
-<h2 id="screenshot">Take a screenshot</h2>
-
-It might be helpful to include a screenshot with your bug report.
-
-- To take a screenshot of the entire desktop, press
-  **Print Screen**.
-
-- To take a screenshot of a single window, press
-  **Alt + Print Screen**.
-
-- To take a screenshot of an area you select,
-  press **Shift + Print Screen**.
-
-The screenshot will automatically be saved in the
-<span class="filename">Pictures</span> folder located in your
-<span class="filename">Home</span> folder. The file name will begin with the
-word <span class="filename">Screenshot</span>.
-
-You can also take a screenshot using
-<span class="application">GNOME Screenshot</span>.
-
-To start <span class="application">GNOME Screenshot</span>, choose
-<span class="menuchoice">
-  <span class="guimenu">Applications</span>&nbsp;▸
-  <span class="guisubmenu">Utilities</span>&nbsp;▸
-  <span class="guimenuitem">Screenshot</span></span>.
-
-You can upload the screenshot to an
-[encrypted Up1 host](https://github.com/Upload/Up1) such as the one
-available at:
-
-<https://share.riseup.net/>
-
-Make sure to include in your bug report a link to the screenshot.
 
 Optional email address
 ----------------------
@@ -145,32 +105,32 @@ Send your report
 Once you are done writing your report, send it by clicking the *Send* button.
 
 Once your email has been sent correctly you will get the following
-notification: <span class="guilabel">Your message has been sent</span>.
+notification: **Your message has been sent**.
 
-<h1 id="special-cases">If you cannot use <span class="application">WhisperBack</span></h1>
+<h1 id="special">If you cannot use <i>WhisperBack</i></h1>
 
-You might not always be able to use WhisperBack. In those cases, you can also
-send your bug report by [[email|support/talk]] directly.
+You might not always be able to use *WhisperBack*. In those cases, you can also
+send your error report by [[email|support/talk]] directly.
 
 Note that if you send the report yourself, it might not be anonymous unless you
 take special care (for example, using Tor with a throw-away email account).
 
-<h2 id="no-internet-access">No Internet access</h2>
+<h2 id="offline">No Internet access</h2>
 
 If you are not able to connect to the Internet from Tails, you can try
 following our
 [[instructions on troubleshooting Wi-Fi|doc/anonymous_internet/no-wifi]]
 to fix your Internet connection.
 
-WhisperBack won't be able to send your bug report if you are not connected to
+*WhisperBack* won't be able to send your error report if you are not connected to
 the Internet.
 
-The following steps can be used as an alternative method to send your bug
+The following steps can be used as an alternative method to send your error
 report:
 
 1. In Tails, start *WhisperBack*.
 
-2. In the bug report window, expand "technical details to include".
+2. In the error report window, expand "technical details to include".
 
 3. Copy everything in the "debugging info" box.
 
@@ -180,7 +140,7 @@ report:
 
 6. Boot into a system with Internet connection and send your report.
 
-<h2 id="does-not-start">Tails does not start</h2>
+<h2 id="not_start">Tails does not start</h2>
 
 For troubleshooting instructions in case Tails fails to start, refer to
 our installation instructions on:
@@ -189,18 +149,18 @@ our installation instructions on:
 
 - [[Starting a Mac on a USB stick|doc/first_steps/start/mac]]
 
-<h1 id="debian">Reproducing the bug in Debian (for advanced users)</h1>
+<h1 id="debian">Reproducing the error in Debian (for advanced users)</h1>
 
-It is very useful for us to know if your bug only affects Tails or also
+It is very useful for us to know if your error only affects Tails or also
 affects Debian, on which Tails is based.
 
-Doing so takes much more time so, in doubt, report your bug as instructed
+Doing so takes much more time so, in doubt, report your error as instructed
 earlier and wait for guidance from our help desk.
 
-- If your bug also affects Debian *stable* then it will have to be fixed
+- If your error also affects Debian *stable* then it will have to be fixed
   in Debian directly and not in Tails.
 
-- If your bug affects Debian *stable* but not Debian *testing* then it
+- If your error affects Debian *stable* but not Debian *testing* then it
   might have been solved already in Debian.
 
 Debian also distributes images (*Debian live*) that you can install on a

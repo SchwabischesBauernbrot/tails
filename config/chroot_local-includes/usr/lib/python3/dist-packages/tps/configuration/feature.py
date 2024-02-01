@@ -5,7 +5,7 @@ import os
 from pathlib import Path
 import psutil
 import time
-from typing import TYPE_CHECKING, Dict, List, Optional
+from typing import TYPE_CHECKING, Optional
 
 import tps.logging
 from tps import executil
@@ -243,17 +243,17 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
     def Id(self) -> str:
         """The name of the feature for internal usage and in logs. It
         must only contain the ASCII characters "[A-Z][a-z][0-9]_"."""
-        return str()
+        return ""
 
     @property
     def Description(self) -> str:
         """The name of the feature that will be shown to the user.
         Only used for custom features for now."""
-        return str()
+        return ""
 
     @property
     @abc.abstractmethod
-    def Bindings(self) -> List[Binding]:
+    def Bindings(self) -> list[Binding]:
         """A list of bindings, which are mappings of source directories
         to target paths. The source directories will be mounted or
         symlinked to the target paths when the feature is activated."""
@@ -265,10 +265,10 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
     @abc.abstractmethod
     def translatable_name(self) -> str:
         """The name of the feature for usage in user-visible strings"""
-        return str()
+        return ""
 
     @property
-    def conflicting_apps(self) -> List["ConflictingApp"]:
+    def conflicting_apps(self) -> list["ConflictingApp"]:
         """A list of applications which must not be currently running
         when the feature is activated/deactivated."""
         return list()
@@ -289,7 +289,9 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
         executil.execute_hooks(hooks_dir)
 
     def refresh_state(
-        self, properties: List[str] = None, emit_properties_changed_signal=False
+        self,
+        properties: Optional[list[str]] = None,
+        emit_properties_changed_signal=False,
     ):
         if not properties:
             properties = ["IsEnabled", "HasData", "IsActive"]
@@ -393,7 +395,7 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
             # to wait for anything
             return
 
-        logger.info(f"Waiting for the user to terminate processes " f"{apps}")
+        logger.info("Waiting for the user to terminate processes %s", apps)
         while any(job.ConflictingApps.values()):
             if job.cancellable.is_cancelled():
                 logger.info("Job was cancelled")
@@ -408,7 +410,7 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
             for app in job.ConflictingApps:
                 for pid in job.ConflictingApps[app]:
                     if not psutil.pid_exists(pid):
-                        logger.info(f"Conflicting process {pid} was " f"terminated")
+                        logger.info(f"Conflicting process {pid} was terminated")
                         job.ConflictingApps[app].remove(pid)
 
             time.sleep(0.2)
@@ -416,7 +418,7 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
         logger.info("All conflicting processes were terminated, continuing")
         return
 
-    def get_running_conflicting_apps(self) -> Dict[str, List[int]]:
+    def get_running_conflicting_apps(self) -> dict[str, list[int]]:
         res = dict()
         for app in self.conflicting_apps:
             # Get the list of currently running processes which belong

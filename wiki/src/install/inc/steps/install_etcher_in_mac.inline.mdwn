@@ -37,15 +37,11 @@ line"]].
 
 1. Make sure that your USB stick is unplugged.
 
-1. Open <span class="application">Terminal</span> from
-   <span class="menuchoice">
-     <span class="guimenu">Applications</span>&nbsp;▸
-     <span class="guisubmenu">Utilities</span>&nbsp;▸
-     <span class="guimenuitem">Terminal.app</span></span>.
+1. Open the **Terminal** utility from **Applications**&nbsp;▸ **Utilities**.
 
-1. Execute the following command:
+1. Execute the following command.
 
-   <p class="pre command">diskutil list</p>
+   <p class="command">diskutil list</p>
 
    It returns a list of the storage devices on the system. For example:
 
@@ -59,33 +55,40 @@ line"]].
 
 1. Plug your USB stick into the computer.
 
-1. Execute again the same command:
+1. Execute again the same command.
 
-   <p class="pre command">diskutil list</p>
+   <p class="command">diskutil list</p>
 
    Your USB stick appears as a new device in the list. Check
    that its size corresponds to the size of your USB stick.
 
        /dev/disk0
         #:                     TYPE NAME         SIZE      IDENTIFIER
-        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0
+        0:    GUID_partition_scheme             *500.1 GB  disk0
         1:                      EFI              209.7 MB  disk0s1
         2:                Apple_HFS MacDrive     250.0 GB  disk0s2
         3:                      EFI              134.1 GB  disk0s3
         4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4
-      /dev/disk1
+
+       /dev/disk1
         #:                     TYPE NAME         SIZE      IDENTIFIER
         0:   FDisk_partition_scheme             *8.0 GB    disk1
         1:                Apple_HFS Untitled 1   8.0 GB    disk1s1
 
-1. Take note of the *device name* of your USB stick.
-   In this example, the USB stick is 8.0 GB and its device name is <code>/dev/disk1</code>.
+1. Take note of the device name of your USB stick.
+
+   In this example, the USB stick is 8.0 GB and its device name is <span class="command-placeholder">/dev/disk1</span>.
    Yours might be different.
 
    <div class="caution">
    <p>If you are unsure about the device name, you should stop proceeding or
    <strong>you risk overwriting any hard disk on the system</strong>.</p>
    </div>
+
+1. Execute the following command to safely eject the USB stick. Replace <span class="command-placeholder">device</span>
+   with the device name found in step 6.
+
+   <p class="command-template">diskutil unmountDisk <span class="command-placeholder">device</span></p>
 
 1. Execute the following commands to copy the USB image that you
    downloaded earlier to the USB stick.
@@ -106,8 +109,6 @@ line"]].
      <div class="tip">
      <p>You can try adding <code>r</code> before <code>disk</code> to make the installation faster.</p>
      </div>
-
-   <p class="command-template">diskutil unmountDisk <span class="command-placeholder">device</span></p>
 
    <p class="command-template">dd if=<span class="command-placeholder">tails.img</span> of=<span class="command-placeholder">device</span> bs=16m && sync</p>
 
@@ -131,6 +132,6 @@ line"]].
 
    </div>
 
-   The installation is complete once the command prompt reappeared.
+   The installation is complete when the command prompt reappears.
 
 """]]

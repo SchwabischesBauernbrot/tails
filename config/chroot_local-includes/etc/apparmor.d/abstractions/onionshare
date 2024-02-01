@@ -1,17 +1,16 @@
   #include <abstractions/base>
   #include <abstractions/nameservice>
+  #include <abstractions/openssl>
   #include <abstractions/private-files-strict>
   #include <abstractions/python>
 
-  /usr/bin/python3.[0-9] mr,
+  /usr/bin/python{3,3.[0-9],3.1[0-9]} mr,
 
   # Why are these not in abstractions/python?
-  /usr/lib{,32,64}/python{2,3}.[0-9]/__pycache__/ rw,
-  /usr/lib{,32,64}/python{2,3}.[0-9]/__pycache__/* rw,
-  /usr/lib{,32,64}/python{2,3}.[0-9]/**/__pycache__/ rw,
-  /usr/lib{,32,64}/python{2,3}.[0-9]/**/__pycache__/* rw,
-  /usr/lib{,32,64}/python{2,3}/**/__pycache__/ rw,
-  /usr/lib{,32,64}/python{2,3}/**/__pycache__/* rw,
+  /usr/lib{,32,64}/python{3,3.[0-9],3.1[0-9]}/__pycache__/ rw,
+  /usr/lib{,32,64}/python{3,3.[0-9],3.1[0-9]}/__pycache__/* rw,
+  /usr/lib{,32,64}/python{3,3.[0-9],3.1[0-9]}/**/__pycache__/ rw,
+  /usr/lib{,32,64}/python{3,3.[0-9],3.1[0-9]}/**/__pycache__/* rw,
 
   /bin/dash rix,
   /{usr/,}bin/file rix,
@@ -22,8 +21,8 @@
   /bin/uname rix,
   /etc/magic r,
   /etc/mime.types r,
-  /usr/share/onionshare/ r,
-  /usr/share/onionshare/** r,
+  /usr/share/onionshare{,-cli}/ r,
+  /usr/share/onionshare{,-cli}/** r,
   /tmp/ rw,
   /tmp/** rw,
 
@@ -40,3 +39,6 @@
 
   # Directory for received files
   owner @{HOME}/Downloads/{,**} rw,
+
+  # Silence innocuous denials
+  deny @{HOME}/.face r,

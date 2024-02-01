@@ -5,7 +5,6 @@ keyservers = ['hkp://zkaan2xfbuxia2wpf7ofnkbz6r5zdbbvxbunvp5g2iebopbfc4iqmbad.on
 always-show-universal-access-status=true
 
 [org/gnome/desktop/background]
-show-desktop-icons = true
 picture-uri='file:///usr/share/tails/desktop_wallpaper.png'
 
 [org/gnome/desktop/interface]
@@ -17,7 +16,7 @@ disable-log-out = true
 disable-user-switching = true
 
 [org/gnome/desktop/media-handling]
-automount = false
+automount = true
 automount-open = false
 autorun-x-content-start-app = @as []
 autorun-x-content-ignore = @as []
@@ -27,6 +26,10 @@ click-method = 'default'
 natural-scroll = true
 tap-to-click = true
 two-finger-scrolling-enabled = true
+
+[org/gnome/desktop/privacy]
+usb-protection = true
+usb-protection-level = 'lockscreen'
 
 [org/gnome/desktop/screensaver]
 lock-enabled = true
@@ -42,9 +45,6 @@ allow-volume-above-100-percent=true
 
 [org/gnome/desktop/wm/preferences]
 button-layout = 'appmenu:minimize,maximize,close'
-
-[org/gnome/gedit/preferences/editor]
-create-backup-copy = false
 
 [org/gnome/nautilus/desktop]
 volumes-visible = false
@@ -70,13 +70,16 @@ sleep-inactive-ac-type ='nothing'
 sleep-inactive-battery-type ='nothing'
 
 [org/gnome/shell]
-enabled-extensions = ['apps-menu@gnome-shell-extensions.gcampax.github.com', 'places-menu@gnome-shell-extensions.gcampax.github.com', 'window-list@gnome-shell-extensions.gcampax.github.com', 'status-menu-helper@tails.boum.org', 'date@tails.boum.org', 'torstatus@tails.boum.org', 'desktop-icons@csoriano']
+enabled-extensions = ['apps-menu@gnome-shell-extensions.gcampax.github.com', 'places-menu@gnome-shell-extensions.gcampax.github.com', 'window-list@gnome-shell-extensions.gcampax.github.com', 'status-menu-helper@tails.boum.org', 'date@tails.boum.org', 'torstatus@tails.boum.org', 'ding@rastersoft.com', 'no-overview@fthx']
 favorite-apps=['tor-browser.desktop', 'tca.desktop', 'org.boum.tails.PersistentStorage.desktop', 'tails-documentation.desktop', 'whisperback.desktop', 'tails-installer.desktop', 'thunderbird.desktop', 'org.keepassxc.KeePassXC.desktop', 'org.kde.kleopatra.desktop']
 
-[org/gnome/shell/extensions/desktop-icons]
-icon-size='small'
+[org/gnome/shell/extensions/ding]
+icon-size='standard'
+show-drop-place = false
 show-home = false
+show-network-volumes = false
 show-trash = true
+show-volumes = false
 
 [org/gnome/system/smb]
 workgroup = 'localhost'

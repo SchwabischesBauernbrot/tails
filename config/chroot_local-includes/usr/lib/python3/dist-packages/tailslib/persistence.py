@@ -3,8 +3,7 @@
 import os
 import subprocess
 
-from tailslib.utils import start_as_transient_user_scope_unit
-
+from tailslib.utils import start_as_transient_systemd_service
 
 PERSISTENCE_DIR = "/live/persistence/TailsData_unlocked"
 PERSISTENCE_PARTITION = "/dev/disk/by-partlabel/TailsData"
@@ -25,7 +24,7 @@ def get_persistence_path(return_nonexistent=False) -> str:
         return PERSISTENCE_DIR
     else:
         raise FileNotFoundError(
-            "No persistence directory found in {dir}".format(dir=PERSISTENCE_DIR)
+            f"No persistence directory found in {PERSISTENCE_DIR}",
         )
 
 
@@ -48,7 +47,8 @@ def is_tails_media_writable():
     """Return true iff tails is started from a writable media."""
     return (
         subprocess.run(
-            "/usr/local/lib/tails-boot-device-can-have-persistence"
+            "/usr/local/lib/tails-boot-device-can-have-persistence",
+            check=False,
         ).returncode
         == 0
     )
@@ -56,14 +56,15 @@ def is_tails_media_writable():
 
 def spawn_tps_frontend(*args):
     """Launch tps-frontend, don't wait for its completion."""
-    start_as_transient_user_scope_unit("/usr/local/bin/tails-persistent-storage", *args)
+    start_as_transient_systemd_service("/usr/local/bin/tails-persistent-storage", *args)
 
 
 def additional_software_persistence_feature_is_active() -> bool:
     """Return True iff the AdditionalSoftware feature is active."""
     return (
         subprocess.run(
-            ["/usr/local/lib/tpscli", "is-active", "AdditionalSoftware"]
+            ["/usr/local/lib/tpscli", "is-active", "AdditionalSoftware"],
+            check=False,
         ).returncode
         == 0
     )

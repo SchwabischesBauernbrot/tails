@@ -1,9 +1,8 @@
 """Miscelaneous Tails Python utilities."""
 
 import contextlib
-import glob
-import os
 import logging
+import os
 import subprocess
 
 
@@ -24,22 +23,23 @@ def run_with_user_env(command, *args):
     cmdline = ["/usr/local/lib/run-with-user-env", command, *args]
     try:
         subprocess.run(
-            cmdline, stderr=subprocess.PIPE, check=True, universal_newlines=True
+            cmdline,
+            stderr=subprocess.PIPE,
+            check=True,
+            text=True,
         )
     except subprocess.CalledProcessError as e:
         logging.error(
-            "{command} returned with {returncode}".format(
-                command=command, returncode=e.returncode
-            )
+            f"{command} returned with {e.returncode}",
         )
         for line in e.stderr.splitlines():
             logging.error(line)
         raise
 
 
-def start_as_transient_user_scope_unit(command, *args):
+def start_as_transient_systemd_service(command, *args):
     """Launch a command as amnesia and return immediately. The command
-    is run as a transient systemd user scope unit, so it doesn't exit
-    when the parent process exits."""
+    is run as a transient systemd user service, so it doesn't exit when
+    the parent process exits."""
     cmdline = ["/usr/local/lib/run-with-user-env", "--systemd-run", command, *args]
-    subprocess.Popen(cmdline, stderr=subprocess.PIPE, universal_newlines=True)
+    subprocess.check_call(cmdline)

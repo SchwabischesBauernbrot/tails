@@ -13,21 +13,30 @@ In particular, see
 
 - Set yourself as the _Reviewer_ on the [[!tails_gitlab help/user/project/merge_requests/index.md desc="Merge
   Request"]] to you. This avoids duplicating work.
+
 - Verify that the destination branch matches what's in `config/base_branch` on
   the branch, and is correct:
+
   - for a new feature: into `devel`
+
   - for a fix on top on the last RC: into `testing`; then merge
     `testing` into `devel`
+
   - for a fix on top of the last stable: into `stable`; then merge
     `stable` into `devel`
+
 - Merge the destination branch of the MR into the topic branch.
+
 - Build the topic branch and test the feature.
+
 - Check automated ISO build and test results on
   <https://jenkins.tails.boum.org/>.
+
 - Review the diff, either in the GitLab interface or on the command line.
   If you're using the command line, beware of changes introduced
   by merge commits: either add the `--cc` option to `git log`, or use
   `git diff` after reviewing the individual patches.
+
 - Check the contents of every APT overlay that the branch enables:
 
   - If you have upload rights to our [[custom APT
@@ -42,11 +51,14 @@ In particular, see
     - <https://deb.tails.boum.org/dists/${APT_overlay}/main/binary-amd64/Packages>
 
 - Check the user and design documentation.
+
 - Check the corresponding GitLab issue.
+
 - Ensure the description of the MR includes `Closes #NNNN`
   statements for the issues fixed by this MR.
   <a id="closes"></a>
   <a id="fix-committed"></a>
+
 - Changes proposed by new contributors, or by the patch'n'forget kind,
   shall respectively be applied once they are in *good enough* state.
   That is, once the core developers team feels like maintaining it on
@@ -54,6 +66,7 @@ In particular, see
   maintenance includes: polishing the proposed changes to make them fit
   for release; writing and updating the design and end-user
   documentations; fixing bugs.
+
 - As reviewer, you are allowed to commit trivial fixes on top of the
   proposed branch to avoid round-trips: for example, fixing typos
   and improving phrasing of comments and strings.
@@ -73,7 +86,9 @@ As part of your review, if you spot problems that block the merge
 in your opinion:
 
 1. Give feedback about these problems.
+
 2. Unset the _Reviewer_ on the MR.
+
 3. On the corresponding issue: replace the *Needs Validation* label
    with *Doing*.
 

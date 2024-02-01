@@ -65,9 +65,10 @@ def set_browser_url(url)
 end
 
 When /^I (?:try to )?start the Unsafe Browser$/ do
-  # XXX:Bookworm: switch to "gio launch" and drop the whole
-  # language_has_non_latin_input_source / switch_input_source system.
-  step 'I start "Unsafe Browser" via GNOME Activities Overview'
+  $vm.spawn(
+    'gio launch /usr/share/applications/unsafe-browser.desktop',
+    user: LIVE_USER
+  )
 end
 
 When /^I successfully start the Unsafe Browser(?: in "([^"]+)")?$/ do |lang_code|
@@ -220,8 +221,6 @@ def page_has_loaded_in_the_tor_browser(page_titles)
   end
 end
 
-# This step is limited to the Tor Browser due to #7502 since dogtail
-# uses the same interface.
 Then /^"([^"]+)" has loaded in the Tor Browser$/ do |title|
   page_has_loaded_in_the_tor_browser(title)
 end
@@ -324,29 +323,29 @@ Then /^the Tails homepage loads in the Unsafe Browser$/ do
   @screen.wait('TailsHomepage.png', 60)
 end
 
-def headings_in_page(page_title)
-  @torbrowser.child(page_title, roleName: 'frame').children(roleName: 'heading')
+def headings_in_page(browser, page_title)
+  browser.child(page_title, roleName: 'frame').children(roleName: 'heading')
 end
 
-def page_has_heading(page_title, heading)
-  headings_in_page(page_title).any? { |h| h.text == heading }
+def page_has_heading(browser, page_title, heading)
+  headings_in_page(browser, page_title).any? { |h| h.text == heading }
 end
 
 Then /^the Tor Browser shows the "([^"]+)" error$/ do |error|
   try_for(60, delay: 3) do
-    page_has_heading('Problem loading page — Tor Browser', error)
+    page_has_heading(@torbrowser, 'Problem loading page — Tor Browser', error)
   end
 end
 
 Then /^Tor Browser displays a "([^"]+)" heading on the "([^"]+)" page$/ do |heading, page_title|
   try_for(60, delay: 3) do
-    page_has_heading("#{page_title} — Tor Browser", heading)
+    page_has_heading(@torbrowser, "#{page_title} — Tor Browser", heading)
   end
 end
 
 Then /^Tor Browser displays a '([^']+)' heading on the "([^"]+)" page$/ do |heading, page_title|
   try_for(60, delay: 3) do
-    page_has_heading("#{page_title} — Tor Browser", heading)
+    page_has_heading(@torbrowser, "#{page_title} — Tor Browser", heading)
   end
 end
 
@@ -540,8 +539,9 @@ When /^I can print the current page as "([^"]+[.]pdf)" to the (default downloads
   end
 end
 
-When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) directory$/ do |should_work, output_file, output_dir|
+When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (directory|GNOME bookmark)$/ do |should_work, output_file, output_dir, bookmark|
   should_work = should_work == 'can'
+  is_gnome_bookmark = bookmark == 'GNOME bookmark'
 
   file_dialog = save_page_as
 
@@ -556,12 +556,18 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) dire
   when 'default downloads'
     output_dir = "/home/#{LIVE_USER}/Tor Browser"
   else
-    # Enter the output directory in the text entry
-    text_entry = file_dialog.child('Name', roleName: 'label').labelee
-    text_entry.text = output_dir
-    # Do the "activate" action of the text entry (same effect as
-    # pressing Enter) to open the directory.
-    text_entry.activate
+    if is_gnome_bookmark
+      output_dir = "/home/#{LIVE_USER}/#{output_dir}"
+      file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
+      @screen.press('Space')
+    else
+      # Enter the output directory in the text entry
+      text_entry = file_dialog.child('Name', roleName: 'label').labelee
+      text_entry.text = output_dir
+      # Do the "activate" action of the text entry (same effect as
+      # pressing Enter) to open the directory.
+      text_entry.activate
+    end
   end
 
   # Enter the output filename in the text entry

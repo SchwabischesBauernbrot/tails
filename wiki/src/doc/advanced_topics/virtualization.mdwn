@@ -15,16 +15,16 @@ When running Tails in a virtual machine, you can use most features of
 Tails from your usual operating system, and you can use both Tails and your usual operating system in parallel,
 without the need to restart the computer.
 
-This is how Tails looks when run in a virtual machine on Debian using *GNOME Boxes*:
-
-[[!img tails-in-vm.png alt="" link=no]]
-
 <div class="note">
 
 <p>We do not currently provide a solution for running a virtual machine
 inside a Tails host.</p>
 
 </div>
+
+This is how Tails looks when run in a virtual machine on Debian using *GNOME Boxes*:
+
+[[!img tails-in-vm.png alt="" link=no]]
 
 <a id="security"></a>
 
@@ -92,37 +92,32 @@ Different virtualization software exists for Linux, Windows, and macOS.
 
 <div class="note">
 
-<p>The following list includes only free software as we believe that
-this is a necessary condition for the software to be trustworthy. See the
-[[previous warning|virtualization#trustworthy]] and our statement about
-[[free software and public scrutiny|about/trust#free_software]].</p>
-
-<p>Proprietary virtualization software solutions exist such as <span
-class="application">VMWare</span> but are not listed here on
-purpose.</p>
+<p>We only mention Free Software, because we believe that it is a necessary
+condition to be trustworthy. Proprietary virtualization software exist, such as
+<i>VMWare</i>, but is not listed here on purpose.</p>
 
 </div>
 
-  - **<em>VirtualBox</em>** is available on
+  - ***VirtualBox*** is available on
     Linux, Windows, and Mac. Its
-    free software version does not include support for USB devices and
-    does not allow use of a Persistent Storage.
+    Free Software version does not include support for USB devices and
+    does not allow to use a Persistent Storage.
 
-    [[See the corresponding documentation.|virtualbox]]
+    See [[running Tails in *VirtualBox*|virtualbox]].
 
-  - **<em>GNOME Boxes</em>** is available on
-    Linux. It has a simple user
-    interface but does not allow use of a Persistent Storage.
+  - ***GNOME Boxes*** is only available on
+    Linux. It has a simpler user
+    interface than *virt-manager* but does not allow to use a Persistent Storage.
 
-    [[See the corresponding documentation.|boxes]]
+    See [[running Tails in *GNOME Boxes*|boxes]].
 
-  - **<em>virt-manager</em>** is available on
+  - ***virt-manager*** is only available on
     Linux. It has a more
-    complex user interface and allows use of a Persistent Storage, either
+    complex user interface than *GNOME Boxes* but allows to use a Persistent Storage, either
     by:
 
     - Starting Tails from a USB stick.
     - Creating a virtual USB storage volume saved as a single file on the host
       operating system.
 
-    [[See the corresponding documentation.|virt-manager]]
+    See [[running Tails in *virt-manager*|virt-manager]].

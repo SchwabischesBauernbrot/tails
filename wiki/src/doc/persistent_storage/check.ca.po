@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
-"PO-Revision-Date: 2023-11-04 19:12+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"PO-Revision-Date: 2024-01-24 21:36+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -46,24 +46,11 @@ msgstr ""
 "[[configureu una contrasenya d'administració|doc/first_steps/welcome_screen/"
 "administration_password]]."
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '1. '
 msgid ""
-"1. Choose\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Disks</span>\n"
-"   </span>\n"
-"   to open <span class=\"application\">GNOME Disks</span>.\n"
+"Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to open the "
+"*Disks* utility."
 msgstr ""
-"1. Trieu\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Aplicacions</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilitats</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Discs</span>\n"
-"   </span>\n"
-"   per obrir <span class=\"application\">Discs de GNOME</span>.\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -108,18 +95,13 @@ msgstr ""
 "apareix a sota de la partició <span class=\"guilabel\">TailsData LUKS</span>."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Identify the device name of your Persistent Storage. The device name "
-#| "appears below the list of volumes.  It should look like <code>/dev/mapper/"
-#| "luks-xxxxxxxx</code>."
 msgid ""
 "Identify the device name of your Persistent Storage. The device name appears "
 "below the list of volumes.  It should look like `/dev/mapper/luks-xxxxxxxx`."
 msgstr ""
 "Identifiqueu el nom del dispositiu del vostre Emmagatzematge Persistent. El "
 "nom del dispositiu apareix a sota de la llista de volums. Hauria de ser "
-"semblant a <code>/dev/mapper/luks-xxxxxxxx</code>."
+"semblant a `/dev/mapper/luks-xxxxxxxx`."
 
 #. type: Plain text
 #, no-wrap
@@ -154,48 +136,69 @@ msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
-"In the terminal, execute the following command, replacing `[device]` with "
-"the device name found in step 8:"
+"In the terminal, execute the following command. Replace <span "
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 8:"
 msgstr ""
-"Al terminal, executeu l'ordre següent, substituint \"[dispositiu]\" pel nom "
-"del dispositiu que es troba al pas 8:"
+"Al terminal, executeu l'ordre següent. Substituïu <span class=\"command-"
+"placeholder\">dispositiu</span> pel nom del dispositiu trobat al pas 8:"
 
 #. type: Plain text
 #, no-wrap
-msgid "        fsck -y [device]\n"
-msgstr "        fsck -y [dispositiu]\n"
+msgid "   <p class=\"command-template\">fsck -y <span class=\"command-placeholder\">device</span></p>\n"
+msgstr "   <p class=\"command-template\">fsck -y <span class=\"command-placeholder\">dispositiu</span></p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   To do so, you can type <span class=\"command\">fsck -y&nbsp;</span> and press\n"
-"   <span class=\"keycap\">Shift+Ctrl+V</span> to paste the device name from the\n"
+"   To do so, you can type <code>fsck -y&nbsp;</code> and press\n"
+"   **Shift+Ctrl+V** to paste the device name from the\n"
 "   clipboard.\n"
 msgstr ""
-"   Per fer-ho, podeu escriure <span class=\"command\">fsck -y&nbsp;</span> i prémer\n"
-"   <span class=\"keycap\">Maj+Ctrl+V</span> per enganxar el nom del dispositiu des del\n"
+"   Per fer-ho, podeu escriure <code>fsck -y&nbsp;</code> i prémer\n"
+"   **Maj+Ctrl+V** per enganxar el nom del dispositiu des del\n"
 "   porta-retalls.\n"
 
 #. type: Bullet: '1. '
 msgid ""
-"If the file system is free of errors, the last line from the output of <span "
-"class=\"command\">fsck</span> starts with <span class=\"command\">TailsData: "
-"clean</span>."
+"If the file system is free of errors, the last line from the output of "
+"`fsck` starts with `TailsData: clean`."
 msgstr ""
 "Si el sistema de fitxers està lliure d'errors, l'última línia de la sortida "
-"de <span class=\"command\">fsck</span> comença amb <span "
-"class=\"command\">TailsData: clean</span>."
+"de `fsck` comença amb `TailsData: clean`."
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   If the file system has errors, <span class=\"command\">fsck</span> tries to\n"
+"   If the file system has errors, `fsck` tries to\n"
 "   fix them automatically. After it finishes, you can try executing the same\n"
 "   command again to check if all errors are solved.\n"
 msgstr ""
-"   Si el sistema de fitxers té errors, <span class=\"command\">fsck</span> prova de\n"
+"   Si el sistema de fitxers té errors, `fsck` prova de\n"
 "   solucionar-los automàticament. Un cop acabi, podeu provar d'executar la mateixa\n"
 "   ordre de nou per comprovar si tots els errors s'han resolt.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "1. Choose\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Disks</span>\n"
+#~ "   </span>\n"
+#~ "   to open <span class=\"application\">GNOME Disks</span>.\n"
+#~ msgstr ""
+#~ "1. Trieu\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Aplicacions</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilitats</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Discs</span>\n"
+#~ "   </span>\n"
+#~ "   per obrir <span class=\"application\">Discs de GNOME</span>.\n"
+
+#, no-wrap
+#~ msgid "        fsck -y [device]\n"
+#~ msgstr "        fsck -y [dispositiu]\n"
 
 #~ msgid "Click on <span class=\"guilabel\">Check Filesystem</span>."
 #~ msgstr ""

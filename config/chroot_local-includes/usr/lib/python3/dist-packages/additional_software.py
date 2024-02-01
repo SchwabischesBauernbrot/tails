@@ -40,8 +40,6 @@ class ASPError(Exception):
 class ASPDataError(ASPError):
     """Raised when the data read does not have the expected format."""
 
-    pass
-
 
 def set_up_logging(log_to_journal=False):
     debug = os.getenv("DEBUG") or "debug" in Path("/proc/cmdline").read_text().split()
@@ -95,9 +93,9 @@ def get_additional_packages():
     try:
         with open(get_packages_list_path()) as f:
             for line in f:
-                line = line.strip()
-                if line:
-                    packages.add(line)
+                pkg = line.strip()
+                if pkg:
+                    packages.add(pkg)
     except FileNotFoundError:
         # Just return an empty set.
         pass
@@ -154,8 +152,9 @@ def notify(
         urgent = ""
 
     try:
-        completed_process = subprocess.run(
-            [
+        success_exit_codes = (0, 3, 5)
+        completed_process = subprocess.run(  # noqa: PLW1510
+            [  # noqa: S603
                 "/usr/local/lib/run-with-user-env",
                 cmd,
                 title,
@@ -165,18 +164,16 @@ def notify(
                 documentation_target,
                 urgent,
             ],
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
+            capture_output=True,
             text=True,
         )
         if completed_process.stderr:
             logging.warning("%s", completed_process.stderr)
-        if completed_process.returncode == 1:
-            # sudo failed to execute the command
+        if completed_process.returncode not in success_exit_codes:
             raise OSError(completed_process.stderr)
     except OSError as e:
-        logging.warning("Warning: unable to notify the user. %s" % e)
-        logging.warning("The notification was: %s %s" % (title, body))
+        logging.warning("Warning: unable to notify the user. %s", e)
+        logging.warning("The notification was: %s %s", title, body)
         return None
 
     if return_id:
@@ -225,7 +222,7 @@ def notify_failure(summary, details=None):
 
 def show_system_log():
     """Show additional packages configuration window."""
-    run_with_user_env("gtk-launch", "org.gnome.gedit.desktop", ASP_LOG_FILE)
+    run_with_user_env("gtk-launch", "org.gnome.TextEditor.desktop", ASP_LOG_FILE)
 
 
 def show_configuration_window():

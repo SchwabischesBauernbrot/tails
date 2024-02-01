@@ -35,7 +35,8 @@
 # For whatever reason, /usr/sbin (needed by at least chpasswd)
 # is not in our PATH
 export PATH="/usr/sbin:${PATH}"
-POLKIT=/etc/polkit-1/localauthority.conf.d/52-tails-greeter.conf
+POLKIT=/etc/polkit-1/rules.d/10-greeter.rules
+
 SUDOERS=/etc/sudoers.d/tails-greeter
 NO_PASSWORD_LECTURE=/etc/sudoers.d/tails-greeter-no-password-lecture
 GREETER_EXPORTED_PERSISTENT_SETTINGS="tails.macspoof tails.network tails.unsafe-browser"
@@ -190,8 +191,11 @@ echo "${LIVE_USERNAME} ALL = (ALL) ALL" >> "${SUDOERS}"
 chmod 0440 "${SUDOERS}"
 
 # Add PolKit config
-echo "[Configuration]" > "${POLKIT}"
-echo "AdminIdentities=unix-user:${LIVE_USERNAME}" >> "${POLKIT}"
+cat > "${POLKIT}" <<EOF
+polkit.addAdminRule(function(action, subject) {
+    return ["unix-user:$LIVE_USERNAME"];
+});
+EOF
 
 # Configure su-to-root to use sudo
 sudo -u "${LIVE_USERNAME}" sh -c "echo 'SU_TO_ROOT_SU=sudo' >> /home/${LIVE_USERNAME}/.su-to-rootrc"

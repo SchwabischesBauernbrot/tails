@@ -105,7 +105,6 @@ SERVICES_EXPECTED_ON_ALL_IFACES =
   [
     ['cups-browsed', '0.0.0.0', '631'],
     ['cupsd', '*', '631'],
-    ['dhclient', '0.0.0.0', '68'],
     ['onion-grater', '0.0.0.0', '951'],
     ['tor', '10.200.1.1', '9050'],
   ].freeze
@@ -113,6 +112,7 @@ SERVICES_EXPECTED_ON_ALL_IFACES =
 SOME_DNS_SERVER = '208.67.222.222'.freeze
 RTL_LANGUAGES = ['Arabic', 'Persian'].freeze
 VM_XML_PATH = "#{Dir.pwd}/features/domains".freeze
+LAN_WEB_SERVER_HELLO_MSG = 'Welcome to the LAN web server!'.freeze
 
 TAILS_SIGNING_KEY = cmd_helper(
   ". #{Dir.pwd}/config/variables; echo ${TAILS_SIGNING_KEY_FP}"

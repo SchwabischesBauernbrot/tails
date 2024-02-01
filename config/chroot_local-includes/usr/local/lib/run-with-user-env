@@ -49,8 +49,8 @@ so we cannot run ${DUMP_USER_ENV_SERVICE} to create it."
 fi
 
 if [ -n "${SYSTEMD_RUN:-}" ]; then
-  # Run the command in a transient systemd scope unit.
-  exec systemd-run --user --scope \
+  # Run the command as a transient systemd service.
+  exec systemd-run --user --property="SyslogIdentifier=$(basename "$1")" \
     /usr/local/lib/run-with-env --env-file "${USER_ENV_FILE}" -- "$@"
 else
   exec /usr/local/lib/run-with-env --env-file "${USER_ENV_FILE}" -- "$@"

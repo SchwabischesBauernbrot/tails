@@ -16,9 +16,11 @@ Else, propose this on the [[tails-l10n mailing list|about/contact#tails-l10n]].
 1. Add the new language code to the `exclude` setting in
    [[!tails_gitweb ikiwiki.setup]]
    and have this change reviewed and merged into our `master` branch.
+
 2. Add the new language to `$weblate_additional_languages` in
    [[!tails_gitweb_puppet_tails manifests/website/params.pp]]
    and have a sysadmin review your changes and deploy them to production.
+
 3. To create PO files for the new language and commit them to Git,
    run this command on the system that runs our translation platform,
    as the `weblate` user:
@@ -33,6 +35,7 @@ Else, propose this on the [[tails-l10n mailing list|about/contact#tails-l10n]].
    Note that this script must not be run concurrently with
    [[!tails_gitweb_puppet_tails files/weblate/scripts/cron.sh desc="`cron.sh`"]].
    Hence, they both use a shared lock file.
+
 4. Finally, to update the Weblate components, run this command as the
    `weblate` user:
 
@@ -50,11 +53,16 @@ new versions of Tails:
 
 - Browse the translation on our staging site and make sure that it has no big
   issues.
+
 - Checkout and build locally the weblate repository, and see that there are no
   errors.
+
 - Edit the `./ikiwiki.setup` file, both for the production website and in [[!tails_gitlab tails/tails desc="the `tails/tails` project"]] (for the bundled offline documentation) ([example for Russian locale](https://gitlab.tails.boum.org/tails/tails/-/commit/db7a64d89a5ecd062cfaf2545e03c048351aa19f)):
+
   - Remove the locale from the regexp exclude line.
+
   - Add locale to `po_slave_languages` list (in alphabetical order).
+
 - Update the `wiki/src/contribute/l10n_tricks/language_statistics.sh` script by adding the new language to `LANGUAGES` and maybe updating the list of languages not activated in the website yet.
 
 Fix missing not-in-production languages
@@ -65,8 +73,11 @@ languages that are only enabled in Weblate and not in production, you may fix
 it (or at least try to reproduce the issue) by doing the following:
 
 1. Force the creation of the language files: `weblate_status.py --modify`
+
 2. Pull the changes from the Weblate repo and manually push them to the canonical repo.
+
 3. Wait for or manually run `cron.sh`.
+
 4. Tell Weblate to load the new `.po` files: `weblate loadpo --foreground tails/wikisrcnewsversion_58po`
 
 Manually fix issues
@@ -158,8 +169,11 @@ To fix that, one can delete the translation change that breaks stuff.
    To do so:
 
    1. Log in as the `weblate` user.
+
    2. `cd ~/scripts/`.
+
    3. Start `ipython3`.
+
    4. Run code based on this example, line by line:
 
           import tailsWeblate

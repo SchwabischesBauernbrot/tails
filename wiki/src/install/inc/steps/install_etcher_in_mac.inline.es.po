@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:43+0000\n"
-"PO-Revision-Date: 2023-03-16 10:28+0000\n"
-"Last-Translator: xin <xin@riseup.net>\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"PO-Revision-Date: 2024-01-12 15:38+0000\n"
+"Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: Spanish <http://translate.tails.boum.org/projects/tails/"
 "install-mac/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -104,7 +104,7 @@ msgid ""
 "line\"]].\n"
 msgstr ""
 "En vez de instalar <span class=\"application\">balenaEtcher</span>, también\n"
-"puedes [[!toggle id=\"dd\" text=\"instalar Tails usando `dd` en la linea\n"
+"puedes [[!toggle id=\"dd\" text=\"instalar Tails usando `dd` en la línea\n"
 "de comandos\"]].\n"
 
 #. type: Plain text
@@ -121,28 +121,21 @@ msgstr ""
 msgid "Make sure that your USB stick is unplugged."
 msgstr "Asegúrate de que tu memoria USB está desenchufada."
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '1. '
 msgid ""
-"1. Open <span class=\"application\">Terminal</span> from\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
+"Open the **Terminal** utility from **Applications**&nbsp;▸ **Utilities**."
 msgstr ""
-"1. Abre <span class=\"application\">Terminal</span> desde\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
 
 #. type: Bullet: '1. '
-msgid "Execute the following command:"
+#, fuzzy
+#| msgid "Execute the following command:"
+msgid "Execute the following command."
 msgstr "Ejecuta el siguiente comando:"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command\">diskutil list</p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command\">diskutil list</p>\n"
+msgid "   <p class=\"command\">diskutil list</p>\n"
 msgstr "   <p class=\"pre command\">diskutil list</p>\n"
 
 #. type: Plain text
@@ -184,7 +177,9 @@ msgid "Plug your USB stick into the computer."
 msgstr "Conecta la memoria USB a la computadora."
 
 #. type: Bullet: '1. '
-msgid "Execute again the same command:"
+#, fuzzy
+#| msgid "Execute again the same command:"
+msgid "Execute again the same command."
 msgstr "Ejecuta otra vez el mismo comando:"
 
 #. type: Plain text
@@ -194,61 +189,43 @@ msgid ""
 "   that its size corresponds to the size of your USB stick.\n"
 msgstr ""
 "   Tu memoria USB aparece como un nuevo dispositivo en la lista. Comprueba\n"
-"que su tamaño corresponda con el tamaño de tu memoria USB.\n"
+"   que su tamaño corresponda con el tamaño de tu memoria USB.\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid ""
 #| "   <p class=\"pre command-output\">/dev/disk0\n"
 #| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-#| "    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#| "    0:    GUID_partition_scheme             *500.1 GB  disk0\n"
 #| "    1:                      EFI              209.7 MB  disk0s1\n"
 #| "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
 #| "    3:                      EFI              134.1 GB  disk0s3\n"
-#| "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-#| "  /dev/disk1\n"
-#| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-#| "    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
-#| "    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
+#| "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>\n"
 msgid ""
-"       /dev/disk0\n"
-"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
-"        1:                      EFI              209.7 MB  disk0s1\n"
-"        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"        3:                      EFI              134.1 GB  disk0s3\n"
-"        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-"      /dev/disk1\n"
+"       /dev/disk1\n"
 "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
 "        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
 "        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 msgstr ""
 "   <p class=\"pre command-output\">/dev/disk0\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
-"    1:                      EFI              209.7 MB  disk0s1\n"
-"    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"    3:                      EFI              134.1 GB  disk0s3\n"
-"    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-"  /dev/disk1\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
-"    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
+"      #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+"      0:    GUID_partition_scheme             *500.1 GB  disk0\n"
+"      1:                      EFI              209.7 MB  disk0s1\n"
+"      2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+"      3:                      EFI              134.1 GB  disk0s3\n"
+"      4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Take note of the *device name* of your USB stick.  In this example, the "
-#| "USB stick is 8.0 GB and its device name is <span class=\"code\">/dev/"
-#| "disk1</span>.  Yours might be different."
-msgid ""
-"Take note of the *device name* of your USB stick.  In this example, the USB "
-"stick is 8.0 GB and its device name is <code>/dev/disk1</code>.  Yours might "
-"be different."
+msgid "Take note of the device name of your USB stick."
 msgstr ""
-"Toma nota del *nombre de dispositivo* de tu memoria USB.  En este ejemplo, "
-"la memoria USB es de 8.0 GB y su nombre de dispositivo es <span "
-"class=\"code\">/dev/disk1</span>.  El tuyo puede ser diferente."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "Take note of the *device name* of your USB stick.  In this example, the USB stick is 8.0 GB and its device name is <span class=\"code\">/dev/disk1</span>.  Yours might be different."
+msgid ""
+"   In this example, the USB stick is 8.0 GB and its device name is <span class=\"command-placeholder\">/dev/disk1</span>.\n"
+"   Yours might be different.\n"
+msgstr "Toma nota del *nombre de dispositivo* de tu memoria USB.  En este ejemplo, la memoria USB es de 8.0 GB y su nombre de dispositivo es <span class=\"code\">/dev/disk1</span>.  El tuyo puede ser diferente."
 
 #. type: Plain text
 #, no-wrap
@@ -260,8 +237,26 @@ msgid ""
 msgstr ""
 "   <div class=\"caution\">\n"
 "<p>Si no estás seguro del nombre del dispositivo deberías parar ahora o\n"
-"<strong>te arriesgas a sobreescribir cualquier otro disco duro del sistema</strong>.</p>\n"
+"<strong>te arriesgas a sobrescribir cualquier otro disco duro del sistema</strong>.</p>\n"
 "</div>\n"
+
+#. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "<span class=\"command-placeholder\">device</span> with the device name "
+#| "found in step 6"
+msgid ""
+"Execute the following command to safely eject the USB stick. Replace <span "
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
+msgstr ""
+"<span class=\"command-placeholder\">dispositivo</span> con el nombre del "
+"dispositivo encontrado en el paso 6"
+
+#. type: Plain text
+#, no-wrap
+msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+msgstr "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">dispositivo</span></p>\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -295,7 +290,7 @@ msgid ""
 "     </div>\n"
 msgstr ""
 "     <div class=\"tip\">\n"
-"       <p>Si estás inseguro de la ruta de la imagen USB, puedes insertar la\n"
+"       <p>Si no estás seguro de la ruta de la imagen USB, puedes insertar la\n"
 "       ruta correcta al arrastrar el ícono de la imagen USB desde el\n"
 "       <span class=\"application\">Finder</span> hasta la <span class=\"application\">\n"
 "       Terminal</span>.</p>\n"
@@ -306,7 +301,7 @@ msgid ""
 "<span class=\"command-placeholder\">device</span> with the device name found "
 "in step 6"
 msgstr ""
-"<span class=\"command-placeholder\">device</span> con el nombre del "
+"<span class=\"command-placeholder\">dispositivo</span> con el nombre del "
 "dispositivo encontrado en el paso 6"
 
 #. type: Plain text
@@ -325,16 +320,9 @@ msgstr ""
 "     </div>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
-msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
-msgstr "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
-
-#. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+#, no-wrap
 msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
-msgstr "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+msgstr "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">dispositivo</span> bs=16m && sync</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -354,7 +342,7 @@ msgid ""
 "   stick. The copy takes some time, generally a few minutes.\n"
 msgstr ""
 "   Si no aparece ningún mensaje de error, Tails está siendo copiado a la memoria\n"
-"USB. El proceso de copiado tarda por lo general un par de minutos.\n"
+"   USB. El proceso de copiado tarda por lo general un par de minutos.\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -401,9 +389,62 @@ msgid "   </div>\n"
 msgstr "   </div>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   The installation is complete once the command prompt reappeared.\n"
+#, fuzzy, no-wrap
+#| msgid "   The installation is complete once the command prompt reappeared.\n"
+msgid "   The installation is complete when the command prompt reappears.\n"
 msgstr "   La instalación se ha completado una vez que reaparezca el interprete de comandos.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "1. Open <span class=\"application\">Terminal</span> from\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
+#~ msgstr ""
+#~ "1. Abre la <span class=\"application\">Terminal</span> desde\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Aplicaciones</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilidades</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
+
+#, fuzzy, no-wrap
+#~| msgid ""
+#~| "   <p class=\"pre command-output\">/dev/disk0\n"
+#~| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~| "    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#~| "    1:                      EFI              209.7 MB  disk0s1\n"
+#~| "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#~| "    3:                      EFI              134.1 GB  disk0s3\n"
+#~| "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+#~| "  /dev/disk1\n"
+#~| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~| "    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+#~| "    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
+#~ msgid ""
+#~ "       /dev/disk0\n"
+#~ "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#~ "        1:                      EFI              209.7 MB  disk0s1\n"
+#~ "        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#~ "        3:                      EFI              134.1 GB  disk0s3\n"
+#~ "        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+#~ "      /dev/disk1\n"
+#~ "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+#~ "        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
+#~ msgstr ""
+#~ "   <p class=\"pre command-output\">/dev/disk0\n"
+#~ "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#~ "    1:                      EFI              209.7 MB  disk0s1\n"
+#~ "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#~ "    3:                      EFI              134.1 GB  disk0s3\n"
+#~ "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+#~ "  /dev/disk1\n"
+#~ "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+#~ "    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
 
 #, no-wrap
 #~ msgid "<div class=\"hidden-step-1\"></div>\n"

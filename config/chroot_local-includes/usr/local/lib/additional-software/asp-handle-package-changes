@@ -213,6 +213,10 @@ def main():
                 not apt_cache[pkg].is_auto_installed and
                 pkg not in additional_packages_names)
     }
+    # The apt cache is huge (about 75MB on Tails 5.21) and handling
+    # the installed/removed packages can depend on user interaction,
+    # so we release the memory used by the apt cache now.
+    del apt_cache
 
     if new_manually_installed_packages:
         handle_installed_packages(new_manually_installed_packages)

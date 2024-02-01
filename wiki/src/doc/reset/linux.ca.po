@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:55+0200\n"
-"PO-Revision-Date: 2023-12-21 00:20+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"PO-Revision-Date: 2024-01-30 14:42+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -40,8 +40,8 @@ msgstr "<a id=\"disks\"></a>\n"
 
 #. type: Title =
 #, no-wrap
-msgid "Using <span class=\"application\">GNOME Disks</span>"
-msgstr "Utilitzant <span class=\"application\">Discs de GNOME</span>"
+msgid "Using the *Disks* utility"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -50,12 +50,17 @@ msgstr "<div class=\"caution\">\n"
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"<strong>You might overwrite any hard disk on the computer.</strong> If at some\n"
-"point you are not sure about which device to choose, stop proceeding.\n"
+msgid "<p><b>You might overwrite any hard disk on the computer.</b></p>\n"
 msgstr ""
-"<strong>Podeu sobreescriure qualsevol disc dur de l'ordinador.</strong> Si "
-"no esteu\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<strong>You might overwrite any hard disk on the computer.</strong> If at some\n"
+#| "point you are not sure about which device to choose, stop proceeding.\n"
+msgid "<p>If at some point you are not sure about which device to choose, stop proceeding.</p>\n"
+msgstr ""
+"<strong>Podeu sobreescriure qualsevol disc dur de l'ordinador.</strong> Si no esteu\n"
 "segur de quin dispositiu triar, millor no continueu.\n"
 
 #. type: Plain text
@@ -68,24 +73,11 @@ msgid "Make sure that the USB stick that you want to reset is unplugged."
 msgstr ""
 "Assegureu-vos que el llapis USB que voleu restablir estigui desconnectat."
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '1. '
 msgid ""
-"1. Choose\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Disks</span>\n"
-"   </span>\n"
-"   to start <span class=\"application\">GNOME Disks</span>.\n"
+"Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to start the "
+"*Disks* utility."
 msgstr ""
-"1. Trieu\n"
-"    <span class=\"menuchoice\">\n"
-"      <span class=\"guimenu\">Aplicacions</span>&nbsp;▸\n"
-"      <span class=\"guisubmenu\">Utilitats</span>&nbsp;▸\n"
-"      <span class=\"guimenuitem\">Discs</span>\n"
-"    </span>\n"
-"    per iniciar <span class=\"application\">Discs de GNOME</span>.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -93,8 +85,7 @@ msgid ""
 "   A list of all the storage devices on the computer appears in the left pane\n"
 "   of the window.\n"
 msgstr ""
-"   Al panell esquerre de la finestra apareix una llista de tots els "
-"dispositius\n"
+"   Al panell esquerre de la finestra apareix una llista de tots els dispositius\n"
 "   d'emmagatzematge de l'ordinador.\n"
 
 #. type: Bullet: '1. '
@@ -107,8 +98,7 @@ msgid ""
 "   A new device appears in the list of storage devices. This new device\n"
 "   corresponds to the USB stick that you plugged in. Click on it.\n"
 msgstr ""
-"   Apareix un nou dispositiu a la llista de dispositius d'emmagatzematge. "
-"Aquest nou dispositiu\n"
+"   Apareix un nou dispositiu a la llista de dispositius d'emmagatzematge. Aquest nou dispositiu\n"
 "   correspon al llapis USB que heu connectat. Feu-hi clic.\n"
 
 #. type: Bullet: '1. '
@@ -120,17 +110,24 @@ msgstr ""
 "llapis USB que voleu restablir, la seva marca, la seva mida, etc."
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "To reset the USB stick, click on the <span class=\"guimenu\">[[!img lib/"
+#| "open-menu.png alt=\"Menu\" class=symbolic link=no]]</span> button in the "
+#| "titlebar and choose <span class=\"guilabel\">Format Disk…</span>."
 msgid ""
-"To reset the USB stick, click on the <span class=\"guimenu\">[[!img lib/open-"
-"menu.png alt=\"Menu\" class=symbolic link=no]]</span> button in the titlebar "
-"and choose <span class=\"guilabel\">Format Disk…</span>."
+"To reset the USB stick, click on the [[!img lib/view-more.png alt=\"Drive "
+"Options\" class=\"symbolic\" link=\"no\"]] button in the titlebar and choose "
+"**Format Disk** to erase all the existing partitions on the device."
 msgstr ""
 "Per restablir el llapis USB, feu clic al botó <span class=\"guimenu\">[[!img "
 "lib/open-menu.png alt=\"Menú\" class=symbolic link=no]]</span> a la barra de "
 "títol i trieu <span class=\"guilabel\">Formata disc...</span>."
 
 #. type: Bullet: '1. '
-msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+#, fuzzy
+#| msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+msgid "In the **Format Disk** dialog:"
 msgstr "Al diàleg <span class=\"guilabel\">Formata el disc</span>:"
 
 #. type: Plain text
@@ -178,7 +175,7 @@ msgstr ""
 #. type: Title =
 #, no-wrap
 msgid "Resetting a Tails USB stick from itself"
-msgstr "Restablir un llapis USB Tails des de si mateix"
+msgstr "Restablir un llapis USB de Tails des de si mateix"
 
 #. type: Plain text
 msgid ""
@@ -190,26 +187,28 @@ msgstr ""
 "Tails."
 
 #. type: Bullet: '1.  '
-msgid ""
-"When starting Tails, add the <span class=\"command\">toram</span> boot "
-"option in the <span class=\"application\">Boot Loader</span>. For detailed "
-"instructions, see the documentation on [[using the <span class=\"application"
-"\">Boot Loader</span>|advanced_topics/boot_options]]."
+msgid "When starting Tails, add the `toram` boot option in the *Boot Loader*."
 msgstr ""
-"Quan inicieu Tails, afegiu l'opció d'arrencada <span class=\"command\""
-">toram</span> al <span class=\"application\">Carregador d'Arrencada</span>. "
-"Per obtenir instruccions detallades, consulteu la documentació sobre com [["
-"usar el <span class=\"application\">Carregador d'Arrencada</span>|"
-"advanced_topics/boot_options]]."
+"Quan inicieu Tails, afegiu l'opció d'arrencada `toram` al *Carregador "
+"d'Arrencada*."
+
+#. type: Plain text
+#, no-wrap
+msgid "    See [[using the *Boot Loader*|advanced_topics/boot_options]].\n"
+msgstr "    Vegeu com [[usar el *Carregador d'Arrencada*|advanced_topics/boot_options]].\n"
 
 #. type: Bullet: '2.  '
+#, fuzzy
+#| msgid ""
+#| "If Tails starts as usual, follow the instructions for [[resetting a USB "
+#| "stick using <span class=\"application\">GNOME Disks</span>|linux#disks]]."
 msgid ""
 "If Tails starts as usual, follow the instructions for [[resetting a USB "
-"stick using <span class=\"application\">GNOME Disks</span>|linux#disks]]."
+"stick using the *Disks* utility|linux#disks]]."
 msgstr ""
 "Si Tails s'inicia com de costum, seguiu les instruccions per [[restablir un "
-"llapis USB mitjançant <span class=\"application\">Discs de "
-"GNOME</span>|linux#disks]]."
+"llapis USB mitjançant <span class=\"application\">Discs de GNOME</span>|"
+"linux#disks]]."
 
 #. type: Plain text
 #, no-wrap
@@ -219,10 +218,42 @@ msgid ""
 "    another Linux system, such as another Tails USB stick, to do the reset from.\n"
 msgstr ""
 "    **Si el sistema no s'inicia**, vol dir que l'ordinador no té\n"
-"    memòria suficient per a aquest mode de funcionament. Proveu amb un altre "
-"ordinador o trobeu\n"
-"    un altre sistema Linux, com un altre llapis USB de Tails, per fer el "
-"restabliment.\n"
+"    memòria suficient per a aquest mode de funcionament. Proveu amb un altre ordinador o trobeu\n"
+"    un altre sistema Linux, com un altre llapis USB de Tails, per fer el restabliment.\n"
+
+#, no-wrap
+#~ msgid "Using <span class=\"application\">GNOME Disks</span>"
+#~ msgstr "Utilitzant <span class=\"application\">Discs de GNOME</span>"
+
+#, no-wrap
+#~ msgid ""
+#~ "1. Choose\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Disks</span>\n"
+#~ "   </span>\n"
+#~ "   to start <span class=\"application\">GNOME Disks</span>.\n"
+#~ msgstr ""
+#~ "1. Trieu\n"
+#~ "    <span class=\"menuchoice\">\n"
+#~ "      <span class=\"guimenu\">Aplicacions</span>&nbsp;▸\n"
+#~ "      <span class=\"guisubmenu\">Utilitats</span>&nbsp;▸\n"
+#~ "      <span class=\"guimenuitem\">Discs</span>\n"
+#~ "    </span>\n"
+#~ "    per iniciar <span class=\"application\">Discs de GNOME</span>.\n"
+
+#~ msgid ""
+#~ "When starting Tails, add the <span class=\"command\">toram</span> boot "
+#~ "option in the <span class=\"application\">Boot Loader</span>. For "
+#~ "detailed instructions, see the documentation on [[using the <span "
+#~ "class=\"application\">Boot Loader</span>|advanced_topics/boot_options]]."
+#~ msgstr ""
+#~ "Quan inicieu Tails, afegiu l'opció d'arrencada <span "
+#~ "class=\"command\">toram</span> al <span class=\"application\">Carregador "
+#~ "d'Arrencada</span>. Per obtenir instruccions detallades, consulteu la "
+#~ "documentació sobre com [[usar el <span class=\"application\">Carregador "
+#~ "d'Arrencada</span>|advanced_topics/boot_options]]."
 
 #~ msgid ""
 #~ "In the popup window, choose <span class=\"guilabel\">Master Boot Record</"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2023-11-14 10:03+0000\n"
-"PO-Revision-Date: 2023-12-12 23:44+0000\n"
+"PO-Revision-Date: 2024-01-30 15:00+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -24,8 +24,8 @@ msgid ""
 "[[!meta title=\"Security audit of Persistent Storage and Tor "
 "integration\"]]\n"
 msgstr ""
-"[[!meta title=\"Auditoría de seguridad de la integración del Almacenamiento "
-"Persistente y Tor\"]]\n"
+"[[!meta title=\"Auditoría de seguridad del Almacenamiento Persistente y la "
+"integración de Tor\"]]\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -81,7 +81,7 @@ msgstr ""
 #. type: Plain text
 #, markdown-text
 msgid "We are proud of the conclusion of the auditors:"
-msgstr "Estamos orgullosos de la conclusión de los auditores:"
+msgstr "Estamos orgullosas de la conclusión de los auditores:"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -198,11 +198,27 @@ msgid ""
 "of chroot overlay</td><td>Unknown</td><td>Fixed</td><td>5.13</td></tr>\n"
 "</table>\n"
 msgstr ""
+"<table>\n"
+"<tr><th>Identificador</th><th>Problema</th><th>Descripción</th><th>Impacto</t"
+"h><th>Estado</th><th>Versión</th></tr>\n"
+"<tr><td>TLS-012</td><td>[[!tails_ticket 19585]]</td><td>Fuga de IP clara "
+"como usuario amnesia con privilegios "
+"bajos</td><td>Alto</td><td>Corregido</td><td>5.12</td></tr>\n"
+"<tr><td>TLS-013</td><td>[[!tails_ticket 19594]]</td><td>Escalada de "
+"privilegios local a sandbox de Tor "
+"Connection</td><td>Alto</td><td>Corregido</td><td>5.12</td></tr>\n"
+"<tr><td>TLS-014</td><td>[[!tails_ticket 19595]]</td><td>Escalada de "
+"privilegios local a sandbox del Navegador "
+"Tor</td><td>Moderado</td><td>Corregido</td><td>5.13</td></tr>\n"
+"<tr><td>TLS-017</td><td>[[!tails_ticket 19610]]</td><td>Permisos inseguros "
+"de la superposición chroot</td><td>Desconocido</td><td>Corregido</td><td>5."
+"13</td></tr>\n"
+"</table>\n"
 
 #. type: Title ##
 #, markdown-text, no-wrap
 msgid "Persistent Storage"
-msgstr ""
+msgstr "Almacenamiento Persistente"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -220,11 +236,24 @@ msgid ""
 "hook</td><td>High</td><td>Fixed</td><td>5.11</td></tr>\n"
 "</table>\n"
 msgstr ""
+"<table>\n"
+"<tr><th>Identificador</th><th>Problema</th><th>Descripción</th><th>Impacto</t"
+"h><th>Estado</th><th>Versión</th></tr>\n"
+"<tr><td>TLS-003</td><td>[[!tails_ticket 19546]]</td><td>Escalada de "
+"privilegios local en el hook de activación de la Carpeta "
+"Persistente</td><td>Alto</td><td>Corregido</td><td>5.11</td></tr>\n"
+"<tr><td>TLS-004</td><td>[[!tails_ticket 19547]]</td><td>Ataque de enlace "
+"simbólico en el hook de desactivación de la Carpeta "
+"Persistente</td><td>Bajo</td><td>Corregido</td><td>5.11</td></tr>\n"
+"<tr><td>TLS-005</td><td>[[!tails_ticket 19548]]</td><td>Escalada de "
+"privilegios local en el hook de activación de la función "
+"GnuPG</td><td>Alto</td><td>Corregido</td><td>5.11</td></tr>\n"
+"</table>\n"
 
 #. type: Title ##
 #, markdown-text, no-wrap
 msgid "Core"
-msgstr ""
+msgstr "Núcleo"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -245,3 +274,19 @@ msgid ""
 "read</td><td>High</td><td>Fixed</td><td>5.14</td></tr>\n"
 "</table>\n"
 msgstr ""
+"<table>\n"
+"<tr><th>Identificador</th><th>Asunto</th><th>Descripción</th><th>Impacto</th>"
+"<th>Estado</th><th>Versión</th></tr>\n"
+"<tr><td>TLS-001</td><td>[[!tails_ticket 19464]]</td><td>Escalada de "
+"privilegios local en tails-shell-"
+"library</td><td>Alto</td><td>Corregido</td><td>5.11</td></tr>\n"
+"<tr><td>TLS-009</td><td>[[!tails_ticket 19599]]</td><td>Ataque de man-in-the-"
+"middle en el servicio de onion-"
+"grater</td><td>Bajo</td><td>Corregido</td><td>5.13</td></tr>\n"
+"<tr><td>TLS-011</td><td>[[!tails_ticket 19576]]</td><td>Viaje de rutas "
+"limitado en la documentación de "
+"tails</td><td>Bajo</td><td>Corregido</td><td>5.13</td></tr>\n"
+"<tr><td>TLS-019</td><td>[[!tails_ticket 19677]]</td><td>La escalada de "
+"privilegios local en tailslib conduce a la lectura arbitraria de "
+"archivos</td><td>Alto</td><td>Corregido</td><td>5.14</td></tr>\n"
+"</table>\n"
