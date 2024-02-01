@@ -29,12 +29,12 @@ fi
 
 # get git branch or tag so we can set the basename appropriately.
 GIT_BRANCH="$(git_current_branch)"
+GIT_BASE_BRANCH_SHORT_ID="$(git rev-parse --verify --short "$(git_base_branch_head)")"
 if [ -n "${GIT_BRANCH}" ]; then
     CLEAN_GIT_BRANCH=$(echo "$GIT_BRANCH" | sed 's,/,_,g')
     BASE_BRANCH_PART=''
     if [ "${GIT_BRANCH}" != "$(base_branch)" ]; then
         CLEAN_GIT_BASE_BRANCH=$(base_branch | sed 's,/,_,g')
-        GIT_BASE_BRANCH_SHORT_ID="$(git rev-parse --verify --short "$(git_base_branch_head)")"
         BASE_BRANCH_PART="+${CLEAN_GIT_BASE_BRANCH}@${GIT_BASE_BRANCH_SHORT_ID}"
     fi
     BUILD_BASENAME="tails-amd64-${CLEAN_GIT_BRANCH}@${GIT_SHORT_ID}${BASE_BRANCH_PART}-${DATETIME_NOW}"
