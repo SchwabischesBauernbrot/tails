@@ -868,14 +868,14 @@ suite should be ready, so it is time to:
 
         . $(./bin/rm-config generate-environment --stage finalized-changelog)
 
-1. tag the release *again*, with all included files in:
+1. Tag the release *again*, with all included files in:
 
         git tag -f -u "${TAILS_SIGNATURE_KEY:?}" \
                 -m "tagging version ${VERSION:?}" "${TAG:?}" && \
         git push --force origin "${TAG:?}" && \
         git push origin "${RELEASE_BRANCH:?}"
 
-1. build the final images!
+1. Build the final images!
 
    Do _not_ set `keeprunning` nor `rescue` in `$TAILS_BUILD_OPTIONS`.
    Our build system will apply the correct compression settings automatically
