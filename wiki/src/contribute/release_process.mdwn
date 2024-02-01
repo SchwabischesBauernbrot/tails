@@ -875,7 +875,9 @@ suite should be ready, so it is time to:
         git push --force origin "${TAG:?}" && \
         git push origin "${RELEASE_BRANCH:?}"
 
-1. Build the final images!
+1. Build the final images:
+
+        rake build
 
    Do _not_ set `keeprunning` nor `rescue` in `$TAILS_BUILD_OPTIONS`.
    Our build system will apply the correct compression settings automatically
