@@ -8,6 +8,6 @@ set -u
 
 add_gnome_bookmark "${HOME}/Tor Browser"
 
-for launcher in Report_an_error tails-documentation ; do
+for launcher in whisperback tails-documentation ; do
     gio set "${HOME}/Desktop/${launcher}.desktop" metadata::trusted true
 done
