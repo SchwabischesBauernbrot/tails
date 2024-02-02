@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-11-23 12:56+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2023-02-27 13:28+0000\n"
 "Last-Translator: drebs <drebs@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -46,8 +46,9 @@ msgid "Open the system menu in the top-right corner."
 msgstr "Abra o menu do sistema no canto superior direito."
 
 #. type: Plain text
-#, no-wrap
-msgid "   [[!img doc/first_steps/desktop/system.png link=\"no\"]]\n"
+#, fuzzy, no-wrap
+#| msgid "   [[!img doc/first_steps/desktop/system.png link=\"no\"]]\n"
+msgid "   [[!img doc/first_steps/desktop/system-with-wired.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr "   [[!img doc/first_steps/desktop/system.png link=\"no\"]]\n"
 
 #. type: Bullet: '   - '
@@ -59,32 +60,36 @@ msgstr ""
 
 #. type: Bullet: '   - '
 msgid ""
-"To connect to a Wi-Fi network, choose <span class=\"guilabel\">Wi-Fi Not "
-"Connected</span> and then <span class=\"guilabel\">Select Network</span>."
+"To connect to a Wi-Fi network, choose [[!img lib/go-next.png link=\"no\" "
+"class=\"symbolic\" alt=\"\"]] in the **Wi-Fi**. A list of available Wi-Fi "
+"networks appears below the **Wi-Fi** menu."
 msgstr ""
-"Para conectar a uma rede Wi-Fi, escolha <span class=\"guilabel\">Wi-Fi Não "
-"Conectado</span> e depois <span class=\"guilabel\">Selecionar uma Rede</"
-"span>."
 
 #. type: Plain text
-#, no-wrap
-msgid "   <div class=\"bug\">\n"
+#, fuzzy, no-wrap
+#| msgid "   <div class=\"bug\">\n"
+msgid "     <div class=\"bug\">\n"
 msgstr "   <div class=\"bug\">\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <p>If there is no option to connect to a Wi-Fi network, your Wi-Fi interface\n"
+#| "   is not working in Tails. See our documentation on [[troubleshooting Wi-Fi\n"
+#| "   not working|no-wifi]].</p>\n"
 msgid ""
-"   <p>If there is no option to connect to a Wi-Fi network, your Wi-Fi interface\n"
-"   is not working in Tails. See our documentation on [[troubleshooting Wi-Fi\n"
-"   not working|no-wifi]].</p>\n"
+"     <p>If there is no <b>Wi-Fi</b> menu, your Wi-Fi interface might not\n"
+"     be compatible with Tails. See [[Troubleshooting Wi-Fi not\n"
+"     working|no-wifi]].</p>\n"
 msgstr ""
 "   <p>Se não houver uma opção para conectar a uma rede Wi-Fi, então sua interface Wi-Fi\n"
 "   não está funcionando no Tails. Veja a nossa documentação sobre [[solução de problemas\n"
 "   quando o Wi-Fi não funciona|no-wifi]].</p>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   </div>\n"
+#, fuzzy, no-wrap
+#| msgid "   </div>\n"
+msgid "     </div>\n"
 msgstr "   </div>\n"
 
 #. type: Bullet: '   - '
@@ -96,26 +101,22 @@ msgstr ""
 "class=\"guilabel\">Banda larga móvel</span>."
 
 #. type: Plain text
-#, no-wrap
-msgid ""
-"   <div class=\"note\">\n"
-"   <p>It is currently impossible to connect to a network using:</p>\n"
-msgstr ""
-"   <div class=\"note\">\n"
-"   <p>Atualmente é impossível conectar a uma rede usando:</p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <div class=\"bug\">\n"
+msgid "   <div class=\"note\">\n"
+msgstr "   <div class=\"bug\">\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   <ul>\n"
-"   <li>Dial-up modems.</li>\n"
-"   <li>VPNs, see [[the corresponding FAQ|support/faq#vpn]].</li>\n"
-"   </ul>\n"
+"   <p>It is currently impossible to [[use a VPN in\n"
+"   Tails|support/faq#vpn]].</p>\n"
 msgstr ""
-"   <ul>\n"
-"   <li>Modem de linha discada.</li>\n"
-"   <li>VPNs, veja [[as Perguntas Frequentes correspondente|support/faq#vpn]].</li>\n"
-"   </ul>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "   </div>\n"
+msgstr "   </div>\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -129,17 +130,6 @@ msgstr ""
 #, no-wrap
 msgid "   [[!img tor/tor-connection.png link=\"no\"]]\n"
 msgstr "   [[!img tor/tor-connection.png link=\"no\"]]\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"For more information, open\n"
-"<span class=\"application\">[[GNOME Help|first_steps/desktop#help]]</span>\n"
-"and choose <span class=\"guilabel\">Networking, web & email</span>.\n"
-msgstr ""
-"Para mais informações, abra o\n"
-"<span class=\"application\">[[GNOME Ajuda|first_steps/desktop#help]]</span>\n"
-"e escolha <span class=\"guilabel\">Rede, web & e-mail</span>.\n"
 
 #. type: Title =
 #, no-wrap
@@ -173,6 +163,44 @@ msgstr ""
 "quando se conectar ou não automaticamente à uma rede Wi-Fi, escolha "
 "**Aplicativos&nbsp;▸ Ferramentas de sistema&nbsp;▸ Configurações&nbsp;▸ "
 "Rede**."
+
+#~ msgid ""
+#~ "To connect to a Wi-Fi network, choose <span class=\"guilabel\">Wi-Fi Not "
+#~ "Connected</span> and then <span class=\"guilabel\">Select Network</span>."
+#~ msgstr ""
+#~ "Para conectar a uma rede Wi-Fi, escolha <span class=\"guilabel\">Wi-Fi "
+#~ "Não Conectado</span> e depois <span class=\"guilabel\">Selecionar uma "
+#~ "Rede</span>."
+
+#, no-wrap
+#~ msgid ""
+#~ "   <div class=\"note\">\n"
+#~ "   <p>It is currently impossible to connect to a network using:</p>\n"
+#~ msgstr ""
+#~ "   <div class=\"note\">\n"
+#~ "   <p>Atualmente é impossível conectar a uma rede usando:</p>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "   <ul>\n"
+#~ "   <li>Dial-up modems.</li>\n"
+#~ "   <li>VPNs, see [[the corresponding FAQ|support/faq#vpn]].</li>\n"
+#~ "   </ul>\n"
+#~ msgstr ""
+#~ "   <ul>\n"
+#~ "   <li>Modem de linha discada.</li>\n"
+#~ "   <li>VPNs, veja [[as Perguntas Frequentes correspondente|support/faq#vpn]].</li>\n"
+#~ "   </ul>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "For more information, open\n"
+#~ "<span class=\"application\">[[GNOME Help|first_steps/desktop#help]]</span>\n"
+#~ "and choose <span class=\"guilabel\">Networking, web & email</span>.\n"
+#~ msgstr ""
+#~ "Para mais informações, abra o\n"
+#~ "<span class=\"application\">[[GNOME Ajuda|first_steps/desktop#help]]</span>\n"
+#~ "e escolha <span class=\"guilabel\">Rede, web & e-mail</span>.\n"
 
 #~ msgid "After establishing a connection to a network:"
 #~ msgstr "Após se conectar numa rede:"

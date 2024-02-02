@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-23 00:41+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2021-07-22 06:05+0000\n"
 "Last-Translator: dedmoroz <cj75300@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -41,8 +41,8 @@ msgstr "<a id=\"disks\"></a>\n"
 
 #. type: Title =
 #, no-wrap
-msgid "Using <span class=\"application\">GNOME Disks</span>"
-msgstr "<span class=\"application\">Утилита Диски (GNOME)</span>"
+msgid "Using the *Disks* utility"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -51,9 +51,15 @@ msgstr "<div class=\"caution\">\n"
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"<strong>You might overwrite any hard disk on the computer.</strong> If at some\n"
-"point you are not sure about which device to choose, stop proceeding.\n"
+msgid "<p><b>You might overwrite any hard disk on the computer.</b></p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<strong>You might overwrite any hard disk on the computer.</strong> If at some\n"
+#| "point you are not sure about which device to choose, stop proceeding.\n"
+msgid "<p>If at some point you are not sure about which device to choose, stop proceeding.</p>\n"
 msgstr "<strong>Программа позволяет перезаписать любой диск на компьютере.</strong> Если в какой-то момент вы не уверены, правильный ли диск выбрали, лучше остановитесь.\n"
 
 #. type: Plain text
@@ -66,31 +72,11 @@ msgid "Make sure that the USB stick that you want to reset is unplugged."
 msgstr ""
 "Убедитесь, что флешка, которую вы хотите стереть, не подключена к компьютеру."
 
-#. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "1. Choose\n"
-#| "   <span class=\"menuchoice\">\n"
-#| "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-#| "     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-#| "     <span class=\"guimenuitem\">Disks</span>\n"
-#| "   </span>\n"
-#| "   to start <span class=\"application\">GNOME Disks</span>.\n"
+#. type: Bullet: '1. '
 msgid ""
-"1. Choose\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Disks</span>\n"
-"   </span>\n"
-"   to start <span class=\"application\">GNOME Disks</span>.\n"
+"Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to start the "
+"*Disks* utility."
 msgstr ""
-"1. Для запуска приложения <span class=\"application\">Диски</span> выберите\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Приложения</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Утилиты</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Диски</span>\n"
-"   </span>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -127,9 +113,9 @@ msgstr ""
 #| "open-menu.png alt=\"Menu\" class=symbolic link=no]]</span> button in the "
 #| "titlebar and choose <span class=\"guilabel\">Format Disk…</span>."
 msgid ""
-"To reset the USB stick, click on the <span class=\"guimenu\">[[!img lib/open-"
-"menu.png alt=\"Menu\" class=symbolic link=no]]</span> button in the titlebar "
-"and choose <span class=\"guilabel\">Format Disk…</span>."
+"To reset the USB stick, click on the [[!img lib/view-more.png alt=\"Drive "
+"Options\" class=\"symbolic\" link=\"no\"]] button in the titlebar and choose "
+"**Format Disk** to erase all the existing partitions on the device."
 msgstr ""
 "Для стирания флешки нажмите кнопку «бутерброда» <span class=\"guimenu\">[[!"
 "img lib/open-menu.png alt=\"Кнопка-бутерброд\" class=symbolic link=no]]</"
@@ -137,7 +123,9 @@ msgstr ""
 "диск…</span>."
 
 #. type: Bullet: '1. '
-msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+#, fuzzy
+#| msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+msgid "In the **Format Disk** dialog:"
 msgstr "Появится диалог <span class=\"guilabel\">Форматировать диск</span>."
 
 #. type: Plain text
@@ -209,9 +197,13 @@ msgid "    See [[using the *Boot Loader*|advanced_topics/boot_options]].\n"
 msgstr ""
 
 #. type: Bullet: '2.  '
+#, fuzzy
+#| msgid ""
+#| "If Tails starts as usual, follow the instructions for [[resetting a USB "
+#| "stick using <span class=\"application\">GNOME Disks</span>|linux#disks]]."
 msgid ""
 "If Tails starts as usual, follow the instructions for [[resetting a USB "
-"stick using <span class=\"application\">GNOME Disks</span>|linux#disks]]."
+"stick using the *Disks* utility|linux#disks]]."
 msgstr ""
 "Если Tails стартует как обычно, следуйте инструкциям выше (как [[стереть "
 "флешку с помощью утилиты <span class=\"application\">Диски</span>|"
@@ -227,6 +219,35 @@ msgstr ""
 "    **Если система не запускается**, значит, компьютеру не хватает памяти \n"
 "    для загрузки в этом режиме. Попробуйте проделать то же на другом компьютере \n"
 "    или подыщите другую систему Linux для вашей задачи, скажем, другую флешку Tails.\n"
+
+#, no-wrap
+#~ msgid "Using <span class=\"application\">GNOME Disks</span>"
+#~ msgstr "<span class=\"application\">Утилита Диски (GNOME)</span>"
+
+#, fuzzy, no-wrap
+#~| msgid ""
+#~| "1. Choose\n"
+#~| "   <span class=\"menuchoice\">\n"
+#~| "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~| "     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~| "     <span class=\"guimenuitem\">Disks</span>\n"
+#~| "   </span>\n"
+#~| "   to start <span class=\"application\">GNOME Disks</span>.\n"
+#~ msgid ""
+#~ "1. Choose\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Disks</span>\n"
+#~ "   </span>\n"
+#~ "   to start <span class=\"application\">GNOME Disks</span>.\n"
+#~ msgstr ""
+#~ "1. Для запуска приложения <span class=\"application\">Диски</span> выберите\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Приложения</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Утилиты</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Диски</span>\n"
+#~ "   </span>\n"
 
 #~ msgid ""
 #~ "When starting Tails, add the <span class=\"command\">toram</span> boot "

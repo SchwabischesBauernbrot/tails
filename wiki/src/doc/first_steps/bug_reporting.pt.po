@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-21 23:10+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2023-05-18 16:20+0000\n"
 "Last-Translator: drebs <drebs@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -24,20 +24,19 @@ msgid "[[!meta title=\"Reporting an error\"]]\n"
 msgstr "[[!meta title=\"Relatando um erro\"]]\n"
 
 #. type: Plain text
-msgid ""
-"In this documentation we use the term *bug* to refer to a software error."
-msgstr ""
-"Nesta documentação, usamos o termo *bug* para nos referir a um erro de "
-"software."
-
-#. type: Plain text
-msgid "Reporting bugs is a great way of helping us improve Tails."
+#, fuzzy
+#| msgid "Reporting bugs is a great way of helping us improve Tails."
+msgid "Reporting errors is a great way of helping us improve Tails."
 msgstr "Relatar bugs é uma ótima forma de nos ajudar a melhorar o Tails."
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "Remember that **the more effectively you report a bug**, the more likely "
+#| "we are to fix it."
 msgid ""
-"Remember that **the more effectively you report a bug**, the more likely we "
-"are to fix it."
+"Remember that **the more effectively you report an error**, the more likely "
+"we are to fix it."
 msgstr ""
 "Lembre-se que **quanto mais você se esmerar ao reportar um bug**, maior é a "
 "chance de que nós o consertemos."
@@ -48,8 +47,9 @@ msgid "[[!toc levels=2]]\n"
 msgstr "[[!toc levels=2]]\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"already-known\">Check if the bug is already known</h1>\n"
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"already-known\">Check if the bug is already known</h1>\n"
+msgid "<h1 id=\"known\">Check if the error is already known</h1>\n"
 msgstr "<h1 id=\"already-known\">Verificando se o bug já é conhecido</h1>\n"
 
 #. type: Plain text
@@ -75,13 +75,19 @@ msgstr ""
 "melhorias do próximo lançamento\"]]"
 
 #. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"useful-bug-report\">How to write a useful bug report</h1>\n"
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"useful-bug-report\">How to write a useful bug report</h1>\n"
+msgid "<h1 id=\"useful\">How to write a useful error report</h1>\n"
 msgstr "<h1 id=\"useful-bug-report\">Como relatar um bug de maneira eficaz</h1>\n"
 
 #. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "The first aim of a bug report is to **tell the developers exactly how to "
+#| "reproduce the failure**, so try to reproduce the issue yourself and "
+#| "describe how you did that."
 msgid ""
-"The first aim of a bug report is to **tell the developers exactly how to "
+"The first aim of a error report is to **tell the developers exactly how to "
 "reproduce the failure**, so try to reproduce the issue yourself and describe "
 "how you did that."
 msgstr ""
@@ -123,49 +129,51 @@ msgstr ""
 "Tatham."
 
 #. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"whisperback\">Use WhisperBack</h1>\n"
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"whisperback\">Use WhisperBack</h1>\n"
+msgid "<h1 id=\"whisperback\">Use <i>WhisperBack</i></h1>\n"
 msgstr "<h1 id=\"whisperback\">Use o WhisperBack</h1>\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "**WhisperBack is an application written specifically to report bugs anonymously\n"
+#| "from inside Tails. If you are not able to use WhisperBack, see the [[special\n"
+#| "cases|bug_reporting#special-cases]].**\n"
 msgid ""
-"**WhisperBack is an application written specifically to report bugs anonymously\n"
-"from inside Tails. If you are not able to use WhisperBack, see the [[special\n"
-"cases|bug_reporting#special-cases]].**\n"
+"***WhisperBack* is an application written specifically to report errors anonymously\n"
+"from inside Tails. If you are not able to use *WhisperBack*, see the [[special\n"
+"cases|bug_reporting#special]].**\n"
 msgstr ""
 "**WhisperBack é um programa escrito especificamente para relatar bugs de forma anônima\n"
 "a partir do Tails. Se você não puder usar o WhisperBack, veja os [[casos \n"
 "especiais|bug_reporting#special-cases]].**\n"
 
 #. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "WhisperBack will help you fill-up a bug report, including relevant technical details and send it to us encrypted and through Tor."
 msgid ""
-"WhisperBack will help you fill-up a bug report, including relevant technical "
-"details and send it to us encrypted and through Tor."
-msgstr ""
-"WhisperBack te ajudará a preencher um relatório de bug, com a inclusão dos "
-"detalhes técnicos relevantes, e a enviá-lo para nós de forma criptografada "
-"através da rede Tor."
+"*WhisperBack* will help you fill-up an error report, including relevant technical\n"
+"details and send it to us encrypted and through Tor.\n"
+msgstr "WhisperBack te ajudará a preencher um relatório de bug, com a inclusão dos detalhes técnicos relevantes, e a enviá-lo para nós de forma criptografada através da rede Tor."
 
 #. type: Title -
-#, no-wrap
-msgid "Start WhisperBack"
+#, fuzzy, no-wrap
+#| msgid "Start WhisperBack"
+msgid "Start *WhisperBack*"
 msgstr "Inicie o WhisperBack"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy
+#| msgid ""
+#| "You can also start it from the menu *Applications*&nbsp;▸ *System "
+#| "Tools*&nbsp;▸ *WhisperBack*."
 msgid ""
-"To start <span class=\"application\">WhisperBack</span>, choose\n"
-"<span class=\"menuchoice\">\n"
-"  <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"  <span class=\"guisubmenu\">System Tools</span>&nbsp;▸\n"
-"  <span class=\"guimenuitem\">WhisperBack Error Reporting</span></span>.\n"
+"To start *WhisperBack*, **Applications**&nbsp;▸ **System Tools**&nbsp;▸ "
+"**WhisperBack Error Reporting**."
 msgstr ""
-"Para iniciar o <span class=\"application\">WhisperBack</span>, selecione\n"
-"<span class=\"menuchoice\">\n"
-"  <span class=\"guimenu\">Aplicativos</span>&nbsp;▸\n"
-"  <span class=\"guisubmenu\">Ferramentas de sistema</span>&nbsp;▸\n"
-"  <span class=\"guimenuitem\">WhisperBack Error Reporting</span></span>.\n"
+"Você também pode iniciá-lo do menu *Aplicações*&nbsp;▸ *Ferramentas de "
+"Sistema*&nbsp;▸ *WhisperBack*."
 
 #. type: Title -
 #, no-wrap
@@ -173,16 +181,17 @@ msgid "Write the report"
 msgstr "Escreva o relatório"
 
 #. type: Plain text
-msgid "WhisperBack lets you give plenty of useful information about your bug:"
-msgstr ""
-"WhisperBack permite que você inclua muita informação útil sobre seu bug:"
+#, fuzzy, no-wrap
+#| msgid "WhisperBack lets you give plenty of useful information about your bug:"
+msgid "*WhisperBack* lets you give plenty of useful information about your error:\n"
+msgstr "WhisperBack permite que você inclua muita informação útil sobre seu bug:"
 
 #. type: Plain text
 #, fuzzy
 #| msgid ""
 #| "**Summary** a summary of the bug, try to be short, clear and informative"
 msgid ""
-"- **Summary** a summary of the bug, try to be short, clear and informative"
+"- **Summary** a summary of the error, try to be short, clear and informative"
 msgstr "**Resumo** um resumo do bug, tente mantê-lo curto, claro e informativo"
 
 #. type: Plain text
@@ -210,13 +219,19 @@ msgid "- **Desired result**"
 msgstr "**Resultado esperado**"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy
+#| msgid ""
+#| "You can also have a look at the <span class=\"guilabel\">technical "
+#| "details\n"
+#| "to include</span> in your bug report. It will give us information about\n"
+#| "your hardware, your version of Tails and the startup process.\n"
 msgid ""
-"You can also have a look at the <span class=\"guilabel\">technical details\n"
-"to include</span> in your bug report. It will give us information about\n"
-"your hardware, your version of Tails and the startup process.\n"
+"You can also have a look at the **technical details to include** in your "
+"error report. It will give us information about your hardware, your version "
+"of Tails and the startup process."
 msgstr ""
-"Você também pode dar uma olhada nos <span class=\"guilabel\">detalhes técnicos\n"
+"Você também pode dar uma olhada nos <span class=\"guilabel\">detalhes "
+"técnicos\n"
 "a incluir</span> em seu relatório de bug. Isto nos dará informações sobre\n"
 "seu hardware, sua versão do Tails e o processo de inicialização.\n"
 
@@ -238,102 +253,6 @@ msgstr ""
 #, no-wrap
 msgid "</div>\n"
 msgstr "</div>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "<h2 id=\"screenshot\">Take a screenshot</h2>\n"
-msgstr "<h2 id=\"screenshot\">Faça uma captura de tela</h2>\n"
-
-#. type: Plain text
-msgid "It might be helpful to include a screenshot with your bug report."
-msgstr "Pode ser útil incluir uma captura de tela em seu relatório de bug."
-
-#. type: Bullet: '- '
-#, fuzzy
-#| msgid ""
-#| "To take a screenshot of the entire desktop, press <span "
-#| "class=\"keycap\">Print Screen</span>."
-msgid "To take a screenshot of the entire desktop, press **Print Screen**."
-msgstr ""
-"Para fazer uma captura de tela contendo toda a área de trabalho, pressione a "
-"tecla <span class=\"keycap\">Print Screen</span>."
-
-#. type: Bullet: '- '
-#, fuzzy
-#| msgid ""
-#| "To take a screenshot of a single window, press <span class=\"keycap\">Alt "
-#| "+ Print Screen</span>."
-msgid "To take a screenshot of a single window, press **Alt + Print Screen**."
-msgstr ""
-"Para fazer uma captura de tela contendo apenas uma janela, pressione <span "
-"class=\"keycap\">Alt + Print Screen</span>."
-
-#. type: Bullet: '- '
-#, fuzzy
-#| msgid ""
-#| "To take a screenshot of an area you select, press <span "
-#| "class=\"keycap\">Shift + Print Screen</span>."
-msgid ""
-"To take a screenshot of an area you select, press **Shift + Print Screen**."
-msgstr ""
-"Para fazer uma captura de tela contendo uma área selecionada, pressione "
-"<span class=\"keycap\">Shift + Print Screen</span>."
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"The screenshot will automatically be saved in the\n"
-"<span class=\"filename\">Pictures</span> folder located in your\n"
-"<span class=\"filename\">Home</span> folder. The file name will begin with the\n"
-"word <span class=\"filename\">Screenshot</span>.\n"
-msgstr ""
-"A captura de tela será automaticamente salva na pasta\n"
-"<span class=\"filename\">Imagens</span>, localizada na sua pasta chamada\n"
-"<span class=\"filename\">Pasta pessoal</span>. O arquivo começará com as\n"
-"palavras <span class=\"filename\">Captura de tela</span>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"You can also take a screenshot using\n"
-"<span class=\"application\">GNOME Screenshot</span>.\n"
-msgstr ""
-"Você também pode fazer uma captura de tela usando o aplicativo\n"
-"<span class=\"application\">GNOME Screenshot</span>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"To start <span class=\"application\">GNOME Screenshot</span>, choose\n"
-"<span class=\"menuchoice\">\n"
-"  <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"  <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"  <span class=\"guimenuitem\">Screenshot</span></span>.\n"
-msgstr ""
-"Para iniciar o <span class=\"application\">GNOME Screenshot</span>, selecione\n"
-"<span class=\"menuchoice\">\n"
-"  <span class=\"guimenu\">Aplicativos</span>&nbsp;▸\n"
-"  <span class=\"guisubmenu\">Utilitários</span>&nbsp;▸\n"
-"  <span class=\"guimenuitem\">Captura de tela</span></span>.\n"
-
-#. type: Plain text
-msgid ""
-"You can upload the screenshot to an [encrypted Up1 host](https://github.com/"
-"Upload/Up1) such as the one available at:"
-msgstr ""
-"Você pode fazer upload de uma captura de tela para um [serviço Up1 "
-"criptografado](https://github.com/Upload/Up1), como o que está disponíveis "
-"em:"
-
-#. type: Plain text
-msgid "<https://share.riseup.net/>"
-msgstr "<https://share.riseup.net/>"
-
-#. type: Plain text
-msgid "Make sure to include in your bug report a link to the screenshot."
-msgstr ""
-"Não esqueça de incluir um link para a captura de tela no seu relatório de "
-"bug."
 
 #. type: Title -
 #, no-wrap
@@ -402,23 +321,32 @@ msgstr ""
 "no botão **Enviar**."
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy
+#| msgid ""
+#| "Once your email has been sent correctly you will get the following\n"
+#| "notification: <span class=\"guilabel\">Your message has been sent</"
+#| "span>.\n"
 msgid ""
-"Once your email has been sent correctly you will get the following\n"
-"notification: <span class=\"guilabel\">Your message has been sent</span>.\n"
+"Once your email has been sent correctly you will get the following "
+"notification: **Your message has been sent**."
 msgstr ""
 "Se o email tiver sido enviado corretamente, você receberá a seguinte\n"
 "notificação: <span class=\"guilabel\">Sua mensagem foi enviada</span>.\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"special-cases\">If you cannot use <span class=\"application\">WhisperBack</span></h1>\n"
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"special-cases\">If you cannot use <span class=\"application\">WhisperBack</span></h1>\n"
+msgid "<h1 id=\"special\">If you cannot use <i>WhisperBack</i></h1>\n"
 msgstr "<h1 id=\"special-cases\">Caso você não possa usar o <span class=\"application\">WhisperBack</span></h1>\n"
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "You might not always be able to use WhisperBack. In those cases, you can "
+#| "also send your bug report by [[email|support/talk]] directly."
 msgid ""
-"You might not always be able to use WhisperBack. In those cases, you can "
-"also send your bug report by [[email|support/talk]] directly."
+"You might not always be able to use *WhisperBack*. In those cases, you can "
+"also send your error report by [[email|support/talk]] directly."
 msgstr ""
 "Pode ser que em alguns casos você não tenha como utilizar o WhisperBack. "
 "Nestes casos, você também pode enviar seu relatório de bug por [[email|"
@@ -435,8 +363,9 @@ msgstr ""
 "o Tor e uma conta de email descartável)."
 
 #. type: Plain text
-#, no-wrap
-msgid "<h2 id=\"no-internet-access\">No Internet access</h2>\n"
+#, fuzzy, no-wrap
+#| msgid "<h2 id=\"no-internet-access\">No Internet access</h2>\n"
+msgid "<h2 id=\"offline\">No Internet access</h2>\n"
 msgstr "<h2 id=\"no-internet-access\">Sem acesso à Internet</h2>\n"
 
 #. type: Plain text
@@ -450,16 +379,20 @@ msgstr ""
 "anonymous_internet/no-wifi]] para consertar sua conexão à Internet."
 
 #. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "WhisperBack won't be able to send your bug report if you are not connected to the Internet."
 msgid ""
-"WhisperBack won't be able to send your bug report if you are not connected "
-"to the Internet."
-msgstr ""
-"O WhisperBack não conseguirá enviar seu relatório de bug se você não tiver "
-"conexão com a Internet."
+"*WhisperBack* won't be able to send your error report if you are not connected to\n"
+"the Internet.\n"
+msgstr "O WhisperBack não conseguirá enviar seu relatório de bug se você não tiver conexão com a Internet."
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "The following steps can be used as an alternative method to send your bug "
+#| "report:"
 msgid ""
-"The following steps can be used as an alternative method to send your bug "
+"The following steps can be used as an alternative method to send your error "
 "report:"
 msgstr ""
 "Os seguintes passos podem ser utilizados como método alternativo para envio "
@@ -474,7 +407,7 @@ msgstr "No Tails, inicie o WhisperBack"
 #. type: Bullet: '2. '
 #, fuzzy
 #| msgid "In the bug report window, expand \"technical details to include\""
-msgid "In the bug report window, expand \"technical details to include\"."
+msgid "In the error report window, expand \"technical details to include\"."
 msgstr "Na janela de relatório de bug, expanda \"detalhes técnicos a incluir\""
 
 #. type: Bullet: '3. '
@@ -504,8 +437,9 @@ msgid "Boot into a system with Internet connection and send your report."
 msgstr "Reinicie em um sistema com conexão à Internet e envie seu relatório"
 
 #. type: Plain text
-#, no-wrap
-msgid "<h2 id=\"does-not-start\">Tails does not start</h2>\n"
+#, fuzzy, no-wrap
+#| msgid "<h2 id=\"does-not-start\">Tails does not start</h2>\n"
+msgid "<h2 id=\"not_start\">Tails does not start</h2>\n"
 msgstr "<h2 id=\"does-not-start\">Tails não inicia</h2>\n"
 
 #. type: Plain text
@@ -531,37 +465,54 @@ msgstr ""
 "[[Iniciando um Mac a partir de um pendrive USB|doc/first_steps/start/mac]]"
 
 #. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"debian\">Reproducing the bug in Debian (for advanced users)</h1>\n"
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"debian\">Reproducing the bug in Debian (for advanced users)</h1>\n"
+msgid "<h1 id=\"debian\">Reproducing the error in Debian (for advanced users)</h1>\n"
 msgstr "<h1 id=\"debian\">Reproduzindo o bug no Debian (para usuários avançados)</h1>\n"
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "It is very useful for us to know if your bug only affects Tails or also "
+#| "affects Debian, on which Tails is based."
 msgid ""
-"It is very useful for us to know if your bug only affects Tails or also "
+"It is very useful for us to know if your error only affects Tails or also "
 "affects Debian, on which Tails is based."
 msgstr ""
 "É muito útil para nós saber se o bug afeta apenas o Tails ou se também afeta "
 "o Debian, no qual o Tails é baseado."
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "Doing so takes much more time so, in doubt, report your bug as instructed "
+#| "earlier and wait for guidance from our help desk."
 msgid ""
-"Doing so takes much more time so, in doubt, report your bug as instructed "
+"Doing so takes much more time so, in doubt, report your error as instructed "
 "earlier and wait for guidance from our help desk."
 msgstr ""
 "Fazer isso toma muito mais tempo então, na dúvida, relate seu bug da forma "
 "instruída anteriormente e aguarde ajuda da nossa equipe de suporte."
 
 #. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "If your bug also affects Debian *stable* then it will have to be fixed in "
+#| "Debian directly and not in Tails."
 msgid ""
-"If your bug also affects Debian *stable* then it will have to be fixed in "
+"If your error also affects Debian *stable* then it will have to be fixed in "
 "Debian directly and not in Tails."
 msgstr ""
 "Se o seu bug afeta o Debian *estável*, então deverá ser corrigido "
 "diretamente no Debian e não no Tails."
 
 #. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "If your bug affects Debian *stable* but not Debian *testing* then it "
+#| "might have been solved already in Debian."
 msgid ""
-"If your bug affects Debian *stable* but not Debian *testing* then it might "
+"If your error affects Debian *stable* but not Debian *testing* then it might "
 "have been solved already in Debian."
 msgstr ""
 "Se o seu bug afeta o Debian *estável* mas não afeta o Debian *testing*, "
@@ -620,6 +571,113 @@ msgid ""
 msgstr ""
 "<https://get.debian.org/cdimage/unofficial/non-free/cd-including-firmware/"
 "weekly-live-builds/amd64/iso-hybrid/>"
+
+#~ msgid ""
+#~ "In this documentation we use the term *bug* to refer to a software error."
+#~ msgstr ""
+#~ "Nesta documentação, usamos o termo *bug* para nos referir a um erro de "
+#~ "software."
+
+#, no-wrap
+#~ msgid ""
+#~ "To start <span class=\"application\">WhisperBack</span>, choose\n"
+#~ "<span class=\"menuchoice\">\n"
+#~ "  <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "  <span class=\"guisubmenu\">System Tools</span>&nbsp;▸\n"
+#~ "  <span class=\"guimenuitem\">WhisperBack Error Reporting</span></span>.\n"
+#~ msgstr ""
+#~ "Para iniciar o <span class=\"application\">WhisperBack</span>, selecione\n"
+#~ "<span class=\"menuchoice\">\n"
+#~ "  <span class=\"guimenu\">Aplicativos</span>&nbsp;▸\n"
+#~ "  <span class=\"guisubmenu\">Ferramentas de sistema</span>&nbsp;▸\n"
+#~ "  <span class=\"guimenuitem\">WhisperBack Error Reporting</span></span>.\n"
+
+#, no-wrap
+#~ msgid "<h2 id=\"screenshot\">Take a screenshot</h2>\n"
+#~ msgstr "<h2 id=\"screenshot\">Faça uma captura de tela</h2>\n"
+
+#~ msgid "It might be helpful to include a screenshot with your bug report."
+#~ msgstr "Pode ser útil incluir uma captura de tela em seu relatório de bug."
+
+#, fuzzy
+#~| msgid ""
+#~| "To take a screenshot of the entire desktop, press <span "
+#~| "class=\"keycap\">Print Screen</span>."
+#~ msgid "To take a screenshot of the entire desktop, press **Print Screen**."
+#~ msgstr ""
+#~ "Para fazer uma captura de tela contendo toda a área de trabalho, "
+#~ "pressione a tecla <span class=\"keycap\">Print Screen</span>."
+
+#, fuzzy
+#~| msgid ""
+#~| "To take a screenshot of a single window, press <span "
+#~| "class=\"keycap\">Alt + Print Screen</span>."
+#~ msgid ""
+#~ "To take a screenshot of a single window, press **Alt + Print Screen**."
+#~ msgstr ""
+#~ "Para fazer uma captura de tela contendo apenas uma janela, pressione "
+#~ "<span class=\"keycap\">Alt + Print Screen</span>."
+
+#, fuzzy
+#~| msgid ""
+#~| "To take a screenshot of an area you select, press <span "
+#~| "class=\"keycap\">Shift + Print Screen</span>."
+#~ msgid ""
+#~ "To take a screenshot of an area you select, press **Shift + Print "
+#~ "Screen**."
+#~ msgstr ""
+#~ "Para fazer uma captura de tela contendo uma área selecionada, pressione "
+#~ "<span class=\"keycap\">Shift + Print Screen</span>."
+
+#, no-wrap
+#~ msgid ""
+#~ "The screenshot will automatically be saved in the\n"
+#~ "<span class=\"filename\">Pictures</span> folder located in your\n"
+#~ "<span class=\"filename\">Home</span> folder. The file name will begin with the\n"
+#~ "word <span class=\"filename\">Screenshot</span>.\n"
+#~ msgstr ""
+#~ "A captura de tela será automaticamente salva na pasta\n"
+#~ "<span class=\"filename\">Imagens</span>, localizada na sua pasta chamada\n"
+#~ "<span class=\"filename\">Pasta pessoal</span>. O arquivo começará com as\n"
+#~ "palavras <span class=\"filename\">Captura de tela</span>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "You can also take a screenshot using\n"
+#~ "<span class=\"application\">GNOME Screenshot</span>.\n"
+#~ msgstr ""
+#~ "Você também pode fazer uma captura de tela usando o aplicativo\n"
+#~ "<span class=\"application\">GNOME Screenshot</span>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "To start <span class=\"application\">GNOME Screenshot</span>, choose\n"
+#~ "<span class=\"menuchoice\">\n"
+#~ "  <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "  <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~ "  <span class=\"guimenuitem\">Screenshot</span></span>.\n"
+#~ msgstr ""
+#~ "Para iniciar o <span class=\"application\">GNOME Screenshot</span>, selecione\n"
+#~ "<span class=\"menuchoice\">\n"
+#~ "  <span class=\"guimenu\">Aplicativos</span>&nbsp;▸\n"
+#~ "  <span class=\"guisubmenu\">Utilitários</span>&nbsp;▸\n"
+#~ "  <span class=\"guimenuitem\">Captura de tela</span></span>.\n"
+
+#~ msgid ""
+#~ "You can upload the screenshot to an [encrypted Up1 host](https://github."
+#~ "com/Upload/Up1) such as the one available at:"
+#~ msgstr ""
+#~ "Você pode fazer upload de uma captura de tela para um [serviço Up1 "
+#~ "criptografado](https://github.com/Upload/Up1), como o que está "
+#~ "disponíveis em:"
+
+#~ msgid "<https://share.riseup.net/>"
+#~ msgstr "<https://share.riseup.net/>"
+
+#~ msgid "Make sure to include in your bug report a link to the screenshot."
+#~ msgstr ""
+#~ "Não esqueça de incluir um link para a captura de tela no seu relatório de "
+#~ "bug."
 
 #, no-wrap
 #~ msgid "[[!inline pages=\"support/talk/no_reply_every_request.inline\" raw=\"yes\"]]\n"
@@ -682,10 +740,3 @@ msgstr ""
 #~ msgstr ""
 #~ "[[!img report_a_bug.png link=no alt=\"Atalho para Relate um Bug na área "
 #~ "de trabalho\"]]\n"
-
-#~ msgid ""
-#~ "You can also start it from the menu *Applications*&nbsp;▸ *System "
-#~ "Tools*&nbsp;▸ *WhisperBack*."
-#~ msgstr ""
-#~ "Você também pode iniciá-lo do menu *Aplicações*&nbsp;▸ *Ferramentas de "
-#~ "Sistema*&nbsp;▸ *WhisperBack*."

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2024-01-30 14:42+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -191,28 +191,17 @@ msgid ""
 "     <p class=\"code upgrade-linux\">https://tails.net/upgrade/linux?back=1</p>\n"
 "     <p class=\"code upgrade-clone\">https://tails.net/upgrade/clone?back=1</p>\n"
 msgstr ""
-"     <p class=\"code windows\">https://tails.net/install/windows/index.ca."
-"html?back=1</p>\n"
-"     <p class=\"code mac\">https://tails.net/install/mac/index.ca."
-"html?back=1</p>\n"
-"     <p class=\"code linux\">https://tails.net/install/linux/index.ca."
-"html?back=1</p>\n"
-"     <p class=\"code expert\">https://tails.net/install/expert/index.ca."
-"html?back=1</p>\n"
-"     <p class=\"code pc-clone\">https://tails.net/install/clone/pc/index.ca."
-"html?back=1</p>\n"
-"     <p class=\"code mac-clone\">https://tails.net/install/clone/mac/index.ca"
-".html?back=1</p>\n"
-"     <p class=\"code upgrade-tails\">https://tails.net/upgrade/tails/index.ca"
-".html?back=1</p>\n"
-"     <p class=\"code upgrade-windows\">https://tails.net/upgrade/windows/"
-"index.ca.html?back=1</p>\n"
-"     <p class=\"code upgrade-mac\">https://tails.net/upgrade/mac/index.ca."
-"html?back=1</p>\n"
-"     <p class=\"code upgrade-linux\">https://tails.net/upgrade/linux/index.ca"
-".html?back=1</p>\n"
-"     <p class=\"code upgrade-clone\">https://tails.net/upgrade/clone/index.ca"
-".html?back=1</p>\n"
+"     <p class=\"code windows\">https://tails.net/install/windows/index.ca.html?back=1</p>\n"
+"     <p class=\"code mac\">https://tails.net/install/mac/index.ca.html?back=1</p>\n"
+"     <p class=\"code linux\">https://tails.net/install/linux/index.ca.html?back=1</p>\n"
+"     <p class=\"code expert\">https://tails.net/install/expert/index.ca.html?back=1</p>\n"
+"     <p class=\"code pc-clone\">https://tails.net/install/clone/pc/index.ca.html?back=1</p>\n"
+"     <p class=\"code mac-clone\">https://tails.net/install/clone/mac/index.ca.html?back=1</p>\n"
+"     <p class=\"code upgrade-tails\">https://tails.net/upgrade/tails/index.ca.html?back=1</p>\n"
+"     <p class=\"code upgrade-windows\">https://tails.net/upgrade/windows/index.ca.html?back=1</p>\n"
+"     <p class=\"code upgrade-mac\">https://tails.net/upgrade/mac/index.ca.html?back=1</p>\n"
+"     <p class=\"code upgrade-linux\">https://tails.net/upgrade/linux/index.ca.html?back=1</p>\n"
+"     <p class=\"code upgrade-clone\">https://tails.net/upgrade/clone/index.ca.html?back=1</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -281,8 +270,9 @@ msgid "[[!inline pages=\"install/inc/steps/mac_startup_disks.inline\" raw=\"yes\
 msgstr "[[!inline pages=\"install/inc/steps/mac_startup_disks.inline.ca\" raw=\"yes\" sort=\"age\"]]\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<h2 id=\"troubleshooting\">Troubleshooting</h2>\n"
+#, fuzzy, no-wrap
+#| msgid "<h2 id=\"troubleshooting\">Troubleshooting</h2>\n"
+msgid "<h2 id=\"troubleshoot-start\">Troubleshoot Tails not starting</h2>\n"
 msgstr "<h2 id=\"troubleshooting\">Resolució de problemes</h2>\n"
 
 #. type: Plain text
@@ -421,14 +411,21 @@ msgid "<h1 id=\"tails\" class=\"step windows linux mac\">Welcome to Tails!</h1>\
 msgstr "<h1 id=\"tails\" class=\"step windows linux mac\">Us donem la benvinguda a Tails!</h1>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<div class=\"step-image\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
+#, fuzzy, no-wrap
+#| msgid "<div class=\"step-image\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
+msgid "<div class=\"step-image windows linux mac\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
 msgstr "<div class=\"step-image\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 class=\"clone upgrade\">Starting Tails</h2>\n"
 msgstr "<h2 class=\"clone upgrade\">Iniciar Tails</h2>\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<div class=\"step-image\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
+msgid "<div class=\"step-image clone upgrade\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
+msgstr "<div class=\"step-image\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
 
 #. type: Bullet: '1. '
 msgid "After the Boot Menu, a loading screen appears."
@@ -460,8 +457,7 @@ msgid ""
 "Click <span class=\"bold\">Start Tails</span>.\n"
 msgstr ""
 "1. A la Pantalla de Benvinguda, seleccioneu el vostre idioma i\n"
-"la disposició del teclat a la secció <span class=\"guilabel\">Language & "
-"Region</span>.\n"
+"la disposició del teclat a la secció <span class=\"guilabel\">Language & Region</span>.\n"
 "Feu clic a <span class=\"bold\">Inicia Tails</span>.\n"
 
 #. type: Plain text

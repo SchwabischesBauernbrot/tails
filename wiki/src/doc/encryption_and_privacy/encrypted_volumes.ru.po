@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-21 23:11+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2023-03-11 11:29+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -71,13 +71,11 @@ msgstr ""
 "Для создания зашифрованных томов (например, флешек, внешних жёстких дисков) можно использовать <span class=\"application\">LUKS</span>. Это стандарт шифрования дисков\n"
 "в Linux.\n"
 
-#. type: Bullet: '- '
-msgid ""
-"<span class=\"application\">GNOME Disks</span> allows you to create "
-"encrypted volumes."
-msgstr ""
-"Утилита <span class=\"application\">Диски</span> в GNOME позволяет создавать "
-"зашифрованные тома."
+#. type: Plain text
+#, fuzzy
+#| msgid "The GNOME desktop allows you to open encrypted volumes."
+msgid "- The *Disks* utility allows you to create encrypted volumes."
+msgstr "Их можно открыть на рабочем столе GNOME."
 
 #. type: Plain text
 #, fuzzy
@@ -111,10 +109,10 @@ msgstr "[[!inline pages=\"doc/encryption_and_privacy/luks_vs_veracrypt.inline.ru
 msgid "<h1 id=\"creating\">Creating an encrypted partition</h1>\n"
 msgstr "<h2 class=\"bullet-number-three\">Erstellen Sie eine neue, verschlüsselte Partition</h2>\n"
 
-#. type: Plain text
+#. type: Bullet: '1. '
 msgid ""
-"Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to open *GNOME "
-"Disks*."
+"Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to open the "
+"*Disks* utility."
 msgstr ""
 
 #. type: Plain text
@@ -123,11 +121,16 @@ msgid "<h2 id=\"identifying\">Identifying your external storage device</h2>\n"
 msgstr "<h2 class=\"bullet-number-one\">Identifizieren Sie das externe Speichermedium</h2>\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy
+#| msgid ""
+#| "<span class=\"application\">Disks</span> lists all the current storage\n"
+#| "devices on the left side of the screen.\n"
 msgid ""
-"<span class=\"application\">Disks</span> lists all the current storage\n"
-"devices on the left side of the screen.\n"
-msgstr "В левой части окна утилиты <span class=\"application\">Диски</span> видны все подключённые носители данных.\n"
+"The *Disks* utility lists all the current storage devices on the left side "
+"of the screen."
+msgstr ""
+"В левой части окна утилиты <span class=\"application\">Диски</span> видны "
+"все подключённые носители данных.\n"
 
 #. type: Bullet: '  1. '
 msgid "Plug in the external storage device that you want to use."
@@ -165,7 +168,7 @@ msgstr "<h2 class=\"bullet-number-two\">Formatieren Sie das Medium</h2>\n"
 msgid ""
 "Click on the [[!img lib/view-more.png alt=\"Drive Options\" "
 "class=\"symbolic\" link=\"no\"]] button in the titlebar and choose **Format "
-"Disk…** to erase all the existing partitions on the device."
+"Disk** to erase all the existing partitions on the device."
 msgstr ""
 "Нажмите кнопку <span class=\"guimenu\">[[!img lib/open-menu.png alt=\"Меню\" "
 "class=\"symbolic\" link=\"no\"]]</span> в заголовке окна. Выберите <span "
@@ -173,7 +176,9 @@ msgstr ""
 "существующие разделы на устройстве."
 
 #. type: Bullet: '  1. '
-msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+#, fuzzy
+#| msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+msgid "In the **Format Disk** dialog:"
 msgstr "Появится диалог <span class=\"guilabel\">Форматировать диск</span>."
 
 #. type: Bullet: '     - '
@@ -206,15 +211,18 @@ msgstr ""
 "устройствами (MBR / DOS)</span>."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "     Then click <span class=\"bold\">Format…</span>.\n"
-msgid "     Then click <span class=\"bold\">Format…</span>.\n"
-msgstr "     Затем нажмите <span class=\"bold\">Форматировать…</span>.\n"
+#, no-wrap
+msgid "     Then click **Format**.\n"
+msgstr ""
 
 #. type: Bullet: '  1. '
+#, fuzzy
+#| msgid ""
+#| "In the confirmation dialog, make sure that the device is correct. Click "
+#| "<span class=\"bold\">Format</span> to confirm."
 msgid ""
-"In the confirmation dialog, make sure that the device is correct. Click "
-"<span class=\"bold\">Format</span> to confirm."
+"In the confirmation dialog, make sure that the device is correct, then click "
+"**Format** to confirm."
 msgstr ""
 "В диалоговом окне убедитесь, что устройство выбрано верно. Нажмите <span "
 "class=\"bold\">Форматировать</span> для подтверждения."
@@ -442,71 +450,75 @@ msgid "<h1 id=\"opening\">Opening an existing encrypted partition</h1>\n"
 msgstr "Öffnen Sie eine bestehende, verschlüsselte Partition\n"
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "When plugging in a device containing an encrypted partition, Tails does "
+#| "not open the partition automatically but you can do so from the file "
+#| "browser."
 msgid ""
-"When plugging in a device containing an encrypted partition, Tails does not "
-"open the partition automatically but you can do so from the file browser."
+"When you plug in a device that has an encrypted partition, Tails offers to "
+"unlock the encryption automatically."
 msgstr ""
 "При подключении устройства с зашифрованным разделом Tails не открывает этот "
 "раздел автоматически. Вы можете сделать это с помощью файлового менеджера."
 
-#. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "1. Choose\n"
-#| "   <span class=\"menuchoice\">\n"
-#| "     <span class=\"guimenu\">Places</span>&nbsp;▸\n"
-#| "     <span class=\"guisubmenu\">Computer</span></span>\n"
-#| "   to open the file browser.\n"
-msgid ""
-"1. Choose\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Places</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Computer</span></span>\n"
-"   to open the file browser.\n"
-msgstr ""
-"1. Выберите\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Места</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Компьютер</span></span>\n"
-"   для того, чтобы открыть файловый менеджер.\n"
+#. type: Bullet: '1. '
+#, fuzzy
+#| msgid "Plug in the external storage device that you want to use."
+msgid "Plug in the external storage device that has the encrypted partition."
+msgstr "Подключите внешний носитель данных."
 
 #. type: Bullet: '1. '
-msgid "Click on the encrypted partition that you want to open in the sidebar."
+msgid "A dialog appears, asking for the passphrase to unlock the partition."
 msgstr ""
-"В левой панели нажмите на зашифрованный раздел, который хотите открыть."
 
 #. type: Plain text
 #, no-wrap
-msgid "   [[!img nautilus_encrypted.png link=\"no\" alt=\"File browser with '4.0 GB Encrypted' entry in the sidebar\"]]\n"
-msgstr "   [[!img nautilus_encrypted.png link=\"no\" alt=\"Файловый менеджер с зашифрованным томом\"]]\n"
+msgid "   [[!img unlock.png link=\"no\" class=\"screenshot\" alt=\"Authentication Required\"]]\n"
+msgstr ""
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Enter the passphrase of the partition in the password prompt and click "
+#| "<span class=\"bold\">Unlock</span>."
 msgid ""
-"Enter the passphrase of the partition in the password prompt and click <span "
-"class=\"bold\">Unlock</span>."
+"Enter the passphrase of the partition in the password prompt and click "
+"**Unlock**."
 msgstr ""
 "Введите пароль раздела в поле для ввода пароля и нажмите <span "
 "class=\"bold\">Разблокировать</span>."
 
-#. type: Bullet: '1. '
+#. type: Plain text
+#, no-wrap
 msgid ""
-"After opening the partition with the file browser, you can also access it "
-"from the <span class=\"guimenu\">Places</span> menu."
+"   If you turn on the option **Remember Password**, Tails remembers the\n"
+"   passphrase of this partition only until you shut down. The passphrase is not\n"
+"   stored in your Persistent Storage.\n"
 msgstr ""
-"После открытия раздела с помощью файлового менеджера вы также можете "
-"получить к нему доступ из меню <span class=\"guimenu\">Места</span> ."
 
 #. type: Bullet: '1. '
 msgid ""
-"To close the partition after you finished using it, click on the <span "
-"class=\"guimenu\">[[!img lib/media-eject.png alt=\"Eject\" "
-"class=\"symbolic\" link=\"no\"]]</span> button next to the partition in the "
-"sidebar of the file browser."
+"After unlocking, you can access the content of the partition from either:"
 msgstr ""
-"Чтобы закрыть раздел после окончания работы нажмите кнопку <span "
-"class=\"guimenu\">[[!img lib/media-eject.png alt=\"Извлечь\" "
-"class=\"symbolic\" link=\"no\"]]</span> рядом с разделом на боковой панели "
-"файлового менеджера."
+
+#. type: Bullet: '   * '
+msgid "The **Places** menu"
+msgstr ""
+
+#. type: Bullet: '   * '
+msgid "The sidebar of the *Files* browser"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "To close the partition after you finished using it, click on the <span class=\"guimenu\">[[!img lib/media-eject.png alt=\"Eject\" class=\"symbolic\" link=\"no\"]]</span> button next to the partition in the sidebar of the file browser."
+msgid ""
+"After you finished using the partition, click on the [[!img lib/media-eject.png\n"
+"alt=\"Eject\" class=\"symbolic\" link=\"no\"]] button next to the partition in the\n"
+"sidebar of the *Files* browser to eject the partition safety and lock again the\n"
+"encryption.\n"
+msgstr "Чтобы закрыть раздел после окончания работы нажмите кнопку <span class=\"guimenu\">[[!img lib/media-eject.png alt=\"Извлечь\" class=\"symbolic\" link=\"no\"]]</span> рядом с разделом на боковой панели файлового менеджера."
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -553,32 +565,15 @@ msgstr ""
 msgid "<h1 id=\"changing\">Changing the passphrase of an existing encrypted partition</h1>\n"
 msgstr "Öffnen Sie eine bestehende, verschlüsselte Partition\n"
 
-#. type: Plain text
-#, fuzzy, no-wrap
+#. type: Bullet: '1. '
+#, fuzzy
 #| msgid ""
-#| "To open <span class=\"application\">GNOME Disks</span> choose\n"
-#| "<span class=\"menuchoice\">\n"
-#| "  <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-#| "  <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-#| "  <span class=\"guimenuitem\">Disks</span></span>.\n"
+#| "1. Plug in the external storage device containing the encrypted partition "
+#| "that you\n"
+#| "want to change the passphrase for.\n"
 msgid ""
-"To open <span class=\"application\">GNOME Disks</span> choose\n"
-"<span class=\"menuchoice\">\n"
-"  <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"  <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"  <span class=\"guimenuitem\">Disks</span></span>.\n"
-msgstr ""
-"Чтобы открыть утилиту <span class=\"application\">Диски</span>, используйте\n"
-"<span class=\"menuchoice\">\n"
-"  <span class=\"guimenu\">Приложения</span>&nbsp;▸\n"
-"  <span class=\"guisubmenu\">Утилиты</span>&nbsp;▸\n"
-"  <span class=\"guimenuitem\">Диски</span></span>.\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"1. Plug in the external storage device containing the encrypted partition that you\n"
-"want to change the passphrase for.\n"
+"Plug in the external storage device that contains the encrypted partition "
+"for which you want to change the passphrase."
 msgstr ""
 "1. Подключите внешний носитель с зашифрованным разделом, для которого вы\n"
 "хотите изменить пароль.\n"
@@ -602,28 +597,107 @@ msgstr ""
 "соответствует вашему устройству: модель, объём и т.д.\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Click on the partition displaying a [[!img lib/network-wireless-encrypted."
+#| "png alt=\"padlock\" class=\"symbolic\" link=\"no\"]] at the bottom-right "
+#| "corner."
 msgid ""
 "Click on the partition displaying a [[!img lib/network-wireless-encrypted."
-"png alt=\"padlock\" class=\"symbolic\" link=\"no\"]] at the bottom-right "
-"corner."
+"png alt=\"Parition LUKS\" class=\"symbolic\" link=\"no\"]] in the bottom-"
+"right corner."
 msgstr ""
 "Нажмите на раздел со значком [[!img lib/network-wireless-encrypted.png "
 "alt=\"замочек\" class=\"symbolic\" link=\"no\"]] в правом нижнем углу."
 
 #. type: Bullet: '1. '
-msgid "Click on the <span class=\"guimenu\">"
-msgstr "Щёлкните по <span class=\"guimenu\">"
+#, fuzzy
+#| msgid ""
+#| "   [[!img lib/system-run.png alt=\"Additional partition options\" "
+#| "class=\"symbolic\" link=\"no\"]]\n"
+msgid ""
+"Click on the [[!img lib/system-run.png alt=\"Additional partition options\" "
+"class=\"symbolic\" link=\"no\"]] button and choose **Change Passphrase** in "
+"the shortcut menu."
+msgstr ""
+"   кнопке [[!img lib/system-run.png alt=\"Дополнительные параметры раздела\" "
+"class=\"symbolic\" link=\"no\"]]\n"
 
-#. type: Plain text
-#, no-wrap
-msgid "   [[!img lib/system-run.png alt=\"Additional partition options\" class=\"symbolic\" link=\"no\"]]\n"
-msgstr "   кнопке [[!img lib/system-run.png alt=\"Дополнительные параметры раздела\" class=\"symbolic\" link=\"no\"]]\n"
+#~ msgid ""
+#~ "<span class=\"application\">GNOME Disks</span> allows you to create "
+#~ "encrypted volumes."
+#~ msgstr ""
+#~ "Утилита <span class=\"application\">Диски</span> в GNOME позволяет "
+#~ "создавать зашифрованные тома."
 
-#. type: Plain text
 #, fuzzy, no-wrap
-#| msgid "   </span> button and choose <span class=\"guimenu\">Change Passphrase…</span>\n"
-msgid "   </span> button and choose <span class=\"guimenu\">Change Passphrase…</span>\n"
-msgstr "   </span> и выберите <span class=\"guimenu\">Изменить пароль…</span>\n"
+#~| msgid "     Then click <span class=\"bold\">Format…</span>.\n"
+#~ msgid "     Then click <span class=\"bold\">Format…</span>.\n"
+#~ msgstr "     Затем нажмите <span class=\"bold\">Форматировать…</span>.\n"
+
+#, fuzzy, no-wrap
+#~| msgid ""
+#~| "1. Choose\n"
+#~| "   <span class=\"menuchoice\">\n"
+#~| "     <span class=\"guimenu\">Places</span>&nbsp;▸\n"
+#~| "     <span class=\"guisubmenu\">Computer</span></span>\n"
+#~| "   to open the file browser.\n"
+#~ msgid ""
+#~ "1. Choose\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Places</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Computer</span></span>\n"
+#~ "   to open the file browser.\n"
+#~ msgstr ""
+#~ "1. Выберите\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Места</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Компьютер</span></span>\n"
+#~ "   для того, чтобы открыть файловый менеджер.\n"
+
+#~ msgid ""
+#~ "Click on the encrypted partition that you want to open in the sidebar."
+#~ msgstr ""
+#~ "В левой панели нажмите на зашифрованный раздел, который хотите открыть."
+
+#, no-wrap
+#~ msgid "   [[!img nautilus_encrypted.png link=\"no\" alt=\"File browser with '4.0 GB Encrypted' entry in the sidebar\"]]\n"
+#~ msgstr "   [[!img nautilus_encrypted.png link=\"no\" alt=\"Файловый менеджер с зашифрованным томом\"]]\n"
+
+#~ msgid ""
+#~ "After opening the partition with the file browser, you can also access it "
+#~ "from the <span class=\"guimenu\">Places</span> menu."
+#~ msgstr ""
+#~ "После открытия раздела с помощью файлового менеджера вы также можете "
+#~ "получить к нему доступ из меню <span class=\"guimenu\">Места</span> ."
+
+#, fuzzy, no-wrap
+#~| msgid ""
+#~| "To open <span class=\"application\">GNOME Disks</span> choose\n"
+#~| "<span class=\"menuchoice\">\n"
+#~| "  <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~| "  <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~| "  <span class=\"guimenuitem\">Disks</span></span>.\n"
+#~ msgid ""
+#~ "To open <span class=\"application\">GNOME Disks</span> choose\n"
+#~ "<span class=\"menuchoice\">\n"
+#~ "  <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "  <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~ "  <span class=\"guimenuitem\">Disks</span></span>.\n"
+#~ msgstr ""
+#~ "Чтобы открыть утилиту <span class=\"application\">Диски</span>, используйте\n"
+#~ "<span class=\"menuchoice\">\n"
+#~ "  <span class=\"guimenu\">Приложения</span>&nbsp;▸\n"
+#~ "  <span class=\"guisubmenu\">Утилиты</span>&nbsp;▸\n"
+#~ "  <span class=\"guimenuitem\">Диски</span></span>.\n"
+
+#~ msgid "Click on the <span class=\"guimenu\">"
+#~ msgstr "Щёлкните по <span class=\"guimenu\">"
+
+#, fuzzy, no-wrap
+#~| msgid "   </span> button and choose <span class=\"guimenu\">Change Passphrase…</span>\n"
+#~ msgid "   </span> button and choose <span class=\"guimenu\">Change Passphrase…</span>\n"
+#~ msgstr "   </span> и выберите <span class=\"guimenu\">Изменить пароль…</span>\n"
 
 #, no-wrap
 #~ msgid "Create an encrypted partition"

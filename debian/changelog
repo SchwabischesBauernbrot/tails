@@ -2,12 +2,643 @@ tails (6.3) UNRELEASED; urgency=medium
 
   [ boyska ]
   * Dummy entry for next release.
-  * Dummy entry for next release.
 
-  [ groente ]
-  * Dummy entry for next release.
+ -- Tails developers <tails@boum.org>  Fri, 02 Feb 2024 17:53:22 +0100
 
- -- Tails developers <tails@boum.org>  Fri, 02 Feb 2024 17:54:40 +0100
+tails (6.0~rc1) unstable; urgency=medium
+
+  * Tails Cloner: don't attempt to unmount the target device twice
+    (tails/tails!1359)
+
+    Closes issues:
+      - tails-installer fails to install to already mounted devices (tails/tails#20139)
+
+    Commits:
+      - Tails Cloner: don't attempt to unmount the target device twice (refs:
+        tails/tails#20139)
+
+  * Install python3-pyqt5 to fix Electrum not starting (tails/tails!1357)
+
+    Closes issues:
+      - Electrum does not start in Tails 6.0 (tails/tails#20079)
+
+    Commits:
+      - Install python3-pyqt5 to fix Electrum not starting
+
+  * Fix spawn_tps_frontend (tails/tails!1368)
+
+    Closes issues:
+      - tps-frontend disappears while setting up Persistent Storage for Additional Software (tails/tails#20141)
+
+    Commits:
+      - Fix inter-process communication based on non-zero exit codes
+      - Revert "Avoid asp-post-apt hooks running forever in some cases"
+      - Revert "Fix failure when running multiple asp-post-apt hooks in parallel"
+      - Sync' both Ruff configurations
+      - Sort
+      - Use long option name
+      - Use subprocess.check_call with gtk-launch instead of subprocess.Popen
+      - Additional Software: Fix app hanging if Persistent Storage is not created
+      - Use subprocess.check_call instead of subprocess.Popen
+      - Avoid asp-post-apt hooks running forever in some cases
+      - Reduce memory used by asp-post-apt hook
+      - Fix failure when running multiple asp-post-apt hooks in parallel
+      - Set SyslogIdentifier with systemd-run
+      - Ignore Ruff S603
+      - Fix Ruff PLW1510
+      - Run ruff --fix on modified files
+      - Fix spawn_tps_frontend
+      - Don't use stderr=subprocess.PIPE with subprocess.Popen
+
+  * Fix broken tests for feature/bookworm (tails/tails!1367)
+
+    Closes issues:
+      - Adjust Bookworm test suite to !1166 (tails/tails#19738)
+
+    Commits:
+      - Test suite: fixup incorrect suggestion that was applied
+      - Test suite: wait for GNOME authentication dialog to disappear
+      - Test suite: fix comment
+      - Test suite: use grabFocus() instead of worse code
+      - Test suite: refactor
+      - Appease RuboCop
+      - Test suite: deal with GNOME authentication prompt getting in the way
+      - Test suite: fix Nautilus vs our showingOnly default (refs: tails/tails#19738)
+      - Test suite: bump image for Bookworm
+      - Test suite: deal with GNOME authentication prompt getting in the way
+      - Test suite: improve step name
+      - Test suite: don't reinvent the wheel
+      - Test suite: don't use hardcoded passphrase
+      - Test suite: adapt a bunch of steps to GNOME auto-mounting removable media
+        (refs: tails/tails#15900)
+      - Test suite: add a handy mountpoint() method
+      - Test suite: support multiple mountpoints in parse_udisksctl_info()
+      - Test suite: use different method when filling storage devices until they are
+        full
+      - Test suite: be more precise when determining available space in mountpoint
+
+  * Fix Ruff policy violations in files modified on feature/bookworm, take 2
+    (tails/tails!1362)
+
+    Closes issues:
+      - Fix Ruff & Rubocop policy violations in files modified on feature/bookworm (tails/tails#20124)
+
+    Commits:
+      - Fix typo
+      - Lint
+      - Reformat with Black
+      - Trust our callers to not pass us untrusted input
+      - Accept manual handling of subprocess.run result
+      - Make check more generic
+      - Fix Ruff PLW2901
+      - Automatically fix Ruff UP031
+      - Automatically fix Ruff UP022
+      - Automatically fix Ruff PIE790
+
+  * Fix Ruff & Rubocop policy violations in files modified on feature/bookworm
+    (tails/tails!1360)
+
+    Closes issues:
+      - Fix Ruff & Rubocop policy violations in files modified on feature/bookworm (tails/tails#20124)
+
+    Commits:
+      - rubocop --autocorrect
+      - Silence Ruff false positive
+      - Silence Ruff false positive
+      - Remove dead code
+      - Automatically fix UP032 "Use f-string instead of `format` call"
+      - Automatically fix UP024 "Replace aliased errors with `OSError`"
+
+  * Use the Tails logo as the user icon (tails/tails!1358)
+
+    Closes issues:
+      - Add a user icon (tails/tails#20078)
+
+    Commits:
+      - Use our logo as the user icon
+
+  * Replace Gedit with GNOME Text Editor (tails/tails!1355)
+
+    Closes issues:
+      - Migrate from gedit to gnome-text-editor (tails/tails#19651)
+
+    Commits:
+      - Test suite: adapt to the migration from Gedit to GNOME Text editor
+      - Test suite: update example in comment
+      - Replace Gedit with GNOME Text Editor
+
+  * remove "custom" keyboard layout from greeter (tails/tails!1354)
+
+    Closes issues:
+      - Remove "A user-defined custom Layout" option as keyboard layout (tails/tails#20109)
+
+    Commits:
+      - Reformat with Black
+      - Fix Ruff E741
+      - Fix Ruff B904
+      - Ignore false positive
+      - remove "custom" keyboard layout from greeter
+
+  * Add full commit ID to /etc/os-release (tails/tails!1352)
+
+    Commits:
+      - Add full commit ID to /etc/os-release
+
+  * Add diceware word lists Catalan, Italian, and Spanish (tails/tails!1340)
+
+    Closes issues:
+      - Have diceware word lists for each of our tier-1 languages (tails/tails#20014)
+
+    Commits:
+      - Reformat with Black
+      - Add diceware word lists Catalan, Italian, and Spanish
+
+  * Upgrade Vagrant basebox to Debian Bookworm (tails/tails!1323)
+
+    Closes issues:
+      - Upgrade Vagrant basebox to Bookworm (tails/tails#19562)
+
+    Commits:
+      - Build system: install po4a 0.62-1 from bullseye
+      - Build system: enable bookworm-{backports,updates}
+      - Build system: bump APT snapshots to ones containing
+        bookworm-{backports,updates}
+      - Build system: bump RAM to avoid OOM during mksquashfs (refs: tails/tails#20085)
+      - Build system: drop -backports and -updates APT sources from builder
+      - Build system: bump APT snapshots while migrating to Bookworm
+      - Build system: upgrade builder basebox to Debian Bookworm (refs:
+        tails/tails#19562)
+
+  * Improve the tails-about dialog to easier identify nightly build
+    (tails/tails!1225)
+
+    Closes issues:
+      - Make it easier to identify which nightly build is running (tails/tails#17543)
+
+    Commits:
+      - tails-about: remove unused import
+      - tails-about: remove "Tails developers" noise to match design
+      - tails-about: fix grammar to match design
+      - fix indention to please rubocop.
+      - VERSION is not only a number.
+      - Use regex to get infos out of os-release.
+      - Unreleased versions don't have a release date.
+      - rename misleading functionname.
+      - Add reference image for Update to 6.3~testoverlayfs
+      - remove unsused entries in auto/config
+      - Add reference image for upgrade to 6.2~testoverlayfs.
+      - Test suite: make test file name & content match the version
+      - Fix version determine in os-release.
+      - Bump test iuk version as we now use os-release to get the Tails version.
+      - get_release_Date is a function.
+      - Revert changes on config/binary_rootfs/squashfs.sort
+      - Remove last occurence of /etc/amnesia/version
+      - make shellcheck happy.
+      - read TAILS_SOURCE_DATE_EPOCH from os-release to set minimum date.
+      - try to fix automatic_update test
+      - fix typo.
+      - Use built-in plattform.freedesktop_os_release to parse os_release.
+      - Next attempt to fix test suite.
+      - fix autotest suite.
+      - import needed Dict from typing.
+      - make tests to use os-release.
+      - fix wrong syntax in shell.
+      - Add deprecation waring to tails-version.
+      - Get rid of /etc/amnesia/version
+      - Improve the tails-about dialog to easier identify nighly build.
+
+  * Release process adapt for major version bumps (tails/tails!1192)
+
+    Closes issues:
+      - Clarify PREVIOUS_STABLE_VERSION when switching to new debian series
+        (tails/tails#18960)
+
+    Commits:
+      - Release process: migrate calculation to rm-config so we can automate some steps
+      - Release process: fix grammar now that there can be multiple test IUKs (refs:
+        18960)
+      - Automate
+      - Release process, QA: deal with which versions to test Incremental Upgrades from
+        (refs: #18960)
+      - Verify that the test UDFs we generate are correct before publishing.
+      - Release process: publish test UDFs for both previous stable version and (if
+        any) the last alpha/beta/RC when releasing a major version
+
+  * Upgrade to Debian 12 (Bookworm) (tails/tails!1119)
+
+    Upgrades most packages
+
+    Closes issues:
+      - Tails 6.0 based on Debian 12 (Bookworm) (tails/tails#19477)
+
+    Commits:
+      - Fix inter-process communication based on non-zero exit codes
+      - Revert "Avoid asp-post-apt hooks running forever in some cases"
+      - Test suite: fixup incorrect suggestion that was applied
+      - Test suite: wait for GNOME authentication dialog to disappear
+      - Test suite: fix comment
+      - Revert "Fix failure when running multiple asp-post-apt hooks in parallel"
+      - Sync' both Ruff configurations
+      - Sort
+      - Use long option name
+      - Use subprocess.check_call with gtk-launch instead of subprocess.Popen
+      - Additional Software: Fix app hanging if Persistent Storage is not created
+      - Use subprocess.check_call instead of subprocess.Popen
+      - Avoid asp-post-apt hooks running forever in some cases
+      - Reduce memory used by asp-post-apt hook
+      - Fix failure when running multiple asp-post-apt hooks in parallel
+      - Set SyslogIdentifier with systemd-run
+      - Ignore Ruff S603
+      - Fix Ruff PLW1510
+      - Run ruff --fix on modified files
+      - Fix spawn_tps_frontend
+      - Don't use stderr=subprocess.PIPE with subprocess.Popen
+      - Test suite: use grabFocus() instead of worse code
+      - Test suite: refactor
+      - Appease RuboCop
+      - Test suite: deal with GNOME authentication prompt getting in the way
+      - Fix typo
+      - Test suite: fix Nautilus vs our showingOnly default (refs: tails/tails#19738)
+      - Test suite: bump image for Bookworm
+      - Test suite: deal with GNOME authentication prompt getting in the way
+      - Test suite: improve step name
+      - Reformat with Black
+      - Fix Ruff E741
+      - Fix Ruff B904
+      - Ignore false positive
+      - remove "custom" keyboard layout from greeter
+      - Lint
+      - Test suite: don't reinvent the wheel
+      - Test suite: don't use hardcoded passphrase
+      - Update to Bookworm
+      - Use our logo as the user icon
+      - Stop avertizing share.riseup.net
+      - Use consistent terminology and title capitalization
+      - Improve style of nested blocks
+      - Apply style guide
+      - Shorten anchors
+      - Use consistent terminology
+      - Explain better what is the Super key
+      - Document known issues
+      - Remove not-so-useful link
+      - Improve phrase and style guide
+      - Don't use 'your' when talking about public computers, mostly
+      - Replace encryption_and_privacy/virtual_keyboard by a note
+      - Add anchors
+      - Test suite: adapt a bunch of steps to GNOME auto-mounting removable media
+        (refs: tails/tails#15900)
+      - Test suite: add a handy mountpoint() method
+      - Test suite: support multiple mountpoints in parse_udisksctl_info()
+      - Test suite: use different method when filling storage devices until they are
+        full
+      - Reformat with Black
+      - Trust our callers to not pass us untrusted input
+      - Accept manual handling of subprocess.run result
+      - Make check more generic
+      - Fix Ruff PLW2901
+      - Automatically fix Ruff UP031
+      - Automatically fix Ruff UP022
+      - Automatically fix Ruff PIE790
+      - fix icon name
+      - fix typo
+      - remove duplicate word
+      - Remove useless if statement
+      - Test suite: be more precise when determining available space in mountpoint
+      - Test suite: adapt to the migration from Gedit to GNOME Text editor
+      - Test suite: update example in comment
+      - Replace Gedit with GNOME Text Editor
+      - rubocop --autocorrect
+      - Silence Ruff false positive
+      - Silence Ruff false positive
+      - Remove dead code
+      - Automatically fix UP032 "Use f-string instead of `format` call"
+      - Automatically fix UP024 "Replace aliased errors with `OSError`"
+      - Tails Cloner: don't attempt to unmount the target device twice (refs:
+        tails/tails#20139)
+      - Test suite: fix scenario where Nautilus misbehaves with our showingOnly default
+        (refs: tails/tails#19738)
+      - Gmail in Tails is easier now!
+      - Apply style guide
+      - Update to Bookworm
+      - Capitalize 'Lock Screen'
+      - Install python3-pyqt5 to fix Electrum not starting
+      - Test suite: bump image
+      - Install pipewire-media-session to repair GNOME's screen recording capability
+        (refs: tails/tails#19441)
+      - Simplify
+      - Mention OnionShare in faq#onion-service
+      - Update to OnionShare 2.6
+      - Cover the case when screeshots are too big
+      - Add full commit ID to /etc/os-release
+      - Document Dark Theme and Night Light modes
+      - Fix capitalization
+      - Update to #15900 and #15767
+      - Document the fix for the no-overview GNOME Shell extension
+      - Update icons
+      - Remove unused icon
+      - Update screenshots
+      - Fix icon reference
+      - Add CSS for Windows commands
+      - Add missing screenshot
+      - Update to 6.0
+      - Refresh
+      - Refresh and apply style guide
+      - Improve indentation
+      - Refresh and apply style guide
+      - Remove only h1
+      - Stop bothering people with Windows XP
+      - Help with platform compatibility
+      - Update to Bookworm and apply style guide
+      - Apply style guide
+      - Restructure summary and details
+      - APT: disable warning about the non-free/non-free-firmware split
+      - Remove duplicate bookworm-security source
+      - Fix incompatibility with no-overview and window-list GNOME shell extensions
+      - GNOME shell: add and enable no-overview extension version 13 (refs:
+        tails/tails#19656)
+      - Bookworm: don't install gnome-screenshot any more (refs: tails/tails#20116)
+      - Reformat with Black
+      - Add diceware word lists Catalan, Italian, and Spanish
+      - Allow images to overflow paragraphs
+      - Improve instructions for screenshots
+      - Update to the version of Disks in Bookworm
+      - Update all symbolic icons
+      - Update path to 'Show Hidden Files'
+      - Update to the removal of GtkHash (#20114)
+      - Update to the removal of the Files browser integration of mat2
+      - Update screenshot
+      - Update to Tails 6.0
+      - Update features apps and rewrite as flex
+      - Use title capitalization
+      - Update screenshot
+      - Add missing screenshot
+      - Remove not-so-helpful GNOME doc
+      - Stop mentioning dial-up modems as the future
+      - Fix indentation
+      - Update to new system menu
+      - Use more colored and contrasted icon
+      - Use title capitalization
+      - Refresh
+      - Differentiate system menu with and without Wi-Fi
+      - Improve structure
+      - Update insturctions to troubleshoot Wi-Fi
+      - Change our style guide regarding screenshots
+      - The Screen Reader now takes around 5 seconds to start
+      - Replace News section from homepage with something better
+      - Reorder
+      - Move FAQ to a better place
+      - Fix h4
+      - Shorten
+      - Reorder
+      - Point to more active and searchable channel
+      - Remove not-so-frequent questions
+      - Be more specific
+      - Link to future work
+      - Remove question that is answered in so many other ways
+      - Replace youtube-dl by its new fork in Debian
+      - Remove complicated advice
+      - Deduplicate FAQ with requirements
+      - Don't duplicate issues already documented elsewhere
+      - Upstream issues has been fixed in Linux 5.9
+      - Merge very similar issues
+      - Delete very old issues that are probably not useful anymore
+      - Reorder
+      - Delete unused images
+      - Present XMPP options like Pidgin does
+      - Remove very old migration instructions
+      - Be more explicit
+      - Simplify code
+      - Place image better on upgrade and clone scenarios
+      - Apply Apple style guide
+      - Fix formatting
+      - Fix orthography
+      - Remove not-so-useful icon
+      - The Screen Reader now works in the Unsafe Browser
+      - Merge and update screenshots
+      - Update to 6.0
+      - Be more helpful
+      - KeePassXC now has a cool documentation
+      - Move restart
+      - Use absolute path
+      - The auto-type feature is hidden by default now
+      - Remove outdated link
+      - Update to 6.0
+      - Refresh
+      - Update to 6.0
+      - Apply style guide
+      - Update stats
+      - Add 'Status' column
+      - Fix margin
+      - Minimal update to 6.0
+      - Refresh
+      - Update to 6.0 and refresh language
+      - Mention on /install as well
+      - Update to Debian 12
+      - Refresh
+      - Improve placement of link
+      - Refresh language and simplify
+      - GitLab is the place to go
+      - Explain better the real-world implications of cold boot attacks
+      - Give example
+      - It's not only about the source code
+      - Link earlier
+      - Shorten
+      - Be more upfront
+      - Simplify and improve language
+      - Link to historical landmark
+      - Small language, link, and formatting improvements
+      - Use full HTML
+      - Improve links
+      - Build system: install po4a 0.62-1 from bullseye
+      - Build system: enable bookworm-{backports,updates}
+      - Build system: bump APT snapshots to ones containing
+        bookworm-{backports,updates}
+      - Revert "Merge /lib/firmware → /usr/lib/firmware (refs: tails/tails#20075)"
+      - Build system: bump RAM to avoid OOM during mksquashfs (refs: tails/tails#20085)
+      - Build system: drop -backports and -updates APT sources from builder
+      - Build system: bump APT snapshots while migrating to Bookworm
+      - Build system: upgrade builder basebox to Debian Bookworm (refs:
+        tails/tails#19562)
+      - Enable GNOME's auto-mounting of pluggable storage (refs: tails/tails#15900)
+      - Remove dead page
+      - Update to 2023
+      - Remove old migration note
+      - Fix vertical alignment
+      - Simplify
+      - Fix vertical alignment
+      - Align first section title on the left
+      - Reformat with black
+      - tails-about: remove unused import
+      - tails-about: remove "Tails developers" noise to match design
+      - tails-about: fix grammar to match design
+      - Remove duplicate Bookworm APT sources
+      - fix indention to please rubocop.
+      - Test suite: fix Rubocop violations
+      - Reintroduce changes to feature/bookworm lost in merge conflict resolution vs
+        devel
+      - VERSION is not only a number.
+      - Use regex to get infos out of os-release.
+      - Unreleased versions don't have a release date.
+      - rename misleading functionname.
+      - Add reference image for Update to 6.3~testoverlayfs
+      - Link to the upstream version that matches Bookworm's Golang
+      - remove unsused entries in auto/config
+      - Add reference image for upgrade to 6.2~testoverlayfs.
+      - Test suite: make test file name & content match the version
+      - Fix version determine in os-release.
+      - Bump test iuk version as we now use os-release to get the Tails version.
+      - get_release_Date is a function.
+      - Revert changes on config/binary_rootfs/squashfs.sort
+      - Remove last occurence of /etc/amnesia/version
+      - make shellcheck happy.
+      - read TAILS_SOURCE_DATE_EPOCH from os-release to set minimum date.
+      - try to fix automatic_update test
+      - fix typo.
+      - Use built-in plattform.freedesktop_os_release to parse os_release.
+      - Next attempt to fix test suite.
+      - fix autotest suite.
+      - import needed Dict from typing.
+      - make tests to use os-release.
+      - fix wrong syntax in shell.
+      - Add deprecation waring to tails-version.
+      - Get rid of /etc/amnesia/version
+      - Improve the tails-about dialog to easier identify nighly build.
+      - Revert "OnionShare: enable "public" mode by default"
+      - Test suite: drop `showingOnly: true` parameters added in feature/bookworm
+      - status-menu-helper Gnome Shell extension: port to Gnome 43 for Tails/Bookworm
+      - Test suite: fix race condition
+      - Test suite: fix race condition
+      - usbguard: allow all devices that are already connected when the daemon starts
+      - Replace busy-wait with proper systemd dependency, made possible by Bookworm
+      - Reject new USB devices plugged while the screen is locked
+      - GNOME Shell extensions: declare compatibility with Bookworm
+      - Increase the chances we successfully unmount all the relevant filesystems on
+        shutdown
+      - Update mountpoint path for merged-/usr
+      - Update live-build submodule
+      - Test suite: fix fillram script for Bookworm
+      - Test suite: update expected images
+      - Test suite: update expected image
+      - Update list of custom packages for Bookworm and bring back the check
+      - Enable the feature-bookworm APT overlay
+      - live-build: avoid deprecated "apt-key add", instead drop keys in
+        /etc/apt/trusted.gpg.d
+      - Test suite: update Backup feature for Bookworm
+      - Test suite: allow specifying the polkit dialog title
+      - Test suite: Bookworm's hwclock does not accept relative dates anymore
+      - Fix buggy merge conflict resolution
+      - AppArmor: add canonical merged-/usr path to HOMEDIRS variable
+      - Test suite: start porting Pidgin tests to Bookworm
+      - Test suite: update SFTP test for Bookworm
+      - Test suite: port SSH tests to Dogtail
+      - Test suite: update expected AppArmor denial messages for merged-/usr
+      - Test suite: update default set of groups for Bookworm
+      - Test suite: use Dogtail for Totem "not allowed to open"
+      - Test suite: update expected images
+      - Revert "Test suite: remove now unused code"
+      - Update AppArmor policy for merged-/usr
+      - Test suite: update most Evince tests for Bookworm and port them to Dogtail
+      - Test suite: make method a tiny bit more generic
+      - Test suite: remove obsolete tag
+      - Test suite: update screenshot test for Bookworm
+      - Test suite: update network connect/disconnect for Bookworm
+      - Lint
+      - Test suite: update VeraCrypt tests for Bookworm and port them to Dogtail
+      - Test suite: add a couple Dogtail convenience methods
+      - Test suite: factorize
+      - Test suite: update expected image
+      - Keep installing dbus-x11: needed to start the Root Terminal with pkexec
+      - Update PolicyKit admin user configuration to new rules language
+      - Test suite: use Dogtail for the PolicyKit prompt and to wait for GNOME Terminal
+      - Test suite: use Dogtail to check zenity dialog
+      - Test suite: use better Gherkin phrasing
+      - Fix Unsafe Browser's name resolution
+      - Test suite: use Dogtail to check the LAN web server message in the Unsafe
+        Browser
+      - Test suite: make a couple test methods compatible with the Unsafe Browser
+      - Test suite: remove obsolete comment
+      - Test suite: remove now unused code
+      - Test suite: start the Unsafe Browser using "gio launch"
+      - Test suite: Paste bridge via Dogtail
+      - Test suite: update expected images
+      - partitioning: ensure the system partition remains an ESP
+      - partitioning: copy file needed by mlabel, that was split out on Bookworm
+      - Test suite: update expected denial log message for merged-/usr
+      - Test suite: update expected images
+      - Test suite: update expected images
+      - OnionShare: enable "public" mode by default
+      - Revert "Temporarily revert "hotfix: refresh Thunderbird patch""
+      - Update live-build submodule
+      - OnionShare: use ~/Downloads as the "receive files" directory
+      - OnionShare: update config file to 2.6, in particular to auto-connect to Tor
+      - OnionShare: update onion-grater rules for 2.6
+      - Make AppArmor logs a little bit less noisy
+      - OnionShare: run as native Wayland
+      - OnionShare: update AppArmor profile for Bookworm
+      - Import OnionShare .desktop file and icon
+      - Adjust to match renaming of OnionShare executables
+      - Update the list of backends in the usr.sbin.cups AppArmor profile for Bookworm
+      - Bump APT snapshots for the Vagrant box
+      - Test suite: update expected pictures
+      - Disable signing of DKMS modules
+      - Drop hook that's obsolete on a merged-/usr system
+      - Adjust for merged-/usr
+      - live-build: fix breakage with merged-/usr
+      - Switch to merged-/usr (aka. usrmerge)
+      - Remove obsolete blocker
+      - Keep installing xxd
+      - Remove Debian logo in unlock screen
+      - Desktop icons: don't display anything besides our shortcuts and the Trash
+      - Display Desktop icons at standard size
+      - Keep installing wpasupplicant
+      - Drop fake obfs4proxy package: not needed anymore
+      - Temporarily revert "hotfix: refresh Thunderbird patch"
+      - Keep installing gnome-keyring
+      - Remove obsolete pref
+      - Adjust to gnome-shell-extension-desktop-icons-ng
+      - Temporarily disable initramfs size check
+      - Convert our polkit rules to the new JavaScript format
+      - Update expected /etc/passwd and /etc/group
+      - Make it easier to copy the new file
+      - Fix error reporting
+      - Update test suite & design doc: we don't ship dhclient since Tails 5.0
+      - Temporarily disable custom packages check
+      - Explicitly set hasOverview and showWelcomeDialog
+      - Adjust to renamed GNOME Shell menu
+      - systemd: Use both name and description in unit status messages
+      - Drop support for reading encrypted DVDs
+      - Upgrade the Linux kernel to 6.1.27-1 from Bookworm
+      - Update for Bookworm
+      - Adjust path for Bookworm
+      - Fix UID & GID stability
+      - Remove obsolete patch
+      - Refresh and unfuzzy patches
+      - Upgrade to Linux 6.1.25-1 (devel branch)
+      - Revert "Workaround missing APT snapshots."
+      - Revert "Test suite: disable bridge QR code automated tests"
+      - Install the Linux kernel from Debian Bookworm
+      - Refresh tails-000-standard.list packages list for Bookworm
+      - Enable non-free-firmware APT component for the Bookworm APT sources
+      - Follow package rename: gnomes-themes-standard → gnome-themes-extra
+      - Replace exfat-fuse with in-kernel implementation + exfatprogs
+      - Migrate to gnome-shell-extension-desktop-icons-ng
+      - Don't try to install nautilus-gtkhash: not available in Bookworm
+      - Don't try to install nautilus-wipe: not available in Bookworm
+      - Don't try to install obsolete crda package
+      - Workaround missing APT snapshots.
+      - Rubocop: target Bookworm's Ruby version
+      - pre-commit-translation: remove obsolete script
+      - GitLab CI: use Debian Bookworm image by default
+      - Support Bookworm host system to run our test suite
+      - Require a Bullseye host system to build Tails
+      - Reference issue that tracks this "XXX" comment
+      - Persistent Storage: enable localized word lists included in Bookworm
+      - Remove obsolete detail in comment
+      - Upgrade to Debian 12 (Bookworm)
+      - run_test_suite: run all tests on feature/bookworm
+
+ -- Tails developers <tails@boum.org>  Wed, 31 Jan 2024 20:56:28 +0100
+>>>>>>> testing
 
 tails (5.22) unstable; urgency=medium
 
