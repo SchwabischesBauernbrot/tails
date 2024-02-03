@@ -20,12 +20,6 @@ sys.path.insert(0, os.path.join(SCRIPT_DIR, "..", "..", ".."))
 from tps import executil  # noqa: E402
 from tps.service import Service  # noqa: E402
 from tps.configuration.binding import Binding  # noqa: E402
-from tps.mountutil import (  # noqa: E402
-    mount,
-    MOUNTFLAG_NOSYMFOLLOW,
-    MOUNTFLAG_BIND,
-    MOUNTFLAG_REMOUNT,
-)
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -202,11 +196,9 @@ def before_all(context):
     # config/chroot_local-includes/lib/systemd/system/run-nosymfollow.mount.
     # We also do it here to test that it does prevent symlink attacks.
     Path(NOSYMFOLLOW_MOUNTPOINT).mkdir(exist_ok=True)
-    mount(src="/", dest=NOSYMFOLLOW_MOUNTPOINT, flags=MOUNTFLAG_BIND)
-    mount(
-        src="",
-        dest=NOSYMFOLLOW_MOUNTPOINT,
-        flags=MOUNTFLAG_REMOUNT | MOUNTFLAG_NOSYMFOLLOW,
+    subprocess.run(
+        ["/bin/mount", "--bind", "/", "-o", "bind,nosymfollow", NOSYMFOLLOW_MOUNTPOINT],
+        check=True,
     )
 
 
