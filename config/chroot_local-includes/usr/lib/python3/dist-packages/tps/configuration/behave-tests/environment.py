@@ -190,7 +190,7 @@ BEHAVE_DEBUG_ON_ERROR = False
 
 
 def setup_debug_on_error(userdata):
-    global BEHAVE_DEBUG_ON_ERROR
+    global BEHAVE_DEBUG_ON_ERROR  # noqa: PLW0603
     BEHAVE_DEBUG_ON_ERROR = userdata.getbool("BEHAVE_DEBUG_ON_ERROR")
 
 
