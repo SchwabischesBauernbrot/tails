@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 This module is useful for all those scripts that are meant to run a specific application inside a network namespace.
 

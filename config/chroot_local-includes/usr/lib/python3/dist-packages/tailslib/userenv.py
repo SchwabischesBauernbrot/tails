@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 import sys
 from functools import lru_cache
 import os
