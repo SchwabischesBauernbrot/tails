@@ -110,7 +110,7 @@ class Binding:
         try:
             self._relative_src = self.src.relative_to(self.tps_mount_point)
         except ValueError:
-            raise InvalidBindingError(
+            raise InvalidBindingError(  # noqa: B904
                 f"Binding source {self.src} is outside of "
                 f"the Persistent Storage mount point "
                 f"{self.tps_mount_point}"
