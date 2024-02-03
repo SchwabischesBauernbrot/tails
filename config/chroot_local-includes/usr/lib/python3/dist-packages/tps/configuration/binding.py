@@ -463,7 +463,7 @@ class Binding:
                 f"Binding {self.dest} is inactive: Destination {self.dest} does not exist"
             )
 
-        for _dir, subdirs, files in os.walk(self.src):
+        for _dir, _subdirs, files in os.walk(self.src):
             dest_dir = os.path.join(self.dest, os.path.relpath(_dir, self.src))
             for f in files:
                 src = Path(_dir, f)
