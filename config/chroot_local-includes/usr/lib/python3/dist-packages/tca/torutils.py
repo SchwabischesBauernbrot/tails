@@ -318,8 +318,8 @@ class TorConnectionConfig:
             # JSON even though they are Python.
             try:
                 lines = json.loads(bridge_strings.replace("'", '"'))
-            except json.decoder.JSONDecodeError:
-                raise ValueError("Not a valid QR code")
+            except json.decoder.JSONDecodeError as e:
+                raise ValueError("Not a valid QR code") from e
         else:
             # "New" format: strings separated by \n
             lines = bridge_strings.split("\n")
