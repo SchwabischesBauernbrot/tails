@@ -146,7 +146,7 @@ class TorConnectionProxy:
                 r[option] = None
         if self.enabled and self.auth is not None:
             if self.proxy_type == "HTTPSProxy":
-                r["HTTPSProxyAuthenticator"] = "%s:%s" % self.auth
+                r["HTTPSProxyAuthenticator"] = "{}:{}".format(*self.auth)
             else:
                 r["Socks5ProxyUsername"], r["Socks5ProxyPassword"] = self.auth
         return r
