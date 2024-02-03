@@ -31,12 +31,14 @@ def get_persistence_path(return_nonexistent=False) -> str:
 
 def has_persistence():
     """Return true iff the Persistent Storage exists."""
-    return subprocess.run(["/usr/local/lib/tpscli", "is-created"]).returncode == 0
+    return subprocess.run(["/usr/local/lib/tpscli", "is-created"],
+                          check=False).returncode == 0
 
 
 def has_unlocked_persistence():
     """Return true iff the Persistent Storage is unlocked."""
-    return subprocess.run(["/usr/local/lib/tpscli", "is-unlocked"]).returncode == 0
+    return subprocess.run(["/usr/local/lib/tpscli", "is-unlocked"],
+                          check=False).returncode == 0
 
 
 def is_tails_media_writable():
