@@ -17,10 +17,10 @@ from behave.model_core import Status
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(SCRIPT_DIR, "..", "..", ".."))
 
-from tps import executil
-from tps.service import Service
-from tps.configuration.binding import Binding
-from tps.mountutil import (
+from tps import executil  # noqa: E402
+from tps.service import Service  # noqa: E402
+from tps.configuration.binding import Binding  # noqa: E402
+from tps.mountutil import (  # noqa: E402
     mount,
     MOUNTFLAG_NOSYMFOLLOW,
     MOUNTFLAG_BIND,
