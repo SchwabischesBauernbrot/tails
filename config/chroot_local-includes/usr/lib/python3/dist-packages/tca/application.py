@@ -6,7 +6,7 @@ import logging
 import gettext
 from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 from pathlib import Path
-from typing import Dict, Any
+from typing import Any
 
 from stem.control import Controller
 import prctl
@@ -74,7 +74,7 @@ class TCAApplication(Gtk.Application):
         self.sys_dbus = dbus.SystemBus()
         self.last_nm_state = None
         self._tor_is_working: bool = TOR_HAS_BOOTSTRAPPED_PATH.exists()
-        self.tor_info: Dict[str, Any] = {"DisableNetwork": None}
+        self.tor_info: dict[str, Any] = {"DisableNetwork": None}
         self.has_persistence = has_persistence()
         self.has_unlocked_persistence = has_unlocked_persistence()
         self.log.debug(
