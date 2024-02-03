@@ -285,7 +285,7 @@ class TorConnectionConfig:
         >>> TorConnectionConfig.parse_bridge_lines([" bridge 1.2.3.4:80 ", "", "  "])
         ['1.2.3.4:80']
         """
-        parsed_bridges = (cls.parse_bridge_line(l) for l in lines)
+        parsed_bridges = (cls.parse_bridge_line(line) for line in lines)
         return [b for b in parsed_bridges if b]
 
     @classmethod
