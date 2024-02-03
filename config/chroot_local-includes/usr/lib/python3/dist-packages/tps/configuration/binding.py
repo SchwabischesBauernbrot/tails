@@ -4,7 +4,7 @@ from pathlib import Path
 import shlex
 import subprocess
 import sys
-from typing import List, Union, Optional
+from typing import Union, Optional
 
 from tailslib import LIVE_USERNAME, LIVE_USER_UID
 import tps.logging
@@ -170,7 +170,7 @@ class Binding(object):
         return hash(str(self))
 
     @property
-    def options(self) -> List[str]:
+    def options(self) -> list[str]:
         options = [f"source={str(self._relative_src)}"]
         if self.uses_symlinks:
             options.append("link")
