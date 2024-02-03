@@ -229,7 +229,7 @@ class Binding:
         # we only perform this check if we're not running a symlink
         # attack test (i.e. the SYMLINK_ATTACK_TEST env var is not set)
         if not os.getenv("SYMLINK_ATTACK_TEST"):
-            for p in sorted(self.dest_orig.parents) + [self.dest_orig]:
+            for p in [*sorted(self.dest_orig.parents), self.dest_orig]:
                 if p.is_symlink():
                     msg = f"Destination {self.dest_orig} contains a symlink: {p}"
                     raise FailedPrecondition(msg)
@@ -492,7 +492,7 @@ class Binding:
         owner to the UID of amnesia (live-boot sets it to 1000) on
         directories below /home/amnesia"""
         logger.debug(f"Creating binding destination {path}")
-        for p in sorted(path.parents) + [path]:
+        for p in [*sorted(path.parents), path]:
             if p.is_file():
                 # Delete existing files that are in the way
                 p.unlink()
