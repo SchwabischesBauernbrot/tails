@@ -61,7 +61,7 @@ def main():
             raise RuntimeError(f"Unexpected fd {fd} (expected {len(fds) + 3})")
         fds.append(fd)
 
-    os.execvp(args.CMD, [args.CMD] + args.ARGS)
+    os.execvp(args.CMD, [args.CMD, *args.ARGS])
 
 
 if __name__ == '__main__':
