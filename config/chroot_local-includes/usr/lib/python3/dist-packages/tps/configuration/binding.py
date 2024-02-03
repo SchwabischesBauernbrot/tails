@@ -39,7 +39,7 @@ class IsInactiveException(Exception):
     pass
 
 
-class Binding(object):
+class Binding:
     """A mapping of a source file or directory to a target file or
     directory. When a feature is activated, all of its bindings are
     activated, i.e. the source file or directory is mounted or symlinked
