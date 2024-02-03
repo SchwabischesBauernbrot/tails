@@ -171,7 +171,7 @@ class Binding:
 
     @property
     def options(self) -> list[str]:
-        options = [f"source={str(self._relative_src)}"]
+        options = [f"source={self._relative_src!s}"]
         if self.uses_symlinks:
             options.append("link")
         if self.is_file:
