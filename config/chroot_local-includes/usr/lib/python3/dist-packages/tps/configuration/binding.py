@@ -136,7 +136,7 @@ class Binding:
         return shlex.quote(str(self.dest_orig)) + "\t" + options
 
     def __repr__(self):
-        return "%s(%r)" % (self.__class__, self.__dict__)
+        return f"{self.__class__}({self.__dict__!r})"
 
     def __eq__(self, other: Union["Binding", str]):
         """Check if the binding is equal to another binding or the string
