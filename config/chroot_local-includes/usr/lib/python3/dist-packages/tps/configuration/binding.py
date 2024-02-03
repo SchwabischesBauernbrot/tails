@@ -284,10 +284,10 @@ class Binding:
             return
 
         # Create symlinks for all files in the directory
-        for dir, subdirs, files in os.walk(self.src):
-            dest_dir = os.path.join(self.dest, os.path.relpath(dir, self.src))
+        for _dir, subdirs, files in os.walk(self.src):
+            dest_dir = os.path.join(self.dest, os.path.relpath(_dir, self.src))
             for f in subdirs + files:
-                src = Path(dir, f)
+                src = Path(_dir, f)
                 dest = Path(dest_dir, f)
                 self._create_symlink(src, dest)
 
@@ -394,8 +394,8 @@ class Binding:
 
     def _deactivate_using_symlinks(self):
         # Remove symlinks
-        for dir, subdirs, files in os.walk(self.src):
-            dest_dir = os.path.join(self.dest, os.path.relpath(dir, self.src))
+        for _dir, _subdirs, files in os.walk(self.src):
+            dest_dir = os.path.join(self.dest, os.path.relpath(_dir, self.src))
             for f in files:
                 dest = Path(dest_dir, f)
                 if not dest.is_symlink():
@@ -463,10 +463,10 @@ class Binding:
                 f"Binding {self.dest} is inactive: Destination {self.dest} does not exist"
             )
 
-        for dir, _, files in os.walk(self.src):
-            dest_dir = os.path.join(self.dest, os.path.relpath(dir, self.src))
+        for _dir, subdirs, files in os.walk(self.src):
+            dest_dir = os.path.join(self.dest, os.path.relpath(_dir, self.src))
             for f in files:
-                src = Path(dir, f)
+                src = Path(_dir, f)
                 dest = Path(dest_dir, f)
                 if not dest.is_symlink():
                     raise IsInactiveException(
