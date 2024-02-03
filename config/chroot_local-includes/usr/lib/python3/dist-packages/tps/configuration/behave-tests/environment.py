@@ -36,7 +36,7 @@ os.environ["NOSYMFOLLOW_MOUNTPOINT"] = NOSYMFOLLOW_MOUNTPOINT
 
 # This is not actually the class that behave passes to the functions
 # below, but pretending that it is provides code completion
-class EnvironmentContext(object):
+class EnvironmentContext:
     # Behave internal
     feature: Feature
 
