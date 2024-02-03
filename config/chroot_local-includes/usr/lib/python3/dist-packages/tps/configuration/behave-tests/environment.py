@@ -166,7 +166,7 @@ def after_scenario(context: EnvironmentContext, scenario):
         # We don't use shutil.rmtree here because apparently it tries
         # to follow symlinks, which will fail below the nosymfollow
         # mountpoint
-        subprocess.run(["rm", "-rf", str(p)])
+        subprocess.run(["rm", "-rf", str(p)], check=True)
 
     # Remove the destination directory
     shutil.rmtree(context.tmpdir)
