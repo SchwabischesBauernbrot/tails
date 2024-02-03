@@ -169,10 +169,12 @@ VALID_BRIDGE_TYPES = {"bridge", "obfs4"}
 
 class TorConnectionConfig:
     def __init__(
-        self,
-        bridges: list = [],
-        proxy: TorConnectionProxy = TorConnectionProxy.noproxy(),
+        self, bridges: Optional[list] = None, proxy: Optional[TorConnectionProxy] = None
     ):
+        if bridges is None:
+            bridges = []
+        if proxy is None:
+            proxy = TorConnectionProxy.noproxy()
         self.bridges: list[str] = bridges
         self.proxy: TorConnectionProxy = proxy
 
