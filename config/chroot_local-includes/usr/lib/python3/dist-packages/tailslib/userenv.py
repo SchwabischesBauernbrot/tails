@@ -3,7 +3,7 @@ from functools import lru_cache
 import os
 from pathlib import Path
 import pwd
-from typing import Mapping
+from collections.abc import Mapping
 
 from tailslib import LIVE_USER_UID
 
