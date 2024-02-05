@@ -19,17 +19,17 @@ else
 fi
 
 if [ -n "${FEATURE_BRANCH_GIT_COMMIT:-}" ]; then
-    GIT_SHORT_ID="$(git rev-parse --short "${FEATURE_BRANCH_GIT_COMMIT}")"
+    GIT_SHORT_ID="$(git rev-parse --short=10 "${FEATURE_BRANCH_GIT_COMMIT}")"
     GIT_COMMIT="${FEATURE_BRANCH_GIT_COMMIT}"
 else
-    GIT_SHORT_ID="$(git_current_commit --short)"
+    GIT_SHORT_ID="$(git_current_commit --short=10)"
     GIT_COMMIT="$(git_current_commit)"
 fi
 
 
 # get git branch or tag so we can set the basename appropriately.
 GIT_BRANCH="$(git_current_branch)"
-GIT_BASE_BRANCH_SHORT_ID="$(git rev-parse --verify --short "$(git_base_branch_head)")"
+GIT_BASE_BRANCH_SHORT_ID="$(git rev-parse --verify --short=10 "$(git_base_branch_head)")"
 if [ -n "${GIT_BRANCH}" ]; then
     CLEAN_GIT_BRANCH=$(echo "$GIT_BRANCH" | sed 's,/,_,g')
     BASE_BRANCH_PART=''
