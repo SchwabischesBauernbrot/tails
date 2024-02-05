@@ -29,6 +29,7 @@ fi
 
 # get git branch or tag so we can set the basename appropriately.
 GIT_BRANCH="$(git_current_branch)"
+GIT_BASE_BRANCH_COMMIT="$(git rev-parse --verify "$(git_base_branch_head)")"
 GIT_BASE_BRANCH_SHORT_ID="$(git rev-parse --verify --short=10 "$(git_base_branch_head)")"
 if [ -n "${GIT_BRANCH}" ]; then
     CLEAN_GIT_BRANCH=$(echo "$GIT_BRANCH" | sed 's,/,_,g')
@@ -175,7 +176,6 @@ SUPPORT_URL="https://tails.net/support/"
 BUG_REPORT_URL="https://tails.net/doc/first_steps/bug_reporting/"
 TAILS_DISTRIBUTION="$TAILS_DISTRIBUTION"
 TAILS_SOURCE_DATE_EPOCH="$SOURCE_DATE_EPOCH"
-TAILS_GIT_SHORT_ID="$GIT_SHORT_ID"
 TAILS_GIT_COMMIT="$GIT_COMMIT"
 EOF
 
@@ -193,7 +193,7 @@ if  [ "$GIT_BRANCH" != "$(base_branch)" ] ; then
 
 	cat >> config/chroot_local-includes/etc/os-release <<EOF
 TAILS_GIT_BASE_BRANCH="$(base_branch)"
-TAILS_GIT_BASE_SHORT_ID="$GIT_BASE_BRANCH_SHORT_ID"
+TAILS_GIT_BASE_COMMIT="$GIT_BASE_BRANCH_COMMIT"
 EOF
 fi
 
