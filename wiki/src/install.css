@@ -1,11 +1,11 @@
-#scenarios, #scenarios .block {
+#scenarios, #scenarios .scenarios-group {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
   gap: 35px;
 }
 
-#scenarios .block div {
+#scenarios .scenarios-group div {
   width: 205px;
   text-align: center;
   padding: 0 !important;
@@ -16,18 +16,22 @@
   width: 100%;
   height: 100%;
   color: black;
-  border: none;
-  display: block;
+  text-decoration: none;
+  display: scenarios-group;
+}
+
+#scenarios div a:visited {
+  color: black;
 }
 
 #scenarios div a img {
   margin-top: 40px;
-  width: 100px;
+  width: 80px;
   height: auto;
 }
 
 #scenarios div a p.big {
-  font-size: 24px;
+  font-size: 18px;
   margin: 0;
 }
 
@@ -46,8 +50,8 @@
   border: 1px solid var(--light-gray);
   border-radius: 5px;
   background: url('install/inc/icons/tails.png') var(--background-gray) no-repeat left 50%;
-  background-size: 100px 100px;
-  padding: 1em 2em 1em 100px;
+  background-size: 80px;
+  padding: 1em 2em 1em 80px;
 }
 
 #clone p {

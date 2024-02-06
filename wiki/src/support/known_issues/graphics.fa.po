@@ -8,7 +8,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:56+0200\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -47,9 +47,9 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<p class=\"pre\">\n"
-"Error starting GDM with your graphics card: <i>name of your graphics\n"
-"card [id] (rev number)</i>. Please take note of this error and visit\n"
+"<p class=\"code\">\n"
+"Error starting GDM with your graphics card: <span class=\"command-placeholder\">name of your graphics\n"
+"card [id] (rev number)</span>. Please take note of this error and visit\n"
 "https://tails.net/gdm for troubleshooting.\n"
 "</p>\n"
 msgstr ""
@@ -71,9 +71,7 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid ""
-"   <p class=\"pre\">Error starting GDM with your graphics card:\n"
-"   NVIDIA Corporation [10de:0a6c] GT218M [NVS 3100M] (rev a2)</p>\n"
+msgid "   <p class=\"code\">Error starting GDM with your graphics card: NVIDIA Corporation [10de:0a6c] GT218M [NVS 3100M] (rev a2)</p>\n"
 msgstr ""
 "   <p class=\"pre\">Error starting GDM with your graphics card:\n"
 "   NVIDIA Corporation GT218M [NVS 3100M] [10de:0a6c] (rev a2)</p>\n"
@@ -125,11 +123,11 @@ msgstr ""
 msgid "     Mention in your email:\n"
 msgstr ""
 
-#. type: Bullet: '     - '
+#. type: Bullet: '     * '
 msgid "The version of Tails that you are trying to start."
 msgstr ""
 
-#. type: Bullet: '     - '
+#. type: Bullet: '     * '
 msgid "The name, ID, and revision number (if any) of your graphics card."
 msgstr ""
 
@@ -268,12 +266,12 @@ msgid ""
 "using the following [[boot option|doc/advanced_topics/boot_options]]:"
 msgstr ""
 
-#. type: Bullet: '* '
-msgid "`modprobe.blacklist=amdgpu`"
+#. type: Plain text
+msgid "- `modprobe.blacklist=amdgpu`"
 msgstr ""
 
-#. type: Bullet: '* '
-msgid "`modprobe.blacklist=radeon`"
+#. type: Plain text
+msgid "- `modprobe.blacklist=radeon`"
 msgstr ""
 
 #. type: Plain text
@@ -689,8 +687,8 @@ msgstr ""
 #~ "For more details, see our issue on [[!tails_ticket 7505 desc=\"Video is "
 #~ "broken with switchable graphics\"]]."
 #~ msgstr ""
-#~ "برای جزییات بیشتر به این مورد مراجعه کنید: [[!tails_ticket 7505 desc="
-#~ "\"Video is broken with switchable graphics\"]]."
+#~ "برای جزییات بیشتر به این مورد مراجعه کنید: [[!tails_ticket 7505 "
+#~ "desc=\"Video is broken with switchable graphics\"]]."
 
 #, fuzzy
 #~| msgid "<a id=\"vmware\"></a>\n"

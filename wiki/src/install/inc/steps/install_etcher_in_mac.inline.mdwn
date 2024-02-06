@@ -33,6 +33,8 @@ line"]].
 
 [[!toggleable id="dd" text="""
 
+[[!toggle id="dd" text="""<span class="hide-button"></span>"""]]
+
 1. Make sure that your USB stick is unplugged.
 
 1. Open <span class="application">Terminal</span> from
@@ -47,13 +49,13 @@ line"]].
 
    It returns a list of the storage devices on the system. For example:
 
-   <p class="pre command-output">/dev/disk0
-    #:                     TYPE NAME         SIZE      IDENTIFIER
-    0:    GUID_partition_scheme             *500.1 GB  disk0
-    1:                      EFI              209.7 MB  disk0s1
-    2:                Apple_HFS MacDrive     250.0 GB  disk0s2
-    3:                      EFI              134.1 GB  disk0s3
-    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>
+       /dev/disk0
+        #:                     TYPE NAME         SIZE      IDENTIFIER
+        0:    GUID_partition_scheme             *500.1 GB  disk0
+        1:                      EFI              209.7 MB  disk0s1
+        2:                Apple_HFS MacDrive     250.0 GB  disk0s2
+        3:                      EFI              134.1 GB  disk0s3
+        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4
 
 1. Plug your USB stick into the computer.
 
@@ -64,20 +66,20 @@ line"]].
    Your USB stick appears as a new device in the list. Check
    that its size corresponds to the size of your USB stick.
 
-   <p class="pre command-output">/dev/disk0
-    #:                     TYPE NAME         SIZE      IDENTIFIER
-    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0
-    1:                      EFI              209.7 MB  disk0s1
-    2:                Apple_HFS MacDrive     250.0 GB  disk0s2
-    3:                      EFI              134.1 GB  disk0s3
-    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4
-  /dev/disk1
-    #:                     TYPE NAME         SIZE      IDENTIFIER
-    0:   FDisk_partition_scheme             *8.0 GB    disk1
-    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>
+       /dev/disk0
+        #:                     TYPE NAME         SIZE      IDENTIFIER
+        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0
+        1:                      EFI              209.7 MB  disk0s1
+        2:                Apple_HFS MacDrive     250.0 GB  disk0s2
+        3:                      EFI              134.1 GB  disk0s3
+        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4
+      /dev/disk1
+        #:                     TYPE NAME         SIZE      IDENTIFIER
+        0:   FDisk_partition_scheme             *8.0 GB    disk1
+        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1
 
 1. Take note of the *device name* of your USB stick.
-   In this example, the USB stick is 8.0 GB and its device name is <span class="code">/dev/disk1</span>.
+   In this example, the USB stick is 8.0 GB and its device name is <code>/dev/disk1</code>.
    Yours might be different.
 
    <div class="caution">
@@ -102,30 +104,30 @@ line"]].
    - <span class="command-placeholder">device</span> with the device name found in step 6
 
      <div class="tip">
-     <p>You can try adding <span class="code">r</span> before <span class="code">disk</span> to make the installation faster.</p>
+     <p>You can try adding <code>r</code> before <code>disk</code> to make the installation faster.</p>
      </div>
 
-   <p class="pre command">diskutil unmountDisk <span class="command-placeholder">device</span></p>
+   <p class="command-template">diskutil unmountDisk <span class="command-placeholder">device</span></p>
 
-   <p class="pre command">dd if=<span class="command-placeholder">tails.img</span> of=<span class="command-placeholder">device</span> bs=16m && sync</p>
+   <p class="command-template">dd if=<span class="command-placeholder">tails.img</span> of=<span class="command-placeholder">device</span> bs=16m && sync</p>
 
    You should get something like this:
 
-   <p class="pre command-example">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>
+   <p class="command-template">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>
 
    If no error message is returned, Tails is being copied on the USB
    stick. The copy takes some time, generally a few minutes.
 
    <div class="note">
-   <p>If you get a <span class="guilabel">Permission denied</span> error, try
+   <p>If you get a <code>Permission denied</code> error, try
    adding <code>sudo</code> at the beginning of the command:</p>
 
-   <p class="pre command">sudo dd if=<span class="command-placeholder">tails.img</span> of=<span class="command-placeholder">device</span> bs=16m && sync</p>
+   <p class="command-template">sudo dd if=<span class="command-placeholder">tails.img</span> of=<span class="command-placeholder">device</span> bs=16m && sync</p>
 
-   <p>If you get an <span class="guilabel">invalid number ‘16m’</span> error, try
+   <p>If you get an <code>invalid number ‘16m’</code> error, try
    using <code>16M</code> instead:</p>
 
-   <p class="pre command">dd if=<span class="command-placeholder">tails.img</span> of=<span class="command-placeholder">device</span> bs=16M && sync</p>
+   <p class="command-template">dd if=<span class="command-placeholder">tails.img</span> of=<span class="command-placeholder">device</span> bs=16M && sync</p>
 
    </div>
 

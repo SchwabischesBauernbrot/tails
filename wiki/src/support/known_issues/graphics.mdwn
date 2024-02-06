@@ -9,9 +9,9 @@
 This section applies if you see the following error message when
 starting Tails:
 
-<p class="pre">
-Error starting GDM with your graphics card: <i>name of your graphics
-card [id] (rev number)</i>. Please take note of this error and visit
+<p class="code">
+Error starting GDM with your graphics card: <span class="command-placeholder">name of your graphics
+card [id] (rev number)</span>. Please take note of this error and visit
 https://tails.net/gdm for troubleshooting.
 </p>
 
@@ -21,12 +21,13 @@ https://tails.net/gdm for troubleshooting.
 
    For example, if your error message starts with:
 
-   <p class="pre">Error starting GDM with your graphics card:
-   NVIDIA Corporation [10de:0a6c] GT218M [NVS 3100M] (rev a2)</p>
+   <p class="code">Error starting GDM with your graphics card: NVIDIA Corporation [10de:0a6c] GT218M [NVS 3100M] (rev a2)</p>
 
    - The name is *NVIDIA Corporation GT218M [NVS 3100M]*.
+
    - The ID is *[10de:0a6c]*. The ID is unique to the model of your
      graphics card, it is not unique to your computer.
+
    - The revision number is *a2*. Your graphics card might have no
      revision number.
 
@@ -45,8 +46,9 @@ https://tails.net/gdm for troubleshooting.
 
      Mention in your email:
 
-     - The version of Tails that you are trying to start.
-     - The name, ID, and revision number (if any) of your graphics card.
+     * The version of Tails that you are trying to start.
+
+     * The name, ID, and revision number (if any) of your graphics card.
 
      <div class="tip">
 
@@ -119,8 +121,9 @@ the computer to use that one instead of the AMD graphics card.
 For example, using the following [[boot
 option|doc/advanced_topics/boot_options]]:
 
-* `modprobe.blacklist=amdgpu`
-* `modprobe.blacklist=radeon`
+- `modprobe.blacklist=amdgpu`
+
+- `modprobe.blacklist=radeon`
 
 <h2 id="radeon-r9">AMD Radeon R9</h2>
 

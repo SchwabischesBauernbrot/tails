@@ -1,8 +1,6 @@
 import logging
 import gi
-import glob
 import os
-import sh
 import threading
 from typing import TYPE_CHECKING, Callable
 
@@ -13,16 +11,17 @@ from tailsgreeter.errors import (
     FeatureActivationFailedError,
     WrongPassphraseError,
 )
+from tps import InvalidBootDeviceErrorType
 
 gi.require_version("GLib", "2.0")
 gi.require_version("Gtk", "3.0")
-from gi.repository import GLib, Gtk
+from gi.repository import GLib, Gtk  # noqa: E402
 
 if TYPE_CHECKING:
     from tailsgreeter.settings.persistence import PersistentStorageSettings
 
 
-class PersistentStorage(object):
+class PersistentStorage:
     def __init__(
         self,
         persistence_setting: "PersistentStorageSettings",
@@ -39,6 +38,7 @@ class PersistentStorage(object):
         self.box_storagecreate = builder.get_object("box_storagecreate")
         self.box_storage_unlock = builder.get_object("box_storage_unlock")
         self.box_storage_unlocked = builder.get_object("box_storage_unlocked")
+        self.box_storage_error = builder.get_object("box_storage_error")
         self.button_storage_unlock = builder.get_object(
             "button_storage_unlock"
         )  # type: Gtk.Button
@@ -47,6 +47,10 @@ class PersistentStorage(object):
         )
         self.entry_storage_passphrase = builder.get_object("entry_storage_passphrase")
         self.image_storage_state = builder.get_object("image_storage_state")
+        self.label_storage_error = builder.get_object("label_storage_error")
+        self.linkbutton_storage_readonly_help = builder.get_object(
+            "linkbutton_storage_readonly_help",
+        )
         self.infobar_persistence = builder.get_object("infobar_persistence")
         self.label_infobar_persistence = builder.get_object("label_infobar_persistence")
         self.spinner_storage_unlock = builder.get_object("spinner_storage_unlock")
@@ -65,15 +69,29 @@ class PersistentStorage(object):
         )
 
         is_created = self.persistence_setting.is_created
+        can_unlock = self.persistence_setting.can_unlock
         self.box_storagecreate.set_visible(not is_created)
         self.box_storage.set_visible(is_created)
 
         if is_created:
-            self.box_storage_unlock.set_visible(True)
-            self.checkbutton_storage_show_passphrase.set_visible(True)
+            self.box_storage_unlock.set_visible(can_unlock)
+            self.checkbutton_storage_show_passphrase.set_visible(can_unlock)
             self.image_storage_state.set_visible(True)
-            self.entry_storage_passphrase.set_visible(True)
+            self.entry_storage_passphrase.set_visible(can_unlock)
             self.spinner_storage_unlock.set_visible(False)
+            self.linkbutton_storage_readonly_help.set_visible(False)
+            if not can_unlock and (
+                self.persistence_setting.error_type
+                == InvalidBootDeviceErrorType.READ_ONLY
+            ):
+                self.label_storage_error.set_label(
+                    _(
+                        "Impossible to unlock the Persistent Storage "
+                        "because the USB stick is read-only.",
+                    ),
+                )
+                self.linkbutton_storage_readonly_help.set_visible(True)
+            self.box_storage_error.set_visible(not can_unlock)
 
     @staticmethod
     def passphrase_changed(editable):

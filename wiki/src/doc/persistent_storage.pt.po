@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-04-19 10:22+0200\n"
+"POT-Creation-Date: 2023-12-21 23:11+0000\n"
 "PO-Revision-Date: 2023-08-01 15:22+0000\n"
 "Last-Translator: drebs <drebs@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -38,12 +38,20 @@ msgstr ""
 "Tails, por exemplo:"
 
 #. type: Plain text
-msgid "- Your documents - Your Wi-Fi passwords - Your brower bookmarks - ..."
+msgid "- Your documents"
 msgstr ""
-"- Seus documentos\n"
-" - Suas senhas Wi-Fi\n"
-" - Os favoritos do seu navegador\n"
-" - ..."
+
+#. type: Plain text
+msgid "- Your Wi-Fi passwords"
+msgstr ""
+
+#. type: Plain text
+msgid "- Your brower bookmarks"
+msgstr ""
+
+#. type: Plain text
+msgid "- ..."
+msgstr ""
 
 #. type: Plain text
 msgid ""
@@ -79,12 +87,9 @@ msgid ""
 "stick can know that there is a Persistent Storage. Take into consideration that\n"
 "you could be forced or tricked to give out its passphrase.</p>\n"
 msgstr ""
-"<p>O Armazenamento Persistente não fica escondido. Um atacante em posse do "
-"seu\n"
-"pendrive USB tem como saber que existe ali um Armazenamento Persistente. "
-"Leve em\n"
-"consideração que alguém pode tentar te forçar ou te enganar para conseguir a "
-"senha.</p>\n"
+"<p>O Armazenamento Persistente não fica escondido. Um atacante em posse do seu\n"
+"pendrive USB tem como saber que existe ali um Armazenamento Persistente. Leve em\n"
+"consideração que alguém pode tentar te forçar ou te enganar para conseguir a senha.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -99,9 +104,7 @@ msgstr "[[!inline pages=\"doc/persistent_storage.index.pt\" raw=\"yes\" sort=\"a
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"luks\">How strong is the encryption of the Persistent Storage?</h2>\n"
-msgstr ""
-"<h2 id=\"luks\">Quão forte é a criptografia do Armazenamento "
-"Persistente?</h2>\n"
+msgstr "<h2 id=\"luks\">Quão forte é a criptografia do Armazenamento Persistente?</h2>\n"
 
 #. type: Plain text
 msgid "The encryption of the Persistent Storage uses LUKS and DMCrypt."
@@ -139,8 +142,7 @@ msgid ""
 "<p>The weakest point of such encryption is often the passphrase chosen by\n"
 "the user.</p>\n"
 msgstr ""
-"<p>O ponto mais fraco deste tipo de criptografia costuma ser a senha "
-"escolhida\n"
+"<p>O ponto mais fraco deste tipo de criptografia costuma ser a senha escolhida\n"
 "pelo usuário.</p>\n"
 
 #. type: Plain text
@@ -150,10 +152,8 @@ msgid ""
 "   <a href=\"https://theintercept.com/2015/03/26/passphrases-can-memorize-attackers-cant-guess/\">Learn\n"
 "   about the maths behind memorizable and secure passphrases.</a></p>\n"
 msgstr ""
-"   <p>Recomendamos que você escolha uma senha longa composta de 5 a 7 "
-"palavras aleatórias.\n"
-"   <a href=\"https://theintercept.com/2015/03/26/"
-"passphrases-can-memorize-attackers-cant-guess/\">Saiba mais\n"
+"   <p>Recomendamos que você escolha uma senha longa composta de 5 a 7 palavras aleatórias.\n"
+"   <a href=\"https://theintercept.com/2015/03/26/passphrases-can-memorize-attackers-cant-guess/\">Saiba mais\n"
 "   sobre a matemática por trás de senhas seguras e memorizáveis.</a></p>\n"
 
 #. type: Plain text
@@ -174,6 +174,14 @@ msgid ""
 msgstr ""
 "<p>Para saber como o Armazenamento Persistente é implementado, veja nossa\n"
 "[[documentação de design|contribute/design/persistence]].</p>\n"
+
+#~ msgid ""
+#~ "- Your documents - Your Wi-Fi passwords - Your brower bookmarks - ..."
+#~ msgstr ""
+#~ "- Seus documentos\n"
+#~ " - Suas senhas Wi-Fi\n"
+#~ " - Os favoritos do seu navegador\n"
+#~ " - ..."
 
 #~ msgid ""
 #~ "If you start Tails from a USB stick, you can create an encrypted "

@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-09-04 09:55+0200\n"
-"PO-Revision-Date: 2023-11-15 21:15+0000\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
+"PO-Revision-Date: 2024-01-30 14:48+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -15,14 +15,12 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "[[!meta title=\"Rescuing the Persistent Storage of a broken Tails\"]]\n"
-msgstr ""
-"[[!meta title=\"Recuperar l'Emmagatzematge Persistent d'un Tails espatllat\""
-"]]\n"
+msgstr "[[!meta title=\"Recuperar l'Emmagatzematge Persistent d'un Tails espatllat\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -51,12 +49,9 @@ msgid ""
 "how to back up your Persistent Storage to another Tails USB\n"
 "stick|backup]].</p>\n"
 msgstr ""
-"<p>És recomanable mantenir una còpia de seguretat actual del vostre "
-"Emmagatzematge Persistent. Per aprendre\n"
-"a crear una còpia de seguretat del vostre Emmagatzematge Persistent, "
-"consulteu les nostres [[instruccions sobre\n"
-"com fer una còpia de seguretat del vostre Emmagatzematge Persistent a un "
-"altre llapis USB\n"
+"<p>És recomanable mantenir una còpia de seguretat actual del vostre Emmagatzematge Persistent. Per aprendre\n"
+"a crear una còpia de seguretat del vostre Emmagatzematge Persistent, consulteu les nostres [[instruccions sobre\n"
+"com fer una còpia de seguretat del vostre Emmagatzematge Persistent a un altre llapis USB\n"
 "de Tails|backup]].</p>\n"
 
 #. type: Plain text
@@ -97,10 +92,8 @@ msgid ""
 "   Storage. So, it does not matter which features you turn on after creating\n"
 "   the Persistent Storage.\n"
 msgstr ""
-"   El procés que es descriu a continuació anul·la la configuració de l'"
-"Emmagatzematge\n"
-"   Persistent. Per tant, no importa quines funcions activeu després de "
-"crear\n"
+"   El procés que es descriu a continuació anul·la la configuració de l'Emmagatzematge\n"
+"   Persistent. Per tant, no importa quines funcions activeu després de crear\n"
 "   l'Emmagatzematge Persistent.\n"
 
 #. type: Bullet: '1. '
@@ -125,10 +118,8 @@ msgid ""
 "   instructions. Otherwise, the Persistent Storage might not be properly\n"
 "   rescued from your broken Tails.</p>\n"
 msgstr ""
-"   <p>Assegureu-vos que totes les aplicacions estiguin tancades abans de "
-"continuar amb aquestes\n"
-"   instruccions. En cas contrari, és possible que l'Emmagatzematge "
-"Persistent no es recuperi\n"
+"   <p>Assegureu-vos que totes les aplicacions estiguin tancades abans de continuar amb aquestes\n"
+"   instruccions. En cas contrari, és possible que l'Emmagatzematge Persistent no es recuperi\n"
 "   correctament del vostre Tails trencat.</p>\n"
 
 #. type: Plain text
@@ -211,40 +202,36 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "<p class=\"pre command root\">rsync -PaSHAXv --del /media/amnesia/TailsData/ /live/persistence/TailsData_unlocked</p>\n"
+msgid "   <p class=\"command-root\">rsync -PaSHAXv --del /media/amnesia/TailsData/ /live/persistence/TailsData_unlocked</p>\n"
 msgstr ""
-"<p class=\"pre command root\">rsync -PaSHAXv --del /media/amnesia/TailsData/ "
-"/live/persistence/TailsData_unlocked</p>\n"
+"   <p class=\"command-root\">rsync -PaSHAXv --del /media/amnesia/TailsData/ /"
+"live/persistence/TailsData_unlocked</p>\n"
 
 #. type: Plain text
-msgid ""
-"When the command finishes, it displays a summary of the data that was "
-"copied. For example:"
+#, no-wrap
+msgid "   When the command finishes, it displays a summary of the data that was copied. For example:\n"
 msgstr ""
-"Quan finalitza l'ordre, mostra un resum de les dades que s'han copiat. Per "
-"exemple:"
+"   Quan finalitza l'ordre, mostra un resum de les dades que s'han copiat. "
+"Per exemple:\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<pre>\n"
-"sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
-"total size is 32.30M  speedup is 1.00\n"
-"</pre>\n"
+"       sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
+"       total size is 32.30M  speedup is 1.00\n"
 msgstr ""
-"<pre>\n"
-"sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
-"total size is 32.30M  speedup is 1.00\n"
-"</pre>\n"
+"       sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
+"       total size is 32.30M  speedup is 1.00\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"You can now eject the <span class=\"guilabel\">TailsData</span> volume in the\n"
-"<span class=\"application\">Files</span> browser and unplug the USB stick that\n"
-"has your broken Tails on it.\n"
+"   You can now eject the <span class=\"guilabel\">TailsData</span> volume in the\n"
+"   <span class=\"application\">Files</span> browser and unplug the USB stick that\n"
+"   has your broken Tails on it.\n"
 msgstr ""
-"Ara podeu expulsar el volum <span class=\"guilabel\">TailsData</span> del\n"
-"navegador de <span class=\"application\">Fitxers</span> i desconnectar el "
+"   Ara podeu expulsar el volum <span class=\"guilabel\">TailsData</span> "
+"del\n"
+"   navegador de <span class=\"application\">Fitxers</span> i desconnectar el "
 "llapis USB que\n"
-"conté el vostre Tails trencat.\n"
+"   conté el vostre Tails trencat.\n"

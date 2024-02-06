@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:56+0200\n"
-"PO-Revision-Date: 2023-01-03 22:17+0000\n"
-"Last-Translator: xin <xin@riseup.net>\n"
+"POT-Creation-Date: 2024-01-29 11:28+0100\n"
+"PO-Revision-Date: 2024-01-15 10:37+0000\n"
+"Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: Spanish <http://translate.tails.boum.org/projects/tails/"
 "tor_browser/es/>\n"
 "Language: es\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -121,17 +121,28 @@ msgstr "<h1 id=\"confinement\">Confinamiento de AppArmor, descargar, y subir arc
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"<span class=\"application\">Tor Browser</span> in Tails is confined with\n"
-"[[!debwiki AppArmor]] to protect the system and your data from some\n"
-"types of attacks against <span class=\"application\">Tor Browser</span>.\n"
-"As a consequence, <span class=\"application\">Tor Browser</span> in Tails can\n"
-"only read and write to a limited number of folders.\n"
+msgid "*Tor Browser* can only read and write to the following folders:\n"
 msgstr ""
-"En Tails, <span class=\"application\">Tor Browser</span> está confinado con\n"
-"[[!debwiki AppArmor]] para proteger al sistema y a tu información de algunos\n"
-"tipos de ataque contra <span class=\"application\">Tor Browser</span>.\n"
-"Como consecuencia, <span class=\"application\">TorBrowser</span> en Tails sólo puede leer y escribir un número limitado de carpetas.\n"
+
+#. type: Plain text
+msgid ""
+"- *Documents* - *Downloads* - *Music* - *Pictures* - *Videos* - *Tor "
+"Browser* - *Persistent/Tor Browser*, if you have a Persistent Storage"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"This is because, in Tails, *Tor Browser* is confined using *[[!debwiki "
+"AppArmor]]* to protect your files from some types of attacks against *Tor "
+"Browser*."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"For example, thanks to this confinement, even if an attacker manages to "
+"exploit a security vulnerability in *Tor Browser*, they wouldn't be able to "
+"access all the content of your Persistent Storage."
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -139,11 +150,14 @@ msgid "<div class=\"note\">\n"
 msgstr "<div class=\"note\">\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<p>This is why, for example, you might face <em>Permission\n"
+#| "denied</em> errors if you try to download files to the\n"
+#| "<em>Home</em> folder.</p>\n"
 msgid ""
-"<p>This is why, for example, you might face <em>Permission\n"
-"denied</em> errors if you try to download files to the\n"
-"<em>Home</em> folder.</p>\n"
+"<p>This is why you get the following error if you try to download files to\n"
+"another folder:</p>\n"
 msgstr ""
 "<p>Es por esto que podrías enfrentar errores de <em>Denegación\n"
 "de permisos</em>, por ejemplo si intentas descargar archivos a la\n"
@@ -151,51 +165,36 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
+msgid "<p class=\"code\">Could not read the contents of <span class=\"command-placeholder\">folder</span>.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "<p class=\"code\">Error opening directory <span class=\"command-placeholder\">folder</span>: Permission denied</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
 msgid "</div>\n"
 msgstr "</div>\n"
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '- '
 msgid ""
-"- You can save files from <span class=\"application\">Tor\n"
-"Browser</span> to the <span class=\"filename\">Tor Browser</span> folder\n"
-"that is located in the <span class=\"filename\">Home</span> folder.\n"
-"The content of this folder will disappear once you shut down Tails.\n"
+"If you want to download a file from *Tor Browser*, save it to one of these "
+"folders."
 msgstr ""
-"- Puedes guardar lo archivos desde <span class=\"application\">Tor\n"
-"Browser</span> a la carpeta <span class=\"filename\">Tor Browser</span>\n"
-"que se encuentra en la carpeta <span class=\"filename\">Home</span>.\n"
-"El contenido de esta carpeta desaparecerá cuando apagues Tails.\n"
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "- If you want to upload files with <span class=\"application\">Tor\n"
+#| "Browser</span>, copy them to that folder first.\n"
 msgid ""
-"- If you want to upload files with <span class=\"application\">Tor\n"
-"Browser</span>, copy them to that folder first.\n"
+"If you want to upload a file from *Tor Browser*, copy it first to one of "
+"these folders."
 msgstr ""
 "- Si quieres subir archivos con <span class=\"application\">Tor\n"
 "Browser</span>, cópialos a esa carpeta primero.\n"
-
-#. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "- If you turned on the [[Personal Data|doc/first_steps/persistence/"
-#| "configure#personal_data]] feature of the Persistent Storage, you can also "
-#| "use the *Persistent/Tor Browser* folder to download and upload files from "
-#| "*Tor Browser*. The content of the *Persistent/Tor Browser* folder is "
-#| "saved across different working sessions."
-msgid ""
-"- If you turned on the [[Persistent Folder|persistent_storage/"
-"configure#persistent_folder]] feature of the Persistent Storage, you can "
-"also use the *Persistent/Tor Browser* folder to download and upload files "
-"from *Tor Browser*. The content of the *Persistent/Tor Browser* folder is "
-"saved across different working sessions."
-msgstr ""
-"- Si has activado la funcionalidad persistente [[Personal Data|doc/"
-"first_steps/persistence/configure#personal_data]] también puedes usar el "
-"directorio *Persistent/Tor Browser* para descargar y subir archivos desde el "
-"*Navegador Tor*. El contenido de este directorio se guardarán y quedarán "
-"disponibles para sesiones posteriores."
 
 #. type: Plain text
 #, no-wrap
@@ -390,12 +389,18 @@ msgstr ""
 msgid "To learn more about HTTPS Everywhere, you can see:"
 msgstr "Para aprender más sobre HTTPS Everywhere puedes leer:"
 
-#. type: Bullet: ' - '
-msgid "the [HTTPS Everywhere homepage](https://www.eff.org/https-everywhere)"
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "the [HTTPS Everywhere homepage](https://www.eff.org/https-everywhere)"
+msgid "- The [HTTPS Everywhere homepage](https://www.eff.org/https-everywhere)"
 msgstr "la [página de HTTPS Everywhere](https://www.eff.org/https-everywhere)"
 
-#. type: Bullet: ' - '
-msgid "the [HTTPS Everywhere FAQ](https://www.eff.org/https-everywhere/faq/)"
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "the [HTTPS Everywhere FAQ](https://www.eff.org/https-everywhere/faq/)"
+msgid "- The [HTTPS Everywhere FAQ](https://www.eff.org/https-everywhere/faq/)"
 msgstr ""
 "las [Preguntas Frecuentes de HTTPS Everywhere](https://www.eff.org/https-"
 "everywhere/faq/)"
@@ -591,16 +596,22 @@ msgstr ""
 "La funcionalidad <span class=\"guilabel\">Nueva identidad</span> del\n"
 "<span class=\"application\">Navegador Tor</span>:\n"
 
-#. type: Bullet: '  - '
-msgid "Closes all open tabs."
+#. type: Plain text
+#, fuzzy
+#| msgid "Closes all open tabs."
+msgid "- Closes all open tabs."
 msgstr "Cierra todas las pestañas abiertas."
 
-#. type: Bullet: '  - '
-msgid "Clears the session state including cache, history, and cookies."
+#. type: Plain text
+#, fuzzy
+#| msgid "Clears the session state including cache, history, and cookies."
+msgid "- Clears the session state including cache, history, and cookies."
 msgstr "Limpia el estado de la sesión incluyendo cache, historial y cookies."
 
-#. type: Bullet: '  - '
-msgid "Closes all existing web connections and creates new Tor circuits."
+#. type: Plain text
+#, fuzzy
+#| msgid "Closes all existing web connections and creates new Tor circuits."
+msgid "- Closes all existing web connections and creates new Tor circuits."
 msgstr ""
 "Cierra todas las conexiones web existentes y crea nuevos circuitos de Tor."
 
@@ -655,8 +666,8 @@ msgstr ""
 "Protege de más ataques JavaScript. Por ejemplo, ataques cross-site scripting "
 "(XSS)."
 
-#. type: Bullet: '- '
-msgid "Allow you to disable JavaScript completely on some websites only."
+#. type: Plain text
+msgid "- Allow you to disable JavaScript completely on some websites only."
 msgstr ""
 
 #. type: Plain text
@@ -694,6 +705,51 @@ msgid ""
 "webpage remains as close as possible to the desired size without revealing the\n"
 "actual size of the window.\n"
 msgstr ""
+
+#, no-wrap
+#~ msgid ""
+#~ "<span class=\"application\">Tor Browser</span> in Tails is confined with\n"
+#~ "[[!debwiki AppArmor]] to protect the system and your data from some\n"
+#~ "types of attacks against <span class=\"application\">Tor Browser</span>.\n"
+#~ "As a consequence, <span class=\"application\">Tor Browser</span> in Tails can\n"
+#~ "only read and write to a limited number of folders.\n"
+#~ msgstr ""
+#~ "En Tails, <span class=\"application\">Tor Browser</span> está confinado con\n"
+#~ "[[!debwiki AppArmor]] para proteger al sistema y a tu información de algunos\n"
+#~ "tipos de ataque contra <span class=\"application\">Tor Browser</span>.\n"
+#~ "Como consecuencia, <span class=\"application\">TorBrowser</span> en Tails sólo puede leer y escribir un número limitado de carpetas.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "- You can save files from <span class=\"application\">Tor\n"
+#~ "Browser</span> to the <span class=\"filename\">Tor Browser</span> folder\n"
+#~ "that is located in the <span class=\"filename\">Home</span> folder.\n"
+#~ "The content of this folder will disappear once you shut down Tails.\n"
+#~ msgstr ""
+#~ "- Puedes guardar lo archivos desde <span class=\"application\">Tor\n"
+#~ "Browser</span> a la carpeta <span class=\"filename\">Tor Browser</span>\n"
+#~ "que se encuentra en la carpeta <span class=\"filename\">Home</span>.\n"
+#~ "El contenido de esta carpeta desaparecerá cuando apagues Tails.\n"
+
+#, fuzzy
+#~| msgid ""
+#~| "- If you turned on the [[Personal Data|doc/first_steps/persistence/"
+#~| "configure#personal_data]] feature of the Persistent Storage, you can "
+#~| "also use the *Persistent/Tor Browser* folder to download and upload "
+#~| "files from *Tor Browser*. The content of the *Persistent/Tor Browser* "
+#~| "folder is saved across different working sessions."
+#~ msgid ""
+#~ "- If you turned on the [[Persistent Folder|persistent_storage/"
+#~ "configure#persistent_folder]] feature of the Persistent Storage, you can "
+#~ "also use the *Persistent/Tor Browser* folder to download and upload files "
+#~ "from *Tor Browser*. The content of the *Persistent/Tor Browser* folder is "
+#~ "saved across different working sessions."
+#~ msgstr ""
+#~ "- Si has activado la funcionalidad persistente [[Personal Data|doc/"
+#~ "first_steps/persistence/configure#personal_data]] también puedes usar el "
+#~ "directorio *Persistent/Tor Browser* para descargar y subir archivos desde "
+#~ "el *Navegador Tor*. El contenido de este directorio se guardarán y "
+#~ "quedarán disponibles para sesiones posteriores."
 
 #~ msgid "Erases the content of the clipboard."
 #~ msgstr "Borra el contenido del portapapeles."

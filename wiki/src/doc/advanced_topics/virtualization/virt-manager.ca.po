@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:56+0200\n"
-"PO-Revision-Date: 2023-11-15 21:14+0000\n"
+"POT-Creation-Date: 2024-01-29 11:27+0100\n"
+"PO-Revision-Date: 2024-01-31 17:36+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -33,7 +33,7 @@ msgstr ""
 "[*virt-manager*](http://virt-manager.org/) és una solució de virtualització "
 "de programari lliure per a Linux. *virt-manager* té una interfície més "
 "complexa que *VirtualBox* o *Màquines de GNOME*, però també té un conjunt de "
-"funcions més complet."
+"funcionalitats més complet."
 
 #. type: Plain text
 #, no-wrap
@@ -95,14 +95,12 @@ msgid ""
 "processor. This terminology is a bit confusing and other documentation\n"
 "might mention the following tools:\n"
 msgstr ""
-"*virt-manager* es basa en un conjunt d'eines de virtualització de nivell "
-"inferior,\n"
+"*virt-manager* es basa en un conjunt d'eines de virtualització de nivell inferior,\n"
 "passant de la interfície d'usuari a les interaccions de maquinari amb el\n"
-"processador. Aquesta terminologia és una mica confusa i una altra "
-"documentació\n"
+"processador. Aquesta terminologia és una mica confusa i una altra documentació\n"
 "podria esmentar les següents eines:\n"
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*KVM* is the module of the Linux kernel that interacts with the "
 "virtualization features of the processor."
@@ -110,7 +108,7 @@ msgstr ""
 "*KVM* és el mòdul del nucli de Linux que interactua amb les característiques "
 "de virtualització del processador."
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*QEMU* is the virtualization software that emulates virtual processors and "
 "peripherals based on *KVM* and that starts and stops virtual machines."
@@ -118,7 +116,7 @@ msgstr ""
 "*QEMU* és el programari de virtualització que emula processadors virtuals i "
 "perifèrics basats en *KVM* i que inicia i atura les màquines virtuals."
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*libvirt* is a library that allows *virt-manager* to interact with the "
 "virtualization capabilities provided by *QEMU*."
@@ -126,7 +124,7 @@ msgstr ""
 "*libvirt* és una llibreria que permet a *virt-manager* interactuar amb les "
 "capacitats de virtualització proporcionades per *QEMU*."
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*SPICE* is a protocol that allows to visualize the desktop of virtual "
 "machines."
@@ -134,7 +132,7 @@ msgstr ""
 "*SPICE* és un protocol que permet visualitzar l'escriptori de màquines "
 "virtuals."
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*virt-manager* is the graphical interface that allows to create, configure, "
 "and run virtual machines."
@@ -158,8 +156,8 @@ msgstr "Per instal·lar *virt-manager* a Debian, executeu l'ordre següent:"
 
 #. type: Plain text
 #, no-wrap
-msgid "    sudo apt install virt-manager libvirt-daemon-system\n"
-msgstr "    sudo apt install virt-manager libvirt-daemon-system\n"
+msgid "<p class=\"command\">sudo apt install virt-manager libvirt-daemon-system</p>\n"
+msgstr "<p class=\"command\">sudo apt install virt-manager libvirt-daemon-system</p>\n"
 
 #. type: Plain text
 msgid "To install *virt-manager* in Ubuntu, execute the following command:"
@@ -167,8 +165,8 @@ msgstr "Per instal·lar *virt-manager* a Ubuntu, executeu l'ordre següent:"
 
 #. type: Plain text
 #, no-wrap
-msgid "    sudo apt install virt-manager libvirt-bin qemu-kvm\n"
-msgstr "    sudo apt install virt-manager libvirt-bin qemu-kvm\n"
+msgid "<p class=\"command\">sudo apt install virt-manager libvirt-bin qemu-kvm</p>\n"
+msgstr "<p class=\"command\">sudo apt install virt-manager libvirt-bin qemu-kvm</p>\n"
 
 #. type: Title =
 #, no-wrap
@@ -264,12 +262,9 @@ msgid ""
 "domain: Requested operation is not valid: network 'default' is not\n"
 "active</span>\", then try to start the default virtual network:\n"
 msgstr ""
-"Si rebeu el missatge d'error \"<span class=\"guilabel\">S'ha produït un "
-"error en iniciar\n"
-"el domini: l'operació sol·licitada no és vàlida: la xarxa \"per defecte\" no "
-"està\n"
-"activa</span>\", a continuació, proveu d'iniciar la xarxa virtual "
-"predeterminada:\n"
+"Si rebeu el missatge d'error \"<span class=\"guilabel\">S'ha produït un error en iniciar\n"
+"el domini: l'operació sol·licitada no és vàlida: la xarxa \"per defecte\" no està\n"
+"activa</span>\", a continuació, proveu d'iniciar la xarxa virtual predeterminada:\n"
 
 #. type: Plain text
 #, no-wrap
@@ -290,20 +285,16 @@ msgid ""
 "</ol>\n"
 msgstr ""
 "<ol>\n"
-"<li>Feu clic a <span class=\"guilabel\">QEMU/KVM - No connectat</span>.</li>"
-"\n"
+"<li>Feu clic a <span class=\"guilabel\">QEMU/KVM - No connectat</span>.</li>\n"
 "<li>Trieu <span class=\"menuchoice\">\n"
 "    <span class=\"guimenu\">Edita</span>&nbsp;▸\n"
 "    <span class=\"guimenuitem\">Detalls de connexió</span></span> per\n"
 "    administrar la connexió al vostre sistema\n"
 "    local <span class=\"application\">QEMU</span>.</li>\n"
-"<li>Feu clic a la pestanya <span class=\"guilabel\">Xarxes virtuals</span> "
-"i, a continuació\n"
-"    seleccioneu la xarxa virtual <span class=\"guilabel\""
-">predeterminada</span>\n"
+"<li>Feu clic a la pestanya <span class=\"guilabel\">Xarxes virtuals</span> i, a continuació\n"
+"    seleccioneu la xarxa virtual <span class=\"guilabel\">predeterminada</span>\n"
 "    el panell esquerre.</li>\n"
-"<li>Feu clic a la icona [[!img lib/media-playback-start.png alt=\"Inicia "
-"Xarxa\"\n"
+"<li>Feu clic a la icona [[!img lib/media-playback-start.png alt=\"Inicia Xarxa\"\n"
 "    link=no class=symbolic]] a la part inferior del panell esquerre per\n"
 "    iniciar la xarxa virtual predeterminada.</li>\n"
 "</ol>\n"
@@ -344,21 +335,20 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   <p class=\"pre command\">truncate -s\n"
+"   <p class=\"command-template\">truncate -s\n"
 "   <span class=\"command-placeholder\">size</span>\n"
 "   <span class=\"command-placeholder\">tails.img</span></p>\n"
 msgstr ""
-"   <p class=\"pre command\">truncate -s\n"
+"   <p class=\"command-template\">truncate -s\n"
 "   <span class=\"command-placeholder\">mida</span>\n"
 "   <span class=\"command-placeholder\">tails.img</span></p>\n"
 
 #. type: Bullet: '   - '
 msgid ""
-"<span class=\"command-placeholder\">size</span> has to be at least <span "
-"class=\"command\">7200M</span>."
+"<span class=\"command-placeholder\">size</span> has to be at least `7200M`."
 msgstr ""
 "La <span class=\"command-placeholder\">mida</span> ha de ser com a mínim "
-"<span class=\"command\">7200M</span>."
+"`7200M`."
 
 #. type: Bullet: '   - '
 msgid ""
@@ -429,8 +419,8 @@ msgid ""
 "After you start on the USB image, you can [[create a Persistent Storage|"
 "persistent_storage]] on it."
 msgstr ""
-"Després d'iniciar la imatge USB, podeu [[crear un Emmagatzematge "
-"Persistent|persistent_storage]]."
+"Després d'iniciar la imatge USB, podeu [[crear un Emmagatzematge Persistent|"
+"persistent_storage]]."
 
 #. type: Plain text
 #, no-wrap
@@ -587,14 +577,14 @@ msgstr ""
 "variar en funció de la versió de la solució de virtualització i de la "
 "configuració de la màquina virtual. Per exemple:"
 
-#. type: Bullet: ' - '
+#. type: Bullet: '- '
 msgid ""
 "The *Auto resize VM with window* feature does not work in all configurations."
 msgstr ""
 "La funció *Redimensiona automàticament VM amb la finestra* no funciona en "
 "totes les configuracions."
 
-#. type: Bullet: ' - '
+#. type: Bullet: '- '
 msgid ""
 "The video device that provides optimal graphics performance can be different "
 "depending on the version of the host operating system."
@@ -628,6 +618,14 @@ msgstr ""
 "   Comenceu amb dispositius de vídeo *Virtio* i *QXL*: generalment donen\n"
 "   els millors resultats. Si no us funcionen bé, proveu\n"
 "   altres models de dispositius de vídeo.\n"
+
+#. type: Bullet: '3. '
+msgid ""
+"Try enabling or disabling the OpenGL and 3D acceleration options of the "
+"display and video device."
+msgstr ""
+"Proveu d'activar o desactivar les opcions d'acceleració OpenGL i 3D del "
+"dispositiu de visualització i vídeo."
 
 #~ msgid ""
 #~ "  1. Double-click on **localhost (QEMU)** to connect to the *QEMU*\n"

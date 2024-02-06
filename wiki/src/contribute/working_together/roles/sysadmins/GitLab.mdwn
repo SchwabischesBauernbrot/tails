@@ -33,8 +33,10 @@ push a topic branch and submit a merge request.
 This can be useful, for example:
 
  - to modify group membership when someone joins or leaves a team
+
  - to propose new [[!tails_gitlab groups/tails/-/labels desc="group labels"]]
    shared by all our GitLab projects
+
  - to propose a new project under the `tails/` namespace, ensuring our common
    project settings & permission model are applied
 
@@ -78,47 +80,66 @@ shouldn't be used for communicating with other users.
 ## Subjects
 
  - An _admin_:
+
    - can configure GitLab
-     - As a consequence, an admin can grant themselves
-       any permission they want if an emergency requires it;
-       in other situations, better follow due process to request
-       such status or permissions :)
+
+     As a consequence, an admin can grant themselves
+     any permission they want if an emergency requires it;
+     in other situations, better follow due process to request
+     such status or permissions :)
+
    - MUST comply with our "Level 3" security policy
 
  - A _committer_:
+
    - can push and force-push to any ref in the canonical Git repo,
      including major branches and release tags;<br/>
      incidentally, this ensures the following requirement is met:
+
    - their branches are picked up by Jenkins; it follows that they
      MUST comply with our "Infrastructure" security policy
+
    - can merge MRs into major branches
+
    - can modify issues metadata
+
    - is allowed to view confidential issues in the [[!tails_gitlab tails/tails]]
      GitLab project; that's OK, because particularly sensitive data
      lives somewhere else, with stricter access control
+
    - can edit other users' comments
+
    - MUST comply with our "Level 3" security policy
 
  - A _regular, particularly trusted contributor_:
+
    - can push and force-push to a subset of refs in the canonical Git repo;
      this subset MUST NOT include any major branch nor release tag;<br/>
      this is required to ensure the following requirement is met:
+
    - their branches are picked up by Jenkins; it follows that they
      MUST comply with our "Infrastructure" security policy
+
    - can modify issues metadata
+
    - is allowed to view confidential issues in the [[!tails_gitlab tails/tails]]
      GitLab project; that's OK, because particularly sensitive data
      lives somewhere else, with stricter access control
 
  - A _regular contributor_:
+
    - can fork the Git repositories and push changes to their own fork
+
    - can modify issues metadata
+
    - is allowed to view confidential issues in the [[!tails_gitlab tails/tails]]
      GitLab project; that's OK, because particularly sensitive data
      lives somewhere else, with stricter access control
 
  - _Anybody with a GitLab account_ on the instance we use:
+
    - can view and submit issues in public projects
+
    - can submit MRs in public projects
 
 ## Implementation

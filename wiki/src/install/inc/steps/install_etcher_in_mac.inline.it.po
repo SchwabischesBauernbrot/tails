@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:55+0200\n"
+"POT-Creation-Date: 2023-12-22 04:43+0000\n"
 "PO-Revision-Date: 2023-10-05 23:13+0000\n"
 "Last-Translator: _ignifugo <ignifugo@insicuri.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
@@ -39,8 +39,7 @@ msgid ""
 "<p class=\"upgrade\">In the following steps, you will install an intermediary Tails using the Tails USB\n"
 "image that you downloaded earlier.</p>\n"
 msgstr ""
-"<p class=\"upgrade\">Nel passaggio successivo, installerai un Tails "
-"intermedio utilizzando l'immagine USB\n"
+"<p class=\"upgrade\">Nel passaggio successivo, installerai un Tails intermedio utilizzando l'immagine USB\n"
 "di Tails che hai scaricato in precedenza.</p>\n"
 
 #. type: Bullet: '1. '
@@ -113,6 +112,11 @@ msgstr ""
 msgid "[[!toggleable id=\"dd\" text=\"\"\"\n"
 msgstr "[[!toggleable id=\"dd\" text=\"\"\"\n"
 
+#. type: Plain text
+#, no-wrap
+msgid "[[!toggle id=\"dd\" text=\"\"\"<span class=\"hide-button\"></span>\"\"\"]]\n"
+msgstr ""
+
 #. type: Bullet: '1. '
 msgid "Make sure that your USB stick is unplugged."
 msgstr "Assicurati che la tua chiavetta USB sia disinserita."
@@ -150,15 +154,23 @@ msgid "   It returns a list of the storage devices on the system. For example:\n
 msgstr "   Restituisce un elenco dei dispositivi di archiviazione sul sistema. Ad esempio:\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <p class=\"pre command-output\">/dev/disk0\n"
+#| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#| "    0:    GUID_partition_scheme             *500.1 GB  disk0\n"
+#| "    1:                      EFI              209.7 MB  disk0s1\n"
+#| "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#| "    3:                      EFI              134.1 GB  disk0s3\n"
+#| "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>\n"
 msgid ""
-"   <p class=\"pre command-output\">/dev/disk0\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:    GUID_partition_scheme             *500.1 GB  disk0\n"
-"    1:                      EFI              209.7 MB  disk0s1\n"
-"    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"    3:                      EFI              134.1 GB  disk0s3\n"
-"    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>\n"
+"       /dev/disk0\n"
+"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+"        0:    GUID_partition_scheme             *500.1 GB  disk0\n"
+"        1:                      EFI              209.7 MB  disk0s1\n"
+"        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+"        3:                      EFI              134.1 GB  disk0s3\n"
+"        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
 msgstr ""
 "   <p class=\"pre command-output\">/dev/disk0\n"
 "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
@@ -186,19 +198,31 @@ msgstr ""
 "   che la sua dimensione corrisponda a quella della tua chiavetta USB.\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <p class=\"pre command-output\">/dev/disk0\n"
+#| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#| "    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#| "    1:                      EFI              209.7 MB  disk0s1\n"
+#| "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#| "    3:                      EFI              134.1 GB  disk0s3\n"
+#| "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+#| "  /dev/disk1\n"
+#| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#| "    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+#| "    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
 msgid ""
-"   <p class=\"pre command-output\">/dev/disk0\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
-"    1:                      EFI              209.7 MB  disk0s1\n"
-"    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"    3:                      EFI              134.1 GB  disk0s3\n"
-"    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-"  /dev/disk1\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
-"    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
+"       /dev/disk0\n"
+"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+"        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+"        1:                      EFI              209.7 MB  disk0s1\n"
+"        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+"        3:                      EFI              134.1 GB  disk0s3\n"
+"        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+"      /dev/disk1\n"
+"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+"        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+"        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 msgstr ""
 "   <p class=\"pre command-output\">/dev/disk0\n"
 "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
@@ -213,10 +237,15 @@ msgstr ""
 "    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Take note of the *device name* of your USB stick.  In this example, the "
+#| "USB stick is 8.0 GB and its device name is <span class=\"code\">/dev/"
+#| "disk1</span>.  Yours might be different."
 msgid ""
 "Take note of the *device name* of your USB stick.  In this example, the USB "
-"stick is 8.0 GB and its device name is <span class=\"code\">/dev/disk1</"
-"span>.  Yours might be different."
+"stick is 8.0 GB and its device name is <code>/dev/disk1</code>.  Yours might "
+"be different."
 msgstr ""
 "Prendi nota del *nome di dispositivo* della tua chiavetta USB. In questo "
 "esempio, la chiavetta USB ha una dimensione di 8.0 GB e il suo nome di "
@@ -232,10 +261,8 @@ msgid ""
 "   </div>\n"
 msgstr ""
 "   <div class=\"caution\">\n"
-"   <p>Se non sei sicura del nome del dispositivo, dovresti interrompere la "
-"procedura o\n"
-"   <strong>rischi di sovrascrivere qualsiasi disco fisso del "
-"sistema</strong>.</p>\n"
+"   <p>Se non sei sicura del nome del dispositivo, dovresti interrompere la procedura o\n"
+"   <strong>rischi di sovrascrivere qualsiasi disco fisso del sistema</strong>.</p>\n"
 "   </div>\n"
 
 #. type: Bullet: '1. '
@@ -285,10 +312,14 @@ msgstr ""
 "dispositivo trovato al passaggio 6"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "     <div class=\"tip\">\n"
+#| "     <p>You can try adding <span class=\"code\">r</span> before <span class=\"code\">disk</span> to make the installation faster.</p>\n"
+#| "     </div>\n"
 msgid ""
 "     <div class=\"tip\">\n"
-"     <p>You can try adding <span class=\"code\">r</span> before <span class=\"code\">disk</span> to make the installation faster.</p>\n"
+"     <p>You can try adding <code>r</code> before <code>disk</code> to make the installation faster.</p>\n"
 "     </div>\n"
 msgstr ""
 "     <div class=\"tip\">\n"
@@ -296,13 +327,15 @@ msgstr ""
 "     </div>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
 msgstr "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">dispositivo</span></p>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
 msgstr "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">dispositivo</span> bs=16m && sync</p>\n"
 
 #. type: Plain text
@@ -311,8 +344,9 @@ msgid "   You should get something like this:\n"
 msgstr "   Dovresti ottenere qualcosa del genere:\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command-example\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command-example\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
+msgid "   <p class=\"command-template\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
 msgstr "   <p class=\"pre command-example\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
 
 #. type: Plain text
@@ -325,10 +359,14 @@ msgstr ""
 "   USB. La copia richiede un po' di tempo, generalmente qualche minuto.\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <div class=\"note\">\n"
+#| "   <p>If you get a <span class=\"guilabel\">Permission denied</span> error, try\n"
+#| "   adding <code>sudo</code> at the beginning of the command:</p>\n"
 msgid ""
 "   <div class=\"note\">\n"
-"   <p>If you get a <span class=\"guilabel\">Permission denied</span> error, try\n"
+"   <p>If you get a <code>Permission denied</code> error, try\n"
 "   adding <code>sudo</code> at the beginning of the command:</p>\n"
 msgstr ""
 "   <div class=\"note\">\n"
@@ -336,23 +374,27 @@ msgstr ""
 "   ad aggiungere <code>sudo</code> all'inizio del comando:</p>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+msgid "   <p class=\"command-template\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
 msgstr "   <p class=\"pre command\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">dispositivo</span> bs=16m && sync</p>\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <p>If you get an <span class=\"guilabel\">invalid number ‘16m’</span> error, try\n"
+#| "   using <code>16M</code> instead:</p>\n"
 msgid ""
-"   <p>If you get an <span class=\"guilabel\">invalid number ‘16m’</span> error, try\n"
+"   <p>If you get an <code>invalid number ‘16m’</code> error, try\n"
 "   using <code>16M</code> instead:</p>\n"
 msgstr ""
-"   <p>Se si presenta un errore <span class=\"guilabel\">numero non valido "
-"‘16m’</span>, prova\n"
+"   <p>Se si presenta un errore <span class=\"guilabel\">numero non valido ‘16m’</span>, prova\n"
 "   a usare <code>16M</code> in alternativa:</p>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
+msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
 msgstr "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">dispositivo</span> bs=16M && sync</p>\n"
 
 #. type: Plain text

@@ -35,17 +35,21 @@ going from the user interface to the hardware interactions with the
 processor. This terminology is a bit confusing and other documentation
 might mention the following tools:
 
-  - *KVM* is the module of the Linux kernel that interacts with the
-    virtualization features of the processor.
-  - *QEMU* is the virtualization software that emulates virtual
-    processors and peripherals based on *KVM* and that starts and stops
-    virtual machines.
-  - *libvirt* is a library that allows *virt-manager* to interact with
-    the virtualization capabilities provided by *QEMU*.
-  - *SPICE* is a protocol that allows to visualize the desktop of
-    virtual machines.
-  - *virt-manager* is the graphical interface that allows to create,
-    configure, and run virtual machines.
+- *KVM* is the module of the Linux kernel that interacts with the
+  virtualization features of the processor.
+
+- *QEMU* is the virtualization software that emulates virtual
+  processors and peripherals based on *KVM* and that starts and stops
+  virtual machines.
+
+- *libvirt* is a library that allows *virt-manager* to interact with
+  the virtualization capabilities provided by *QEMU*.
+
+- *SPICE* is a protocol that allows to visualize the desktop of
+  virtual machines.
+
+- *virt-manager* is the graphical interface that allows to create,
+  configure, and run virtual machines.
 
 <a id="iso"></a>
 
@@ -55,12 +59,12 @@ Installation
 To install *virt-manager* in Debian, execute the following
 command:
 
-    sudo apt install virt-manager libvirt-daemon-system
+<p class="command">sudo apt install virt-manager libvirt-daemon-system</p>
 
 To install *virt-manager* in Ubuntu, execute the following
 command:
 
-    sudo apt install virt-manager libvirt-bin qemu-kvm
+<p class="command">sudo apt install virt-manager libvirt-bin qemu-kvm</p>
 
 Running Tails from an ISO image
 ===============================
@@ -134,12 +138,13 @@ allows you to use a Persistent Storage in a virtual machine.
 1. Increase the size of the USB image to be at least 8 GB. This creates
    space for automatic upgrades and the Persistent Storage.
 
-   <p class="pre command">truncate -s
+   <p class="command-template">truncate -s
    <span class="command-placeholder">size</span>
    <span class="command-placeholder">tails.img</span></p>
 
    - <span class="command-placeholder">size</span> has to be at least
-     <span class="command">7200M</span>.
+     `7200M`.
+
    - <span class="command-placeholder">tails.img</span> is the file name
      of the USB image that you want to resize.
 
@@ -258,10 +263,11 @@ with *virt-manager* are common. The best solution can vary depending
 on the version of the virtualization solution and on the virtual
 machine configuration. For example:
 
- - The *Auto resize VM with window* feature does not work in all
-   configurations.
- - The video device that provides optimal graphics performance can be
-   different depending on the version of the host operating system.
+- The *Auto resize VM with window* feature does not work in all
+  configurations.
+
+- The video device that provides optimal graphics performance can be
+  different depending on the version of the host operating system.
 
 To troubleshoot such issues:
 
@@ -273,3 +279,6 @@ To troubleshoot such issues:
    Start with *Virtio* and *QXL* video devices: they generally give
    the best results. If they don't perform well for you, try every
    other video device model.
+
+3. Try enabling or disabling the OpenGL and 3D acceleration options
+   of the display and video device.

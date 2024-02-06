@@ -60,6 +60,22 @@ check-black:
   - black --version
   - black --check .
 
+ruff-changed-files:
+  only:
+    - merge_requests
+
+  image: debian:sid
+
+  script:
+    - apt-get -qy install ruff findutils git
+    - ruff --version
+    - git fetch origin "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
+    - ./bin/test-utils/ruff HEAD "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}" --output-format=junit --output-file=ruff.xml
+  artifacts:
+    when: always
+    reports:
+      junit: ruff.xml
+
 check-website-core-pages:
   script:
     - apt-get -qy install git
@@ -137,9 +153,9 @@ test-perl5lib:
 shellcheck:
   image: debian:testing
   script:
-  - apt-get -qy install python3 shellcheck xmlstarlet file
+  - apt-get -qy install python3 shellcheck xmlstarlet git
   - shellcheck --version
-  - './bin/shellcheck-tree --format=checkstyle
+  - 'git ls-files -z | ./bin/test-utils/is-file-type filter --zero shell | xargs --verbose --no-run-if-empty -0 shellcheck --format=checkstyle
        | xmlstarlet tr config/ci/shellcheck/checkstyle2junit.xslt
        > shellcheck.xml'
   artifacts:
