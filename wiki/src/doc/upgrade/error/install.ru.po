@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2020-04-23 16:49+0000\n"
+"POT-Creation-Date: 2023-12-21 23:11+0000\n"
 "PO-Revision-Date: 2021-07-17 19:05+0000\n"
 "Last-Translator: Ed Medvedev <edward.medvedev@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -15,8 +15,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n%10<="
-"4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 3.11.3\n"
 
 #. type: Plain text
@@ -36,9 +36,7 @@ msgstr "<div class=\"caution\">\n"
 #. type: Plain text
 #, no-wrap
 msgid "<p>Your Tails USB stick needs to be repaired and might be unable to restart.</p>\n"
-msgstr ""
-"<p>Ваша флешка Tails сломалась. Возможно, с неё нельзя перезагрузить "
-"систему.</p>\n"
+msgstr "<p>Ваша флешка Tails сломалась. Возможно, с неё нельзя перезагрузить систему.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -66,26 +64,39 @@ msgstr ""
 msgid "Include in your report:"
 msgstr "Включите в своё сообщение:"
 
-#. type: Bullet: '   - '
-msgid "the debugging information that appears in the error message"
+#. type: Plain text
+#, fuzzy
+#| msgid "the debugging information that appears in the error message"
+msgid "- The debugging information that appears in the error message"
 msgstr "отладочную информацию из сообщения об ошибке;"
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '- '
 msgid ""
-"   - the output of the five following commands, run in a\n"
-"    [[<span class=\\\"application\\\">Terminal</span>|first_steps/desktop#terminal]]:\n"
-"    <pre>\n"
-"        ls -l /lib/live/mount/medium/live\n"
-"        cat /lib/live/mount/medium/live/Tails.module\n"
-"        mount\n"
-"        df -h\n"
-"        free -m\n"
-"    </pre>\n"
+"The output of the five following commands, run in a [[*Terminal*|first_steps/"
+"desktop#terminal]]:"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   - the output of the five following commands, run in a\n"
+#| "    [[<span class=\\\"application\\\">Terminal</span>|first_steps/desktop#terminal]]:\n"
+#| "    <pre>\n"
+#| "        ls -l /lib/live/mount/medium/live\n"
+#| "        cat /lib/live/mount/medium/live/Tails.module\n"
+#| "        mount\n"
+#| "        df -h\n"
+#| "        free -m\n"
+#| "    </pre>\n"
+msgid ""
+"      ls -l /lib/live/mount/medium/live\n"
+"      cat /lib/live/mount/medium/live/Tails.module\n"
+"      mount\n"
+"      df -h\n"
+"      free -m\n"
 msgstr ""
 "   - результаты выполнения следующих пяти команд, выполненных в\n"
-"    [[<span class=\\\"application\\\">терминале</span>|first_steps/"
-"desktop#terminal]]:\n"
+"    [[<span class=\\\"application\\\">терминале</span>|first_steps/desktop#terminal]]:\n"
 "    <pre>\n"
 "        ls -l /lib/live/mount/medium/live\n"
 "        cat /lib/live/mount/medium/live/Tails.module\n"
@@ -104,8 +115,8 @@ msgid ""
 "To repair your Tails USB stick, please try doing a [[manual upgrade|"
 "upgrade#manual]]."
 msgstr ""
-"Для восстановления флешки Tails нужно выполнить [[обновление "
-"вручную|upgrade#manual]]."
+"Для восстановления флешки Tails нужно выполнить [[обновление вручную|"
+"upgrade#manual]]."
 
 #. type: Plain text
 #, no-wrap

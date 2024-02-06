@@ -41,27 +41,28 @@ key.
 
 1. Import the Tails signing key in your <span class="application">GnuPG</span> keyring:
 
-       wget https://tails.net/tails-signing.key
-       gpg --import < tails-signing.key
+   <p class="command">wget https://tails.net/tails-signing.key</p>
+
+   <p class="command">gpg --import < tails-signing.key</p>
 
 1. Install the Debian keyring. It contains the OpenPGP keys of all Debian developers:
 
-       sudo apt update && sudo apt install debian-keyring
+   <p class="command">sudo apt update && sudo apt install debian-keyring</p>
 
 1. Import the OpenPGP key of [[!wikipedia Chris_Lamb_(software_developer) desc="Chris Lamb"]], a former
    Debian Project Leader, from the Debian keyring into your keyring:
 
-       gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export chris@chris-lamb.co.uk | gpg --import
+   <p class="command">gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export chris@chris-lamb.co.uk | gpg --import</p>
 
 1. Verify the certifications made on the Tails signing key:
 
-       gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F
+   <p class="command">gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>
 
    In the output of this command, look for the following line:
 
        sig!2        0x1E953E27D4311E58 2020-03-19  Chris Lamb <chris@chris-lamb.co.uk>
 
-   Here, <code>sig!2</code> means that Chris
+   Here, `sig!2` means that Chris
    Lamb verified and certified the Tails signing key with his key and a level 2 check.
 
    It is also possible to verify the certifications made by other
@@ -76,14 +77,14 @@ key.
    </div>
 
    <div class="tip">
-   <p>The line <span class="command">175 signatures not checked due to missing keys</span> or similar
+   <p>The line <code>175 signatures not checked due to missing keys</code> or similar
    refers to the certifications (also called <i>signatures</i>) made by other public
    keys that are not in your keyring. This is not a problem.</p>
    </div>
 
 1. Certify the Tails signing key with your own key:
 
-       gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F
+   <p class="command">gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>
 
 <h1 id="download" class="step">Download Tails</h1>
 
@@ -91,7 +92,7 @@ key.
 
 1. Download the USB image:
 
-   <p class="pre">wget --continue [[!inline pages="inc/stable_amd64_img_url" raw="yes" sort="age"]]</p>
+   <p class="command-template">wget --continue [[!inline pages="inc/stable_amd64_img_url" raw="yes" sort="age"]]</p>
 
 <h1 id="verify" class="step">Verify your download</h1>
 
@@ -102,23 +103,24 @@ using the Tails signing key.
 
 1. Download the signature of the USB image:
 
-   <p class="pre">wget [[!inline pages="inc/stable_amd64_img_sig_url" raw="yes" sort="age"]]</p>
+   <p class="command">wget [[!inline pages="inc/stable_amd64_img_sig_url" raw="yes" sort="age"]]</p>
 
 1. Verify that the USB image is signed by the Tails signing key:
 
-   <p class="pre">[[!inline pages="inc/stable_amd64_img_gpg_verify" raw="yes" sort="age"]]</p>
+   <p class="command">[[!inline pages="inc/stable_amd64_img_gpg_verify" raw="yes" sort="age"]]</p>
 
    The output of this command should be the following:
 
-   <p class="pre">[[!inline pages="inc/stable_amd64_img_gpg_signature_output" raw="yes" sort="age"]]</p>
+   <p class="code">[[!inline pages="inc/stable_amd64_img_gpg_signature_output" raw="yes" sort="age"]]</p>
 
    Verify in this output that:
 
-     - The date of the signature is the same.
-     - The signature is marked as <code>Good signature</code> since you
-       certified the Tails signing key with your own key.
+   - The date of the signature is the same.
 
-<h1 id="install" class="step">Install Tails using <span class="command">dd</span></h1>
+   - The signature is marked as `Good signature` since you
+     certified the Tails signing key with your own key.
+
+<h1 id="install" class="step">Install Tails using <code>dd</code></h1>
 
 <div class="step-image">[[!img inc/infography/install-tails.png link="no" alt=""]]</div>
 
@@ -127,11 +129,11 @@ using the Tails signing key.
 
 1. Execute the following command:
 
-   <p class="pre command">ls -1 /dev/sd?</p>
+   <p class="command">ls -1 /dev/sd?</p>
 
    It returns a list of the storage devices on the system. For example:
 
-   <p class="pre command-output">/dev/sda</p>
+       dev/sda
 
 1. Plug in the USB stick on which you want to install Tails.
 
@@ -139,17 +141,17 @@ using the Tails signing key.
 
 1. Execute again the same command:
 
-   <p class="pre command">ls -1 /dev/sd?</p>
+   <p class="command">ls -1 /dev/sd?</p>
 
    Your USB stick appears as a new device in the list.
 
-   <p class="pre command-output">/dev/sda
-   /dev/sdb</p>
+       /dev/sda
+       /dev/sdb
 
 1. Take note of the *device name* of your USB stick.
 
    In this example, the device name of the USB stick is
-   <span class="code">/dev/sdb</span>. Yours might be different.
+   `/dev/sdb`. Yours might be different.
 
    <div class="caution">
    <p>If you are unsure about the device name, you should stop proceeding or
@@ -165,20 +167,22 @@ using the Tails signing key.
 
    - <span class="command-placeholder">device</span> with the device name found in step 5
 
-   <p class="pre command">dd if=<span class="command-placeholder">tails.img</span> of=<span class="command-placeholder">device</span> bs=16M oflag=direct status=progress</p>
+   <p class="command-template">dd if=<span class="command-placeholder">tails.img</span> of=<span class="command-placeholder">device</span> bs=16M oflag=direct status=progress</p>
 
    You should get something like this:
 
-   <p class="pre command-example">dd if=/home/user/tails-amd64-3.12.img of=/dev/sdb bs=16M oflag=direct status=progress</p>
+   <p class="command-template">dd if=/home/user/tails-amd64-3.12.img of=/dev/sdb bs=16M oflag=direct status=progress</p>
 
    If no error message is returned, Tails is being copied on the USB
    stick. The copy takes some time, generally a few minutes.
 
    <div class="note">
-   <p>If you get a <span class="guilabel">Permission denied</span> error, try
+
+   <p>If you get a <code>Permission denied</code> error, try
    adding <code>sudo</code> at the beginning of the command:</p>
 
-   <p class="pre command">sudo dd if=<span class="command-placeholder">tails.img</span> of=<span class="command-placeholder">device</span> bs=16M oflag=direct status=progress</p>
+   <p class="command-example">sudo dd if=<span class="command-placeholder">tails.img</span> of=<span class="command-placeholder">device</span> bs=16M oflag=direct status=progress</p>
+
    </div>
 
    The installation is complete after the command prompt reappears.

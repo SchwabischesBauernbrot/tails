@@ -175,7 +175,8 @@ class TailsInstallerThread(threading.Thread):
             self.live.install_bootloader()
             # self.live.bootable_partition()
 
-            self.live.clone_persistent_storage()
+            if self.parent.opts.clone_persistent_storage_requested:
+                self.live.clone_persistent_storage()
 
             self.progress.stop()
 
@@ -379,6 +380,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self.live.log.debug("Entering on_check_button_clone_persistent_storage_toggled")
         self.opts.clone_persistent_storage_requested = check_button.get_active()
         self.update_start_button()
+        self.on_target_partitions_changed(None)
 
     def on_activate_link_button(self, link_button: Gtk.LinkButton):
         uri = link_button.get_uri()
@@ -399,7 +401,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
     def on_source_file_set(self, filechooserbutton):
         self.select_source_iso(filechooserbutton.get_filename())
 
-    def on_target_changed(self, combobox_target):
+    def on_target_partitions_changed(self, combobox_target):
         # get selected device
         drive = self.get_selected_drive()
         if drive is None:
@@ -426,6 +428,13 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             self.__button_start.set_label(_("Install"))
             self.force_reinstall_button_available = False
             self.__button_force_reinstall.set_visible(False)
+            self.__help_link.set_label(_("Installation Instructions"))
+            self.__help_link.set_uri("https://tails.net/install/")
+            if self.opts.clone_persistent_storage_requested:
+                self.__help_link.set_label(_("Backup Instructions"))
+                self.__help_link.set_uri(
+                    "https://tails.net/doc/persistent_storage/backup/"
+                )
         self.update_clone_persistent_storage_check_button()
         self.update_start_button()
 
@@ -507,7 +516,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 "Clone the current Persistent Storage\n"
                 "Impossible to clone the Persistent Storage because it is locked."
             )
-        elif self.opts.partition:
+        elif self.opts.partition or not self.get_selected_drive():
             text = _("Clone the current Persistent Storage")
         else:
             text = _(

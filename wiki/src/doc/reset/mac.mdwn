@@ -100,7 +100,7 @@ Format using the command line
          1:                Apple_HFS Untitled 1   8.0 GB    disk1s1
 
 1. Take note of the *device name* of your USB stick.
-   In this example, the USB stick is 8.0 GB and its device name is <span class="code">/dev/disk1</span>.
+   In this example, the USB stick is 8.0 GB and its device name is `/dev/disk1`.
    Yours might be different.
 
    <div class="caution">
@@ -108,15 +108,15 @@ Format using the command line
    <strong>you risk overwriting any hard disk on the system</strong>.</p>
    </div>
 
-1. Execute the following command to safely remove the USB stick. Replace <span class="code">[device]</span>
+1. Execute the following command to safely remove the USB stick. Replace <span class="command-placeholder">device</span>
    with the device name found in step 6.
 
-       diskutil unmountDisk [device]
+   <p class="command-template">diskutil unmountDisk <span class="command-placeholder">device</span></p>
 
-2. Execute the following command to format the USB stick. Replace <span class="code">[device]</span>
+2. Execute the following command to format the USB stick. Replace <span class="command-placeholder">device</span>
    with the device name found in step 6.
 
-       sudo fdisk -iy [device]
+   <p class="command-template">sudo fdisk -iy <span class="command-placeholder">device</span></p>
 
 1. You can try to reset the USB stick again using
    <span class="application">Disk Utility</span> from the beginning of this

@@ -16,13 +16,19 @@ Requirements
 
 * It must run a completely separate browser profile from the
   Torified browser.
+
 * It must be hard to start by mistake.
+
 * It must be hard to mistake for the Torified browser.
+
 * It must be configured to use the DNS provided by DHCP (which is required
   by some captive portals).
+
 * It must be able to reach captive portals
+
 * We want to apply the Principle of Least Privilege: we consider this
   application very sensitive because it can easily deanonymize users
+
 * It must be difficult for an attacker to leverage the Unsafe Browser as a way
   to gain unrestricted access to the network (and, thus, deanonymize users).
 
@@ -42,9 +48,12 @@ when started:
 
 0. Show a dialog asking the user for verification, while also briefly
    explaining that the Unsafe Browser won't be anonymous.
+
 0. "No" is the default answer, but if "Yes", we start a separate
    browser instance.
+
 0. The browser is configured to use a theme with scary colors (red).
+
 0. Its start page (locally stored) makes it clear that this is the Unsafe
    Browser and explains the issues involved with the Unsafe Browser
    and how to proceed from now on.
@@ -55,18 +64,26 @@ Security
 The Unsafe Browser is run in a restricted environment:
 
  - it runs in its own mount namespace, where (through the use of tmpfs and overlayfs):
+
    - no modifications can be made to the system
+
    - the system is shown as it was before booting. No modification to the state that happened after boot is
      visible
+
    - however, `/home` is fully readable and writable, and is just a bind-mount of the "normal" `/home`
 
  - it runs in its own network namespace
+
    - it can establish arbitrary TCP/UDP connections
+
    - it cannot contact local services, like Tor
 
  - AppArmor rules prevent it from accessing sensitive files:
+
    - Every file in Desktop, Downloads, Documents, etc.
+
    - Every file in home except `/home/amnesia/.*`
+
    - However, it can access `/home/amnesia/Tor Browser/` and `/home/amnesia/Persistent/Tor Browser/`.
 
 This means that the Unsafe Browser cannot access most user files (with the exception of files in `Tor

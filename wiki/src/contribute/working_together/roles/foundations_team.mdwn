@@ -12,12 +12,16 @@ The Tails Foundations Team is responsible for:
 * [[Release Management|roles/release_manager]]
 
 * maintaining the core Tails system, which includes e.g.
+
   - porting Tails to the new version of its upstream foundations, such
     as a new Debian, Tor or Tor Browser;
+
   - keeping our core code base up-to-date and maintainable, e.g.
     refactor or clean up stuff that has bit-rotted, migrate code that
     would otherwise rely on obsolete technologies;
+
   - maintaining the Tails ISO and USB images build system;
+
   - doing the _extra_ peer-review and
     [[release management|release manager]] work that corresponds to
     the above bullet points;
@@ -76,30 +80,45 @@ The Tails Foundations Team is responsible for:
   implementing a feature that is needed to keep Tails relevant.
 
 * Maintain Tails relevant Debian packages in Debian
+
   - Role: being the fallback, on behalf of Tails, to ensure these packages are
     well maintained in Debian (it's OK, and even great, if other pkg-privacy
     members do part of the work).
+
   - Tasks:
+
      - [Maintain a bunch of packages](https://udd.debian.org/dmd/?email1=&email2=&email3=&packages=libgsecuredelete+libotr+nautilus-wipe+onioncircuits+onionshare+pidgin-otr+torsocks&ignpackages=&format=html#todo).
+
        - `pidgin-otr` and `libotr` will be removed from this list once we don't ship Pidgin anymore
          ([[!tails_ticket 8573]])
+
      - [Review and sponsor a few more packages](https://udd.debian.org/dmd/?email1=&email2=&email3=&packages=bilibop+keyringer&ignpackages=&format=html#todo).
+
        - `keyringer` could be removed from this list if all teams migrated to [[!debpts pass]]
      - Track Debian bugs and forward them upstream.
+
   - Duration:
+
      - as long as we ship these packages in Tails
+
      - until the EOL of the last Debian stable release (including
        LTS) we put it in, even if we drop the package from Tails:
        including a package in a stable Debian release implies
        a commitment to maintain it during its lifetime.
+
   - In order to communicate expectations to the person who wears this hat,
     Tails contributors can:
+
       - use the Debian BTS
+
       - mention `@debian-packages-maintainers` on our [[!tails_gitlab
         desc="GitLab"]]
+
   - Not in the scope of this work:
+
     * Perl libraries our custom software depends on: intrigeri does it
       as a volunteer with his Debian hat.
+
     * [[!debpts torbrowser-launcher]]: we only use its AppArmor
       profiles, that we could easily take from upstream if the Debian
       package was not maintained.
@@ -159,11 +178,17 @@ This is an initial draft, to be refined while learning from experience :)
 Among the Foundations Team issues, in decreasing order of priority :
 
 1. Milestone is the upcoming version, for good reasons.
+
 2. Grant deliverable with a deadline.
+
 3. Milestone is the version that follows the upcoming release, for good reasons.
+
 4. Has a `$YEAR` label, which means this issue is on our roadmap.
+
 5. [[UX debt|foundations_team#tasks-management-ux-improvements]]
+
 6. Priority is high (`P:High` label)
+
 7. Priority is elevated (`P:Elevated` label)
 
 <a id="tasks-management-milestone"></a>
@@ -256,6 +281,7 @@ Schleuder mailing list.
 ## Private wikis
 
 - [Foundations Team's section in the summit wiki](https://gitlab.tails.boum.org/tails/summit/-/wikis/Teams/Foundations_Team)
+
 - Only Foundations Team members have access to the [team's private
   wiki](https://gitlab.tails.boum.org/tails/foundations/-/wikis/home).
 
@@ -266,6 +292,7 @@ Schleuder mailing list.
 To get in touch with the entire Foundations Team, you can:
 
  - write to <tails-foundations@boum.org>;
+
  - mention `@foundations-team` on GitLab: GitLab will send an email notification
    about it to every member of the Foundations Team, and add it to their
    To-Do list.

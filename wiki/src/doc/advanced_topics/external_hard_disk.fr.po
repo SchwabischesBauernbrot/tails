@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-05-09 15:09+0000\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
 "PO-Revision-Date: 2023-07-14 16:35+0000\n"
 "Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,9 +20,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "[[!meta title=\"Starting Tails from an external hard disk or problematic USB stick\"]]\n"
-msgstr ""
-"[[!meta title=\"Démarrer Tails depuis un disque dur externe ou une clé USB à "
-"problèmes\"]]\n"
+msgstr "[[!meta title=\"Démarrer Tails depuis un disque dur externe ou une clé USB à problèmes\"]]\n"
 
 #. type: Plain text
 msgid ""
@@ -33,8 +31,9 @@ msgstr ""
 "problèmes, Tails peut afficher le message d'erreur suivant :"
 
 #. type: Plain text
-#, no-wrap
-msgid "    Unable to find a medium containing a live file system\n"
+#, fuzzy, no-wrap
+#| msgid "    Unable to find a medium containing a live file system\n"
+msgid "<p class=\"code\">Unable to find a medium containing a live file system</p>\n"
 msgstr "    Impossible de trouver un média avec un système de fichiers de démarrage\n"
 
 #. type: Plain text
@@ -46,16 +45,25 @@ msgstr ""
 "le chargeur d'amorçage."
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy
+#| msgid ""
+#| "If the **External Hard Disk** entry does not appear in the Boot Loader,\n"
+#| "then remove the <span class=\"code\">live-media=removable</span>\n"
+#| "boot option. To do so, see our instructions on [[modifying the boot "
+#| "options using\n"
+#| "the Boot Loader|doc/advanced_topics/boot_options]].\n"
 msgid ""
-"If the **External Hard Disk** entry does not appear in the Boot Loader,\n"
-"then remove the <span class=\"code\">live-media=removable</span>\n"
-"boot option. To do so, see our instructions on [[modifying the boot options using\n"
-"the Boot Loader|doc/advanced_topics/boot_options]].\n"
+"If the **External Hard Disk** entry does not appear in the Boot Loader, then "
+"remove the `live-media=removable` boot option. To do so, see our "
+"instructions on [[modifying the boot options using the Boot Loader|doc/"
+"advanced_topics/boot_options]]."
 msgstr ""
-"Si l'entrée **External Hard Disk** n'apparaît pas dans le menu du chargeur d'amorçage,\n"
-"alors supprimer l'option de démarrage <span class=\"code\">live-media=removable</span>.\n"
-"Pour ce faire, consulter nos instructions pour [[modifier les options de démarrage en utilisant\n"
+"Si l'entrée **External Hard Disk** n'apparaît pas dans le menu du chargeur "
+"d'amorçage,\n"
+"alors supprimer l'option de démarrage <span class=\"code\">live-"
+"media=removable</span>.\n"
+"Pour ce faire, consulter nos instructions pour [[modifier les options de "
+"démarrage en utilisant\n"
 "le chargeur de démarrage|doc/advanced_topics/boot_options]].\n"
 
 #. type: Plain text
@@ -64,10 +72,16 @@ msgid "<div class=\"caution\">\n"
 msgstr "<div class=\"caution\">\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<p>Choosing the <b>External Hard Disk</b> entry in the Boot Loader or removing\n"
+#| "the <span class=\"code\">live-media=removable</span> boot\n"
+#| "option might be dangerous. If an adversary had access to the computer\n"
+#| "and installed a malicious Tails on the internal hard disk, the computer\n"
+#| "might start on the malicious Tails instead of on the USB stick.</p>\n"
 msgid ""
 "<p>Choosing the <b>External Hard Disk</b> entry in the Boot Loader or removing\n"
-"the <span class=\"code\">live-media=removable</span> boot\n"
+"the <code>live-media=removable</code> boot\n"
 "option might be dangerous. If an adversary had access to the computer\n"
 "and installed a malicious Tails on the internal hard disk, the computer\n"
 "might start on the malicious Tails instead of on the USB stick.</p>\n"

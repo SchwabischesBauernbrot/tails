@@ -39,6 +39,7 @@ In the above:
 * *Tor Browser ready for QA* means that binaries for the upcoming Tor Browser
   are available, ready for testing, but they are not officially out yet: it has to go
   through Tor's QA process first.
+
 * *ESR + Tails release* means Mozilla announces the new Firefox ESR,
   and we release a new version of Tails (roughly) the same day.
   This usually happens on Tuesday.
@@ -65,10 +66,13 @@ Versioning scheme
 
 * We always increment the first number when switching to a new major
   release of Debian. When we do this we reset the second number to zero.
+
 * We also increment the first number whenever it make sense for Tails
   only (user-visible changes).
+
 * The second number is incremented for every release that does not
   increment the first number.
+
 * We add an extra, third number for emergency releases.
 
 Release candidates and beta releases

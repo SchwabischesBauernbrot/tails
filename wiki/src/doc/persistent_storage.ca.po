@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-04-19 10:22+0200\n"
-"PO-Revision-Date: 2023-11-15 21:15+0000\n"
+"POT-Creation-Date: 2023-12-21 23:11+0000\n"
+"PO-Revision-Date: 2024-01-30 14:56+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -37,12 +37,20 @@ msgstr ""
 "exemple:"
 
 #. type: Plain text
-msgid "- Your documents - Your Wi-Fi passwords - Your brower bookmarks - ..."
-msgstr ""
-"- Els vostres documents\n"
-"- Les vostres contrasenyes de Wi-Fi\n"
-"- Les adreces d'interès del vostre navegador\n"
-"- ..."
+msgid "- Your documents"
+msgstr "- Els vostres documents"
+
+#. type: Plain text
+msgid "- Your Wi-Fi passwords"
+msgstr "- Les vostres contrasenyes de Wi-Fi"
+
+#. type: Plain text
+msgid "- Your brower bookmarks"
+msgstr "- Les adreces d'interès del vostre navegador"
+
+#. type: Plain text
+msgid "- ..."
+msgstr "- ..."
 
 #. type: Plain text
 msgid ""
@@ -50,7 +58,7 @@ msgid ""
 "that occupies all the free space left on the USB stick."
 msgstr ""
 "L'Emmagatzematge Persistent és una partició encriptada protegida per una "
-"frase de contrasenya que ocupa tot l'espai lliure que queda al llapis USB."
+"contrasenya que ocupa tot l'espai lliure que queda al llapis USB."
 
 #. type: Plain text
 msgid "Everything in the Persistent Storage is encrypted automatically."
@@ -76,10 +84,8 @@ msgid ""
 "stick can know that there is a Persistent Storage. Take into consideration that\n"
 "you could be forced or tricked to give out its passphrase.</p>\n"
 msgstr ""
-"<p>L'Emmagatzematge Persistent no està amagat. Un atacant en possessió del "
-"vostre\n"
-"llapis USB pot saber que hi ha un Emmagatzematge Persistent. Tingueu-ho en "
-"compte\n"
+"<p>L'Emmagatzematge Persistent no està amagat. Un atacant en possessió del vostre\n"
+"llapis USB pot saber que hi ha un Emmagatzematge Persistent. Tingueu-ho en compte\n"
 "podríeu ser obligat o enganyat a donar la contrasenya.</p>\n"
 
 #. type: Plain text
@@ -90,16 +96,12 @@ msgstr "</div>\n"
 #. type: Plain text
 #, no-wrap
 msgid "[[!inline pages=\"doc/persistent_storage.index\" raw=\"yes\" sort=\"age\"]]\n"
-msgstr ""
-"[[!inline pages=\"doc/persistent_storage.index.ca\" raw=\"yes\" sort=\"age\""
-"]]\n"
+msgstr "[[!inline pages=\"doc/persistent_storage.index.ca\" raw=\"yes\" sort=\"age\"]]\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"luks\">How strong is the encryption of the Persistent Storage?</h2>\n"
-msgstr ""
-"<h2 id=\"luks\">Com de fort és l'encriptatge de l'Emmagatzematge "
-"Persistent?</h2>\n"
+msgstr "<h2 id=\"luks\">Com de fort és l'encriptatge de l'Emmagatzematge Persistent?</h2>\n"
 
 #. type: Plain text
 msgid "The encryption of the Persistent Storage uses LUKS and DMCrypt."
@@ -137,8 +139,7 @@ msgid ""
 "<p>The weakest point of such encryption is often the passphrase chosen by\n"
 "the user.</p>\n"
 msgstr ""
-"<p>El punt més feble d'aquest encriptatge és sovint la contrasenya escollida "
-"per\n"
+"<p>El punt més feble d'aquest encriptatge és sovint la contrasenya escollida per\n"
 "l'usuari.</p>\n"
 
 #. type: Plain text
@@ -148,12 +149,9 @@ msgid ""
 "   <a href=\"https://theintercept.com/2015/03/26/passphrases-can-memorize-attackers-cant-guess/\">Learn\n"
 "   about the maths behind memorizable and secure passphrases.</a></p>\n"
 msgstr ""
-"   <p>Recomanem que escolliu una contrasenya llarga de 5 a 7 paraules "
-"aleatòries.\n"
-"   <a href=\"https://theintercept.com/2015/03/26/"
-"passphrases-can-memorize-attackers-cant-guess/\">Apreneu\n"
-"   sobre les matemàtiques darrere de les contrasenyes fàcils de memoritzar i "
-"segures.</a></p>\n"
+"   <p>Recomanem que escolliu una contrasenya llarga de 5 a 7 paraules aleatòries.\n"
+"   <a href=\"https://theintercept.com/2015/03/26/passphrases-can-memorize-attackers-cant-guess/\">Apreneu\n"
+"   sobre les matemàtiques darrere de les contrasenyes fàcils de memoritzar i segures.</a></p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -171,9 +169,16 @@ msgid ""
 "<p>To learn more about how the Persistent Storage is implemented, see our\n"
 "[[design documentation|contribute/design/persistence]].</p>\n"
 msgstr ""
-"<p>Per obtenir més informació sobre com s'implementa l'Emmagatzematge "
-"Persistent, consulteu la nostra\n"
+"<p>Per obtenir més informació sobre com s'implementa l'Emmagatzematge Persistent, consulteu la nostra\n"
 "[[documentació de disseny|contribute/design/persistence]].</p>\n"
+
+#~ msgid ""
+#~ "- Your documents - Your Wi-Fi passwords - Your brower bookmarks - ..."
+#~ msgstr ""
+#~ "- Els vostres documents\n"
+#~ "- Les vostres contrasenyes de Wi-Fi\n"
+#~ "- Les adreces d'interès del vostre navegador\n"
+#~ "- ..."
 
 #, no-wrap
 #~ msgid "<div class=\"note\">\n"

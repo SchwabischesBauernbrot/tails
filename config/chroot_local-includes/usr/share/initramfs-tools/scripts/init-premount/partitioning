@@ -182,6 +182,9 @@ repair_system_partition() {
 	esac
 }
 
+# This section is duplicated in config/chroot_local-includes/usr/local/lib/tails-shell-library/hardware.sh
+# please keep them in sync!
+
 # Check if this is first boot
 GUID=$(sgdisk --print "${PARENT_DEVICE}" \
 	| sed -n '/^Disk identifier (GUID)/ s/^Disk identifier (GUID): // p')

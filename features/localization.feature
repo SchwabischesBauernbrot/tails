@@ -4,6 +4,19 @@ Feature: Localization
   I want Tails to be localized in my native language
   And various Tails features should still work
 
+  Scenario Outline: Do not localize the XDG User Dirs to be able to use those dirs in Tor Browser (#19255)
+    Given I have started Tails from DVD without network and stopped at Tails Greeter's login screen
+    And I log in to a new session in German (de)
+    Then the amnesiac <dir> directory exists
+    And there is a GNOME bookmark for the amnesiac <dir> directory
+    Examples:
+      | dir |
+      | Documents |
+      | Downloads |
+      | Music |
+      | Pictures |
+      | Videos |
+
   @doc @not_release_blocker
   Scenario: The Report an Error launcher opens the support documentation in supported non-English locales
     Given I have started Tails from DVD without network and stopped at Tails Greeter's login screen

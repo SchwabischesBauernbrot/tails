@@ -11,13 +11,16 @@ We use one single APT repository hosting multiple *suites*:
 
 * We have a (read-only) suite for every past release: `0.9`,
   `0.10.1`, etc.
+
 * We have a suite for each *main* branch: `stable`, `testing`,
   `devel`, `feature-jessie`
+
 * We have an overlay suite for each *topic* branch: `bugfix/*`,
   `feature/*`, etc.
   **Note**: the APT suite corresponding to a given Git topic
   branch contains *only* the packages this branch adds to the tag or
   *main* branch it diverged from. Think of it as an overlay.
+
 * We also have a less formal `unstable` suite, that should not be used
   by any Tails git branch; it can be used as hosting space for other
   packaging work we might do, e.g. acting as upstream or
@@ -51,6 +54,7 @@ Else, it adds:
 
 * one APT source for the base branch of the one being built, as found
   in `config/base_branch`;
+
 * one APT source for each suite listed in
   `config/APT_overlays.d/*`; note that only the name of such
   files matters, and their content is ignored.
@@ -58,11 +62,14 @@ Else, it adds:
 In practice, `config/APT_overlays.d/` should contain:
 
 * for a topic branch:
+
   - if needed, a file that is named like the branch's own overlay APT
     suite; e.g. for the `bugfix/12345-whatever` branch, it would be
     called `config/APT_overlays.d/bugfix-12345-whatever`
+
   - any file representing APT suites that came from merging its base
     branch into this topic branch, that is:
+
 * for a base branch (`stable`, `testing`, `devel` or
   `feature/jessie`): a file for each additional, overlay APT suite that
   came from topic branches that ship Debian packages and were merged
@@ -77,7 +84,9 @@ At release time, the release manager:
 
 1. merges into the release branch's APT suite all APT overlay
    suites found in `config/APT_overlays.d/`;
+
 2. empties `config/APT_overlays.d/` in the release branch;
+
 3. merges the release branch into other base branches as needed, and
    ensures that all resulting `config/APT_overlays.d/`:s make sense.
 
@@ -265,8 +274,10 @@ Giving access to a core developer
 1. Give SSH access to the `reprepro` user on the system that hosts
    reprepro (using the `ssh_authorized_key` Puppet resource, until
    [[!tails_ticket 12346]] is resolved).
+
 2. Import the developer's public GnuPG key into the `reprepro` user's
    GnuPG keyring -- should be doable using Puppet, some day
+
 3. Add the developer's OpenPGP key ID to `$reprepro_uploaders` in our
    `tails::reprepro` Puppet module. Deploy.
 

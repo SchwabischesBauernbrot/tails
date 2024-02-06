@@ -35,7 +35,7 @@ Unlock the Persistent Storage
 
 1. Identify the device name of your Persistent
    Storage. The device name appears below the list of volumes.
-   It should look like <code>/dev/mapper/luks-xxxxxxxx</code>.
+   It should look like `/dev/mapper/luks-xxxxxxxx`.
 
    Triple-click to select it and press **Ctrl+C** to
    copy it to the clipboard.
@@ -50,18 +50,18 @@ Check the file system using the terminal
       <span class="guimenuitem">Root Terminal</span></span>
    and enter your administration password to open a root terminal.
 
-1. In the terminal, execute the following command, replacing `[device]` with
+1. In the terminal, execute the following command. Replace <span class="command-placeholder">device</span> with
    the device name found in step 8:
 
-        fsck -y [device]
+   <p class="command-template">fsck -y <span class="command-placeholder">device</span></p>
 
-   To do so, you can type <span class="command">fsck -y&nbsp;</span> and press
-   <span class="keycap">Shift+Ctrl+V</span> to paste the device name from the
+   To do so, you can type <code>fsck -y&nbsp;</code> and press
+   **Shift+Ctrl+V** to paste the device name from the
    clipboard.
 
 1. If the file system is free of errors, the last line from the output of
-   <span class="command">fsck</span> starts with <span class="command">TailsData: clean</span>.
+   `fsck` starts with `TailsData: clean`.
 
-   If the file system has errors, <span class="command">fsck</span> tries to
+   If the file system has errors, `fsck` tries to
    fix them automatically. After it finishes, you can try executing the same
    command again to check if all errors are solved.

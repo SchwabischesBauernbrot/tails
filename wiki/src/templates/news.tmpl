@@ -65,11 +65,29 @@
 
 <TMPL_IF HTML5><article class="page"><TMPL_ELSE><div class="page"></TMPL_IF>
 
-<TMPL_IF HTML5><section class="pageheader"><TMPL_ELSE><div class="pageheader"></TMPL_IF>
+<section id="pageheader">
 
-<div class="parentlinks">
+<div id="language-switcher-top">
+<TMPL_IF OTHERLANGUAGES>
+<nav class="language-switcher">
+  <div class="current-language"><TMPL_VAR LANG_NAME></div>
+  <ul class="other-languages">
+    <TMPL_LOOP OTHERLANGUAGES>
+    <li>
+      <a href="<TMPL_VAR URL>"><TMPL_VAR LANGUAGE></a>
+    </li>
+    </TMPL_LOOP>
+    <TMPL_IF HAVE_ACTIONS>
+    <li class="improve-translations">
+      <a href="<TMPL_VAR BASEURL>contribute/how/translate/" rel="nofollow">Improve translations</a>
+    </li>
+    </TMPL_IF>
+  </ul>
+</nav>
+</TMPL_IF>
+</div>
+
 <ul id="crumbs">
-<li><a href="<TMPL_VAR HOMEPAGEURL>"><img alt="home" src="<TMPL_VAR BASEURL>lib/home.png"></a></li>
 
 <TMPL_LOOP PARENTLINKS>
 <TMPL_IF DEPTH_0>
@@ -83,41 +101,8 @@
 <li><TMPL_VAR TITLE></li>
 
 </ul>
-</div>
 
-<TMPL_IF OTHERLANGUAGES>
-<TMPL_IF HTML5><nav id="otherlanguages"><TMPL_ELSE><div id="otherlanguages"></TMPL_IF>
-<ul>
-   <TMPL_IF ISTRANSLATABLE>
-   <li class="current master">
-   <span ><TMPL_VAR LANG_NAME>
-   </span>
-   </li>
-
-   <TMPL_ELSE>
-   <li class="current">
-   <span class="visible"><TMPL_VAR LANG_NAME>
-   </span>
-   <span class="hidden"><TMPL_VAR LANG_NAME>
-(<TMPL_IF HAVE_ACTIONS><a href="<TMPL_VAR BASEURL>contribute/how/translate/" rel="nofollow">Improve translation</a></TMPL_IF>)
-   </span>
-   </li>
-
-   </TMPL_IF>
-
-
-   <TMPL_LOOP OTHERLANGUAGES>
-
-   <li <TMPL_IF MASTER> class="master"<TMPL_ELSE></TMPL_IF>>
-
-   <span class="visible"><a href="<TMPL_VAR URL>"><TMPL_VAR CODE></a></span>
-   <span class="hidden"><a href="<TMPL_VAR URL>"><TMPL_VAR LANGUAGE></a></span>
-
-   </li>
-   </TMPL_LOOP>
-</ul>
-<TMPL_IF HTML5></nav><TMPL_ELSE></div></TMPL_IF>
-</TMPL_IF>
+</section>
 
 <TMPL_IF HTML5><header class="title"><TMPL_ELSE><div class="title"></TMPL_IF>
 <span class="title">
@@ -125,8 +110,6 @@
 </span>
 <TMPL_VAR CTIME>
 <TMPL_IF HTML5></header><TMPL_ELSE></div></TMPL_IF>
-
-<TMPL_IF HTML5></section><TMPL_ELSE></div></TMPL_IF>
 
 <div id="pagebody">
 
@@ -158,6 +141,26 @@
 </div>
 
 <TMPL_IF HTML5></article><TMPL_ELSE></div></TMPL_IF>
+
+<div id="language-switcher-bottom">
+<TMPL_IF OTHERLANGUAGES>
+<nav class="language-switcher">
+  <div class="current-language"><TMPL_VAR LANG_NAME></div>
+  <ul class="other-languages">
+    <TMPL_LOOP OTHERLANGUAGES>
+    <li>
+      <a href="<TMPL_VAR URL>"><TMPL_VAR LANGUAGE></a>
+    </li>
+    </TMPL_LOOP>
+    <TMPL_IF HAVE_ACTIONS>
+    <li class="improve-translations">
+      <a href="<TMPL_VAR BASEURL>contribute/how/translate/" rel="nofollow">Improve translations</a>
+    </li>
+    </TMPL_IF>
+  </ul>
+</nav>
+</TMPL_IF>
+</div>
 
 <TMPL_IF HTML5><footer<TMPL_ELSE><div</TMPL_IF> id="footer" class="pagefooter" role="contentinfo">
 

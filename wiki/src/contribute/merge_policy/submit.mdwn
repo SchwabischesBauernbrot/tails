@@ -27,6 +27,7 @@ To submit your branch for review:
       instance:
 
       - Ensure your branch builds on Jenkins.
+
       - Either take note of the test suite scenarios you've seen pass
         successfully locally, or check that the test suite passes on Jenkins.
 
@@ -34,6 +35,7 @@ To submit your branch for review:
 
       - Set the *Milestone* field to the release you would like your changes to
         land in.
+
       - If there's a *To Do* or *Doing* label, replace it with the *Needs
         Validation* label.
 
@@ -46,16 +48,21 @@ To submit your branch for review:
       In this new MR:
 
       - Use the description to:
+
          - Summarize what problem this MR will fix, in terms of impact on users.
+
          - Reference the issues this MR will solve: `Closes #xxx, #yyyy`.
+
       - Set the target branch your branch should be merged into.
         See the [[documentation for our main branches|contribute/git#branches]].
+
       - If it's obvious to you who can, and should, review your branch,
         and you're allowed to request reviews on MRs: request a review
         by making that person the _Reviewer_ on the MR.<br/>
         Else, leave the MR with no _Reviewer_:
         the [[Foundations Team|working_together/roles/foundations_team]] will
         either handle the review themselves or help you find a suitable reviewer.
+
       - If you have run some test suite scenarios locally: report about your
         results in a new comment.
 

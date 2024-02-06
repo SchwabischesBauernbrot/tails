@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-11-23 12:56+0000\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
 "PO-Revision-Date: 2023-07-29 21:22+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -249,8 +249,8 @@ msgstr ""
 #. type: Bullet: '1. '
 msgid ""
 "Take note of the *device name* of your USB stick.  In this example, the USB "
-"stick is 8.0 GB and its device name is <span class=\"code\">/dev/disk1</"
-"span>.  Yours might be different."
+"stick is 8.0 GB and its device name is `/dev/disk1`.  Yours might be "
+"different."
 msgstr ""
 
 #. type: Plain text
@@ -267,45 +267,57 @@ msgstr ""
 "   </div>\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
 msgid ""
 "Execute the following command to safely remove the USB stick. Replace <span "
-"class=\"code\">[device]</span> with the device name found in step 6."
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
 msgstr ""
 "執行以下指令來安全地移除USB 隨身磁，取代 <span class=\"code\">[device]</"
 "span> 在步驟6所找出的設備名稱。"
 
 #. type: Plain text
 #, no-wrap
-msgid "       diskutil unmountDisk [device]\n"
-msgstr "       diskutil unmountDisk [device]\n"
+msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+msgstr ""
 
 #. type: Bullet: '2. '
+#, fuzzy
 msgid ""
-"Execute the following command to format the USB stick. Replace <span class="
-"\"code\">[device]</span> with the device name found in step 6."
+"Execute the following command to format the USB stick. Replace <span "
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
 msgstr ""
 "執行以下指令來格式化 USB 隨身磁，取代 <span class=\"code\">[device]</span> 在"
 "步驟6所找出的設備名稱。"
 
 #. type: Plain text
 #, no-wrap
-msgid "       sudo fdisk -iy [device]\n"
-msgstr "       sudo fdisk -iy [device]\n"
+msgid "   <p class=\"command-template\">sudo fdisk -iy <span class=\"command-placeholder\">device</span></p>\n"
+msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
-"You can try to reset the USB stick again using <span class=\"application"
-"\">Disk Utility</span> from the beginning of this page."
+"You can try to reset the USB stick again using <span "
+"class=\"application\">Disk Utility</span> from the beginning of this page."
 msgstr ""
 "你可以試著使用本頁開始的 <span class=\"application\">磁碟工具</span> 來重置 "
 "USB 隨身磁。"
 
+#, no-wrap
+#~ msgid "       diskutil unmountDisk [device]\n"
+#~ msgstr "       diskutil unmountDisk [device]\n"
+
+#, no-wrap
+#~ msgid "       sudo fdisk -iy [device]\n"
+#~ msgstr "       sudo fdisk -iy [device]\n"
+
 #~ msgid ""
-#~ "[[!inline pages=\"doc/first_steps/reset.intro\" raw=\"yes\" sort=\"age"
-#~ "\"]]\n"
+#~ "[[!inline pages=\"doc/first_steps/reset.intro\" raw=\"yes\" "
+#~ "sort=\"age\"]]\n"
 #~ msgstr ""
-#~ "[[!inline pages=\"doc/first_steps/reset.intro.zh_TW\" raw=\"yes\" sort="
-#~ "\"age\"]]\n"
+#~ "[[!inline pages=\"doc/first_steps/reset.intro.zh_TW\" raw=\"yes\" "
+#~ "sort=\"age\"]]\n"
 
 #~ msgid "Troubleshooting\n"
 #~ msgstr "疑難解答\n"

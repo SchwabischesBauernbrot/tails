@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-11-23 12:56+0000\n"
+"POT-Creation-Date: 2024-01-29 11:27+0100\n"
 "PO-Revision-Date: 2023-02-10 00:27+0000\n"
 "Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
@@ -100,7 +100,7 @@ msgstr ""
 "Cette terminologie est plutôt déroutante et d'autres documentations\n"
 "peuvent mentionner les outils suivants&nbsp;:\n"
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*KVM* is the module of the Linux kernel that interacts with the "
 "virtualization features of the processor."
@@ -108,7 +108,7 @@ msgstr ""
 "*KVM* est le module du noyau Linux qui interagit avec les fonctionnalités de "
 "virtualisation du processeur."
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*QEMU* is the virtualization software that emulates virtual processors and "
 "peripherals based on *KVM* and that starts and stops virtual machines."
@@ -117,7 +117,7 @@ msgstr ""
 "processeurs virtuels et les périphériques et qui lance et éteint les "
 "machines virtuelles."
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*libvirt* is a library that allows *virt-manager* to interact with the "
 "virtualization capabilities provided by *QEMU*."
@@ -125,7 +125,7 @@ msgstr ""
 "*libvirt* est la bibliothèque qui permet à *virt-manager* d'interagir avec "
 "les capacités de virtualisation fournies par *QEMU*."
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*SPICE* is a protocol that allows to visualize the desktop of virtual "
 "machines."
@@ -133,7 +133,7 @@ msgstr ""
 "*SPICE* est un protocole qui permet de visualiser le bureau des machines "
 "virtuelles."
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*virt-manager* is the graphical interface that allows to create, configure, "
 "and run virtual machines."
@@ -157,8 +157,9 @@ msgstr ""
 "Pour installer *virt-manager* dans Debian, exécuter la commande suivante :"
 
 #. type: Plain text
-#, no-wrap
-msgid "    sudo apt install virt-manager libvirt-daemon-system\n"
+#, fuzzy, no-wrap
+#| msgid "    sudo apt install virt-manager libvirt-daemon-system\n"
+msgid "<p class=\"command\">sudo apt install virt-manager libvirt-daemon-system</p>\n"
 msgstr "    sudo apt install virt-manager libvirt-daemon-system\n"
 
 #. type: Plain text
@@ -167,8 +168,9 @@ msgstr ""
 "Pour installer *virt-manager* dans Ubuntu, exécuter la commande suivante :"
 
 #. type: Plain text
-#, no-wrap
-msgid "    sudo apt install virt-manager libvirt-bin qemu-kvm\n"
+#, fuzzy, no-wrap
+#| msgid "    sudo apt install virt-manager libvirt-bin qemu-kvm\n"
+msgid "<p class=\"command\">sudo apt install virt-manager libvirt-bin qemu-kvm</p>\n"
 msgstr "    sudo apt install virt-manager libvirt-bin qemu-kvm\n"
 
 #. type: Title =
@@ -337,9 +339,13 @@ msgstr ""
 "les mises à jour automatiques et le stockage persistant."
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <p class=\"pre command\">truncate -s\n"
+#| "   <span class=\"command-placeholder\">size</span>\n"
+#| "   <span class=\"command-placeholder\">tails.img</span></p>\n"
 msgid ""
-"   <p class=\"pre command\">truncate -s\n"
+"   <p class=\"command-template\">truncate -s\n"
 "   <span class=\"command-placeholder\">size</span>\n"
 "   <span class=\"command-placeholder\">tails.img</span></p>\n"
 msgstr ""
@@ -348,9 +354,12 @@ msgstr ""
 "   <span class=\"command-placeholder\">tails.img</span></p>\n"
 
 #. type: Bullet: '   - '
+#, fuzzy
+#| msgid ""
+#| "<span class=\"command-placeholder\">size</span> has to be at least <span "
+#| "class=\"command\">7200M</span>."
 msgid ""
-"<span class=\"command-placeholder\">size</span> has to be at least <span "
-"class=\"command\">7200M</span>."
+"<span class=\"command-placeholder\">size</span> has to be at least `7200M`."
 msgstr ""
 "<span class=\"command-placeholder\">taille</span> doit être au moins de "
 "<span class=\"command\">7200M</span>."
@@ -582,14 +591,14 @@ msgstr ""
 "solution peut varier suivant la version de votre solution de virtualisation "
 "et suivant la configuration de la machine virtuelle. Par exemple :"
 
-#. type: Bullet: ' - '
+#. type: Bullet: '- '
 msgid ""
 "The *Auto resize VM with window* feature does not work in all configurations."
 msgstr ""
 "La fonctionnalité *Ajustement automatique de la machine virtuelle à la "
 "fenêtre* ne marche pas avec toutes les configurations."
 
-#. type: Bullet: ' - '
+#. type: Bullet: '- '
 msgid ""
 "The video device that provides optimal graphics performance can be different "
 "depending on the version of the host operating system."
@@ -623,6 +632,12 @@ msgstr ""
 "   Démarrez avec les périphériques vidéo *Virtio* et *QXL* : ils donnent généralement\n"
 "   les meilleurs résultats. Si ils ne marchent pas bien pour vous, essayez tous les\n"
 "   autres modèles de périphérique vidéo.\n"
+
+#. type: Bullet: '3. '
+msgid ""
+"Try enabling or disabling the OpenGL and 3D acceleration options of the "
+"display and video device."
+msgstr ""
 
 #~ msgid "[[Download an ISO image|install/dvd]]."
 #~ msgstr "[[Télécharger une image ISO|install/dvd]]."

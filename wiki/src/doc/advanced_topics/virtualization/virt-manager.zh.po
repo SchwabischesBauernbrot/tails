@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:56+0200\n"
+"POT-Creation-Date: 2024-01-29 11:27+0100\n"
 "PO-Revision-Date: 2023-03-13 17:31+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -86,31 +86,31 @@ msgid ""
 "might mention the following tools:\n"
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*KVM* is the module of the Linux kernel that interacts with the "
 "virtualization features of the processor."
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*QEMU* is the virtualization software that emulates virtual processors and "
 "peripherals based on *KVM* and that starts and stops virtual machines."
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*libvirt* is a library that allows *virt-manager* to interact with the "
 "virtualization capabilities provided by *QEMU*."
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*SPICE* is a protocol that allows to visualize the desktop of virtual "
 "machines."
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*virt-manager* is the graphical interface that allows to create, configure, "
 "and run virtual machines."
@@ -132,7 +132,7 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "    sudo apt install virt-manager libvirt-daemon-system\n"
+msgid "<p class=\"command\">sudo apt install virt-manager libvirt-daemon-system</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -141,7 +141,7 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "    sudo apt install virt-manager libvirt-bin qemu-kvm\n"
+msgid "<p class=\"command\">sudo apt install virt-manager libvirt-bin qemu-kvm</p>\n"
 msgstr ""
 
 #. type: Title =
@@ -274,15 +274,14 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   <p class=\"pre command\">truncate -s\n"
+"   <p class=\"command-template\">truncate -s\n"
 "   <span class=\"command-placeholder\">size</span>\n"
 "   <span class=\"command-placeholder\">tails.img</span></p>\n"
 msgstr ""
 
 #. type: Bullet: '   - '
 msgid ""
-"<span class=\"command-placeholder\">size</span> has to be at least <span "
-"class=\"command\">7200M</span>."
+"<span class=\"command-placeholder\">size</span> has to be at least `7200M`."
 msgstr ""
 
 #. type: Bullet: '   - '
@@ -485,12 +484,12 @@ msgid ""
 "configuration. For example:"
 msgstr ""
 
-#. type: Bullet: ' - '
+#. type: Bullet: '- '
 msgid ""
 "The *Auto resize VM with window* feature does not work in all configurations."
 msgstr ""
 
-#. type: Bullet: ' - '
+#. type: Bullet: '- '
 msgid ""
 "The video device that provides optimal graphics performance can be different "
 "depending on the version of the host operating system."
@@ -516,6 +515,12 @@ msgid ""
 "   Start with *Virtio* and *QXL* video devices: they generally give\n"
 "   the best results. If they don't perform well for you, try every\n"
 "   other video device model.\n"
+msgstr ""
+
+#. type: Bullet: '3. '
+msgid ""
+"Try enabling or disabling the OpenGL and 3D acceleration options of the "
+"display and video device."
 msgstr ""
 
 #~ msgid ""

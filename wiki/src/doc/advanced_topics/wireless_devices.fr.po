@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2021-10-26 18:12+0000\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
 "PO-Revision-Date: 2022-07-21 17:58+0000\n"
 "Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
@@ -50,8 +50,7 @@ msgid ""
 "[[troubleshooting Wi-Fi that is not working|doc/anonymous_internet/no-wifi]].</p>\n"
 msgstr ""
 "<p>Si le Wi-Fi ne fonctionne pas, consulter notre documentation sur\n"
-"[[résoudre les problèmes de Wi-Fi qui ne fonctionne pas|doc/"
-"anonymous_internet/no-wifi]].</p>\n"
+"[[résoudre les problèmes de Wi-Fi qui ne fonctionne pas|doc/anonymous_internet/no-wifi]].</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -89,8 +88,8 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "       rfkill list\n"
-msgstr "       rfkill list\n"
+msgid "   <p class=\"command\">rfkill list</p>\n"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -134,9 +133,14 @@ msgstr ""
 "   différents.\n"
 
 #. type: Bullet: '3. '
+#, fuzzy
+#| msgid ""
+#| "To enable the wireless device, execute the following command in the root "
+#| "terminal, replacing `[index]` with the index found at step 2:"
 msgid ""
-"To enable the wireless device, execute the following command in the root "
-"terminal, replacing `[index]` with the index found at step 2:"
+"To enable the wireless device, `execute` the following command in the root "
+"terminal, replacing <span class=\"command-placeholder\">index</span> with "
+"the index found at step 2:"
 msgstr ""
 "Pour activer le périphérique sans-fil, exécutez la commande suivante dans un "
 "terminal administrateur, en remplaçant `[index]` par l'index trouvé à "
@@ -144,8 +148,8 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "       rfkill unblock [index]\n"
-msgstr "       rfkill unblock [index]\n"
+msgid "   <p class=\"command-template\">rfkill unblock <span class=\"command-placeholder\">index</span></p>\n"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -158,8 +162,8 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "       rfkill unblock 2\n"
-msgstr "       rfkill unblock 2\n"
+msgid "   <p class=\"command-template\">rfkill unblock 2</p>\n"
+msgstr ""
 
 #. type: Bullet: '4. '
 msgid ""
@@ -243,6 +247,18 @@ msgstr ""
 #, no-wrap
 msgid "-->\n"
 msgstr "-->\n"
+
+#, no-wrap
+#~ msgid "       rfkill list\n"
+#~ msgstr "       rfkill list\n"
+
+#, no-wrap
+#~ msgid "       rfkill unblock [index]\n"
+#~ msgstr "       rfkill unblock [index]\n"
+
+#, no-wrap
+#~ msgid "       rfkill unblock 2\n"
+#~ msgstr "       rfkill unblock 2\n"
 
 #~ msgid ""
 #~ "<p>BlueTooth is enabled by default but Tails lacks the GNOME utilities\n"

@@ -26,10 +26,12 @@ Use references in the following order:
        Audience](http://developer-old.gnome.org/gdp-style-guide/2.32/gdp-style-guide.html#locale)
        includes specific rules about how to write documentation that is
        easier to translate, with practical examples.
+
      - [5.2.&nbsp;Checks You Can Do
        Yourself](http://developer-old.gnome.org/gdp-style-guide/2.32/gdp-style-guide.html#improving-6)
        lists the top ten topics that you need to watch out for when you
        review your work.
+
      - [A.&nbsp;Recommended
        Terminology](http://developer-old.gnome.org/gdp-style-guide/2.32/gdp-style-guide.html#wordlist)
        contains a glossary of terms for use when writing documentation.
@@ -37,10 +39,12 @@ Use references in the following order:
 3. Other style guides:
 
    - [Google developer documentation style guide](https://developers.google.com/style)
+
    - [Microsoft Writing Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
+
    - [Apple Style Guide](https://help.apple.com/applestyleguide/)
 
-For spelling of words, we use the
+We use US spelling. For spelling of words, we use the
 [Merriam-Webster](https://www.merriam-webster.com/) dictionary.
 
 The following resources can also be helpful when writing documentation for
@@ -99,9 +103,9 @@ Style and usage
     is read by the GNOME Screen Reader (or that you think should be read
     if none is read). For example:
 
-    <pre>1. Click on the &lt;span class="guimenu"&gt;
-    \[[!img lib/unlock.png alt="Unlock" class="symbolic" link="no"]]
-    &lt;/span&gt; button.</pre>
+        1. Click on the <span class="guimenu">
+        \[[!img lib/unlock.png alt="Unlock" class="symbolic" link="no"]]
+        </span> button.
 
   For more guidelines and examples about writing good `alt` attributes,
   read the article on [alternative text by
@@ -124,20 +128,20 @@ Style and usage
     `https://tails.net/finances#2014`.
 
   When adding an anchor to a section on a page that has a table of
-  content, add the <span class="code">id</span> attribute directly to
-  the HTML heading. ikiwiki will automatically reference it in the table
+  content, add the `id` attribute directly to
+  the HTML heading. ikiwiki automatically references this anchor in the table
   of content instead of the default value that might change over time.
 
   *For example:*
 
   - <pre>
-    &#91;&#91;!toc&#93;&#93;
+    \[[!toc]]
     &lt;h1 id="my_section"&gt;My section&lt;/h1&gt;
     </pre>
 
-    Creates a hyperlink to <span class="code">#my_section</span> in the
+    Creates a hyperlink to `#my_section` in the
     table of content instead of a hyperlink to
-    <span class="code">#index1h1</span> that might change with the
+    `#index1h1` that might change with the
     structure of the page.
 
   To reduce translation work, avoid adding anchors to translated pages when we
@@ -159,7 +163,7 @@ Style and usage
 
   *For example*:
 
-  - When starting Tails, add the <span class="command">toram</span>
+  - When starting Tails, add the `toram`
     boot option. See our instructions on [[modifying the boot options using
     the Boot Loader|doc/advanced_topics/boot_options]].
 
@@ -214,6 +218,86 @@ Style and usage
 
      Buttons, dialogs, applications, menus, etc.
 
+<a id="code"></a>
+
+- **Code excerpts and error messages**
+
+  To write an entire paragraph as code that cannot wrap and stop interpreting
+  HTML within it, use either:
+
+  - 4 spaces as indentation, like in Markdown
+
+  - `<pre>`
+
+  To write an entire paragraph as code that can wrap and keep interpreting HTML
+  within it, use:
+
+  - `<p class="code">`
+
+  To write only some words as code and stop interpreting HTML within them, use
+  either:
+
+  - Backticks (<span class="code">\`</span>), like in Markdown
+
+  - `<code>`
+
+  To write only some words as code and keep interpreting HTML within them, use:
+
+  - `<span class="code">`
+
+- **Command lines**
+
+  To write a command line as an entire paragraph that can be selected and
+  copied, use:
+
+  - `<p class="command">`
+
+    Such a command line cannot wrap to make it clear to the reader that it has
+    to be executed as a single command line.
+
+  To write a command line *template* as an entire paragraph that cannot be
+  selected and copied, use:
+
+  - `<p class="command-template">`
+
+    Such a command line cannot be selected to prevent the reader from executing
+    it as such.
+
+  Within a command line template, delimit the placeholders that have to be
+  replaced by the reader with:
+
+  - `<span class="command-placeholder">`
+
+  To write a command line that has to be executed as root, use:
+
+  - `<p class="command-root">`
+
+  You can combine these different classes.
+
+  Explain how to replace the placeholders before giving out the full comman line.
+
+  *For example:*
+
+  - Markdown:
+
+        Execute the following commands to install a new package. Replace
+        <span class="command-placeholder">package</span> with the package that
+        you want to install.
+
+        <p class="command-template command-root">
+        apt install <span class="command-placeholder">package</span>
+        </p>
+
+  - Result:
+
+    Execute the following commands to install a new package. Replace
+    <span class="command-placeholder">package</span> with the package that
+    you want to install.
+
+    <p class="command-template command-root">
+    apt install <span class="command-placeholder">package</span>
+    </p>
+
 <a id="css"></a>
 
 - **CSS formatting for documentation**
@@ -228,23 +312,38 @@ Style and usage
     *For example:*
 
     * Welcome Screen
+
     * Persistent Storage
 
   - Application and file names
 
-    Write in italic the names of files and applications other than Tails.
+    Write in italic the names of files and GUI applications other than Tails.
+
+    Write as code the names of command line applications.
 
     *For example:*
 
-    * Markdown: <span class="code">\*Thunderbird\*</span>
-    * HTML: <span class="code">&lt;i&gt;Thunderbird&lt;/i&gt;</span>
+    * Markdown: `*Thunderbird*`
+
+    * HTML: `<i>Thunderbird</i>`
+
     * Result: *Thunderbird*
 
     *For example:*
 
-    * Markdown: <span class="code">\*~/.gnupg/gpg.conf\*</span>
-    * HTML: <span class="code">&lt;i&gt;~/.gnupg/gpg.conf&lt;/i&gt;</span>
+    * Markdown: `*~/.gnupg/gpg.conf*`
+
+    * HTML: `<i>~/.gnupg/gpg.conf</i>`
+
     * Result: *~/.gnupg/gpg.conf*
+
+    *For example:*
+
+    * Ping: <code>`ping`</code>
+
+    * HTML: `<code>ping</code>`
+
+    * Result: `ping`
 
   - Button names, GUI labels, key caps, and menu items
 
@@ -253,8 +352,10 @@ Style and usage
 
     *For example:*
 
-    * Markdown: <span class="code">Click \*\*Save\*\*.</span>
-    * HTML: <span class="code">Click &lt;b&gt;Save&lt;/b&gt;.</span>
+    * Markdown: `Click **Save**.`
+
+    * HTML: `Click <b>Save</b>.`
+
     * Result: Click **Save**.
 
     In documentation, do not a not add the elipsis of the button label to
@@ -262,19 +363,11 @@ Style and usage
 
     *For example:*
 
-    * Markdown: <span class="code">Choose \*\*Applications&amp;nbsp;▸ Tor Browser\*\*</span>
-    * HTML: <span class="code">Choose &lt;b&gt;Applications&amp;nbsp;▸ Tor Browser&lt;/b&gt;</span>
+    * Markdown: `Choose **Applications&nbsp;▸ Tor Browser**`
+
+    * HTML: `Choose <b>Applications&nbsp;▸ Tor Browser</b>`
+
     * Result: Choose **Applications&nbsp;▸ Tor Browser**
-
-  - Commands and code excerpts:
-
-    Write in full HTML with the <span class="code">code</span> class commands and
-    code excerpts.
-
-    *For example:*
-
-    * Markdown and HTML: <span class="code">&lt;span class="code"&gt;live-media=removable&lt;/span&gt;</span>
-    * Result: <span class="code">live-media=removable</span>
 
 <a id="debian-versions"></a>
 
@@ -331,11 +424,10 @@ Style and usage
 
 <a id="gnome-application"></a>
 
-- **GNOME applications: <i>Files</i>, <i>Disks</i>, etc.**
+- **GNOME applications: *Files*, *Disks*, etc.**
 
   GNOME applications that have a common noun as their name (like
-  <i>Files</i> or
-  <i>Disks</i>) can be confusing when referred
+  *Files* or *Disks*) can be confusing when referred
   to in the documentation.
 
   Make sure to clarify that you are referring to an application (and
@@ -349,9 +441,9 @@ Style and usage
 
   *Use*:
 
-  - The <i>Files</i> browser
+  - The *Files* browser
 
-  - The <i>Disks</i> utility
+  - The *Disks* utility
 
   Otherwise, use the short name of the application as it appears in the menus when giving
   instructions to be executed inside Tails.
@@ -365,7 +457,7 @@ Style and usage
 
   *For example*:
 
-  - Install <i>GNOME Disks</i> in Debian.
+  - Install *GNOME Disks* in Debian.
 
 <a id="graphics-card"></a>
 
@@ -495,7 +587,7 @@ Style and usage
 
 <a id="persistent-folder"></a>
 
-- **<em>Persistent</em> folder**
+- ***Persistent* folder**
 
   The folder */home/amnesia/Persistent/*.
 
@@ -558,13 +650,11 @@ Style and usage
 
   *For example*:
 
-  <pre>
-  1. Make sure that you are connected to the Internet.
+      1. Make sure that you are connected to the Internet.
 
-  1. Start <i>Software Sources</i>.
+      1. Start *Software Sources*.
 
-  1. Click on the <b>PPAs</b> button and then choose to <b>Add a new PPA&hellip;</b>.
-  </pre>
+      1. Click on the **PPAs** button and then choose to **Add a new PPA...**.
 
 <a id="qr"></a>
 
@@ -599,7 +689,7 @@ Style and usage
   *For example:*
 
   - Right-click (on Mac, click with two fingers) on the file and
-    choose <b>Share via OnionShare</b>.
+    choose **Share via OnionShare**.
 
 <a id="screenshot"></a>
 
@@ -618,8 +708,10 @@ Style and usage
   and a border of blue background to clarify the context and the nature of
   the image. To take such a screenshot:
 
-  1. In *Gimp* choose **File**&nbsp;▸ **Create**&nbsp;▸ **Screenshot&hellip;**.
+  1. In *Gimp* choose **File**&nbsp;▸ **Create**&nbsp;▸ **Screenshot...**.
+
   2. Select **Include windows decoration**.
+
   3. Make sure the blue border (`0x204a87`) on each side of the screenshot is at least 18px.
 
   We also most of the time resize the screenshots to 66%, either when they are
@@ -643,8 +735,11 @@ Style and usage
   to describe, highlight it in red using *Inkscape*:
 
   1. Create the base screenshot, resized at 66%.
+
   1. Open it in Inkspace.
+
   1. Create a red circle or rectangle with a width of 2 px.
+
   1. Export the screenshot to PNG, respecting its original size.
 
 <a id="secure-boot"></a>
@@ -661,6 +756,21 @@ Style and usage
   Place a [[!wikipedia serial comma]] immediately before the
   coordinating conjunction (usually *and* or *or*) in a series of three
   or more terms.
+
+<a id="svg"></a>
+
+- **SVG images**
+
+  SVG are easier to maintain and look great on all screen size, but they are
+  not displayed in the *Safest* security level of *Tor Browser*.
+  ([[!tails_ticket 17805]])
+
+  Because of that, avoid using SVG images:
+
+  - Export SVG images to PNG and [[compress them|style_guide#compress-image]].
+
+  - Store the SVG source side-by-side with its PNG version, to ease future
+    modifications.
 
 <a id="tails"></a>
 
@@ -705,13 +815,11 @@ Style and usage
 
   * Tip:
 
-    <pre>
-    &lt;div class="tip"&gt;
+        <div class="tip">
 
-    &lt;p&gt;This tip could be useful to some readers.&lt;/p&gt;
+        <p>This tip could be useful to some readers.</p>
 
-    &lt;/div&gt;
-    </pre>
+        </div>
 
     <div class="tip">
 
@@ -721,13 +829,11 @@ Style and usage
 
   * Note:
 
-    <pre>
-    &lt;div class="note"&gt;
+        <div class="note">
 
-    &lt;p&gt;This note attracts attention.&lt;/p&gt;
+        <p>This note attracts attention.</p>
 
-    &lt;/div&gt;
-    </pre>
+        </div>
 
     <div class="note">
 
@@ -737,13 +843,11 @@ Style and usage
 
   * Caution:
 
-    <pre>
-    &lt;div class="caution"&gt;
+        <div class="caution">
 
-    &lt;p&gt;This warning describes something dangerous.&lt;/p&gt;
+        <p>This warning describes something dangerous.</p>
 
-    &lt;/div&gt;
-    </pre>
+        </div>
 
     <div class="caution">
 
@@ -753,13 +857,11 @@ Style and usage
 
   * Bug:
 
-    <pre>
-    &lt;div class="bug"&gt;
+        <div class="bug">
 
-    &lt;p&gt;This bug describes an important flaw of the software.&lt;/p&gt;
+        <p>This bug describes an important flaw of the software.</p>
 
-    &lt;/div&gt;
-    </pre>
+        </div>
 
     <div class="bug">
 
@@ -769,13 +871,11 @@ Style and usage
 
   * Next:
 
-    <pre>
-    &lt;div class="next"&gt;
+        <div class="next">
 
-    &lt;p&gt;This note helps to know what to read next.&lt;/p&gt;
+        <p>This note helps to know what to read next.</p>
 
-    &lt;/div&gt;
-    </pre>
+        </div>
 
     <div class="next">
 
@@ -785,13 +885,11 @@ Style and usage
 
   * Trophy:
 
-    <pre>
-    &lt;div class="trophy"&gt;
+        <div class="trophy">
 
-    &lt;p&gt;This trophy celebrates a user achievement.&lt;/p&gt;
+        <p>This trophy celebrates a user achievement.</p>
 
-    &lt;/div&gt;
-    </pre>
+        </div>
 
     <div class="trophy">
 
@@ -801,13 +899,11 @@ Style and usage
 
   * Attack:
 
-    <pre>
-    &lt;div class="attack"&gt;
+        <div class="attack">
 
-    &lt;p&gt;This note decribes a security attack and its likelihood.&lt;/p&gt;
+        <p>This note decribes a security attack and its likelihood.</p>
 
-    &lt;/div&gt;
-    </pre>
+        </div>
 
     <div class="attack">
 
@@ -825,7 +921,7 @@ Style and usage
   *For example:*
 
   - If you know someone you trust who already did the upgrade, you can
-    upgrade your Tails by cloning from their Tails.</p>
+    upgrade your Tails by cloning from their Tails.
 
   You might use **update** to refer to other operations that update
   some data or software outside of Tails releases.

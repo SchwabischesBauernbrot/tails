@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-11-23 12:56+0000\n"
+"POT-Creation-Date: 2023-12-22 04:43+0000\n"
 "PO-Revision-Date: 2022-12-19 19:07+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -63,8 +63,8 @@ msgstr "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" 
 #. type: Bullet: '1. '
 msgid ""
 "To install <span class=\"application\">balenaEtcher</span>, drag the <span "
-"class=\"application\">balenaEtcher</span> icon onto the <span class="
-"\"guilabel\">Applications</span> icon."
+"class=\"application\">balenaEtcher</span> icon onto the <span "
+"class=\"guilabel\">Applications</span> icon."
 msgstr ""
 
 #. type: Bullet: '1. '
@@ -98,6 +98,11 @@ msgstr ""
 msgid "[[!toggleable id=\"dd\" text=\"\"\"\n"
 msgstr ""
 
+#. type: Plain text
+#, no-wrap
+msgid "[[!toggle id=\"dd\" text=\"\"\"<span class=\"hide-button\"></span>\"\"\"]]\n"
+msgstr ""
+
 #. type: Bullet: '1. '
 msgid "Make sure that your USB stick is unplugged."
 msgstr ""
@@ -129,13 +134,13 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   <p class=\"pre command-output\">/dev/disk0\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:    GUID_partition_scheme             *500.1 GB  disk0\n"
-"    1:                      EFI              209.7 MB  disk0s1\n"
-"    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"    3:                      EFI              134.1 GB  disk0s3\n"
-"    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>\n"
+"       /dev/disk0\n"
+"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+"        0:    GUID_partition_scheme             *500.1 GB  disk0\n"
+"        1:                      EFI              209.7 MB  disk0s1\n"
+"        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+"        3:                      EFI              134.1 GB  disk0s3\n"
+"        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
 msgstr ""
 
 #. type: Bullet: '1. '
@@ -156,24 +161,24 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   <p class=\"pre command-output\">/dev/disk0\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
-"    1:                      EFI              209.7 MB  disk0s1\n"
-"    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"    3:                      EFI              134.1 GB  disk0s3\n"
-"    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-"  /dev/disk1\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
-"    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
+"       /dev/disk0\n"
+"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+"        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+"        1:                      EFI              209.7 MB  disk0s1\n"
+"        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+"        3:                      EFI              134.1 GB  disk0s3\n"
+"        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+"      /dev/disk1\n"
+"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+"        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+"        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
 "Take note of the *device name* of your USB stick.  In this example, the USB "
-"stick is 8.0 GB and its device name is <span class=\"code\">/dev/disk1</"
-"span>.  Yours might be different."
+"stick is 8.0 GB and its device name is <code>/dev/disk1</code>.  Yours might "
+"be different."
 msgstr ""
 
 #. type: Plain text
@@ -223,18 +228,18 @@ msgstr ""
 #, no-wrap
 msgid ""
 "     <div class=\"tip\">\n"
-"     <p>You can try adding <span class=\"code\">r</span> before <span class=\"code\">disk</span> to make the installation faster.</p>\n"
+"     <p>You can try adding <code>r</code> before <code>disk</code> to make the installation faster.</p>\n"
 "     </div>\n"
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -244,7 +249,7 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"pre command-example\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
+msgid "   <p class=\"command-template\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -258,25 +263,25 @@ msgstr ""
 #, no-wrap
 msgid ""
 "   <div class=\"note\">\n"
-"   <p>If you get a <span class=\"guilabel\">Permission denied</span> error, try\n"
+"   <p>If you get a <code>Permission denied</code> error, try\n"
 "   adding <code>sudo</code> at the beginning of the command:</p>\n"
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"pre command\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+msgid "   <p class=\"command-template\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   <p>If you get an <span class=\"guilabel\">invalid number ‘16m’</span> error, try\n"
+"   <p>If you get an <code>invalid number ‘16m’</code> error, try\n"
 "   using <code>16M</code> instead:</p>\n"
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
+msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -296,8 +301,8 @@ msgstr ""
 #, fuzzy
 #~ msgid "[[!meta title=\"Install from macOS\"]]\n"
 #~ msgstr ""
-#~ "[[!meta title=\"Tails von Mac aus mithilfe der Kommandozeile installieren"
-#~ "\"]]\n"
+#~ "[[!meta title=\"Tails von Mac aus mithilfe der Kommandozeile "
+#~ "installieren\"]]\n"
 
 #~ msgid ""
 #~ "[[!meta stylesheet=\"bootstrap.min\" rel=\"stylesheet\" title=\"\"]]\n"
@@ -305,44 +310,44 @@ msgstr ""
 #~ "[[!meta stylesheet=\"bootstrap.min\" rel=\"stylesheet\" title=\"\"]]\n"
 
 #~ msgid ""
-#~ "[[!meta stylesheet=\"inc/stylesheets/assistant\" rel=\"stylesheet\" title="
-#~ "\"\"]]\n"
+#~ "[[!meta stylesheet=\"inc/stylesheets/assistant\" rel=\"stylesheet\" "
+#~ "title=\"\"]]\n"
 #~ msgstr ""
-#~ "[[!meta stylesheet=\"inc/stylesheets/assistant\" rel=\"stylesheet\" title="
-#~ "\"\"]]\n"
+#~ "[[!meta stylesheet=\"inc/stylesheets/assistant\" rel=\"stylesheet\" "
+#~ "title=\"\"]]\n"
 
 #~ msgid ""
-#~ "[[!meta stylesheet=\"inc/stylesheets/steps\" rel=\"stylesheet\" title="
-#~ "\"\"]]\n"
+#~ "[[!meta stylesheet=\"inc/stylesheets/steps\" rel=\"stylesheet\" "
+#~ "title=\"\"]]\n"
 #~ msgstr ""
-#~ "[[!meta stylesheet=\"inc/stylesheets/steps\" rel=\"stylesheet\" title="
-#~ "\"\"]]\n"
+#~ "[[!meta stylesheet=\"inc/stylesheets/steps\" rel=\"stylesheet\" "
+#~ "title=\"\"]]\n"
 
 #, fuzzy
 #~ msgid ""
-#~ "[[!meta stylesheet=\"inc/stylesheets/mac\" rel=\"stylesheet\" title="
-#~ "\"\"]]\n"
+#~ "[[!meta stylesheet=\"inc/stylesheets/mac\" rel=\"stylesheet\" "
+#~ "title=\"\"]]\n"
 #~ msgstr ""
-#~ "[[!meta stylesheet=\"inc/stylesheets/steps\" rel=\"stylesheet\" title="
-#~ "\"\"]]\n"
+#~ "[[!meta stylesheet=\"inc/stylesheets/steps\" rel=\"stylesheet\" "
+#~ "title=\"\"]]\n"
 
 #~ msgid ""
-#~ "[[!inline pages=\"install/inc/steps/install_with_etcher.inline\" raw=\"yes"
-#~ "\" sort=\"age\"]]\n"
+#~ "[[!inline pages=\"install/inc/steps/install_with_etcher.inline\" "
+#~ "raw=\"yes\" sort=\"age\"]]\n"
 #~ msgstr ""
-#~ "[[!inline pages=\"install/inc/steps/install_with_etcher.inline.zh\" raw="
-#~ "\"yes\" sort=\"age\"]]\n"
+#~ "[[!inline pages=\"install/inc/steps/install_with_etcher.inline.zh\" "
+#~ "raw=\"yes\" sort=\"age\"]]\n"
 
 #~ msgid ""
-#~ "[[!inline pages=\"install/inc/steps/restart_first_time.inline\" raw=\"yes"
-#~ "\" sort=\"age\"]]\n"
+#~ "[[!inline pages=\"install/inc/steps/restart_first_time.inline\" "
+#~ "raw=\"yes\" sort=\"age\"]]\n"
 #~ msgstr ""
-#~ "[[!inline pages=\"install/inc/steps/restart_first_time.inline.zh\" raw="
-#~ "\"yes\" sort=\"age\"]]\n"
+#~ "[[!inline pages=\"install/inc/steps/restart_first_time.inline.zh\" "
+#~ "raw=\"yes\" sort=\"age\"]]\n"
 
 #~ msgid ""
-#~ "[[!inline pages=\"install/inc/steps/create_persistence.inline\" raw=\"yes"
-#~ "\" sort=\"age\"]]\n"
+#~ "[[!inline pages=\"install/inc/steps/create_persistence.inline\" "
+#~ "raw=\"yes\" sort=\"age\"]]\n"
 #~ msgstr ""
-#~ "[[!inline pages=\"install/inc/steps/create_persistence.inline.zh\" raw="
-#~ "\"yes\" sort=\"age\"]]\n"
+#~ "[[!inline pages=\"install/inc/steps/create_persistence.inline.zh\" "
+#~ "raw=\"yes\" sort=\"age\"]]\n"

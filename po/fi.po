@@ -22,7 +22,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2023-11-27 10:17+0100\n"
+"POT-Creation-Date: 2024-01-29 10:26+0100\n"
 "PO-Revision-Date: 2023-07-23 08:07+0000\n"
 "Last-Translator: Oskari Lavinto <olavinto@protonmail.com>\n"
 "Language-Team: Finnish <https://hosted.weblate.org/projects/tor/tails-gui/fi/"
@@ -34,9 +34,7 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.0-dev\n"
 
-#. Translators: Don't translate {details}, it's a placeholder and will
-#. be replaced.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:193
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:205
 #, python-brace-format
 msgid ""
 "{details} Please check your list of additional software or read the system "
@@ -45,7 +43,7 @@ msgstr ""
 "{details} Ole hyvä ja tarkista lisäohjelmistolistasi tai lue järjestelmäloki "
 "ymmärtääksesi pulman paremmin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:198
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:212
 msgid ""
 "Please check your list of additional software or read the system log to "
 "understand the problem."
@@ -53,11 +51,11 @@ msgstr ""
 "Ole hyvä ja tarkista lisäohjelmistolistasi tai lue järjestelmäloki "
 "ymmärtääksesi pulman paremmin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:202
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:218
 msgid "Show Log"
 msgstr "Näytä loki"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:202
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:218
 msgid "Configure"
 msgstr "Määritä"
 
@@ -100,8 +98,8 @@ msgstr ""
 "tallennustilan ja aktivoida toiminnon <b>Lisäohjelmisto</b>."
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:77
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:224
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:242
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:342
 msgid "Create Persistent Storage"
 msgstr "Luo pysyvä tallennustila"
 
@@ -141,10 +139,11 @@ msgstr "Poista"
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:145
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:161
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:657
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:710
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-errors:28
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:344
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:367
 msgid "Cancel"
 msgstr "Peruuta"
 
@@ -230,54 +229,59 @@ msgid "_Create persistent storage"
 msgstr "_Luo pysyvä tallennustila"
 
 #: config/chroot_local-includes/usr/local/bin/electrum:95
-msgid ""
-"End this year by giving the gift of privacy.\n"
-"\n"
-"Contribute to our annual fundraiser today!\n"
-"\n"
-"<a href=\"file:///usr/share/doc/tails/website/donate.en.html\">Why donate to "
-"Tails?</a>"
-msgstr ""
-
-#: config/chroot_local-includes/usr/local/bin/electrum:101
 #, fuzzy
 msgid ""
-"Our annual fundraiser is live!\n"
+"Tails needs donations to keep everybody free and safe online.\n"
 "\n"
-"Keep everybody free and safe online with a gift to Tails.\n"
+"Every bit helps in our fight against surveillance and censorship!\n"
 "\n"
-"<a href=\"file:///usr/share/doc/tails/website/donate.en.html\">Why donate to "
-"Tails?</a>"
+"<a href=\"file:///usr/share/doc/tails/website/donate.en.html#expenses\">How "
+"we spend our money.</a>"
 msgstr ""
-"Tails tarvitsee lahjoituksia pitääkseen kaikki verkon käyttäjät vapaina ja "
-"turvassa.\n"
+"Tails suojaa lompakkoasi.\n"
 "\n"
-"Jokainen avustus tukee valvonnan ja sensuroinnin vastaista taisteluamme!\n"
+"Auta meitä pitämään bitcoinisi turvassa!\n"
 "\n"
 "<a href=\"file:///usr/share/doc/tails/website/donate.en.html#expenses\">Näin "
 "käytämme rahamme</a>"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:112
+#: config/chroot_local-includes/usr/local/bin/electrum:102
+msgid ""
+"Tails protects your wallet.\n"
+"\n"
+"Help us keep your bitcoins safe!\n"
+"\n"
+"<a href=\"file:///usr/share/doc/tails/website/donate.en.html#expenses\">How "
+"we spend our money.</a>"
+msgstr ""
+"Tails suojaa lompakkoasi.\n"
+"\n"
+"Auta meitä pitämään bitcoinisi turvassa!\n"
+"\n"
+"<a href=\"file:///usr/share/doc/tails/website/donate.en.html#expenses\">Näin "
+"käytämme rahamme</a>"
+
+#: config/chroot_local-includes/usr/local/bin/electrum:113
 msgid "Donate Now"
 msgstr "Lahjoita nyt"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:113
+#: config/chroot_local-includes/usr/local/bin/electrum:114
 msgid "Later"
 msgstr "Myöhemmin"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:123
+#: config/chroot_local-includes/usr/local/bin/electrum:124
 msgid "Opening Electrum with our donation address..."
 msgstr "Avataan Electrum lahjoitusosoitteellamme..."
 
-#: config/chroot_local-includes/usr/local/bin/electrum:124
+#: config/chroot_local-includes/usr/local/bin/electrum:125
 msgid "Thank you for making the Internet a safer place!"
 msgstr "Kiitos, kun teet Internetistä turvallisemman!"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:157
+#: config/chroot_local-includes/usr/local/bin/electrum:158
 msgid "Persistence is disabled for Electrum"
 msgstr "Säilyvyys on otettu pois käytöstä Electrumille"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:159
+#: config/chroot_local-includes/usr/local/bin/electrum:160
 msgid ""
 "When you reboot Tails, all of Electrum's data will be lost, including your "
 "Bitcoin wallet.\n"
@@ -289,15 +293,15 @@ msgstr ""
 "On erittäin suositeltavaa, että Electrum-sovellus suoritetaan sen "
 "säilyvyysominaisuuden ollessa aktiivinen."
 
-#: config/chroot_local-includes/usr/local/bin/electrum:160
+#: config/chroot_local-includes/usr/local/bin/electrum:161
 msgid "Do you want to start Electrum anyway?"
 msgstr "Haluatko silti käynnistää Electrum-sovelluksen?"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:163
+#: config/chroot_local-includes/usr/local/bin/electrum:164
 msgid "_Launch"
 msgstr "_Käynnistä"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:164
+#: config/chroot_local-includes/usr/local/bin/electrum:165
 msgid "_Exit"
 msgstr "_Lopeta"
 
@@ -727,123 +731,130 @@ msgstr "Virhe asennettaessa päivitystä"
 msgid "Additional Settings"
 msgstr "Lisäasetukset"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:46
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:44
 msgid "Add"
 msgstr "Lisää"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:54
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:52
 msgid "Back"
 msgstr "Takaisin"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:63
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:65
 msgid "_Administration Password"
 msgstr "_Ylläpitosalasana"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:186
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:196
 msgid "_MAC Address Anonymization"
 msgstr "_MAC-osoitteen anonymisointi"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:249
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:267
 msgid "_Offline Mode"
 msgstr "_Yhteydetön tila"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:258
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:276
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:413
 msgid "Enable networking (default)"
 msgstr "Ota verkkoyhteydet käyttöön (oletus)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:260
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:278
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:459
 msgid "Disable all networking"
 msgstr "Poista kaikki verkkoyhteydet käytöstä"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:315
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:339
 msgid "_Network Connection"
 msgstr "_Verkkoyhteys"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:323
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:347
 msgid "Obsolete"
 msgstr "Vanhentunut"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:338
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:362
 msgid "_Unsafe Browser"
 msgstr "_Suojaamaton selain"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:347
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:371
 msgid "Enabled (default)"
 msgstr "Käytössä (oletus)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:349
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:373
 msgid "Disabled"
 msgstr "Ei käytössä"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:400
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:442
 msgid "On (default)"
 msgstr "Päällä (oletus)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:402
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:444
 msgid "On"
 msgstr "Päällä"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:404
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:446
 msgid "Off"
 msgstr "Pois päältä"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:406
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:448
 msgid "Off (default)"
 msgstr "Pois päältä (oletus)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:159
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:167
 msgid "Persistent Storage Still Locked"
 msgstr "Pysyvä tallennustila on edelleen lukittu"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:160
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:169
 msgid ""
 "Do you really want to start Tails without unlocking your Persistent Storage?"
 msgstr ""
 "Haluatko todella käynnistää Tailsin avaamatta pysyvää tallennustilaasi?"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:162
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
 msgid "Start Without Persistent Storage"
 msgstr "Käynnistä ilman pysyvää tallennustilaa"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:101
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:119
 msgid "Error unlocking Persistent Storage: {}"
 msgstr "Virhe avatessa pysyvää tallennustilaa: {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:126
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:144
 msgid "Error upgrading Persistent Storage: {}"
 msgstr "Virhe päivitettäessä pysyvää tallennustilaa: {}"
 
-#. Translators: Don't translate {features}, it's a placeholder
-#. and will be replaced.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:151
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:170
 #, python-brace-format
 msgid "Failed to activate some features of the Persistent Storage: {features}."
 msgstr ""
 "Pysyvän tallennustilan joidenkin ominaisuuksien määritys epäonnistui: "
 "{features}."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:156
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:175
 msgid "Error activating Persistent Storage: {}"
 msgstr "Virhe aktivoidessa pysyvää tallennustilaa: {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:70
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:89
+#, fuzzy
+msgid ""
+"Impossible to unlock the Persistent Storage because the USB stick is read-"
+"only."
+msgstr ""
+"Pysyvän tallennustilan salauksen avaaminen epäonnistui. Käynnistä Tails ja "
+"lähetä virheilmoitus."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:104
 msgid "Unlocking…"
 msgstr "Avataan…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:108
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:135
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:505
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:142
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:176
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:517
 msgid "Unlock Encryption"
 msgstr "Avaa salaus"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:113
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:147
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:41
 msgid "Cannot unlock encrypted storage with this passphrase."
 msgstr "Salattua tallennustilaa ei voida avata tällä salauslausekkeella."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:122
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:158
 msgid ""
 "Failed to upgrade the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -851,7 +862,7 @@ msgstr ""
 "Pysyvän tallennustilan päivitys epäonnistui. Käynnistä Tails ja lähetä "
 "virheilmoitus."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:127
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:165
 msgid ""
 "Failed to unlock the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -859,7 +870,7 @@ msgstr ""
 "Pysyvän tallennustilan salauksen avaaminen epäonnistui. Käynnistä Tails ja "
 "lähetä virheilmoitus."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:133
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:173
 msgid ""
 "Failed to activate the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -867,34 +878,34 @@ msgstr ""
 "Pysyvän tallennustilan aktivointi epäonnistui. Käynnistä Tails ja lähetä "
 "virheilmoitus."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:143
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:184
 msgid "Upgrading the Persistent Storage. This may take a while…"
 msgstr "Päivitetään pysyvää tallennustilaa. Tämä voi kestää jonkin aikaa…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:154
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:199
 msgid "Start Tails and open the Persistent Storage settings to find out more."
 msgstr ""
 "Käynnistä Tails ja avaa pysyvän tallennustilan asetukset saadaksesi "
 "lisätietoja."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:190
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
 msgstr "_Kieli"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:233
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:234
 msgid "_Formats"
 msgstr "_Muotoilut"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:270
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:271
 msgid "_Keyboard Layout"
 msgstr "_Näppäimistön pohja"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:289
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:314
 #, python-format
 msgid "Unable to write on %(device)s, skipping."
 msgstr "Laitteelle %(device)s ei voi kirjoittaa: vaihe ohitetaan."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:333
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:359
 #, python-format
 msgid ""
 "Some partitions of the target device %(device)s are mounted. They will be "
@@ -903,16 +914,16 @@ msgstr ""
 "Jotkut laitteen %(device)s osiot on liitetty. Osiot irrotetaan ennen kuin "
 "asennus alkaa."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:342
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:377
+#, fuzzy, python-format
+msgid "Wrote to device at %(speed)d MB/s"
+msgstr "Laitteelle kirjoitettiin nopeudella %(speed)d Mt/s"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:389
 msgid "Extracting live image to the target device..."
 msgstr "Puretaan live-levykuvaa kohdelaittelle…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:349
-#, python-format
-msgid "Wrote to device at %(speed)d MB/sec"
-msgstr "Laitteelle kirjoitettiin nopeudella %(speed)d Mt/s"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:447
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:484
 #, python-format
 msgid ""
 "There was a problem executing the following command: `%(command)s`.\n"
@@ -921,7 +932,7 @@ msgstr ""
 "Komennon `%(command)s` suorittamisessa oli ongelma.\n"
 "Tarkempi virheloki on kirjoitettu tiedostoon \"%(filename)s\"."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:463
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:503
 #, python-format
 msgid ""
 "Not enough free space on device.\n"
@@ -931,163 +942,163 @@ msgstr ""
 "%(iso_size)dMt:n ISO + %(overlay_size)dMt:n tallennustila > %(free_space)dMt:"
 "a vapaata tilaa"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:472
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:516
 #, python-format
 msgid "Creating %sMB persistent overlay"
 msgstr "Luodaan %s Mt:n pysyvää tallennustilaa"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:522
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:583
 #, python-format
 msgid "Unable to copy %(infile)s to %(outfile)s: %(message)s"
 msgstr ""
 "Tiedostoa %(infile)s ei voida kopioida kohteeseen %(outfile)s: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:536
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:596
 msgid "Removing existing Tails system"
 msgstr "Poistetaan nykyinen Tails-järjestelmä"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:546
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:607
 #, python-format
 msgid "Unable to remove file from previous Tails system: %(message)s"
 msgstr "Edellisen Tails-järjestelmän tiedostoa ei voi poistaa: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:553
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:617
 #, python-format
 msgid "Unable to chmod %(file)s: %(message)s"
 msgstr "Komentoa chmod ei voi käyttää tiedostoon %(file)s: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:560
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:625
 #, python-format
 msgid "Unable to remove directory from previous Tails system: %(message)s"
 msgstr "Edellisen Tails-järjestelmän hakemistoa ei voi poistaa: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:608
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:676
 #, python-format
 msgid "Cannot find device %s"
 msgstr "Laitetta %s ei löydy"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:658
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:905
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:712
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:976
 msgid "Unknown filesystem.  Your device may need to be reformatted."
 msgstr ""
 "Tuntematon tiedostojärjestelmä. Laitteesi on ehkä alustettava uudelleen."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:661
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:908
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:715
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:979
 #, python-format
 msgid "Unsupported filesystem: %s"
 msgstr "Tiedostojärjestelmä, jota ei tueta: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:679
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:731
 #, python-format
 msgid "Unknown GLib exception while trying to mount device: %(message)s"
 msgstr ""
 "GLib'issä tuntematon poikkeus, kun laitetta yritettiin liittää:%(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:684
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:738
 #, python-format
 msgid "Unable to mount device: %(message)s"
 msgstr "Laitteen liittäminen epäonnistui: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:689
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:743
 msgid "No mount points found"
 msgstr "Liitoskohtia ei löytynyt"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:700
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:754
 #, python-format
 msgid "Entering unmount_device for \"%(device)s\""
 msgstr "Syötetään unmount_device laitteelle \"%(device)s\""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:709
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:765
 #, python-format
 msgid "Unmounting mounted filesystems on \"%(device)s\""
 msgstr "Irrotetaan liitetyt tiedostojärjestelmät laitteessa \"%(device)s\""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:713
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:771
 #, python-format
 msgid "Unmounting \"%(udi)s\" on \"%(device)s\""
 msgstr "Irrotetaan \"%(udi)s\" laitteessa \"%(device)s\""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:724
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:784
 #, python-format
 msgid "Mount %s exists after unmounting"
 msgstr "Irrotettu liitoskohta %s on vielä olemassa"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:761
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:815
 #, python-format
 msgid "Partitioning device %(device)s"
 msgstr "Osioidaan laitetta %(device)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:890
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:960
 #, python-format
 msgid "Unsupported device '%(device)s', please report a bug."
 msgstr "Laitetta ’%(device)s’ ei tueta, ilmoita virheestä."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:893
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:963
 msgid "Trying to continue anyway."
 msgstr "Yritetään silti jatkaa."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:902
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:972
 msgid "Verifying filesystem..."
 msgstr "Tarkistetaan tiedostojärjestelmää..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:926
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1001
 #, python-format
 msgid "Unable to change volume label: %(message)s"
 msgstr "Taltion nimiön muuttaminen epäonnistui: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:931
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1007
 msgid "Installing bootloader..."
 msgstr "Asennetaan alkulatausohjelma..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:938
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1015
 #, python-format
 msgid "Removing %(file)s"
 msgstr "Poistetaan %(file)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:964
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1045
 msgid "Cloning Persistent Storage..."
 msgstr "Kloonataan pysyvää tallennustilaa.."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1032
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1128
 #, python-format
 msgid "%s already bootable"
 msgstr "%s on jo käynnistettävä"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1052
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1149
 msgid "Unable to find partition"
 msgstr "Osiota ei löydy"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1071
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1171
 #, python-format
 msgid "Formatting %(device)s as FAT32"
 msgstr "Alustetaan %(device)s FAT32-muotoon"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1134
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1248
 #, python-format
 msgid "Reading extracted MBR from %s"
 msgstr "Luetaan poimittua MBR'ää %s'sta"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1138
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1253
 #, python-format
 msgid "Could not read the extracted MBR from %(path)s"
 msgstr "Poimittua MRB'ää ei voitu lukea %(path)s'sta"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1151
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1152
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1267
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1268
 #, python-format
 msgid "Resetting Master Boot Record of %s"
 msgstr "Palautetaan %s:n Master-käynnistystietue"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1157
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1273
 msgid "Drive is a loopback, skipping MBR reset"
 msgstr "Levy on loopback-laite: ohitetaan MBR:n palautus"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1161
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1277
 msgid "Synchronizing data on disk..."
 msgstr "Synkronoidaan levyn tiedot..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:150
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:153
 msgid ""
 "Error: Cannot set the label or obtain the UUID of your device.  Unable to "
 "continue."
@@ -1095,64 +1106,69 @@ msgstr ""
 "Virhe: Nimiön tai laitteen UUID:n hakeminen epäonnistui. Jatkaminen "
 "epäonnistui."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:186
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:194
 #, python-format
 msgid "Installation complete! (%s)"
 msgstr "Asennus on valmis! (%s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:191
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:199
 msgid "Tails installation failed!"
 msgstr "Tails'in asennnus epäonnistui!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:296
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:303
 #: ../config/chroot_local-includes/usr/share/applications/tails-installer.desktop.in.h:1
 #, fuzzy
 msgid "Tails Cloner"
 msgstr "Tails-asennusohjelma"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:339
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:355
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:164
 msgid "Clone the current Tails"
 msgstr "Kopioi nykyinen Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:346
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:363
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:200
 msgid "Use a downloaded Tails ISO image"
 msgstr "Käytä ladattua Tails'in ISO-kuvaa"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:397
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:416
 msgid "Upgrade"
 msgstr "Päivitys"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:398
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:417
 msgid "Manual Upgrade Instructions"
 msgstr "Manuaalisen päivityksen ohjeet"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:409
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:645
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:428
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:695
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:374
 msgid "Install"
 msgstr "Asenna"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:412
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:431
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:131
 msgid "Installation Instructions"
 msgstr "Asennusohjeet"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:419
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:434
+#, fuzzy
+msgid "Backup Instructions"
+msgstr "Manuaalisen päivityksen ohjeet"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:445
 #, python-format
 msgid "%(size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(size)s%(vendor)s%(model)slaite (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:431
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:458
 msgid "No ISO image selected"
 msgstr "ISO-kuvaa ei ole valittu"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:432
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:458
 msgid "Please select a Tails ISO image."
 msgstr "Ole hyvä ja valitse Tails'in ISO-kuva."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:488
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:516
 msgid ""
 "Clone the current Persistent Storage\n"
 "Impossible to clone the Persistent Storage because it is locked."
@@ -1160,12 +1176,12 @@ msgstr ""
 "Kloonaa nykyinen pysyvä tallennustila\n"
 "Pysyvää tallennustilan kloonaus mahdotonta, koska se on lukittu."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:491
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:520
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:180
 msgid "Clone the current Persistent Storage"
 msgstr "Kloonaa nykyinen pysyvä tallennustila"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:493
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:523
 msgid ""
 "Clone the current Persistent Storage\n"
 "You can only choose to reinstall when cloning the Persistent Storage."
@@ -1173,7 +1189,7 @@ msgstr ""
 "Kloonaa nykyinen pysyvä tallennustila\n"
 "Voit valita pysyvää tallennustilaa kloonattaessa vain uudelleenasennuksen."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:531
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:569
 #, python-format
 msgid ""
 "The USB stick \"%(pretty_name)s\" is configured as non-removable by its "
@@ -1184,7 +1200,7 @@ msgstr ""
 "poistettavaksi, eikä se käynnistä Tails'iä. Ole hyvä ja yritä asentaa eri "
 "malliin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:541
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:579
 #, python-format
 msgid ""
 "The device \"%(pretty_name)s\" is too small to install Tails (at least "
@@ -1193,7 +1209,7 @@ msgstr ""
 "Laitteen \"%(pretty_name)s\" tallennustila ei riitä Tails:n asentamiseen "
 "(asennukseen vaaditaan vähintään %(size)s GB)."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:554
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:594
 #, python-format
 msgid ""
 "To upgrade device \"%(pretty_name)s\" from this Tails, you need to use a "
@@ -1204,34 +1220,34 @@ msgstr ""
 "ladata Tails ISO-levykuva:\n"
 "%(dl_url)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:574
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:615
 msgid "No device suitable to install Tails could be found"
 msgstr "Tails'in asentamiseen sopivaa laitetta ei voitu löytää"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:576
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:618
 #, python-format
 msgid "Please plug a USB flash drive or SD card of at least %0.1f GB."
 msgstr ""
 "Ole hyvä ja kiinnitä ainakin %0.1f'n gigatavun USB- tai SD-muistilaite."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:588
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:631
 msgid "An error happened while installing Tails"
 msgstr "Tails'iä asentaessa tapahtui virhe"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:640
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:689
 msgid "Installation complete!"
 msgstr "Asennus on valmis!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:695
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:750
 msgid "Unable to mount device"
 msgstr "Laitteen liittäminen epäonnistui"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:701
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:757
 #, python-format
 msgid "%(parent_size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(parent_size)s%(vendor)s%(model)slaite (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:710
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:770
 msgid ""
 "\n"
 "\n"
@@ -1241,11 +1257,11 @@ msgstr ""
 "\n"
 "Tämän USB-tikun pysyvä tallennustila häviää."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:711
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:772
 msgid "Delete Persistent Storage and Reinstall"
 msgstr "Poista pysyvä tallennustila ja uudelleenasenna"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:713
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:774
 msgid ""
 "\n"
 "\n"
@@ -1255,20 +1271,20 @@ msgstr ""
 "\n"
 "Kaikki tämän USB-tikun data poistetaan."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:714
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:775
 msgid "Delete All Data and Install"
 msgstr "Poista kaikki data ja asenna"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:715
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:776
 #, python-format
 msgid "%(description)s%(delete_message)s"
 msgstr "%(description)s%(delete_message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:719
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:781
 msgid "Confirm the target USB stick"
 msgstr "Vahvista kohde-USB-tikku"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:760
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:824
 msgid ""
 "The selected file is unreadable. Please fix its permissions or select "
 "another file."
@@ -1276,7 +1292,7 @@ msgstr ""
 "Valittu tiedosto ei ole luettavissa. Korjaa käyttöoikeudet tai valitse "
 "toinen tiedosto."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:766
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:834
 msgid ""
 "Unable to use the selected file.  You may have better luck if you move your "
 "ISO to the root of your drive (ie: C:\\)"
@@ -1284,21 +1300,21 @@ msgstr ""
 "Valittua tiedostoa ei voitu käyttää.  Tämä voi onnistua paremmin, jos "
 "siirrät ISO-tiedoston aseman juurikansioon (esim. C:\\)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:772
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:843
 #, python-format
 msgid "%(filename)s selected"
 msgstr "%(filename)s valittu"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:31
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:37
 msgid "Unable to find Tails on ISO"
 msgstr "Tailsiä ei löytynyt ISOsta"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:37
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:44
 #, python-format
 msgid "Could not guess underlying block device: %s"
 msgstr "Perustana olevaa lohkolaitetta ei voitu arvata: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:52
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:61
 #, python-format
 msgid ""
 "There was a problem executing `%(cmd)s`.\n"
@@ -1309,22 +1325,22 @@ msgstr ""
 "%(out)s\n"
 "%(err)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:64
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:70
 #, python-format
 msgid "\"%s\" does not exist"
 msgstr "\"%s\" ei ole olemassa"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:66
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:72
 #, python-format
 msgid "\"%s\" is not a directory"
 msgstr "\"%s\" ei ole hakemisto"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:77
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/source.py:84
 #, python-format
 msgid "Skipping \"%(filename)s\""
 msgstr "Ohitetaan \"%(filename)s\""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:54
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:65
 #, python-format
 msgid ""
 "There was a problem executing `%(cmd)s`.%(out)s\n"
@@ -1333,7 +1349,7 @@ msgstr ""
 "`%(cmd)s`n suorittamisessa esiintyi ongelma.%(out)s\n"
 "%(err)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:126
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:146
 msgid "Could not open device for writing."
 msgstr "Laitetta ei voitu avata kirjoitusta varten."
 
@@ -1370,9 +1386,42 @@ msgstr "Pidä nykyinen nimi"
 msgid "su is disabled. Please use sudo instead."
 msgstr "su-komento on poissa käytöstä. Käytä sudo-komentoa sen sijaan."
 
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-errors:13
+msgid "Resizing System Partition Failed"
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-errors:15
+msgid ""
+"Something went wrong when starting your Tails USB stick for the first time."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-errors:17
+msgid ""
+"It will be impossible to create a Persistent Storage or apply automatic "
+"upgrades."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-errors:19
+msgid ""
+"Try to follow our instructions on <a href=\"%INSTALLPAGE%\">installing Tails "
+"on a USB stick</a> again or use a different USB stick."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-errors:21
+#, fuzzy
+msgid ""
+"If you have already tried this, please send us an error report to help us "
+"solve this issue."
+msgstr "Voit helpottaa ongelman korjausta lähettämällä virheilmoituksen."
+
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-errors:29
+#: ../config/chroot_local-includes/usr/share/tails/persistent-storage/fail_view.ui.in:74
+msgid "Send Error Report"
+msgstr "Lähetä virheilmoitus"
+
 #: config/chroot_local-includes/usr/src/perl5lib/lib/Tails/RunningSystem.pm:221
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:77
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:76
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:89
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:38
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:314
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:460
@@ -1652,88 +1701,88 @@ msgstr ""
 "tallennustila</a> Tails USB -muistillesi."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:269
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:781
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:790
 #, python-brace-format
 msgid "Invalid: {exception}"
 msgstr "Virheellinen: {exception}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:281
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:794
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:803
 msgid "You need to configure an obfs4 bridge to hide that you are using Tor"
 msgstr "Sinun tulee määrittää obfs4-silta piilottaaksesi Tor-käyttösi"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:334
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:336
 msgid "Failed to configure your Persistent Storage"
 msgstr "Pysyvän tallennustilan määrittäminen epäonnistui"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:385
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:388
 msgid "Failed to detect a webcam. Maybe your webcam is too old."
 msgstr "Web-kameraa ei voitu havaita. Kenties web-kamerasi on liian vanha."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:394
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:399
 msgid "Failed to scan QR code. Try with more light or closer to the camera."
 msgstr ""
 "QR-koodin skannaaminen epäonnistui. Yritä uudelleen valoisemmassa tilassa "
 "tai aseta kamera lähemmäksi."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:401
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:410
 msgid "Invalid QR code. Try sending another email and scanning again."
 msgstr ""
 "Virheellinen QR-koodi. Yritä lähettää uusi sähköposti ja skannaa uudelleen."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:451
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:462
 msgid "Synchronizing the system's clock…"
 msgstr "Synkronoidaan järjestelmän kelloa…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:500
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:512
 msgid "Connecting to Tor without bridges…"
 msgstr "Yhdistetään Tor-verkkoon ilman siltoja…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:507
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:531
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:519
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:543
 msgid "Connecting to Tor with default bridges…"
 msgstr "Tor-yhteyttä muodostetaan oletussilloilla…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:514
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:526
 msgid "Connecting to Tor with a custom bridge…"
 msgstr "Yhdistetään Tor-verkkoon mukautetulla sillalla…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:622
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:634
 msgid "Connected to Tor successfully with bridges"
 msgstr "Tor-yhteys muodostettu onnistuneesti siltojen avulla"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:624
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:636
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1960
 msgid "Connected to Tor successfully"
 msgstr "Tor-yhteys muodostettu onnistuneesti"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:628
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:640
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1985
 msgid "You can now browse the Internet anonymously and uncensored."
 msgstr "Voit nyt käyttää Internetiä anonyymisti ja sensuroimattomasti."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:707
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:718
 msgid "This local network seems to be blocking access to Tor."
 msgstr "Paikallinen verkko näyttää estävän Tor-yhteydet."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:784
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:793
 msgid "Bridge address malformed"
 msgstr "Sillan osoite on virheellinen"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:802
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:811
 msgid "Setting a bridge is needed if you want to hide that you are using Tor"
 msgstr "Sillan määritys on pakollista Tor-yhteyden käytön piilottamiseksi"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:1019
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:1026
 #, python-brace-format
 msgid "Scanned {bridge_type} bridge: <b>{bridge_info}</b>."
 msgstr "Skannattu {bridge_type} -silta: <b>{bridge_info}</b>."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:1110
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:1115
 msgid "Are you sure you want to lose progress?"
 msgstr "Haluatko varmasti menettää edistymisen?"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:1114
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:1119
 msgid ""
 "Tails will continue connecting to Tor after you close the Tor Connection "
 "assistant.\n"
@@ -1747,11 +1796,11 @@ msgstr ""
 "Jos yhteyden muodostus epäonnistuu, sinun on odotettava uudelleen "
 "edistymispalkin loppuun asti voidaksesi suorittaa yhteyden vianmäärityksen."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:1120
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:1125
 msgid "Close and Lose Progress"
 msgstr "Sulje ja menetä edistyminen"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:1121
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:1127
 msgid "Wait"
 msgstr "Odota"
 
@@ -1801,7 +1850,7 @@ msgstr "Tor-tila"
 msgid "Open Onion Circuits"
 msgstr "Avaa Onion-ketjut"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:315
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:362
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1815,11 +1864,11 @@ msgstr ""
 "Yritä uudelleen suljettuasi joitakin sovelluksia tai uudelleenkäynnistyksen "
 "jälkeen."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:327
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:376
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Luodaan osiota pysyvälle tallennustilalle..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:347
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:398
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
@@ -1827,23 +1876,23 @@ msgstr ""
 "Alustetaan LUKS-salausta... Tietokone voi lakata vastaamasta muutamiksi "
 "sekunneiksi."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:369
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:425
 msgid "Unlocking the encryption..."
 msgstr "Avataan salausta..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:377
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:433
 msgid "Formatting the file system..."
 msgstr "Alustetaan tiedostojärjestelmää..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:392
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:451
 msgid "Activating the Persistent Storage..."
 msgstr "Aktivoidaan pysyvää tallennustilaa..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:397
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:456
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Viimeistellään pysyvän tallennustilan määritystä..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:607
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:706
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1855,7 +1904,7 @@ msgstr ""
 "uudelleen. Jollei tämä auta, käynnistä Tails uudelleen ja yritä poistaa "
 "pysyvä tallennustila avaamatta sitä."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/configuration/binding.py:406
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/configuration/binding.py:425
 #, python-brace-format
 msgid ""
 "Can't unmount target {target}, some process is still using it. Please close "
@@ -1865,61 +1914,61 @@ msgstr ""
 "vielä. Sulje kaikki sovellukset, jotka saattavat käyttää sitä ja yritä "
 "uudelleen."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:25
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:31
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:47
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:181
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:378
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:390
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:25
 msgid "Persistent Storage"
 msgstr "Pysyvä tallennustila"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:48
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:57
 msgid "Failed to start the Persistent Storage service"
 msgstr "Pysyvän tallennustilan palvelun käynnistys epäonnistui"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:77
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:90
 msgid "Could not find the WhisperBack application"
 msgstr "WhisperBack-sovellusta ei löytynyt"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:82
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:87
 msgid "Delete Data…"
 msgstr "Poista tiedot…"
 
 #. Translators: Don't translate {feature}, it's a placeholder
 #. and will be replaced.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:88
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:93
 #, python-brace-format
 msgid "Delete {feature} data"
 msgstr "Poista ominaisuuden {feature} tiedot"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:107
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:115
 msgid "Activation failed"
 msgstr "Aktivointi epäonnistui"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:163
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:171
 msgid "Activation failed. Try again or delete data."
 msgstr "Aktivointi epäonnistui. Yritä uudelleen tai poista tiedot."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:165
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:173
 msgid "Activation failed. Try again."
 msgstr "Aktivointi epäonnistui. Yritä uudelleen."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:167
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:175
 msgid "The data of this feature is still saved."
 msgstr "Tämän ominaisuuden tiedot ovat edelleen tallessa."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:268
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:273
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:282
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:289
 msgid "Error activating feature {}"
 msgstr "Virhe aktivoitaessa ominaisuutta {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:311
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:316
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:330
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:337
 msgid "Error deactivating feature {}"
 msgstr "Virhe poistettaessa ominaisuuden {} aktivointia"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:335
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:357
 msgid ""
 "Delete all the data of the {} feature that is saved in the Persistent "
 "Storage?\n"
@@ -1932,34 +1981,34 @@ msgstr ""
 "Jos poisto perutaan, tiedot palautetaan kun ominaisuutta käytetään seuraavan "
 "kerran."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:345
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:368
 msgid "_Delete Data"
 msgstr "_Poista tiedot"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:373
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:398
 msgid "Error deleting data of feature {}"
 msgstr "Virhe poistettaessa ominasuuden {} tietoja"
 
 #. Translators: Don't translate {applications}, it's a placeholder
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:457
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:492
 #, python-brace-format
 msgid "Close {applications} to continue"
 msgstr "Jatka sulkemalla sovellukset {applications}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:458
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:493
 msgid " and "
 msgstr " ja "
 
 #. Translators: Don't translate {app} and {pid}, they
 #. are placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:469
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:504
 #, python-brace-format
 msgid "{app} (PID: {pid})"
 msgstr "{app} (PID: {pid})"
 
 #. Translators: Don't translate {app} and {pids}, they
 #. are placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:474
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:509
 #, python-brace-format
 msgid "{app} (PIDs: {pids})"
 msgstr "{app} (PID:t: {pids})"
@@ -1970,71 +2019,43 @@ msgstr "{app} (PID:t: {pids})"
 msgid "Change Passphrase"
 msgstr "Vaihda salauslauseke"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:85
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:90
 msgid "The current passphrase is incorrect"
 msgstr "Nykyinen salauslauseke on virheellinen"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:94
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:100
 msgid "Changing the passphrase failed"
 msgstr "Salauslausekkeen vaihto epäonnistui"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/passphrase_strength_hint.py:41
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/passphrase_strength_hint.py:44
 msgid "Weak"
 msgstr "Heikko"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/passphrase_strength_hint.py:44
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/passphrase_strength_hint.py:47
 msgid "Fair"
 msgstr "Kohtalainen"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/passphrase_strength_hint.py:47
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/passphrase_strength_hint.py:50
 msgid "Good"
 msgstr "Hyvä"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/passphrase_strength_hint.py:50
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/passphrase_strength_hint.py:53
 msgid "Strong"
 msgstr "Vahva"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:38
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:43
 msgid "You can send an error report to help solve the issue."
 msgstr "Voit helpottaa ongelman korjausta lähettämällä virheilmoituksen."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:44
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:50
 msgid "_Send Error Report"
 msgstr "_Lähetä virheilmoitus"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:144
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:175
-#: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:36
-msgid "Delete Persistent Storage"
-msgstr "Poista pysyvä tallennustila"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:146
-msgid ""
-"Are you sure that you want to delete your Persistent Storage? This action "
-"cannot be undone."
-msgstr ""
-"Haluatko varmasti poistaa pysyvän tallennustilasi? Poistoa ei ole "
-"mahdollista kumota."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:149
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:57
-#: ../config/chroot_local-includes/usr/share/tails/persistent-storage/change_passphrase_dialog.ui.in:304
-#: ../config/chroot_local-includes/usr/share/tails/persistent-storage/welcome_view.ui.in:121
-#: ../config/chroot_local-includes/usr/share/tails-installer/passphrase_dialog.ui.in:219
-msgid "_Cancel"
-msgstr "__Peruuta"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:150
-msgid "_Delete Persistent Storage"
-msgstr "_Poista pysyvä tallennustila"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:160
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:143
 #, fuzzy
-msgid "Deleting your Persistent Storage..."
-msgstr "Poistetaan pysyvää tallennustilaasi"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:177
 msgid ""
+"Impossible to delete the Persistent Storage while it is unlocked.\n"
+"\n"
 "To delete the Persistent Storage, restart Tails without unlocking the "
 "Persistent Storage and open the Persistent Storage settings again."
 msgstr ""
@@ -2042,38 +2063,88 @@ msgstr ""
 "pysvää tallennustilaa ja avaa sitten pysvän tallennustilan asetukset "
 "uudelleen."
 
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:157
+#, fuzzy
+msgid ""
+"Impossible to delete the Persistent Storage because the USB stick is read-"
+"only.\n"
+"\n"
+"To delete the Persistent Storage, turn off the read-only protection of the "
+"USB stick, restart Tails without unlocking the Persistent Storage and open "
+"the Persistent Storage settings again."
+msgstr ""
+"Poistaaksesi pysvän tallennustilan, käynnistä Tails uudelleen avaamatta "
+"pysvää tallennustilaa ja avaa sitten pysvän tallennustilan asetukset "
+"uudelleen."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:165
+#, fuzzy
+msgid "Impossible to delete the Persistent Storage"
+msgstr "Pysyvän tallennustilan luonti epäonnistui"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:208
+#: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:36
+msgid "Delete Persistent Storage"
+msgstr "Poista pysyvä tallennustila"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:177
+msgid ""
+"Are you sure that you want to delete your Persistent Storage? This action "
+"cannot be undone."
+msgstr ""
+"Haluatko varmasti poistaa pysyvän tallennustilasi? Poistoa ei ole "
+"mahdollista kumota."
+
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:181
+#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:57
+#: ../config/chroot_local-includes/usr/share/tails/persistent-storage/change_passphrase_dialog.ui.in:304
+#: ../config/chroot_local-includes/usr/share/tails/persistent-storage/welcome_view.ui.in:121
+#: ../config/chroot_local-includes/usr/share/tails-installer/passphrase_dialog.ui.in:219
+msgid "_Cancel"
+msgstr "__Peruuta"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:182
+msgid "_Delete Persistent Storage"
+msgstr "_Poista pysyvä tallennustila"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:192
+#, fuzzy
+msgid "Deleting your Persistent Storage..."
+msgstr "Poistetaan pysyvää tallennustilaasi"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:211
 msgid "_OK"
 msgstr "_Ok"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:189
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:220
 msgid ""
 "Sorry, you can't close this app until the ongoing operation has completed."
 msgstr ""
 "Valitettavasti et voi sulkea sovellusta ennen keskeneräisen toimenpiteen "
 "valistumista."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:191
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:223
 msgid "Please wait"
 msgstr "Odota"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:216
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:251
 msgid "Not enough memory to create Persistent Storage"
 msgstr "Pysyvän tallennustilan luontiin ei ole riittävästi muistia"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:221
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:257
 msgid "Failed to create Persistent Storage"
 msgstr "Pysyvän tallennustilan luonti epäonnistui"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:240
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:245
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:275
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:281
 msgid "Error deleting Persistent Storage"
 msgstr "Virhe poistettaessa pysyvää tallennustilaa"
 
 #. Translators: Don't translate {volume_label} or {volume_size},
 #. they are placeholders and will be replaced. They need
 #. to be present in the translated string.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:65
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:79
 #, python-brace-format
 msgid "{volume_label} ({volume_size})"
 msgstr "{volume_label} ({volume_size})"
@@ -2081,7 +2152,7 @@ msgstr "{volume_label} ({volume_size})"
 #. Translators: Don't translate {partition_name} or {partition_size},
 #. they are placeholders and will be replaced. They need
 #. to be present in the translated string.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:71
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:86
 #, python-brace-format
 msgid "{partition_name} ({partition_size})"
 msgstr "{partition_name} ({partition_size})"
@@ -2089,14 +2160,14 @@ msgstr "{partition_name} ({partition_size})"
 #. Translators: Don't translate {volume_size}, it's a placeholder
 #. and will be replaced. It needs to be present in the translated
 #. string.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:77
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:94
 #, python-brace-format
 msgid "{volume_size} Volume"
 msgstr "{volume_size} Taltio"
 
 #. Translators: Don't translate {volume_name}, it's a placeholder and
 #. will be replaced. It needs to be present in the translated string.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:116
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:140
 #, python-brace-format
 msgid "{volume_name} (Read-Only)"
 msgstr "{volume_name} (Vain luku)"
@@ -2104,7 +2175,7 @@ msgstr "{volume_name} (Vain luku)"
 #. Translators: Don't translate {partition_name} and {container_path}, they
 #. are placeholders and will be replaced. They need to be present
 #. in the translated string.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:125
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:149
 #, python-brace-format
 msgid "{partition_name} in {container_path}"
 msgstr "{partition_name} kohteessa {container_path}"
@@ -2112,7 +2183,7 @@ msgstr "{partition_name} kohteessa {container_path}"
 #. Translators: Don't translate {volume_name} and {path_to_file_container},
 #. they are placeholders and will be replaced. You should only have to translate
 #. this string if it makes sense to reverse the order of the placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:132
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:157
 #, python-brace-format
 msgid "{volume_name} – {path_to_file_container}"
 msgstr "{volume_name} – {path_to_file_container}"
@@ -2120,7 +2191,7 @@ msgstr "{volume_name} – {path_to_file_container}"
 #. Translators: Don't translate {partition_name} and {drive_name}, they
 #. are placeholders and will be replaced. They need to be present
 #. in the translated string.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:139
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:165
 #, python-brace-format
 msgid "{partition_name} on {drive_name}"
 msgstr "{partition_name} kohteessa {drive_name}"
@@ -2128,23 +2199,20 @@ msgstr "{partition_name} kohteessa {drive_name}"
 #. Translators: Don't translate {volume_name} and {drive_name},
 #. they are placeholders and will be replaced. You should only have to translate
 #. this string if it makes sense to reverse the order of the placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:146
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:173
 #, python-brace-format
 msgid "{volume_name} – {drive_name}"
 msgstr "{volume_name} – {drive_name}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:234
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:278
 msgid "Wrong passphrase or parameters"
 msgstr "Väärä salauslauseke tai parametrit"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:236
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:280
 msgid "Error unlocking volume"
 msgstr "Virhe aseman avauksessa"
 
-#. Translators: Don't translate {volume_name} or {error_message},
-#. they are placeholder and will be replaced.  They need
-#. to be present in the translated string.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:241
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:286
 #, python-brace-format
 msgid ""
 "Couldn't unlock volume {volume_name}:\n"
@@ -2153,14 +2221,11 @@ msgstr ""
 "Aseman {volume_name} avaus epäonnistui:\n"
 "{error_message}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:343
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:404
 msgid "One or more applications are keeping the volume busy."
 msgstr "Yksi tai useampi sovellus pitää taltion varattuna."
 
-#. Translators: Don't translate {volume_name} or {error_message},
-#. they are placeholder and will be replaced. They need
-#. to be present in the translated string.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:350
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:412
 #, python-brace-format
 msgid ""
 "Couldn't lock volume {volume_name}:\n"
@@ -2169,7 +2234,7 @@ msgstr ""
 "Ei voitu lukita taltiota {volume_name}:\n"
 "{error_message}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:352
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:416
 msgid "Locking the volume failed"
 msgstr "Taltion lukitseminen epäonnistui"
 
@@ -2177,30 +2242,29 @@ msgstr "Taltion lukitseminen epäonnistui"
 msgid "No file containers added"
 msgstr "Ei lisättyjä tiedostosäilöjä"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_list.py:98
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_list.py:99
 msgid "No VeraCrypt devices detected"
 msgstr "VeraCrypt-laitteita ei havaittu"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:40
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:43
 #: ../config/chroot_local-includes/usr/share/applications/unlock-veracrypt-volumes.desktop.in.h:1
 msgid "Unlock VeraCrypt Volumes"
 msgstr "Avaa VeraCrypt-taltioiden lukitus"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:114
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:120
 msgid "Container already added"
 msgstr "Säilö on jo lisätty"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:115
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:121
 #, python-format
 msgid "The file container %s should already be listed."
 msgstr "Tiedostosäiliön %s pitäisi olla jo listattuna."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:131
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:142
 msgid "Container opened read-only"
 msgstr "Säilö avattu vain luku-tilassa"
 
-#. Translators: Don't translate {path}, it's a placeholder  and will be replaced.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:133
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:145
 #, python-brace-format
 msgid ""
 "The file container {path} could not be opened with write access. It was "
@@ -2212,24 +2276,24 @@ msgstr ""
 "sijaan vain luettavassa muodossa. Et voi muokata tämän säiliön sisältöä.\n"
 "{error_message}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:138
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:151
 msgid "Error opening file"
 msgstr "Virhe tiedostoa avatessa"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:160
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:178
 msgid "Not a VeraCrypt container"
 msgstr "Ei VeraCrypt-säilö"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:161
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:179
 #, python-format
 msgid "The file %s does not seem to be a VeraCrypt container."
 msgstr "Tiedosto %s ei vaikuta VeraCrypt-säilöltä."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:163
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:183
 msgid "Failed to add container"
 msgstr "Säilön lisääminen epäonnistui"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:164
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:185
 #, python-format
 msgid ""
 "Could not add file container %s: Timeout while waiting for loop setup.\n"
@@ -2239,7 +2303,7 @@ msgstr ""
 "odottaessa.\n"
 "Ole hyvä ja yritä sen sijaan käyttää <i>Levyt</i>-sovellusta."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:209
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:234
 msgid "Choose File Container"
 msgstr "Valitse tiedostosäilö"
 
@@ -2342,39 +2406,39 @@ msgid ""
 "config.py"
 msgstr "Muuttujaa %s ei löytynyt asetustiedostosta: /etc/whisperback/config.py"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:125
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:136
 msgid "Unable to load a valid configuration."
 msgstr "Kelvollisten asetusten lataus epäonnistui."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:149
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:160
 msgid "Sending mail..."
 msgstr "Lähetetään sähköpostia..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:150
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:161
 msgid "Sending mail"
 msgstr "Lähetetään sähköpostia"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:152
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:163
 msgid "This could take a while..."
 msgstr "Tässä saattaa mennä hetki..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:184
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:195
 msgid "The contact email address doesn't seem valid."
 msgstr "Yhteystietosähköpostiosoite vaikuttaa olevan kelpaamaton."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:204
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:215
 msgid "Unable to send the mail: SMTP error."
 msgstr "Sähköpostin lähetys epäonnistui: SMTP-virhe."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:206
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:217
 msgid "Unable to connect to the server."
 msgstr "Yhdistäminen palvelimeen epäonnistui."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:208
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:219
 msgid "Unable to create or to send the mail."
 msgstr "Sähköpostin luominen ja lähettäminen epäonnistui."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:214
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:225
 msgid ""
 "\n"
 "\n"
@@ -2390,20 +2454,20 @@ msgstr ""
 "\n"
 "Jos tämä ei auta, sinulle tarjotaan vikailmoituksen tallennusta."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:229
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:240
 msgid "Your message has been sent."
 msgstr "Viestisi on lähetetty."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:235
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:246
 msgid "An error occured during encryption."
 msgstr "Salauksen aikana sattui virhe."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:257
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:268
 #, python-format
 msgid "Unable to save %s."
 msgstr "Kohteen %s tallennus epäonnistui."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:287
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:298
 #, python-format
 msgid ""
 "The bug report could not be sent, likely due to network problems.\n"
@@ -2427,7 +2491,7 @@ msgstr ""
 "\n"
 "Haluatko tallentaa vikailmoituksen tiedostoon?"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:372
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:383
 msgid "This doesn't seem to be a valid URL or OpenPGP key."
 msgstr ""
 "Tämä ei vaikuta kelvolliselta verkko-osoitteelta tai OpenPGP-avaimelta."
@@ -2572,7 +2636,7 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:18
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:56
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:743
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:836
 msgid "Administration Password"
 msgstr "Ylläpitosalasana"
 
@@ -2599,7 +2663,7 @@ msgid "Disable"
 msgstr "Poista käytöstä"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:154
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:747
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:840
 msgid "MAC Address Anonymization"
 msgstr "MAC osoitteen anonymisointi"
 
@@ -2625,7 +2689,7 @@ msgid "Don't anonymize MAC addresses"
 msgstr "Älä anonymisoi MAC osoitteita"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:311
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:751
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:844
 msgid "Network Configuration"
 msgstr "Verkon asetukset"
 
@@ -2707,7 +2771,15 @@ msgstr "Asetukset ladattiin pysyvästä tallennustilasta."
 msgid "Welcome to Tails!"
 msgstr "Tervetuloa käyttämään Tailsia!"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:199
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:186
+msgid "Language & Region"
+msgstr "Kieli & Alue"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:222
+msgid "Default Settings"
+msgstr "Oletusasetukset"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:298
 msgid ""
 "You can save some of your files and configuration in an encrypted Persistent "
 "Storage on your Tails USB stick: your documents, browser bookmarks, Wi-Fi "
@@ -2717,27 +2789,19 @@ msgstr ""
 "olevalle salatulle pysyvälle tallennustilalle, kuten mm. dokumentit, "
 "selaimen kirjanmerkit ja Wi-Fi-salasanat."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:225
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:325
 msgid "Create and configure a Persistent Storage after starting Tails"
 msgstr "Luo ja määritä pysyvä tallennustila Tailsin käynnistyttyä"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:279
-msgid "Language & Region"
-msgstr "Kieli & Alue"
-
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:315
-msgid "Default Settings"
-msgstr "Oletusasetukset"
-
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:417
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:429
 msgid "Show Passphrase"
 msgstr "Näytä salauslauseke"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:470
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:481
 msgid "_Passphrase"
 msgstr "_Salauslauseke"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:546
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:558
 msgid ""
 "Your Persistent Storage is unlocked. Its content will be available until you "
 "shut down Tails."
@@ -2745,29 +2809,34 @@ msgstr ""
 "Pysyvä tallennustilasi on avattu ja sen sisältö on käytettävissä kunnes "
 "Tails sammutetaan."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:583
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:581
+#, fuzzy
+msgid "Impossible to unlock the Persistent Storage."
+msgstr "Pysyvän tallennustilan luonti epäonnistui"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:640
 msgid "_Additional Settings"
 msgstr "_Lisäasetukset"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:666
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:723
 msgid "Add an additional setting"
 msgstr "Lisää lisäasetus"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:715
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:770
+msgid "Shutdown"
+msgstr "Sammuta"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:779
+msgid "_Start Tails"
+msgstr "_Käynnistä Tails"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:808
 msgid ""
 "The default settings are safe in most situations. To add a custom setting, "
 "press the \"+\" button below."
 msgstr ""
 "Oletusasetukset ovat useimmiten turvallisia. Paina alla olevaa \"+\"-"
 "painiketta lisätäksesi oman asetuksesi."
-
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:759
-msgid "Shutdown"
-msgstr "Sammuta"
-
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:770
-msgid "_Start Tails"
-msgstr "_Käynnistä Tails"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/change_passphrase_dialog.ui.in:95
 msgid "Current _Passphrase"
@@ -2818,10 +2887,6 @@ msgstr ""
 "\n"
 "Voit lähettää virheraportin tai tarkistaa seuraavien komentojen tulosteet "
 "tutkiaksesi ongelmaa:"
-
-#: ../config/chroot_local-includes/usr/share/tails/persistent-storage/fail_view.ui.in:74
-msgid "Send Error Report"
-msgstr "Lähetä virheilmoitus"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/features_view.ui.in:61
 msgid ""
@@ -3735,17 +3800,26 @@ msgstr "Joulukuu"
 msgid "Clock"
 msgstr "Kello"
 
+#, fuzzy
+#~| msgid ""
+#~| "Tails needs donations to keep everybody free and safe online.\n"
+#~| "\n"
+#~| "Every bit helps in our fight against surveillance and censorship!\n"
+#~| "\n"
+#~| "<a href=\"file:///usr/share/doc/tails/website/donate.en."
+#~| "html#expenses\">How we spend our money.</a>"
 #~ msgid ""
-#~ "Tails protects your wallet.\n"
+#~ "Our annual fundraiser is live!\n"
 #~ "\n"
-#~ "Help us keep your bitcoins safe!\n"
+#~ "Keep everybody free and safe online with a gift to Tails.\n"
 #~ "\n"
-#~ "<a href=\"file:///usr/share/doc/tails/website/donate.en."
-#~ "html#expenses\">How we spend our money.</a>"
+#~ "<a href=\"file:///usr/share/doc/tails/website/donate.en.html\">Why donate "
+#~ "to Tails?</a>"
 #~ msgstr ""
-#~ "Tails suojaa lompakkoasi.\n"
+#~ "Tails tarvitsee lahjoituksia pitääkseen kaikki verkon käyttäjät vapaina "
+#~ "ja turvassa.\n"
 #~ "\n"
-#~ "Auta meitä pitämään bitcoinisi turvassa!\n"
+#~ "Jokainen avustus tukee valvonnan ja sensuroinnin vastaista taisteluamme!\n"
 #~ "\n"
 #~ "<a href=\"file:///usr/share/doc/tails/website/donate.en."
 #~ "html#expenses\">Näin käytämme rahamme</a>"

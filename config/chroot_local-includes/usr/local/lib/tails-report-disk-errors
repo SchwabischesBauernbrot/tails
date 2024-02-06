@@ -1,0 +1,37 @@
+#!/bin/bash
+
+set -eu
+set -o pipefail
+
+grep --line-regexp partition-resize-failed /var/lib/live/config/tails.disk-errors || exit 0
+
+export TEXTDOMAIN='tails'
+
+# If we're here, it means something strange happened. Let's inform the user and tell them to give us some
+# information
+
+title="$(gettext 'Resizing System Partition Failed')"
+text="$(cat <<EOTEXT
+$(gettext 'Something went wrong when starting your Tails USB stick for the first time.')
+
+$(gettext 'It will be impossible to create a Persistent Storage or apply automatic upgrades.')
+
+$(gettext 'Try to follow our instructions on <a href="%INSTALLPAGE%">installing Tails on a USB stick</a> again or use a different USB stick.' | sed -e 's@<a href="[^"]*">@<a href="https://tails.net/install">@')
+
+$(gettext 'If you have already tried this, please send us an error report to help us solve this issue.')
+EOTEXT
+)"
+
+if ! zenity \
+    --question --ellipsize \
+    --icon-name=error \
+    --cancel-label="$(gettext 'Cancel')" \
+    --ok-label="$(gettext 'Send Error Report')" \
+    --title="$title" --text="$text"
+then
+    exit 0
+fi
+
+temp="$(mktemp)"
+echo '{ "details": "Resizing system partition failed" }' > "$temp"
+gtk-launch whisperback.desktop "$temp"   # whisperback will delete the file
