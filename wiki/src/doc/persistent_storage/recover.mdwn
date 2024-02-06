@@ -1,9 +1,9 @@
-[[!meta title="Rescuing the Persistent Storage of a broken Tails"]]
+[[!meta title="Recovering the Persistent Storage of a broken Tails"]]
 
 <!-- XXX: These instructions should be kept in sync with backup.mdwn -->
 
 If your Tails becomes broken, for example, it no longer starts, you can follow
-these instructions to try to rescue your Persistent Storage.
+these instructions to try to recover your Persistent Storage.
 
 <div class="tip">
 
@@ -14,7 +14,7 @@ stick|backup]].</p>
 
 </div>
 
-1. Install Tails on a new USB stick on which you want to rescue your Persistent
+1. Install Tails on a new USB stick on which you want to recover your Persistent
    Storage. Make sure that this new USB stick is at least
    as large as the USB stick that has your broken Tails on it.
 
@@ -36,7 +36,7 @@ stick|backup]].</p>
 
    <p>Make sure that all applications are closed before continuing with these
    instructions. Otherwise, the Persistent Storage might not be properly
-   rescued from your broken Tails.</p>
+   recovered from your broken Tails.</p>
 
    </div>
 
@@ -55,7 +55,7 @@ stick|backup]].</p>
    <div class="bug">
 
    <p>If an encrypted volume does not appear, then you might not be able to
-   rescue the Persistent Storage of your broken Tails.</p>
+   recover the Persistent Storage of your broken Tails.</p>
 
    </div>
 
@@ -67,7 +67,7 @@ stick|backup]].</p>
    </span>
    to open a terminal with administration rights.
 
-1. Execute the following command to rescue the Persistent Storage of your
+1. Execute the following command to recover the Persistent Storage of your
    broken Tails to your new Tails:
 
    <p class="command-root">rsync -PaSHAXv --del /media/amnesia/TailsData/ /live/persistence/TailsData_unlocked</p>
