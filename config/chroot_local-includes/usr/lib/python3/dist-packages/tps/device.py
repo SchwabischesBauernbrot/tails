@@ -775,6 +775,40 @@ class CleartextDevice:
                 ]
             )
         except subprocess.CalledProcessError as e:
+            # e2fsck returns a sum, so we need to use bitwise AND to
+            # check the exit code.
+            if e.returncode & 4:
+                # Exit code 4 means "File system errors left uncorrected".
+                # We run e2fsck again with `-y` instead of `-p` to try to
+                # also correct the errors which were left uncorrected in
+                # the previous run.
+                # Note that this is a potentially destructive action,
+                # which is why this is usually not done automatically,
+                # but we decided on #15451 that we want to do it anyway
+                # because we expect that most users wouldn't be able to
+                # do anything better.
+                self.forceful_fsck()
+            else:
+                logger.warning("e2fsck returned %i", e.returncode)
+
+    def forceful_fsck(self):
+        try:
+            executil.check_call(
+                [
+                    "e2fsck",
+                    # Force checking even if the file system seems clean:
+                    # some filesystems are corrupted in a way that fsck
+                    # won't spot it without this option, and then mount
+                    # will fail.
+                    "-f",
+                    # Assume an answer of `yes' to all questions, i.e.
+                    # tell e2fsck to try to fix all errors which it asks
+                    # confirmation for.
+                    "-y",
+                    self.device_path,
+                ]
+            )
+        except subprocess.CalledProcessError as e:
             logger.warning("e2fsck returned %i", e.returncode)
 
     def mount(self):
