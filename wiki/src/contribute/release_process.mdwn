@@ -868,17 +868,23 @@ suite should be ready, so it is time to:
 
         . $(./bin/rm-config generate-environment --stage finalized-changelog)
 
-1. tag the release *again*, with all included files in:
+1. Tag the release *again*, with all included files in:
 
         git tag -f -u "${TAILS_SIGNATURE_KEY:?}" \
                 -m "tagging version ${VERSION:?}" "${TAG:?}" && \
         git push --force origin "${TAG:?}" && \
         git push origin "${RELEASE_BRANCH:?}"
 
-1. build the final images!
+1. Build the final images:
+
+        rake build
+
    Do _not_ set `keeprunning` nor `rescue` in `$TAILS_BUILD_OPTIONS`.
    Our build system will apply the correct compression settings automatically
    so don't bother setting it yourself.
+
+   If the build fails and you commit some last-minute fix, then you must
+   redo the previous step where you re-tag and force-push to origin!
 
 1. Make sure the Jenkins build starts as soon as possible. If needed, remove
    other builds from the _Build Queue_.
@@ -1800,7 +1806,8 @@ Copy the signatures and the Torrents into the website repository:
 	   "${ISOS:?}/tails-amd64-${VERSION:?}".{iso,img}.torrent \
 	   "${RELEASE_CHECKOUT:?}/wiki/src/torrents/files/"
 
-Write the announcement for the release:
+If our [[contribute/working_together/roles/technical_writer]] did not
+prepare the announcement for the release, write it yourself:
 
 1. Set this environment variable, in the format `YYYY-MM-DD`:
 

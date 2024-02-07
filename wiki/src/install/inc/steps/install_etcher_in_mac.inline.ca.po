@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2023-12-22 04:43+0000\n"
+"POT-Creation-Date: 2024-02-07 00:13+0000\n"
 "PO-Revision-Date: 2023-12-22 15:11+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: \n"
@@ -41,64 +41,19 @@ msgstr ""
 "<p class=\"upgrade\">En els passos següents, instal·lareu un Tails intermediari mitjançant la imatge USB\n"
 "de Tails que heu baixat abans.</p>\n"
 
-#. type: Bullet: '1. '
-msgid "Click on the following button to download <em>balenaEtcher</em>:"
-msgstr "Feu clic al botó següent per baixar <em>balenaEtcher</em>:"
-
 #. type: Plain text
 #, no-wrap
-msgid "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Download balenaEtcher for macOS</a>\n"
-msgstr "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Baixeu balenaEtcher per a macOS</a>\n"
-
-#. type: Bullet: '1. '
-msgid ""
-"Open the <span class=\"application\">balenaEtcher</span> download (DMG disk "
-"image)."
+msgid "<p><a href=\"https://etcher.balena.io/\"><i>balenaEtcher</i></a> is the Free Software tool that we recommend to install Tails on USB sticks.</p>\n"
 msgstr ""
-"Obriu la baixada de <span class=\"application\">balenaEtcher</span> (imatge "
-"de disc DMG)."
 
 #. type: Plain text
-#, no-wrap
-msgid "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
-
-#. type: Bullet: '1. '
+#, fuzzy, no-wrap
+#| msgid ""
+#| "Instead of installing <span class=\"application\">balenaEtcher</span>, you can\n"
+#| "also [[!toggle id=\"dd\" text=\"install Tails using `dd` on the command\n"
+#| "line\"]].\n"
 msgid ""
-"To install <span class=\"application\">balenaEtcher</span>, drag the <span "
-"class=\"application\">balenaEtcher</span> icon onto the <span "
-"class=\"guilabel\">Applications</span> icon."
-msgstr ""
-"Per instal·lar <span class=\"application\">balenaEtcher</span>, arrossegueu "
-"la icona <span class=\"application\">balenaEtcher</span> a la icona <span "
-"class=\"guilabel\">Aplicacions</span>."
-
-#. type: Bullet: '1. '
-msgid ""
-"Close the installation window of <span class=\"application\">balenaEtcher</"
-"span>."
-msgstr ""
-"Tanqueu la finestra d'instal·lació de <span "
-"class=\"application\">balenaEtcher</span>."
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"   Optionally, eject the <span class=\"application\">balenaEtcher</span> disk image\n"
-"   from the desktop.\n"
-msgstr ""
-"   Opcionalment, expulseu la imatge de disc <span class=\"application\">balenaEtcher</span>\n"
-"   des de l'escriptori.\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"Instead of installing <span class=\"application\">balenaEtcher</span>, you can\n"
+"Instead of using <span class=\"application\">balenaEtcher</span>, you can\n"
 "also [[!toggle id=\"dd\" text=\"install Tails using `dd` on the command\n"
 "line\"]].\n"
 msgstr ""
@@ -114,8 +69,7 @@ msgstr "[[!toggleable id=\"dd\" text=\"\"\"\n"
 #. type: Plain text
 #, no-wrap
 msgid "[[!toggle id=\"dd\" text=\"\"\"<span class=\"hide-button\"></span>\"\"\"]]\n"
-msgstr ""
-"[[!toggle id=\"dd\" text=\"\"\"<span class=\"hide-button\"></span>\"\"\"]]\n"
+msgstr "[[!toggle id=\"dd\" text=\"\"\"<span class=\"hide-button\"></span>\"\"\"]]\n"
 
 #. type: Bullet: '1. '
 msgid "Make sure that your USB stick is unplugged."
@@ -290,24 +244,18 @@ msgid ""
 "     </div>\n"
 msgstr ""
 "     <div class=\"tip\">\n"
-"     <p>Podeu provar d'afegir <code>r</code> abans del <code>disc</code> per "
-"fer la instal·lació més ràpida.</p>\n"
+"     <p>Podeu provar d'afegir <code>r</code> abans del <code>disc</code> per fer la instal·lació més ràpida.</p>\n"
 "     </div>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
-msgstr ""
-"   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-"
-"placeholder\">dispositiu</span></p>\n"
+msgstr "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">dispositiu</span></p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
-msgstr ""
-"   <p class=\"command-template\">dd if=<span class=\"command-placeholder\""
-">tails.img</span> of=<span class=\"command-placeholder\">dispositiu</span> "
-"bs=16m && sync</p>\n"
+msgstr "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">dispositiu</span> bs=16m && sync</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -317,9 +265,7 @@ msgstr "   Hauríeu d'obtenir alguna cosa com això:\n"
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-template\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
-msgstr ""
-"   <p class=\"command-template\">dd if=/Users/me/tails-amd64-3.12.img of=/"
-"dev/rdisk9 bs=16m && sync</p>\n"
+msgstr "   <p class=\"command-template\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -344,10 +290,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-template\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
-msgstr ""
-"   <p class=\"command-template\">sudo dd if=<span class=\"command-"
-"placeholder\">tails.img</span> of=<span class=\"command-placeholder\""
-">dispositiu</span> bs=16m && sync</p>\n"
+msgstr "   <p class=\"command-template\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">dispositiu</span> bs=16m && sync</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -361,10 +304,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
-msgstr ""
-"   <p class=\"command-template\">dd if=<span class=\"command-placeholder\""
-">tails.img</span> of=<span class=\"command-placeholder\">dispositiu</span> "
-"bs=16M && sync</p>\n"
+msgstr "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">dispositiu</span> bs=16M && sync</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -375,6 +315,60 @@ msgstr "   </div>\n"
 #, no-wrap
 msgid "   The installation is complete once the command prompt reappeared.\n"
 msgstr "   La instal·lació s'haurà completat un cop hagi tornat a aparèixer l'indicador d'ordres.\n"
+
+#. type: Bullet: '1. '
+msgid "Click on the following button to download <em>balenaEtcher</em>:"
+msgstr "Feu clic al botó següent per baixar <em>balenaEtcher</em>:"
+
+#. type: Plain text
+#, no-wrap
+msgid "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Download balenaEtcher for macOS</a>\n"
+msgstr "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Baixeu balenaEtcher per a macOS</a>\n"
+
+#. type: Bullet: '1. '
+msgid ""
+"Open the <span class=\"application\">balenaEtcher</span> download (DMG disk "
+"image)."
+msgstr ""
+"Obriu la baixada de <span class=\"application\">balenaEtcher</span> (imatge "
+"de disc DMG)."
+
+#. type: Plain text
+#, no-wrap
+msgid "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
+msgstr "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
+
+#. type: Bullet: '1. '
+msgid ""
+"To install <span class=\"application\">balenaEtcher</span>, drag the <span "
+"class=\"application\">balenaEtcher</span> icon onto the <span "
+"class=\"guilabel\">Applications</span> icon."
+msgstr ""
+"Per instal·lar <span class=\"application\">balenaEtcher</span>, arrossegueu "
+"la icona <span class=\"application\">balenaEtcher</span> a la icona <span "
+"class=\"guilabel\">Aplicacions</span>."
+
+#. type: Bullet: '1. '
+msgid ""
+"Close the installation window of <span class=\"application\">balenaEtcher</"
+"span>."
+msgstr ""
+"Tanqueu la finestra d'instal·lació de <span "
+"class=\"application\">balenaEtcher</span>."
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"   Optionally, eject the <span class=\"application\">balenaEtcher</span> disk image\n"
+"   from the desktop.\n"
+msgstr ""
+"   Opcionalment, expulseu la imatge de disc <span class=\"application\">balenaEtcher</span>\n"
+"   des de l'escriptori.\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
+msgstr "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
 
 #, no-wrap
 #~ msgid "<div class=\"hidden-step-1\"></div>\n"
