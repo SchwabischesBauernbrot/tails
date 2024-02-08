@@ -343,12 +343,15 @@ header.title { /* Override style.css */
 }
 
 #searchform button {
-  background: var(--medium-light-green) url(lib/search.png) no-repeat center;
+  background-image: url(lib/search.png) !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
   width: 40px;
   border: 0;
   border-radius: 0 5px 5px 0;
   box-shadow: var(--banner-button-shadow);
   cursor: pointer;
+  margin-bottom: 0;
 }
 
 #searchform button span {
@@ -791,7 +794,7 @@ article.inlinepage {
 
 /* Buttons and calls for action */
 
-.button, input[type="submit"] {
+button, .button > a, label.button, input[type="submit"] {
   color: black !important;
   background: var(--medium-light-green) !important;
   border: none !important;
@@ -804,7 +807,11 @@ article.inlinepage {
   margin-bottom: 1.5em;
 }
 
-.button:hover {
+button {
+  font-family: "DejaVu Sans", "Verdana", sans-serif;
+}
+
+button:hover, .button > a:hover, label.button:hover, input[type="submit"]:hover {
   background: var(--medium-dark-green) !important;
 }
 
@@ -1190,11 +1197,12 @@ div#highlight p {
 }
 
 #footer button {
-  border: 0;
-  font-weight: normal;
-  padding: 6px;
-  background: var(--light-gray);
-  box-shadow: var(--gray-button-shadow);
+  background: var(--light-gray) !important;
+  box-shadow: var(--gray-button-shadow) !important;
+}
+
+#footer button:hover {
+  background: var(--medium-light-gray) !important;
 }
 
 #footer p a {
