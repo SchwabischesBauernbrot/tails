@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:43+0000\n"
+"POT-Creation-Date: 2024-02-08 03:39+0000\n"
 "PO-Revision-Date: 2023-08-22 20:11+0000\n"
 "Last-Translator: drebs <drebs@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,8 +29,11 @@ msgid "<h1 id=\"etcher\" class=\"step\">Install <em>balenaEtcher</em></h1>\n"
 msgstr "<h1 id=\"etcher\" class=\"step\">Instalar <em>balenaEtcher</em></h1>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<div class=\"step-image\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+#, fuzzy, no-wrap
+#| msgid "<div class=\"step-image\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+msgid ""
+"<div class=\"step-image usb\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+"<div class=\"step-image upgrade\">[[!img inc/infography/install-etcher-with-intermediary.png link=\"no\" alt=\"\"]]</div>\n"
 msgstr "<div class=\"step-image\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
 
 #. type: Plain text
@@ -42,64 +45,19 @@ msgstr ""
 "<p class=\"upgrade\">Nessas próximas etapas você irá instalar um Tails intermediário usando a imagem \n"
 "Tails USB que você baixou anteriormente.</p>\n"
 
-#. type: Bullet: '1. '
-msgid "Click on the following button to download <em>balenaEtcher</em>:"
-msgstr "Clique no botão abaixo para baixar <em>balenaEtcher</em>:"
-
 #. type: Plain text
 #, no-wrap
-msgid "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Download balenaEtcher for macOS</a>\n"
-msgstr "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Baixar balenaEtcher para macOS</a>\n"
-
-#. type: Bullet: '1. '
-msgid ""
-"Open the <span class=\"application\">balenaEtcher</span> download (DMG disk "
-"image)."
+msgid "<p><a href=\"https://etcher.balena.io/\"><i>balenaEtcher</i></a> is the Free Software tool that we recommend to install Tails on USB sticks.</p>\n"
 msgstr ""
-"Abra o <span class=\"application\">balenaEtcher</span> baixado (no formato "
-"DMG disk image)."
 
 #. type: Plain text
-#, no-wrap
-msgid "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
-
-#. type: Bullet: '1. '
+#, fuzzy, no-wrap
+#| msgid ""
+#| "Instead of installing <span class=\"application\">balenaEtcher</span>, you can\n"
+#| "also [[!toggle id=\"dd\" text=\"install Tails using `dd` on the command\n"
+#| "line\"]].\n"
 msgid ""
-"To install <span class=\"application\">balenaEtcher</span>, drag the <span "
-"class=\"application\">balenaEtcher</span> icon onto the <span "
-"class=\"guilabel\">Applications</span> icon."
-msgstr ""
-"Para instalar <span class=\"application\">balenaEtcher</span>, arraste o "
-"ícone do <span class=\"application\">balenaEtcher</span> até o ícone de "
-"<span class=\"guilabel\">Aplicativos</span>."
-
-#. type: Bullet: '1. '
-msgid ""
-"Close the installation window of <span class=\"application\">balenaEtcher</"
-"span>."
-msgstr ""
-"Feche a janela de instalação do <span class=\"application\">balenaEtcher</"
-"span>."
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"   Optionally, eject the <span class=\"application\">balenaEtcher</span> disk image\n"
-"   from the desktop.\n"
-msgstr ""
-"   Opcionalmente, ejete a imagem de disco do <span class=\"application\">balenaEtcher</span> \n"
-"   da área de trabalho.\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"Instead of installing <span class=\"application\">balenaEtcher</span>, you can\n"
+"Instead of using <span class=\"application\">balenaEtcher</span>, you can\n"
 "also [[!toggle id=\"dd\" text=\"install Tails using `dd` on the command\n"
 "line\"]].\n"
 msgstr ""
@@ -402,6 +360,69 @@ msgstr "   </div>\n"
 #, no-wrap
 msgid "   The installation is complete once the command prompt reappeared.\n"
 msgstr "   A instalação estará completa quando o prompt de comando reaparecer.\n"
+
+#. type: Bullet: '1. '
+msgid "Click on the following button to download <em>balenaEtcher</em>:"
+msgstr "Clique no botão abaixo para baixar <em>balenaEtcher</em>:"
+
+#. type: Plain text
+#, no-wrap
+msgid "   <p class=\"button\">[[Download <i>balenaEtcher</i> for macOS|https://tails.net/etcher/balenaEtcher.dmg]]</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "   Save your download to your usual *Downloads* folder and not to the USB stick.\n"
+msgstr ""
+
+#. type: Bullet: '1. '
+msgid ""
+"Open the <span class=\"application\">balenaEtcher</span> download (DMG disk "
+"image)."
+msgstr ""
+"Abra o <span class=\"application\">balenaEtcher</span> baixado (no formato "
+"DMG disk image)."
+
+#. type: Plain text
+#, no-wrap
+msgid "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
+msgstr "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
+
+#. type: Bullet: '1. '
+msgid ""
+"To install <span class=\"application\">balenaEtcher</span>, drag the <span "
+"class=\"application\">balenaEtcher</span> icon onto the <span "
+"class=\"guilabel\">Applications</span> icon."
+msgstr ""
+"Para instalar <span class=\"application\">balenaEtcher</span>, arraste o "
+"ícone do <span class=\"application\">balenaEtcher</span> até o ícone de "
+"<span class=\"guilabel\">Aplicativos</span>."
+
+#. type: Bullet: '1. '
+msgid ""
+"Close the installation window of <span class=\"application\">balenaEtcher</"
+"span>."
+msgstr ""
+"Feche a janela de instalação do <span class=\"application\">balenaEtcher</"
+"span>."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   Optionally, eject the <span class=\"application\">balenaEtcher</span> disk image\n"
+#| "   from the desktop.\n"
+msgid "   Optionally, eject the disk image of *balenaEtcher* from the sidebar of *Finder*.\n"
+msgstr ""
+"   Opcionalmente, ejete a imagem de disco do <span class=\"application\">balenaEtcher</span> \n"
+"   da área de trabalho.\n"
+
+#, no-wrap
+#~ msgid "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Download balenaEtcher for macOS</a>\n"
+#~ msgstr "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Baixar balenaEtcher para macOS</a>\n"
+
+#, no-wrap
+#~ msgid "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
+#~ msgstr "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
 
 #, no-wrap
 #~ msgid "<div class=\"hidden-step-1\"></div>\n"
