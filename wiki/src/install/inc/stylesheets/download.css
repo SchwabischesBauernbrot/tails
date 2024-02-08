@@ -49,6 +49,7 @@
   ) !important;
   background-position: -100px;
   animation: move 10s linear infinite;
+  height: 32px;
 }
 
 @keyframes move {
@@ -58,7 +59,9 @@
 
 .progress-bar {
   background: var(--medium-light-green);
-  height: 20px;
+  border-radius: 5px;
+  height: 100%;
+  box-shadow: inset 1px 1px 1px var(--background-green);
 }
 
 /* Verification results */
