@@ -37,7 +37,7 @@ fi
 
 CMD=/usr/local/lib/additional-software/asp-handle-package-changes
 UNIT="tails-additional-software-post-apt-hook-${UUID}"
-systemd-run --unit="${UNIT}" --setenv=DEBUG "${CMD}" \
+systemd-run --unit="${UNIT}" --setenv=DEBUG --quiet "${CMD}" \
   --installed="${UNIQUE_INSTALLED_PACKAGES_FILE}" \
   --removed="${UNIQUE_REMOVED_PACKAGES_FILE}" \
   "$@"
