@@ -60,6 +60,16 @@ body {
   line-height: 1.5em;
 }
 
+/* Preload background images */
+
+body:after {
+  content: url(lib/go-up.png);
+  position: absolute;
+  top: -9999rem;
+  left: -9999rem;
+  opacity: 0;
+}
+
 p {
   margin: 0 0 1.5em 0;
 }
