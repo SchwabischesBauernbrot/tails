@@ -39,6 +39,21 @@
 .progress {
   max-width: 100%;
   border-radius: 5px;
+  width: 398px !important; /* Precise width to prevent glitches on stripes */
+  background-image: repeating-linear-gradient(
+    -45deg,
+    white,
+    white 20px,
+    var(--background-gray) 20px,
+    var(--background-gray) 40px
+  ) !important;
+  background-position: -100px;
+  animation: move 10s linear infinite;
+}
+
+@keyframes move {
+  0% { background-position: 0px; }
+  100% { background-position: 398px; }
 }
 
 .progress-bar {
