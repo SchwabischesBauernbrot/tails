@@ -138,7 +138,18 @@ class GreeterApplication(object):
         logging.info("tails-greeter is ready.")
         self.mainwindow.show()
 
-        if "login" in Path("/proc/cmdline").read_text().split():
+        kernel_params = Path("/proc/cmdline").read_text().split()
+
+        unlock_param = next(
+            (param for param in kernel_params if param.startswith("unlock=")),
+            None,
+        )
+        if unlock_param:
+            password = unlock_param[len("unlock=") :]
+            self.mainwindow.persistent_storage.persistence_setting.unlock(password)
+            self.mainwindow.persistent_storage.cb_unlocked()
+
+        if "login" in kernel_params:
             self.login()
 
     def on_language_changed(self, locale_code: str):
