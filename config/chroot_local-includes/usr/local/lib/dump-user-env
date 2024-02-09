@@ -20,7 +20,7 @@ from tailslib.userenv import ENV_VARS_TO_DUMP, user_env_file
 def main():
     env = dict()
     for e in ENV_VARS_TO_DUMP:
-        env[e] = os.environ[e]
+        env[e] = os.getenv(e)
 
     # Set some environment variables which are not set by systemd but which
     # we still need in some processes which export the environment file.
@@ -42,6 +42,12 @@ def main():
             logging.error(f"Failed to set WAYLAND_DISPLAY: No file matching {pattern}")
             sys.exit(1)
         env["WAYLAND_DISPLAY"] = matches[0]
+
+    # Check that we have all the environment variables we need
+    for e in ENV_VARS_TO_DUMP:
+        if not env[e]:
+            logging.error(f"Environment variable {e} is not set")
+            sys.exit(1)
 
     # To avoid issues with environment variables that contain newlines, we
     # dump the environment null-terminated
