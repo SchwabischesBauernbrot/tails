@@ -54,7 +54,7 @@ from tailsgreeter.ui.settings_collection import GreeterSettingsCollection
 
 gi.require_version("Gio", "2.0")
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gio, Gtk
+from gi.repository import Gio, Gtk  # noqa: E402
 
 
 class GreeterApplication(object):
