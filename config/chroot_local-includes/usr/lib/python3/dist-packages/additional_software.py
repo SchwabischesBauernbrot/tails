@@ -152,7 +152,7 @@ def notify(
         urgent = ""
 
     try:
-        success_exit_codes = (0, 3, 5)
+        success_exit_codes = (0, 3, 4, 5)
         completed_process = subprocess.run(  # noqa: PLW1510
             [  # noqa: S603
                 "/usr/local/lib/run-with-user-env",
