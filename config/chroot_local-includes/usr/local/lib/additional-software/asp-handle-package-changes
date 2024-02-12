@@ -11,7 +11,6 @@ import os
 import subprocess
 import time
 from pathlib import Path
-from typing import Set
 
 import apt.cache
 
@@ -28,7 +27,7 @@ gettext.install("tails")
 _ = gettext.gettext
 
 
-def handle_installed_packages(packages: Set[str]):
+def handle_installed_packages(packages: set[str]):
     """Configure packages as additional software packages if the user wants to.
 
     Ask the user if packages should be added to additional software, and
@@ -72,7 +71,7 @@ def handle_installed_packages(packages: Set[str]):
         if notify(_("Add {packages} to your additional software?").format(
                     packages=_format_iterable(packages)),
                   _("To install it automatically when starting Tails, you "
-                    "can create a persistent storage and activate the "
+                    "can create a Persistent Storage and activate the "
                     "<b>Additional Software</b> feature."),
                   _("Create Persistent Storage"),
                   _("Install Only Once"),
@@ -83,11 +82,11 @@ def handle_installed_packages(packages: Set[str]):
                 logging.exception("failed to create Persistent Storage")
                 notify_failure(_("The configuration of your additional "
                                  "software failed."),
-                               _("Creating your persistent storage "
+                               _("Creating your Persistent Storage "
                                  "failed."))
                 raise e
     else:   # It's impossible to have a persistent storage
-        logging.warning("Cannot create persistent storage on this media.")
+        logging.warning("Cannot create Persistent Storage on this media.")
         if not os.path.isfile(ASP_STATE_INSTALLER_ASKED):
             open(ASP_STATE_INSTALLER_ASKED, 'a').close()
             # Translators: Don't translate {packages}, it's a placeholder and
@@ -100,7 +99,7 @@ def handle_installed_packages(packages: Set[str]):
                    urgent=True)
 
 
-def create_persistence_and_setup_additional_packages(packages: Set[str]):
+def create_persistence_and_setup_additional_packages(packages: set[str]):
     """Create persistence and add packages to its configuration.
 
     Create a new persistence with additional packages enabled.
@@ -126,7 +125,7 @@ def setup_additional_packages():
     subprocess.check_call(["/usr/local/lib/tpscli", "ensure-is-active", "AdditionalSoftware"])
 
 
-def handle_removed_packages(packages: Set[str]):
+def handle_removed_packages(packages: set[str]):
     """Removes packages from additional software packages if the user wants to.
 
     Ask the user if packages should be removed from additional software, and
