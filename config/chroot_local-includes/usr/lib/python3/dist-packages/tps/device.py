@@ -816,7 +816,19 @@ class CleartextDevice:
         self.mount_point.mkdir(mode=0o770, parents=True, exist_ok=True)
 
         # Mount the Persistent Storage partition
-        executil.check_call(["mount", "-o", "acl", self.device_path, self.mount_point])
+        mount_cmd = ["mount", "-o", "acl", self.device_path, self.mount_point]
+        try:
+            executil.check_call(mount_cmd)
+        except subprocess.CalledProcessError as e:
+            if e.returncode == 32:
+                # Exit code 32 means "Mount failure". This happens when
+                # the file system is corrupted. We run e2fsck to try to
+                # fix the file system.
+                self.fsck()
+                # Try to mount again
+                executil.check_call(mount_cmd)
+            else:
+                raise
 
         # Ensure that the mount point has the correct owner, permissions
         # and ACL.
