@@ -134,8 +134,8 @@ if [ "${TAILS_WEBSITE_CACHE:-0}" = 1 ]; then
       echo "Website cache entry inodes: $(du --inodes --summarize "${WEBSITE_BUILD_DIR}" | cut -f1)"
 
       if ! website-cache put "$WEBSITE_CACHE_KEY"; then
-          # Delete incomplete cache entry
-          rm -rf "${WEBSITE_CACHE_BASEDIR:?}/${WEBSITE_CACHE_KEY:?}"
+         # Delete incomplete cache entry
+         rm -rf "${WEBSITE_CACHE_BASEDIR:?}/${WEBSITE_CACHE_KEY:?}"
       fi
       echo "Website cache filesystem usage after storing new cache entry:"
       df "$WEBSITE_CACHE_BASEDIR"
