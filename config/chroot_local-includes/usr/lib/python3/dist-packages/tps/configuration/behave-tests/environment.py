@@ -17,15 +17,9 @@ from behave.model_core import Status
 SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.join(SCRIPT_DIR, "..", "..", ".."))
 
-from tps import executil
-from tps.service import Service
-from tps.configuration.binding import Binding
-from tps.mountutil import (
-    mount,
-    MOUNTFLAG_NOSYMFOLLOW,
-    MOUNTFLAG_BIND,
-    MOUNTFLAG_REMOUNT,
-)
+from tps import executil  # noqa: E402
+from tps.service import Service  # noqa: E402
+from tps.configuration.binding import Binding  # noqa: E402
 
 logging.basicConfig(level=logging.DEBUG)
 
@@ -36,7 +30,7 @@ os.environ["NOSYMFOLLOW_MOUNTPOINT"] = NOSYMFOLLOW_MOUNTPOINT
 
 # This is not actually the class that behave passes to the functions
 # below, but pretending that it is provides code completion
-class EnvironmentContext(object):
+class EnvironmentContext:
     # Behave internal
     feature: Feature
 
@@ -166,7 +160,7 @@ def after_scenario(context: EnvironmentContext, scenario):
         # We don't use shutil.rmtree here because apparently it tries
         # to follow symlinks, which will fail below the nosymfollow
         # mountpoint
-        subprocess.run(["rm", "-rf", str(p)])
+        subprocess.run(["/bin/rm", "-rf", str(p)], check=True)
 
     # Remove the destination directory
     shutil.rmtree(context.tmpdir)
@@ -190,7 +184,7 @@ BEHAVE_DEBUG_ON_ERROR = False
 
 
 def setup_debug_on_error(userdata):
-    global BEHAVE_DEBUG_ON_ERROR
+    global BEHAVE_DEBUG_ON_ERROR  # noqa: PLW0603
     BEHAVE_DEBUG_ON_ERROR = userdata.getbool("BEHAVE_DEBUG_ON_ERROR")
 
 
@@ -199,19 +193,17 @@ def before_all(context):
 
     # Create a bind-mount of the root filesystem with the nosymfollow
     # option set. In production, the same is done by
-    # config/chroot_local-includes/usr/local/lib/persistent-storage/pre-start.
+    # config/chroot_local-includes/lib/systemd/system/run-nosymfollow.mount.
     # We also do it here to test that it does prevent symlink attacks.
     Path(NOSYMFOLLOW_MOUNTPOINT).mkdir(exist_ok=True)
-    mount(src="/", dest=NOSYMFOLLOW_MOUNTPOINT, flags=MOUNTFLAG_BIND)
-    mount(
-        src="",
-        dest=NOSYMFOLLOW_MOUNTPOINT,
-        flags=MOUNTFLAG_REMOUNT | MOUNTFLAG_NOSYMFOLLOW,
+    subprocess.run(
+        ["/bin/mount", "--bind", "/", "-o", "bind,nosymfollow", NOSYMFOLLOW_MOUNTPOINT],
+        check=True,
     )
 
 
 def after_all(context):
-    subprocess.run(["umount", NOSYMFOLLOW_MOUNTPOINT], check=True)
+    subprocess.run(["/bin/umount", NOSYMFOLLOW_MOUNTPOINT], check=True)
     os.rmdir(NOSYMFOLLOW_MOUNTPOINT)
 
 
@@ -219,6 +211,6 @@ def after_step(context, step):
     if BEHAVE_DEBUG_ON_ERROR and step.status == Status.failed:
         # -- ENTER DEBUGGER: Zoom in on failure location.
         # NOTE: Use IPython debugger, same for pdb (basic python debugger).
-        import ipdb
+        import ipdb  # noqa: T100
 
         ipdb.post_mortem(step.exc_traceback)
