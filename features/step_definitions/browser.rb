@@ -552,6 +552,9 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
     # sidebar. It doesn't expose an action via the accessibility API, so we
     # have to grab focus and use the keyboard to activate it.
     file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
+    # Give the UI some time to update the selection. This is workaround
+    # for #20159.
+    sleep 3
     @screen.press('Space')
   when 'default downloads'
     output_dir = "/home/#{LIVE_USER}/Tor Browser"
@@ -559,6 +562,9 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
     if is_gnome_bookmark
       output_dir = "/home/#{LIVE_USER}/#{output_dir}"
       file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
+      # Give the UI some time to update the selection. This is workaround
+      # for #20159.
+      sleep 3
       @screen.press('Space')
     else
       # Enter the output directory in the text entry
