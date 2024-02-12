@@ -46,7 +46,14 @@ LAN DNS queries are forbidden to protect against some attacks.
 The Tails firewall uses a allowlist which only grants access to each
 local service to the users that actually need it. This blocks
 potential leaks due to misconfigurations or bugs, and deanonymization
-attacks by compromised processes. For specifics, see the firewall
+attacks by compromised processes.
+
+One exception is for the `amnesia` user, which is allowed to connect
+to any local TCP port apart for a blocklist, because some applications,
+such as *Audacity* or *OnionShare*, rely on the ability to connect
+to random local ports.
+
+For specifics, see the firewall
 configuration where this is well commented:
 [[!tails_gitweb config/chroot_local-includes/etc/ferm/ferm.conf]]
 
