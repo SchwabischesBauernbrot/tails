@@ -136,6 +136,21 @@ if [ "${TAILS_WEBSITE_CACHE:-0}" = 1 ]; then
       if ! website-cache put "$WEBSITE_CACHE_KEY"; then
          # Delete incomplete cache entry
          rm -rf "${WEBSITE_CACHE_BASEDIR:?}/${WEBSITE_CACHE_KEY:?}"
+         cat <<EOF
+Next time this starts failing again with "No space left on device",
+check whether we're short on actual disk space or on inodes. And then:
+
+ - If we're short on actual disk space: have "website-cache gc" ensure
+   that 10% disk space is available, by deleting as many cache entries
+   as necessary, by decreasing age.
+
+ - Else, if we're short on inodes: either tune the website cache filesystem's
+   inodes setup to match its actual (which is to store tons of small files),
+   or migrate to storing cache entries as tarballs.
+
+For more context, see #20150.
+EOF
+         exit 1
       fi
       echo "Website cache filesystem usage after storing new cache entry:"
       df "$WEBSITE_CACHE_BASEDIR"
