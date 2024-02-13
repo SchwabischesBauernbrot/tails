@@ -114,10 +114,7 @@ def wait_for_package_removal(package)
 end
 
 Then /^I uninstall "(.+)" using apt$/ do |package|
-  $vm.execute_successfully("echo #{@sudo_password} | " \
-                               "sudo -S apt -y purge #{package}",
-                           user:  LIVE_USER,
-                           spawn: true)
+  $vm.spawn("echo #{@sudo_password} | sudo -S apt -y purge #{package}", user: LIVE_USER)
   wait_for_package_removal(package)
 end
 
