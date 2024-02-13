@@ -223,8 +223,10 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with GNOME Disk
          .grabFocus
   when 'file container'
     disks.child('', description: 'Application Menu').click
-    # Clicking this button using Dogtail works, but afterwards the
-    # GNOME Disks GUI becomes inaccessible.
+    # We can't use the click action here because this button causes a
+    # modal dialog to be run via gtk_dialog_run() which causes the
+    # application to hang when triggered via a ATSPI action. See
+    # https://gitlab.gnome.org/GNOME/gtk/-/issues/1281
     disks.button('Attach Disk Image… (.iso, .img)').grabFocus
     @screen.press('Return')
     # Otherwise Disks is sometimes minimized, for some reason I don't understand
