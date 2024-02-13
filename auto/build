@@ -137,7 +137,7 @@ if [ "${TAILS_WEBSITE_CACHE:-0}" = 1 ]; then
          # Delete incomplete cache entry
          rm -rf "${WEBSITE_CACHE_BASEDIR:?}/${WEBSITE_CACHE_KEY:?}"
          cat <<EOF
-Next time this starts failing again with "No space left on device",
+If this has started to fail with "No space left on device",
 check whether we're short on actual disk space or on inodes. And then:
 
  - If we're short on actual disk space: have "website-cache gc" ensure
