@@ -1,147 +1,171 @@
-[[!meta title="Securely deleting files and clean diskspace"]]
+[[!meta title="Securely deleting files"]]
 
-[[!toc levels=1]]
+Tails previously included tools to *wipe* files and available disk space. We
+removed these tools from Tails 6.0 (February 2024), because we think that they
+are not reliable enough on modern storage devices, such as USB sticks and
+Solid-State Drives (SSDs).
 
-<h1 id="why">Why use secure deletion?</h1>
+To better protect from data recovery, use encrypted volumes, overwrite the
+entire device, or disintegrate it physically.
 
-**Operating systems do not actually remove the contents of a file when it is
-deleted**, even after emptying the trash or explicitly removing the file, from
-the command line for example.
+[[!toc levels=2]]
 
-Instead, they simply remove the file's entry from the file system directory,
-because this requires less work and is therefore faster. The contents of the
-file—the actual data—remain on the storage medium. The data will remain there
-until the operating system reuses the space for new data.
+<h1 id="risks">Limitations of file deletion</h1>
 
-Likewise, reformatting, repartitioning or reimaging a system is not always
-guaranteed to write to every area of the disk, though all will cause the disk to
-appear empty or, in the case of reimaging, empty except for the files present in
-the image, to most software.
+See also [[!wikipedia Data_erasure desc="Wikipedia: Data Erasure"]].
 
-Finally, even when the storage medium is overwritten, physical properties of the
-medium might make it possible to recover the previous contents. In most cases
-however, this recovery is not possible by just reading from the storage device
-in the usual way, but requires using laboratory techniques such as disassembling
-the device and directly accessing/reading from its components.
+<h2 id="delete">Deleting a file does not erase its content</h2>
 
-To learn more, see the Wikipedia article on
-[[!wikipedia Data_erasure desc="data erasure"]].
+Operating systems do not actually remove the content of a file when the file is
+deleted, even after emptying the trash or removing the file from the command
+line.
 
-<h1 id="usb_and_ssd">Warning about USB sticks and SSDs</h1>
+Instead, operating systems only mark the space that was used by the deleted
+file as available for future files, because it is much faster to do. However,
+the content of the deleted file remains on the device until the operating
+system reuses the space for another file.
 
-<div class="caution">
+<div class="attack">
 
-<p>Secure deletion is not as reliable on USB sticks and SSDs (solid-state
-drive) as it is on traditional hard disks.</p>
+<p>Simple data recovery tools can recover deleted files.</p>
 
 </div>
 
-USB sticks and SSDs sometimes copy the same data to various memory cells to
-extend the lifetime of the device. USB sticks and SSDs also have 10&ndash;20%
-of spare memory cells for the same reason.
+<h2 id="copy">Other copies of the data might be stored elsewhere</h2>
 
-As a consequence, part of the data from a given file might still be written on
-the device even after securely deleting it.
+Other copies of the data might exist elsewhere on the device:
 
-This data could be recovered using advanced data forensics techniques, for
-example by professional data recovery services.
+- Some applications, for example, office applications, store temporary backup
+  versions of the file to be able to recover from failures.
 
-To mitigate this risk, you can:
+- Modern operating systems can store a *journal*, a history of recent changes
+  to the file system, or *snapshots*, an image of the file system at a
+  particular point in time.
 
-- Encrypt the device before use, to make it hard to recover *any* data.
+<div class="attack">
 
-- Securely delete the entire device. Some old data might still be present in
-  the spare memory cells.
-
-- Physically destroy the device.
-
-<h1 id="files">Securely deleting files</h1>
-
-<div class="caution">
-
-<p>Securely deleting files does not erase the potential backup copies of
-the file (for example LibreOffice creates backup copies that allow
-you to recover your work in case LibreOffice stops responding).</p>
+<p>Simple data recovery tools can recover deleted files.</p>
 
 </div>
 
-  1. Open the <span class="application">Files</span> browser.
+<h2 id="spare">Spare memory cells can store a hidden copy of the data</h2>
 
-  1. Navigate to the folder containing the files that you want to delete.
+Flash memory devices, such as USB sticks and SSDs (Solid-State Drives), have
+*spare memory cells* that are used to replace broken memory cells over time.
+Modern hard disks also integrate small flash memories for performance and
+reliability.
 
-  1. Select the files that you want to delete with the mouse.
+Any data that was stored in the device can remain available in these spare
+cells.
 
-  1. Right-click (on Mac, click with two fingers) on the files and choose <span class="guimenuitem">Wipe</span>.
+These spare cells are managed directly by the device and neither the user nor
+the operating system can control what is stored in them.
 
-  1. Confirm.
+<div class="attack">
 
-  1. The deletion will start. It can last from a few seconds to several minutes,
-  according to the size of the files. Be patient…
+<p>Specialized data recovery companies can recover data from spare cells.</p>
 
-<h1 id="disk_space">Securely cleaning available disk space</h1>
+</div>
 
-In order to clean up the contents of all files that were previously suppressed
-but not securely deleted from a disk, it is also possible to securely clean all
-the free space on the disk.
+<h1 id="mitigation">Mitigation techniques</h1>
 
-The disk or the folder can contain other files. Those files will not
-be deleted during the operation.
+Given the limitations described above, there is no perfect solution to file
+deletion.
 
-  1. Open the <span class="application">Files</span> browser.
+To better protect from data recovery, you can use one or a combination of these
+mitigation techniques, depending on the sensitivity of your data and the risks.
 
-  1. Click on the disk that you want to clean in the left pane to
-     navigate to the root of this disk.
+<h2 id="tails">Use Tails to avoid saving files</h2>
 
-  1. Click on the [[!img lib/open-menu.png alt="Menu" class="symbolic" link="no"]]
-     button in the right corner of the title bar and choose
-     **Show Hidden Files**.
+All the files that you use in Tails disappear automatically when you shut down,
+except the files that you choose to store in the Persistent Storage or other
+storage devices.
 
-  1. If you want to empty the trash, delete the <span class="filename">.Trash-1000</span> folder or
-     similar.
+By making it easy to avoid saving files to storage devices in the first place,
+using Tails is already an important mitigation technique given the limitations
+of file deletion.
 
-  1. Right-click (on Mac, click with two fingers) in empty space in the right pane and choose <span
-     class="guimenuitem">Wipe available diskspace</span>.
+<h2 id="encrypt">Encrypt your storage devices</h2>
 
-  1. Confirm.
+When all the data on your device is encrypted, data recovery tools can only
+recover encrypted data that is useless without your passphrase.
 
-  1. The cleaning starts. It can last from a few minutes to a few hours,
-     according to the size of the available diskspace. Be patient…
+To better protect deleted files from data recovery, you can reformat your
+device and create another encryption with a different passphrase.
 
-     Note that a file with a name similar to <span
-     class="filename">tmp.7JwHAyBvA9</span> is created in the
-     folder. It is made as big as possible to use all the available diskspace and
-     then securely deleted.
+- For compatibility with Tails only or with another Linux, use [[LUKS encrypted
+  volumes|encrypted_volumes]].
 
-<h1 id="device">Securely erasing an entire device</h1>
+- For compatibility with Windows or macOS, use [[VeraCrypt encrypted
+  volumes|veracrypt]].
 
-1. Open the <span class="application">Disks</span> utility.
+<div class="attack">
+
+<p>Take into account that you could be forced or tricked to give out your
+passphrase.</p>
+
+</div>
+
+<h2 id="overwrite">Overwrite the entire device</h2>
+
+To better protect deleted files from data recovery, you can also reformat and
+overwrite the entire device with zeroes.
+
+Even if some data could still be recovered from [[spare memory
+cells|secure_deletion#spare]], overwriting the entire device is especially
+important if the device is not encrypted.
+
+To do so:
+
+1. Open the *Disks* utility.
 
    All the current storage devices are listed in the left pane.
 
-1. Plug in the USB stick or SSD that you want to securely delete.
+1. Plug in the device that you want to reformat and overwrite.
 
-1. A new device appears in the list of storage devices. Click on it:
+1. A new device appears in the list of devices. Click on it.
 
    [[!img encrypted_volumes/storage_devices_after.png link="no" alt=""]]
 
-1. Check that the description of the device on the right side of the screen
-   corresponds to your device: its brand, its size, etc.
+1. Check that the brand and size of the device in the right pane corresponds to
+   your device.
 
-1. Click on the <span class="guimenu">[[!img lib/open-menu.png alt="Menu" class="symbolic" link="no"]]</span> button
-   in the titlebar and choose <span class="guilabel">Format Disk…</span>
-   to erase all the existing partitions on the device.
+1. Click on the [[!img lib/view-more.png alt="Drive Options" class="symbolic" link="no"]] button
+   in the title bar and choose **Format Disk**.
 
-1. In the <span class="guilabel">Format Disk</span> dialog:
+1. In the **Format Disk** dialog:
 
-   - Choose to
-     <span class="guilabel">Overwrite existing data with zeroes</span> in the
-     <span class="guilabel">Erase</span> menu.
-
-   - Choose <span class="guilabel">Compatible with all
-     systems and devices (MBR/DOS)</span> in the <span class="guilabel">Partitioning</span>
+   - Choose **Overwrite existing data with zeroes (Slow)** in the **Erase**
      menu.
 
-1. Click <span class="bold">Format…</span>.
+     <div class="caution">
+
+     <p>Overwriting existing data does not erase all data on flash
+     memories, such as USB sticks and SSDs (Solid-State Drives).</p>
+
+     <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>
+
+     </div>
+
+   - Choose **Compatible with all systems and devices (MBR/DOS)** in the
+     **Partitioning** menu.
+
+1. Click **Format**.
 
 1. In the confirmation dialog, make sure that the device
-   is correct. Click <span class="bold">Format</span> to confirm.
+   is correct.
+
+1. Click **Format** to confirm.
+
+<h2 id="destroy">Physically destroy the device</h2>
+
+As a last resort, physically destroying the device gives the strongest
+guarantee against data recovery.
+
+It is unreliable to break the device into a few pieces or burn it with wood
+fire.
+
+For top secret documents, the National Security Agency ([[!wikipedia NSA]]) of
+the USA recommends disintegration into particles of 2 mm. This can be achieved
+using a [good quality household
+blender](https://commons.erau.edu/jdfsl/vol16/iss2/1/).
