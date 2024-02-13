@@ -244,10 +244,17 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with GNOME Disk
       # to generate a mouse event at negative coordinates" Dogtail error
       false
     end
-    @screen.paste("#{@veracrypt_shared_dir_in_guest}/#{$veracrypt_volume_name}",
-                  app: :gtk_file_chooser)
-    sleep 2 # avoid ENTER being eaten by the auto-completion system
-    @screen.press('Return')
+
+    # Make the file chooser show the location text entry
+    attach_dialog.child('File Chooser Widget', roleName: 'file chooser')
+                 .doActionNamed('show_location')
+    # Enter the location
+    text_entry = attach_dialog.child('Location Layer').child(roleName: 'text')
+    text_entry.text = "#{@veracrypt_shared_dir_in_guest}/#{$veracrypt_volume_name}"
+    # For some reason two activate calls are necessary to close the dialog
+    text_entry.activate
+    text_entry.activate
+
     step 'I cancel the GNOME authentication prompt'
     try_for(15) do
       disks.children(roleName: 'table cell')
