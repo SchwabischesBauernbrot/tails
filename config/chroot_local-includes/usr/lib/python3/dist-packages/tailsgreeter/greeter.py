@@ -1,4 +1,3 @@
-#!/usr/bin/python3
 #
 # Copyright 2012-2019 Tails developers <tails@boum.org>
 # Copyright 2011 Max <govnototalitarizm@gmail.com>
@@ -55,10 +54,10 @@ from tailsgreeter.ui.settings_collection import GreeterSettingsCollection
 
 gi.require_version("Gio", "2.0")
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gio, Gtk
+from gi.repository import Gio, Gtk  # noqa: E402
 
 
-class GreeterApplication(object):
+class GreeterApplication:
     """Tails greeter main controller
 
     This class is the greeter dbus service"""
@@ -138,7 +137,18 @@ class GreeterApplication(object):
         logging.info("tails-greeter is ready.")
         self.mainwindow.show()
 
-        if "login" in Path("/proc/cmdline").read_text().split():
+        kernel_params = Path("/proc/cmdline").read_text().split()
+
+        unlock_param = next(
+            (param for param in kernel_params if param.startswith("unlock=")),
+            None,
+        )
+        if unlock_param:
+            password = unlock_param[len("unlock=") :]
+            self.mainwindow.persistent_storage.persistence_setting.unlock(password)
+            self.mainwindow.persistent_storage.cb_unlocked()
+
+        if "login" in kernel_params:
             self.login()
 
     def on_language_changed(self, locale_code: str):
