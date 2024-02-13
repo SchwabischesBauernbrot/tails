@@ -1,7 +1,7 @@
 @product
 Feature: Hardware failures
   As a Tails user
-  when The USB stick has hardware failures
+  when the USB stick has hardware failures
   I want to to see a message.
 
   Scenario: Alerting about disk read failures in GNOME

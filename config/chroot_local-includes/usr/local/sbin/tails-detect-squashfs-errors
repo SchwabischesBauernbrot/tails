@@ -56,7 +56,7 @@ def main():
     systemd.daemon.notify('READY=1')
     systemd.daemon.notify('STATUS=Waiting for new messages to process...\n')
 
-    # Wait for new messages to be append to journald
+    # Wait for new messages to be appended to journald
     while True:
         state_change = j.wait()
         if state_change == systemd.journal.APPEND:
