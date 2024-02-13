@@ -229,8 +229,7 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with GNOME Disk
     # https://gitlab.gnome.org/GNOME/gtk/-/issues/1281
     disks.button('Attach Disk Image… (.iso, .img)').grabFocus
     @screen.press('Return')
-    # Otherwise Disks is sometimes minimized, for some reason I don't understand
-    sleep 2
+
     attach_dialog = disks.child('Select Disk Image to Attach',
                                 roleName: 'file chooser')
     attach_dialog.child('Set up read-only loop device',
