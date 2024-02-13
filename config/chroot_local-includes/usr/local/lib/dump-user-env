@@ -20,7 +20,8 @@ from tailslib.userenv import ENV_VARS_TO_DUMP, user_env_file
 def main():
     env = dict()
     for e in ENV_VARS_TO_DUMP:
-        env[e] = os.getenv(e)
+        if e in os.environ:
+            env[e] = os.environ[e]
 
     # Set some environment variables which are not set by systemd but which
     # we still need in some processes which export the environment file.
@@ -45,7 +46,7 @@ def main():
 
     # Check that we have all the environment variables we need
     for e in ENV_VARS_TO_DUMP:
-        if not env[e]:
+        if e not in env:
             logging.error(f"Environment variable {e} is not set")
             sys.exit(1)
 
