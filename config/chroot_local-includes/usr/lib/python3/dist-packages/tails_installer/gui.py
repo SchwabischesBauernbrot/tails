@@ -50,7 +50,7 @@ from tails_installer.utils import (
     _format_bytes_in_gb,
     _get_datadir,
     mebibytes_to_bytes,
-    get_persistent_storage_size,
+    get_persistent_storage_backup_size,
 )
 
 MAX_FAT16 = 2047
@@ -760,7 +760,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         if self.opts.clone_persistent_storage_requested:
             message_format = _("Backup complete!")
         else:
-            message_format = _("Installation complete!")
+            message_format = _("Cloning complete!")
         dialog = Gtk.MessageDialog(
             parent=self,
             flags=Gtk.DialogFlags.DESTROY_WITH_PARENT,

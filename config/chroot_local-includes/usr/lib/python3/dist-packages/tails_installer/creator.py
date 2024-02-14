@@ -445,7 +445,7 @@ class TailsInstallerCreator(object):
         filesystem_size = (
             device_size_in_bytes
             - self.system_partition_size(device_size_in_bytes)
-            - CONFIG["luks2_header_size"]
+            - mebibytes_to_bytes(18)  # 16 MiB for luks2 header, 2 MiB is free
         )
         filesystem_block_count = filesystem_size // 4096
         num_blocks = 4096 * 1024
@@ -460,7 +460,7 @@ class TailsInstallerCreator(object):
         try:
             return (
                 self.space_for_backup(device_size_in_bytes)
-                > get_persistent_storage_backup_size()
+                > get_persistent_storage_backup_size() - mebibytes_to_bytes(16)
             )
         except NotImplementedError:
             return False
