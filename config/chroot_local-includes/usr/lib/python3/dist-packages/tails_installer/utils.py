@@ -82,22 +82,6 @@ def get_persistent_storage_backup_size():
         )
 
 
-def get_official_min_backup_device_size():
-    """Return minimum backup USB stick size (in MB) the user should get. A slightly larger
-    than required size is returned to tolerate false advertising."""
-    persistent_storage_size = get_persistent_storage_size() / 1024**2
-    if persistent_storage_size <= CONFIG["min_installation_device_size"] - 4 * 1024:
-        return CONFIG["official_min_installation_device_size"]
-    elif persistent_storage_size <= 14500 - 8 * 1024:
-        return 2 * CONFIG["official_min_installation_device_size"]
-    else:
-        return (
-            (persistent_storage_size + 8 * 1024)
-            * CONFIG["official_min_installation_device_size"]
-            / CONFIG["min_installation_device_size"]
-        )
-
-
 def _dir_size(source):
     total_size = os.path.getsize(source)
     for item in os.listdir(source):
