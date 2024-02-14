@@ -654,7 +654,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                         "size": "{:.1f}".format(
                             (
                                 self.get_device_size(info)
-                                + get_persistent_storage_size()
+                                + get_persistent_storage_backup_size()
                                 - self.live.space_for_backup(self.get_device_size(info))
                             )
                             / 1000**3

@@ -460,7 +460,7 @@ class TailsInstallerCreator(object):
         try:
             return (
                 self.space_for_backup(device_size_in_bytes)
-                > get_persistent_storage_size()
+                > get_persistent_storage_backup_size()
             )
         except NotImplementedError:
             return False

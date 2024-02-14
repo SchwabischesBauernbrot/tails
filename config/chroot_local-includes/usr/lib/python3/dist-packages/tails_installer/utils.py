@@ -72,15 +72,6 @@ def iso_is_live_system(iso_path):
     version = extract_file_content_from_iso(iso_path, "/.disk/info")
     return version.startswith("Debian GNU/Linux")
 
-def get_persistent_storage_backup_size():
-    """If unlocked, return the minimum partition size (bytes) we accept as a valid target to
-    back up the current Tails, else None."""
-    luks2_header_size = 16
-    if has_unlocked_persistence():
-        return psutil.disk_usage(PERSISTENCE_DIR).used + mebibytes_to_bytes(
-            luks2_header_size
-        )
-
 
 def get_persistent_storage_backup_size():
     """If unlocked, return the minimum partition size (bytes) we accept as a valid target to
