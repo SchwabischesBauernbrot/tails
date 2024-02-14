@@ -170,7 +170,10 @@ def notify(
         if completed_process.stderr:
             logging.warning("%s", completed_process.stderr)
         if completed_process.returncode not in success_exit_codes:
-            raise OSError(completed_process.stderr)
+            raise OSError(
+                f"command exited with {completed_process.returncode}. "
+                f"stderr: {completed_process.stderr}"
+            )
     except OSError as e:
         logging.warning("Warning: unable to notify the user. %s", e)
         logging.warning("The notification was: %s %s", title, body)

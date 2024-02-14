@@ -43,7 +43,7 @@ the screen.
 
   1. Plug in the external storage device that you want to use.
 
-  1. A new device appears in the list of storage devices. Click on it:
+  1. A new device appears in the list of storage devices. Click on it.
 
      [[!img storage_devices_after.png link=no alt=""]]
 
@@ -53,23 +53,31 @@ the screen.
 <h2 id="formatting">Formatting the device</h2>
 
   1. Click on the [[!img lib/view-more.png alt="Drive Options" class="symbolic" link="no"]] button
-     in the titlebar and choose **Format Disk**
+     in the title bar and choose **Format Disk**
      to erase all the existing partitions on the device.
 
   1. In the **Format Disk** dialog:
 
-     - If you want to securely erase all data on the device, choose to
-       <span class="guilabel">Overwrite existing data with zeroes</span> in the
-       <span class="guilabel">Erase</span> menu.
+     - If you want to overwrite all data on the device, choose **Overwrite
+       existing data with zeroes** in the **Erase** menu.
 
-     - Choose <span class="guilabel">Compatible with all
-       systems and devices (MBR/DOS)</span> in the <span class="guilabel">Partitioning</span>
-       menu.
+       <div class="caution">
+       <p>Overwriting existing data does not erase all data on flash
+       memories, such as USB sticks and SSDs (Solid-State Drives).</p>
 
-     Then click **Format**.
+       <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>
+
+       </div>
+
+     - Choose **Compatible with all systems and devices (MBR/DOS)** in the
+       **Partitioning** menu.
+
+  1. Click **Format**.
 
   1. In the confirmation dialog, make sure that the device
-     is correct, then click **Format** to confirm.
+     is correct.
+
+  1. Click **Format**.
 
 <h2 id="partition">Creating a new encrypted partition</h2>
 
@@ -91,28 +99,31 @@ device:
 
          In the example below, we are creating a partition of 4.0 GB on a device of 8.1 GB.
 
-     - In the <span class="guilabel">Format Volume</span> screen:
+     - In the **Format Volume** dialog:
 
-       - <span class="guilabel">Volume Name</span>: you can give a name to the partition.
+       - **Volume Name**
+
+         You can give a name to the partition.
          This name remains invisible until the partition is open but can help
          you to identify it during use.
 
-       - <span class="guilabel">Erase</span>: you can choose to securely
-         erase all data on the partition.
+       - **Erase**
+
+         You can choose to overwrite existing data on the partition.
 
          <div class="caution">
-         <p>Secure deletion does not work as expected on USB sticks and
-         SSDs (Solid-State Drives). Choose instead to overwrite existing
-         data on the whole device when [[formatting the
-         device|encrypted_volumes#formatting]].</p>
-         <p>See also our [[warning about secure deletion on USB sticks and
-         SSDs|secure_deletion#usb_and_ssd]].</p>
+
+         <p>Overwriting existing data does not erase all data on flash
+         memories, such as USB sticks and SSDs (Solid-State Drives).</p>
+
+         <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>
+
          </div>
 
-       - <span class="guilabel">Type</span>: choose
-         <span class="guilabel">Internal disk for use with Linux systems
-         only (Ext4)</span> and <span class="guilabel">Password protect
-         volume (LUKS)</span>.
+       - **Type**
+
+         Choose **Internal disk for use with Linux systems
+         only (Ext4)** and **Password protect volume (LUKS)**.
 
      - In the <span class="guilabel">Set Password</span> screen:
 
@@ -207,7 +218,7 @@ operating system.
 1. Plug in the external storage device that contains the encrypted partition
    for which you want to change the passphrase.
 
-1. The device appears in the list of storage devices. Click on it:
+1. The device appears in the list of storage devices. Click on it.
 
    [[!img storage_devices_after.png link=no alt=""]]
 
