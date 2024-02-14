@@ -4,7 +4,8 @@
 
 <h1 id="verify" class="step">Verify your download</h1>
 
-<div class="step-image usb upgrade-os">[[!img inc/infography/verify.png link="no" alt=""]]</div>
+<div class="step-image usb">[[!img inc/infography/verify.png link="no" alt=""]]</div>
+<div class="step-image upgrade-os">[[!img inc/infography/verify-with-intermediary.png link="no" alt=""]]</div>
 <div class="step-image upgrade-tails">[[!img inc/infography/verify-from-tails.png link="no" alt=""]]</div>
 
 <div id="javascript-verification-tip" class="display-as-block">
@@ -40,10 +41,10 @@
   </div>
   <div id="verify-button" class="display-as-block">
     <label class="button">
-      Select your download&hellip;
+      Select your download to verify&hellip;
       <input id="verify-file" type="file"/>
     </label>
-    <p>or verify using the [[!toggle id="openpgp-verification" text="OpenPGP signature"]]</p>
+    <p id="verify-minor">or verify using the [[!toggle id="openpgp-verification" text="OpenPGP signature"]]</p>
     <div id="openpgp-verification" class="floating-toggleable">
     [[!toggleable id="openpgp-verification" text="""
     [[!toggle id="openpgp-verification" text=""]]

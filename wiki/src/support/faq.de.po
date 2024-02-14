@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-10-31 09:58+0100\n"
+"POT-Creation-Date: 2024-01-23 00:41+0000\n"
 "PO-Revision-Date: 2023-11-28 14:42+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -26,16 +26,19 @@ msgstr "[[!meta title=\"Häufig gestellte Fragen\"]]\n"
 #. type: Plain text
 msgid ""
 "- For hardware compatibility issues, refer to our [[known issues|support/"
-"known_issues]].  - To learn what you can do with Tails, refer to our "
-"[[documentation|doc]].  - For questions related to Tor, see also to the [Tor "
-"support pages](https://support.torproject.org/)."
+"known_issues]]."
 msgstr ""
-"- Bei Problemen mit der Hardware, schauen Sie unsere [[bekannten Problemen|"
-"support/known_issues]] an.\n"
-"- Um zu erfahren, was Sie mit Tails machen können, lesen Sie unsere "
-"[[Dokumentation|doc]].\n"
-"- Bei Fragen bzgl. Tor, können Sie auch die [Tor-Hilfe-"
-"Seiten](https://support.torproject.org/) anschauen."
+
+#. type: Plain text
+msgid ""
+"- To learn what you can do with Tails, refer to our [[documentation|doc]]."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"- For questions related to Tor, see also to the [Tor support pages](https://"
+"support.torproject.org/)."
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -80,9 +83,9 @@ msgid ""
 "upsilon.cc/~zack/blog/posts/2011/09/"
 "why_there_are_so_many_debian_derivatives/)  by Stefano Zacchiroli."
 msgstr ""
-"Lese auch den Artikel [Warum gibt es so viele Debian Derivate](http://upsilon"
-".cc/~zack/blog/posts/2011/09/why_there_are_so_many_debian_derivatives/)  by "
-"Stefano Zacchiroli."
+"Lese auch den Artikel [Warum gibt es so viele Debian Derivate](http://"
+"upsilon.cc/~zack/blog/posts/2011/09/"
+"why_there_are_so_many_debian_derivatives/)  by Stefano Zacchiroli."
 
 #. type: Plain text
 #, no-wrap
@@ -93,11 +96,13 @@ msgstr "<h2 id=\"ubuntu\">Warum basiert Tails nicht auf Ubuntu?</h2>\n"
 msgid "First, see the answer to the [[previous question|faq#debian]]."
 msgstr ""
 
-#. type: Bullet: '0. '
-msgid "The rapid development cycle of Ubuntu would be too fast for Tails."
+#. type: Plain text
+#, fuzzy
+#| msgid "The rapid development cycle of Ubuntu would be too fast for Tails."
+msgid "- The rapid development cycle of Ubuntu would be too fast for Tails."
 msgstr "Der schnelle Entwicklungszyklus von Ubuntu wäre zu schnell für Tails."
 
-#. type: Bullet: '0. '
+#. type: Bullet: '- '
 msgid ""
 "Ubuntu adds features in ways that we find dangerous for privacy. For example "
 "Ubuntu One ([partly discontinued](http://blog.canonical.com/2014/04/02/"
@@ -106,7 +111,7 @@ msgid ""
 "and-data-leaks)."
 msgstr ""
 
-#. type: Bullet: '0. '
+#. type: Bullet: '- '
 msgid ""
 "Ubuntu is led by a company that takes most of the important decisions and "
 "has the power to make them happen."
@@ -114,14 +119,14 @@ msgstr ""
 "Ubuntu wird von einem Unternehmen geführt, das die meisten wichtigen "
 "Entscheidungen trifft und die Macht hat, sie umzusetzen."
 
-#. type: Bullet: '0. '
+#. type: Bullet: '- '
 msgid ""
 "We usually ship kernels and video drivers from [Debian backports](http://"
 "backports.debian.org/). The result is comparable to Ubuntu in terms of "
 "support for recent hardware."
 msgstr ""
 
-#. type: Bullet: '0. '
+#. type: Bullet: '- '
 msgid ""
 "We think that the general quality of the maintenance work being done on "
 "packages matters from a security perspective. Debian maintainers generally "
@@ -130,14 +135,14 @@ msgid ""
 "supports."
 msgstr ""
 
-#. type: Bullet: '0. '
+#. type: Bullet: '- '
 msgid ""
 "We are actively working on improving [[AppArmor support|contribute/design/"
 "application_isolation]] in Tails; a security framework that is already used "
 "in a few Ubuntu applications."
 msgstr ""
 
-#. type: Bullet: '0. '
+#. type: Bullet: '- '
 msgid ""
 "We are also working on adding compiler hardening options to more Debian "
 "packages included in Tails; another security feature that Ubuntu already "
@@ -160,23 +165,29 @@ msgid ""
 "advantages.  The GNOME Desktop is:"
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "Well integrated, especially for new Linux users."
+#. type: Plain text
+#, fuzzy
+#| msgid "Well integrated, especially for new Linux users."
+msgid "- Well integrated, especially for new Linux users."
 msgstr "Gut integriert, besonders für neue Linux-Benutzer."
 
-#. type: Bullet: '  - '
-msgid "Very well translated and documented."
+#. type: Plain text
+#, fuzzy
+#| msgid "Very well translated and documented."
+msgid "- Very well translated and documented."
 msgstr "Sehr gut übersetzt und dokumentiert."
 
-#. type: Bullet: '  - '
-msgid "Doing relatively good regarding accessibility features."
+#. type: Plain text
+msgid "- Doing relatively good regarding accessibility features."
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "Actively developed."
+#. type: Plain text
+#, fuzzy
+#| msgid "Actively developed."
+msgid "- Actively developed."
 msgstr "Aktiv entwickelt."
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "Well maintained in [[Debian|faq#debian]], where it is the default desktop "
 "environment."
@@ -205,8 +216,11 @@ msgstr "Lesen Sie auch:"
 
 #. type: Plain text
 msgid ""
-"- [[System requirements and recommended hardware|doc/about/requirements]] - "
-"[[Known issues|support/known_issues]]"
+"- [[System requirements and recommended hardware|doc/about/requirements]]"
+msgstr ""
+
+#. type: Plain text
+msgid "- [[Known issues|support/known_issues]]"
 msgstr ""
 
 #. type: Plain text
@@ -265,9 +279,7 @@ msgstr "<h1 id=\"installation\">Installation</h1>\n"
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"dedicated-stick\">Do I need a USB stick dedicated to Tails?</h2>\n"
-msgstr ""
-"<h2 id=\"dedicated-stick\">Benötige ich einen USB-Stick speziell für "
-"Tails?</h2>\n"
+msgstr "<h2 id=\"dedicated-stick\">Benötige ich einen USB-Stick speziell für Tails?</h2>\n"
 
 #. type: Plain text
 msgid "Yes. Tails requires a USB stick dedicated to only running Tails."
@@ -329,7 +341,7 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "<h2 id=\"upgrade\">Should I update Tails using <span class=\"code\">apt upgrade</span> or <span class=\"application\">Synaptic</span>?</h2>\n"
+msgid "<h2 id=\"upgrade\">Should I update Tails using <code>apt upgrade</code> or <i>Synaptic</i>?</h2>\n"
 msgstr ""
 
 #. type: Plain text
@@ -345,9 +357,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"preinstalled\">Can I buy a preinstalled Tails USB stick or DVD?</h2>\n"
-msgstr ""
-"<h2 id=\"preinstalled\">Kann ich einen vorinstallierten USB-Stick oder eine "
-"DVD von Tails kaufen?</h2>\n"
+msgstr "<h2 id=\"preinstalled\">Kann ich einen vorinstallierten USB-Stick oder eine DVD von Tails kaufen?</h2>\n"
 
 #. type: Plain text
 msgid "No, we don't sell preinstalled Tails devices."
@@ -359,7 +369,7 @@ msgstr ""
 "Vorinstallierte Geräte zu verkaufen wäre eigentlich eine ziemlich schlechte "
 "Idee:"
 
-#. type: Bullet: '* '
+#. type: Bullet: '- '
 msgid ""
 "If burned on a DVD, then this DVD would be outdated on the next release. "
 "This means after 6 weeks at most."
@@ -367,7 +377,7 @@ msgstr ""
 "Wenn auf eine DVD gebrannt würde, wäre diese DVD bei der nächsten "
 "Veröffentlichung veraltet. Das heißt nach spätestens 6 Wochen."
 
-#. type: Bullet: '* '
+#. type: Bullet: '- '
 msgid ""
 "If installed onto a USB stick, then it would be impossible to verify that "
 "the Tails on the USB stick is genuine. Trusting that a Tails USB stick is "
@@ -490,8 +500,7 @@ msgid ""
 msgstr ""
 "<div class=\"next\">\n"
 "  <ul>\n"
-"    <li>[[Im Internet surfen mit <span class=\"application\">Tor "
-"Browser</span>|doc/anonymous_internet/Tor_browser]]</li>\n"
+"    <li>[[Im Internet surfen mit <span class=\"application\">Tor Browser</span>|doc/anonymous_internet/Tor_browser]]</li>\n"
 "  </ul>\n"
 "</div>\n"
 
@@ -608,9 +617,19 @@ msgstr ""
 #. type: Plain text
 msgid ""
 "- To access websites that block Tor or can only be accessed from a given "
-"country - To use videoconferencing tools like *Jitsi* or *Zoom* - To access "
-"private VPN services like intranets or share folders - To browser the "
-"Internet at higher speeds than Tor"
+"country"
+msgstr ""
+
+#. type: Plain text
+msgid "- To use videoconferencing tools like *Jitsi* or *Zoom*"
+msgstr ""
+
+#. type: Plain text
+msgid "- To access private VPN services like intranets or share folders"
+msgstr ""
+
+#. type: Plain text
+msgid "- To browse the Internet at higher speeds than Tor"
 msgstr ""
 
 #. type: Plain text
@@ -637,7 +656,7 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "<h2 id=\"torrc\">Can I choose the country of my exit nodes or further edit the <span class=\"code\">torrc</span>?</h2>\n"
+msgid "<h2 id=\"torrc\">Can I choose the country of my exit nodes or further edit the <code>torrc</code>?</h2>\n"
 msgstr ""
 
 #. type: Plain text
@@ -736,16 +755,15 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#, no-wrap
-msgid "<h2 id=\"ping\">Can I use <span class=\"command\">ping</span> in Tails?</h2>\n"
-msgstr ""
+#, fuzzy, no-wrap
+#| msgid "<h2 id=\"monero\">How can I use Monero in Tails?</h2>\n"
+msgid "<h2 id=\"ping\">Can I use <code>ping</code> in Tails?</h2>\n"
+msgstr "<h2 id=\"monero\">Wie kann ich Monero in Tails verwenden?</h2>\n"
 
 #. type: Plain text
-#, no-wrap
 msgid ""
-"It is impossible to use <span class=\"command\">ping</span> in Tails,\n"
-"because <span class=\"command\">ping</span> uses the ICMP protocol while Tor\n"
-"can only transport TCP connections.\n"
+"It is impossible to use `ping` in Tails, because `ping` uses the ICMP "
+"protocol while Tor can only transport TCP connections."
 msgstr ""
 
 #. type: Plain text
@@ -767,16 +785,16 @@ msgid ""
 "many advantages:"
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Plain text
 msgid ""
-"It is included in the Debian process for security updates and new versions."
+"- It is included in the Debian process for security updates and new versions."
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "It is authenticated using OpenPGP signatures."
+#. type: Plain text
+msgid "- It is authenticated using OpenPGP signatures."
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "It is under the scrutiny of the Debian community and its many users and "
 "derivatives, including Ubuntu."
@@ -802,19 +820,19 @@ msgid ""
 "add new software with a very good reason to do so:"
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "We try to limit the growth of the images and automatic upgrades."
+#. type: Plain text
+msgid "- We try to limit the growth of the images and automatic upgrades."
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "More software implies more security issues."
+#. type: Plain text
+msgid "- More software implies more security issues."
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "We avoid proposing several options to accomplish the same task."
+#. type: Plain text
+msgid "- We avoid proposing several options to accomplish the same task."
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "If a package needs to be removed after its inclusion, for example because of "
 "security problems, then this might be problematic as users might rely on it."
@@ -845,19 +863,19 @@ msgstr ""
 msgid "Here is some of the software we are often asked to include in Tails:"
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "**monero**: not in Debian, but see [[!tails_ticket 17823]]"
+#. type: Plain text
+msgid "- **monero**: not in Debian, but see [[!tails_ticket 17823]]"
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "**bitmessage**: not in Debian"
+#. type: Plain text
+msgid "- **bitmessage**: not in Debian"
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "**retroshare**: not in Debian"
+#. type: Plain text
+msgid "- **retroshare**: not in Debian"
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "**rar/unrar**: is not [[free software|doc/about/license]], but you can use "
 "the [[Additional Software|doc/persistent_storage/additional_software]] "
@@ -879,13 +897,13 @@ msgstr ""
 msgid "The problem with using BitTorrent over Tor is double:"
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "It is technically hard to do it properly, see: <https://blog.torproject.org/"
 "bittorrent-over-tor-isnt-good-idea>."
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "It harms the network, see: <https://blog.torproject.org/why-tor-slow-and-"
 "what-were-going-do-about-it>."
@@ -912,7 +930,7 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "    torsocks youtube-dl \"https://www.youtube.com/watch?v=JWII85UlzKw\"\n"
+msgid "<p class=\"command\">torsocks youtube-dl \"https://www.youtube.com/watch?v=JWII85UlzKw\"</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -944,9 +962,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"voip\">Can I do voice or video calls from Tails?</h2>\n"
-msgstr ""
-"<h2 id=\"voip\">Kann ich von Tails aus Sprach- oder Videoanrufe tätigen?</h2>"
-"\n"
+msgstr "<h2 id=\"voip\">Kann ich von Tails aus Sprach- oder Videoanrufe tätigen?</h2>\n"
 
 #. type: Plain text
 msgid "Not yet."
@@ -1051,11 +1067,28 @@ msgid "<h2 id=\"old-software\">Why does Tails include old versions of software?<
 msgstr ""
 
 #. type: Plain text
+msgid "The Tails 5 series is based on Debian 11 (Bullseye)."
+msgstr ""
+
+#. type: Plain text
 msgid ""
-"Tails includes the software versions that are found in [Debian stable]"
-"(https://wiki.debian.org/DebianStable). Even though the software versions "
-"might be old, they receive security fixes through the [Debian security team]"
-"(https://wiki.debian.org/Teams/Security)."
+"The version of each application included in Tails corresponds to the version "
+"available in this version of Debian. Even though some versions might be old, "
+"the [Debian Security Team](https://wiki.debian.org/Teams/Security) provides "
+"security updates."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Newer versions of all applications will be available starting from Tails "
+"6.0, which will be based on Debian 12 (Bookworm). Until then, you cannot "
+"update any of the applications included in Tails to a newer version."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"You can see which version of a software package is available in each version "
+"of Debian on <https://packages.debian.org/>."
 msgstr ""
 
 #. type: Plain text
@@ -1079,6 +1112,13 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
+msgid ""
+"<p>In the future, we might make it possible to verify the integrity of a Tails\n"
+"USB stick from another trusted OS. ([[!tails_ticket 7496]])</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
 msgid "<h2 id=\"reuse-memory-wipe\">Can I use the memory wipe feature of Tails on another operating system?</h2>\n"
 msgstr ""
 
@@ -1098,9 +1138,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"new-identity\">Where is the <span class=\"guilabel\">New Identity</span> button?</h2>\n"
-msgstr ""
-"<h2 id=\"new-identity\">Wo ist der <span class=\"guilabel\">Neue "
-"Identität</span>-Knopf?</h2>\n"
+msgstr "<h2 id=\"new-identity\">Wo ist der <span class=\"guilabel\">Neue Identität</span>-Knopf?</h2>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -1154,6 +1192,19 @@ msgid ""
 "See the [[!wikipedia Linux_malware desc=\"Wikipedia page on Linux "
 "malware\"]] for further details."
 msgstr ""
+
+#~ msgid ""
+#~ "- For hardware compatibility issues, refer to our [[known issues|support/"
+#~ "known_issues]].  - To learn what you can do with Tails, refer to our "
+#~ "[[documentation|doc]].  - For questions related to Tor, see also to the "
+#~ "[Tor support pages](https://support.torproject.org/)."
+#~ msgstr ""
+#~ "- Bei Problemen mit der Hardware, schauen Sie unsere [[bekannten "
+#~ "Problemen|support/known_issues]] an.\n"
+#~ "- Um zu erfahren, was Sie mit Tails machen können, lesen Sie unsere "
+#~ "[[Dokumentation|doc]].\n"
+#~ "- Bei Fragen bzgl. Tor, können Sie auch die [Tor-Hilfe-Seiten](https://"
+#~ "support.torproject.org/) anschauen."
 
 #, fuzzy
 #~| msgid "<div class=\"note\">\n"

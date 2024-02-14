@@ -22,6 +22,7 @@ mostly because:
 
 * it is simple: AppArmor policy is relatively easy to understand,
   improve, and audit;
+
 * it is the best supported [[!wikipedia mandatory access control]]
   framework in Debian; it wasn't too hard to reach this point, and
   there is quite some room for improvement via collaboration with
@@ -161,6 +162,7 @@ So, in a nutshell we give Tor Browser access to:
 * `~/Tor Browser/`, which is amnesiac, as everything else in Tails by
   default; this is set to be the default download directory
   ([[!tails_gitweb config/chroot_local-includes/usr/share/tails/tor-browser-prefs.js]]);
+
 * `~/Persistent/Tor Browser/`, that is persistent, and only created
   when `~/Persistent/` is itself persistent and read-write.
 

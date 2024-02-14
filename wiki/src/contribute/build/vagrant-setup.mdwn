@@ -19,16 +19,22 @@ Vagrant support files are located in the `vagrant` directory at the root of the
 This directory contains:
 
  * `Vagrantfile`: [configuration file for Vagrant](http://vagrantup.com/docs/vagrantfile/),
+
  * `provision/setup-tails-builder`: idempotent provisioning script that is
    run inside the virtual machine upon boot,
+
  * `provision/assets/build-tails`: build script to be run inside the
    virtual machine,
+
  * to build the base box:
+
    - `definitions/tails-builder/generate-tails-builder-box.sh`: Script
      that generates the base box.
+
    - `definitions/tails-builder/postinstall.sh`: Script that is run
      inside the base box before finalizing it, e.g. for installing the
      packages we need.
+
    - `vagrant/lib/tails_build_settings.rb` defines the basebox properties
      (memory, Debian version, architecture, ...) and the basebox name.
 

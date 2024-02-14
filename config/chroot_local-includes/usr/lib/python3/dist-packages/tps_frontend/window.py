@@ -1,34 +1,34 @@
-from logging import getLogger
 import subprocess
-from gi.repository import Gio, GLib, GObject, Gtk
+from logging import getLogger
+
+# Only required for type hints
+from typing import TYPE_CHECKING, Optional
 
 import gi
+from gi.repository import Gio, GLib, GObject, Gtk
+from tps import IN_PROGRESS_STATES, InvalidBootDeviceErrorType, State
+from tps.dbus.errors import DBusError, NotEnoughMemoryError, TargetIsBusyError
 
-gi.require_version("Handy", "1")
-from gi.repository import Handy
-
-Handy.init()
-
-from tps import State, IN_PROGRESS_STATES
-from tps.dbus.errors import TargetIsBusyError, NotEnoughMemoryError, DBusError
-
-from tps_frontend import _, WINDOW_UI_FILE
+from tps_frontend import WINDOW_UI_FILE, _
 from tps_frontend.change_passphrase_dialog import ChangePassphraseDialog
 from tps_frontend.views.creation_view import CreationView
 from tps_frontend.views.deleted_view import DeletedView
-from tps_frontend.views.spinner_view import SpinnerView
 from tps_frontend.views.fail_view import FailView
 from tps_frontend.views.features_view import FeaturesView
-from tps_frontend.views.passphrase_view import PassphraseView
 from tps_frontend.views.locked_view import LockedView
+from tps_frontend.views.passphrase_view import PassphraseView
+from tps_frontend.views.spinner_view import SpinnerView
 from tps_frontend.views.welcome_view import WelcomeView
-
-# Only required for type hints
-from typing import TYPE_CHECKING, List
 
 if TYPE_CHECKING:
     from gi.repository import Gdk
+
     from tps_frontend.application import Application
+
+gi.require_version("Handy", "1")
+from gi.repository import Handy  # noqa: E402
+
+Handy.init()
 
 logger = getLogger(__name__)
 
@@ -114,9 +114,9 @@ class Window(Gtk.ApplicationWindow):
         self,
         proxy: Gio.DBusProxy,
         changed_properties: GLib.Variant,
-        invalidated_properties: List[str],
+        invalidated_properties: list[str],
     ):
-        if not any(p for p in changed_properties.keys() if p == "State"):
+        if "State" not in changed_properties.keys():  # noqa: SIM118
             return
 
         variant = changed_properties.lookup_value("State")
@@ -136,7 +136,35 @@ class Window(Gtk.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_delete_button_clicked(self, button: Gtk.Button):
-        if self.active_view == self.locked_view:
+        can_delete = True
+        if self.active_view != self.locked_view:
+            can_delete = False
+            explanation = _(
+                "Impossible to delete the Persistent Storage while it is unlocked.\n\n"
+                "To delete the Persistent Storage, restart Tails without "
+                "unlocking the Persistent Storage and open "
+                "the Persistent Storage settings again.",
+            )
+        elif not self.service_proxy.get_cached_property("CanDelete"):
+            can_delete = False
+            error: GLib.Variant = self.service_proxy.get_cached_property("Error")
+            if (
+                error
+                and InvalidBootDeviceErrorType(error.get_uint32())
+                == InvalidBootDeviceErrorType.READ_ONLY
+            ):
+                explanation = _(
+                    "Impossible to delete the Persistent Storage because "
+                    "the USB stick is read-only.\n\n"
+                    "To delete the Persistent Storage, turn off the read-only "
+                    "protection of the USB stick, restart Tails without unlocking "
+                    "the Persistent Storage "
+                    "and open the Persistent Storage settings again.",
+                )
+            else:
+                explanation = _("Impossible to delete the Persistent Storage")
+
+        if can_delete:
             dialog = Gtk.MessageDialog(
                 self,
                 Gtk.DialogFlags.DESTROY_WITH_PARENT,
@@ -147,8 +175,8 @@ class Window(Gtk.ApplicationWindow):
             dialog.format_secondary_text(
                 _(
                     "Are you sure that you want to delete your Persistent Storage? "
-                    "This action cannot be undone."
-                )
+                    "This action cannot be undone.",
+                ),
             )
             dialog.add_button(_("_Cancel"), Gtk.ResponseType.CANCEL)
             dialog.add_button(_("_Delete Persistent Storage"), Gtk.ResponseType.OK)
@@ -161,7 +189,7 @@ class Window(Gtk.ApplicationWindow):
             if result == Gtk.ResponseType.OK:
                 self.spinner_view.show()
                 self.spinner_view.status_label.set_label(
-                    _("Deleting your Persistent Storage...")
+                    _("Deleting your Persistent Storage..."),
                 )
                 self.service_proxy.call(
                     method_name="Delete",
@@ -179,13 +207,7 @@ class Window(Gtk.ApplicationWindow):
                 Gtk.ButtonsType.NONE,
                 _("Delete Persistent Storage"),
             )
-            dialog.format_secondary_text(
-                _(
-                    "To delete the Persistent Storage, restart Tails without "
-                    "unlocking the Persistent Storage and open "
-                    "the Persistent Storage settings again."
-                )
-            )
+            dialog.format_secondary_text(explanation)
             dialog.add_button(_("_OK"), Gtk.ResponseType.OK)
             dialog.set_default_response(Gtk.ResponseType.OK)
             dialog.run()
@@ -196,7 +218,7 @@ class Window(Gtk.ApplicationWindow):
         if self.state in IN_PROGRESS_STATES:
             msg = _(
                 "Sorry, you can't close this app until the "
-                "ongoing operation has completed."
+                "ongoing operation has completed.",
             )
             self.display_error(_("Please wait"), msg, False)
             return True
@@ -209,13 +231,16 @@ class Window(Gtk.ApplicationWindow):
 
     @Gtk.Template.Callback()
     def on_restart_button_clicked(self, button: Gtk.Button):
-        subprocess.run(["sudo", "-n", "/sbin/reboot"])
+        subprocess.run(
+            ["/usr/bin/sudo", "-n", "/sbin/reboot"],  # noqa: S603
+            check=True,
+        )
 
     def on_create_call_finished(self, proxy: GObject.Object, res: Gio.AsyncResult):
         try:
             proxy.call_finish(res)
         except GLib.Error as e:
-            logger.error(f"failed to create Persistent Storage: {e.message}")
+            logger.exception("failed to create Persistent Storage: %s", e.message)
 
             if NotEnoughMemoryError.is_instance(e):
                 # The system doesn't have enough memory to create the
@@ -239,7 +264,7 @@ class Window(Gtk.ApplicationWindow):
         try:
             proxy.call_finish(res)
         except GLib.Error as e:
-            logger.error(f"failed to delete Persistent Storage: {e.message}")
+            logger.exception("failed to delete Persistent Storage: %s", e.message)
 
             if TargetIsBusyError.is_instance(e):
                 # Some process is still accessing the target. This is
@@ -256,7 +281,12 @@ class Window(Gtk.ApplicationWindow):
                 self.display_error(_("Error deleting Persistent Storage"), e.message)
         self.refresh_view()
 
-    def display_error(self, title: str, msg: str, with_send_report_button: bool = None):
+    def display_error(
+        self,
+        title: str,
+        msg: str,
+        with_send_report_button: Optional[bool] = None,
+    ):
         if with_send_report_button is None:
             # Don't show the send report button if the failure view is the
             # active view, because we already show a send report button

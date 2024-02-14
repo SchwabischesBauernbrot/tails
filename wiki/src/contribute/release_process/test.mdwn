@@ -28,7 +28,9 @@ Check the output for:
 
 - new packages that may cause harm or make the images unnecessarily
   big
+
 - packages that were erroneously removed
+
 - new versions of software we might not have audited yet
 
 Image size
@@ -92,7 +94,9 @@ Miscellaneous functionality
 ---------------------------
 
 * Test if _uBlock_ works:
+
   - The _uBlock_ icon must be visible.
+
   - Visit a website that normally displays ads, such as
     <https://www.nytimes.com/>. The ads should not be displayed and
     the uBlock icon should display a strictly positive number of
@@ -117,6 +121,7 @@ Security and fingerprinting
    and click on *Detailed view*.
 
    - The exposed User-Agent should match the latest Tor Browser's one.
+
    - Ignore the result of the "blocking tracking ads" and "blocking
      invisible trackers" tests, which seem unreliable (we've seen
      different results for the very same version of Tor Browser).
@@ -133,6 +138,7 @@ Thunderbird
 Only perform this test if one of these conditions is met:
 
  - We're testing a release candidate, such as Tails 7.42~rc1.
+
  - The release under testing upgrades to a major Thunderbird version.
    For example, the last Tails release shipped Thunderbird 87.9, and the one
    you're testing includes Thunderbird 88.1.
@@ -141,17 +147,21 @@ To check that the EHLO/HELO SMTP message is not leaking anything
 at the application level:
 
 0. In the Welcome Screen, set an administration password.
+
 1. Start Thunderbird using the GNOME Applications menu.
+
 2. Configure the outgoing SMTP server for an email account
    so it uses STARTTLS on port 587
    (Thunderbird will send two EHLO/HELO: one before TLS is
    initiated; one after; the assumption here is that Thunderbird will
    send the same both times).
+
 3. Run `sudo tcpdump -n -i lo -w dump.pcap` while sending an email to
    capture the packets before Tor encrypts it, then close
    tcpdump. Note that the packet containing EHLO/HELO will be sent
    really early, so even if the email failed (e.g. because the mail
    server doesn't support plaintext SMTP on port 587) we are ok.
+
 4. Check the dump for the HELO/EHLO message and
    verify that it only contains `127.0.0.1`:
    `sudo tcpdump -A -r dump.pcap | grep EHLO`
@@ -160,6 +170,7 @@ WhisperBack
 ===========
 
 * I should be able to send a bug report with WhisperBack.
+
 * When we receive this bug report on the tails-bugs mailing list,
   Schleuder tells us that it was sent encrypted.
 
@@ -210,9 +221,13 @@ Follow the instructions below for each of these versions of Tails:
 8. Verify that the resulting, upgraded system "works fine":
 
    * it boots
+
    * The *About Tails* app reports the expected version: the one we are testing
+
    * You can connect to Tor using *Tor Connection*
+
    * Tor Browser can browse websites
+
    * the Unsafe Browser starts
 
 Torrents
@@ -240,14 +255,21 @@ On a 64-bit computer that has Secure Boot enabled and that is configured to
 prefer UEFI:
 
 1. Freshly install the version of Tails being tested to a USB stick.
+
 2. Boot this USB stick on bare-metal a first time to trigger re-partitioning.
+
    - You should see the "GNU GRUB" title, as opposed to a syslinux menu.
+
    - Wait until you see the Welcome Screen.
+
 3. Shutdown Tails
+
 4. Boot this USB stick a second time, add the `login` option to GRUB, and measure the boot time (from the
    GRUB menu until the GNOME desktop is ready). Take note of the boot time you measured.
+
 5. Go through steps 1-4 again, but this time using the previous Tails version.
    Use the same computer and the same USB stick.
+
 6. Compare the boot times you measured at steps 4 and 5.
    Expected result: the new Tails should not be significantly slower to start
    than the old one.
@@ -258,12 +280,20 @@ BIOS boot
 On a computer configured to prefer legacy BIOS boot:
 
 1. Freshly install the version of Tails being tested to a USB stick.
+
 2. Boot this USB stick on bare-metal a first time to trigger re-partitioning.
+
    - You should see the "SYSLINUX" title in the bootloader, as opposed to GRUB.
+
    - Wait until you see the Welcome Screen.
+
 3. Shutdown Tails
+
 4. Boot this USB stick a second time.
-5. You should see the Welcome Screen appear.
+
+5. You should see the "SYSLINUX" title in the bootloader.
+
+6. You should see the Welcome Screen appear.
 
 Journal
 =======

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:55+0200\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
 "PO-Revision-Date: 2023-10-05 23:13+0000\n"
 "Last-Translator: _ignifugo <ignifugo@insicuri.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
@@ -55,8 +55,7 @@ msgid ""
 "documentation on [[chatting with <i>Dino</i> and OMEMO|doc/advanced_topics/dino]].</p>\n"
 msgstr ""
 "<p>You can already try using <i>Dino</i> in Tails. Vedi la nostra\n"
-"documentazione su [[chattare con <i>Dino</i> e OMEMO|doc/advanced_topics/"
-"dino]].</p>\n"
+"documentazione su [[chattare con <i>Dino</i> e OMEMO|doc/advanced_topics/dino]].</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -128,20 +127,48 @@ msgstr ""
 "avere conversazioni private via messaggistica istantanea fornendo:\n"
 
 #. type: Plain text
+msgid "- **Encryption**"
+msgstr ""
+
+#. type: Plain text
 #, no-wrap
+msgid "  No one else can read your instant messages.\n"
+msgstr ""
+
+#. type: Plain text
+msgid "- **Authentication**"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "  You are assured the correspondent is who you think it is.\n"
+msgstr ""
+
+#. type: Plain text
+msgid "- **Deniability**"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "- **Encryption**<br />\n"
+#| "    No one else can read your instant messages.\n"
+#| "- **Authentication**<br />\n"
+#| "    You are assured the correspondent is who you think it is.\n"
+#| "- **Deniability**<br />\n"
+#| "    The messages you send do not have digital signatures\n"
+#| "    that are checkable by a third party. Anyone can forge messages after\n"
+#| "    a conversation to make them look like they came from you.\n"
+#| "    However, during a conversation, your correspondent is assured\n"
+#| "    the messages are authentic and unmodified.\n"
+#| "- **Perfect forward secrecy**<br />\n"
+#| "    If you lose control of your private keys, no previous conversation is compromised.\n"
 msgid ""
-"- **Encryption**<br />\n"
-"    No one else can read your instant messages.\n"
-"- **Authentication**<br />\n"
-"    You are assured the correspondent is who you think it is.\n"
-"- **Deniability**<br />\n"
-"    The messages you send do not have digital signatures\n"
-"    that are checkable by a third party. Anyone can forge messages after\n"
-"    a conversation to make them look like they came from you.\n"
-"    However, during a conversation, your correspondent is assured\n"
-"    the messages are authentic and unmodified.\n"
-"- **Perfect forward secrecy**<br />\n"
-"    If you lose control of your private keys, no previous conversation is compromised.\n"
+"  The messages you send do not have digital signatures\n"
+"  that are checkable by a third party. Anyone can forge messages after\n"
+"  a conversation to make them look like they came from you.\n"
+"  However, during a conversation, your correspondent is assured\n"
+"  the messages are authentic and unmodified.\n"
 msgstr ""
 "- **Cifratura**<br />\n"
 "    Nessun'altra persona può leggere i tuoi messaggi istantanei.\n"
@@ -157,22 +184,35 @@ msgstr ""
 "    Se perdi il controllo delle tue chiavi private, nessuna conversazione precedente è compromessa.\n"
 
 #. type: Plain text
+msgid "- **Perfect forward secrecy**"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "  If you lose control of your private keys, no previous conversation is compromised.\n"
+msgstr ""
+
+#. type: Plain text
 #, no-wrap
 msgid "<div class=\"caution\">\n"
 msgstr "<div class=\"caution\">\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<p><strong>OTR is deactivated by default</strong>, and your conversations are\n"
+#| "not private.</p>\n"
 msgid ""
-"<p><strong>OTR is deactivated by default</strong>, and your conversations are\n"
+"<p>OTR is deactivated by default, and your conversations are\n"
 "not private.</p>\n"
 msgstr ""
 "<p><strong>OTR è disattivato per impostazione predefinita</strong>, e le tue conversazioni non\n"
 "sono private.</p>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<p><strong>File transfers are not encrypted by OTR.</strong> OTR only encrypts conversations.</p>\n"
+#, fuzzy, no-wrap
+#| msgid "<p><strong>File transfers are not encrypted by OTR.</strong> OTR only encrypts conversations.</p>\n"
+msgid "<p>File transfers are not encrypted by OTR. OTR only encrypts conversations.</p>\n"
 msgstr "<p><strong>I file trasferiti non vengono cifrati da OTR.</strong> OTR cifra solo le conversazioni.</p>\n"
 
 #. type: Plain text
@@ -181,31 +221,24 @@ msgid "<div class=\"tip\">\n"
 msgstr "<div class=\"tip\">\n"
 
 #. type: Plain text
-#, fuzzy
+#, fuzzy, no-wrap
+#| msgid "To store your OTR keys and preferences across separate working sessions, you can turn on the [[Pidgin|doc/first_steps/persistence#pidgin]] feature of the Persistent Storage."
+msgid ""
+"<p>To store your OTR keys and preferences across separate working sessions,\n"
+"you can turn on the [[Pidgin Internet Messenger|persistent_storage/configure#pidgin]]\n"
+"feature of the Persistent Storage.</p>\n"
+msgstr "Per salvare le vostre chiavi OTR e le vostre preferenze in diverse sessioni di lavoro puoi attivare [[Pidgin|doc/first_steps/persistence#pidgin]] con l'opzione attivo nell'Archivio Persistente."
+
+#. type: Plain text
+#, fuzzy, no-wrap
 #| msgid ""
-#| "To store your OTR keys and preferences across separate working sessions, "
-#| "you can turn on the [[Pidgin|doc/first_steps/persistence#pidgin]] feature "
-#| "of the Persistent Storage."
+#| "In a private OTR conversation over IRC, <strong>a message sent using the\n"
+#| "<code>/me</code> command is not encrypted</strong>. The person receiving\n"
+#| "the message is notified by a warning.\n"
 msgid ""
-"To store your OTR keys and preferences across separate working sessions, you "
-"can turn on the [[Pidgin Internet Messenger|persistent_storage/"
-"configure#pidgin]] feature of the Persistent Storage."
-msgstr ""
-"Per salvare le vostre chiavi OTR e le vostre preferenze in diverse sessioni "
-"di lavoro puoi attivare [[Pidgin|doc/first_steps/persistence#pidgin]] con "
-"l'opzione attivo nell'Archivio Persistente."
-
-#. type: Plain text
-#, no-wrap
-msgid "<div class=\"bug\">\n"
-msgstr "<div class=\"bug\">\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"In a private OTR conversation over IRC, <strong>a message sent using the\n"
-"<code>/me</code> command is not encrypted</strong>. The person receiving\n"
-"the message is notified by a warning.\n"
+"<p>In a private OTR conversation over IRC, a message sent using the\n"
+"<code>/me</code> command is not encrypted. The person receiving\n"
+"the message is notified by a warning.</p>\n"
 msgstr ""
 "In una conversazione privata OTR via IRC, <strong>un messaggio inviato usando il\n"
 "comando <code>/me</code> non viene cifrato</strong>. La persona che riceve\n"
@@ -225,6 +258,10 @@ msgstr ""
 "viene usato per inviare spam."
 
 #. type: Plain text
+msgid "- [OFTC and Tor](https://www.oftc.net/Tor/)"
+msgstr ""
+
+#. type: Plain text
 #, fuzzy
 #| msgid ""
 #| "- [Accessing freenode Via Tor](https://freenode.net/irc_servers."
@@ -233,9 +270,8 @@ msgstr ""
 #| "chat networks that block or support Tor](https://trac.torproject.org/"
 #| "projects/tor/wiki/doc/BlockingIrc)"
 msgid ""
-"- [OFTC and Tor](https://www.oftc.net/Tor/)  - [List of IRC/chat networks "
-"that block or support Tor](https://gitlab.torproject.org/legacy/trac/-/wikis/"
-"doc/BlockingIrc)"
+"- [List of IRC/chat networks that block or support Tor](https://gitlab."
+"torproject.org/legacy/trac/-/wikis/doc/BlockingIrc)"
 msgstr ""
 "- [Accedere a freenode tramite Tor](https://freenode.net/irc_servers."
 "shtml#tor)  (alcuni dei servizi nascosti menzionati in questa pagina non "
@@ -292,6 +328,10 @@ msgid ""
 msgstr ""
 "Se vuoi lavorare su questo problema, vedi la [[nostra pagina per contribuire|"
 "contribute/how/code]] (in inglese)."
+
+#, no-wrap
+#~ msgid "<div class=\"bug\">\n"
+#~ msgstr "<div class=\"bug\">\n"
 
 #~ msgid "Predefined accounts\n"
 #~ msgstr "Account predefiniti\n"

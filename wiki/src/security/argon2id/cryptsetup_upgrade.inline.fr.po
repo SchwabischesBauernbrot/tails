@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-06-13 19:42+0000\n"
+"POT-Creation-Date: 2024-01-23 00:41+0000\n"
 "PO-Revision-Date: 2023-07-23 10:37+0000\n"
 "Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,16 +37,14 @@ msgid ""
 "      Replace <span class=\"command-placeholder\">[partition]</span> with the\n"
 "      partition name found in step 1.6.\n"
 msgstr ""
-"      Remplacer <span class=\"command-placeholder\">[partition]</span> avec "
-"le\n"
+"      Remplacer <span class=\"command-placeholder\">[partition]</span> avec le\n"
 "      nom de la partition trouvé à l'étape 1.6.\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "      <p class=\"pre command\">cryptsetup luksDump /dev/<span class=\"command-placeholder\">[partition]</span></p>\n"
-msgstr ""
-"      <p class=\"pre command\">cryptsetup luksDump /dev/<span class"
-"=\"command-placeholder\">[partition]</span></p>\n"
+#, fuzzy, no-wrap
+#| msgid "      <p class=\"pre command\">cryptsetup luksDump /dev/<span class=\"command-placeholder\">[partition]</span></p>\n"
+msgid "      <p class=\"pre command-template\">cryptsetup luksDump /dev/<span class=\"command-placeholder\">[partition]</span></p>\n"
+msgstr "      <p class=\"pre command\">cryptsetup luksDump /dev/<span class=\"command-placeholder\">[partition]</span></p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -54,22 +52,21 @@ msgid "      In the output:\n"
 msgstr "      Dans la sortie :\n"
 
 #. type: Bullet: '      - '
-msgid ""
-"<span class=\"command\">Version</span> indicates the version of LUKS, either "
-"<span class=\"command\">1</span> or <span class=\"command\">2</span>."
+msgid "`Version` indicates the version of LUKS, either `1` or `2`."
 msgstr ""
-"<span class=\"command\">Version</span> indique la version de LUKS, soit "
-"<span class=\"command\">1</span> ou <span class=\"command\">2</span>."
 
 #. type: Bullet: '      - '
+#, fuzzy
+#| msgid ""
+#| "<span class=\"command\">PBKDF</span> indicates the key derivation "
+#| "function, either <span class=\"command\">pbkdf2</span> or <span "
+#| "class=\"command\">argon2id</span>."
 msgid ""
-"<span class=\"command\">PBKDF</span> indicates the key derivation function, "
-"either <span class=\"command\">pbkdf2</span> or <span class=\"command"
-"\">argon2id</span>."
+"`PBKDF` indicates the key derivation function, either `pbkdf2` or `argon2id`."
 msgstr ""
 "<span class=\"command\">PBKDF</span> indique la fonction de dérivation de "
-"clé, soit <span class=\"command\">pbkdf2</span> ou <span class=\"command\""
-">argon2id</span>."
+"clé, soit <span class=\"command\">pbkdf2</span> ou <span "
+"class=\"command\">argon2id</span>."
 
 #. type: Plain text
 #, no-wrap
@@ -77,8 +74,7 @@ msgid ""
 "      If your encrypted volume already uses LUKS2 and Argon2id, you can stop\n"
 "      here.\n"
 msgstr ""
-"      Si votre volume chiffré utilise déjà LUKS2 et Argon2id, vous pouvez "
-"arrêter\n"
+"      Si votre volume chiffré utilise déjà LUKS2 et Argon2id, vous pouvez arrêter\n"
 "      ici.\n"
 
 #. type: Bullet: '   1. '
@@ -88,12 +84,10 @@ msgstr ""
 "LUKS1."
 
 #. type: Plain text
-#, no-wrap
-msgid "      <p class=\"pre command\">cryptsetup luksHeaderBackup /dev/<span class=\"command-placeholder\">[partition]</span> --header-backup-file /home/amnesia/luks1header</p>\n"
-msgstr ""
-"      <p class=\"pre command\">cryptsetup luksHeaderBackup /dev/<span class"
-"=\"command-placeholder\">[partition]</span> --header-backup-file /home/"
-"amnesia/luks1header</p>\n"
+#, fuzzy, no-wrap
+#| msgid "      <p class=\"pre command\">cryptsetup luksHeaderBackup /dev/<span class=\"command-placeholder\">[partition]</span> --header-backup-file /home/amnesia/luks1header</p>\n"
+msgid "      <p class=\"pre command-template\">cryptsetup luksHeaderBackup /dev/<span class=\"command-placeholder\">[partition]</span> --header-backup-file /home/amnesia/luks1header</p>\n"
+msgstr "      <p class=\"pre command\">cryptsetup luksHeaderBackup /dev/<span class=\"command-placeholder\">[partition]</span> --header-backup-file /home/amnesia/luks1header</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -101,17 +95,14 @@ msgid ""
 "      If something goes wrong, you will be able to restore your LUKS1 header\n"
 "      from this backup with:\n"
 msgstr ""
-"      Si quelque chose se passe mal, vous serez capable de restaurer votre "
-"en-tête LUKS1\n"
+"      Si quelque chose se passe mal, vous serez capable de restaurer votre en-tête LUKS1\n"
 "      depuis cette sauvegarde avec :\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "      <p class=\"pre command\">cryptsetup luksHeaderRestore /dev/<span class=\"command-placeholder\">[partition]</span> --header-backup-file /home/amnesia/luks1header</p>\n"
-msgstr ""
-"      <p class=\"pre command\">cryptsetup luksHeaderRestore /dev/<span class"
-"=\"command-placeholder\">[partition]</span> --header-backup-file /home/"
-"amnesia/luks1header</p>\n"
+#, fuzzy, no-wrap
+#| msgid "      <p class=\"pre command\">cryptsetup luksHeaderRestore /dev/<span class=\"command-placeholder\">[partition]</span> --header-backup-file /home/amnesia/luks1header</p>\n"
+msgid "      <p class=\"pre command-template\">cryptsetup luksHeaderRestore /dev/<span class=\"command-placeholder\">[partition]</span> --header-backup-file /home/amnesia/luks1header</p>\n"
+msgstr "      <p class=\"pre command\">cryptsetup luksHeaderRestore /dev/<span class=\"command-placeholder\">[partition]</span> --header-backup-file /home/amnesia/luks1header</p>\n"
 
 #. type: Bullet: '   1. '
 msgid "To update your LUKS header to LUKS2, execute the following command."
@@ -125,16 +116,14 @@ msgid ""
 "      Replace <span class=\"command-placeholder\">[partition]</span> with the\n"
 "      device name found in step 1.6.\n"
 msgstr ""
-"      Remplacer <span class=\"command-placeholder\">[partition]</span> avec "
-"le\n"
+"      Remplacer <span class=\"command-placeholder\">[partition]</span> avec le\n"
 "      nom de périphérique trouvé à l'étape 1.6.\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "      <p class=\"pre command\">cryptsetup convert /dev/<span class=\"command-placeholder\">[partition]</span> --type luks2</p>\n"
-msgstr ""
-"      <p class=\"pre command\">cryptsetup convert /dev/<span class=\"command-"
-"placeholder\">[partition]</span> --type luks2</p>\n"
+#, fuzzy, no-wrap
+#| msgid "      <p class=\"pre command\">cryptsetup convert /dev/<span class=\"command-placeholder\">[partition]</span> --type luks2</p>\n"
+msgid "      <p class=\"pre command-template\">cryptsetup convert /dev/<span class=\"command-placeholder\">[partition]</span> --type luks2</p>\n"
+msgstr "      <p class=\"pre command\">cryptsetup convert /dev/<span class=\"command-placeholder\">[partition]</span> --type luks2</p>\n"
 
 #. type: Bullet: '   1. '
 msgid ""
@@ -150,23 +139,37 @@ msgid "      In the output, verify that:\n"
 msgstr "      Dans la sortie, vérifier que :\n"
 
 #. type: Bullet: '      - '
-msgid ""
-"The <span class=\"command\">Version</span> is <span class=\"command\">2</"
-"span> and not <span class=\"command\">1</span>."
+msgid "The `Version` is `2` and not `1`."
 msgstr ""
-"La <span class=\"command\">Version</span> est <span class=\"command\">2</"
-"span> et non <span class=\"command\">1</span>."
 
 #. type: Bullet: '      - '
-msgid ""
-"The <span class=\"command\">PBKDF</span> is </span class=\"command"
-"\">argon2id</span class=\"command\"> and not <span class=\"command\">pbkdf2</"
-"span>."
+msgid "The `PBKDF` is `argon2id` and not `pbkdf2`."
 msgstr ""
-"Le <span class=\"command\">PBKDF</span> est </span class=\"command\""
-">argon2id</span class=\"command\"> et non <span class=\"command\""
-">pbkdf2</span>."
 
 #. type: Bullet: '   1. '
 msgid "Try to unlock your encrypted volume."
 msgstr "Essayer de déverrouiller votre volume chiffré."
+
+#~ msgid ""
+#~ "<span class=\"command\">Version</span> indicates the version of LUKS, "
+#~ "either <span class=\"command\">1</span> or <span class=\"command\">2</"
+#~ "span>."
+#~ msgstr ""
+#~ "<span class=\"command\">Version</span> indique la version de LUKS, soit "
+#~ "<span class=\"command\">1</span> ou <span class=\"command\">2</span>."
+
+#~ msgid ""
+#~ "The <span class=\"command\">Version</span> is <span class=\"command\">2</"
+#~ "span> and not <span class=\"command\">1</span>."
+#~ msgstr ""
+#~ "La <span class=\"command\">Version</span> est <span class=\"command\">2</"
+#~ "span> et non <span class=\"command\">1</span>."
+
+#~ msgid ""
+#~ "The <span class=\"command\">PBKDF</span> is </span "
+#~ "class=\"command\">argon2id</span class=\"command\"> and not <span "
+#~ "class=\"command\">pbkdf2</span>."
+#~ msgstr ""
+#~ "Le <span class=\"command\">PBKDF</span> est </span "
+#~ "class=\"command\">argon2id</span class=\"command\"> et non <span "
+#~ "class=\"command\">pbkdf2</span>."

@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-05-09 15:09+0000\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
 "PO-Revision-Date: 2023-11-24 10:43+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,9 +20,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "[[!meta title=\"Starting Tails from an external hard disk or problematic USB stick\"]]\n"
-msgstr ""
-"[[!meta title=\"Tails von einer externen Festplatte oder einem "
-"problematischen USB-Stick starten\"]]\n"
+msgstr "[[!meta title=\"Tails von einer externen Festplatte oder einem problematischen USB-Stick starten\"]]\n"
 
 #. type: Plain text
 msgid ""
@@ -33,11 +31,10 @@ msgstr ""
 "Stick starten, gibt Tails möglicherweise die folgende Fehlermeldung aus:"
 
 #. type: Plain text
-#, no-wrap
-msgid "    Unable to find a medium containing a live file system\n"
-msgstr ""
-"    Es konnte kein Medium gefunden werden, das ein aktives Dateisystem "
-"enthält\n"
+#, fuzzy, no-wrap
+#| msgid "    Unable to find a medium containing a live file system\n"
+msgid "<p class=\"code\">Unable to find a medium containing a live file system</p>\n"
+msgstr "    Es konnte kein Medium gefunden werden, das ein aktives Dateisystem enthält\n"
 
 #. type: Plain text
 msgid ""
@@ -48,12 +45,18 @@ msgstr ""
 "Bootloader erscheint."
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy
+#| msgid ""
+#| "If the **External Hard Disk** entry does not appear in the Boot Loader,\n"
+#| "then remove the <span class=\"code\">live-media=removable</span>\n"
+#| "boot option. To do so, see our instructions on [[modifying the boot "
+#| "options using\n"
+#| "the Boot Loader|doc/advanced_topics/boot_options]].\n"
 msgid ""
-"If the **External Hard Disk** entry does not appear in the Boot Loader,\n"
-"then remove the <span class=\"code\">live-media=removable</span>\n"
-"boot option. To do so, see our instructions on [[modifying the boot options using\n"
-"the Boot Loader|doc/advanced_topics/boot_options]].\n"
+"If the **External Hard Disk** entry does not appear in the Boot Loader, then "
+"remove the `live-media=removable` boot option. To do so, see our "
+"instructions on [[modifying the boot options using the Boot Loader|doc/"
+"advanced_topics/boot_options]]."
 msgstr ""
 "Wenn der Eintrag **Externe Festplatte** nicht im Bootloader erscheint,\n"
 "entfernen Sie dann das <span class=\"code\">live-media=removable</span>\n"
@@ -70,7 +73,7 @@ msgstr "<div class=\"caution\">\n"
 #, no-wrap
 msgid ""
 "<p>Choosing the <b>External Hard Disk</b> entry in the Boot Loader or removing\n"
-"the <span class=\"code\">live-media=removable</span> boot\n"
+"the <code>live-media=removable</code> boot\n"
 "option might be dangerous. If an adversary had access to the computer\n"
 "and installed a malicious Tails on the internal hard disk, the computer\n"
 "might start on the malicious Tails instead of on the USB stick.</p>\n"

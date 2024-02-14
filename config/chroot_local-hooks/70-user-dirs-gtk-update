@@ -1,0 +1,18 @@
+#!/bin/sh
+set -e
+set -u
+
+echo 'Configuring user-dirs-gtk-update'
+
+mkdir -p /usr/lib/user-dirs-gtk-update
+dpkg-divert --add --rename --divert /usr/lib/user-dirs-gtk-update/user-dirs-gtk-update /usr/bin/user-dirs-gtk-update
+
+# We want to run user-dirs-gtk-update with English locale, to make sure that
+# the XDG Directories are not localized (see #19255):
+cat > /usr/bin/user-dirs-gtk-update << 'EOF'
+#!/bin/sh
+
+exec env LC_MESSAGES=en_US /usr/lib/user-dirs-gtk-update/user-dirs-gtk-update
+EOF
+
+chmod 755 /usr/bin/user-dirs-gtk-update

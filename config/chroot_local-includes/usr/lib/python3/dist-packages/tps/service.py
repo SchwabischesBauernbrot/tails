@@ -6,9 +6,14 @@ from pathlib import Path
 from gi.repository import Gio, GLib
 from logging import getLogger
 import time
-from typing import TYPE_CHECKING, List, Optional
+from typing import TYPE_CHECKING, Optional
 
-from tps import executil, SYSTEM_PARTITION_MOUNT_POINT, LUKS_HEADER_BACKUP_PATH
+from tps import (
+    executil,
+    InvalidBootDeviceErrorType,
+    SYSTEM_PARTITION_MOUNT_POINT,
+    LUKS_HEADER_BACKUP_PATH,
+)
 from tps.configuration import features
 from tps.configuration.config_file import ConfigFile, InvalidStatError
 from tps.configuration.feature import Feature, ConflictingProcessesError
@@ -20,7 +25,12 @@ from tps.dbus.errors import (
     DeactivationFailedError,
 )
 from tps.dbus.object import DBusObject
-from tps.device import udisks, BootDevice, TPSPartition, InvalidBootDeviceError
+from tps.device import (
+    udisks,
+    BootDevice,
+    TPSPartition,
+    InvalidBootDeviceError,
+)
 from tps.job import ServiceUsingJobs
 from tps import (
     State,
@@ -85,10 +95,12 @@ class Service(DBusObject, ServiceUsingJobs):
                     <arg name='passphrase' direction='in' type='s'/>
                 </method>
                 <property name="State" type="s" access="read" />
-                <property name="Error" type="s" access="read" />
+                <property name="Error" type="u" access="read" />
                 <property name="IsCreated" type="b" access="read"/>
                 <property name="IsUnlocked" type="b" access="read"/>
                 <property name="IsUpgraded" type="b" access="read"/>
+                <property name="CanDelete" type="b" access="read"/>
+                <property name="CanUnlock" type="b" access="read"/>
                 <property name="BootDeviceIsSupported" type="b" access="read"/>
                 <property name="Device" type="s" access="read"/>
                 <property name="Job" type="o" access="read"/>
@@ -105,27 +117,34 @@ class Service(DBusObject, ServiceUsingJobs):
         self.object_manager = None  # type: Optional[Gio.DBusObjectManagerServer]
         self.config_file = ConfigFile(TPS_MOUNT_POINT)
         self.bus_id = None
-        self.features = list()  # type: List[Feature]
+        self.features: list[Feature] = []
         self._tps_partition = None  # type: Optional[TPSPartition]
         self._device = ""
         self.state = State.UNKNOWN
-        self._error = ""
+        self._error: int = 0
         self._unlocked = False
+        self._can_delete = False
+        self._can_unlock = False
         self._upgraded = False
         self._created = False
         self.enable_features_lock = threading.Lock()
         self._boot_device = None  # type: Optional[BootDevice]
 
-        # Check if the boot device is valid for creating a Persistent
+        # Check if the boot device is valid for creating or using a Persistent
         # Storage. We only do this once and not in refresh_state(),
         # because we don't expect the boot device to change while the
-        # service is running.
+        # service is running. Unfortunately, this implies we'll keep
+        # a potentially obsolete error state as-is even if the user
+        # corrects the partition table (e.g. deleting a manually
+        # created second partition) without restarting the service.
         try:
             self._boot_device = BootDevice.get_tails_boot_device()
         except InvalidBootDeviceError as e:
             logger.warning("Invalid boot device: %s", e)
             self.State = State.NOT_CREATED
-            self.Error = str(e)
+
+            # This will allow the UI to give the user more specific guidance.
+            self.Error = e.error_type
             return
 
         self.refresh_state()
@@ -155,7 +174,7 @@ class Service(DBusObject, ServiceUsingJobs):
         self.refresh_state()
         self.refresh_features()
 
-    def GetFeatures(self) -> List[str]:
+    def GetFeatures(self) -> list[str]:
         """List the IDs of all features"""
         self.refresh_features()
         return [f.Id for f in self.features]
@@ -233,7 +252,7 @@ class Service(DBusObject, ServiceUsingJobs):
         Path(TPS_BACKUP_MOUNT_POINT).rmdir()
 
         # Close the LUKS device
-        partition._get_encrypted().call_lock_sync(
+        partition._get_encrypted().call_lock_sync(  # noqa: SLF001
             arg_options=GLib.Variant("a{sv}", {}),
         )
 
@@ -367,6 +386,7 @@ class Service(DBusObject, ServiceUsingJobs):
         # Mount the Persistent Storage
         cleartext_device = self._tps_partition.get_cleartext_device()
         if not cleartext_device.is_mounted():
+            cleartext_device.fsck()
             cleartext_device.mount()
 
         # Remove the LUKS header backup if it exists. It's not needed
@@ -486,17 +506,17 @@ class Service(DBusObject, ServiceUsingJobs):
         )
 
     @property
-    def Error(self) -> str:
-        """The error message, if State is ERROR"""
+    def Error(self) -> int:
+        """The error code, if State is ERROR"""
         return self._error
 
     @Error.setter
-    def Error(self, msg: str):
-        if self._error == msg:
+    def Error(self, code: int):
+        if self._error == code:
             # Nothing to do
             return
-        self._error = msg
-        changed_properties = {"Error": GLib.Variant("s", msg)}
+        self._error = code
+        changed_properties = {"Error": GLib.Variant("u", code)}
         self.emit_properties_changed_signal(
             self.connection,
             DBUS_SERVICE_INTERFACE,
@@ -561,6 +581,44 @@ class Service(DBusObject, ServiceUsingJobs):
             return
         self._upgraded = value
         changed_properties = {"IsUpgraded": GLib.Variant("b", value)}
+        self.emit_properties_changed_signal(
+            self.connection,
+            DBUS_SERVICE_INTERFACE,
+            changed_properties,
+        )
+
+    @property
+    def CanUnlock(self) -> bool:
+        """Whether the Persistent Storage can be unlocked"""
+        self.refresh_state()
+        return self._can_unlock
+
+    @CanUnlock.setter
+    def CanUnlock(self, value: bool):
+        if self._can_unlock == value:
+            # Nothing to do
+            return
+        self._can_unlock = value
+        changed_properties = {"CanUnlock": GLib.Variant("b", value)}
+        self.emit_properties_changed_signal(
+            self.connection,
+            DBUS_SERVICE_INTERFACE,
+            changed_properties,
+        )
+
+    @property
+    def CanDelete(self) -> bool:
+        """Whether the Persistent Storage can be deleted"""
+        self.refresh_state()
+        return self._can_delete
+
+    @CanDelete.setter
+    def CanDelete(self, value: bool):
+        if self._can_delete == value:
+            # Nothing to do
+            return
+        self._can_delete = value
+        changed_properties = {"CanDelete": GLib.Variant("b", value)}
         self.emit_properties_changed_signal(
             self.connection,
             DBUS_SERVICE_INTERFACE,
@@ -650,7 +708,7 @@ class Service(DBusObject, ServiceUsingJobs):
     def enable_feature(self, feature: Feature):
         with self.enable_features_lock:
             enabled_features = [ftr for ftr in self.features if ftr.IsEnabled]
-            self.config_file.save(enabled_features + [feature])
+            self.config_file.save([*enabled_features, feature])
             feature.refresh_state(["IsEnabled"])
             if not feature.IsEnabled:
                 msg = f"Failed to enable feature '{feature.Id}' in config file"
@@ -683,7 +741,7 @@ class Service(DBusObject, ServiceUsingJobs):
                     Id = f"CustomFeature{i}"
                     translatable_name = f"Custom Feature ({binding.dest_orig})"
                     Description = str(binding.dest_orig)
-                    Bindings = [binding]
+                    Bindings = [binding]  # noqa: RUF012
 
                 custom_feature = CustomFeature(self, is_custom=True)
                 custom_feature.register(self.connection)
@@ -733,6 +791,13 @@ class Service(DBusObject, ServiceUsingJobs):
             self.IsCreated = False
             self.IsUnlocked = False
             self.IsUpgraded = False
+
+            num_partitions = len(self._boot_device.partition_table.props.partitions)
+            if num_partitions > 1:
+                logger.error("Too many partitions: %i", num_partitions)
+                self._boot_device = None
+                self.Error = InvalidBootDeviceErrorType.TOO_MANY_PARTITIONS
+
             return
 
         self.Device = self._tps_partition.device_path
@@ -743,6 +808,14 @@ class Service(DBusObject, ServiceUsingJobs):
         if not self._tps_partition.is_unlocked_and_mounted():
             self.State = State.NOT_UNLOCKED
             self.IsUnlocked = False
+            if self._boot_device.block.props.read_only:
+                logger.error("Boot device is read-only")
+                self.CanDelete = False
+                self.CanUnlock = False
+                self.Error = InvalidBootDeviceErrorType.READ_ONLY
+            else:
+                self.CanDelete = True
+                self.CanUnlock = True
             return
 
         self.State = State.UNLOCKED

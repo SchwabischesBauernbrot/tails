@@ -30,6 +30,7 @@ A time-based snapshot's name contains:
 
  * an identifier of the APT repository this snapshot is about, e.g.
    `debian`, `debian-security`, `torproject`;
+
  * a `YYYYMMDD$ID` serial, `$ID` being an incremental decimal number
    formatted on two digits (`01`, `02`, etc.).
 
@@ -53,6 +54,7 @@ little value.
 
 * `tails::reprepro::snapshots::time_based` class in
   [[!tails_gitweb_puppet_tails]]
+
 * bits scattered in the main Tails Git repository (details below)
 
 <a id="ssh-access"></a>
@@ -249,6 +251,7 @@ The counterpart of using snapshots created with `gensnapshot` is that:
  * garbage collecting expired snapshots is a bit more involved, i.e.
    we have to
    [[!tails_gitweb_puppet_tails files/reprepro/snapshots/time_based/tails-delete-expired-apt-snapshots desc="do it ourselves"]];
+
  * bumping `Valid-Until` for a given time-based snapshot has to be
    done directly in `dist`, without any help from reprepro; so here
    again, we
@@ -284,6 +287,7 @@ repository snapshot around and valid is when it's being used by
 a release branch:
 
  - `testing`: while it's frozen, that is for 5-10 days generally;
+
  - `stable`: that's a corner case, since `stable` generally uses the
    set of snapshots frozen during the last Tails freeze; if and when we
    decide to manually point `stable` to a different set of snapshots,
@@ -377,6 +381,7 @@ situation here is mostly:
 
  * even though freeze exceptions will remain exceptions, frozen will
    add one use case:
+
  * this will become a relatively common operation if we are based on
    Debian testing some day, so let's check that it's not only
    possible, but also reasonably easy to handle with this design

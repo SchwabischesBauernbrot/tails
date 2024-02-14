@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-07 00:11+0000\n"
+"POT-Creation-Date: 2024-02-08 03:39+0000\n"
 "PO-Revision-Date: 2023-10-17 21:26+0000\n"
 "Last-Translator: _ignifugo <ignifugo@insicuri.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
@@ -117,7 +117,7 @@ msgstr "  [[!img donate.png link=no]]\n"
 #| "</div>\n"
 msgid ""
 "  <p>Donating speeds up the development of Tails.</p>\n"
-"  <a class=\"button\" href=\"https://tails.net/donate/\">Donate</a>\n"
+"  <div class=\"button\">[[Donate]]</div>\n"
 "</div>\n"
 msgstr ""
 "  <p>Le donazioni accelerano lo sviluppo di Tails.</p>\n"
@@ -209,15 +209,29 @@ msgid "  [[!img speaker.png link=no]]\n"
 msgstr "  [[!img speaker.png link=no]]\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "  <p>Translators can allow more people around the world to use Tails.</p>\n"
+#| "  <ul>\n"
+#| "    <li>[[Improve Tails in your own language|contribute/how/translate]]</li>\n"
+#| "  </ul>\n"
+#| "</div>\n"
+#| "<div class=\"contribute-role\" id=\"speaker\">\n"
+#| "  <h3>Speaker</h3>\n"
 msgid ""
 "  <p>Speakers can advocate Tails to all kinds of public.</p>\n"
 "  <ul>\n"
 "    <li>[[Outreach material: logo, leaflets, stickers, etc.|contribute/how/promote]]</li>\n"
-"    <li>[[Press and media information|press]]</li>\n"
 "  </ul>\n"
 "</div>\n"
 msgstr ""
+"  <p>Chi è abile nella traduzione può permettere a un maggior numero di persone nel mondo di utilizzare Tails.</p>\n"
+"  <ul>\n"
+"    <li>[[Migliorare Tails nella propria lingua|contribute/how/translate]]</li>\n"
+"  </ul>\n"
+"</div>\n"
+"<div class=\"contribute-role\" id=\"speaker\">\n"
+"  <h3>Discorsi pubblici</h3>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -368,30 +382,41 @@ msgstr "<a id=\"reference-documents\"></a>\n"
 msgid "Reference documents"
 msgstr "Documentazione di riferimento"
 
-#. type: Bullet: '  - '
-msgid "[[Mission and values|contribute/mission]]"
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Mission and values|contribute/mission]]"
+msgid "- [[Mission and values|contribute/mission]]"
 msgstr "[[Missione e principi|contribute/mission]]"
 
-#. type: Bullet: '  - '
-msgid "[[Design documents|contribute/design]]"
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Design documents|contribute/design]]"
+msgid "- [[Design documents|contribute/design]]"
 msgstr "[[Documenti di progettazione|contribute/design]]"
 
-#. type: Bullet: '  - '
+#. type: Plain text
 msgid ""
-"[Blueprints](https://gitlab.tails.boum.org/tails/blueprints/-/wikis/) to "
+"- [Blueprints](https://gitlab.tails.boum.org/tails/blueprints/-/wikis/) to "
 "help structuring ideas for future improvements"
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "[[Merge policy|contribute/merge_policy]]"
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Merge policy|contribute/merge_policy]]"
+msgid "- [[Merge policy|contribute/merge_policy]]"
 msgstr "[[Merge policy|contribute/merge_policy]]"
 
-#. type: Bullet: '  - '
-msgid "[[!tails_website contribute/how/promote/material/logo desc=\"Logo\"]]"
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "[[!tails_website contribute/how/promote/material/logo desc=\"Logo\"]]"
+msgid "- [[!tails_website contribute/how/promote/material/logo desc=\"Logo\"]]"
 msgstr "[[!tails_website contribute/how/promote/material/logo desc=\"Logo\"]]"
 
-#. type: Bullet: '  - '
-msgid "[[Personas|contribute/personas]]"
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Personas|contribute/personas]]"
+msgid "- [[Personas|contribute/personas]]"
 msgstr "[[Personas|contribute/personas]]"
 
 #. type: Plain text
@@ -404,72 +429,76 @@ msgstr "<a id=\"tools\"></a>\n"
 msgid "Tools for contributors"
 msgstr "Strumenti per chi collabora"
 
-#. type: Bullet: '  - '
-msgid "Source code: [[Git repositories|contribute/git]]"
+#. type: Plain text
+#, fuzzy
+#| msgid "Source code: [[Git repositories|contribute/git]]"
+msgid "- Source code: [[Git repositories|contribute/git]]"
 msgstr "Source code: [[Git repositories|contribute/git]]"
 
-#. type: Bullet: '  - '
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgid ""
-"[[GitLab source code and bug tracker|contribute/working_together/GitLab]]"
+"- [[GitLab source code and bug tracker|contribute/working_together/GitLab]]"
+msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
+
+#. type: Plain text
+msgid "- [[Starter tasks|starter_tasks]] for new contributors"
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "[[Starter tasks|starter_tasks]] for new contributors"
-msgstr ""
-
-#. type: Bullet: '  - '
+#. type: Plain text
 #, fuzzy
 #| msgid "[[Mission and values|contribute/mission]]"
-msgid "[[Building a Tails image|contribute/build]]"
+msgid "- [[Building a Tails image|contribute/build]]"
 msgstr "[[Mission and values|contribute/mission]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 msgid "[[Build a local copy of the website|contribute/build/website]]"
 msgstr ""
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Personas|contribute/personas]]"
 msgid "[[Customize Tails|contribute/customize]]"
 msgstr "[[Personas|contribute/personas]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 msgid "[Nightly Tails image builds](https://nightly.tails.boum.org)"
 msgstr ""
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgid "[[Jenkins CI|contribute/working_together/roles/sysadmins/Jenkins]]"
 msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '  - '
-msgid "Debian packages"
+#. type: Plain text
+msgid "- Debian packages"
 msgstr ""
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 msgid ""
 "[[APT repository|contribute/APT_repository]], to store our custom Debian "
 "packages"
 msgstr ""
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 msgid "How we manage and upgrade the [[Linux kernel|contribute/Linux_kernel]]."
 msgstr ""
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 msgid "How we manage and upgrade [[contribute/tor]]."
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "Tips to develop and debug [[contribute/Tor_Connection]]"
+#. type: Plain text
+msgid "- Tips to develop and debug [[contribute/Tor_Connection]]"
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "Tips to develop [[contribute/Persistent_Storage]]"
+#. type: Plain text
+msgid "- Tips to develop [[contribute/Persistent_Storage]]"
 msgstr ""
 
-#. type: Bullet: '  - '
+#. type: Bullet: '  * '
 msgid "[[Glossary for contributors|contribute/glossary]]"
 msgstr ""
 
@@ -483,28 +512,30 @@ msgstr "<a id=\"release-cycle\"></a>\n"
 msgid "Release cycle"
 msgstr "Ciclo di rilascio"
 
-#. type: Bullet: '  - '
-msgid "[[Release schedule|contribute/release_schedule]]"
-msgstr "[[Calendario di rilascio|contribute/release_schedule]]"
-
-#. type: Bullet: '  - '
+#. type: Plain text
 #, fuzzy
 #| msgid "[[Release schedule|contribute/release_schedule]]"
-msgid "[[Release process|contribute/release_process]]"
+msgid "- [[Release schedule|contribute/release_schedule]]"
 msgstr "[[Calendario di rilascio|contribute/release_schedule]]"
 
-#. type: Bullet: '    - '
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Release schedule|contribute/release_schedule]]"
+msgid "- [[Release process|contribute/release_process]]"
+msgstr "[[Calendario di rilascio|contribute/release_schedule]]"
+
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Release schedule|contribute/release_schedule]]"
 msgid "[[Manual test suite|contribute/release_process/test]]"
 msgstr "[[Calendario di rilascio|contribute/release_schedule]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 msgid ""
 "[[Automated test suite|contribute/release_process/test/automated_tests]]"
 msgstr ""
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 msgid ""
 "[[Verification JavaScript|contribute/release_process/"
 "verification_javascript]]"
@@ -520,16 +551,22 @@ msgstr "<a id=\"upstream\"></a>\n"
 msgid "Relationship with upstream and derivatives"
 msgstr "Relazione tra upstream e derivate"
 
-#. type: Bullet: '  - '
-msgid "[[Relationship with upstream|contribute/relationship_with_upstream]]"
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Relationship with upstream|contribute/relationship_with_upstream]]"
+msgid "- [[Relationship with upstream|contribute/relationship_with_upstream]]"
 msgstr "[[Relationship with upstream|contribute/relationship_with_upstream]]"
 
-#. type: Bullet: '  - '
-msgid "[[Improve Tails by working on Debian|contribute/how/debian]]"
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Improve Tails by working on Debian|contribute/how/debian]]"
+msgid "- [[Improve Tails by working on Debian|contribute/how/debian]]"
 msgstr "[[Migliora Tails lavorando su Debian|contribute/how/debian]]"
 
-#. type: Bullet: '  - '
-msgid "[[About creating Tails derivatives|contribute/derivatives]]"
+#. type: Plain text
+#, fuzzy
+#| msgid "[[About creating Tails derivatives|contribute/derivatives]]"
+msgid "- [[About creating Tails derivatives|contribute/derivatives]]"
 msgstr "[[Riguardo la creazione di derivate di Tails|contribute/derivatives]]"
 
 #. type: Plain text
@@ -542,91 +579,109 @@ msgstr "<a id=\"collective-process\"></a>\n"
 msgid "Collective process"
 msgstr "Processo collettivo"
 
-#. type: Bullet: '  - '
-msgid "[[Calendar|contribute/calendar]] of releases"
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Calendar|contribute/calendar]] of releases"
+msgid "- [[Calendar|contribute/calendar]] of releases"
 msgstr "[[Calendario|contribute/calendar]] dei rilasci"
 
-#. type: Bullet: '  - '
-msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
+msgid "- [[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '  - '
-msgid "[[Social contract|doc/about/social_contract]]"
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Social contract|doc/about/social_contract]]"
+msgid "- [[Social contract|doc/about/social_contract]]"
 msgstr "[[Il contratto sociale|doc/about/social_contract]]"
 
-#. type: Bullet: '  - '
-msgid "[[People|contribute/working_together/people]]"
-msgstr ""
+#. type: Plain text
+#, fuzzy
+#| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
+msgid "- [[People|contribute/working_together/people]]"
+msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '  - '
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "[[Marking a task as Starter|contribute/working_together/"
+#| "criteria_for_starter_tasks]]"
 msgid ""
-"[[Marking a task as Starter|contribute/working_together/"
+"- [[Marking a task as Starter|contribute/working_together/"
 "criteria_for_starter_tasks]]"
 msgstr ""
 "[[Fare una mansione come principiante|contribute/working_together/"
 "criteria_for_starter_tasks]]"
 
-#. type: Bullet: '  - '
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "[[Marking a task as Starter|contribute/working_together/"
+#| "criteria_for_starter_tasks]]"
 msgid ""
-"[[Document progress|contribute/working_together/GitLab#document-progress]]"
+"- [[Document progress|contribute/working_together/GitLab#document-progress]]"
+msgstr ""
+"[[Fare una mansione come principiante|contribute/working_together/"
+"criteria_for_starter_tasks]]"
+
+#. type: Plain text
+msgid "- Reimbursements"
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "Reimbursements"
-msgstr ""
-
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Mission and values|contribute/mission]]"
 msgid "[[Organizing a sprint|contribute/sprint]]"
 msgstr "[[Mission and values|contribute/mission]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 msgid ""
 "[[Sponsorship to attend events on behalf of Tails|contribute/"
 "sponsorship_to_attend_events]]"
 msgstr ""
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 msgid "[[Hardware and other reimbursements|contribute/reimbursements]]"
 msgstr ""
 
-#. type: Bullet: '  - '
-msgid "Teams"
+#. type: Plain text
+msgid "- Teams"
 msgstr ""
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgid "[[Accounting team|contribute/working_together/roles/accounting]]"
 msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgid ""
 "[[Community Health team|contribute/working_together/roles/community_health]]"
 msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgid "[[Foundations team|contribute/working_together/roles/foundations_team]]"
 msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgid "[[Fundraising team|contribute/working_together/roles/fundraising]]"
 msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgid "[[Help desk|contribute/working_together/roles/help_desk]]"
 msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid ""
 #| "[[Marking a task as Starter|contribute/working_together/"
@@ -636,7 +691,7 @@ msgstr ""
 "[[Fare una mansione come principiante|contribute/working_together/"
 "criteria_for_starter_tasks]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid ""
 #| "[[Marking a task as Starter|contribute/working_together/"
@@ -646,7 +701,7 @@ msgstr ""
 "[[Fare una mansione come principiante|contribute/working_together/"
 "criteria_for_starter_tasks]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid ""
 #| "[[Marking a task as Starter|contribute/working_together/"
@@ -656,26 +711,26 @@ msgstr ""
 "[[Fare una mansione come principiante|contribute/working_together/"
 "criteria_for_starter_tasks]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgid "[[Sysadmins|contribute/working_together/roles/sysadmins]]"
 msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgid ""
 "[[Technical writers|contribute/working_together/roles/technical_writer]]"
 msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgid "[[Test suite maintainers|contribute/working_together/roles/test_suite]]"
 msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid ""
 #| "[[Marking a task as Starter|contribute/working_together/"
@@ -687,17 +742,17 @@ msgstr ""
 "[[Fare una mansione come principiante|contribute/working_together/"
 "criteria_for_starter_tasks]]"
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "[[Code of conduct|contribute/working_together/code_of_conduct]]"
 msgid "[[UX designers|contribute/working_together/roles/ux]]"
 msgstr "[[Codice di condotta|contribute/working_together/code_of_conduct]]"
 
-#. type: Bullet: '  - '
-msgid "Interfaces between roles and teams"
+#. type: Plain text
+msgid "- Interfaces between roles and teams"
 msgstr ""
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid ""
 #| "[[Marking a task as Starter|contribute/working_together/"
@@ -709,11 +764,11 @@ msgstr ""
 "[[Fare una mansione come principiante|contribute/working_together/"
 "criteria_for_starter_tasks]]"
 
-#. type: Bullet: '  - '
-msgid "Roles for sponsor deliverables (internal documentation):"
+#. type: Plain text
+msgid "- Roles for sponsor deliverables (internal documentation):"
 msgstr ""
 
-#. type: Bullet: '    - '
+#. type: Bullet: '  * '
 msgid ""
 "[[!tails_gitlab tails/summit/-/wikis/Handbook/Grant_contract_management]]"
 msgstr ""

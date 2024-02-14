@@ -85,22 +85,23 @@ def should_show_donation_message() -> bool:
 
     # If the other conditions are met, show the message in 1/5 of the
     # cases.
-    return random.randint(0, 4) == 0
+    return random.randint(0, 19) == 0
 
 
 def show_donation_message():
     # To test the donation message, execute `ELECTRUM_DONATION_MESSAGE=1 electrum` with a Persistent Storage and a wallet
     if random.randint(0, 1) == 0:
         # In half of the cases, display a message with benevolent incentive
-        text = _('End this year by giving the gift of privacy.\n\n'
-                 'Contribute to our annual fundraiser today!\n\n'
-                 '<a href="file:///usr/share/doc/tails/website/donate.en.html">Why donate to Tails?</a>')
+        text = _('Tails needs donations to keep everybody free and safe '
+                 'online.\n\nEvery bit helps in our fight against surveillance '
+                 'and censorship!\n\n'
+                 '<a href="file:///usr/share/doc/tails/website/donate.en.html#expenses">How we spend our money.</a>')
         bitcoin_address = BITCOIN_ADDRESS_BENEVOLENT
     else:
         # In the other half, display a message with a more selfish incentive
-        text = _('Our annual fundraiser is live!\n\n'
-                 'Keep everybody free and safe online with a gift to Tails.\n\n'
-                 '<a href="file:///usr/share/doc/tails/website/donate.en.html">Why donate to Tails?</a>')
+        text = _('Tails protects your wallet.\n\n'
+                 'Help us keep your bitcoins safe!\n\n'
+                 '<a href="file:///usr/share/doc/tails/website/donate.en.html#expenses">How we spend our money.</a>')
         bitcoin_address = BITCOIN_ADDRESS_SELFISH
 
     # results 0 == True; 1 == False; 5 == Timeout

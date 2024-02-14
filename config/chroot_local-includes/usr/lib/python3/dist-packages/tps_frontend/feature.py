@@ -1,28 +1,29 @@
 import contextlib
 import logging
-from gi.repository import Gio, GLib, GObject, Gtk, Handy
 import os
 import re
-from typing import TYPE_CHECKING, Dict, List
+from typing import TYPE_CHECKING
 
-from tps.dbus.errors import TargetIsBusyError, SymlinkSourceDirectoryError, DBusError
+from gi.repository import Gio, GLib, GObject, Gtk, Handy
+from tps.dbus.errors import DBusError, SymlinkSourceDirectoryError, TargetIsBusyError
 
 from tps_frontend import (
-    _,
-    DBUS_SERVICE_NAME,
-    DBUS_FEATURES_PATH,
     DBUS_FEATURE_INTERFACE,
+    DBUS_FEATURES_PATH,
     DBUS_JOB_INTERFACE,
+    DBUS_SERVICE_NAME,
+    _,
 )
 
 if TYPE_CHECKING:
     from gi.repository import Atk
+
     from tps_frontend.window import Window
 
 logger = logging.getLogger(__name__)
 
 
-class Feature(object):
+class Feature:
     @property
     def dbus_object_name(self) -> str:
         """The name of the D-Bus object representing this feature
@@ -39,8 +40,8 @@ class Feature(object):
         return camel_to_snake(self.__class__.__name__)
 
     @property
-    def widgets_to_show_while_active(self) -> List[Gtk.Widget]:
-        return list()
+    def widgets_to_show_while_active(self) -> list[Gtk.Widget]:
+        return []
 
     def __init__(self, window: "Window", builder: Gtk.Builder, bus: Gio.DBusConnection):
         logger.debug(f"Initializing feature {self.__class__.__name__}")
@@ -71,9 +72,9 @@ class Feature(object):
             raise RuntimeError(f"Could not find {box_name}")
 
         action_row_name = self.widget_name_prefix + "_row"
-        self.action_row = self.builder.get_object(
-            action_row_name
-        )  # type: Handy.ActionRow
+        self.action_row: Handy.ActionRow = self.builder.get_object(
+            action_row_name,
+        )
         self.action_row.__setattr__("original_subtitle", self.action_row.get_subtitle())
         if not self.action_row:
             raise RuntimeError(f"Could not find {action_row_name}")
@@ -86,13 +87,14 @@ class Feature(object):
             label=_("Delete Data…"),
             valign="center",
         )
-        atk = self.delete_data_button.get_accessible()  # type: Atk.Object
+        atk: Atk.Object = self.delete_data_button.get_accessible()
         # Translators: Don't translate {feature}, it's a placeholder
         # and will be replaced.
         atk.set_name(_("Delete {feature} data").format(feature=self.translated_name))
         self.delete_data_button.connect("clicked", self.on_delete_data_button_clicked)
         Gtk.StyleContext.add_class(
-            self.delete_data_button.get_style_context(), "destructive-action"
+            self.delete_data_button.get_style_context(),
+            "destructive-action",
         )
         self.box.add(self.delete_data_button)
         self.box.reorder_child(self.delete_data_button, 0)
@@ -136,7 +138,7 @@ class Feature(object):
         self.dialog = None
 
     def show_spinner(self):
-        if not self.spinner in self.box.get_children():
+        if self.spinner not in self.box.get_children():
             self.box.add(self.spinner)
             # Ensure that the spinner is the first widget in the box
             self.box.reorder_child(self.spinner, 0)
@@ -148,7 +150,7 @@ class Feature(object):
             self.box.remove(self.spinner)
 
     def show_warning_icon(self):
-        if not self.warning_icon in self.box.get_children():
+        if self.warning_icon not in self.box.get_children():
             self.box.add(self.warning_icon)
             # Ensure that the warning icon is the first widget in the box
             self.box.reorder_child(self.warning_icon, 0)
@@ -406,7 +408,7 @@ class Feature(object):
         self,
         proxy: Gio.DBusProxy,
         changed_properties: GLib.Variant,
-        invalidated_properties: List[str],
+        invalidated_properties: list[str],
     ):
         logger.debug("changed properties: %s", changed_properties)
         keys = set(changed_properties.keys())
@@ -454,21 +456,22 @@ class Feature(object):
             )  # type: Gio.DBusProxy
 
             self.backend_job.connect(
-                "g-properties-changed", self.on_job_properties_changed
+                "g-properties-changed",
+                self.on_job_properties_changed,
             )
 
     def on_job_properties_changed(
         self,
         proxy: Gio.DBusProxy,
         changed_properties: GLib.Variant,
-        invalidated_properties: List[str],
+        invalidated_properties: list[str],
     ):
         logger.debug("changed job properties: %s", changed_properties)
-        if "ConflictingApps" in changed_properties.keys():
+        if "ConflictingApps" in changed_properties.keys():  # noqa: SIM118
             apps = changed_properties["ConflictingApps"]
             self.show_conflicting_apps_message(apps)
 
-    def show_conflicting_apps_message(self, apps: Dict[str, List[int]]):
+    def show_conflicting_apps_message(self, apps: dict[str, list[int]]):
         msg = self.get_conflicting_apps_message(apps)
 
         self.dialog = Gtk.MessageDialog(
@@ -483,15 +486,15 @@ class Feature(object):
             self.dialog.destroy()
             self.cancellable.cancel()
 
-    def get_conflicting_apps_message(self, apps: Dict[str, List[int]]):
+    def get_conflicting_apps_message(self, apps: dict[str, list[int]]):
         app_reprs = [self.app_repr_string(app, apps[app]) for app in apps]
         # Translators: Don't translate {applications}, it's a placeholder
         return _("Close {applications} to continue").format(
-            applications=_(" and ").join(app_reprs)
+            applications=_(" and ").join(app_reprs),
         )
 
     @staticmethod
-    def app_repr_string(app: str, pids: List[int]):
+    def app_repr_string(app: str, pids: list[int]):
         # We list each app with the conflicting PIDs. The app names are
         # already translated.
         if len(pids) == 1:

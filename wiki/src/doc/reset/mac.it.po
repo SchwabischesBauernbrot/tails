@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:56+0200\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
 "PO-Revision-Date: 2023-10-05 23:13+0000\n"
 "Last-Translator: _ignifugo <ignifugo@insicuri.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
@@ -39,10 +39,8 @@ msgid ""
 "<p><strong>You might overwrite any hard disk on the computer.</strong> If at some\n"
 "point you are not sure about which device to choose, stop proceeding.</p>\n"
 msgstr ""
-"<p><strong>Potresti sovrascrivere qualsiasi disco fisso del computer.</"
-"strong> Se in qualche\n"
-"passaggio non sei sicura di quale dispositivo scegliere, interrompi la "
-"procedura.</p>\n"
+"<p><strong>Potresti sovrascrivere qualsiasi disco fisso del computer.</strong> Se in qualche\n"
+"passaggio non sei sicura di quale dispositivo scegliere, interrompi la procedura.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -264,10 +262,15 @@ msgstr ""
 "         1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Take note of the *device name* of your USB stick.  In this example, the "
+#| "USB stick is 8.0 GB and its device name is <span class=\"code\">/dev/"
+#| "disk1</span>.  Yours might be different."
 msgid ""
 "Take note of the *device name* of your USB stick.  In this example, the USB "
-"stick is 8.0 GB and its device name is <span class=\"code\">/dev/disk1</"
-"span>.  Yours might be different."
+"stick is 8.0 GB and its device name is `/dev/disk1`.  Yours might be "
+"different."
 msgstr ""
 "Prendi nota del *nome di dispositivo* della tua chiavetta USB. In questo "
 "esempio, la chiavetta USB ha una dimensione di 8.0 GB e il suo nome di "
@@ -283,16 +286,19 @@ msgid ""
 "   </div>\n"
 msgstr ""
 "   <div class=\"caution\">\n"
-"   <p>Se non sei sicura del nome del dispositivo, dovresti interrompere la "
-"procedura o\n"
-"   <strong>rischi di sovrascrivere qualsiasi disco fisso del "
-"sistema</strong>.</p>\n"
+"   <p>Se non sei sicura del nome del dispositivo, dovresti interrompere la procedura o\n"
+"   <strong>rischi di sovrascrivere qualsiasi disco fisso del sistema</strong>.</p>\n"
 "   </div>\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Execute the following command to safely remove the USB stick. Replace "
+#| "<span class=\"code\">[device]</span> with the device name found in step 6."
 msgid ""
 "Execute the following command to safely remove the USB stick. Replace <span "
-"class=\"code\">[device]</span> with the device name found in step 6."
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
 msgstr ""
 "Esegui il comando seguente per rimuovere in modo sicuro la chiavetta USB. "
 "Sostituisci <span class=\"code\">[dispositivo]</span> con il nome di "
@@ -300,13 +306,18 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "       diskutil unmountDisk [device]\n"
-msgstr "       diskutil unmountDisk [dispositivo]\n"
+msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+msgstr ""
 
 #. type: Bullet: '2. '
+#, fuzzy
+#| msgid ""
+#| "Execute the following command to format the USB stick. Replace <span "
+#| "class=\"code\">[device]</span> with the device name found in step 6."
 msgid ""
 "Execute the following command to format the USB stick. Replace <span "
-"class=\"code\">[device]</span> with the device name found in step 6."
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
 msgstr ""
 "Esegui il comando seguente per formattare la chiavetta USB. Sostituisci "
 "<span class=\"code\">[dispositivo]</span> con il nome di dispositivo trovato "
@@ -314,8 +325,8 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "       sudo fdisk -iy [device]\n"
-msgstr "       sudo fdisk -iy [dispositivo]\n"
+msgid "   <p class=\"command-template\">sudo fdisk -iy <span class=\"command-placeholder\">device</span></p>\n"
+msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
@@ -325,3 +336,11 @@ msgstr ""
 "Puoi provare di nuovo a inizializzare la chiavetta USB con l'<span "
 "class=\"application\">Utilità disco</span> tornando all'inizio di questa "
 "pagina."
+
+#, no-wrap
+#~ msgid "       diskutil unmountDisk [device]\n"
+#~ msgstr "       diskutil unmountDisk [dispositivo]\n"
+
+#, no-wrap
+#~ msgid "       sudo fdisk -iy [device]\n"
+#~ msgstr "       sudo fdisk -iy [dispositivo]\n"
