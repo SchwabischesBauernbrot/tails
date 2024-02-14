@@ -1069,18 +1069,13 @@ def pulseaudio_sink_inputs
   sink_inputs_line.match(/^\d+/)[0].to_i
 end
 
-When /^I double-click on the (Tails documentation|Report an Error) launcher on the desktop$/ do |launcher|
-  image = "Desktop#{launcher.split.map(&:capitalize).join}.png"
-  info = xul_application_info('Tor Browser')
-  # Sometimes the double-click is lost (#12131).
-  retry_action(10) do
-    if $vm.execute(
-      "pgrep --uid #{info[:user]} --full --exact '#{info[:cmd_regex]}'"
-    ).failure?
-      @screen.wait(image, 10).click(double: true)
-    end
-    step 'the Tor Browser has started'
-  end
+When /^I open the Tails documentation launcher on the desktop$/ do
+  @screen.click('DesktopTailsDocumentation.png', double: true)
+  step 'the Tor Browser has started'
+end
+
+When /^I open the Report an Error launcher on the desktop$/ do
+  @screen.click('DesktopReportAnError.png', double: true)
 end
 
 Given /^a web server is running on the LAN$/ do
