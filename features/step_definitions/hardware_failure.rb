@@ -1,3 +1,14 @@
+def click_gnome_shell_notification_button(title)
+  # copied from additional_software_packages.rb
+  # The notification buttons do not expose any actions through AT-SPI,
+  # so Dogtail is unable to click it directly. We let it grab focus
+  # and activate it via the keyboard instead.
+  Dogtail::Application.new('gnome-shell')
+                      .child(title, roleName: 'push button')
+                      .grabFocus
+  @screen.press('Return')
+end
+
 Given /^I start the computer from DVD with network unplugged$/ do
   @wait_for_remote_shell = true
   step 'the computer is set to boot from the Tails DVD'
@@ -20,4 +31,10 @@ end
 
 Then /^I see a Disk Failure Message on the splash screen$/ do
   @screen.wait('PlymouthDiskFailureMessage.png', 60)
+end
+
+Then /^I can open the Hardware Failure documentation from the Disk Failure Message$/ do
+  click_gnome_shell_notification_button('Learn More')
+  try_for(60) { @torbrowser = Dogtail::Application.new('Firefox') }
+  step '"Tails - Error Reading Data from Tails USB Stick" has loaded in the Tor Browser'
 end
