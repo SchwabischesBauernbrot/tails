@@ -86,10 +86,13 @@ def debug_command(args: list, shell=False):
     >>> debug_command(['echo', 'foo'])
     {...'key': 'echo foo'...}
     """
-    if shell:
-        command_output = subprocess.check_output(' '.join(args), shell=True)  # nosec any_other_function_with_shell_equals_true
-    else:
-        command_output = subprocess.check_output(args)
+    try:
+        if shell:
+            command_output = subprocess.check_output(' '.join(args), stderr=subprocess.PIPE, shell=True)  # nosec any_other_function_with_shell_equals_true
+        else:
+            command_output = subprocess.check_output(args, stderr=subprocess.PIPE)
+    except subprocess.CalledProcessError as e:
+        command_output = e.stdout
     command_output = command_output.decode('UTF-8').strip().split('\n')
     return {'key': '{}'.format(' '.join(args)), 'content': command_output}
 
