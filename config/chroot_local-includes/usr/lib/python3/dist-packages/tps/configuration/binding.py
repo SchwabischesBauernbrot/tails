@@ -4,7 +4,7 @@ from pathlib import Path
 import shlex
 import subprocess
 import sys
-from typing import List, Union, Optional
+from typing import Union, Optional
 
 from tailslib import LIVE_USERNAME, LIVE_USER_UID
 import tps.logging
@@ -39,7 +39,7 @@ class IsInactiveException(Exception):
     pass
 
 
-class Binding(object):
+class Binding:
     """A mapping of a source file or directory to a target file or
     directory. When a feature is activated, all of its bindings are
     activated, i.e. the source file or directory is mounted or symlinked
@@ -102,7 +102,7 @@ class Binding(object):
         # source and target to be symlinks. To achieve that, we use the
         # bind-mount we created at NOSYMFOLLOW_MOUNTPOINT with the
         # nosymfollow option (see
-        # config/chroot_local-includes/usr/local/lib/persistent-storage/pre-start)
+        # config/chroot_local-includes/lib/systemd/system/run-nosymfollow.mount)
         self.tps_mount_point = Path(self.nosymfollow_mountpoint + str(tps_mount_point))
         self.dest = Path(self.nosymfollow_mountpoint + str(self.dest))
         self.src = Path(self.nosymfollow_mountpoint + str(self.src))
@@ -110,7 +110,7 @@ class Binding(object):
         try:
             self._relative_src = self.src.relative_to(self.tps_mount_point)
         except ValueError:
-            raise InvalidBindingError(
+            raise InvalidBindingError(  # noqa: B904
                 f"Binding source {self.src} is outside of "
                 f"the Persistent Storage mount point "
                 f"{self.tps_mount_point}"
@@ -136,7 +136,7 @@ class Binding(object):
         return shlex.quote(str(self.dest_orig)) + "\t" + options
 
     def __repr__(self):
-        return "%s(%r)" % (self.__class__, self.__dict__)
+        return f"{self.__class__}({self.__dict__!r})"
 
     def __eq__(self, other: Union["Binding", str]):
         """Check if the binding is equal to another binding or the string
@@ -170,8 +170,8 @@ class Binding(object):
         return hash(str(self))
 
     @property
-    def options(self) -> List[str]:
-        options = [f"source={str(self._relative_src)}"]
+    def options(self) -> list[str]:
+        options = [f"source={self._relative_src!s}"]
         if self.uses_symlinks:
             options.append("link")
         if self.is_file:
@@ -229,7 +229,7 @@ class Binding(object):
         # we only perform this check if we're not running a symlink
         # attack test (i.e. the SYMLINK_ATTACK_TEST env var is not set)
         if not os.getenv("SYMLINK_ATTACK_TEST"):
-            for p in sorted(self.dest_orig.parents) + [self.dest_orig]:
+            for p in [*sorted(self.dest_orig.parents), self.dest_orig]:
                 if p.is_symlink():
                     msg = f"Destination {self.dest_orig} contains a symlink: {p}"
                     raise FailedPrecondition(msg)
@@ -284,10 +284,10 @@ class Binding(object):
             return
 
         # Create symlinks for all files in the directory
-        for dir, subdirs, files in os.walk(self.src):
-            dest_dir = os.path.join(self.dest, os.path.relpath(dir, self.src))
+        for _dir, subdirs, files in os.walk(self.src):
+            dest_dir = os.path.join(self.dest, os.path.relpath(_dir, self.src))
             for f in subdirs + files:
-                src = Path(dir, f)
+                src = Path(_dir, f)
                 dest = Path(dest_dir, f)
                 self._create_symlink(src, dest)
 
@@ -394,8 +394,8 @@ class Binding(object):
 
     def _deactivate_using_symlinks(self):
         # Remove symlinks
-        for dir, subdirs, files in os.walk(self.src):
-            dest_dir = os.path.join(self.dest, os.path.relpath(dir, self.src))
+        for _dir, _subdirs, files in os.walk(self.src):
+            dest_dir = os.path.join(self.dest, os.path.relpath(_dir, self.src))
             for f in files:
                 dest = Path(dest_dir, f)
                 if not dest.is_symlink():
@@ -463,10 +463,10 @@ class Binding(object):
                 f"Binding {self.dest} is inactive: Destination {self.dest} does not exist"
             )
 
-        for dir, _, files in os.walk(self.src):
-            dest_dir = os.path.join(self.dest, os.path.relpath(dir, self.src))
+        for _dir, _subdirs, files in os.walk(self.src):
+            dest_dir = os.path.join(self.dest, os.path.relpath(_dir, self.src))
             for f in files:
-                src = Path(dir, f)
+                src = Path(_dir, f)
                 dest = Path(dest_dir, f)
                 if not dest.is_symlink():
                     raise IsInactiveException(
@@ -492,7 +492,7 @@ class Binding(object):
         owner to the UID of amnesia (live-boot sets it to 1000) on
         directories below /home/amnesia"""
         logger.debug(f"Creating binding destination {path}")
-        for p in sorted(path.parents) + [path]:
+        for p in [*sorted(path.parents), path]:
             if p.is_file():
                 # Delete existing files that are in the way
                 p.unlink()

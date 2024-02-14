@@ -123,20 +123,18 @@ When a feature is made persistent, a line is added to the config file
 for each bind mount or symlink binding that belongs to the feature.
 
 Example bind mount line:
-```
-# destination               options
-/home/amnesia/Persistent    source=Persistent
-```
+
+    # destination               options
+    /home/amnesia/Persistent    source=Persistent
 
 This will cause the file or directory
 `/live/persistence/TailsData_unlocked/Persistent` to be bind-mounted to
 `/home/amnesia/Persistent`.
 
 Example symlink line:
-```
-# destination   options
-/home/amnesia	source=dotfiles,link
-```
+
+    # destination   options
+    /home/amnesia	source=dotfiles,link
 
 This will cause symlinks to be created below `/home/amnesia` for all
 files in the `/live/persistence/TailsData_unlocked/dotfiles` directory.
