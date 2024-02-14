@@ -101,7 +101,7 @@ for setting in ${GREETER_EXPORTED_TRANSIENT_SETTINGS}; do
         "/var/lib/live/config/$setting"
 done
 
-if grep -F 'CREATE_PERSISTENT_STORAGE=true' /var/lib/gdm3/settings/transient/tails.create-persistence
+if grep -s -F 'CREATE_PERSISTENT_STORAGE=true' /var/lib/gdm3/settings/transient/tails.create-persistence
 then
     # The other settings are files in which the *content* is relevant: in this case, the *existence* is
     # relevant.

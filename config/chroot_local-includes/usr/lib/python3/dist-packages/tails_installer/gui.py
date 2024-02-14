@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Copyright © 2008-2013  Red Hat, Inc. All rights reserved.
 # Copyright © 2008-2013  Luke Macken <lmacken@redhat.com>
 # Copyright © 2008  Kushal Das <kushal@fedoraproject.org>
@@ -36,10 +34,9 @@ import time
 from time import sleep
 from datetime import datetime
 
-from gi.repository import Gdk, GLib, Gtk, Gio, GObject
+from gi.repository import Gdk, GLib, Gtk
 
 from tails_installer.passphrase_dialog import PassphraseDialog
-from tps.dbus.errors import DBusError
 
 from tails_installer import TailsInstallerCreator, TailsInstallerError, _
 from tails_installer.config import CONFIG
@@ -351,7 +348,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
 
     def on_radio_button_source_iso_toggled(self, radio_button):
         self.live.log.debug("Entering on_radio_button_source_iso_toggled")
-        active_radio = [r for r in radio_button.get_group() if r.get_active()][0]
+        active_radio = next(r for r in radio_button.get_group() if r.get_active())
         if active_radio.get_label() == _("Clone the current Tails"):
             self.live.log.debug("Mode: clone")
             self.opts.clone = True
@@ -371,7 +368,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         # some previously rejected devices may now be valid candidates
         # and vice-versa
         self.live.log.debug(
-            "Calling populate_devices()" " from on_radio_button_source_iso_toggled"
+            "Calling populate_devices() from on_radio_button_source_iso_toggled"
         )
         self.populate_devices()
         self.update_clone_persistent_storage_check_button()
@@ -385,7 +382,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
     def on_activate_link_button(self, link_button: Gtk.LinkButton):
         uri = link_button.get_uri()
         self.live.log.debug("Opening Documentation: %s", uri)
-        subprocess.run(["tails-documentation", uri])
+        subprocess.run(["/usr/local/bin/tails-documentation", uri], check=False)
         return True
 
     def on_force_reinstall_clicked(self, button):
@@ -654,9 +651,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             self.append_to_log(text)
         except Exception as ex:
             self.live.log.exception(
-                'Failed to set status to object of type "{type}"'.format(
-                    type=type(obj).__name__
-                )
+                "Failed to set status to object of type %s",
+                type(obj).__name__,
             )
             raise ex
 
@@ -692,8 +688,14 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self.close()
 
     def show_confirmation_dialog(
-        self, title, message, warning, label_string=_("Install")
+        self,
+        title,
+        message,
+        warning,
+        label_string=None,
     ):
+        if label_string is None:
+            label_string = _("Install")
         if warning:
             buttons = Gtk.ButtonsType.OK
         else:
@@ -741,7 +743,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.status(e.args[0])
                 self.enable_widgets(True)
                 return
-            except OSError as e:
+            except OSError:
                 self.status(_("Unable to mount device"))
                 self.enable_widgets(True)
                 return
@@ -762,7 +764,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 }
                 if self.live.drive["parent"] in self.devices_with_persistence:
                     delete_message = _(
-                        "\n\nThe persistent storage on this USB stick will be lost."
+                        "\n\nThe Persistent Storage on this USB stick will be lost."
                     )
                     confirmation_label = _("Delete Persistent Storage and Reinstall")
                 else:
@@ -839,7 +841,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             % {"filename": str(os.path.basename(self.live.source.path))}
         )
         self.source_available = True
-        self.live.log.debug("Calling populate_devices()" " from select_source_iso")
+        self.live.log.debug("Calling populate_devices() from select_source_iso")
         self.populate_devices()
 
     def terminate(self):

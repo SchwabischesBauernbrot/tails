@@ -35,13 +35,13 @@ class AboutTails(Gtk.AboutDialog):
 
         comment = ""
         version = VERSION_DATA["VERSION"]
-        built_name = VERSION_DATA["TAILS_GIT_SHORT_ID"]
+        built_name = VERSION_DATA["TAILS_GIT_COMMIT"]
         if VERSION_DATA["TAILS_DISTRIBUTION"] == "UNRELEASED":
             version += " " + _("UNRELEASED")
             if "TAILS_GIT_BASE_BRANCH" in VERSION_DATA:
                 built_name += "+%s@%s" % (
                     VERSION_DATA["TAILS_GIT_BASE_BRANCH"],
-                    VERSION_DATA["TAILS_GIT_BASE_SHORT_ID"],
+                    VERSION_DATA["TAILS_GIT_BASE_COMMIT"],
                 )
 
         comment = _("Built from %s") % (built_name)
