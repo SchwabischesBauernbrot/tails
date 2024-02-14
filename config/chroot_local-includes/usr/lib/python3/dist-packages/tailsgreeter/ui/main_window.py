@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-/
 #
 # Copyright 2015-2016 Tails developers <tails@boum.org>
 #
@@ -38,7 +37,7 @@ from tailsgreeter.ui.persistent_storage import PersistentStorage
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("Handy", "1")
-from gi.repository import Gdk, Gtk, GdkPixbuf, Handy
+from gi.repository import Gdk, Gtk, GdkPixbuf, Handy  # noqa: E402
 
 Handy.init()
 
@@ -352,7 +351,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         # like gtk's g_signal_handler_find() this could be dealt with
         # in a less messy way by just removing the default handler.
         uri = "file:///usr/share/doc/tails/website/" + page
-        logging.debug("Opening help window for {}".format(uri))
+        logging.debug(f"Opening help window for {uri}")
         helpwindow = GreeterHelpWindow(uri)
         helpwindow.show()
 
@@ -373,6 +372,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         # unlocked
         if (
             self.persistence_setting.is_created
+            and self.persistence_setting.can_unlock
             and not self.persistence_setting.is_unlocked
             and not self.persistence_setting.failed_with_unexpected_error
         ):

@@ -43,16 +43,19 @@ through Tor.
 
 The advantages of this technique are the following:
 
-  - You only need a single Tails USB stick. The upgrade is done on the fly from a
-    running Tails. After upgrading, you can restart and use the new version.
-  - The upgrade is much smaller to download than a full USB image.
-  - The upgrade mechanism includes cryptographic verification of the upgrade.
-    You don't have to verify the USB image yourself anymore.
+- You only need a single Tails USB stick. The upgrade is done on the fly from a
+  running Tails. After upgrading, you can restart and use the new version.
+
+- The upgrade is much smaller to download than a full USB image.
+
+- The upgrade mechanism includes cryptographic verification of the upgrade.
+  You don't have to verify the USB image yourself anymore.
 
 Requirements:
 
-  - A Tails USB stick.
-  - An Internet connection.
+- A Tails USB stick
+
+- An Internet connection
 
 After connecting to Tor, if an upgrade is available, a dialog appears and
 proposes you to upgrade your USB stick.
@@ -79,12 +82,17 @@ command:</p>
 If an error occurs during the upgrade, the assistant proposes you to read one of the following
 pages:
 
-  - If an error occurs while checking for available upgrades:<br/>
-    [[file:///usr/share/doc/tails/website/doc/upgrade/error/check.en.html|upgrade/error/check]]
-  - If an error occurs while download the upgrade:<br/>
-    [[file:///usr/share/doc/tails/website/doc/upgrade/error/download.en.html|upgrade/error/download]]
-  - If an error occurs while installing the upgrade:<br/>
-    [[file:///usr/share/doc/tails/website/doc/upgrade/error/install.en.html|upgrade/error/install]]
+- If an error occurs while checking for available upgrades:
+
+  [[file:///usr/share/doc/tails/website/doc/upgrade/error/check.en.html|upgrade/error/check]]
+
+- If an error occurs while download the upgrade:
+
+  [[file:///usr/share/doc/tails/website/doc/upgrade/error/download.en.html|upgrade/error/download]]
+
+- If an error occurs while installing the upgrade:
+
+  [[file:///usr/share/doc/tails/website/doc/upgrade/error/install.en.html|upgrade/error/install]]
 
 If your Tails USB stick fails to start after an automatic upgrade, see
 below how to do a manual upgrade.
@@ -98,9 +106,10 @@ You can reduce the size of the download of future automatic upgrades by doing a
 
 Your Tails USB stick stores:
 
-* 1 **base** version that you first installed or to which you last did a manual
+- 1 **base** version that you first installed or to which you last did a manual
   upgrade
-* 1 **upgrade** package containing all the changes made to Tails since the base
+
+- 1 **upgrade** package containing all the changes made to Tails since the base
   version
 
 [[!img system.png link="no" alt=""]]
@@ -109,7 +118,9 @@ For example, if you install a Tails USB stick with 4.6, the base version is
 4.6, and:
 
 - The upgrade to 4.7 is 181 MB.
+
 - The upgrade to 4.8 is 347 MB.
+
 - The upgrade to 4.9 is 418 MB.
 
 [[!img incremental.png link="no" alt=""]]
@@ -127,19 +138,19 @@ version becomes 4.8, and then:
 It might not always be possible to do an automatic upgrade as described [[above|upgrade#automatic]].
 For example, when:
 
-  - No automatic upgrade is available from our website for this version.
+- No automatic upgrade is available from our website for this version.
 
-  - The automatic upgrade is impossible for technical reasons (not enough
-    memory, not enough free space on the USB stick, etc.). For example, if you
-    get the following error message:
+- The automatic upgrade is impossible for technical reasons (not enough
+  memory, not enough free space on the USB stick, and so on). For example, if you
+  get the following error message:
 
-         there is not enough free space on the Tails system partition
+       there is not enough free space on the Tails system partition
 
-  - The automatic upgrade failed and you need to repair a Tails USB stick.
+- The automatic upgrade failed and you need to repair a Tails USB stick.
 
-  - You want to upgrade by cloning from another Tails USB stick which is
-    already up-to-date, for example, when working offline or with a slow
-    Internet connection.
+- You want to upgrade by cloning from another Tails USB stick which is
+  already up-to-date, for example, when working offline or with a slow
+  Internet connection.
 
 After connecting to Tor, a dialog informs you if you have to
 upgrade your USB stick using <span class="application">Tails Cloner</span>
@@ -157,8 +168,11 @@ upgrades, as described [[above|upgrade#reduce]].</p>
 To do a manual upgrade, you can either:
 
 - [[Download and upgrade|doc/upgrade/#download]] (below)
+
 - [[Upgrade by cloning from another Tails|doc/upgrade/#clone]] (below)
+
 - [[Burn a new Tails DVD|install/dvd]]
+
 - [[Upgrade your virtual machine|install/vm]]
 
 <h2 id="download">Download and upgrade</h2>
@@ -166,8 +180,11 @@ To do a manual upgrade, you can either:
 You need:
 
 - Your Tails USB stick
+
 - Another empty USB stick <small>(at least 8 GB)</small>&nbsp;[[!toggle id="why_extra" text="Why?"]]
+
 - ½ hour to download Tails (<small class="remove-extra-space">[[!inline pages="inc/stable_amd64_iso_size" raw="yes" sort="age"]]</small>)
+
 - ½ hour to upgrade
 
 [[!toggleable id="why_extra" text="""
@@ -181,8 +198,11 @@ Tails.</p>
 See our instructions on how to do a manual upgrade by:
 
 - [[Downloading and upgrading from your Tails|upgrade/tails]] (more secure)
+
 - [[Downloading and upgrading from Windows|upgrade/windows]] (more convenient)
+
 - [[Downloading and upgrading from macOS|upgrade/mac]] (more convenient)
+
 - [[Downloading and upgrading from Linux|upgrade/linux]] (more convenient)
 
 <div class="caution">
@@ -200,7 +220,9 @@ upgrade your Tails by cloning from their Tails.
 You need:
 
 - Your Tails USB stick
+
 - Another up-to-date Tails (USB stick or DVD)
+
 - ¼ hour to upgrade
 
 See our instructions on how to do a manual upgrade by:

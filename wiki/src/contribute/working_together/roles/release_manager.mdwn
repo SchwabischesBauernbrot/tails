@@ -47,30 +47,41 @@ the Foundations Team's duties.
 
 - Check the [Tor Browser release
   schedule](https://gitlab.torproject.org/tpo/applications/tor-browser/-/wikis/Release-Schedule). `[skip-if-emergency-release]`. In doubt, check the [logs from their last meeting](http://meetbot.debian.net/tor-meeting/).
+
 - Check the Mozilla release calendars: `[skip-if-emergency-release]`
+
   * [Google calendar](https://www.google.com/calendar/embed?src=mozilla.com_2d37383433353432352d3939%40resource.calendar.google.com)
+
   * [Release schedule](https://whattrainisitnow.com/calendar/)
+
 - Reply to the email sent to <tails-dev@boum.org> and
   <tails-l10n@boum.org> by the RM for the previous release,
   to provide any information they could not, such as: `[skip-if-emergency-release]`
+
   - Code freeze date
+
   - If this will be a major release: the release schedule for its RC.
+
 - Ask for a _Trusted Reproducer_:
 
         ./bin/generate-call-for-trusted-reproducer \
            --version VERSION_YOU_WILL_RELEASE
 
 - Update [[contribute/calendar]] accordingly.
+
 - Check if there's a
   [[!tails_gitlab groups/tails/-/milestones desc="GitLab milestone"]]
   with the correct due date. If it is not, create a merge request against
   [[!tails_gitlab tails/gitlab-config]] to fix it.
+
 - Create an issue with the `Core Work: Foundations Team` label,
   about upgrading Tor Browser in the release your shift is about.
+
 - Ensure there's [an issue about
   writing the release notes](https://gitlab.tails.boum.org/tails/tails/-/issues?scope=all&state=opened&label_name[]=Core%20Work%3ATechnical%20writing&search=release+notes). This also applies to betas and release
   candidates, so you might create multiple such issues during one
   shift. Set `Write release notes for $VERSION` as title.
+
 - Verify there's a `missed:$VERSION` label
   on [[!tails_gitlab groups/tails/-/labels]]; if there's none,
   submit a MR against [[!tails_gitlab tails/gitlab-config]]
@@ -99,6 +110,7 @@ the Foundations Team's duties.
 
 - Ensure you have found a _Trusted Reproducer_ and write who this is
   in the [[contribute/calendar]].
+
 - Check if you have enough manual testers registered.
   If not, ping the usual testers and warn the Foundations Team
   that you may need their help.
@@ -221,12 +233,17 @@ release, we have to make 2 decisions:
    Do this:
 
    1. Filter by milestone = the next planned non-emergency bugfix release
+
    2. Click *Bulk edit*
+
    3. Select all items
+
    4. Set the milestone of the emergency release
 
 2. Announce to <tails-dev@boum.org>:
+
     - There's an upcoming emergency release. Don't say why if it's a secret.
+
     - Announce the code freeze.
 
 3. Announce to manual testers: when you expect the tests to happen

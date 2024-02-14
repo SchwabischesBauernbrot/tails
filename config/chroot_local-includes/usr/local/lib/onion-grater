@@ -420,8 +420,9 @@ class FilteredControlPortProxySession:
                     if self.is_my_stream(event):
                         self.client_streams.add(event.id)
                     else:
-                        self.debug_log('dropped restricted stream event: ' +
-                                       event.raw_content())
+                        if GLOBAL_ARGS.debug:
+                            self.debug_log('dropped restricted stream event: ' +
+                                           event.raw_content())
                         return
                 elif event.status in [stem.StreamStatus.FAILED,
                                       stem.StreamStatus.CLOSED]:
@@ -430,7 +431,7 @@ class FilteredControlPortProxySession:
                 if event.status == stem.CircStatus.CLOSED:
                     old_event_raw_content = event.raw_content()
                     # We let all CIRC CLOSED events through so Tor
-                    # Browser's iternal circuit tracking can clear its
+                    # Browser's internal circuit tracking can clear its
                     # info about this circuit, but we strip all
                     # information to prevent potential leaks.
                     event = stem.response.events.CircuitEvent.from_str(
@@ -440,8 +441,9 @@ class FilteredControlPortProxySession:
                                            old_event_raw_content,
                                            event.raw_content())
                 else:
-                    self.debug_log('dropped restricted circuit event: ' +
-                                   event.raw_content())
+                    if GLOBAL_ARGS.debug:
+                        self.debug_log('dropped restricted circuit event: ' +
+                                       event.raw_content())
                     return
 
         raw_event_content = event.raw_content()

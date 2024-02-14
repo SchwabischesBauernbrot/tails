@@ -74,8 +74,10 @@ The storage device is partitioned using [GPT](https://en.wikipedia.org/wiki/GUID
    should prevent some misuse of Tails system partition, even if we
    explicitly discourage users to plug their Tails USB stick to a
    running system (Windows among other OS).
+
  * `sgdisk` can run on Windows whereas no other free partitioning tools
    are available under Windows for other partioning method.
+
  * Partitions can be labeled. The [[design/persistence]] setup tools can
    easily detect the right partitions without blind tries.
 
@@ -102,8 +104,10 @@ We have `.desktop` files for the following usecases:
 
  * Clone the currently running Tails onto a shiny new USB stick:
    `--clone -P -m`
+
  * Upgrade a (non-running) Tails system using a ISO file: no
    additional switch required.
+
  * Upgrade a (non-running) Tails system using another, fresher,
    running Tails: no additional switch required.
 

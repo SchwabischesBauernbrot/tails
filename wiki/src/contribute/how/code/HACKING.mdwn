@@ -221,11 +221,14 @@ honorable mentions are:
 
 * `config/chroot_local-includes/usr/local/sbin/` for scripts used by
   root only.
+
 * `config/chroot_local-includes/usr/local/bin/` for scripts used by
   non-root users (and root too).
+
 * `config/chroot_local-includes/usr/local/lib/` for scripts that we
   don't want to expose to the user at all times (it's not in the
   `$PATH`).
+
 * `config/chroot_local-includes/usr/local/lib/tails-shell-library/`
   for "libraries" often included in the above scripts.
 
@@ -237,18 +240,26 @@ files and directories you have learned about above, this is how Tails
 is built, in order:
 
 1. A minimal Debian system is `debootstrap`:ed.
+
 2. APT is set up according to `config/chroot_sources/` and
    `config/chroot_apt/preferences` (and `config/APT_overlays.d/` and
    `config/APT_snapshots.d/`).
+
 3. Packages listed in
    `config/chroot_local-packageslists/tails-common.list` are
    installed.
+
 4. Packages stored in `config/chroot_local-packages/` are installed.
+
 5. Everything in `config/chroot_local-includes/` is copied to `/`,
    overwriting existing files.
+
 6. All patches in `config/chroot_local-patches/` are applied on `/`.
+
 7. All build-time hooks in `config/chroot_local-hooks/` are run.
+
 8. Now the Tails filesystem is done!
+
 9. The ISO9660 filesystem used in the resulting `.iso` image is
    created according to `config/binary_*`.
 

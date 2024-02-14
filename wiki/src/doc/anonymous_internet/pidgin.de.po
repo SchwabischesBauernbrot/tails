@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:55+0200\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
 "PO-Revision-Date: 2023-11-24 10:42+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: \n"
@@ -54,10 +54,8 @@ msgid ""
 "<p>You can already try using <i>Dino</i> in Tails. See our\n"
 "documentation on [[chatting with <i>Dino</i> and OMEMO|doc/advanced_topics/dino]].</p>\n"
 msgstr ""
-"<p>Sie können bereits versuchen, <i>Dino</i> in Tails zu verwenden. Sehen "
-"Sie sich unsere\n"
-"Dokumentation zu [[Chatten mit <i>Dino</i> und OMEMO|doc/advanced_topics/"
-"dino]] an.</p>\n"
+"<p>Sie können bereits versuchen, <i>Dino</i> in Tails zu verwenden. Sehen Sie sich unsere\n"
+"Dokumentation zu [[Chatten mit <i>Dino</i> und OMEMO|doc/advanced_topics/dino]] an.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -115,9 +113,7 @@ msgstr ""
 #. type: Title =
 #, no-wrap
 msgid "<span class=\"application\">Off-the-record</span> (<span class=\"application\">OTR</span>) encryption"
-msgstr ""
-"<span class=\"application\">Off-the-Record</span> (<span class=\"application"
-"\">OTR</span>) Verschlüsselung"
+msgstr "<span class=\"application\">Off-the-Record</span> (<span class=\"application\">OTR</span>) Verschlüsselung"
 
 #. type: Plain text
 #, no-wrap
@@ -129,6 +125,28 @@ msgstr ""
 "Wie auf der [offiziellen Webseite](https://otr.cypherpunks.ca/) beschrieben,\n"
 "erlaubt Ihnen <span class=\"application\">Off-the-Record</span>-Kommunikation, private\n"
 "Konversationen über Sofortnachrichten, indem folgendes bereitgestellt wird:\n"
+
+#. type: Plain text
+msgid "- **Encryption**"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "  No one else can read your instant messages.\n"
+msgstr ""
+
+#. type: Plain text
+msgid "- **Authentication**"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "  You are assured the correspondent is who you think it is.\n"
+msgstr ""
+
+#. type: Plain text
+msgid "- **Deniability**"
+msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -146,18 +164,11 @@ msgstr ""
 #| "- **Perfect forward secrecy**<br />\n"
 #| "    If you lose control of your private keys, no previous conversation is compromised.\n"
 msgid ""
-"- **Encryption**<br />\n"
-"    No one else can read your instant messages.\n"
-"- **Authentication**<br />\n"
-"    You are assured the correspondent is who you think it is.\n"
-"- **Deniability**<br />\n"
-"    The messages you send do not have digital signatures\n"
-"    that are checkable by a third party. Anyone can forge messages after\n"
-"    a conversation to make them look like they came from you.\n"
-"    However, during a conversation, your correspondent is assured\n"
-"    the messages are authentic and unmodified.\n"
-"- **Perfect forward secrecy**<br />\n"
-"    If you lose control of your private keys, no previous conversation is compromised.\n"
+"  The messages you send do not have digital signatures\n"
+"  that are checkable by a third party. Anyone can forge messages after\n"
+"  a conversation to make them look like they came from you.\n"
+"  However, during a conversation, your correspondent is assured\n"
+"  the messages are authentic and unmodified.\n"
 msgstr ""
 "- **Verschlüsselung**<br />\n"
 "    Niemand sonst kann Ihre Sofortnachrichten lesen.\n"
@@ -173,22 +184,35 @@ msgstr ""
 "    Falls Sie die Kontrolle über Ihre privaten Schlüssel verlieren, sind keine vorangegangen Unterhaltungen kompromittiert.\n"
 
 #. type: Plain text
+msgid "- **Perfect forward secrecy**"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "  If you lose control of your private keys, no previous conversation is compromised.\n"
+msgstr ""
+
+#. type: Plain text
 #, no-wrap
 msgid "<div class=\"caution\">\n"
 msgstr "<div class=\"caution\">\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<p><strong>OTR is deactivated by default</strong>, and your conversations are\n"
+#| "not private.</p>\n"
 msgid ""
-"<p><strong>OTR is deactivated by default</strong>, and your conversations are\n"
+"<p>OTR is deactivated by default, and your conversations are\n"
 "not private.</p>\n"
 msgstr ""
 "<p><strong>OTR ist standardmäßig deaktiviert</strong> und Ihre Unterhaltungen sind \n"
 "nicht vertraulich.</p>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<p><strong>File transfers are not encrypted by OTR.</strong> OTR only encrypts conversations.</p>\n"
+#, fuzzy, no-wrap
+#| msgid "<p><strong>File transfers are not encrypted by OTR.</strong> OTR only encrypts conversations.</p>\n"
+msgid "<p>File transfers are not encrypted by OTR. OTR only encrypts conversations.</p>\n"
 msgstr "<p><strong>Dateiübertragungen werden nicht mit OTR verschlüsselt.</strong> OTR verschlüsselt nur Konversationen.</p>\n"
 
 #. type: Plain text
@@ -197,27 +221,24 @@ msgid "<div class=\"tip\">\n"
 msgstr "<div class=\"tip\">\n"
 
 #. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "To store your OTR keys and preferences across separate working sessions, you can turn on the [[Pidgin Internet Messenger|persistent_storage/configure#pidgin]] feature of the Persistent Storage."
 msgid ""
-"To store your OTR keys and preferences across separate working sessions, you "
-"can turn on the [[Pidgin Internet Messenger|persistent_storage/"
-"configure#pidgin]] feature of the Persistent Storage."
-msgstr ""
-"Um Ihre OTR-Schlüssel und Einstellungen über separate Arbeitssitzungen "
-"hinweg zu speichern, können Sie die [[Pidgin Internet Messenger|"
-"persistent_storage/configure#pidgin]] Funktion des Persistent Storage "
-"aktivieren."
+"<p>To store your OTR keys and preferences across separate working sessions,\n"
+"you can turn on the [[Pidgin Internet Messenger|persistent_storage/configure#pidgin]]\n"
+"feature of the Persistent Storage.</p>\n"
+msgstr "Um Ihre OTR-Schlüssel und Einstellungen über separate Arbeitssitzungen hinweg zu speichern, können Sie die [[Pidgin Internet Messenger|persistent_storage/configure#pidgin]] Funktion des Persistent Storage aktivieren."
 
 #. type: Plain text
-#, no-wrap
-msgid "<div class=\"bug\">\n"
-msgstr "<div class=\"bug\">\n"
-
-#. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "In a private OTR conversation over IRC, <strong>a message sent using the\n"
+#| "<code>/me</code> command is not encrypted</strong>. The person receiving\n"
+#| "the message is notified by a warning.\n"
 msgid ""
-"In a private OTR conversation over IRC, <strong>a message sent using the\n"
-"<code>/me</code> command is not encrypted</strong>. The person receiving\n"
-"the message is notified by a warning.\n"
+"<p>In a private OTR conversation over IRC, a message sent using the\n"
+"<code>/me</code> command is not encrypted. The person receiving\n"
+"the message is notified by a warning.</p>\n"
 msgstr ""
 "In einer privaten Konversation mit OTR über IRC <strong>werden Nachrichten, die mit dem\n"
 "<code>/me</code> Befehl gesendet werden, nicht verschlüsselt</strong>. Die Person,\n"
@@ -237,6 +258,10 @@ msgstr ""
 "Versenden von Spam benutzt wird."
 
 #. type: Plain text
+msgid "- [OFTC and Tor](https://www.oftc.net/Tor/)"
+msgstr ""
+
+#. type: Plain text
 #, fuzzy
 #| msgid ""
 #| "- [Accessing freenode Via Tor](https://freenode.net/irc_servers."
@@ -245,9 +270,8 @@ msgstr ""
 #| "chat networks that block or support Tor](https://trac.torproject.org/"
 #| "projects/tor/wiki/doc/BlockingIrc)"
 msgid ""
-"- [OFTC and Tor](https://www.oftc.net/Tor/)  - [List of IRC/chat networks "
-"that block or support Tor](https://gitlab.torproject.org/legacy/trac/-/wikis/"
-"doc/BlockingIrc)"
+"- [List of IRC/chat networks that block or support Tor](https://gitlab."
+"torproject.org/legacy/trac/-/wikis/doc/BlockingIrc)"
 msgstr ""
 "- [Über Tor auf Freenode zugreifen](https://freenode.net/irc_servers."
 "shtml#tor)  (die auf der Seite genannten Hidden Services sind manchmal nicht "
@@ -299,6 +323,10 @@ msgid ""
 msgstr ""
 "Wenn Sie an diesem Problem arbeiten wollen, lesen Sie [[unsere Mithilfe-"
 "Seite|contribute/how/code]]."
+
+#, no-wrap
+#~ msgid "<div class=\"bug\">\n"
+#~ msgstr "<div class=\"bug\">\n"
 
 #~ msgid "Predefined accounts\n"
 #~ msgstr "Voreingestelle Konten\n"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:56+0200\n"
+"POT-Creation-Date: 2024-01-23 00:41+0000\n"
 "PO-Revision-Date: 2021-12-22 18:59+0000\n"
 "Last-Translator: dedmoroz <cj75300@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -118,10 +118,14 @@ msgstr ""
 "разделом <span class=\"guilabel\">Tailsdata LUKS</span>."
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Identify the device name of your Persistent Storage. The device name "
+#| "appears below the list of volumes.  It should look like <code>/dev/mapper/"
+#| "luks-xxxxxxxx</code>."
 msgid ""
 "Identify the device name of your Persistent Storage. The device name appears "
-"below the list of volumes.  It should look like <code>/dev/mapper/luks-"
-"xxxxxxxx</code>."
+"below the list of volumes.  It should look like `/dev/mapper/luks-xxxxxxxx`."
 msgstr ""
 "Обратите внимание на имя устройства вашего Постоянного хранилища. Оно "
 "показано под списком томов и выглядит примерно так: <code>/dev/mapper/luks-"
@@ -166,23 +170,32 @@ msgstr ""
 "   и введите пароль администратора.\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "In the terminal, execute the following command, replacing `[device]` with "
+#| "the device name found in step 8:"
 msgid ""
-"In the terminal, execute the following command, replacing `[device]` with "
-"the device name found in step 8:"
+"In the terminal, execute the following command. Replace <span "
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 8:"
 msgstr ""
 "В терминале выполните следующую команду (замените `[устройство]` на имя "
 "устройства, которое определили выше):"
 
 #. type: Plain text
 #, no-wrap
-msgid "        fsck -y [device]\n"
-msgstr "        fsck -y [device]\n"
+msgid "   <p class=\"command-template\">fsck -y <span class=\"command-placeholder\">device</span></p>\n"
+msgstr ""
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   To do so, you can type <span class=\"command\">fsck -y&nbsp;</span> and press\n"
+#| "   <span class=\"keycap\">Shift+Ctrl+V</span> to paste the device name from the\n"
+#| "   clipboard.\n"
 msgid ""
-"   To do so, you can type <span class=\"command\">fsck -y&nbsp;</span> and press\n"
-"   <span class=\"keycap\">Shift+Ctrl+V</span> to paste the device name from the\n"
+"   To do so, you can type <code>fsck -y&nbsp;</code> and press\n"
+"   **Shift+Ctrl+V** to paste the device name from the\n"
 "   clipboard.\n"
 msgstr ""
 "   Для этого можно ввести <span class=\"command\">fsck -y&nbsp;</span> и нажать\n"
@@ -190,24 +203,36 @@ msgstr ""
 "буфера обмена.\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "If the file system is free of errors, the last line from the output of "
+#| "<span class=\"command\">fsck</span> starts with <span "
+#| "class=\"command\">TailsData: clean</span>."
 msgid ""
-"If the file system is free of errors, the last line from the output of <span "
-"class=\"command\">fsck</span> starts with <span class=\"command\">TailsData: "
-"clean</span>."
+"If the file system is free of errors, the last line from the output of "
+"`fsck` starts with `TailsData: clean`."
 msgstr ""
 "Если в файловой системе нет ошибок, последняя строка результата работы "
 "команды <span class=\"command\">fsck</span> будет начинаться с <span "
 "class=\"command\">Tailsdata: clean</span>."
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   If the file system has errors, <span class=\"command\">fsck</span> tries to\n"
+#| "   fix them automatically. After it finishes, you can try executing the same\n"
+#| "   command again to check if all errors are solved.\n"
 msgid ""
-"   If the file system has errors, <span class=\"command\">fsck</span> tries to\n"
+"   If the file system has errors, `fsck` tries to\n"
 "   fix them automatically. After it finishes, you can try executing the same\n"
 "   command again to check if all errors are solved.\n"
 msgstr ""
 "   Если в файловой системе есть ошибки, <span class=\"command\">fsck</span> попытается\n"
 "их автоматически исправить. После этого попробуйте выполнить ту же команду, чтобы проверить, все ли ошибки устранены.\n"
+
+#, no-wrap
+#~ msgid "        fsck -y [device]\n"
+#~ msgstr "        fsck -y [device]\n"
 
 #~ msgid ""
 #~ "Click on **Unlock** to unlock the Persistent Storage. Enter the "

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-11-23 12:56+0000\n"
-"PO-Revision-Date: 2023-11-15 21:14+0000\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
+"PO-Revision-Date: 2024-01-30 14:42+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -261,12 +261,12 @@ msgstr ""
 #. type: Bullet: '1. '
 msgid ""
 "Take note of the *device name* of your USB stick.  In this example, the USB "
-"stick is 8.0 GB and its device name is <span class=\"code\">/dev/disk1</"
-"span>.  Yours might be different."
+"stick is 8.0 GB and its device name is `/dev/disk1`.  Yours might be "
+"different."
 msgstr ""
 "Preneu nota del *nom del dispositiu* del vostre llapis USB. En aquest "
-"exemple, el llapis USB té 8,0 GB i el nom del dispositiu és <span class="
-"\"code\">/dev/disk1</span>. El vostre pot ser diferent."
+"exemple, el llapis USB té 8,0 GB i el nom del dispositiu és `/dev/disk1`. El "
+"vostre pot ser diferent."
 
 #. type: Plain text
 #, no-wrap
@@ -284,34 +284,50 @@ msgstr ""
 #. type: Bullet: '1. '
 msgid ""
 "Execute the following command to safely remove the USB stick. Replace <span "
-"class=\"code\">[device]</span> with the device name found in step 6."
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
 msgstr ""
 "Executeu l'ordre següent per treure el llapis USB de manera segura. "
-"Substituïu <span class=\"code\">[dispositiu]</span> pel nom del dispositiu "
-"que es troba al pas 6."
+"Substituïu <span class=\"command-placeholder\">dispositiu</span> pel nom del "
+"dispositiu que es troba al pas 6."
 
 #. type: Plain text
 #, no-wrap
-msgid "       diskutil unmountDisk [device]\n"
-msgstr "       diskutil unmountDisk [dispositiu]\n"
+msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+msgstr ""
+"   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-"
+"placeholder\">dispositiu</span></p>\n"
 
 #. type: Bullet: '2. '
 msgid ""
-"Execute the following command to format the USB stick. Replace <span class="
-"\"code\">[device]</span> with the device name found in step 6."
+"Execute the following command to format the USB stick. Replace <span "
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
 msgstr ""
-"Executeu l'ordre següent per formatar el llapis USB. Substituïu <span class="
-"\"code\">[dispositiu]</span> pel nom del dispositiu que es troba al pas 6."
+"Executeu l'ordre següent per formatar el llapis USB. Substituïu <span class"
+"=\"command-placeholder\">dispositiu</span> pel nom del dispositiu que es "
+"troba al pas 6."
 
 #. type: Plain text
 #, no-wrap
-msgid "       sudo fdisk -iy [device]\n"
-msgstr "       sudo fdisk -iy [dispositiu]\n"
+msgid "   <p class=\"command-template\">sudo fdisk -iy <span class=\"command-placeholder\">device</span></p>\n"
+msgstr ""
+"   <p class=\"command-template\">sudo fdisk -iy <span class=\"command-"
+"placeholder\">dispositiu</span></p>\n"
 
 #. type: Bullet: '1. '
 msgid ""
-"You can try to reset the USB stick again using <span class=\"application"
-"\">Disk Utility</span> from the beginning of this page."
+"You can try to reset the USB stick again using <span "
+"class=\"application\">Disk Utility</span> from the beginning of this page."
 msgstr ""
-"Podeu provar de restablir el llapis USB de nou mitjançant la <span class="
-"\"application\">Utilitat de disc</span> des del principi d'aquesta pàgina."
+"Podeu provar de restablir el llapis USB de nou mitjançant la <span "
+"class=\"application\">Utilitat de disc</span> des del principi d'aquesta "
+"pàgina."
+
+#, no-wrap
+#~ msgid "       diskutil unmountDisk [device]\n"
+#~ msgstr "       diskutil unmountDisk [dispositiu]\n"
+
+#, no-wrap
+#~ msgid "       sudo fdisk -iy [device]\n"
+#~ msgstr "       sudo fdisk -iy [dispositiu]\n"

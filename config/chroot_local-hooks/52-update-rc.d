@@ -15,6 +15,7 @@ systemctl enable tails-allow-external-TailsData-access.service
 systemctl enable tails-autotest-broken-gnome-shell.service
 systemctl enable tails-autotest-remote-shell.service
 systemctl enable tails-create-netns.service
+systemctl enable tails-detect-disk-errors.service
 systemctl enable tails-persistent-storage.service
 systemctl enable tails-remove-overlayfs-dirs.service
 systemctl enable tails-set-wireless-devices-state.service
@@ -30,6 +31,7 @@ systemctl enable var-tmp.mount
 systemctl --global enable tails-add-GNOME-bookmarks.service
 systemctl --global enable tails-additional-software-install.service
 systemctl --global enable tails-configure-keyboard.service
+systemctl --global enable tails-report-disk-errors.service
 systemctl --global enable tails-security-check.service
 systemctl --global enable tails-upgrade-frontend.service
 systemctl --global enable tails-virt-notify-user.service

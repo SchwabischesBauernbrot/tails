@@ -92,26 +92,23 @@ Examples of additional useful software
 Language packs
 --------------
 
-- for <span class="application">LibreOffice</span>: <span class="command">libreoffice-l10n-<span class="command-placeholder">lang</span></span>
-- for <span class="application">Thunderbird</span>: <span class="command">thunderbird-l10n-<span class="command-placeholder">lang</span></span>
+- For *LibreOffice*: <code>libreoffice-l10n-<span class="command-placeholder">lang</span></code>
+
+- For *Thunderbird*: <code>thunderbird-l10n-<span class="command-placeholder">lang</span></code>
 
 Replace <span class="command-placeholder">lang</span> with the code for your
-language. For example, <span class="command">es</span> for Spanish or
-<span class="command">de</span> for German.
+language. For example, `es` for Spanish or `de` for German.
 
 Spell-checking dictionaries
 ---------------------------
 
-- <span class="command">hunspell-<span class="command-placeholder">lang</span></span>
+- <code>hunspell-<span class="command-placeholder">lang</span></code>
 
-The <span class="command">hunspell</span> dictionaries are used for
-spell-checking by <span class="application">Tor Browser</span>,
-<span class="application">LibreOffice</span>,
-<span class="application">Thunderbird</span>, and many other applications.
+The `hunspell` dictionaries are used for spell-checking by *Tor Browser*,
+*LibreOffice*, *Thunderbird*, and many other applications.
 
 Replace <span class="command-placeholder">lang</span> with the code for your
-language. For example, <span class="command">es</span> for Spanish or
-<span class="command">de</span> for German.
+language. For example, `es` for Spanish or `de` for German.
 
 Installing additional software
 ==============================
@@ -138,8 +135,7 @@ To install a package using <span class="application">Synaptic</span>:
 
 <div class="tip">
 
-<p>If you are comfortable with the command line, you can use the <span
-class="command">apt</span> command instead.</p>
+<p>If you are comfortable with the command line, you can use <code>apt</code> instead.</p>
 
 </div>
 
@@ -153,7 +149,7 @@ To install an additional package automatically when starting Tails:
    Persistent Storage.
 
 1. Install the package using *Synaptic* or
-   the <span class="command">apt</span> command.
+   the `apt` command.
 
 1. After the package is installed,
    a notification appears to ask if you want to install this package
@@ -217,15 +213,15 @@ A. Configure the application to use Tor as a proxy with the following parameters
 B. Run the application using `torsocks` on the command line.
 
    Execute the following command in a *Terminal*. Replace <span
-   class="command-placeholder">[application]</span> with the command line of the
+   class="command-placeholder">application</span> with the command line of the
    application that you want to run:
 
-   <p class="pre command">torsocks <span class="command-placeholder">[application]</span></p>
+   <p class="command-template">torsocks <span class="command-placeholder">application</span></p>
 
    For example, to use *Mumble* in Tails, you can also execute the following
    command:
 
-    torsocks mumble
+   <p class="command">torsocks mumble</p>
 
 ### Technical networking considerations
 
@@ -296,7 +292,7 @@ When you installed the package, if you chose:
 
     1. Click <span class="bold">Apply</span> to remove the package.
 
-  - From the command line using <span class="application">apt</span>.
+  - From the command line using `apt`.
 
   After the package is removed, a notification appears to ask if you want to
   remove this package from your list of additional software.
@@ -319,7 +315,7 @@ After you installed many packages that you are not using anymore, you can free s
 
 1. Execute the following command:
 
-       apt clean
+   <p class="command">apt clean</p>
 
 Configuring additional APT repositories  (for advanced users)
 =============================================================
@@ -347,7 +343,7 @@ example, to install packages from the `non-free` section of Debian. To do so:
 1. Create an <span class="filename">apt-sources.list.d</span> folder in your
    Persistent Storage:
 
-       sudo install -d -m 755 /live/persistence/TailsData_unlocked/apt-sources.list.d
+   <p class="command">sudo install -d -m 755 /live/persistence/TailsData_unlocked/apt-sources.list.d</p>
 
 1. As root, edit */live/persistence/TailsData_unlocked/persistence.conf*,
    the configuration of the Persistent Storage, and add the
@@ -357,15 +353,17 @@ example, to install packages from the `non-free` section of Debian. To do so:
        /etc/apt/sources.list.d	source=apt-sources.list.d,link
 
 1. Write your additional `sources.list` files in the
-   <span class="filename">apt-sources.list.d</span> folder. For example, to add
-   the `non-free` sections of Debian 10 (Buster), backports, and security
+   *apt-sources.list.d* folder.
+
+   For example, to add
+   the `non-free` sections of Debian 11 (Bullseye), backports, and security
    updates, you can create a file named
-   <span class="filename">/live/persistence/TailsData_unlocked/apt-sources.list.d/non-free.list</span>
+   */live/persistence/TailsData_unlocked/apt-sources.list.d/non-free.list*
    with the following content:
 
-       deb tor+http://ftp.us.debian.org/debian/ buster non-free
-       deb tor+http://ftp.us.debian.org/debian/ buster-backports non-free
-       deb tor+http://security.debian.org/ buster/updates non-free
+       deb tor+http://ftp.us.debian.org/debian/ bullseye non-free
+       deb tor+http://ftp.us.debian.org/debian/ bullseye-backports non-free
+       deb tor+http://security.debian.org/ bullseye/updates non-free
 
    File names must end with *.list* and must only contain the following
    characters: letters, digits, underscore, hyphen, and period.

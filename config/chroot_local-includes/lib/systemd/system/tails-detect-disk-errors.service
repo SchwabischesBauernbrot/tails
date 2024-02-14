@@ -1,0 +1,14 @@
+[Unit]
+Description=Detect if disk resizing failed and create a flag file
+
+[Service]
+ExecStart=/bin/sh -c \
+   '. /usr/local/lib/tails-shell-library/hardware.sh ; \
+        partition_needs_resizing && echo "partition-resize-failed" >> /var/lib/live/config/tails.disk-errors; \
+      true '
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target
+
+

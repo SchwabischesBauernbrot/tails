@@ -131,6 +131,20 @@ Feature: Browsing the web using the Tor Browser
     Then "Tails - How Tails works" has loaded in the Tor Browser
     And I can print the current page as "output.pdf" to the persistent Tor Browser directory
 
+  Scenario Outline: The default XDG directories are usable in Tor Browser
+    Given I have started Tails from DVD without network and logged in
+    Then the amnesiac <dir> directory exists
+    And there is a GNOME bookmark for the amnesiac <dir> directory
+    Then I start the Tor Browser in offline mode
+    And I can save the current page as "index.html" to the <dir> GNOME bookmark
+    Examples:
+      | dir |
+      | Documents |
+      | Downloads |
+      | Music |
+      | Pictures |
+      | Videos |
+
   Scenario: Persistent browser bookmarks
     Given I have started Tails without network from a USB drive with a persistent partition enabled and logged in
     And all tps features are active

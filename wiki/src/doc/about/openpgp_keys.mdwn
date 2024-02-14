@@ -74,9 +74,10 @@ encryption subkey.
 
 Its only purpose is:
 
-- to sign Tails released images;
-- to certify other cryptographic public keys needed for Tails
-  development.
+- To sign Tails released images
+
+- To certify other cryptographic public keys needed for Tails
+  development
 
 Policy
 ------
@@ -86,30 +87,37 @@ systems managed by anyone other than Tails core developers.
 
 ### Primary key
 
-* Is not owned in a usable format by any single individual. It is
+- Is not owned in a usable format by any single individual. It is
   split cryptographically using
   [gfshare](https://git.gitano.org.uk/libgfshare.git/).
-* Is only used offline, in an air-gapped Tails only communicating with
+
+- Is only used offline, in an air-gapped Tails only communicating with
   the outside world through:
-  - Plugging the Tails flash media in another operating system to install Tails
+
+  * Plugging the Tails flash media in another operating system to install Tails
     in the first place.
-  - Plugging other removable media in the air-gapped Tails to send the
+
+  * Plugging other removable media in the air-gapped Tails to send the
     public key, secret key stubs, parts of the secret master key, and so on
     to the outside world.
-  - Plugging other removable media in the air-gapped Tails to receive Debian
+
+  * Plugging other removable media in the air-gapped Tails to receive Debian
     packages, public keys, and so on from the outside world.
-* Expires in less than one year. We will extend its validity as many
+
+- Expires in less than one year. We will extend its validity as many
   times as we find reasonable.
-* Has a revocation certificate split amongst different people.
+
+- Has a revocation certificate split amongst different people.
   See the [[details of the mechanism|signing_key_revocation]].
 
 ### Signing subkeys
 
-* Stored on OpenPGP smartcards owned by those who need them.
+- Stored on OpenPGP smartcards owned by those who need them.
   Smartcards ensure that the cryptographic operations are done on the
   smartcard itself and that the secret cryptographic material is not
   directly available to the operating system using it.
-* Expiration date: same as the primary key.
+
+- Expiration date: same as the primary key.
 
 Key details
 -----------
@@ -142,9 +150,10 @@ Purpose
 
 ### Encryption
 
-  - Use this key to encrypt private support requests sent to
-    [[tails-support-private@boum.org|about/contact#tails-support-private]].
-  - This same key is used to handle [[*WhisperBack* reports|first_steps/bug_reporting]].
+- Use this key to encrypt private support requests sent to
+  [[tails-support-private@boum.org|about/contact#tails-support-private]].
+
+- This same key is used to handle [[*WhisperBack* reports|first_steps/bug_reporting]].
 
 Policy
 ------
@@ -170,8 +179,9 @@ How to get the public key?
 
 There are multiple ways to get this OpenPGP public key:
 
-  - download it from this website: [[!tails_website tails-bugs.key]]
-  - fetch it from your favourite keyserver.
+- Download it from this website: [[!tails_website tails-bugs.key]].
+
+- Fetch it from your favourite keyserver.
 
 <a id="press"></a>
 
@@ -183,8 +193,8 @@ Purpose
 
 ### Encryption
 
-  - Use this key to encrypt private emails sent to
-    [[tails-press@boum.org|about/contact#tails-press]].
+- Use this key to encrypt private emails sent to
+  [[tails-press@boum.org|about/contact#tails-press]].
 
 Key details
 -----------
@@ -201,8 +211,9 @@ How to get the public key?
 
 There are multiple ways to get this OpenPGP public key:
 
-  - download it from this website: [[!tails_website tails-press.key]]
-  - fetch it from your favourite keyserver.
+- Download it from this website: [[!tails_website tails-press.key]].
+
+- Fetch it from your favourite keyserver.
 
 <a id="board"></a>
 
@@ -214,7 +225,7 @@ Purpose
 
 ### Encryption
 
-  - Use this key to encrypt private emails sent to the [[Board|about/contact#board]].
+- Use this key to encrypt private emails sent to the [[Board|about/contact#board]].
 
 Key details
 -----------
@@ -231,8 +242,9 @@ How to get the public key?
 
 There are multiple ways to get this OpenPGP public key:
 
-  - download it from this website: [[!tails_website tails-board.key]]
-  - fetch it from your favourite keyserver.
+- Download it from this website: [[!tails_website tails-board.key]].
+
+- Fetch it from your favourite keyserver.
 
 <a id="accounting"></a>
 
@@ -244,8 +256,8 @@ Purpose
 
 ### Encryption
 
-  - Use this key to encrypt private emails sent to
-    [[tails-accounting@boum.org|about/contact#tails-acccounting]].
+- Use this key to encrypt private emails sent to
+  [[tails-accounting@boum.org|about/contact#tails-acccounting]].
 
 Key details
 -----------
@@ -262,8 +274,9 @@ How to get the public key?
 
 There are multiple ways to get this OpenPGP public key:
 
-  - download it from this website: [[!tails_website tails-accounting.key]]
-  - fetch it from your favourite keyserver.
+- Download it from this website: [[!tails_website tails-accounting.key]].
+
+- Fetch it from your favourite keyserver.
 
 <a id="fundraising"></a>
 
@@ -275,8 +288,8 @@ Purpose
 
 ### Encryption
 
-  - Use this key to encrypt private emails sent to
-    [[tails-fundraising@boum.org|about/contact#tails-fundraising]].
+- Use this key to encrypt private emails sent to
+  [[tails-fundraising@boum.org|about/contact#tails-fundraising]].
 
 Key details
 -----------
@@ -293,8 +306,9 @@ How to get the public key?
 
 There are multiple ways to get this OpenPGP public key:
 
-  - download it from this website: [[!tails_website tails-fundraising.key]]
-  - fetch it from your favourite keyserver.
+- Download it from this website: [[!tails_website tails-fundraising.key]].
+
+- Fetch it from your favourite keyserver.
 
 <a id="foundations"></a>
 
@@ -306,8 +320,8 @@ Purpose
 
 ### Encryption
 
-  - Use this key to encrypt private emails sent to
-    [[tails-foundations@boum.org|about/contact#tails-foundations]].
+- Use this key to encrypt private emails sent to
+  [[tails-foundations@boum.org|about/contact#tails-foundations]].
 
 Key details
 -----------
@@ -324,8 +338,9 @@ How to get the public key?
 
 There are multiple ways to get this OpenPGP public key:
 
-  - download it from this website: [[!tails_website tails-foundations.key]]
-  - fetch it from your favourite keyserver.
+- Download it from this website: [[!tails_website tails-foundations.key]].
+
+- Fetch it from your favourite keyserver.
 
 <a id="mirrors"></a>
 
@@ -337,8 +352,8 @@ Purpose
 
 ### Encryption
 
-  - Use this key to encrypt private emails sent to
-    [[tails-mirrors@boum.org|about/contact#tails-mirrors]].
+- Use this key to encrypt private emails sent to
+  [[tails-mirrors@boum.org|about/contact#tails-mirrors]].
 
 Key details
 -----------
@@ -355,8 +370,9 @@ How to get the public key?
 
 There are multiple ways to get this OpenPGP public key:
 
-  - download it from this website: [[!tails_website tails-mirrors.key]]
-  - fetch it from your favourite keyserver.
+- Download it from this website: [[!tails_website tails-mirrors.key]].
+
+- Fetch it from your favourite keyserver.
 
 <a id="sysadmins"></a>
 
@@ -368,8 +384,8 @@ Purpose
 
 ### Encryption
 
-  - Use this key to encrypt private emails sent to
-    [[tails-sysadmins@boum.org|about/contact#tails-sysadmins]].
+- Use this key to encrypt private emails sent to
+  [[tails-sysadmins@boum.org|about/contact#tails-sysadmins]].
 
 Key details
 -----------
@@ -386,8 +402,9 @@ How to get the public key?
 
 There are multiple ways to get this OpenPGP public key:
 
-  - download it from this website: [[!tails_website tails-sysadmins.key]]
-  - fetch it from your favourite keyserver.
+- Download it from this website: [[!tails_website tails-sysadmins.key]].
+
+- Fetch it from your favourite keyserver.
 
 <a id="weblate"></a>
 
@@ -399,8 +416,8 @@ Purpose
 
 ### Encryption
 
-  - Use this key to encrypt private emails sent to
-    [[the admins of the translation platform at tails-weblate@boum.org|about/contact#tails-weblate]].
+- Use this key to encrypt private emails sent to
+  [[the admins of the translation platform at tails-weblate@boum.org|about/contact#tails-weblate]].
 
 Key details
 -----------
@@ -417,5 +434,6 @@ How to get the public key?
 
 There are multiple ways to get this OpenPGP public key:
 
-  - download it from this website: [[!tails_website tails-weblate.key]]
-  - fetch it from your favourite keyserver.
+- Download it from this website: [[!tails_website tails-weblate.key]].
+
+- Fetch it from your favourite keyserver.

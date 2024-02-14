@@ -1,7 +1,9 @@
 [[!meta title="Known issues"]]
 
 - To learn what you can do with Tails, refer to our [[documentation|doc]].
+
 - For more general questions about Tails, refer to our [[FAQ|support/faq]].
+
 - For issues with graphics cards, see our [[known issues with graphics cards|known_issues/graphics]].
 
 [[!toc levels=2]]
@@ -102,9 +104,11 @@ then `Filesystem Tails` and `EFI/BOOT/BOOTX64.EFI`.
 
 That workaround applied to, at least, the following HP ProBook:
 
-* 5330m
-* 4330s
-* 6560b
+- 5330m
+
+- 4330s
+
+- 6560b
 
 <h3 id="system76-oryx-pro">System76 Oryx Pro</h3>
 
@@ -169,7 +173,7 @@ Last updated: 2019-05-20
 
 On some laptops, Tails starts with the following error:
 
-<p class="pre">soft lockup - CPU#<span class="command-placeholder">N</span> stuck for <span class="command-placeholder">N</span>s</p>
+<p class="code">soft lockup - CPU#<span class="command-placeholder">N</span> stuck for <span class="command-placeholder">N</span>s</p>
 
 To start Tails successfully, try to [[add the following boot option when starting
 Tails|doc/advanced_topics/boot_options]]:
@@ -389,9 +393,11 @@ Last updated: 2020-02-22
 
 On some computers, _Tor Browser_ and _Thunderbird_ are displayed incorrectly:
 
- - The application window is initially empty and white.
- - The icons and menus only appear when hovered by the mouse.
- - The contents of the window is only displayed in stripes when scrolling.
+- The application window is initially empty and white.
+
+- The icons and menus only appear when hovered by the mouse.
+
+- The contents of the window is only displayed in stripes when scrolling.
 
 To workaround this issue, [[add the following boot option when
 starting Tails|doc/advanced_topics/boot_options]]:
@@ -400,8 +406,9 @@ starting Tails|doc/advanced_topics/boot_options]]:
 
 This problem affects at least the following computers:
 
- - MacBookPro11,5
- - other MacBooks with a Radeon R9 graphics adapter
+- MacBookPro11,5
+
+- Other MacBooks with a Radeon R9 graphics adapter
 
 <h2 id="acer-swift-3">Acer Swift 3</h3>
 
@@ -443,7 +450,7 @@ Sometimes, after an automatic upgrade, your Tails might either:
 
 - Fail to start. Often after the message:
 
-  <pre>Loading, please wait...</pre>
+      Loading, please wait...
 
 - Behave weirdly. For example, your keyboard does not work or you cannot
   connect to a network.

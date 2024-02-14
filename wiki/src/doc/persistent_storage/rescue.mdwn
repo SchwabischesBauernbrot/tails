@@ -70,15 +70,13 @@ stick|backup]].</p>
 1. Execute the following command to rescue the Persistent Storage of your
    broken Tails to your new Tails:
 
-<p class="pre command root">rsync -PaSHAXv --del /media/amnesia/TailsData/ /live/persistence/TailsData_unlocked</p>
+   <p class="command-root">rsync -PaSHAXv --del /media/amnesia/TailsData/ /live/persistence/TailsData_unlocked</p>
 
-When the command finishes, it displays a summary of the data that was copied. For example:
+   When the command finishes, it displays a summary of the data that was copied. For example:
 
-<pre>
-sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec
-total size is 32.30M  speedup is 1.00
-</pre>
+       sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec
+       total size is 32.30M  speedup is 1.00
 
-You can now eject the <span class="guilabel">TailsData</span> volume in the
-<span class="application">Files</span> browser and unplug the USB stick that
-has your broken Tails on it.
+   You can now eject the <span class="guilabel">TailsData</span> volume in the
+   <span class="application">Files</span> browser and unplug the USB stick that
+   has your broken Tails on it.

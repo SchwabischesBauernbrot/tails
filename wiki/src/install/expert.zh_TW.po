@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails l10n\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-11-24 19:03+0000\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
 "PO-Revision-Date: 2023-08-02 10:22+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: Tails Chinese translators <jxt@twngo.xyz>\n"
@@ -132,12 +132,13 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"       wget https://tails.net/tails-signing.key\n"
-"       gpg --import < tails-signing.key\n"
+msgid "   <p class=\"command\">wget https://tails.net/tails-signing.key</p>\n"
 msgstr ""
-"       wget https://tails.net/tails-signing.key\n"
-"       gpg --import < tails-signing.key\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "   <p class=\"command\">gpg --import < tails-signing.key</p>\n"
+msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
@@ -147,22 +148,22 @@ msgstr "安裝 Debian 密鑰錬，其包含了所有 Debian 開發人員的 Open
 
 #. type: Plain text
 #, no-wrap
-msgid "       sudo apt update && sudo apt install debian-keyring\n"
+msgid "   <p class=\"command\">sudo apt update && sudo apt install debian-keyring</p>\n"
 msgstr ""
 
 #. type: Bullet: '1. '
 #, fuzzy
 msgid ""
-"Import the OpenPGP key of [[!wikipedia Chris_Lamb_(software_developer) desc="
-"\"Chris Lamb\"]], a former Debian Project Leader, from the Debian keyring "
-"into your keyring:"
+"Import the OpenPGP key of [[!wikipedia Chris_Lamb_(software_developer) "
+"desc=\"Chris Lamb\"]], a former Debian Project Leader, from the Debian "
+"keyring into your keyring:"
 msgstr ""
 "自 Debian 密鑰圈中滙入 [[!wikipedia Stefano_Zacchiroli]]的OpenPGP-密鑰 ,到自"
 "己的密鑰圈裏。這是一任 Debian 前任專案開發隊長的密鑰:"
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "       gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export chris@chris-lamb.co.uk | gpg --import\n"
+msgid "   <p class=\"command\">gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export chris@chris-lamb.co.uk | gpg --import</p>\n"
 msgstr "       gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export zack@upsilon.cc | gpg --import\n"
 
 #. type: Bullet: '1. '
@@ -170,8 +171,8 @@ msgid "Verify the certifications made on the Tails signing key:"
 msgstr "核實 Tails 簽名密鑰所弄的證明："
 
 #. type: Plain text
-#, no-wrap
-msgid "       gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F\n"
+#, fuzzy, no-wrap
+msgid "   <p class=\"command\">gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 msgstr "       gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F\n"
 
 #. type: Plain text
@@ -187,7 +188,7 @@ msgstr "       sig!         0x1E953E27D4311E58 2020-03-19  Chris Lamb <chris@chr
 #. type: Plain text
 #, fuzzy, no-wrap
 msgid ""
-"   Here, <code>sig!2</code> means that Chris\n"
+"   Here, `sig!2` means that Chris\n"
 "   Lamb verified and certified the Tails signing key with his key and a level 2 check.\n"
 msgstr ""
 "   這個 <code>sig!</code>, 帶有驚嘆符號, 代表　Stefano\n"
@@ -225,7 +226,7 @@ msgstr ""
 #, fuzzy, no-wrap
 msgid ""
 "   <div class=\"tip\">\n"
-"   <p>The line <span class=\"command\">175 signatures not checked due to missing keys</span> or similar\n"
+"   <p>The line <code>175 signatures not checked due to missing keys</code> or similar\n"
 "   refers to the certifications (also called <i>signatures</i>) made by other public\n"
 "   keys that are not in your keyring. This is not a problem.</p>\n"
 "   </div>\n"
@@ -241,8 +242,8 @@ msgid "Certify the Tails signing key with your own key:"
 msgstr "用自己的金鑰來證明 Tails  簽名金鑰。"
 
 #. type: Plain text
-#, no-wrap
-msgid "       gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F\n"
+#, fuzzy, no-wrap
+msgid "   <p class=\"command\">gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 msgstr "       gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F\n"
 
 #. type: Plain text
@@ -262,7 +263,7 @@ msgstr "下載 ISO-映像檔："
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "   <p class=\"pre\">wget --continue [[!inline pages=\"inc/stable_amd64_img_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
+msgid "   <p class=\"command-template\">wget --continue [[!inline pages=\"inc/stable_amd64_img_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
 msgstr "   <p class=\"pre\">wget --continue [[!inline pages=\"inc/stable_amd64_iso_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #. type: Plain text
@@ -289,7 +290,7 @@ msgstr "下載 ISO-映像檔簽名："
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "   <p class=\"pre\">wget [[!inline pages=\"inc/stable_amd64_img_sig_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
+msgid "   <p class=\"command\">wget [[!inline pages=\"inc/stable_amd64_img_sig_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
 msgstr "   <p class=\"pre\">wget [[!inline pages=\"inc/stable_amd64_iso_sig_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #. type: Bullet: '1. '
@@ -299,7 +300,7 @@ msgstr "利用Tails 的簽名金鑰來核實  ISO 映像檔的簽名："
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "   <p class=\"pre\">[[!inline pages=\"inc/stable_amd64_img_gpg_verify\" raw=\"yes\" sort=\"age\"]]</p>\n"
+msgid "   <p class=\"command\">[[!inline pages=\"inc/stable_amd64_img_gpg_verify\" raw=\"yes\" sort=\"age\"]]</p>\n"
 msgstr "   <p class=\"pre\">[[!inline pages=\"inc/stable_amd64_gpg_verify\" raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #. type: Plain text
@@ -309,7 +310,7 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "   <p class=\"pre\">[[!inline pages=\"inc/stable_amd64_img_gpg_signature_output\" raw=\"yes\" sort=\"age\"]]</p>\n"
+msgid "   <p class=\"code\">[[!inline pages=\"inc/stable_amd64_img_gpg_signature_output\" raw=\"yes\" sort=\"age\"]]</p>\n"
 msgstr "   <p class=\"pre\">[[!inline pages=\"inc/stable_amd64_gpg_signature_output\" raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #. type: Plain text
@@ -317,21 +318,22 @@ msgstr "   <p class=\"pre\">[[!inline pages=\"inc/stable_amd64_gpg_signature_out
 msgid "   Verify in this output that:\n"
 msgstr "   核實這個結果為：\n"
 
-#. type: Bullet: '     - '
+#. type: Bullet: '   - '
 msgid "The date of the signature is the same."
 msgstr "簽名的日期相同。"
 
-#. type: Bullet: '     - '
+#. type: Bullet: '   - '
+#, fuzzy
 msgid ""
-"The signature is marked as <code>Good signature</code> since you certified "
-"the Tails signing key with your own key."
+"The signature is marked as `Good signature` since you certified the Tails "
+"signing key with your own key."
 msgstr ""
 "簽名標記為<code>Good signature</code> ，因為已利用自己的密鑰來認證 Tails 的簽"
 "名密鑰。"
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "<h1 id=\"install\" class=\"step\">Install Tails using <span class=\"command\">dd</span></h1>\n"
+msgid "<h1 id=\"install\" class=\"step\">Install Tails using <code>dd</code></h1>\n"
 msgstr "安裝 <span class=\"application\">Tails Installer</span>\n"
 
 #. type: Plain text
@@ -349,9 +351,9 @@ msgid "Execute the following command:"
 msgstr ""
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command\">ls -1 /dev/sd?</p>\n"
-msgstr ""
+#, fuzzy, no-wrap
+msgid "   <p class=\"command\">ls -1 /dev/sd?</p>\n"
+msgstr "安裝 <span class=\"application\">Tails Installer</span>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -360,7 +362,7 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"pre command-output\">/dev/sda</p>\n"
+msgid "       dev/sda\n"
 msgstr ""
 
 #. type: Bullet: '1. '
@@ -384,8 +386,8 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   <p class=\"pre command-output\">/dev/sda\n"
-"   /dev/sdb</p>\n"
+"       /dev/sda\n"
+"       /dev/sdb\n"
 msgstr ""
 
 #. type: Bullet: '1. '
@@ -396,7 +398,7 @@ msgstr ""
 #, no-wrap
 msgid ""
 "   In this example, the device name of the USB stick is\n"
-"   <span class=\"code\">/dev/sdb</span>. Yours might be different.\n"
+"   `/dev/sdb`. Yours might be different.\n"
 msgstr ""
 
 #. type: Plain text
@@ -433,7 +435,7 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M oflag=direct status=progress</p>\n"
+msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M oflag=direct status=progress</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -443,7 +445,7 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"pre command-example\">dd if=/home/user/tails-amd64-3.12.img of=/dev/sdb bs=16M oflag=direct status=progress</p>\n"
+msgid "   <p class=\"command-template\">dd if=/home/user/tails-amd64-3.12.img of=/dev/sdb bs=16M oflag=direct status=progress</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -454,19 +456,26 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
+#, fuzzy, no-wrap
+msgid "   <div class=\"note\">\n"
+msgstr "<div class=\"note\">\n"
+
+#. type: Plain text
 #, no-wrap
 msgid ""
-"   <div class=\"note\">\n"
-"   <p>If you get a <span class=\"guilabel\">Permission denied</span> error, try\n"
+"   <p>If you get a <code>Permission denied</code> error, try\n"
 "   adding <code>sudo</code> at the beginning of the command:</p>\n"
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"   <p class=\"pre command\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M oflag=direct status=progress</p>\n"
-"   </div>\n"
+msgid "   <p class=\"command-example\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M oflag=direct status=progress</p>\n"
 msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+msgid "   </div>\n"
+msgstr "</div>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -484,6 +493,14 @@ msgid "[[!inline pages=\"install/inc/steps/welcome.inline\" raw=\"yes\" sort=\"a
 msgstr "[[!inline pages=\"install/inc/steps/welcome.inline.zh_TW\" raw=\"yes\" sort=\"age\"]]\n"
 
 #, no-wrap
+#~ msgid ""
+#~ "       wget https://tails.net/tails-signing.key\n"
+#~ "       gpg --import < tails-signing.key\n"
+#~ msgstr ""
+#~ "       wget https://tails.net/tails-signing.key\n"
+#~ "       gpg --import < tails-signing.key\n"
+
+#, no-wrap
 #~ msgid "[[!meta robots=\"noindex\"]]\n"
 #~ msgstr "[[!meta robots=\"noindex\"]]\n"
 
@@ -494,10 +511,6 @@ msgstr "[[!inline pages=\"install/inc/steps/welcome.inline.zh_TW\" raw=\"yes\" s
 #, fuzzy, no-wrap
 #~ msgid "<a id=\"dd\"></a>\n"
 #~ msgstr "<a id=\"download\"></a>\n"
-
-#, fuzzy, no-wrap
-#~ msgid "Install Tails using <span class=\"command\">dd</span>"
-#~ msgstr "安裝 <span class=\"application\">Tails Installer</span>\n"
 
 #~ msgid ""
 #~ "   a. To make a non-exportable certification that will never be shared\n"
