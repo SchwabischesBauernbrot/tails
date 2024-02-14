@@ -38,6 +38,7 @@ module RemoteShell
       socket.puts(JSON.dump([id] + args))
       socket.flush
       return if opts[:spawn]
+
       loop do
         # Calling socket.readline() and then just wait for the data to
         # arrive is prone to stalling for some reason. A timed read()

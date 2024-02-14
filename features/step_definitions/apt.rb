@@ -98,7 +98,7 @@ Then /^I install "(.+)" using apt$/ do |package|
     Timeout.timeout(3 * 60) do
       $vm.spawn("echo #{@sudo_password} | " \
                 "sudo -S DEBIAN_PRIORITY=critical apt -y install #{package}",
-                user:  LIVE_USER)
+                user: LIVE_USER)
       wait_for_package_installation(package)
     end
   end
