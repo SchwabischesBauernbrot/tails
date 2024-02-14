@@ -13,6 +13,7 @@ enough to totally protect you while browsing the web:
 
 - Cookies can be used to track and identify you across different
   websites.
+
 - Security vulnerabilities in JavaScript have been used to [deanonymize Tor Browser in the
   past](https://arstechnica.com/information-technology/2013/08/attackers-wield-firefox-exploit-to-uncloak-anonymous-tor-users/).
 
@@ -32,38 +33,45 @@ connected to the Tor network:
 Make sure that you are:
 
 1. [[Connected to a local network|anonymous_internet/networkmanager]]
+
 1. [[Connected to the Tor network|anonymous_internet/tor]]
 
 <h1 id="confinement">AppArmor confinement, downloading, and uploading files</h1>
 
-<span class="application">Tor Browser</span> in Tails is confined with
-[[!debwiki AppArmor]] to protect the system and your data from some
-types of attacks against <span class="application">Tor Browser</span>.
-As a consequence, <span class="application">Tor Browser</span> in Tails can
-only read and write to a limited number of folders.
+*Tor Browser* can only read and write to the following folders:
+
+- *Documents*
+- *Downloads*
+- *Music*
+- *Pictures*
+- *Videos*
+- *Tor Browser*
+- *Persistent/Tor Browser*, if you have a Persistent Storage
+
+This is because, in Tails, *Tor Browser* is confined using
+*[[!debwiki AppArmor]]* to protect your files from some
+types of attacks against *Tor Browser*.
+
+For example, thanks to this confinement, even if an attacker manages to exploit
+a security vulnerability in *Tor Browser*, they wouldn't be able to access all
+the content of your Persistent Storage.
 
 <div class="note">
 
-<p>This is why, for example, you might face <em>Permission
-denied</em> errors if you try to download files to the
-<em>Home</em> folder.</p>
+<p>This is why you get the following error if you try to download files to
+another folder:</p>
+
+<p class="code">Could not read the contents of <span class="command-placeholder">folder</span>.</p>
+
+<p class="code">Error opening directory <span class="command-placeholder">folder</span>: Permission denied</p>
 
 </div>
 
-- You can save files from <span class="application">Tor
-Browser</span> to the <span class="filename">Tor Browser</span> folder
-that is located in the <span class="filename">Home</span> folder.
-The content of this folder will disappear once you shut down Tails.
+- If you want to download a file from *Tor Browser*, save it to one of these
+  folders.
 
-- If you want to upload files with <span class="application">Tor
-Browser</span>, copy them to that folder first.
-
-- If you turned on the [[Persistent Folder|persistent_storage/configure#persistent_folder]]
-feature of the Persistent Storage, you can also use the
-*Persistent/Tor Browser* folder
-to download and upload files from *Tor Browser*. The
-content of the *Persistent/Tor Browser* folder is saved across different
-working sessions.
+- If you want to upload a file from *Tor Browser*, copy it first to one of
+  these folders.
 
 <div class="tip">
 
@@ -157,8 +165,9 @@ rewriting all requests to these sites to HTTPS.
 
 To learn more about HTTPS Everywhere, you can see:
 
- - the [HTTPS Everywhere homepage](https://www.eff.org/https-everywhere)
- - the [HTTPS Everywhere FAQ](https://www.eff.org/https-everywhere/faq/)
+- The [HTTPS Everywhere homepage](https://www.eff.org/https-everywhere)
+
+- The [HTTPS Everywhere FAQ](https://www.eff.org/https-everywhere/faq/)
 
 <h1 id="javascript">Protection against dangerous JavaScript</h1>
 
@@ -241,9 +250,11 @@ To switch to a new identity, choose
 The New Identity feature of
 <i>Tor Browser</i>:
 
-  - Closes all open tabs.
-  - Clears the session state including cache, history, and cookies.
-  - Closes all existing web connections and creates new Tor circuits.
+- Closes all open tabs.
+
+- Clears the session state including cache, history, and cookies.
+
+- Closes all existing web connections and creates new Tor circuits.
 
 <div class="caution">
 
@@ -266,6 +277,7 @@ For more details, see the [design and implementation of the Tor Browser](https:/
 
 - Protect from more JavaScript attacks. For example, cross-site
   scripting (XSS) attacks.
+
 - Allow you to disable JavaScript completely on some websites only.
 
 For more information, you can refer to the NoScript

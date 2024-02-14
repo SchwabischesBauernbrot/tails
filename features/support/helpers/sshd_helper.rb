@@ -20,7 +20,6 @@ class SSHServer
     sshd_config = <<~CONFIG
       Port #{@sshd_port}
       ListenAddress #{@sshd_host}
-      UsePrivilegeSeparation no
       HostKey #{@sshd_key_file.path}
       Pidfile #{$config['TMPDIR']}/ssh.pid
     CONFIG

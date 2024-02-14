@@ -9,7 +9,9 @@ usability tests in Ecuador, Mexico, and Brazil. Our goals were to:
 
 - Promote our digital security tools and train human rights defenders in the
   Global South.
+
 - Learn from their experiences and needs to help us prioritize future work.
+
 - Improve the usability of our tools based on their feedback.
 
 Usability tests and improvements
@@ -20,7 +22,9 @@ and Ecuador to identify usability issues in the features of Tails that are most
 important to new users:
 
 - Installation
+
 - Tor Connection
+
 - Persistent Storage
 
 The DesignOps tools that we used to organize these usability tests are all

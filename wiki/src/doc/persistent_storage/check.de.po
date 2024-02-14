@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:56+0200\n"
+"POT-Creation-Date: 2024-01-23 00:41+0000\n"
 "PO-Revision-Date: 2023-11-23 14:17+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
@@ -21,9 +21,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "[[!meta title=\"Checking the file system of the Persistent Storage\"]]\n"
-msgstr ""
-"[[!meta title=\"Das Dateisystem des beständigen Speicherbereichs überprüfen\""
-"]]\n"
+msgstr "[[!meta title=\"Das Dateisystem des beständigen Speicherbereichs überprüfen\"]]\n"
 
 #. type: Plain text
 msgid ""
@@ -44,8 +42,8 @@ msgid ""
 "administration password|doc/first_steps/welcome_screen/"
 "administration_password]]."
 msgstr ""
-"Wenn Sie Tails starten, halten Sie den Persistent Storage gesperrt und [["
-"richten das Administrationspasswort ein|doc/first_steps/welcome_screen/"
+"Wenn Sie Tails starten, halten Sie den Persistent Storage gesperrt und "
+"[[richten das Administrationspasswort ein|doc/first_steps/welcome_screen/"
 "administration_password]]."
 
 #. type: Plain text
@@ -126,10 +124,14 @@ msgstr ""
 "span> erscheint."
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Identify the device name of your Persistent Storage. The device name "
+#| "appears below the list of volumes.  It should look like <code>/dev/mapper/"
+#| "luks-xxxxxxxx</code>."
 msgid ""
 "Identify the device name of your Persistent Storage. The device name appears "
-"below the list of volumes.  It should look like <code>/dev/mapper/luks-"
-"xxxxxxxx</code>."
+"below the list of volumes.  It should look like `/dev/mapper/luks-xxxxxxxx`."
 msgstr ""
 "Identifizieren Sie den Gerätenamen Ihres dauerhaften Speichers. Der "
 "Gerätename erscheint unterhalb der Liste der Laufwerke. Er sollte wie <code>/"
@@ -172,23 +174,32 @@ msgstr ""
 "   und geben Sie ihr Administrationspasswort ein, um ein Terminal mit Administrationsrechten zu starten.\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "In the terminal, execute the following command, replacing `[device]` with "
+#| "the device name found in step 8:"
 msgid ""
-"In the terminal, execute the following command, replacing `[device]` with "
-"the device name found in step 8:"
+"In the terminal, execute the following command. Replace <span "
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 8:"
 msgstr ""
 "Führen Sie im Terminal folgenden Befehl aus und ersetzen Sie `[Gerät]` mit "
 "dem Gerätenamen, den Sie in Schritt 8 herausgefunden haben:"
 
 #. type: Plain text
 #, no-wrap
-msgid "        fsck -y [device]\n"
-msgstr "        fsck -y [Gerät]\n"
+msgid "   <p class=\"command-template\">fsck -y <span class=\"command-placeholder\">device</span></p>\n"
+msgstr ""
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   To do so, you can type <span class=\"command\">fsck -y&nbsp;</span> and press\n"
+#| "   <span class=\"keycap\">Shift+Ctrl+V</span> to paste the device name from the\n"
+#| "   clipboard.\n"
 msgid ""
-"   To do so, you can type <span class=\"command\">fsck -y&nbsp;</span> and press\n"
-"   <span class=\"keycap\">Shift+Ctrl+V</span> to paste the device name from the\n"
+"   To do so, you can type <code>fsck -y&nbsp;</code> and press\n"
+"   **Shift+Ctrl+V** to paste the device name from the\n"
 "   clipboard.\n"
 msgstr ""
 "   Um dies zu tun, können Sie <span class=\"command\">fsck -y&nbsp;</span> eingeben und \n"
@@ -196,25 +207,37 @@ msgstr ""
 "   einzufügen.\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "If the file system is free of errors, the last line from the output of "
+#| "<span class=\"command\">fsck</span> starts with <span "
+#| "class=\"command\">TailsData: clean</span>."
 msgid ""
-"If the file system is free of errors, the last line from the output of <span "
-"class=\"command\">fsck</span> starts with <span class=\"command\">TailsData: "
-"clean</span>."
+"If the file system is free of errors, the last line from the output of "
+"`fsck` starts with `TailsData: clean`."
 msgstr ""
 "Wenn das Dateisystem fehlerfrei ist, beginnt die letzte Zeile der Ausgabe "
 "von <span class=\"command\">fsck</span> mit <span "
 "class=\"command\">TailsData: clean</span>."
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   If the file system has errors, <span class=\"command\">fsck</span> tries to\n"
+#| "   fix them automatically. After it finishes, you can try executing the same\n"
+#| "   command again to check if all errors are solved.\n"
 msgid ""
-"   If the file system has errors, <span class=\"command\">fsck</span> tries to\n"
+"   If the file system has errors, `fsck` tries to\n"
 "   fix them automatically. After it finishes, you can try executing the same\n"
 "   command again to check if all errors are solved.\n"
 msgstr ""
 "   Falls das Dateisystem fehlerhaft ist, versucht <span class=\"command\">fsck</span> diese automatisch\n"
 "   zu beheben. Nachdem es fertig ist, können Sie den Befehl erneut ausführen, um zu überprüfen ob alle\n"
 "   Fehler gelöst sind.\n"
+
+#, no-wrap
+#~ msgid "        fsck -y [device]\n"
+#~ msgstr "        fsck -y [Gerät]\n"
 
 #~ msgid "Click on <span class=\"guilabel\">Check Filesystem</span>."
 #~ msgstr ""

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails l10n\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:56+0200\n"
+"POT-Creation-Date: 2024-01-29 11:27+0100\n"
 "PO-Revision-Date: 2018-11-05 11:30+0000\n"
 "Last-Translator: Weblate Admin <admin@example.com>\n"
 "Language-Team: Tails Chinese translators <jxt@twngo.xyz>\n"
@@ -98,13 +98,13 @@ msgstr ""
 "互動作用。這個術語聽來令人迷惑而其它的文件\n"
 "可能會提到以下的工具：\n"
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*KVM* is the module of the Linux kernel that interacts with the "
 "virtualization features of the processor."
 msgstr "*KVM* 是 Linux kernel 核心模組用在與處理器虛擬功能上的互動。"
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*QEMU* is the virtualization software that emulates virtual processors and "
 "peripherals based on *KVM* and that starts and stops virtual machines."
@@ -112,20 +112,20 @@ msgstr ""
 "*QEMU* 為一套虛擬軟體可模擬虛擬處理器和基於 *KVM* 的週邊設備，它用來啟動與停"
 "止虛擬器。"
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*libvirt* is a library that allows *virt-manager* to interact with the "
 "virtualization capabilities provided by *QEMU*."
 msgstr ""
 "*libvirt* 是一個資源庫可讓 *virt-manager*　和 *QEMU* 的虛擬效能進行互動。"
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*SPICE* is a protocol that allows to visualize the desktop of virtual "
 "machines."
 msgstr "*SPICE* 協議可以虛擬化虛擬器的桌面環境。"
 
-#. type: Bullet: '  - '
+#. type: Bullet: '- '
 msgid ""
 "*virt-manager* is the graphical interface that allows to create, configure, "
 "and run virtual machines."
@@ -147,7 +147,7 @@ msgstr "欲在 Debian 下安裝 *virt-manager*，請執行以下指令："
 
 #. type: Plain text
 #, no-wrap
-msgid "    sudo apt install virt-manager libvirt-daemon-system\n"
+msgid "<p class=\"command\">sudo apt install virt-manager libvirt-daemon-system</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -156,7 +156,7 @@ msgstr "要在 Ubutun 下安裝 *virt-manager* ，請執行以下指令："
 
 #. type: Plain text
 #, no-wrap
-msgid "    sudo apt install virt-manager libvirt-bin qemu-kvm\n"
+msgid "<p class=\"command\">sudo apt install virt-manager libvirt-bin qemu-kvm</p>\n"
 msgstr ""
 
 #. type: Title =
@@ -317,15 +317,14 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   <p class=\"pre command\">truncate -s\n"
+"   <p class=\"command-template\">truncate -s\n"
 "   <span class=\"command-placeholder\">size</span>\n"
 "   <span class=\"command-placeholder\">tails.img</span></p>\n"
 msgstr ""
 
 #. type: Bullet: '   - '
 msgid ""
-"<span class=\"command-placeholder\">size</span> has to be at least <span "
-"class=\"command\">7200M</span>."
+"<span class=\"command-placeholder\">size</span> has to be at least `7200M`."
 msgstr ""
 
 #. type: Bullet: '   - '
@@ -426,10 +425,10 @@ msgid ""
 "From the virtual machine window, choose **Virtual Machine**&nbsp;▸ **Shut "
 "Down**&nbsp;▸ **Force Off** to shut down the virtual machine."
 msgstr ""
-"由虛擬器視窗下，選擇<span class=\"menuchoice\"> <span class=\"guimenu"
-"\">Virtual Machine</span>&nbsp;▸ <span class=\"guisubmenuitem\">Shut Down</"
-"span>&nbsp;▸ <span class=\"guimenuitem\">Force Off</span></span> 來關閉虛擬"
-"器。"
+"由虛擬器視窗下，選擇<span class=\"menuchoice\"> <span "
+"class=\"guimenu\">Virtual Machine</span>&nbsp;▸ <span "
+"class=\"guisubmenuitem\">Shut Down</span>&nbsp;▸ <span "
+"class=\"guimenuitem\">Force Off</span></span> 來關閉虛擬器。"
 
 #. type: Bullet: '  1. '
 #, fuzzy
@@ -543,12 +542,12 @@ msgid ""
 "configuration. For example:"
 msgstr ""
 
-#. type: Bullet: ' - '
+#. type: Bullet: '- '
 msgid ""
 "The *Auto resize VM with window* feature does not work in all configurations."
 msgstr ""
 
-#. type: Bullet: ' - '
+#. type: Bullet: '- '
 msgid ""
 "The video device that provides optimal graphics performance can be different "
 "depending on the version of the host operating system."
@@ -576,13 +575,19 @@ msgid ""
 "   other video device model.\n"
 msgstr ""
 
+#. type: Bullet: '3. '
+msgid ""
+"Try enabling or disabling the OpenGL and 3D acceleration options of the "
+"display and video device."
+msgstr ""
+
 #, fuzzy
 #~ msgid ""
 #~ "To start the virtual machine choose <span class=\"menuchoice\"> <span "
 #~ "class=\"guimenu\">View</span>&nbsp;▸ <span class=\"guimenuitem\">Console</"
-#~ "span></span> and then <span class=\"menuchoice\"> <span class=\"guimenu"
-#~ "\">Virtual Machine</span>&nbsp;▸ <span class=\"guimenuitem\">Run</span></"
-#~ "span>."
+#~ "span></span> and then <span class=\"menuchoice\"> <span "
+#~ "class=\"guimenu\">Virtual Machine</span>&nbsp;▸ <span "
+#~ "class=\"guimenuitem\">Run</span></span>."
 #~ msgstr ""
 #~ "選擇<span class=\"menuchoice\"> <span class=\"guimenu\">View</span>&nbsp;"
 #~ "▸ <span class=\"guimenuitem\">Details</span></span>以編輯虛擬器的設定。"

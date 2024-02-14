@@ -1,13 +1,47 @@
-#!/bin/sh
+#!/usr/bin/env python3
 
-set -eu
+import contextlib
+import os
+import sys
 
-AT_SPI_PROXY_SERVICE=tails-a11y-bus-proxy.service
-IBUS_PROXY_SERVICE=tails-ibus-proxy.service
+from tailslib.website import (
+    DocumentationPageNotFound,
+    is_local_page,
+    resolve_if_tails_website,
+)
 
-exec systemd-run --user --scope \
-    --property=Requires="${AT_SPI_PROXY_SERVICE}" \
-    --property=After="${AT_SPI_PROXY_SERVICE}" \
-    --property=Requires="${IBUS_PROXY_SERVICE}" \
-    --property=After="${IBUS_PROXY_SERVICE}" \
-    sudo /usr/local/lib/run-tor-browser-in-netns "$@"
+AT_SPI_PROXY_SERVICE = "tails-a11y-bus-proxy.service"
+IBUS_PROXY_SERVICE = "tails-ibus-proxy.service"
+
+
+def run_torbrowser(args: list, skip_offline: bool = False):
+    cmdline = [
+        "systemd-run",
+        "--user",
+        "--scope",
+        f'--property=Requires="{AT_SPI_PROXY_SERVICE}"',
+        f'--property=After="{AT_SPI_PROXY_SERVICE}"',
+        f'--property=Requires="{IBUS_PROXY_SERVICE}"',
+        f'--property=After="{IBUS_PROXY_SERVICE}"',
+        f'--setenv=TOR_BROWSER_SKIP_OFFLINE_WARNING={"yes" if skip_offline else "no"}',
+        "sudo",
+        "/usr/local/lib/run-tor-browser-in-netns",
+        *args,
+    ]
+    os.execv("/usr/bin/systemd-run", cmdline)
+
+
+def main():
+    args = sys.argv[1:]
+    skip_offline = False
+    if len(args) == 1:
+        with contextlib.suppress(DocumentationPageNotFound):
+            resolved = resolve_if_tails_website(args[0])
+            args = [resolved]
+            skip_offline = is_local_page(resolved)
+
+    run_torbrowser(args, skip_offline=skip_offline)
+
+
+if __name__ == "__main__":
+    main()

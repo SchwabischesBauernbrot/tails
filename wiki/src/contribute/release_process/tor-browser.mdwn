@@ -229,7 +229,9 @@ on the `maint-X.Y-desktop` branch (if it does not exist, fall back to `maint-X.Y
 Then apply any relevant change, e.g. to:
 
  - environment variables;
+
  - commandline options passed to the `firefox` executable;
+
  - required libstdc++6 version bumps; if there's been any change upstream,
    look for `abicheck` in `config/chroot_local-hooks/10-tbb` and adjust
    that hook as needed.

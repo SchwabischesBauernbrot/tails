@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-11-23 12:56+0000\n"
+"POT-Creation-Date: 2023-12-22 04:29+0000\n"
 "PO-Revision-Date: 2023-08-01 15:22+0000\n"
 "Last-Translator: drebs <drebs@riseup.net>\n"
 "Language-Team: Portuguese <http://translate.tails.boum.org/projects/tails/"
@@ -260,10 +260,15 @@ msgstr ""
 "         1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Take note of the *device name* of your USB stick.  In this example, the "
+#| "USB stick is 8.0 GB and its device name is <span class=\"code\">/dev/"
+#| "disk1</span>.  Yours might be different."
 msgid ""
 "Take note of the *device name* of your USB stick.  In this example, the USB "
-"stick is 8.0 GB and its device name is <span class=\"code\">/dev/disk1</"
-"span>.  Yours might be different."
+"stick is 8.0 GB and its device name is `/dev/disk1`.  Yours might be "
+"different."
 msgstr ""
 "Anote o *nome do dispositivo* do seu pendrive USB. Neste exemplo, o pendrive "
 "USB tem 8.0 GB e o seu nome de dispositivo é <span class=\"code\">/dev/"
@@ -283,9 +288,14 @@ msgstr ""
 "   </div>\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Execute the following command to safely remove the USB stick. Replace "
+#| "<span class=\"code\">[device]</span> with the device name found in step 6."
 msgid ""
 "Execute the following command to safely remove the USB stick. Replace <span "
-"class=\"code\">[device]</span> with the device name found in step 6."
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
 msgstr ""
 "Execute o seguinte comando para remover com segurança o seu pendrive USB. "
 "Substitua <span class=\"code\">[dispositivo]</span> pelo nome do dispositivo "
@@ -293,13 +303,18 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "       diskutil unmountDisk [device]\n"
-msgstr "       diskutil unmountDisk [dispositivo]\n"
+msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+msgstr ""
 
 #. type: Bullet: '2. '
+#, fuzzy
+#| msgid ""
+#| "Execute the following command to format the USB stick. Replace <span "
+#| "class=\"code\">[device]</span> with the device name found in step 6."
 msgid ""
 "Execute the following command to format the USB stick. Replace <span "
-"class=\"code\">[device]</span> with the device name found in step 6."
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
 msgstr ""
 "Execute o seguinte comando para formatar o pendrive USB. Substitua <span "
 "class=\"code\">[dispositivo]</span> pelo nome do dispositivo encontrado no "
@@ -307,8 +322,8 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "       sudo fdisk -iy [device]\n"
-msgstr "       sudo fdisk -iy [dispositivo]\n"
+msgid "   <p class=\"command-template\">sudo fdisk -iy <span class=\"command-placeholder\">device</span></p>\n"
+msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
@@ -318,3 +333,11 @@ msgstr ""
 "Você pode tentar resetar seu pendrive USB novamente usando o <span "
 "class=\"application\">Utilitário de Disco</span> como explicado no início "
 "desta página."
+
+#, no-wrap
+#~ msgid "       diskutil unmountDisk [device]\n"
+#~ msgstr "       diskutil unmountDisk [dispositivo]\n"
+
+#, no-wrap
+#~ msgid "       sudo fdisk -iy [device]\n"
+#~ msgstr "       sudo fdisk -iy [dispositivo]\n"

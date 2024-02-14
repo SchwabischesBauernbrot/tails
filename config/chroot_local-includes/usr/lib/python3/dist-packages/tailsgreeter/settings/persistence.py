@@ -16,31 +16,30 @@
 #  along with this program.  If not, see <http://www.gnu.org/licenses/>
 #
 """Persistent Storage handling"""
+import gettext
 import logging
 import os
-
-import gettext
-
-_ = gettext.gettext
+from typing import Optional
 
 from gi.repository import Gio, GLib
 
+import tailsgreeter.errors
 import tps.dbus.errors as tps_errors
-
-import tailsgreeter  # NOQA: E402
 from tailsgreeter import config  # NOQA: E402
-import tailsgreeter.errors  # NOQA: E402
+from tps import InvalidBootDeviceErrorType
 
+
+_ = gettext.gettext
 
 BUS_NAME = "org.boum.tails.PersistentStorage"
 OBJECT_PATH = "/org/boum/tails/PersistentStorage"
 INTERFACE_NAME = "org.boum.tails.PersistentStorage"
 
 
-class PersistentStorageSettings(object):
+class PersistentStorageSettings:
     """Controller for settings related to Persistent Storage"""
 
-    def __init__(self):
+    def __init__(self) -> None:
         self.failed_with_unexpected_error = False
         self.cleartext_name = "TailsData_unlocked"
         self.cleartext_device = "/dev/mapper/" + self.cleartext_name
@@ -59,7 +58,12 @@ class PersistentStorageSettings(object):
         self.device = device_variant.get_string() if device_variant else "/"
         self.is_unlocked = False
         self.is_created = self.service_proxy.get_cached_property("IsCreated")
+        self.can_unlock = self.service_proxy.get_cached_property("CanUnlock")
         self.is_upgraded = self.service_proxy.get_cached_property("IsUpgraded")
+        self.error: GLib.Variant = self.service_proxy.get_cached_property("Error")
+        self.error_type: Optional[InvalidBootDeviceErrorType] = None
+        if self.error:
+            self.error_type = InvalidBootDeviceErrorType(self.error.get_uint32())
         self.service_proxy.connect("g-properties-changed", self.on_properties_changed)
 
     def on_properties_changed(
@@ -72,6 +76,12 @@ class PersistentStorageSettings(object):
         logging.debug("changed properties: %s", changed_properties)
         keys = set(changed_properties.keys())
 
+        if "CanUnlock" in keys:
+            self.can_unlock = changed_properties["CanUnlock"]
+        if "Error" in keys:
+            self.error = changed_properties["Error"]
+            if self.error:
+                self.error_type = InvalidBootDeviceErrorType(self.error.get_uint32())
         if "IsCreated" in keys:
             self.is_created = changed_properties["IsCreated"]
         if "IsUpgraded" in keys:
@@ -87,9 +97,7 @@ class PersistentStorageSettings(object):
             PersistentStorageError if something else went wrong."""
         logging.debug("Unlocking Persistent Storage")
         if os.path.exists(self.cleartext_device):
-            logging.warning(
-                f"Cleartext device {self.cleartext_device} already" f"exists"
-            )
+            logging.warning(f"Cleartext device {self.cleartext_device} already exists")
             self.is_unlocked = True
             return
 
@@ -104,12 +112,12 @@ class PersistentStorageSettings(object):
             )
         except GLib.GError as err:
             if tps_errors.IncorrectPassphraseError.is_instance(err):
-                raise tailsgreeter.errors.WrongPassphraseError() from err
+                raise tailsgreeter.errors.WrongPassphraseError from err
 
             self.failed_with_unexpected_error = True
             raise tailsgreeter.errors.PersistentStorageError(
                 _("Error unlocking Persistent Storage: {}").format(err)
-            )
+            ) from err
         self.is_unlocked = True
 
     def upgrade_luks(self, passphrase):
@@ -130,11 +138,11 @@ class PersistentStorageSettings(object):
             )
         except GLib.GError as err:
             if tps_errors.IncorrectPassphraseError.is_instance(err):
-                raise tailsgreeter.errors.WrongPassphraseError() from err
+                raise tailsgreeter.errors.WrongPassphraseError from err
             self.failed_with_unexpected_error = True
             raise tailsgreeter.errors.PersistentStorageError(
                 _("Error upgrading Persistent Storage: {}").format(err)
-            )
+            ) from err
 
     def activate_persistent_storage(self):
         """Activate the already unlocked Persistent Storage"""
@@ -161,8 +169,8 @@ class PersistentStorageSettings(object):
                 msg = config.gettext(
                     "Failed to activate some features of the Persistent Storage: {features}."
                 ).format(features=", ".join(features))
-                raise tailsgreeter.errors.FeatureActivationFailedError(msg)
+                raise tailsgreeter.errors.FeatureActivationFailedError(msg) from err
             self.failed_with_unexpected_error = True
             raise tailsgreeter.errors.PersistentStorageError(
                 _("Error activating Persistent Storage: {}").format(err)
-            )
+            ) from err

@@ -105,3 +105,16 @@ unload_module_and_rev_deps() {
   # shellcheck disable=SC2046
   /sbin/modprobe -r $(mod_rev_dep "${1}")
 }
+
+partition_needs_resizing() {
+    # This code is duplicating config/chroot_local-includes/usr/share/initramfs-tools/scripts/init-premount/partitioning
+    # please keep this in sync!
+    
+    if test -L /dev/bilibop; then
+        GUID="$(/sbin/sgdisk --print /dev/bilibop \
+                | sed -n '/^Disk identifier (GUID)/ s/^Disk identifier (GUID): // p')"
+        test "${GUID}" = "17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3"
+    else
+        false
+    fi
+}

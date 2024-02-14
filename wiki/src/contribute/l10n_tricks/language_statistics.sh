@@ -6,7 +6,7 @@ set -e
 set -u
 set -o pipefail
 
-LANGUAGES=${@:-de es fr it pt ru}
+LANGUAGES=${@:-ca de es fr it pt ru}
 
 GIT_TOPLEVEL_DIR=$(git rev-parse --show-toplevel)
 
@@ -18,8 +18,8 @@ statistics () {
     msgcat --files-from="$PO_FILES" --output="$PO_MESSAGES"
     TOTAL=$(msgattrib --no-obsolete "$PO_MESSAGES" | count_msgids)
     FUZZY=$(msgattrib --only-fuzzy --no-obsolete "$PO_MESSAGES" | count_msgids)
-    TRANSLATED=$(cat "$PO_MESSAGES" | count_translated_strings)
-    echo "  - $lang: $(($TRANSLATED*100/$TOTAL))% ($TRANSLATED) strings translated, $(($FUZZY*100/$TOTAL))% strings fuzzy"
+    TRANSLATED=$(count_translated_strings < "$PO_MESSAGES")
+    echo "  - $lang: $((TRANSLATED*100/TOTAL))% ($TRANSLATED) strings translated, $((FUZZY*100/TOTAL))% strings fuzzy"
     rm -f "$PO_FILES" "$PO_MESSAGES"
 }
 
@@ -72,8 +72,8 @@ echo ""
 
 for lang in $LANGUAGES ; do
     PO_FILES="$(mktemp -t "XXXXXX.$lang")"
-    cat "$WEBSITE_ROOT_DIR"/contribute/l10n_tricks/core_po_files.txt \
-        | sed "s/$/.$lang.po/g" \
+    sed < "$WEBSITE_ROOT_DIR"/contribute/l10n_tricks/core_po_files.txt \
+        "s/$/.$lang.po/g" \
         | sed "s,^,$WEBSITE_ROOT_DIR/," \
         > "$PO_FILES"
     statistics "$PO_FILES"
@@ -84,10 +84,10 @@ echo ""
 echo "## Core pages of the website for languages not activated on the website yet"
 echo ""
 
-for lang in ar ca fa id pl sr_Latn tr zh zh_TW ; do
+for lang in ar fa id pl sr_Latn tr zh zh_TW ; do
     PO_FILES="$(mktemp -t XXXXXX.$lang)"
-    cat "$WEBSITE_ROOT_DIR"/contribute/l10n_tricks/core_po_files.txt \
-        | sed "s/$/.$lang.po/g" \
+    sed < "$WEBSITE_ROOT_DIR"/contribute/l10n_tricks/core_po_files.txt \
+        "s/$/.$lang.po/g" \
         | sed "s,^,$WEBSITE_ROOT_DIR/," \
         > "$PO_FILES"
     statistics "$PO_FILES"

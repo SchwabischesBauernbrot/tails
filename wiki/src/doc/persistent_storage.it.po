@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-04-19 10:22+0200\n"
+"POT-Creation-Date: 2023-12-21 23:11+0000\n"
 "PO-Revision-Date: 2023-10-11 20:12+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
@@ -36,12 +36,20 @@ msgstr ""
 "Persistente Crittato sulla chiavetta USB di Tails, ad esempio:"
 
 #. type: Plain text
-msgid "- Your documents - Your Wi-Fi passwords - Your brower bookmarks - ..."
+msgid "- Your documents"
 msgstr ""
-"- I vostri documenti\n"
-"- Le password del Wi-Fi\n"
-"- I segnalibri del browser\n"
-"- ..."
+
+#. type: Plain text
+msgid "- Your Wi-Fi passwords"
+msgstr ""
+
+#. type: Plain text
+msgid "- Your brower bookmarks"
+msgstr ""
+
+#. type: Plain text
+msgid "- ..."
+msgstr ""
 
 #. type: Plain text
 msgid ""
@@ -77,8 +85,7 @@ msgid ""
 "stick can know that there is a Persistent Storage. Take into consideration that\n"
 "you could be forced or tricked to give out its passphrase.</p>\n"
 msgstr ""
-"<p>L'Archivio Persistente non è nascosto. Un aggressore in possesso della "
-"tua chiavetta USB\n"
+"<p>L'Archivio Persistente non è nascosto. Un aggressore in possesso della tua chiavetta USB\n"
 "può sapere che esiste una memoria persistente. Tieni in considerazione che\n"
 "potresti essere costretta o ingannata e fornire la frase d'accesso</p>\n"
 
@@ -95,9 +102,7 @@ msgstr "[[!inline pages=\"doc/persistent_storage.index.it\" raw=\"yes\" sort=\"a
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"luks\">How strong is the encryption of the Persistent Storage?</h2>\n"
-msgstr ""
-"<h2 id=\"luks\">Quanto è forte la criptazione dell'Archivio Persistente?</h2>"
-"\n"
+msgstr "<h2 id=\"luks\">Quanto è forte la criptazione dell'Archivio Persistente?</h2>\n"
 
 #. type: Plain text
 msgid "The encryption of the Persistent Storage uses LUKS and DMCrypt."
@@ -112,12 +117,12 @@ msgid ""
 "as we recommend for [[creating and using encrypted volumes|doc/"
 "encryption_and_privacy/encrypted_volumes]] in general."
 msgstr ""
-"[LUKS](https://gitlab.com/cryptsetup/cryptsetup/) and "
-"[DMCrypt](https://gitlab.com/cryptsetup/cryptsetup/-/wikis/DMCrypt) sono il "
-"sistema standard per la crittografia dei dischi in Linux. Tails utilizza i "
-"loro parametri di crittografia predefiniti, considerati altamente sicuri. "
-"Questa è la stessa tecnica consigliata per la [[creazione e l'uso di volumi "
-"criptati|doc/encryption_and_privacy/encrypted_volumes]] in generale."
+"[LUKS](https://gitlab.com/cryptsetup/cryptsetup/) and [DMCrypt](https://"
+"gitlab.com/cryptsetup/cryptsetup/-/wikis/DMCrypt) sono il sistema standard "
+"per la crittografia dei dischi in Linux. Tails utilizza i loro parametri di "
+"crittografia predefiniti, considerati altamente sicuri. Questa è la stessa "
+"tecnica consigliata per la [[creazione e l'uso di volumi criptati|doc/"
+"encryption_and_privacy/encrypted_volumes]] in generale."
 
 #. type: Plain text
 #, no-wrap
@@ -134,9 +139,7 @@ msgstr "<!-- Consider removing after #18148. -->\n"
 msgid ""
 "<p>The weakest point of such encryption is often the passphrase chosen by\n"
 "the user.</p>\n"
-msgstr ""
-"<p>Il punto più debole di tale crittografia è spesso la frase d'accesso "
-"scelta dall'utente.</p>\n"
+msgstr "<p>Il punto più debole di tale crittografia è spesso la frase d'accesso scelta dall'utente.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -145,12 +148,9 @@ msgid ""
 "   <a href=\"https://theintercept.com/2015/03/26/passphrases-can-memorize-attackers-cant-guess/\">Learn\n"
 "   about the maths behind memorizable and secure passphrases.</a></p>\n"
 msgstr ""
-"   <p>Ti consigliamo di scegliere una frase d'accesso lunga composta da 5-7 "
-"parole casuali.\n"
-"   <a href=\"https://theintercept.com/2015/03/26/"
-"passphrases-can-memorize-attackers-cant-guess/\">Impara\n"
-"    la matematica che sta alla base di frasi d'accesso memorizzabili e "
-"sicure,</a></p>\n"
+"   <p>Ti consigliamo di scegliere una frase d'accesso lunga composta da 5-7 parole casuali.\n"
+"   <a href=\"https://theintercept.com/2015/03/26/passphrases-can-memorize-attackers-cant-guess/\">Impara\n"
+"    la matematica che sta alla base di frasi d'accesso memorizzabili e sicure,</a></p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -170,6 +170,14 @@ msgid ""
 msgstr ""
 "<p>Per sapere come Tails implementa l'Archivio Persistente, vedi la nostra\n"
 "[[documentazione del progetto|contribute/design/persistence]].</p>\n"
+
+#~ msgid ""
+#~ "- Your documents - Your Wi-Fi passwords - Your brower bookmarks - ..."
+#~ msgstr ""
+#~ "- I vostri documenti\n"
+#~ "- Le password del Wi-Fi\n"
+#~ "- I segnalibri del browser\n"
+#~ "- ..."
 
 #~ msgid ""
 #~ "If you start Tails from a USB stick, you can create an encrypted "

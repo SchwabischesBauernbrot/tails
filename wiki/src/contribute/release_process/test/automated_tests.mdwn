@@ -9,10 +9,13 @@ The automated test suite is essentially a glue between:
 * [OpenCV](http://opencv.org/) and
   [dogtail](https://fedorahosted.org/dogtail/), used for simulating
   user interaction,
+
 * [libvirt](http://libvirt.org/), used for running a specific build of
   Tails in a virtual machine, and
+
 * [cucumber](http://cukes.info/), for defining features and scenarios
   testing them using the above two components.
+
 * [chutney](https://gitlab.torproject.org/tpo/core/chutney.git),
   for orchestrating a local Tor network.
 
@@ -33,17 +36,23 @@ With this tool, it is possible to:
 
   * Create, modify and destroy virtual machines that can run Tails from
     a variety of media (primarily DVD and USB drives).
+
   * Create different kinds of virtual storage (IDE, USB, DVD...),
     and either cold or hot plug/unplug them into/from the
     virtual machine.
+
   * Modify the virtual machine's hardware, e.g. its amount of RAM,
     its processor features (PAE), etc.
+
   * Simulate user interaction with the system under testing and check
     its state.
+
   * Run arbitrary shell commands inside the virtual machine.
+
   * Take screenshots from the display of the virtual machine, at
     particular events, like when a scenario fails. Complete test
     sessions can also be captured into a video.
+
   * Capture and analyze the network traffic of the system under testing.
 
 ## source vs. product cucumber features
@@ -53,6 +62,7 @@ Fundamentally speaking there are two types of tests:
 * Tests that make sure that the Tails *sources* behave correctly *at
   build time* (example: `features/build.feature`); these ones are
   aptly tagged `@source`; and,
+
 * Tests that make sure that the product built from Tails sources, i.e.
   a Tails ISO image, behaves correctly *at run time*; these ones are
   tagged `@product`.
@@ -74,8 +84,10 @@ sets the correct environment up:
   an unused X display (tip: use `Xvfb`) with screen size and color
   depth matching what the images used for matching are optimized for
   (that is, 1024x768 / 24-bit).
+
 * It runs `unclutter` on `$DISPLAY` to prevent the mouse
   pointer from masking GUI elements looked for through image matching.
+
 * It passes `--format ExtraHooks::Pretty` to `cucumber` calls, to get
   access to our custom `{After,Before}Feature` hooks.
 
@@ -89,17 +101,21 @@ Requirements on the host (the remote shell client):
 
 * can execute a command with blocking until command completion on the
   server, and get back return code, stdout and stderr separately.
+
 * can spawn a command without blocking (except an ACK that the server
   has run the command, perhaps).
+
 * usable by an unprivileged user
 
 Requirements on the guest (the remote shell server):
 
 * has to work without a network connection.
+
 * should interfere minimally with the surrounding system (e.g. no
   firewall exceptions; actually we don't want any network traffic at
   all from it, but this kind of follows from the previous requirement
   any way)
+
 * must start before the Welcome Screen. Since that's the first point of
   user interaction in a Tails system (if we ignore the boot menu), it
   seems like a good place to be able to assume that the remote shell
@@ -144,6 +160,7 @@ In addition to the libvirt and Cucumber documentation linked
 to in the introduction:
 
  * [ruby-libvirt API](http://libvirt.org/ruby/api/index.html)
+
  * The `sniff` application, which is installed in Tails, is quite
    useful to navigate the GUI element hierarchy. However, `accerciser`
    (not installed) is even better, due to its ability to highlight
@@ -318,8 +335,10 @@ The Screen class and dogtail:
   interaction with the Tails system. For instance, when we start an
   application we usually want to click our way through the GNOME
   applications menu to stay true to what an actual user would do.
+
 * They come in handy when we want to verify some state pertaining
   to the GUI.
+
 * In general we prefer dogtail, since it is more precise given its
   direct access to GUI elements and their state, and images carry a
   quite heavy maintenance burden. However, Dogtail is not possible to
@@ -331,9 +350,11 @@ The Screen class and dogtail:
 The remote shell:
 
 * Useful for testing non-GUI state.
+
 * Useful for reaching some state required before we test stuff
   depending on user interaction (which should use the Screen class
   or dogtail!).
+
 * It is acceptable (but not encouraged) to use the remote shell for
   simulating user terminal interaction when we need to analyze the
   commands output. Ideally we would use OCR, but we lack support for
@@ -352,6 +373,7 @@ The remote shells have a few surprises in store:
 
 * `pgrep -f` detects itself, which can have potentially serious
   consequences if not dealt with.
+
 * Minor groups are not set, so e.g. the `groups` command may not do
   what you expect, but `groups $USER` does.
 
@@ -413,12 +435,16 @@ We use the following Cucumber tags on scenarios and features:
 
 - `@fragile`: this test lacks robustness and sometimes yields false
   positive failures.
+
 - `@doc`: the copy of our website included in the system-under-test affects the
   outcome of this test.
+
 - `@check_tor_leaks`: this instructs the test suite machinery to check
   that all outgoing connections initiated during this test go through Tor.
+
 - `@slow`: this test takes a long time to run (rule of thumb: more than 10
   minutes on lizard).
+
 - `@not_release_blocker`: we don't abort the release process if this test fails;
   instead, we create a GitLab issue to fix it in the next release.
 
@@ -433,8 +459,11 @@ Let's say that our test suite is reporting you an error. You want to make a fix 
 suite happy again. Usually, you would be required to build the image again, which is slow.
 
 You can do better than this using `--late-patch`:
+
  - create a file called, for example `late-patch-fix-foobar.txt`
+
  - every line contains two filenames, a source one and a destination one.
+
  - run the test suite using `--late-patch late-patch-fix-foobar.txt`
 
 Here is an example of a late-patch file that is well suited to iterate over _Tor Connection_:

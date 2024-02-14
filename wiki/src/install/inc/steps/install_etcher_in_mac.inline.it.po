@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:55+0200\n"
+"POT-Creation-Date: 2024-02-08 03:39+0000\n"
 "PO-Revision-Date: 2023-10-05 23:13+0000\n"
 "Last-Translator: _ignifugo <ignifugo@insicuri.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
@@ -29,8 +29,11 @@ msgid "<h1 id=\"etcher\" class=\"step\">Install <em>balenaEtcher</em></h1>\n"
 msgstr "<h1 id=\"etcher\" class=\"step\">Installa<em>balenaEtcher</em></h1>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<div class=\"step-image\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+#, fuzzy, no-wrap
+#| msgid "<div class=\"step-image\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+msgid ""
+"<div class=\"step-image usb\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+"<div class=\"step-image upgrade\">[[!img inc/infography/install-etcher-with-intermediary.png link=\"no\" alt=\"\"]]</div>\n"
 msgstr "<div class=\"step-image\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
 
 #. type: Plain text
@@ -39,68 +42,22 @@ msgid ""
 "<p class=\"upgrade\">In the following steps, you will install an intermediary Tails using the Tails USB\n"
 "image that you downloaded earlier.</p>\n"
 msgstr ""
-"<p class=\"upgrade\">Nel passaggio successivo, installerai un Tails "
-"intermedio utilizzando l'immagine USB\n"
+"<p class=\"upgrade\">Nel passaggio successivo, installerai un Tails intermedio utilizzando l'immagine USB\n"
 "di Tails che hai scaricato in precedenza.</p>\n"
 
-#. type: Bullet: '1. '
-msgid "Click on the following button to download <em>balenaEtcher</em>:"
-msgstr "Clicca sul seguente tasto per scaricare <em>balenaEtcher</em>:"
-
 #. type: Plain text
 #, no-wrap
-msgid "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Download balenaEtcher for macOS</a>\n"
-msgstr "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Scarica balenaEtcher per macOS</a>\n"
-
-#. type: Bullet: '1. '
-msgid ""
-"Open the <span class=\"application\">balenaEtcher</span> download (DMG disk "
-"image)."
+msgid "<p><a href=\"https://etcher.balena.io/\"><i>balenaEtcher</i></a> is the Free Software tool that we recommend to install Tails on USB sticks.</p>\n"
 msgstr ""
-"Apri il file <span class=\"application\">balenaEtcher</span> scarica (DMG "
-"disk image)."
 
 #. type: Plain text
-#, no-wrap
-msgid "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
-
-#. type: Bullet: '1. '
+#, fuzzy, no-wrap
+#| msgid ""
+#| "Instead of installing <span class=\"application\">balenaEtcher</span>, you can\n"
+#| "also [[!toggle id=\"dd\" text=\"install Tails using `dd` on the command\n"
+#| "line\"]].\n"
 msgid ""
-"To install <span class=\"application\">balenaEtcher</span>, drag the <span "
-"class=\"application\">balenaEtcher</span> icon onto the <span "
-"class=\"guilabel\">Applications</span> icon."
-msgstr ""
-"Per installare <span class=\"application\">balenaEtcher</span>, trascina "
-"l'icona <span class=\"application\">balenaEtcher</span> sull'icona <span "
-"class=\"guilabel\">Applicazioni</span>."
-
-#. type: Bullet: '1. '
-msgid ""
-"Close the installation window of <span class=\"application\">balenaEtcher</"
-"span>."
-msgstr ""
-"Chiudi la finestra d'installazione di <span "
-"class=\"application\">balenaEtcher</span>."
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"   Optionally, eject the <span class=\"application\">balenaEtcher</span> disk image\n"
-"   from the desktop.\n"
-msgstr ""
-"   Opzionalmente, espelli l'immagine disco <span class=\"application\">balenaEtcher</span>\n"
-"   dal desktop.\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"Instead of installing <span class=\"application\">balenaEtcher</span>, you can\n"
+"Instead of using <span class=\"application\">balenaEtcher</span>, you can\n"
 "also [[!toggle id=\"dd\" text=\"install Tails using `dd` on the command\n"
 "line\"]].\n"
 msgstr ""
@@ -112,6 +69,11 @@ msgstr ""
 #, no-wrap
 msgid "[[!toggleable id=\"dd\" text=\"\"\"\n"
 msgstr "[[!toggleable id=\"dd\" text=\"\"\"\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!toggle id=\"dd\" text=\"\"\"<span class=\"hide-button\"></span>\"\"\"]]\n"
+msgstr ""
 
 #. type: Bullet: '1. '
 msgid "Make sure that your USB stick is unplugged."
@@ -150,15 +112,23 @@ msgid "   It returns a list of the storage devices on the system. For example:\n
 msgstr "   Restituisce un elenco dei dispositivi di archiviazione sul sistema. Ad esempio:\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <p class=\"pre command-output\">/dev/disk0\n"
+#| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#| "    0:    GUID_partition_scheme             *500.1 GB  disk0\n"
+#| "    1:                      EFI              209.7 MB  disk0s1\n"
+#| "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#| "    3:                      EFI              134.1 GB  disk0s3\n"
+#| "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>\n"
 msgid ""
-"   <p class=\"pre command-output\">/dev/disk0\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:    GUID_partition_scheme             *500.1 GB  disk0\n"
-"    1:                      EFI              209.7 MB  disk0s1\n"
-"    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"    3:                      EFI              134.1 GB  disk0s3\n"
-"    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>\n"
+"       /dev/disk0\n"
+"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+"        0:    GUID_partition_scheme             *500.1 GB  disk0\n"
+"        1:                      EFI              209.7 MB  disk0s1\n"
+"        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+"        3:                      EFI              134.1 GB  disk0s3\n"
+"        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
 msgstr ""
 "   <p class=\"pre command-output\">/dev/disk0\n"
 "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
@@ -186,19 +156,31 @@ msgstr ""
 "   che la sua dimensione corrisponda a quella della tua chiavetta USB.\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <p class=\"pre command-output\">/dev/disk0\n"
+#| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#| "    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#| "    1:                      EFI              209.7 MB  disk0s1\n"
+#| "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#| "    3:                      EFI              134.1 GB  disk0s3\n"
+#| "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+#| "  /dev/disk1\n"
+#| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#| "    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+#| "    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
 msgid ""
-"   <p class=\"pre command-output\">/dev/disk0\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
-"    1:                      EFI              209.7 MB  disk0s1\n"
-"    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"    3:                      EFI              134.1 GB  disk0s3\n"
-"    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-"  /dev/disk1\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
-"    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
+"       /dev/disk0\n"
+"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+"        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+"        1:                      EFI              209.7 MB  disk0s1\n"
+"        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+"        3:                      EFI              134.1 GB  disk0s3\n"
+"        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+"      /dev/disk1\n"
+"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+"        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+"        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 msgstr ""
 "   <p class=\"pre command-output\">/dev/disk0\n"
 "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
@@ -213,10 +195,15 @@ msgstr ""
 "    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Take note of the *device name* of your USB stick.  In this example, the "
+#| "USB stick is 8.0 GB and its device name is <span class=\"code\">/dev/"
+#| "disk1</span>.  Yours might be different."
 msgid ""
 "Take note of the *device name* of your USB stick.  In this example, the USB "
-"stick is 8.0 GB and its device name is <span class=\"code\">/dev/disk1</"
-"span>.  Yours might be different."
+"stick is 8.0 GB and its device name is <code>/dev/disk1</code>.  Yours might "
+"be different."
 msgstr ""
 "Prendi nota del *nome di dispositivo* della tua chiavetta USB. In questo "
 "esempio, la chiavetta USB ha una dimensione di 8.0 GB e il suo nome di "
@@ -232,10 +219,8 @@ msgid ""
 "   </div>\n"
 msgstr ""
 "   <div class=\"caution\">\n"
-"   <p>Se non sei sicura del nome del dispositivo, dovresti interrompere la "
-"procedura o\n"
-"   <strong>rischi di sovrascrivere qualsiasi disco fisso del "
-"sistema</strong>.</p>\n"
+"   <p>Se non sei sicura del nome del dispositivo, dovresti interrompere la procedura o\n"
+"   <strong>rischi di sovrascrivere qualsiasi disco fisso del sistema</strong>.</p>\n"
 "   </div>\n"
 
 #. type: Bullet: '1. '
@@ -285,10 +270,14 @@ msgstr ""
 "dispositivo trovato al passaggio 6"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "     <div class=\"tip\">\n"
+#| "     <p>You can try adding <span class=\"code\">r</span> before <span class=\"code\">disk</span> to make the installation faster.</p>\n"
+#| "     </div>\n"
 msgid ""
 "     <div class=\"tip\">\n"
-"     <p>You can try adding <span class=\"code\">r</span> before <span class=\"code\">disk</span> to make the installation faster.</p>\n"
+"     <p>You can try adding <code>r</code> before <code>disk</code> to make the installation faster.</p>\n"
 "     </div>\n"
 msgstr ""
 "     <div class=\"tip\">\n"
@@ -296,13 +285,15 @@ msgstr ""
 "     </div>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
 msgstr "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">dispositivo</span></p>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
 msgstr "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">dispositivo</span> bs=16m && sync</p>\n"
 
 #. type: Plain text
@@ -311,8 +302,9 @@ msgid "   You should get something like this:\n"
 msgstr "   Dovresti ottenere qualcosa del genere:\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command-example\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command-example\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
+msgid "   <p class=\"command-template\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
 msgstr "   <p class=\"pre command-example\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
 
 #. type: Plain text
@@ -325,10 +317,14 @@ msgstr ""
 "   USB. La copia richiede un po' di tempo, generalmente qualche minuto.\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <div class=\"note\">\n"
+#| "   <p>If you get a <span class=\"guilabel\">Permission denied</span> error, try\n"
+#| "   adding <code>sudo</code> at the beginning of the command:</p>\n"
 msgid ""
 "   <div class=\"note\">\n"
-"   <p>If you get a <span class=\"guilabel\">Permission denied</span> error, try\n"
+"   <p>If you get a <code>Permission denied</code> error, try\n"
 "   adding <code>sudo</code> at the beginning of the command:</p>\n"
 msgstr ""
 "   <div class=\"note\">\n"
@@ -336,23 +332,27 @@ msgstr ""
 "   ad aggiungere <code>sudo</code> all'inizio del comando:</p>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+msgid "   <p class=\"command-template\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
 msgstr "   <p class=\"pre command\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">dispositivo</span> bs=16m && sync</p>\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <p>If you get an <span class=\"guilabel\">invalid number ‘16m’</span> error, try\n"
+#| "   using <code>16M</code> instead:</p>\n"
 msgid ""
-"   <p>If you get an <span class=\"guilabel\">invalid number ‘16m’</span> error, try\n"
+"   <p>If you get an <code>invalid number ‘16m’</code> error, try\n"
 "   using <code>16M</code> instead:</p>\n"
 msgstr ""
-"   <p>Se si presenta un errore <span class=\"guilabel\">numero non valido "
-"‘16m’</span>, prova\n"
+"   <p>Se si presenta un errore <span class=\"guilabel\">numero non valido ‘16m’</span>, prova\n"
 "   a usare <code>16M</code> in alternativa:</p>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
+msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
 msgstr "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">dispositivo</span> bs=16M && sync</p>\n"
 
 #. type: Plain text
@@ -364,6 +364,69 @@ msgstr "   </div>\n"
 #, no-wrap
 msgid "   The installation is complete once the command prompt reappeared.\n"
 msgstr "   L'installazione è completa quando ricompare il prompt dei comandi.\n"
+
+#. type: Bullet: '1. '
+msgid "Click on the following button to download <em>balenaEtcher</em>:"
+msgstr "Clicca sul seguente tasto per scaricare <em>balenaEtcher</em>:"
+
+#. type: Plain text
+#, no-wrap
+msgid "   <p class=\"button\">[[Download <i>balenaEtcher</i> for macOS|https://tails.net/etcher/balenaEtcher.dmg]]</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "   Save your download to your usual *Downloads* folder and not to the USB stick.\n"
+msgstr ""
+
+#. type: Bullet: '1. '
+msgid ""
+"Open the <span class=\"application\">balenaEtcher</span> download (DMG disk "
+"image)."
+msgstr ""
+"Apri il file <span class=\"application\">balenaEtcher</span> scarica (DMG "
+"disk image)."
+
+#. type: Plain text
+#, no-wrap
+msgid "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
+msgstr "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
+
+#. type: Bullet: '1. '
+msgid ""
+"To install <span class=\"application\">balenaEtcher</span>, drag the <span "
+"class=\"application\">balenaEtcher</span> icon onto the <span "
+"class=\"guilabel\">Applications</span> icon."
+msgstr ""
+"Per installare <span class=\"application\">balenaEtcher</span>, trascina "
+"l'icona <span class=\"application\">balenaEtcher</span> sull'icona <span "
+"class=\"guilabel\">Applicazioni</span>."
+
+#. type: Bullet: '1. '
+msgid ""
+"Close the installation window of <span class=\"application\">balenaEtcher</"
+"span>."
+msgstr ""
+"Chiudi la finestra d'installazione di <span "
+"class=\"application\">balenaEtcher</span>."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   Optionally, eject the <span class=\"application\">balenaEtcher</span> disk image\n"
+#| "   from the desktop.\n"
+msgid "   Optionally, eject the disk image of *balenaEtcher* from the sidebar of *Finder*.\n"
+msgstr ""
+"   Opzionalmente, espelli l'immagine disco <span class=\"application\">balenaEtcher</span>\n"
+"   dal desktop.\n"
+
+#, no-wrap
+#~ msgid "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Download balenaEtcher for macOS</a>\n"
+#~ msgstr "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Scarica balenaEtcher per macOS</a>\n"
+
+#, no-wrap
+#~ msgid "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
+#~ msgstr "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
 
 #, no-wrap
 #~ msgid "<div class=\"hidden-step-1\"></div>\n"

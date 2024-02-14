@@ -13,7 +13,9 @@ Release types
 There are exactly 3 types of releases:
 
  - A bugfix release
+
  - A major release
+
  - A release candidate. A release candidate can only be made for a major release
 
 We will not cover beta release in this document.
@@ -26,6 +28,7 @@ If you want to know whether the release you are doing is a major or not, you nee
 our [[release calendar|contribute/calendar]], and use these criteria:
 
  - if nothing is specified about being a major, then it's most probably a bugfix release
+
  - if it is a major, there has to be a release candidate before the final
 
 Plan your journey
@@ -55,13 +58,17 @@ Prepare your checklist
 
 1. Merge the current `master` branch into the branch used to prepare the release
    (`stable` for a bugfix release, `testing` for a major release, `devel` for a RC).
+
 2. Copy this very file from the branch used to prepare the release
    to some place outside of Git.
+
 3. Close the version of this file that's in Git.
+
 4. From now on, follow the instructions in your own local copy, using it as
    a checklist: delete steps once you've successfully completed them.
    This ensures you won't mistakenly skip a step, without relying on memory, so
    "oops, I forgot X" cannot happen.
+
 5. Remove useless sections. Some sections of this checklist only apply to specific release types (RC, Major,
    Bugfix, etc.). While you can skip them just-in-time, it's easier and less error-prone to do that now that
    you have a fresh mind. You can search for `^##* If`.
@@ -93,18 +100,27 @@ Packages
 To release Tails you'll need some packages installed:
 
 * `oathtool gitlab-cli j2cli intltool jq tidy libnotify-bin mktorrent podman pwgen python3-bs4 python3-debian python3-git python3-gitlab python3-jinja2 python3-html2text python3-sh python3-toml python3-voluptuous transmission-cli moreutils wl-clipboard rename`
-  - Note: if the Debian version you are running does not include all required
-    Go packages, such as [[!debpts podman]], you should be able to install
-    them from a more recent Debian release with APT pinning.
+
+  Note: if the Debian version you are running does not include all required
+  Go packages, such as [[!debpts podman]], you should be able to install
+  them from a more recent Debian release with APT pinning.
+
 * `perl5lib` [[dependencies|contribute/release_process/perl5lib#build-deps]]
+
 * `iuk` [[dependencies|contribute/release_process/tails-iuk#build-deps]]
+
 * `squashfs-tools-ng` and `libsquashfs1` from Bookworm
+
 * `po4a` 0.62:
+
    - Different versions extract Markdown headings in a different way, which
      makes tons of strings fuzzy.
+
    - Different versions emit different sets of message flags, some of which
      are not supported by _i18nspector_ yet.
+
 * `i18nspector` 0.26 or newer
+
 * packages to [[build a local version of the website|contribute/build/website/]]
 
 System configuration
@@ -203,12 +219,14 @@ you need to set a bunch of environment variables.
 * Unless the release process explicitly instructs you to change the
   value of one such variable, treat it as a constant: else,
   inconsistency will surely arise, which can cause trouble later on.
+
 * Regarding version numbers, what follows supports just fine the case
   when we do something else than alternating bugfix and major releases
   consistently. For example, if the next two releases are bugfix ones,
   do not set `$NEXT_PLANNED_MAJOR_VERSION` to one of these
   bugfix releases. Instead, set it to the version number of the next
   major release.
+
 * The `$NEXT*VERSION` constants are used only for two types of
   operations: preparing upgrade-description files and adding changelog
   entries. This two types of operations have to be consistent with
@@ -249,16 +267,20 @@ Visit the [Jenkins RM view](https://jenkins.tails.boum.org/view/RM/)
 and check that the jobs for the release branch have good enough results:
 
  - the last build and reproducibility testing builds have succeeded for:
+
    - if you're preparing a final release: the release branch
+
    - else, if you're preparing a release candidate: the `devel` branch
+
  - look at the last build of the corresponding `test_Tails_ISO_*` job;
    if anything looks unusual or fishy, check the few previous builds
    to see if it's a one-off robustness issue, a serious regression,
    or what not. In particular:
-   - Check the results of *Scenario: All packages are up-to-date*.
-     If it does not pass, evaluate whether the problems fixed in the missing
-     package update are worth delaying the release. If not, create an issue
-     to track them.
+
+   Check the results of *Scenario: All packages are up-to-date*.
+   If it does not pass, evaluate whether the problems fixed in the missing
+   package update are worth delaying the release. If not, create an issue
+   to track them.
 
 Freeze
 ======
@@ -345,11 +367,13 @@ Bootstrap internal manual testing coordination:
 
 1. Create a pad. Here's a good name:
 
-        echo "manualtesting-Tails_${VERSION:?}-$(pwgen 32 1)"
+        echo "QA-Tails_${VERSION:?}-$(pwgen 32 1)"
 
 2. Set the `PAD` environment variable to the URL of this pad.
+
 3. Copy the [[manual test suite|contribute/release_process/test]]
    into this pad.
+
 4. Generate boilerplate for the call for manual testing:
 
         ./bin/generate-call-for-manual-testers \
@@ -416,6 +440,9 @@ Manually inspect the diffs:
    For example, if you see `zz-YY:YY` added in `config/chroot_local-includes/usr/share/tails/browser-localization/descriptions`
    it must be because of a `po/zz_YY.po` which includes a line `"Language: zz_YY\n"`
 
+Commit the changes (if any):
+
+    git commit -m "Refresh localization list" config/chroot_local-includes/usr/share/tails/browser-localization/descriptions || :
 
 # If preparing a final release
 
@@ -524,12 +551,14 @@ Update the Changelog entry for the release you're preparing:
 ### If you're preparing a release candidate:
 
  - `[ "${DIST:?}" = alpha ]`
+
  - Set the version for the new entry in `debian/changelog` to `$VERSION`: the
    above code has incorrectly set it to `$MILESTONE`.
 
 ### If you're preparing a release candidate or a major release:
 
  - `[ "${DIST:?}" = alpha ] || [ "${MAJOR_RELEASE:?}" -eq 1 ]`
+
  - For each merge request listed in the new Changelog entry,
    copy the "Closes: #NNNNNN" string from the MR description into the relevant
    section of the Changelog.
@@ -638,8 +667,10 @@ Build the almost-final images
 
 1. [[Build ISO and USB images|contribute/build]] from the release branch,
    with `$TAILS_BUILD_OPTIONS` set like this:
+
    - Set `defaultcomp`, so we can more accurately optimize our
      SquashFS file ordering.
+
    - Do _not_ set `keeprunning`, nor `ignorechanges`, nor `rescue`.
    Expected time: 15-45 minutes depending on your computer.
 
@@ -714,6 +745,7 @@ Note:
   - This command takes a while (about a dozen minutes).
     While it's running, if you don't feel the need to take a break,
     you can proceed with the "SquashFS file order" section below.
+
   - It's expected that the packages that were pulled from our
     [[custom APT repository|APT_repository/custom]] are
     listed under "some packages were not found anywhere" (because we
@@ -753,26 +785,41 @@ Expected time: 20 minutes
 Feel free to skip this section when preparing an emergency release.
 
 1. Install the almost-final USB image to a USB stick.
+
 1. Boot this USB stick a first time to trigger re-partitioning.
+
 1. Shut down this Tails.
+
 1. If possible, set up a wired connection to avoid having to deal
    with wireless settings.
+
 1. Boot this USB stick **on bare metal** again.
+
 1. Add `profile login` to the kernel command-line
+
 1. Unless you've set up a wired connection, connect to Wi-Fi.
+
 1. Automatically connect to Tor with _Tor Connection_.
+
 1. Wait for _Tor Connection_ to report success.
+
 1. Start *Tor Browser*.
+
 1. Backup the old sort file: `cp config/binary_rootfs/squashfs.sort{,.old}`
+
 1. 3 minutes after the start of the GNOME session, the `boot-profile` process will be
    killed. Retrieve the new sort file from `/var/log/boot-profile`.
+
 1. Copy the new sort file to `config/binary_rootfs/squashfs.sort`.
+
 1. To remove:
 
    - runtime-generated files that don't exist in the rootfs,
      in order to avoid confusing noise in the build output
+
    - the bits about `kill-boot-profile` at the end: they're
      only useful when profiling the boot
+
    - some hardware-dependent files
 
    Run this command:
@@ -821,17 +868,23 @@ suite should be ready, so it is time to:
 
         . $(./bin/rm-config generate-environment --stage finalized-changelog)
 
-1. tag the release *again*, with all included files in:
+1. Tag the release *again*, with all included files in:
 
         git tag -f -u "${TAILS_SIGNATURE_KEY:?}" \
                 -m "tagging version ${VERSION:?}" "${TAG:?}" && \
         git push --force origin "${TAG:?}" && \
         git push origin "${RELEASE_BRANCH:?}"
 
-1. build the final images!
+1. Build the final images:
+
+        rake build
+
    Do _not_ set `keeprunning` nor `rescue` in `$TAILS_BUILD_OPTIONS`.
    Our build system will apply the correct compression settings automatically
    so don't bother setting it yourself.
+
+   If the build fails and you commit some last-minute fix, then you must
+   redo the previous step where you re-tag and force-push to origin!
 
 1. Make sure the Jenkins build starts as soon as possible. If needed, remove
    other builds from the _Build Queue_.
@@ -928,7 +981,9 @@ Then:
        immediately start preparing an emergency release with:
 
        - the reproducibility fix,
+
        - a new changelog entry,
+
        - adjustments to the release notes so they are re-purposed for
          this emergency release (the abandoned release gets none, since
          it effectively never will be released publicly).
@@ -971,7 +1026,7 @@ Get the internal manual testing started
 =======================================
 
 Email <tails-board@boum.org> and <tails-manual-testers@boum.org> that tests
-may start. Remeber to encrypt and sign your email!
+may start. Remember to encrypt and sign your email!
 
     ./bin/automailer.py <<EOF
     To: tails-board@boum.org, tails-manual-testers@boum.org
@@ -1053,9 +1108,11 @@ This command takes a long time. In parallel, while it is running,
 you can follow the next steps:
 
 1. ISO history
+
 2. Build the Incremental Upgrade Kits on Jenkins (you can start the
    build, but stop at the `rm-config --stage built-iuks` step which
    has to wait for your local IUK build to finish)
+
 3. If you expect the need to run some manual tests and you have one spare computer, you can prepare a USB
    stick and do so.
 
@@ -1122,11 +1179,14 @@ Build the Incremental Upgrade Kits on Jenkins
    fill the form with these values:
 
     - `TAILS_GIT_COMMIT`: the value of `$TAG` in your release environment
+
     - `SOURCE_DATE_EPOCH`: the value of `$SOURCE_DATE_EPOCH` in your
       release environment, i.e. the same value you are using to
       "Build the Incremental Upgrade Kits locally"; you can find it in
       `~/.config/tails/release_management/current.yml`
+
     - `NEW_VERSION`: the value of `$VERSION` in your release environment
+
     - `EXTRA_ARGS`: leave it blank
 
 2. Click the _Build_ button
@@ -1188,6 +1248,7 @@ This problem can be expected when we are maintaining Tails `N.x` together with T
 If this is the case:
 
 1. Run the same command, adding the `--ignore-404` option
+
 2. In the output of this second attempt, verify that the only missing IUKs are not relevant to this release
 
 ### If IUK verification fails
@@ -1220,8 +1281,10 @@ if the last command failed:
    Specify:
 
     - Which set of parameters you've passed to the *build_IUKs*
+
       job, so that the person who'll investigate the problem
       can reproduce it.
+
     - The ID of the build that failed to reproduce your
       locally-built IUKs.
 
@@ -1482,7 +1545,7 @@ As tracked on [[!tails_ticket 19396]], it might well be
 that Mirrorbits will miss this update.
 Let's be sure that this happens via
 
-    ssh rsync.lizard sudo cat /etc/mirrorbits-rpc-password \
+    ssh rsync.lizard "sudo cat /etc/mirrorbits-rpc-password && echo" \
       | ssh rsync.lizard mirrorbits -a refresh -rehash
 
 If, at a later stage of the process, you realize Mirrorbits is still not
@@ -1538,12 +1601,14 @@ You probably already know how to do that, but keep this in mind:
    keep your CPU busy by rerunning failed scenarios. See the "Automatically re-run failures" section.
 
  - if the following conditions are met:
+
     - you are making out an emergency release *OR* you still feel the need to make the release as soon as
       possible for security reasons
+
     - *and* you are *not* running test overnight, so skipping tests will reduce the lead time
+
     - *then*, feel free to skip testing `@not_release_blocker`, setting
       `what=(--tag ~@not_release_blocker)` in the following example.
-
 
 Automatically re-run failures
 --------------------------------
@@ -1679,10 +1744,13 @@ If no release notes where prepared, create one with placeholders:
 Make sure to:
 
 1. adjust the `!meta date` at the top.
+
 2. adjust all version numbers everywhere appropriately.
+
 3. add placeholders to the "Changes and updates" and "Fixed problems",
    e.g. "This section will be updated soon. Sorry for the
    inconvenience!".
+
 4. add any known issues to the "Known issues" section.
 
 The technical writers will update the release notes after the release.
@@ -1738,7 +1806,8 @@ Copy the signatures and the Torrents into the website repository:
 	   "${ISOS:?}/tails-amd64-${VERSION:?}".{iso,img}.torrent \
 	   "${RELEASE_CHECKOUT:?}/wiki/src/torrents/files/"
 
-Write the announcement for the release:
+If our [[contribute/working_together/roles/technical_writer]] did not
+prepare the announcement for the release, write it yourself:
 
 1. Set this environment variable, in the format `YYYY-MM-DD`:
 
@@ -1842,8 +1911,11 @@ To disable mirrors that are lagging behind:
 
 1. Set their weight to 0 in the
    [mirrors pool](https://gitlab.tails.boum.org/tails/mirror-pool/-/blob/master/mirrors.json).
+
 2. Push to the [[!tails_gitlab tails/mirror-pool]] `master` branch.
+
 3. Verify that the CI pipeline passed on [[!tails_gitlab tails/mirror-pool/-/pipelines]].
+
 4. Notify <tails-mirrors@boum.org>, so they communicate with the operators of the
    outdated mirrors.
 
@@ -1851,7 +1923,9 @@ Sanity checks
 -------------
 
 * Check for any feedback in the _Internal testing_ pad.
+
 * Check for any feedback on [tails-testers@boum.org](https://lists.autistici.org/mindex/tails-testers@20380101.000000.00000000.en.html)
+
 * Verify once more that the Tor Browser we ship is still the most recent (see
   above).
 
@@ -2196,11 +2270,15 @@ Check that you are indeed preparing a final release:
 1. Check the Mozilla and Tor Browser release calendars:
 
    * [Tor Browser release calendar](https://gitlab.torproject.org/tpo/applications/tor-browser/-/wikis/Release-Schedule)
+
      - What we're looking for here is the *release* events, not the *rebase* ones
+
      - If it looks surprising, check their [release preparation
        issues](https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/issues/?search=Prepare%20stable%20release&sort=updated_desc&state=opened).
        If necessary, ask the Tor Browser developers.
+
    * [Google calendar](https://www.google.com/calendar/embed?src=mozilla.com_2d37383433353432352d3939%40resource.calendar.google.com)
+
    * [Release schedule](https://whattrainisitnow.com/calendar/)
 
    If the upcoming release dates in the Mozilla calendar does not match
@@ -2232,7 +2310,7 @@ Check that you are indeed preparing a final release:
      and the call for manual testers.
 
 1. If you don't know who will be the release manager for the next release, open
-   an issue so you don't forget. Set the title to "Plan RM shift for 5.19"
+   an issue so you don't forget. Set the title to "Plan RM shift for ${NEXT_PLANNED_VERSION}"
 
        /label ~"C:Release management" ~"Core Work:Foundations Team" ~"To Do" ~"P:Elevated" 
        /milestone %"Tails_${NEXT_PLANNED_VERSION:?}" 
@@ -2244,7 +2322,9 @@ Check that you are indeed preparing a final release:
    Otherwise, kindly remind the next release manager about this :)
 
    - Send an email to the next RM with:
+
      - subject "RM for Tails NEXT_PLANNED_VERSION"
+
      - body: "This is a reminder that you will be RM for Tails NEXT_PLANNED_VERSION. Please see https://tails.net/contribute/working_together/roles/release_manager/#shift".
 
         ./bin/automailer.py <<EOF

@@ -46,8 +46,10 @@ identify these issues and remove their milestone.
 To select the corresponding issues:
 
 1. List [[!tails_gitlab groups/tails/-/issues desc="issues in the `tails` group"]]
+
 2. Filter the list to only include issues whose milestone is set to the next
    Tails release.
+
 3. Filter the list to only include issues that were postponed at least twice
    in a row by the RM: they have `missed:$version` labels.
 
@@ -56,8 +58,11 @@ To select the corresponding issues:
 Situations when dropping the milestone would be inadequate:
 
 * If the issue was (re)assigned to the assignee recently.
+
 * If there's been progress but it's not documented on the issue.
+
 * If it's part of a sponsor deliverable.
+
   - If the official deadline is in the future, most of the time we don't want
     to touch the milestone.
 
@@ -65,16 +70,22 @@ Whether it's appropriate to drop the milestone depends on:
 
 * When the last action on the issue by the assignee was performed. For
   example, if they did not update the issue since 3 months or more.
+
 * If the issue was recently postponed be the RM and not by the assignee
   themselves — the latter would suggest they have it in mind and are updating
   their plans.
+
 * Whether there's an assignee. If there's none but the issue was postponed a few times, then:
+
   - Either it's important and it should be put on the plate of a core team.
+
   - Or it's unimportant and the milestone should be dropped: keeping it
     has little value. If someone wants to track
     those issues, there surely are better ways.
+
 * Whether the issue is blocked by anything (other issues or what not) that's
   out of the hands of the assignee.
+
 * How safe/privileged is the assignee's position in Tails. For contributors
   that hold more power than average we can assume they know how to revert our
   changes.
@@ -115,8 +126,10 @@ Implementation:
   and not updated for a while
 
 * Output = a summary issue, which:
+
    - mentions each GitLab user who has such issues assigned to them;
      this adds an item to the To-Do list of these users
+
    - lists these issues, grouped by assignee
 
 ### Stalled validation

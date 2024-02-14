@@ -53,7 +53,7 @@ If *NoScript* is deactivated, the *NoScript* icon is absent from the top-right c
 
 To reactivate *NoScript* without restarting Tails, do the following:
 
-1. Open the address <span class="command">about:config</span> in *Tor
+1. Open the address `about:config` in *Tor
    Browser*.
 
    [[!img about-config.png link="no"]]
@@ -61,7 +61,7 @@ To reactivate *NoScript* without restarting Tails, do the following:
 1. Click the **I accept the risk!** button.
 
 1. At the top of the page, search for
-   <span class="command">xpinstall.signatures.required</span>.
+   `xpinstall.signatures.required`.
 
 1. Double-click on the **xpinstall.signatures.required** line in the
    results to set its value to **false**.
@@ -90,7 +90,7 @@ To reactivate *NoScript* without restarting Tails, do the following:
   To move these icons back to the top navigation bar, execute the
   following command in a *Terminal*:
 
-  <p class="pre command">gnome-shell-extension-tool --enable-extension=TopIcons@phocean.net</p>
+      gnome-shell-extension-tool --enable-extension=TopIcons@phocean.net
 
   Until now, these icons were displayed in the top navigation bar by the
   *TopIcons* GNOME extension. This extension is unmaintained, causes GNOME to
@@ -119,11 +119,11 @@ To reactivate *NoScript* without restarting Tails, do the following:
   Localization packages include:
 
   - *Thunderbird* localization:
-    packages <span class="command">thunderbird-l10n-<span class="command-placeholder">lang</span></span>
+    packages <code>thunderbird-l10n-<span class="command-placeholder">lang</span></code>
   - *LibreOffice* localization:
-    packages <span class="command">libreoffice-l10n-<span class="command-placeholder">lang</span></span>
+    packages <code>libreoffice-l10n-<span class="command-placeholder">lang</span></code>
   - Spell-checking dictionaries:
-    packages <span class="command">hunspell-<span class="command-placeholder">lang</span></span>
+    packages <code>hunspell-<span class="command-placeholder">lang</span></code>
 
   Where <span class="command-placeholder">lang</span> is the code for
   your language. For example, <span class="command-placeholder">es</span> for

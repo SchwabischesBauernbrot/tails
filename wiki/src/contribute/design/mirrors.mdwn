@@ -19,18 +19,23 @@ nearest mirror based on their IP geolocation data:
 
 - The list of mirrors is automatically and periodically loaded from [the
   `mirrors.json` file on our website](https://tails.net/mirrors.json)
+
 - For historic reasons, the `mirrors.json` configuration file is stored in a
   [[!tails_gitweb_repo mirror-pool desc="dedicated Git repository"]]
   that is added to our website with the ikiwiki underlay mechanism.
+
 - IP geolocation data is automatically and periodically updated from [MaxMind's
   GeoLite2](https://dev.maxmind.com/geoip/geolite2-free-geolocation-data?lang=en)
   databases.
+
 - Downloads are served under the `download.tails.net` domain (see [mirror
   statistics](https://download.tails.net/tails?mirrorstats)).
+
 - [Mirrorbits](https://github.com/etix/mirrorbits) performs the actual
   redirections according to its own internal score system, which is based on
   mirrors' weights (imported from `mirrors.json`) and IP geolocation data
   (Autonomous Systems, countries and calculated distances).
+
 - The server-side code can be found in [[!tails_gitlab
   tails/puppet-tails/-/blob/master/manifests/profile/mirrorbits.pp]]
 
