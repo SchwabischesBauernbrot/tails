@@ -9,6 +9,7 @@ import sys
 import psutil
 from tails_installer import _
 from tails_installer.config import CONFIG
+from tailslib.persistence import PERSISTENCE_DIR, has_unlocked_persistence
 
 from gi.repository import GLib
 
@@ -67,18 +68,18 @@ def extract_file_content_from_iso(iso_path, path):
 
 
 def iso_is_live_system(iso_path):
-    """Return true if a Live system is detected inside the iso_path file"""
+    """Return true iff a Live system is detected inside the iso_path file"""
     version = extract_file_content_from_iso(iso_path, "/.disk/info")
     return version.startswith("Debian GNU/Linux")
 
-
-def get_persistent_storage_size():
+def get_persistent_storage_backup_size():
     """If unlocked, return the minimum partition size (bytes) we accept as a valid target to
     back up the current Tails, else None."""
-    if os.path.exists(CONFIG["persistence_mountpoint"]):
-        return psutil.disk_usage(
-            CONFIG["persistence_mountpoint"]
-        ).used + mebibytes_to_bytes(CONFIG["luks2_header_size"])
+    luks2_header_size = 16
+    if has_unlocked_persistence():
+        return psutil.disk_usage(PERSISTENCE_DIR).used + mebibytes_to_bytes(
+            luks2_header_size
+        )
 
 
 def get_official_min_backup_device_size():
