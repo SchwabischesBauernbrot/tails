@@ -615,7 +615,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     _("No device suitable to install Tails could be found")
                 )
                 self.__label_infobar_details.set_text(
-                    _("Please plug a USB flash drive or SD card of at least %0.1f GB.")
+                    _("Plug in a USB stick of at least %0.1f GB.")
                     % (CONFIG["official_min_installation_device_size"] / 1000.0)
                 )
                 self.__infobar.set_visible(True)
@@ -767,7 +767,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 }
                 if self.live.drive["parent"] in self.devices_with_persistence:
                     delete_message = _(
-                        "\n\nThe persistent storage on this USB stick will be lost."
+                        "\n\nThe Persistent Storage on this USB stick will be lost."
                     )
                     confirmation_label = _("Delete Persistent Storage and Reinstall")
                 else:
