@@ -8,7 +8,30 @@ on Debian 12 (Bookworm) and GNOME 43. Tails 6.0 brings new versions of most of
 the software included in Tails as well as several important security and
 usability improvements.
 
+[[!toc levels=2]]
+
 <h1 id="features">New features</h1>
+
+## Error detection and repair on the Persistent Storage
+
+- Detection
+
+  Tails 6.0 warns you about [[errors when reading or writing|ioerror]] from
+  your Tails USB stick.
+
+  These alerts can help you diagnose hardware failures on your USB stick and
+  backup your Persistent Storage before it's too late.
+
+- Repair
+
+  Since version 5.22, Tails automatically tries to do a light repair on the
+  file system of your Persistent Storage if it is broken when you unlock it.
+
+  We've seen good results from this change in your *WhisperBack* reports, but
+  it was not enough in some cases.
+
+  Tails 6.0 tries to do even more repairs on your Persistent Storage when you
+  unlock it.
 
 ## Mount external devices automatically
 
@@ -19,6 +42,9 @@ automatically.
 
 [[!img test_6.0-rc1/unlock.png link="no" class="screenshot" alt="Authentication Required. A
 passphrase is needed to access encrypted data."]]
+
+This feature also simplifies how to unlock [[*VeraCrypt* encrypted
+volumes|doc/encryption_and_privacy/veracrypt]].
 
 ## Protection against malicious USB devices
 
@@ -111,12 +137,6 @@ Tails 6.0 updates most of the applications included in Tails, among others:
   * Support dark mode.
   * Add support for AIFF and HEIC files.
 
-- *OnionShare* from 2.2-3 to 2.6-5
-
-  * Redesign the whole user interface.
-  * Allow creating chat rooms.
-  * Allow hosting static websites.
-
 - *Text Editor* from `gedit` to `gnome-text-editor`
 
   * Support dark mode.
@@ -129,31 +149,49 @@ Tails 6.0 updates most of the applications included in Tails, among others:
 
 - *Kleopatra* from 4:20.08 to 4:22.12
 
-<!--
-
-Maybe mention as well in the release notes for 6.0:
-
-- Simplified Wi-Fi
-- Activities (#19655)
-- Lock Screen and user icon
-
--->
-
 ## Removed features
+
+- Remove the icons on the desktop.
+
+  The extension of GNOME Shell that we used to provide this feature is not well
+  maintained and created other problems. ([[!tails_ticket 19920]])
+
+  To reinstall this extension as Additional Software in Tails 6.0:
+
+  1. [[Set up an administration password
+     |doc/first_steps/welcome_screen/administration_password]] when you start Tails.
+
+  1. Install the `gnome-shell-extension-desktop-icons-ng` package as
+     [[Additional Software|doc/persistent_storage/additional_software]].
+
+  1. Open a *Terminal* and execute the following command once to configure the
+     extension automatically each time you start Tails in the future:
+
+         sudo sh /usr/share/doc/tails/website/news/version_6.0/configure-desktop-icons
+
+  1. Execute the following command to enable the extension:
+
+         gnome-extensions enable ding@rastersoft.com
+
+     You will only have to execute this last command each time you start Tails
+     in the future.
+
+- Remove the item **Wipe** and **Wipe available disk space** from the shortcut
+  menu of the *Files* browser.
+
+  Secure deletion is not reliable enough on USB sticks and Solid-State Drives
+  (SSDs) for us to keep advertising this feature.
+
+  We updated our documentation on [[secure
+  deletion|doc/encryption_and_privacy/secure_deletion]] to new recommendations:
+  use encrypted volumes, overwrite the entire device, or disintegrate it
+  physically.
 
 - Remove the item **Remove metadata** from the shortcut menu of the *Files*
   browser.
 
   The developers of MAT2, the metadata removal library used by *Metadata
   Cleaner* are not providing this option anymore.
-
-- Remove the item **Wipe** and **Wipe available disk space** from the shortcut
-  menu of the *Files* browser.
-
-  Secure deletion is not reliable enough on USB sticks and SSDs for us to keep
-  advertising this feature. We are still discussing which alternatives to
-  explain in our documentation on [[secure
-  deletion|doc/encryption_and_privacy/secure_deletion]]. ([[!tails_ticket 19121]])
 
 - Remove *GtkHash*
 
@@ -169,17 +207,11 @@ For more details, read our [[!tails_gitweb debian/changelog desc="changelog"]].
 
 <h1 id="issues">Known issues</h1>
 
-- Tails 6.0~rc1 is not reliably reproducible ([[!tails_ticket 20165]], [[!tails_ticket 20166]]).
+- *OnionShare* is still included as version 2.2.
 
-- *OnionShare* 2.6 has several issues in Tails and Debian 12 (Bookworm) in
-  general that have security implications:
-
-  * OnionShare stays open in the background and fails to reopen. ([[!tails_ticket 20135]])
-
-  * OnionShare crashes when stopping and restarting file shares in OnionShare. ([[!tails_ticket 20140]])
-
-  Despite the very interesting new features in *OnionShare* 2.6, we are
-  considering keeping *OnionShare* 2.2 in Tails 6.0 because of these issues.
+  We tried to include *OnionShare* 2.6 in Tails 6.0, but it has several issues
+  that had security implications. ([[!tails_ticket 20135]] and [[!tails_ticket
+  20140]])
 
 - Mounting external devices automatically interferes badly with some other
   features:
