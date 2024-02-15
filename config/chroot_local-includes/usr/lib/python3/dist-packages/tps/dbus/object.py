@@ -27,7 +27,7 @@ class UnregistrationFailedError(Exception):
     pass
 
 
-class DBusObject(object, metaclass=ABCMeta):
+class DBusObject(metaclass=ABCMeta):
     """DBusObject is an abstract class which facilitates registering
     D-Bus objects"""
 
