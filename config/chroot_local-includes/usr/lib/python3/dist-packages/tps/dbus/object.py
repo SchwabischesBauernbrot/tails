@@ -7,7 +7,7 @@ import time
 from abc import abstractmethod, ABCMeta
 import inspect
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any
 from threading import Thread
 
 from gi.repository import Gio, GLib
@@ -88,7 +88,7 @@ class DBusObject(object, metaclass=ABCMeta):
         self.registered = False
 
     def emit_signal(
-        self, connection: Gio.DBusConnection, signal_name: str, values: Dict[str, Any]
+        self, connection: Gio.DBusConnection, signal_name: str, values: dict[str, Any]
     ):
         signal = self.signals[signal_name]
         parameters = []
@@ -109,8 +109,8 @@ class DBusObject(object, metaclass=ABCMeta):
         self,
         connection: Gio.DBusConnection,
         interface_name: str,
-        changed_properties: Dict[str, GLib.Variant],
-        invalidated_properties: List[str] = None,
+        changed_properties: dict[str, GLib.Variant],
+        invalidated_properties: list[str] = None,
     ):
         if invalidated_properties is None:
             invalidated_properties = list()
