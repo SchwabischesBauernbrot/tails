@@ -74,8 +74,8 @@ class Job(DBusObject):
         self.connection = connection
         self.cancellable = Gio.Cancellable()  # type: Gio.Cancellable
         self._conflicting_apps = dict()  # type: dict[str, list[int]]
-        self._progress = int()
-        self._status = str()
+        self._progress = 0
+        self._status = ""
 
     def __enter__(self):
         return self
