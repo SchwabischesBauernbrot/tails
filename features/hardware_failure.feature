@@ -16,5 +16,6 @@ Feature: Hardware failures
     Then I see a Disk Failure Message on the splash screen
 
   Scenario: Alerting about Graphic card Failure before reaching the Welcome Screen
-    Given I start the computer from DVD with network unplugged and an unsupported Graphic card
+    Given a computer
+    And I start the computer from DVD with network unplugged and an unsupported Graphic card
     Then I see a Graphic card Failure Message on the splash screen
