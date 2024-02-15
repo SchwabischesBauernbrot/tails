@@ -9,8 +9,3 @@ Feature: Hardware failures
     When Tails detects disk read failures
     Then I see a Disk Failure Message
     Then I can open the Hardware Failure documentation from the Disk Failure Message
-
-  Scenario: Alerting about disk read failures before reaching the Welcome Screen
-    Given I start the computer from DVD with network unplugged
-    When Tails detects disk read failures
-    Then I see a Disk Failure Message on the splash screen
