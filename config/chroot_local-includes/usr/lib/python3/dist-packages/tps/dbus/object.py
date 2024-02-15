@@ -6,7 +6,6 @@ import threading
 import time
 from abc import abstractmethod, ABCMeta
 import inspect
-from logging import getLogger
 from pathlib import Path
 from typing import Any, Dict, List
 from threading import Thread
