@@ -1,7 +1,7 @@
 @product
 Feature: Hardware failures
   As a Tails user
-  when the USB stick has hardware failures
+  when hardware failures are detected
   I want to to see a message.
 
   Scenario: Alerting about disk read failures in GNOME
@@ -14,3 +14,7 @@ Feature: Hardware failures
     Given I start the computer from DVD with network unplugged
     When Tails detects disk read failures
     Then I see a Disk Failure Message on the splash screen
+
+  Scenario: Alerting about Graphic card Failure before reaching the Welcome Screen
+    Given I start the computer from DVD with network unplugged and an unsupported Graphic card
+    Then I see a Graphic card Failure Message on the splash screen
