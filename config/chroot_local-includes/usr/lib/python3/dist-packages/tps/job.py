@@ -2,7 +2,7 @@ import abc
 from contextlib import contextmanager
 import os
 import threading
-from typing import Dict, List, Optional
+from typing import Optional
 
 from gi.repository import Gio, GLib
 
@@ -74,7 +74,7 @@ class Job(DBusObject):
         super().__init__(connection=connection)
         self.connection = connection
         self.cancellable = Gio.Cancellable()  # type: Gio.Cancellable
-        self._conflicting_apps = dict()  # type: Dict[str, List[int]]
+        self._conflicting_apps = dict()  # type: dict[str, list[int]]
         self._progress = int()
         self._status = str()
 
@@ -119,13 +119,13 @@ class Job(DBusObject):
         return self._progress
 
     @property
-    def ConflictingApps(self) -> Dict[str, List[int]]:
+    def ConflictingApps(self) -> dict[str, list[int]]:
         """A mapping from application name to a list of PIDs which have
         to be terminated before the job can continue"""
         return self._conflicting_apps
 
     @ConflictingApps.setter
-    def ConflictingApps(self, apps: Dict[str, List[int]]):
+    def ConflictingApps(self, apps: dict[str, list[int]]):
         if self._conflicting_apps == apps:
             # Nothing to do
             return
