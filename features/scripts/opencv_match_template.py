@@ -14,6 +14,8 @@ class FindFailed(RuntimeError):
 def match(image, candidate, sensitivity, show_match=False, show_candidate=False):
     """Return the pos of candidate inside image, or raises if no match."""
     assert sensitivity < 1.0
+    if not os.path.exists(image):
+        raise FileNotFoundError
     image_rgb = cv2.imread(image, cv2.IMREAD_COLOR)
     image_gray = cv2.cvtColor(image_rgb, cv2.COLOR_BGR2GRAY)
     template = cv2.imread(candidate, cv2.IMREAD_GRAYSCALE)
