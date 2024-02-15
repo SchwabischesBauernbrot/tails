@@ -7,7 +7,7 @@ import time
 from abc import abstractmethod, ABCMeta
 import inspect
 from pathlib import Path
-from typing import Any
+from typing import Any, Optional
 from threading import Thread
 
 from gi.repository import Gio, GLib
@@ -110,7 +110,7 @@ class DBusObject(metaclass=ABCMeta):
         connection: Gio.DBusConnection,
         interface_name: str,
         changed_properties: dict[str, GLib.Variant],
-        invalidated_properties: list[str] = None,
+        invalidated_properties: Optional[list[str]] = None,
     ):
         if invalidated_properties is None:
             invalidated_properties = list()
