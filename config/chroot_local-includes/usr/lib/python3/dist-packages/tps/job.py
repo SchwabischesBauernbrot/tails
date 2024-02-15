@@ -63,7 +63,7 @@ class Job(DBusObject):
 
     def __init__(self, connection: Gio.DBusConnection):
         # Set the job ID
-        global job_id
+        global job_id  # noqa: PLW0603
         job_id_lock.acquire()
         job_id += 1
         self.Id = job_id
