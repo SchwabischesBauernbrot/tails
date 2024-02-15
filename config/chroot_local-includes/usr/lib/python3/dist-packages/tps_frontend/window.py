@@ -7,7 +7,7 @@ from typing import TYPE_CHECKING, Optional
 import gi
 from gi.repository import Gio, GLib, GObject, Gtk
 from tps import IN_PROGRESS_STATES, InvalidBootDeviceErrorType, State
-from tps.dbus.errors import DBusError, NotEnoughMemoryError, TargetIsBusyError
+from tps.errors import DBusError, NotEnoughMemoryError, TargetIsBusyError
 
 from tps_frontend import WINDOW_UI_FILE, _
 from tps_frontend.change_passphrase_dialog import ChangePassphraseDialog

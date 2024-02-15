@@ -5,7 +5,7 @@ import re
 from typing import TYPE_CHECKING
 
 from gi.repository import Gio, GLib, GObject, Gtk, Handy
-from tps.dbus.errors import DBusError, SymlinkSourceDirectoryError, TargetIsBusyError
+from tps.errors import DBusError, SymlinkSourceDirectoryError, TargetIsBusyError
 
 from tps_frontend import (
     DBUS_FEATURE_INTERFACE,

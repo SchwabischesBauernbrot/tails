@@ -128,7 +128,7 @@ class Dotfiles(Feature):
     Bindings = [Binding("dotfiles", "/home/amnesia", uses_symlinks=True)]
 
 
-def get_classes():
+def get_classes() -> list[type[Feature]]:
     return [
         g for g in globals().values() if inspect.isclass(g) and Feature in g.__bases__
     ]

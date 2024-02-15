@@ -17,14 +17,14 @@ from tps import (
     ON_DEACTIVATED_HOOKS_DIR,
 )
 from tps.configuration.binding import Binding, IsActiveException, IsInactiveException
-from tps.dbus.errors import (
+from tps.errors import (
     ActivationFailedError,
     DeletionFailedError,
     JobCancelledError,
     FailedPreconditionError,
     DeactivationFailedError,
 )
-from tps.dbus.object import DBusObject
+from gdbus_util import DBusObject
 from tps.job import ServiceUsingJobs
 
 if TYPE_CHECKING:
@@ -61,7 +61,8 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
 
     def __init__(self, service: "Service", is_custom: bool = False):
         logger.debug("Initializing feature %r", self.Id)
-        super().__init__(connection=service.connection)
+        DBusObject.__init__(self, connection=service.connection)
+        ServiceUsingJobs.__init__(self, connection=service.connection)
         self.service = service
         self.is_custom = is_custom
 
@@ -233,9 +234,9 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
     @Job.setter
     def Job(self, job: "Job"):
         self._job = job
-        changed_properties = {"Job": GLib.Variant("s", self.Job)}
         self.emit_properties_changed_signal(
-            self.service.connection, DBUS_FEATURE_INTERFACE, changed_properties
+            interface_name=DBUS_FEATURE_INTERFACE,
+            changed_properties={"Job": self.Job},
         )
 
     @property
@@ -339,20 +340,21 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
         changed_properties = dict()
 
         if self._is_enabled != self._last_signaled_is_enabled:
-            changed_properties["IsEnabled"] = GLib.Variant("b", self._is_enabled)
+            changed_properties["IsEnabled"] = self._is_enabled
             self._last_signaled_is_enabled = self._is_enabled
 
         if self._has_data != self._last_signaled_has_data:
-            changed_properties["HasData"] = GLib.Variant("b", self._has_data)
+            changed_properties["HasData"] = self._has_data
             self._last_signaled_has_data = self._has_data
 
         if self._is_active != self._last_signaled_is_active:
-            changed_properties["IsActive"] = GLib.Variant("b", self._is_active)
+            changed_properties["IsActive"] = self._is_active
             self._last_signaled_is_active = self._is_active
 
         if changed_properties:
             self.emit_properties_changed_signal(
-                self.service.connection, DBUS_FEATURE_INTERFACE, changed_properties
+                interface_name=DBUS_FEATURE_INTERFACE,
+                changed_properties=changed_properties,
             )
 
     def wait_for_conflicting_processes_to_terminate(self, job: "Job"):

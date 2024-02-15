@@ -83,7 +83,7 @@ class Dotfiles(Feature):
     pass
 
 
-def get_feature_classes():
+def get_feature_classes() -> list[type[Feature]]:
     return [
         g for g in globals().values() if inspect.isclass(g) and Feature in g.__bases__
     ]
@@ -104,7 +104,7 @@ class FeaturesView(View):
             None,
             None,
         )  # type: Gio.DBusObjectManagerClient
-        self.features = list()
+        self.features: list[type[Feature]] = []
 
         # Append all non-default paths that contain icons to the search
         # paths

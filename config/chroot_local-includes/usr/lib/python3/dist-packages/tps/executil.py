@@ -7,10 +7,17 @@ from pathlib import Path
 import subprocess
 from typing import List, Union
 
+from gi.repository import GLib
+
 import tps
 import tps.logging
+from gdbus_util import DBusError
 
 logger = tps.logging.get_logger(__name__)
+
+
+class HookFailedError(DBusError):
+    name = "org.boum.tails.PersistentStorage.Error.HookFailed"
 
 
 def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
@@ -71,6 +78,16 @@ def execute_hooks(hooks_dir: Union[str, PathLike]):
         logger.info(f"Executing hook {file}", stacklevel=4)
         try:
             check_call([str(file)])
+        except subprocess.CalledProcessError as e:
+            # The hook might have failed because the user did something
+            # unexpected. We include the stderr in the error message,
+            # which might help the user to debug the issue themself.
+            path = GLib.markup_escape_text(str(file))
+            msg = f"Command <tt>{path}</tt> failed with exit code {e.returncode}."
+            if e.stderr:
+                stderr = GLib.markup_escape_text(e.stderr.strip())
+                msg = f"{msg} Command output:\n\n<tt>{stderr}</tt>"
+            raise HookFailedError(msg) from e
         finally:
             logger.debug(f"Done executing hook", stacklevel=4)
 

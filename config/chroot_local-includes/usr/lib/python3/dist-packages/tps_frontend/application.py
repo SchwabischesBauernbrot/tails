@@ -17,6 +17,8 @@ from tps_frontend.window import Window
 
 logger = getLogger(__name__)
 
+KEEP_ALIVE_INTERVAL = 10
+
 
 class Application(Gtk.Application):
     def __init__(self, bus: Gio.DBusConnection):
@@ -58,6 +60,33 @@ class Application(Gtk.Application):
             )
             raise
 
+    def keep_alive(self) -> bool:
+        """Call the KeepAlive method on the D-Bus service to avoid that it
+        exits on idle."""
+
+        # Don't try to send a keep-alive if the fail view is active,
+        # because that means that the service is not running and we
+        # don't want to show an error about the keep-alive failing.
+        if self.window and self.window.active_view == self.window.fail_view:
+            return True
+
+        logger.debug("Sending keep-alive")
+        try:
+            self.service_proxy.call_sync(
+                "KeepAlive",
+                None,
+                Gio.DBusCallFlags.NONE,
+                -1,
+                None,
+            )
+        except GLib.Error as e:
+            logger.error(f"Failed to call the KeepAlive method: {e.message}")
+            self.display_error(
+                _("Error sending keep-alive to the Persistent Storage service"),
+            )
+            raise
+        return True
+
     def do_activate(self):
         if not self.window:
             self.window = Window(self, self.bus)
@@ -65,6 +94,10 @@ class Application(Gtk.Application):
 
         self.add_window(self.window)
         self.window.present()
+
+        # Start the keep-alive timer
+        GLib.timeout_add_seconds(KEEP_ALIVE_INTERVAL, self.keep_alive)
+        self.keep_alive()
 
     def display_error(
         self, title: str, msg: str = "", with_send_report_button: bool = True

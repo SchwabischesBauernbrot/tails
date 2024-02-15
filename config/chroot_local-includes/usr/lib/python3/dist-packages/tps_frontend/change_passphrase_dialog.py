@@ -2,7 +2,7 @@ from logging import getLogger
 from gi.repository import Gdk, Gio, GLib, Gtk
 from typing import TYPE_CHECKING
 
-from tps.dbus.errors import IncorrectPassphraseError
+from tps.errors import IncorrectPassphraseError
 
 from tps_frontend import _, CHANGE_PASSPHRASE_DIALOG_UI_FILE
 from tps_frontend.passphrase_strength_hint import set_passphrase_strength_hint

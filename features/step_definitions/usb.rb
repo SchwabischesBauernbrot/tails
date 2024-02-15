@@ -69,7 +69,9 @@ def tps_feature_is_active(feature, reload: true)
 end
 
 def tps_reload
-  $vm.execute_successfully('systemctl reload tails-persistent-storage.service')
+  $vm.execute_successfully(
+    'systemctl reload-or-restart tails-persistent-storage.service'
+  )
 end
 
 def persistent_volumes_mountpoints
@@ -1707,5 +1709,7 @@ Given /^the persistence partition on USB drive "([^"]+)" uses LUKS version 1$/ d
 end
 
 Given /^I reload tails-persistent-storage.service$/ do
-  $vm.execute_successfully('systemctl reload tails-persistent-storage.service')
+  $vm.execute_successfully(
+    'systemctl reload-or-restart tails-persistent-storage.service'
+  )
 end
