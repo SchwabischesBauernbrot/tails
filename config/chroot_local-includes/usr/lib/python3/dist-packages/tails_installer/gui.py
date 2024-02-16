@@ -96,7 +96,8 @@ class ProgressThread(threading.Thread):
                 value = (self.orig_free - free) / 1024
             if os.path.ismount("/media/amnesia/TailsData"):
                 tps_value = psutil.disk_usage("/media/amnesia/TailsData").used / 1024
-            GLib.idle_add(self.parent.progress,
+            GLib.idle_add(
+                self.parent.progress,
                 float(value + tps_value) / (self.totalsize + self.tps_totalsize))
             sleep(0.1)
 
