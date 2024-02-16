@@ -34,12 +34,18 @@ use MooX::Options;
 
 =cut
 
-option "$_" => (
+option next_versions => (
     required => 1,
     is       => 'ro',
     isa      => ArrayRef,
     format   => 's@',
-) for (qw{previous_versions next_versions});
+);
+
+option previous_versions => (
+    is       => 'lazy',
+    isa      => ArrayRef,
+    format   => 's@',
+);
 
 option version => (
     required => 1,
@@ -81,6 +87,7 @@ option "$_" => (
 
 =cut
 
+method _build_previous_versions() { [] }
 method _build_build_target () { 'amd64'   }
 method _build_channel      () { 'stable' }
 method _build_product_name () { 'Tails'  }
@@ -133,6 +140,12 @@ method run () {
             $self->update_udf_for_previous_release($previous_version, $channel);
             say STDERR '';
         }
+    }
+
+    if (! @{$self->previous_versions}) {
+        say STDERR
+            "* Warning: not updating upgrade-description files for any previous release.\n",
+            "  Please ensure you did not forget to pass --previous_version";
     }
 }
 

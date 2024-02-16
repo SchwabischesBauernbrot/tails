@@ -110,7 +110,8 @@ p + p, table + p {
 }
 
 ol, ul {
-  padding-left: 30px;
+  padding: 0;
+  margin-left: 1.5em;
 }
 
 .remove-extra-space {
@@ -211,6 +212,11 @@ td.cross {
 }
 
 /* Images */
+
+img {
+  max-width: 100%;
+  height: auto;
+}
 
 img.img { /* Overwrite style.css */
   margin: 0em;
@@ -794,11 +800,6 @@ article.inlinepage {
   top: 5px;
 }
 
-.inlinepage img {
-  max-width: 100%;
-  height: auto;
-}
-
 /* Buttons and calls for action */
 
 button, .button > a, label.button, input[type="submit"] {
@@ -1189,6 +1190,7 @@ div#highlight p {
 #footer ul {
   list-style: none;
   margin-left: 0;
+  padding-left: 0;
 }
 
 #footer a {

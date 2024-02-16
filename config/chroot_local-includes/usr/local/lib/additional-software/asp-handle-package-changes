@@ -5,10 +5,13 @@
 Retrieve the list of packages saved by apt_hook_pre, filter packages not
 interesting and pass the resulting list to the appropriate method.
 """
+import argparse
+import fcntl
 import gettext
 import logging
 import os
 import subprocess
+import sys
 import time
 from pathlib import Path
 
@@ -25,6 +28,8 @@ from tailslib.persistence import has_unlocked_persistence, has_persistence,\
 
 gettext.install("tails")
 _ = gettext.gettext
+
+LOCK_FILE = "/run/live-additional-software/handle-package-changes-lock"
 
 
 def handle_installed_packages(packages: set[str]):
@@ -110,12 +115,29 @@ def create_persistence_and_setup_additional_packages(packages: set[str]):
     logging.info("Creating new persistent volume")
     # We start tps-frontend in the background and don't wait for it
     # to exit, which may or may not ever happen.
-    spawn_tps_frontend()
+    tps_frontend_service = spawn_tps_frontend()
     logging.info("Waiting for Persistent Storage to be ready")
     # This can take a while: tps is copying the APT lists and packages
     # to the newly created Persistent Storage.
     while not additional_software_persistence_feature_is_active():
+        # Check if tps-frontend is still running.
+        try:
+            cmd = ["/usr/local/lib/run-with-user-env", "/bin/systemctl",
+                   "--user", "is-active", tps_frontend_service]
+            subprocess.run(cmd, check=True, stdout=subprocess.DEVNULL,
+                           stderr=subprocess.PIPE, text=True)
+        except subprocess.CalledProcessError as e:
+            # Print the stderr from the error for debugging
+            if e.stderr:
+                print(e.stderr, file=sys.stderr)
+
+            # The Persistent Storage is not ready yet, but tps-frontend
+            # is not running anymore, so the user probably closed it
+            # without creating a Persistent Storage.
+            logging.info("Persistent Storage creation was cancelled")
+            return
         time.sleep(2)
+
     logging.info("Persistent Storage is ready, setting up additional packages")
     add_additional_packages(packages)
 
@@ -184,17 +206,32 @@ def add_additional_packages(new_packages):
 
 
 def main():
+    parser = argparse.ArgumentParser(description="Handle package changes")
+    parser.add_argument("--installed", help="File containing the list of "
+                        "installed packages")
+    parser.add_argument("--removed", help="File containing the list of "
+                        "removed packages")
+    args = parser.parse_args()
+
     additional_software.set_up_logging()
+
+    # Acquire a lock to avoid running multiple instances of this script
+    # concurrently, which would lead to race conditions (see #16034) and
+    # incorrect behavior (asking the user twice about the same package).
+    logging.info("Acquiring lock")
+    lock_file = open(LOCK_FILE, "w")
+    fcntl.flock(lock_file, fcntl.LOCK_EX)
+
     logging.info("Examining package changes")
 
     installed_packages = list()
-    installed_packages_file = Path(additional_software.INSTALLED_PACKAGES_FILE)
+    installed_packages_file = Path(args.installed)
     if installed_packages_file.exists():
         installed_packages = installed_packages_file.read_text().splitlines()
         installed_packages_file.unlink()
 
     removed_packages = list()
-    removed_packages_file = Path(additional_software.REMOVED_PACKAGES_FILE)
+    removed_packages_file = Path(args.removed)
     if removed_packages_file.exists():
         removed_packages = removed_packages_file.read_text().splitlines()
         removed_packages_file.unlink()
@@ -225,6 +262,8 @@ def main():
         additional_packages_names)
     if additional_packages_removed:
         handle_removed_packages(additional_packages_removed)
+
+    logging.info("Exiting")
 
 
 if __name__ == "__main__":

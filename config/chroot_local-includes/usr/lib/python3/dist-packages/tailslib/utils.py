@@ -37,9 +37,15 @@ def run_with_user_env(command, *args):
         raise
 
 
-def start_as_transient_systemd_service(command, *args):
+def start_as_transient_systemd_service(service_name, command, *args):
     """Launch a command as amnesia and return immediately. The command
     is run as a transient systemd user service, so it doesn't exit when
     the parent process exits."""
-    cmdline = ["/usr/local/lib/run-with-user-env", "--systemd-run", command, *args]
+    cmdline = [
+        "/usr/local/lib/run-with-user-env",
+        "--transient-systemd-service",
+        service_name,
+        command,
+        *args,
+    ]
     subprocess.check_call(cmdline)

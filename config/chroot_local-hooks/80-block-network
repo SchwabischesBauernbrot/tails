@@ -16,7 +16,7 @@ END
 is_net_module() {
     # Here we assume that if any of the patterns below are matched, it
     # is a network driver. This is not comprehensive, but should be
-    # enough for the staging directory (worst case we blacklist some
+    # enough for the staging directory (worst case we blocklist some
     # shitty non-network driver by mistake).
     /sbin/modinfo "${1}" | \
         grep -q --extended-regexp \
@@ -49,7 +49,7 @@ generate_blocking_line() {
     done
 }
 
-BLACKLIST=/etc/modprobe.d/all-net-blacklist.conf
+BLOCKLIST=/etc/modprobe.d/all-net-blocklist.conf
 
 (
     find /lib/modules/*/kernel/drivers/net -name "*.ko" | \
@@ -60,4 +60,4 @@ BLACKLIST=/etc/modprobe.d/all-net-blacklist.conf
     find /lib/modules/*/kernel/drivers/staging/ -name "*.ko" | \
         net_module_filter | \
         generate_blocking_line
-) | sort -u > "${BLACKLIST}"
+) | sort -u > "${BLOCKLIST}"

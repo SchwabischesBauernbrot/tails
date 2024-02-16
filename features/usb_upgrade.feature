@@ -62,7 +62,6 @@ Feature: Upgrading an old Tails USB installation
     And I log in to a new session
     And I clone USB drive "old" to a new USB drive "to_upgrade"
     And I plug USB drive "to_upgrade"
-    And I cancel the GNOME authentication prompt
     When I upgrade Tails to USB drive "to_upgrade" by cloning
     Then the running Tails is installed on USB drive "to_upgrade"
     And I unplug USB drive "to_upgrade"
