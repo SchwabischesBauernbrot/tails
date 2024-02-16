@@ -248,7 +248,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self._build_ui()
 
         self.opts.clone = True
-        self.opts.clone_persistent_storage_requested = False
         self.live = TailsInstallerCreator(opts=opts)
 
         # Intercept all tails_installer.INFO log messages, and display them
@@ -264,6 +263,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         if self.opts.clone:
             self.__radio_button_source_device.set_active(True)
             self.__filechooserbutton_source_file.set_sensitive(False)
+            if self.opts.clone_persistent_storage_requested:
+                self.__check_button_clone_persistent_storage.set_active(True)
         # - outside of Tails
         else:
             self.__radio_button_source_device.set_visible(False)
