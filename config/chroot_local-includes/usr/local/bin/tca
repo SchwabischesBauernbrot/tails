@@ -48,12 +48,12 @@ chmod 600 "${CONFIG_FILE}" "${STATE_FILE}"
 # 3. `sudo --close-from=5 -u amnesia` drops privileges to the amnesia
 #    user and closes all file descriptors greater than 4, with 3 and 4
 #    being the file descriptors opened above by inherit-fd. This is
-#    to avoid inadvertently having the unprivileged tps-frontend process
+#    to avoid inadvertently having the unprivileged tca process
 #    inherit any other file descriptors opened as a privileged user.
 #
 # 4. `/usr/local/lib/run-with-env` reads the environment from
 #    the file we created above and passes the allowed environment
-#    variables to the tps-frontend process (see
+#    variables to the tca process (see
 #    config/chroot_local-includes/usr/lib/python3/dist-packages/tailslib/userenv.py
 #    for the list of allowed variables).
 #
