@@ -26,7 +26,7 @@ def main():
     parser.add_argument("--dbus-system-bus", action="store_true",
                         help="Open the D-Bus system bus socket")
     parser.add_argument("--file", action="append", default=[], metavar="PATH",
-                        help="Open the specified file")
+                        help="Open the specified file in read-write mode")
     parser.add_argument("CMD", help="Command to run")
     parser.add_argument("ARGS", nargs=argparse.REMAINDER,
                         help="Arguments to pass to the command")
