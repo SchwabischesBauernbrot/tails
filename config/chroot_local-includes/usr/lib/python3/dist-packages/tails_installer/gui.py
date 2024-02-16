@@ -30,6 +30,7 @@ import subprocess
 import threading
 import traceback
 import time
+import psutil
 
 from time import sleep
 from datetime import datetime
@@ -42,7 +43,12 @@ from tails_installer import TailsInstallerCreator, TailsInstallerError, _
 from tails_installer.config import CONFIG
 from tails_installer.source import LocalIsoSource
 from tails_installer.source import RunningLiveSystemSource
-from tails_installer.utils import _to_unicode, _format_bytes_in_gb, _get_datadir
+from tails_installer.utils import (
+    _to_unicode,
+    _format_bytes_in_gb,
+    _get_datadir,
+    get_persistent_storage_size,
+)
 
 MAX_FAT16 = 2047
 MAX_FAT32 = 3999
@@ -60,6 +66,7 @@ class ProgressThread(threading.Thread):
     """
 
     totalsize = 0
+    tps_totalsize = 0
     orig_free = 0
     drive = None
     get_free_bytes = None
@@ -74,17 +81,23 @@ class ProgressThread(threading.Thread):
         self.drive = drive
         self.get_free_bytes = freebytes
         self.orig_free = self.get_free_bytes()
+        if self.parent.opts.clone_persistent_storage_requested:
+            self.tps_totalsize = get_persistent_storage_size() / 1024
 
     def run(self):
+        value = 0
+        tps_value = 0
         while not self.terminate:
-            free = self.get_free_bytes()
-            if free is None:
-                break
-            value = (self.orig_free - free) / 1024
-            GLib.idle_add(self.parent.progress, float(value) / self.totalsize)
-            if value >= self.totalsize:
-                break
-            sleep(3)
+            if os.path.ismount("/media/amnesia/Tails/"):
+                free = self.get_free_bytes()
+                value = (self.orig_free - free) / 1024
+            if os.path.ismount("/media/amnesia/TailsData"):
+                tps_value = psutil.disk_usage("/media/amnesia/TailsData").used / 1024
+            GLib.idle_add(
+                self.parent.progress,
+                float(value + tps_value) / (self.totalsize + self.tps_totalsize),
+            )
+            sleep(0.1)
 
     def stop(self):
         self.terminate = True
@@ -174,6 +187,10 @@ class TailsInstallerThread(threading.Thread):
 
             if self.parent.opts.clone_persistent_storage_requested:
                 self.live.clone_persistent_storage()
+
+            # Set progress to 100% after cloning persistent storage
+            self.set_max_progress(float(1))
+            self.update_progress(1)
 
             self.progress.stop()
 
