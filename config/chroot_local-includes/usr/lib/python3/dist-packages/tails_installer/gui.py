@@ -32,6 +32,7 @@ import subprocess
 import threading
 import traceback
 import time
+import psutil
 
 from time import sleep
 from datetime import datetime
@@ -51,7 +52,6 @@ from tails_installer.utils import (
     _get_datadir,
     get_persistent_storage_size,
 )
-import psutil
 
 MAX_FAT16 = 2047
 MAX_FAT32 = 3999
