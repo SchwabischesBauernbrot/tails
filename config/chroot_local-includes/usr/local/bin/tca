@@ -45,7 +45,7 @@ chmod 600 "${CONFIG_FILE}" "${STATE_FILE}"
 #    filtered by the tca onion-grater profile configured in
 #    config/chroot_local-includes/etc/onion-grater.d/tor-connection-assistant.yml.
 #
-# 3. `sudo --close-from=4 -u amnesia` drops privileges to the amnesia
+# 3. `sudo --close-from=5 -u amnesia` drops privileges to the amnesia
 #    user and closes all file descriptors greater than 4, with 3 and 4
 #    being the file descriptors opened above by inherit-fd. This is
 #    to avoid inadvertently having the unprivileged tps-frontend process
