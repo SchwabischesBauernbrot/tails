@@ -98,7 +98,7 @@ class ProgressThread(threading.Thread):
                 tps_value = psutil.disk_usage("/media/amnesia/TailsData").used / 1024
             GLib.idle_add(
                 self.parent.progress,
-                float(value + tps_value) / (self.totalsize + self.tps_totalsize)
+                float(value + tps_value) / (self.totalsize + self.tps_totalsize),
             )
             sleep(0.1)
 
