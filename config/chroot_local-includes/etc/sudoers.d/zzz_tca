@@ -1,7 +1,3 @@
 Cmnd_Alias TCA = /usr/local/bin/tca
 Defaults!TCA env_keep+="ENVFILE"
 amnesia   ALL = NOPASSWD: TCA
-
-# Allow root to use the --close-from option which is needed to close
-# all file descriptors except for the ones we want to pass to tca.
-Defaults:root closefrom_override
