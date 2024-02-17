@@ -50,7 +50,7 @@ from tails_installer.utils import (
     _to_unicode,
     _format_bytes_in_gb,
     _get_datadir,
-    get_persistent_storage_size,
+    get_persistent_storage_backup_size,
 )
 
 MAX_FAT16 = 2047
@@ -85,7 +85,7 @@ class ProgressThread(threading.Thread):
         self.get_free_bytes = freebytes
         self.orig_free = self.get_free_bytes()
         if self.parent.opts.clone_persistent_storage_requested:
-            self.tps_totalsize = get_persistent_storage_size() / 1024
+            self.tps_totalsize = get_persistent_storage_backup_size() / 1024
 
     def run(self):
         value = 0
