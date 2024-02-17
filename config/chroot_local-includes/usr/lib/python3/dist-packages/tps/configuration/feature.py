@@ -1,5 +1,7 @@
 import abc
 import logging
+import threading
+
 from gi.repository import GLib
 import os
 from pathlib import Path
@@ -8,7 +10,7 @@ import time
 from typing import TYPE_CHECKING, Optional
 
 import tps.logging
-from tps import executil
+from tps import executil, TPS_FEATURES_DIR
 from tps import (
     State,
     DBUS_FEATURE_INTERFACE,
@@ -65,12 +67,20 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
         ServiceUsingJobs.__init__(self, connection=service.connection)
         self.service = service
         self.is_custom = is_custom
+        self.change_properties_lock = threading.Lock()
+        self.is_active_state_file = Path(TPS_FEATURES_DIR, self.Id, "is-active")
+        self.is_enabled_state_file = Path(TPS_FEATURES_DIR, self.Id, "is-enabled")
+        self._is_active = False
+        self._is_enabled = False
+
+        # Create the runtime directory
+        Path(TPS_FEATURES_DIR, self.Id).mkdir(parents=True, exist_ok=True)
 
         # Check if the feature is enabled in the config file
         config_file = self.service.config_file
-        self._is_enabled = config_file.exists() and config_file.contains(self)
+        self.IsEnabled = config_file.exists() and config_file.contains(self)
         self._last_signaled_is_enabled = self._is_enabled
-        self._is_active = all(binding.is_active() for binding in self.Bindings)
+        self.IsActive = all(binding.is_active() for binding in self.Bindings)
         self._last_signaled_is_active = self._is_active
         self._has_data = any(binding.has_data() for binding in self.Bindings)
         self._last_signaled_has_data = self._has_data
@@ -219,9 +229,33 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
     def IsActive(self) -> bool:
         return self._is_active
 
+    @IsActive.setter
+    def IsActive(self, value: bool):
+        with self.change_properties_lock:
+            if self._is_active == value:
+                # Nothing to do
+                return
+            self._is_active = value
+            if value:
+                self.is_active_state_file.touch()
+            else:
+                self.is_active_state_file.unlink(missing_ok=True)
+
     @property
     def IsEnabled(self) -> bool:
         return self._is_enabled
+
+    @IsEnabled.setter
+    def IsEnabled(self, value: bool):
+        with self.change_properties_lock:
+            if self._is_enabled == value:
+                # Nothing to do
+                return
+            self._is_enabled = value
+            if value:
+                self.is_enabled_state_file.touch()
+            else:
+                self.is_enabled_state_file.unlink(missing_ok=True)
 
     @property
     def HasData(self) -> bool:
@@ -302,7 +336,7 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
         if "IsEnabled" in properties:
             try:
                 config_file = self.service.config_file
-                self._is_enabled = config_file.exists() and config_file.contains(self)
+                self.IsEnabled = config_file.exists() and config_file.contains(self)
             except Exception as e:
                 if exceptions:
                     logging.exception(e)
@@ -324,7 +358,7 @@ class Feature(DBusObject, ServiceUsingJobs, metaclass=abc.ABCMeta):
 
         if "IsActive" in properties:
             try:
-                self._is_active = all(binding.is_active() for binding in self.Bindings)
+                self.IsActive = all(binding.is_active() for binding in self.Bindings)
             except Exception as e:
                 if exceptions:
                     logging.exception(e)

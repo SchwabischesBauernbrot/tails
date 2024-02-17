@@ -13,6 +13,9 @@ from tps import (
     SYSTEM_PARTITION_MOUNT_POINT,
     LUKS_HEADER_BACKUP_PATH,
     DBUS_SERVICE_NAME,
+    TPS_IS_CREATED_STATE_FILE,
+    TPS_IS_UNLOCKED_STATE_FILE,
+    TPS_RUNTIME_DIR,
 )
 from tps.configuration import features
 from tps.configuration.config_file import ConfigFile, InvalidStatError
@@ -133,7 +136,16 @@ class Service(DBusObject, ServiceUsingJobs, ExitOnIdleService):
         self._upgraded = False
         self._created = False
         self.enable_features_lock = threading.Lock()
+        self.change_properties_lock = threading.Lock()
         self._boot_device = None  # type: Optional[BootDevice]
+        self.is_created_state_file = Path(TPS_IS_CREATED_STATE_FILE)
+        self.is_unlocked_state_file = Path(TPS_IS_UNLOCKED_STATE_FILE)
+
+        # Remove the runtime directory recursively to ensure that we
+        # don't have any stale files from a previous run.
+        executil.check_call(["rm", "-rf", TPS_RUNTIME_DIR])
+        # Create the runtime directory
+        Path(TPS_RUNTIME_DIR).mkdir(parents=True, exist_ok=True)
 
         # Check if the boot device is valid for creating or using a Persistent
         # Storage. We only do this once and not in refresh_state(),
@@ -540,10 +552,16 @@ class Service(DBusObject, ServiceUsingJobs, ExitOnIdleService):
 
     @IsCreated.setter
     def IsCreated(self, value: bool):
-        if self._created == value:
-            # Nothing to do
-            return
-        self._created = value
+        with self.change_properties_lock:
+            if self._created == value:
+                # Nothing to do
+                return
+            self._created = value
+            if value:
+                self.is_created_state_file.touch()
+            else:
+                self.is_created_state_file.unlink(missing_ok=True)
+
         self.emit_properties_changed_signal(
             interface_name=DBUS_SERVICE_INTERFACE,
             changed_properties={"IsCreated": value},
@@ -564,10 +582,16 @@ class Service(DBusObject, ServiceUsingJobs, ExitOnIdleService):
 
     @IsUnlocked.setter
     def IsUnlocked(self, value: bool):
-        if self._unlocked == value:
-            # Nothing to do
-            return
-        self._unlocked = value
+        with self.change_properties_lock:
+            if self._unlocked == value:
+                # Nothing to do
+                return
+            self._unlocked = value
+            if value:
+                self.is_unlocked_state_file.touch()
+            else:
+                self.is_unlocked_state_file.unlink(missing_ok=True)
+
         self.emit_properties_changed_signal(
             interface_name=DBUS_SERVICE_INTERFACE,
             changed_properties={"IsUnlocked": value},

@@ -1,59 +1,21 @@
 #!/bin/dash
 
-tps_is_created() {
-    local out
-    out="$(gdbus call --system --dest org.boum.tails.PersistentStorage \
-           --object-path "/org/boum/tails/PersistentStorage" \
-           --method org.freedesktop.DBus.Properties.Get \
-           org.boum.tails.PersistentStorage IsCreated)"
 
-    if [ "${out}" = "(<true>,)" ]; then
-        return 0
-    fi
-    return 1
+
+tps_is_created() {
+    [ -f /run/tps/is-created ]
 }
 
 tps_is_unlocked() {
-    local out
-    out="$(gdbus call --system --dest org.boum.tails.PersistentStorage \
-           --object-path "/org/boum/tails/PersistentStorage" \
-           --method org.freedesktop.DBus.Properties.Get \
-           org.boum.tails.PersistentStorage IsUnlocked)"
-
-    if [ "${out}" = "(<true>,)" ]; then
-        return 0
-    fi
-    return 1
+    [ -f /run/tps/is-unlocked ]
 }
 
 tps_feature_is_active() {
-    local feature="${1}"
-    local object_path="/org/boum/tails/PersistentStorage/Features/${feature}"
-    local out
-    out="$(gdbus call --system --dest org.boum.tails.PersistentStorage \
-           --object-path "${object_path}" \
-           --method org.freedesktop.DBus.Properties.Get \
-           org.boum.tails.PersistentStorage.Feature IsActive)"
-
-    if [ "${out}" = "(<true>,)" ]; then
-        return 0
-    fi
-    return 1
+    [ -f "/run/tps/features/${1}/is-active" ]
 }
 
 tps_feature_is_enabled() {
-    local feature="${1}"
-    local object_path="/org/boum/tails/PersistentStorage/Features/${feature}"
-    local out
-    out="$(gdbus call --system --dest org.boum.tails.PersistentStorage \
-           --object-path "${object_path}" \
-           --method org.freedesktop.DBus.Properties.Get \
-           org.boum.tails.PersistentStorage.Feature IsEnabled)"
-
-    if [ "${out}" = "(<true>,)" ]; then
-        return 0
-    fi
-    return 1
+    [ -f "/run/tps/features/${1}/is-enabled" ]
 }
 
 tps_get_features() {
