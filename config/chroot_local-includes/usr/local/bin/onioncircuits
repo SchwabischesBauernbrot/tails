@@ -1,13 +1,21 @@
 #!/bin/sh
 
+# Same purpose as config/chroot_local-includes/usr/local/bin/tor-browser,
+# see the comments there.
+
 set -eu
 
-A11Y_BUS_PROXY_SERVICE=tails-a11y-bus-proxy.service
-IBUS_PROXY_SERVICE=tails-ibus-proxy.service
+export TOR_CONTROL_PORT=951
 
-exec systemd-run --user --scope \
-    --property=Requires="${A11Y_BUS_PROXY_SERVICE}" \
-    --property=After="${A11Y_BUS_PROXY_SERVICE}" \
-    --property=Requires="${IBUS_PROXY_SERVICE}" \
-    --property=After="${IBUS_PROXY_SERVICE}" \
-    sudo /usr/local/lib/run-onioncircuits-in-netns "$@"
+if [ "$(id -u)" = 1000 ]; then
+  ENVFILE=$(mktemp --suffix -env)
+  export ENVFILE
+  env --null >"${ENVFILE}"
+  exec sudo "$0" "$@"
+fi
+
+exec /bin/ip netns exec onioncircs \
+  sudo -u amnesia -- \
+  /usr/local/lib/run-with-env --env-file="${ENVFILE}" --delete -- \
+  /usr/local/lib/run-with-ibus-and-a11y-bus-proxy -- \
+  /usr/bin/onioncircuits "$@"

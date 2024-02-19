@@ -24,7 +24,7 @@ fi
 
 # Explanation of the following command:
 #
-# 1. `/usr/local/lib/connect-socket --dbus-system-bus` opens the D-Bus socket and
+# 1. `/usr/local/lib/inherit-fd --dbus-system-bus` opens the D-Bus socket and
 #    authenticates to it as the tails-persistent-storage user.
 #
 # 2. `sudo --close-from=4 -u amnesia` drops privileges to the amnesia
@@ -42,7 +42,7 @@ fi
 # 4. `/usr/local/lib/tps-frontend` starts the actual tps-frontend app.
 
 exec \
-  /usr/local/lib/connect-socket --dbus-system-bus -- \
-  sudo --preserve-env=INHERIT_FD --close-from=4 -u amnesia \
+  /usr/local/lib/inherit-fd --dbus-system-bus -- \
+  sudo --close-from=4 -u amnesia \
   /usr/local/lib/run-with-env --env-file="${ENVFILE}" --delete -- \
   /usr/local/lib/tps-frontend "$@"
