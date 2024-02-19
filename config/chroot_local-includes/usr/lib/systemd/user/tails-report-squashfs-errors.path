@@ -1,0 +1,10 @@
+[Unit]
+Description=Report errors about disk squashfs being corrupted
+ConditionUser=1000
+
+[Path]
+PathExists=/var/lib/live/tails.squashfs_failed
+
+
+[Install]
+WantedBy=desktop.target

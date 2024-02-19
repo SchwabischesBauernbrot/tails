@@ -4,6 +4,15 @@
 set -u
 
 # To test this functionality:
+# Run Tails with break=init, then
+#  - touch /var/lib/live/tails.squashfs_failed 
+#  - rm /root/etc/systemd/system/multi-user.target.wants/tails-detect-squashfs-errors.service
+
+if [ -f /var/lib/live/tails.squashfs_failed ]; then
+    logger "SQUASHFS errors detected, stopping GDM"
+fi
+
+# To test this functionality:
 # - Either pass autotest_broken_gnome_shell on the kernel command line.
 # - Or prevent the kernel from loading the DRM module needed to
 #   properly support the graphics card on your test system.

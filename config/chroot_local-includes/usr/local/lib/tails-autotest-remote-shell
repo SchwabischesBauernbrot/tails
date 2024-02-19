@@ -36,6 +36,7 @@ import fcntl
 import json
 import os
 import pwd
+import pathlib
 import signal
 import subprocess
 import sys
@@ -228,9 +229,12 @@ def main():
     # it to do nothing instead.
     signal.signal(signal.SIGIO, lambda *args: None)
 
-    # Notify systemd that we're ready
-    systemd.daemon.notify('READY=1')
-    systemd.daemon.notify('STATUS=Processing requests...\n')
+    if "autotest_wait_for_remote_shell" in pathlib.Path("/proc/cmdline").read_text().split():
+        systemd.daemon.notify('STATUS=Wait for "signal ready" from remote shell...\n')
+    else:
+        # Notify systemd that we're ready
+        systemd.daemon.notify('READY=1')
+        systemd.daemon.notify('STATUS=Processing requests...\n')
 
     while True:
         # We can avoid an unnecessary delay of up to one second during the
@@ -293,6 +297,12 @@ def main():
                             raise IOError("we only wrote {} bytes out of {}"
                                           .format(ret, len(data)))
                 ret = json.dumps([id, 'success'] + [ret])
+            elif cmd_type in ["signal_ready"]:
+                logging.info(f"Mark systemd service as ready.")
+                # Notify systemd that we"re ready
+                systemd.daemon.notify("READY=1")
+                systemd.daemon.notify("STATUS=Processing requests...\n")
+                ret = json.dumps([id, "success"])
             else:
                 raise ValueError("unknown command type")
             response = (ret + "\n").encode('utf-8')
