@@ -559,20 +559,6 @@ end
 Given /^the Tails desktop is ready$/ do
   desktop_started_picture = "GnomeApplicationsMenu#{$language}.png"
   @screen.wait(desktop_started_picture, 180)
-  # We want to ensure the Tails Documentation desktop icon is visible,
-  # but it might be obscured by TCA or other windows depending on the
-  # order of steps run before this one.
-  # XXX: Once #18407 is fixed we may be able to remove this.
-  try_for(30) do
-    begin
-      @screen.find('DesktopTailsDocumentation.png')
-    rescue FindFailed
-      # Switch to new workspace
-      @screen.press('super', 'page_down')
-      next
-    end
-    true
-  end
   # Switch back to initial workspace, in case we changed it above
   @screen.press('super', 'home')
   # Disable screen blanking since we sometimes need to wait long
@@ -1074,15 +1060,6 @@ def pulseaudio_sink_inputs
   pa_info = $vm.execute_successfully('pacmd info', user: LIVE_USER).stdout
   sink_inputs_line = pa_info.match(/^\d+ sink input\(s\) available\.$/)[0]
   sink_inputs_line.match(/^\d+/)[0].to_i
-end
-
-When /^I open the Tails documentation launcher on the desktop$/ do
-  @screen.click('DesktopTailsDocumentation.png', double: true)
-  step 'the Tor Browser has started'
-end
-
-When /^I open the Report an Error launcher on the desktop$/ do
-  @screen.click('DesktopReportAnError.png', double: true)
 end
 
 Given /^a web server is running on the LAN$/ do
