@@ -29,10 +29,8 @@ class PassphraseDialog(Gtk.Dialog):
         self,
         parent: "TailsInstallerWindow",
         creator: "TailsInstallerCreator",
-        *args,
-        **kwargs,
     ):
-        super().__init__(use_header_bar=1, *args, **kwargs)
+        super().__init__(use_header_bar=1)
         self.parent = parent
         self.live = creator
         self.passphrase = None

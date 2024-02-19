@@ -28,8 +28,8 @@ class ChangePassphraseDialog(Gtk.Dialog):
     error_infobar = Gtk.Template.Child()  # type: Gtk.InfoBar
     error_infobar_label = Gtk.Template.Child()  # type: Gtk.Label
 
-    def __init__(self, parent: "Window", service_proxy: Gio.DBusProxy, *args, **kwargs):
-        super().__init__(use_header_bar=1, *args, **kwargs)
+    def __init__(self, parent: "Window", service_proxy: Gio.DBusProxy):
+        super().__init__(use_header_bar=1)
         self.service_proxy = service_proxy
         self.parent = parent
 
