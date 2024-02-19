@@ -37,9 +37,9 @@ Package: onionshare
 Pin: origin deb.tails.boum.org
 Pin-Priority: 999
 
-Explanation: Dependency forward-ported from bullseye for our forward-ported onionshare (#20135). This package is in our custom APT suite so I would like to pin it just like onionshare above, but I have to pin the exact version otherwise it installs this package from bookworm.
+Explanation: Dependency forward-ported from bullseye for our forward-ported onionshare (#20135): the version in bookworm has dropped the soft_unicode module which OnionShare 2.2 imports.
 Package: python3-markupsafe
-Pin: version 1.1.1-1+deb12u1
+Pin: origin deb.tails.boum.org
 Pin-Priority: 999
 
 Explanation: Dependencies from bullseye for our forward-ported onionshare (#20135)
