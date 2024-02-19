@@ -4,6 +4,7 @@ Feature: Hardware failures
   when the USB stick has hardware failures
   I want to to see a message.
 
+  @doc
   Scenario: Alerting about disk read failures in GNOME
     Given I have started Tails from DVD without network and logged in
     When Tails detects disk read failures
