@@ -9,7 +9,9 @@ set -u
 #  - rm /root/etc/systemd/system/multi-user.target.wants/tails-detect-squashfs-errors.service
 
 if [ -f /var/lib/live/tails.squashfs_failed ]; then
-    logger "SQUASHFS errors detected, stopping GDM"
+    echo "SQUASHFS errors detected, stopping GDM"
+    sudo -n /bin/systemctl kill --signal=9 gdm
+    exit 2
 fi
 
 # To test this functionality:
