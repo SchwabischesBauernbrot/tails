@@ -79,6 +79,8 @@ extend-ignore = [
     "TD002",
     # Accept commonly used "TODO:Bookworm"
     "TD007",
+    # We use os.exec*() instead of subprocess to replace the current process
+    "S606",
 
     # Now, things we don't like but that we don't consider serious enough for CI to fail
 

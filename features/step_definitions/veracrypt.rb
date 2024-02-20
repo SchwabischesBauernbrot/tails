@@ -223,12 +223,13 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with GNOME Disk
          .grabFocus
   when 'file container'
     disks.child('', description: 'Application Menu').click
-    # Clicking this button using Dogtail works, but afterwards the
-    # GNOME Disks GUI becomes inaccessible.
+    # We can't use the click action here because this button causes a
+    # modal dialog to be run via gtk_dialog_run() which causes the
+    # application to hang when triggered via a ATSPI action. See
+    # https://gitlab.gnome.org/GNOME/gtk/-/issues/1281
     disks.button('Attach Disk Image… (.iso, .img)').grabFocus
     @screen.press('Return')
-    # Otherwise Disks is sometimes minimized, for some reason I don't understand
-    sleep 2
+
     attach_dialog = disks.child('Select Disk Image to Attach',
                                 roleName: 'file chooser')
     attach_dialog.child('Set up read-only loop device',
@@ -244,10 +245,17 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with GNOME Disk
       # to generate a mouse event at negative coordinates" Dogtail error
       false
     end
-    @screen.paste("#{@veracrypt_shared_dir_in_guest}/#{$veracrypt_volume_name}",
-                  app: :gtk_file_chooser)
-    sleep 2 # avoid ENTER being eaten by the auto-completion system
-    @screen.press('Return')
+
+    # Make the file chooser show the location text entry
+    attach_dialog.child('File Chooser Widget', roleName: 'file chooser')
+                 .doActionNamed('show_location')
+    # Enter the location
+    text_entry = attach_dialog.child('Location Layer').child(roleName: 'text')
+    text_entry.text = "#{@veracrypt_shared_dir_in_guest}/#{$veracrypt_volume_name}"
+    # For some reason two activate calls are necessary to close the dialog
+    text_entry.activate
+    text_entry.activate
+
     step 'I cancel the GNOME authentication prompt'
     try_for(15) do
       disks.children(roleName: 'table cell')

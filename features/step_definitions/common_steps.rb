@@ -429,16 +429,23 @@ def enter_boot_menu_cmdline
   end
 end
 
-Given /^the computer (?:re)?boots Tails( with genuine APT sources)?$/ do |keep_apt_sources|
+def the_computer_boots
   enter_boot_menu_cmdline
   boot_key = @os_loader == 'UEFI' ? 'F10' : 'Return'
   early_patch = config_bool('EARLY_PATCH') ? ' early_patch=umount' : ''
   extra_boot_options = $config['EXTRA_BOOT_OPTIONS'] || ''
-  @screen.type(' autotest_never_use_this_option' \
+  wait_for_remote_shell = @wait_for_remote_shell ? 'autotest_wait_for_remote_shell' : ''
+  @screen.type(' autotest_never_use_this_option ' \
                ' blacklist=psmouse' \
+               " #{wait_for_remote_shell}" \
                " #{early_patch} #{@boot_options} #{extra_boot_options}",
                [boot_key])
   $vm.wait_until_remote_shell_is_up(5 * 60)
+end
+
+Given /^the computer (?:re)?boots Tails( with genuine APT sources)?$/ do |keep_apt_sources|
+  the_computer_boots
+
   try_for(60) do
     !greeter.nil?
   end
@@ -552,22 +559,6 @@ end
 Given /^the Tails desktop is ready$/ do
   desktop_started_picture = "GnomeApplicationsMenu#{$language}.png"
   @screen.wait(desktop_started_picture, 180)
-  # We want to ensure the Tails Documentation desktop icon is visible,
-  # but it might be obscured by TCA or other windows depending on the
-  # order of steps run before this one.
-  # XXX: Once #18407 is fixed we may be able to remove this.
-  try_for(30) do
-    begin
-      @screen.find('DesktopTailsDocumentation.png')
-    rescue FindFailed
-      # Switch to new workspace
-      @screen.press('super', 'page_down')
-      next
-    end
-    true
-  end
-  # Switch back to initial workspace, in case we changed it above
-  @screen.press('super', 'home')
   # Disable screen blanking since we sometimes need to wait long
   # enough for it to activate, which can cause problems when we are
   # waiting for an image for a very long time.
@@ -1067,15 +1058,6 @@ def pulseaudio_sink_inputs
   pa_info = $vm.execute_successfully('pacmd info', user: LIVE_USER).stdout
   sink_inputs_line = pa_info.match(/^\d+ sink input\(s\) available\.$/)[0]
   sink_inputs_line.match(/^\d+/)[0].to_i
-end
-
-When /^I open the Tails documentation launcher on the desktop$/ do
-  @screen.click('DesktopTailsDocumentation.png', double: true)
-  step 'the Tor Browser has started'
-end
-
-When /^I open the Report an Error launcher on the desktop$/ do
-  @screen.click('DesktopReportAnError.png', double: true)
 end
 
 Given /^a web server is running on the LAN$/ do

@@ -196,6 +196,32 @@ module RemoteShell
     end
   end
 
+  class SignalReady
+    def self.execute(vm)
+      RemoteShell.communicate(vm, 'signal_ready')
+    end
+
+    attr_reader :returncode, :stdout, :stderr
+
+    def initialize(vm)
+      @returncode, @stdout, @stderr = self.class.execute(vm)
+    end
+
+    def success?
+      @exception.nil?
+    end
+
+    def failure?
+      !success?
+    end
+
+    def to_s
+      "Exception: #{@exception}\n" \
+        "STDOUT:\n#{@stdout}" \
+        "STDERR:\n#{@stderr}"
+    end
+  end
+
   # An IO-like object that is more or less equivalent to a File object
   # opened in rw mode.
   class File

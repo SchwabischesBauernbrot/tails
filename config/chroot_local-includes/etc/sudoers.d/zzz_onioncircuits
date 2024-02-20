@@ -1,1 +1,3 @@
-amnesia   ALL = NOPASSWD: /usr/local/lib/run-onioncircuits-in-netns ""
+Cmnd_Alias ONIONCIRCUITS = /usr/local/bin/onioncircuits
+Defaults!ONIONCIRCUITS env_keep+="ENVFILE"
+amnesia   ALL = NOPASSWD: ONIONCIRCUITS
