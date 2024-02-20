@@ -11,7 +11,7 @@ end
 
 Given /^I start the computer from DVD with network unplugged( and an unsupported Graphic card)?$/ do |graphic_card|
   if graphic_card
-    @boot_options = "autotest_broken_gnome_shell"
+    @boot_options = 'autotest_broken_gnome_shell'
   else
     @wait_for_remote_shell = true
   end
