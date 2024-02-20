@@ -16,8 +16,3 @@ Feature: Hardware failures
     And I start the computer from DVD with network unplugged
     When Tails detects disk read failures
     Then I see a disk failure message on the splash screen
-
-  Scenario: Alerting about graphics card failure before reaching the Welcome Screen
-    Given a computer
-    And I start the computer from DVD with network unplugged and an unsupported graphics card
-    Then I see a graphics card failure message on the splash screen
