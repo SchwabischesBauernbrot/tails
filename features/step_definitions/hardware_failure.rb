@@ -1,14 +1,3 @@
-def click_gnome_shell_notification_button(title)
-  # copied from additional_software_packages.rb
-  # The notification buttons do not expose any actions through AT-SPI,
-  # so Dogtail is unable to click it directly. We let it grab focus
-  # and activate it via the keyboard instead.
-  Dogtail::Application.new('gnome-shell')
-                      .child(title, roleName: 'push button')
-                      .grabFocus
-  @screen.press('Return')
-end
-
 Given /^I start the computer from DVD with network unplugged( and an unsupported graphics card)?$/ do |graphics_card|
   if graphics_card
     @boot_options = 'autotest_broken_gnome_shell'
