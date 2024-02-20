@@ -559,8 +559,6 @@ end
 Given /^the Tails desktop is ready$/ do
   desktop_started_picture = "GnomeApplicationsMenu#{$language}.png"
   @screen.wait(desktop_started_picture, 180)
-  # Switch back to initial workspace, in case we changed it above
-  @screen.press('super', 'home')
   # Disable screen blanking since we sometimes need to wait long
   # enough for it to activate, which can cause problems when we are
   # waiting for an image for a very long time.
