@@ -8,16 +8,16 @@ Feature: Hardware failures
     Given a computer
     And I have started Tails from DVD without network and logged in
     When Tails detects disk read failures
-    Then I see a Disk Failure Message
-    Then I can open the Hardware Failure documentation from the Disk Failure Message
+    Then I see a disk failure message
+    Then I can open the hardware failure documentation from the disk failure message
 
   Scenario: Alerting about disk read failures before reaching the Welcome Screen
     Given a computer
     And I start the computer from DVD with network unplugged
     When Tails detects disk read failures
-    Then I see a Disk Failure Message on the splash screen
+    Then I see a disk failure message on the splash screen
 
-  Scenario: Alerting about graphics card Failure before reaching the Welcome Screen
+  Scenario: Alerting about graphics card failure before reaching the Welcome Screen
     Given a computer
     And I start the computer from DVD with network unplugged and an unsupported graphics card
-    Then I see a graphics card Failure Message on the splash screen
+    Then I see a graphics card failure message on the splash screen

@@ -29,20 +29,20 @@ When /^Tails detects disk read failures$/ do
   RemoteShell::SignalReady.new($vm)
 end
 
-Then /^I see a Disk Failure Message$/ do
+Then /^I see a disk failure message$/ do
   @screen.wait('GnomeDiskFailureMessage.png', 10)
 end
 
-Then /^I see a Disk Failure Message on the splash screen$/ do
+Then /^I see a disk failure message on the splash screen$/ do
   @screen.wait('PlymouthDiskFailureMessage.png', 60)
 end
 
-Then /^I can open the Hardware Failure documentation from the Disk Failure Message$/ do
+Then /^I can open the hardware failure documentation from the disk failure message$/ do
   click_gnome_shell_notification_button('Learn More')
   try_for(60) { @torbrowser = Dogtail::Application.new('Firefox') }
   step '"Tails - Error Reading Data from Tails USB Stick" has loaded in the Tor Browser'
 end
 
-Then /^I see a graphics card Failure Message on the splash screen$/ do
+Then /^I see a graphics card failure message on the splash screen$/ do
   @screen.wait('PlymouthGraphicsCardFailureMessage.png', 60)
 end
