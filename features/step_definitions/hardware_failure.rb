@@ -9,8 +9,8 @@ def click_gnome_shell_notification_button(title)
   @screen.press('Return')
 end
 
-Given /^I start the computer from DVD with network unplugged( and an unsupported Graphic card)?$/ do |graphic_card|
-  if graphic_card
+Given /^I start the computer from DVD with network unplugged( and an unsupported graphics card)?$/ do |graphics_card|
+  if graphics_card
     @boot_options = 'autotest_broken_gnome_shell'
   else
     @wait_for_remote_shell = true
@@ -43,6 +43,6 @@ Then /^I can open the Hardware Failure documentation from the Disk Failure Messa
   step '"Tails - Error Reading Data from Tails USB Stick" has loaded in the Tor Browser'
 end
 
-Then /^I see a Graphic card Failure Message on the splash screen$/ do
-  @screen.wait('PlymouthGraphicCardFailureMessage.png', 60)
+Then /^I see a graphics card Failure Message on the splash screen$/ do
+  @screen.wait('PlymouthGraphicsCardFailureMessage.png', 60)
 end
