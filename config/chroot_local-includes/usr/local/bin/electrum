@@ -21,6 +21,13 @@ import subprocess
 import random
 from pathlib import Path
 
+# Make electrum use the cursor size configured in GNOME
+# refs: #20206
+os.environ['XCURSOR_SIZE'] = subprocess.check_output(
+    ['gsettings', 'get', 'org.gnome.desktop.interface', 'cursor-size'],
+    text=True,
+).strip()
+
 translation = gettext.translation("tails", '/usr/share/locale', fallback=True)
 _ = translation.gettext
 

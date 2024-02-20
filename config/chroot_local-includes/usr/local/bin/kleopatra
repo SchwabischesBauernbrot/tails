@@ -2,11 +2,9 @@
 
 set -eu
 
-export QT_QPA_PLATFORM=wayland
-
-# Make onionshare use the cursor size configured in GNOME
+# Make kleopatra use the cursor size configured in GNOME
 # refs: #20206
 XCURSOR_SIZE=$(gsettings get org.gnome.desktop.interface cursor-size)
 export XCURSOR_SIZE
 
-exec /usr/bin/onionshare-gui "${@}"
+exec /usr/bin/kleopatra "${@}"
