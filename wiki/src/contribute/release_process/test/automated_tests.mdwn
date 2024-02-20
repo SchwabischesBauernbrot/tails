@@ -389,7 +389,7 @@ forever.
 
 ### Remote shell interact with other services to start
 
-As it may be needed to interact with the system before a service get started.
+As it may be needed to interact with the system before a service gets started.
 In systemd the remote shell is defined as notify type, that means the remote
 shell can tell systemd, when it is ready. So we just need to make sure that the
 remote shell is needed to be started before another service.
@@ -401,15 +401,15 @@ on in Before.
 Than you need to add `autotest_wait_for_remote_shell` to the boot line; in
 cucumber you can set `@wait_for_remote_shell=true` before the step `the computer
 boots`. After that step you can interact with the remote shell. If you are done
-modefing the state, you need to trigger the READY signal (in cucumber by
+modifying the state, you need to trigger the READY signal (in Cucumber by
 executing`RemoteShell::SignalReady.new($vm)`). Now the system with further
 boot.
 
-As example you can look how `hardware_failure` test hook into the system
-before gdm.service is started.
+As an example, you can look how the `Tails detects disk read failures` step hooks into the system
+before `gdm.service` is started.
 
 
-* [[!tails_gitweb features/hardware_failure.rb]]
+* [[!tails_gitweb features/hardware_failure.feature]]
 * [[!tails_gitweb features/step_definitions/hardware_failure.rb]]
 
 ## Plugging SATA drives
