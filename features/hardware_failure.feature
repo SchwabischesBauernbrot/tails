@@ -1,8 +1,8 @@
 @product
 Feature: Hardware failures
   As a Tails user
-  when hardware failures are detected
-  I want to see a message.
+  When hardware failures are detected
+  I want to be warned about them
 
   Scenario: Alerting about disk read failures in GNOME
     Given a computer
