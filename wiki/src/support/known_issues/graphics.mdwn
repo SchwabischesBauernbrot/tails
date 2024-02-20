@@ -202,6 +202,19 @@ on the error message.
 For example, if you see an error about `8086:4c8a`, use this boot option:
 `i915.force_probe=4c8a`.
 
+<h2 id="intel-hdu">Intel UHD Graphics 620 GPU</h2>
+
+<!--
+Last updated: 2024-02-08
+-->
+
+For example, in the Dell Latitude 7490.
+
+Try adding the following [[boot
+option|doc/advanced_topics/boot_options]] when starting Tails:
+
+        i915.enable_psr=0
+
 <h2 id="multiple">Multiple graphics cards</h2>
 
 If the error message lists multiple graphics cards:
