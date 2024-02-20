@@ -1,8 +1,8 @@
 @product
 Feature: Hardware failures
+  In order to update my failing hardware before I lose data
   As a Tails user
-  When hardware failures are detected
-  I want to be warned about them
+  I want to be warned about hardware failures
 
   Scenario: Alerting about disk read failures in GNOME
     Given a computer
