@@ -263,15 +263,16 @@ def main():
                 logging.info(f"Executing as {user}: {cmd}")
                 if cmd_type == "sh_spawn":
                     execute_cmd_as_user(cmd, env, user)
-                    returncode, stdout, stderr = 0, "", ""
+                    # Spawning provides no feedback/ACK
+                    continue
                 else:
                     p = execute_cmd_as_user(cmd, env, user,
                                             stderr=subprocess.PIPE,
                                             stdout=subprocess.PIPE)
                     stdout, stderr = p.communicate()
                     returncode = p.returncode
-                ret = json.dumps([id, 'success', returncode, stdout, stderr])
-                logging.info(f"Result: {ret}")
+                    ret = json.dumps([id, 'success', returncode, stdout, stderr])
+                    logging.info(f"Result: {ret}")
             elif cmd_type == 'python_execute':
                 user, env, code = rest
                 if user not in python_sessions or \

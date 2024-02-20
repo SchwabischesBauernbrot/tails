@@ -96,10 +96,9 @@ Then /^I install "(.+)" using apt$/ do |package|
   end
   retry_tor(recovery_proc) do
     Timeout.timeout(3 * 60) do
-      $vm.execute("echo #{@sudo_password} | " \
-                  "sudo -S DEBIAN_PRIORITY=critical apt -y install #{package}",
-                  user:  LIVE_USER,
-                  spawn: true)
+      $vm.spawn("echo #{@sudo_password} | " \
+                "sudo -S DEBIAN_PRIORITY=critical apt -y install #{package}",
+                user: LIVE_USER)
       wait_for_package_installation(package)
     end
   end
@@ -114,10 +113,7 @@ def wait_for_package_removal(package)
 end
 
 Then /^I uninstall "(.+)" using apt$/ do |package|
-  $vm.execute_successfully("echo #{@sudo_password} | " \
-                               "sudo -S apt -y purge #{package}",
-                           user:  LIVE_USER,
-                           spawn: true)
+  $vm.spawn("echo #{@sudo_password} | sudo -S apt -y purge #{package}", user: LIVE_USER)
   wait_for_package_removal(package)
 end
 
