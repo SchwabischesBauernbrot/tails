@@ -72,7 +72,7 @@ def main(*args):
 
 
 def exec_electrum(*args):
-    os.execv('/usr/bin/electrum', ['/usr/bin/electrum'] + list(args))
+    os.execv('/usr/bin/electrum', ['/usr/bin/electrum', *list(args)])
 
 
 def should_show_donation_message() -> bool:
