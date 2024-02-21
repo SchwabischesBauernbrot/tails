@@ -3,6 +3,8 @@
 set -eu
 set -x
 
+APPS="tails-documentation whisperback"
+
 # Create install-desktop-icons
 
 cat > /live/persistence/TailsData_unlocked/install-desktop-icons <<EOF
@@ -11,11 +13,9 @@ cat > /live/persistence/TailsData_unlocked/install-desktop-icons <<EOF
 set -x
 
 create_desktop_icons() {
-  APPS="tails-documentation whisperback"
-
   mkdir --parents /etc/skel/Desktop
 
-  for app in \$APPS; do
+  for app in ${APPS}; do
       install \
       --mode=0755 \
       "/usr/share/applications/\${app}.desktop" \
@@ -50,15 +50,31 @@ if ! grep -q install-desktop-icons /live/persistence/TailsData_unlocked/persiste
   echo '/usr/local/lib/persistent-storage/on-activated-hooks/install-desktop-icons source=install-desktop-icons,file' >> /live/persistence/TailsData_unlocked/persistence.conf;
 fi
 
+# Create enable-desktop-icons
+
+cat > /live/persistence/TailsData_unlocked/enable-desktop-icons <<EOF
+#!/bin/sh
+
+set -x
+
+for app in ${APPS}; do
+  gio set "/home/amnesia/Desktop/\${app}.desktop" metadata::trusted true
+done
+
+gnome-extensions enable ding@rastersoft.com
+EOF
+
+chmod +x /live/persistence/TailsData_unlocked/enable-desktop-icons
+
 # Create enable-desktop-icons.desktop
 
 cat > /live/persistence/TailsData_unlocked/enable-desktop-icons.desktop <<EOF
 [Desktop Entry]
 Name=enable-desktop-icons
-Exec=gnome-extensions enable ding@rastersoft.com
+Exec=/live/persistence/TailsData_unlocked/enable-desktop-icons
 Type=Application
 EOF
 
-if ! grep -q enable-desktop-icons /live/persistence/TailsData_unlocked/persistence.conf; then
+if ! grep -q enable-desktop-icons.desktop /live/persistence/TailsData_unlocked/persistence.conf; then
   echo '/etc/xdg/autostart/enable-desktop-icons.desktop	source=enable-desktop-icons.desktop,file' >> /live/persistence/TailsData_unlocked/persistence.conf;
 fi
