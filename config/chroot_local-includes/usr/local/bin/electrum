@@ -24,7 +24,7 @@ from pathlib import Path
 # Make electrum use the cursor size configured in GNOME
 # refs: #20206
 os.environ['XCURSOR_SIZE'] = subprocess.check_output(
-    ['gsettings', 'get', 'org.gnome.desktop.interface', 'cursor-size'],
+    ['/usr/bin/gsettings', 'get', 'org.gnome.desktop.interface', 'cursor-size'],
     text=True,
 ).strip()
 
@@ -113,7 +113,7 @@ def show_donation_message():
 
     # results 0 == True; 1 == False; 5 == Timeout
     p = subprocess.run([
-        'zenity',
+        '/usr/bin/zenity',
         '--question',
         '--title', '',
         '--text', text,
@@ -127,7 +127,7 @@ def show_donation_message():
         # Show a GNOME notification to let the user know that we're
         # opening Electrum with our donation address.
         subprocess.check_call([
-            'notify-send',
+            '/usr/bin/notify-send',
             _('Opening Electrum with our donation address...'),
             _('Thank you for making the Internet a safer place!'),
         ])
@@ -172,7 +172,7 @@ def verify_start():
     exit_text = _('_Exit')
 
     p = subprocess.run([
-        'zenity',
+        '/usr/bin/zenity',
         '--question',
         '--title', '',
         '--default-cancel',
