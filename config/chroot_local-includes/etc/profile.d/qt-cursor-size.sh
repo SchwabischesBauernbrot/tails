@@ -1,3 +1,5 @@
+# shellcheck shell=dash
+
 # Have QT applications use the GTK cursor size.
 # This is not a perfect solution, as the cursor size is not updated when
 # the user changes the cursor size in the GNOME settings.
