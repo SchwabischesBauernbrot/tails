@@ -152,11 +152,13 @@ class PersistentStorageSettings:
                 parameters=None,
                 flags=Gio.DBusCallFlags.NONE,
                 # We have seen this take almost 4 minutes (tails/tails#19944)
-                # so let's try 5 minutes for now. We don't want to disable
+                # so let's try 5 [1] minutes for now. We don't want to disable
                 # the timeout completely (yet) since we still want to catch
                 # situations where e.g. some of our on-activation scripts
                 # gets in an infinite loop or similar.
-                timeout_msec=300000,
+                # [1] Bumped again from 5 to 7 minutes because installing
+                #     desktop icons can take some time (tails/tails#19920).
+                timeout_msec=420000,
             )
         except GLib.GError as err:
             if tps_errors.FeatureActivationFailedError.is_instance(err):
