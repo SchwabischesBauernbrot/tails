@@ -1490,20 +1490,23 @@ Given /^I install a Tails USB image to the (\d+) MiB disk with GNOME Disks$/ do 
   disks.children(roleName: 'table cell')
        .find { |row| destination_disk_label_regexp.match(row.name) }
        .grabFocus
-  @screen.wait('GnomeDisksDriveMenuButton.png', 5).click
-  disks.child('Restore Disk Image…', roleName: 'push button')
+  disks.child(description: 'Drive Options', roleName: 'toggle button')
        .click
+  disks.child('Restore Disk Image…', roleName: 'push button').click
   restore_dialog = disks.child('Restore Disk Image', roleName: 'dialog')
-  # Open the file chooser
-  @screen.press('Enter')
+  restore_dialog.child('Other…').click
   select_disk_image_dialog = disks.child('Select Disk Image to Restore',
                                          roleName: 'file chooser')
-  @screen.paste(
-    @usb_image_path,
-    app: :gtk_file_chooser
-  )
-  sleep 2 # avoid ENTER being eaten by the auto-completion system
-  @screen.press('Enter')
+  select_disk_image_dialog.child('File Chooser Widget',
+                                 roleName: 'file chooser')
+                          .doActionNamed('show_location')
+  text_entry = select_disk_image_dialog.child('Location Layer')
+                                       .child(roleName: 'text')
+  text_entry.text = @usb_image_path
+  # For some reason two activate calls are necessary to close the dialog
+  text_entry.activate
+  text_entry.activate
+
   try_for(10) do
     !select_disk_image_dialog.showing
   end
