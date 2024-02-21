@@ -122,7 +122,7 @@ def show_donation_message():
         '--icon-name', 'tails-logo-drawing',
         '--modal',
         '--ellipsize',
-    ])
+    ], check=False)
     if p.returncode == 0:
         # Show a GNOME notification to let the user know that we're
         # opening Electrum with our donation address.
@@ -180,7 +180,7 @@ def verify_start():
         '--ok-label', launch_text,
         '--cancel-label', exit_text,
         '--text', dialog_msg,
-    ])
+    ], check=False)
     return p.returncode == 0
 
 
