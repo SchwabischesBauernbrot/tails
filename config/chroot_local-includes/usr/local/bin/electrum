@@ -92,12 +92,12 @@ def should_show_donation_message() -> bool:
 
     # If the other conditions are met, show the message in 1/5 of the
     # cases.
-    return random.randint(0, 19) == 0
+    return random.randint(0, 19) == 0  # noqa: S311
 
 
 def show_donation_message():
     # To test the donation message, execute `ELECTRUM_DONATION_MESSAGE=1 electrum` with a Persistent Storage and a wallet
-    if random.randint(0, 1) == 0:
+    if random.randint(0, 1) == 0:  # noqa: S311
         # In half of the cases, display a message with benevolent incentive
         text = _('Tails needs donations to keep everybody free and safe '
                  'online.\n\nEvery bit helps in our fight against surveillance '
