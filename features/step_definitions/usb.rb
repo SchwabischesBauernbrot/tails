@@ -1492,7 +1492,8 @@ Given /^I install a Tails USB image to the (\d+) MiB disk with GNOME Disks$/ do 
        .click
   disks.child('Restore Disk Image…', roleName: 'push button').click
   restore_dialog = disks.child('Restore Disk Image', roleName: 'dialog')
-  restore_dialog.child('Other…').click
+  # Open the file chooser
+  @screen.press('Enter')
   select_disk_image_dialog = disks.child('Select Disk Image to Restore',
                                          roleName: 'file chooser')
   select_disk_image_dialog.child('File Chooser Widget',
