@@ -10,7 +10,21 @@ cat > /live/persistence/TailsData_unlocked/install-desktop-icons <<EOF
 
 set -x
 
+create_desktop_icons() {
+  APPS="tails-documentation whisperback"
+
+  mkdir --parents /etc/skel/Desktop
+
+  for app in \$APPS; do
+      install \
+      --mode=0755 \
+      "/usr/share/applications/\${app}.desktop" \
+      /etc/skel/Desktop/
+  done
+}
+
 dpkg -i /live/persistence/TailsData_unlocked/apt/cache/gnome-shell-extension-desktop-icons-ng*.deb
+create_desktop_icons
 
 # Exit with 0 even if the above command failed, to avoid raising an
 # exception in the Persistent Storage backend.
