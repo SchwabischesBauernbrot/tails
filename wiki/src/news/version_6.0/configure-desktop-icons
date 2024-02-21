@@ -1,7 +1,9 @@
 #!/bin/sh
 
-set -e
+set -eu
 set -x
+
+# Create install-desktop-icons
 
 cat > /live/persistence/TailsData_unlocked/install-desktop-icons <<EOF
 #!/bin/sh
@@ -17,6 +19,19 @@ EOF
 
 chmod +x /live/persistence/TailsData_unlocked/install-desktop-icons
 
-if ! grep -q install-desktop-icons /live/persistence/TailsData_unlocked/persistence.conf; then 
-  echo '/usr/local/lib/persistent-storage/on-activated-hooks/install-desktop-icons source=install-desktop-icons,file' >> /live/persistence/TailsData_unlocked/persistence.conf; 
+if ! grep -q install-desktop-icons /live/persistence/TailsData_unlocked/persistence.conf; then
+  echo '/usr/local/lib/persistent-storage/on-activated-hooks/install-desktop-icons source=install-desktop-icons,file' >> /live/persistence/TailsData_unlocked/persistence.conf;
+fi
+
+# Create enable-desktop-icons.desktop
+
+cat > /live/persistence/TailsData_unlocked/enable-desktop-icons.desktop <<EOF
+[Desktop Entry]
+Name=enable-desktop-icons
+Exec=gnome-extensions enable ding@rastersoft.com
+Type=Application
+EOF
+
+if ! grep -q enable-desktop-icons /live/persistence/TailsData_unlocked/persistence.conf; then
+  echo '/etc/xdg/autostart/enable-desktop-icons.desktop	source=enable-desktop-icons.desktop,file' >> /live/persistence/TailsData_unlocked/persistence.conf;
 fi
