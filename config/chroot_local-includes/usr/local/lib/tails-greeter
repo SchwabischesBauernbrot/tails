@@ -6,6 +6,10 @@ if grep -qw "autotest_never_use_this_option" /proc/cmdline; then
   env > "/tmp/gdm-env"
 fi
 
+# Store the DBUS_SESSION_BUS_ADDRESS for usage by tps hooks
+echo "export DBUS_SESSION_BUS_ADDRESS=$DBUS_SESSION_BUS_ADDRESS" > \
+     /tmp/gdm-dbus-session-bus-address
+
 if grep -qw "debug=greeter" /proc/cmdline && [ -z "${DEBUG_GREETER:-}" ]; then
   # Export DEBUG_GREETER=1 so that when this file is executed again
   # from the gnome-terminal, we actually start the greeter and not

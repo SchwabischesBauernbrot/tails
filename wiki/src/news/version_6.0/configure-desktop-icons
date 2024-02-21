@@ -23,8 +23,21 @@ create_desktop_icons() {
   done
 }
 
-dpkg -i /live/persistence/TailsData_unlocked/apt/cache/gnome-shell-extension-desktop-icons-ng*.deb
+send_notification() {
+    sudo -u Debian-gdm sh -c ". /tmp/gdm-dbus-session-bus-address && \
+                             notify-send '\$1'"
+}
+
+send_notification 'Installing Desktop icons'
+
+dpkg -i /live/persistence/TailsData_unlocked/apt/cache/gnome-shell-extension-desktop-icons-ng*.deb && \
 create_desktop_icons
+
+if [ \$? -ne 0 ]; then
+    send_notification 'Failed to install Desktop icons'
+else
+    send_notification 'Desktop icons installed'
+fi
 
 # Exit with 0 even if the above command failed, to avoid raising an
 # exception in the Persistent Storage backend.
