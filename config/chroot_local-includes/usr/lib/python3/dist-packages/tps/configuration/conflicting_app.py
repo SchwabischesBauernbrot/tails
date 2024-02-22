@@ -1,5 +1,5 @@
 from gi.repository import Gio
-from typing import List, Optional
+from typing import Optional
 
 import psutil
 
@@ -34,7 +34,7 @@ class ConflictingApp:
         self,
         name: str,
         desktop_id: Optional[str] = None,
-        process_names: Optional[List[str]] = None,
+        process_names: Optional[list[str]] = None,
     ):
         self.name = name
         self.desktop_id = desktop_id
@@ -46,7 +46,7 @@ class ConflictingApp:
         except psutil.NoSuchProcess:
             return False
 
-    def get_processes(self) -> List[psutil.Process]:
+    def get_processes(self) -> list[psutil.Process]:
         return [p for p in psutil.process_iter() if self.process_belongs_to_app(p)]
 
     def try_get_translated_name(self):
