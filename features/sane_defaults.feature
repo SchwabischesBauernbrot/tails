@@ -14,3 +14,10 @@ Feature: Tails has a sane default configuration
     And Tor is ready
     Then no unexpected services are listening for network connections
 
+  Scenario: No unexpected error messages in the journal after booting from DVD
+    Given I have started Tails from DVD without network and logged in
+    Then there are no unexpected messages of priority "err" or higher in the journal
+
+  Scenario: No unexpected error messages in the journal after booting from USB drive
+    Given I have started Tails without network from a USB drive with a persistent partition enabled and logged in
+    Then there are no unexpected messages of priority "err" or higher in the journal
