@@ -12,7 +12,7 @@ logger = tps.logging.get_logger(__name__)
 all_apps = Gio.AppInfo.get_all()  # type: List[Gio.AppInfo]
 
 
-class ConflictingApp(object):
+class ConflictingApp:
     """An app that must not be running while the feature this app
     belongs to is activated or deactivated.
 
