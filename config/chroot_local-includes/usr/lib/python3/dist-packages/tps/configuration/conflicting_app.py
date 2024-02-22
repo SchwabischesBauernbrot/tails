@@ -41,7 +41,10 @@ class ConflictingApp(object):
         self.process_names = process_names if process_names else []
 
     def process_belongs_to_app(self, process: psutil.Process) -> bool:
-        return process.name() in self.process_names
+        try:
+            return process.name() in self.process_names
+        except psutil.NoSuchProcess:
+            return False
 
     def get_processes(self) -> List[psutil.Process]:
         return [p for p in psutil.process_iter() if self.process_belongs_to_app(p)]
