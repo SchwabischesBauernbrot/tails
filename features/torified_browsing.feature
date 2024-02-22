@@ -157,5 +157,6 @@ Feature: Browsing the web using the Tor Browser
     And the computer reboots Tails
     And I enable persistence
     And I log in to a new session
+    And all notifications have disappeared
     And I start the Tor Browser in offline mode
     Then the Tor Browser has a bookmark to eff.org
