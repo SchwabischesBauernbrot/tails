@@ -92,5 +92,5 @@ systemctl mask avahi-daemon.service
 # In Debian Bookworm, tracker-extract-3.service often fails to connect
 # to the tracker-miner-fs-3.service, causing a timeout which blocks
 # logging in from the Welcome Screen for 30 seconds (#20220).
-systemctl mask tracker-extract-3.service
-systemctl mask tracker-miner-fs-3.service
+systemctl --global mask tracker-extract-3.service
+systemctl --global mask tracker-miner-fs-3.service
