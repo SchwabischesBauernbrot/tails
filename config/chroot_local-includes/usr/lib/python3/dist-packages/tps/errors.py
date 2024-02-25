@@ -33,10 +33,6 @@ class IncorrectPassphraseError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.IncorrectPassphraseError"
 
 
-class SymlinkSourceDirectoryError(DBusError):
-    name = "org.boum.tails.PersistentStorage.Error.SymlinkSourceDirectoryError"
-
-
 class InvalidConfigFileError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.InvalidConfigFileError"
 

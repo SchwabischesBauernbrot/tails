@@ -5,7 +5,7 @@ import re
 from typing import TYPE_CHECKING
 
 from gi.repository import Gio, GLib, GObject, Gtk, Handy
-from tps.errors import DBusError, SymlinkSourceDirectoryError, TargetIsBusyError
+from tps.errors import DBusError, TargetIsBusyError
 
 from tps_frontend import (
     DBUS_FEATURE_INTERFACE,
@@ -271,17 +271,6 @@ class Feature:
                     flags=Gio.DBusCallFlags.NONE,
                     timeout_msec=-1,
                     cancellable=None,
-                )
-            elif SymlinkSourceDirectoryError.is_instance(e):
-                # The user did not create the source directory of a
-                # feature that uses symlinks.
-                # This is an expected error which we don't want error
-                # reports for.
-                SymlinkSourceDirectoryError.strip_remote_error(e)
-                self.window.display_error(
-                    _("Error activating feature {}").format(self.translated_name),
-                    e.message,
-                    with_send_report_button=False,
                 )
             else:
                 DBusError.strip_remote_error(e)
