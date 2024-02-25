@@ -193,14 +193,14 @@ class FeaturesView(View):
 
     def on_activate_link(self, label: Gtk.Label, uri: str):
         logger.debug("Opening documentation: %s", uri)
-        subprocess.run(["tails-documentation", uri])
+        subprocess.run(["/usr/local/bin/tails-documentation", uri])
         return True
 
     def on_activate_link_button(self, link_button: Gtk.LinkButton):
         uri = link_button.get_uri()
         page, anchor = uri.split("#")
         logger.debug("Opening documentation: %s", uri)
-        subprocess.run(["tails-documentation", page, anchor])
+        subprocess.run(["/usr/local/bin/tails-documentation", page, anchor])
         return True
 
     def add_custom_feature(self, proxy: Gio.DBusObject):
