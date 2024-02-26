@@ -20,8 +20,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-03 20:49+0100\n"
-"PO-Revision-Date: 2024-01-10 19:06+0000\n"
+"POT-Creation-Date: 2024-02-26 10:14+0100\n"
+"PO-Revision-Date: 2024-02-22 20:02+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tor/tails-gui/"
 "uk/>\n"
@@ -33,9 +33,9 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 5.4-dev\n"
+"X-Generator: Weblate 5.5-dev\n"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:202
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:205
 #, python-brace-format
 msgid ""
 "{details} Please check your list of additional software or read the system "
@@ -44,7 +44,7 @@ msgstr ""
 "{details} Перевірте свій список додаткового програмного забезпечення або "
 "прочитайте системний журнал, щоб зрозуміти проблему."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:212
 msgid ""
 "Please check your list of additional software or read the system log to "
 "understand the problem."
@@ -52,95 +52,97 @@ msgstr ""
 "Перевірте свій список додаткового програмного забезпечення або прочитайте "
 "системний журнал, щоб зрозуміти проблему."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:215
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:218
 msgid "Show Log"
 msgstr "Показати журнал"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:215
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:218
 msgid "Configure"
 msgstr "Налаштування"
 
 #. Translators: Don't translate {packages}, it's a placeholder and will
 #. be replaced.
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:41
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:72
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:45
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:76
 #, python-brace-format
 msgid "Add {packages} to your additional software?"
 msgstr "Додати {packages} до вашого додаткового програмного забезпечення?"
 
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:43
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:47
 msgid ""
 "To install it automatically from your persistent storage when starting Tails."
 msgstr ""
 "Щоб автоматично встановити його з постійного сховища під час запуску Tails."
 
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:45
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:49
 msgid "Install Every Time"
 msgstr "Встановлювати кожного разу"
 
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:46
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:78
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:50
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:82
 msgid "Install Only Once"
 msgstr "Встановити лише один раз"
 
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:53
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:84
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:151
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:57
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:88
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:172
 msgid "The configuration of your additional software failed."
 msgstr "Помилка конфігурації вашого додаткового програмного забезпечення."
 
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:74
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:78
+#, fuzzy
 msgid ""
-"To install it automatically when starting Tails, you can create a persistent "
-"storage and activate the <b>Additional Software</b> feature."
+"To install it automatically when starting Tails, you can create a Persistent "
+"Storage and activate the <b>Additional Software</b> feature."
 msgstr ""
 "Щоб встановити його автоматично під час запуску Tails, ви можете створити "
 "постійне сховище та активувати функцію <b>Additional Software</b>."
 
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:77
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:81
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:342
 msgid "Create Persistent Storage"
 msgstr "Створити Постійне Сховище"
 
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:86
-msgid "Creating your persistent storage failed."
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:90
+#, fuzzy
+msgid "Creating your Persistent Storage failed."
 msgstr "Не вдалося створити постійне сховище."
 
 #. Translators: Don't translate {packages}, it's a placeholder and
 #. will be replaced.
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:95
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:99
 #, python-brace-format
 msgid "You could install {packages} automatically when starting Tails"
 msgstr "Ви можете автоматично встановити {packages} під час запуску Tails"
 
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:98
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:102
 msgid "To do so, you need to run Tails from a USB stick."
 msgstr "Для цього вам потрібно запустити Tails з USB-накопичувача."
 
 #. Translators: Don't translate {packages}, it's a placeholder and will be
 #. replaced.
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:138
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:159
 #, python-brace-format
 msgid "Remove {packages} from your additional software?"
 msgstr "Вилучити {packages} із додаткового програмного забезпечення?"
 
 #. Translators: Don't translate {packages}, it's a placeholder
 #. and will be replaced.
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:142
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:163
 #, python-brace-format
 msgid "This will stop installing {packages} automatically."
 msgstr "Це автоматично припинить встановлення {packages}."
 
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:144
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:165
 #: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:166
 msgid "Remove"
 msgstr "Забрати"
 
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:145
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:710
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:729
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-errors:28
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:367
@@ -149,12 +151,12 @@ msgstr "Відмова"
 
 #. Translators: Don't translate {beginning} or {last}, they are
 #. placeholders and will be replaced.
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:165
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:186
 #, python-brace-format
 msgid "{beginning} and {last}"
 msgstr "{beginning} і {last}"
 
-#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
+#: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:187
 msgid ", "
 msgstr ", "
 
@@ -229,7 +231,7 @@ msgstr ""
 msgid "_Create persistent storage"
 msgstr "_Створити постійне сховище"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:95
+#: config/chroot_local-includes/usr/local/bin/electrum:102
 msgid ""
 "Tails needs donations to keep everybody free and safe online.\n"
 "\n"
@@ -246,7 +248,7 @@ msgstr ""
 "<a href=\"file:///usr/share/doc/tails/website/donate.en.html#expenses\">Як "
 "ми витрачаємо кошти.</a>"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:102
+#: config/chroot_local-includes/usr/local/bin/electrum:109
 msgid ""
 "Tails protects your wallet.\n"
 "\n"
@@ -262,27 +264,27 @@ msgstr ""
 "<a href=\"file:///usr/share/doc/tails/website/donate.en.html#expenses\">Як "
 "ми витрачаємо кошти.</a>"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:113
+#: config/chroot_local-includes/usr/local/bin/electrum:120
 msgid "Donate Now"
 msgstr "Підтримати зараз"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:114
+#: config/chroot_local-includes/usr/local/bin/electrum:121
 msgid "Later"
 msgstr "Пізніше"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:124
+#: config/chroot_local-includes/usr/local/bin/electrum:131
 msgid "Opening Electrum with our donation address..."
 msgstr "Відкриваємо Electrum з нашою адресою для внесків..."
 
-#: config/chroot_local-includes/usr/local/bin/electrum:125
+#: config/chroot_local-includes/usr/local/bin/electrum:132
 msgid "Thank you for making the Internet a safer place!"
 msgstr "Дякуємо, що робите інтернет безпечнішим!"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:158
+#: config/chroot_local-includes/usr/local/bin/electrum:165
 msgid "Persistence is disabled for Electrum"
 msgstr "Режим постійного сховища вимкнений для Electrum"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:160
+#: config/chroot_local-includes/usr/local/bin/electrum:167
 msgid ""
 "When you reboot Tails, all of Electrum's data will be lost, including your "
 "Bitcoin wallet.\n"
@@ -293,15 +295,15 @@ msgstr ""
 "вашим гаманцем Bitcoin.\n"
 "Радимо запускати Electrum лише коли активована його функція збереження."
 
-#: config/chroot_local-includes/usr/local/bin/electrum:161
+#: config/chroot_local-includes/usr/local/bin/electrum:168
 msgid "Do you want to start Electrum anyway?"
 msgstr "Усе одно запустити Electrum ?"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:164
+#: config/chroot_local-includes/usr/local/bin/electrum:171
 msgid "_Launch"
 msgstr "_Запустити"
 
-#: config/chroot_local-includes/usr/local/bin/electrum:165
+#: config/chroot_local-includes/usr/local/bin/electrum:172
 msgid "_Exit"
 msgstr "_Вийти"
 
@@ -836,13 +838,12 @@ msgid "Error activating Persistent Storage: {}"
 msgstr "Помилка активування постійного сховища: {}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:89
-#, fuzzy
 msgid ""
 "Impossible to unlock the Persistent Storage because the USB stick is read-"
 "only."
 msgstr ""
-"Не вдалося розблокувати постійне сховище. Будь ласка, запустіть Tails і "
-"надішліть звіт про помилку."
+"Неможливо розблокувати Постійне сховище, оскільки USB-накопичувач доступний "
+"лише для читання."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:104
 msgid "Unlocking…"
@@ -920,9 +921,9 @@ msgstr ""
 "демонтовані перед початком установки."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:377
-#, fuzzy, python-format
+#, python-format
 msgid "Wrote to device at %(speed)d MB/s"
-msgstr "Записано на пристрій на %(speed)d MB/sec"
+msgstr "Записано на пристрій зі швидкістю %(speed)d МБ/с"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:389
 msgid "Extracting live image to the target device..."
@@ -1101,7 +1102,7 @@ msgstr "Цей диск є циклічним пристроєм, пропуск
 msgid "Synchronizing data on disk..."
 msgstr "Синхронізація даних на диску..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:153
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:163
 msgid ""
 "Error: Cannot set the label or obtain the UUID of your device.  Unable to "
 "continue."
@@ -1109,67 +1110,67 @@ msgstr ""
 "Помилка: Не вдається встановити позначку чи отримати UUID вашого пристрою.  "
 "Неможливо продовжити."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:194
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:208
 #, python-format
 msgid "Installation complete! (%s)"
 msgstr "Установка завершена! (%s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:199
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:213
 msgid "Tails installation failed!"
 msgstr "Не вдалось установити Tails!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:303
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:318
 #: ../config/chroot_local-includes/usr/share/applications/tails-installer.desktop.in.h:1
 msgid "Tails Cloner"
 msgstr "Tails Cloner"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:355
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:370
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:164
 msgid "Clone the current Tails"
 msgstr "Клонувати поточний Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:363
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:378
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:200
 msgid "Use a downloaded Tails ISO image"
 msgstr "Використати завантажений ISO-образ Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:416
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:430
 msgid "Upgrade"
 msgstr "Оновлення"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:417
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:431
 msgid "Manual Upgrade Instructions"
 msgstr "Інструкція з ручного оновлення"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:428
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:695
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:442
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:715
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:374
 msgid "Install"
 msgstr "Встановити"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:431
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:445
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:131
 msgid "Installation Instructions"
 msgstr "Інструкції зі Встановлення"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:434
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:448
 msgid "Backup Instructions"
 msgstr "Інструкції з резервного копіювання"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:445
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:459
 #, python-format
 msgid "%(size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(size)s%(vendor)s%(model)s пристрій (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:458
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:472
 msgid "No ISO image selected"
 msgstr "Не вибрано ISO-образ"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:458
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:472
 msgid "Please select a Tails ISO image."
 msgstr "Оберіть ISO-образ Tails."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:516
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:530
 msgid ""
 "Clone the current Persistent Storage\n"
 "Impossible to clone the Persistent Storage because it is locked."
@@ -1177,12 +1178,12 @@ msgstr ""
 "Клонувати поточне Постійне сховище\n"
 "Неможливо клонувати Постійне сховище, оскільки його заблоковано."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:520
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:534
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:180
 msgid "Clone the current Persistent Storage"
 msgstr "Клонувати поточне Постійне сховище"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:523
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:537
 msgid ""
 "Clone the current Persistent Storage\n"
 "You can only choose to reinstall when cloning the Persistent Storage."
@@ -1191,7 +1192,7 @@ msgstr ""
 "Ви можете вибрати перевстановлення лише під час клонування Постійного "
 "сховища."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:569
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:583
 #, python-format
 msgid ""
 "The USB stick \"%(pretty_name)s\" is configured as non-removable by its "
@@ -1201,7 +1202,7 @@ msgstr ""
 "USB-накопичувач \"%(pretty_name)s\" налаштовано виробником як незнімний, і "
 "Tails не зможе з нього запуститися. Спробуйте встановити на іншу модель."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:579
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:593
 #, python-format
 msgid ""
 "The device \"%(pretty_name)s\" is too small to install Tails (at least "
@@ -1210,7 +1211,7 @@ msgstr ""
 "Пристрій \"%(pretty_name)s\" замалий для встановлення Tails (потрібно хоча б "
 "%(size)s ГБ)."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:594
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:608
 #, python-format
 msgid ""
 "To upgrade device \"%(pretty_name)s\" from this Tails, you need to use a "
@@ -1221,49 +1222,50 @@ msgstr ""
 "скористатися завантаженим ISO-образом Tails:\n"
 "%(dl_url)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:615
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:629
 msgid "No device suitable to install Tails could be found"
 msgstr "Не вдалося знайти пристрій, придатний для встановлення Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:618
-#, python-format
-msgid "Please plug a USB flash drive or SD card of at least %0.1f GB."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:632
+#, fuzzy, python-format
+msgid "Plug in a USB stick of at least %0.1f GB."
 msgstr ""
 "Будь ласка, під'єднайте USB-накопичувач або SD-карту ємністю принаймні %0.1f "
 "ГБ."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:631
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:645
 msgid "An error happened while installing Tails"
 msgstr "Під час встановлення Tails сталася помилка"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:689
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:702
 msgid "Installation complete!"
 msgstr "Установка завершена!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:745
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:764
 msgid "Unable to mount device"
 msgstr "Не вдалося змонтувати пристрій"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:752
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:771
 #, python-format
 msgid "%(parent_size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(parent_size)s %(vendor)s %(model)s пристрій (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:765
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:784
+#, fuzzy
 msgid ""
 "\n"
 "\n"
-"The persistent storage on this USB stick will be lost."
+"The Persistent Storage on this USB stick will be lost."
 msgstr ""
 "\n"
 "\n"
 "Постійне сховище на цьому USB-накопичувачі буде втрачено."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:767
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:786
 msgid "Delete Persistent Storage and Reinstall"
 msgstr "Видалити і перевстановити постійне сховище"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:769
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:788
 msgid ""
 "\n"
 "\n"
@@ -1273,26 +1275,26 @@ msgstr ""
 "\n"
 "Всі дані на цьому USB-накопичувачі будуть втрачені."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:770
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:789
 msgid "Delete All Data and Install"
 msgstr "Видалити всі дані і встановити"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:771
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:790
 #, python-format
 msgid "%(description)s%(delete_message)s"
 msgstr "%(description)s%(delete_message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:776
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:795
 msgid "Confirm the target USB stick"
 msgstr "Підтвердьте цільовий USB-накопичувач"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:819
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:838
 msgid ""
 "The selected file is unreadable. Please fix its permissions or select "
 "another file."
 msgstr "Вибраний файл не читається. Виправте файл або виберіть інший."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:829
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:848
 msgid ""
 "Unable to use the selected file.  You may have better luck if you move your "
 "ISO to the root of your drive (ie: C:\\)"
@@ -1300,7 +1302,7 @@ msgstr ""
 "Неможливо використовувати вказаний файл. Спробуйте перемістити ISO в корінь "
 "диска (наприклад, C:\\)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:838
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:857
 #, python-format
 msgid "%(filename)s selected"
 msgstr "%(filename)s обрано"
@@ -1353,7 +1355,7 @@ msgstr ""
 msgid "Could not open device for writing."
 msgstr "Не вдається відкрити пристрій для запису."
 
-#: config/chroot_local-includes/usr/local/bin/keepassxc:19
+#: config/chroot_local-includes/usr/local/bin/keepassxc:24
 #, sh-format
 msgid ""
 "<b><big>Do you want to rename your <i>KeePassXC</i> database?</big></b>\n"
@@ -1374,11 +1376,11 @@ msgstr ""
 "Перейменування вашої бази даних на <i>${default_filename}</i> дозволить "
 "<i>KeePassXC</i> автоматично відкривати її в майбутньому."
 
-#: config/chroot_local-includes/usr/local/bin/keepassxc:28
+#: config/chroot_local-includes/usr/local/bin/keepassxc:33
 msgid "Rename"
 msgstr "Перейменувати"
 
-#: config/chroot_local-includes/usr/local/bin/keepassxc:30
+#: config/chroot_local-includes/usr/local/bin/keepassxc:35
 msgid "Keep current name"
 msgstr "Залишити поточну назву"
 
@@ -1481,12 +1483,12 @@ msgstr "Про Tails"
 
 #: config/chroot_local-includes/usr/local/bin/tails-about:40
 msgid "UNRELEASED"
-msgstr ""
+msgstr "НЕ ВИПУЩЕНЕ"
 
 #: config/chroot_local-includes/usr/local/bin/tails-about:47
 #, python-format
 msgid "Built from %s"
-msgstr ""
+msgstr "Зібрано з %s"
 
 #: config/chroot_local-includes/usr/local/lib/tails-additional-software-notify:36
 msgid "Documentation"
@@ -1529,8 +1531,9 @@ msgstr ""
 "gnome.Terminal.desktop\">APT у командному рядку</a>."
 
 #: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:199
+#, fuzzy
 msgid ""
-"To do so, unlock your persistent storage when starting Tails and install "
+"To do so, unlock your Persistent Storage when starting Tails and install "
 "some software using <a href=\"synaptic.desktop\">Synaptic Package Manager</"
 "a> or <a href=\"org.gnome.Terminal.desktop\">APT on the command line</a>."
 msgstr ""
@@ -1540,8 +1543,9 @@ msgstr ""
 "desktop\">APT у командному рядку</a>."
 
 #: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:209
+#, fuzzy
 msgid ""
-"To do so, create a persistent storage and install some software using <a "
+"To do so, create a Persistent Storage and install some software using <a "
 "href=\"synaptic.desktop\">Synaptic Package Manager</a> or <a href=\"org."
 "gnome.Terminal.desktop\">APT on the command line</a>."
 msgstr ""
@@ -1550,7 +1554,8 @@ msgstr ""
 "href=\"org.gnome.Terminal.desktop\">APT у командному рядку</a>."
 
 #: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:223
-msgid "To do so, install Tails on a USB stick and create a persistent storage."
+#, fuzzy
+msgid "To do so, install Tails on a USB stick and create a Persistent Storage."
 msgstr ""
 "Для цього встановіть Tails на USB-накопичувач і створіть постійне сховище."
 
@@ -1995,25 +2000,25 @@ msgid "Error deleting data of feature {}"
 msgstr "Помилка видалення даних функції {}"
 
 #. Translators: Don't translate {applications}, it's a placeholder
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:492
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:503
 #, python-brace-format
 msgid "Close {applications} to continue"
 msgstr "Щоб продовжити, закрийте {applications}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:493
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:504
 msgid " and "
 msgstr " і "
 
 #. Translators: Don't translate {app} and {pid}, they
 #. are placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:504
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:515
 #, python-brace-format
 msgid "{app} (PID: {pid})"
 msgstr "{app} (PID: {pid})"
 
 #. Translators: Don't translate {app} and {pids}, they
 #. are placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:509
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:520
 #, python-brace-format
 msgid "{app} (PIDs: {pids})"
 msgstr "{app} (PIDs: {pids})"
@@ -2057,18 +2062,18 @@ msgid "_Send Error Report"
 msgstr "_Надіслати звіт про помилку"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:143
-#, fuzzy
 msgid ""
 "Impossible to delete the Persistent Storage while it is unlocked.\n"
 "\n"
 "To delete the Persistent Storage, restart Tails without unlocking the "
 "Persistent Storage and open the Persistent Storage settings again."
 msgstr ""
+"Неможливо видалити Постійне сховище, коли його розблоковано.\n"
+"\n"
 "Щоб видалити Постійне сховище, перезапустіть Tails, не розблоковуючи "
 "Постійне сховище, і знову відкрийте налаштування Постійного сховища."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:157
-#, fuzzy
 msgid ""
 "Impossible to delete the Persistent Storage because the USB stick is read-"
 "only.\n"
@@ -2077,13 +2082,16 @@ msgid ""
 "USB stick, restart Tails without unlocking the Persistent Storage and open "
 "the Persistent Storage settings again."
 msgstr ""
-"Щоб видалити Постійне сховище, перезапустіть Tails, не розблоковуючи "
-"Постійне сховище, і знову відкрийте налаштування Постійного сховища."
+"Неможливо видалити Постійне сховище, оскільки USB-накопичувач доступний лише "
+"для читання.\n"
+"\n"
+"Щоб видалити Постійне сховище, вимкніть захист USB-накопичувача тільки для "
+"читання, перезапустіть Tails, не розблоковуючи Постійне сховище, і знову "
+"відкрийте налаштування Постійного сховища."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:165
-#, fuzzy
 msgid "Impossible to delete the Persistent Storage"
-msgstr "Не вдалося створити Постійне сховище"
+msgstr "Неможливо видалити Постійне сховище"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:173
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:208
@@ -2519,17 +2527,9 @@ msgid ""
 "It is impossible to connect to Tor in Offline Mode.\n"
 "To connect to Tor and the Internet, restart Tails without Offline Mode."
 msgstr ""
-
-#: ../config/chroot_local-includes/etc/skel/Desktop/Report_an_error.desktop.in.h:1
-#, fuzzy
-msgid "Report an Error"
-msgstr "Повідомити про помилку"
-
-#: ../config/chroot_local-includes/etc/skel/Desktop/tails-documentation.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/applications/tails-documentation.desktop.in.h:1
-#, fuzzy
-msgid "Tails Documentation"
-msgstr "Документація по Tails"
+"Ви увімкнули офлайн-режим на екрані привітання.\n"
+"Неможливо під'єднатися до Tor в офлайн-режимі.\n"
+"Щоб під'єднатися до Tor та інтернету, перезапустіть Tails без офлайн-режиму."
 
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:2
 msgid ""
@@ -2548,6 +2548,10 @@ msgid "Opens a terminal as the root user, using gksu to ask for the password"
 msgstr ""
 "Відкриває термінал як кореневий користувач, використовуючи gksu, щоб "
 "запитати пароль"
+
+#: ../config/chroot_local-includes/usr/share/applications/tails-documentation.desktop.in.h:1
+msgid "Tails Documentation"
+msgstr "Документація Tails"
 
 #: ../config/chroot_local-includes/usr/share/applications/tails-documentation.desktop.in.h:2
 msgid "Learn how to use Tails"
@@ -2597,8 +2601,9 @@ msgid "Mount VeraCrypt encrypted file containers and devices"
 msgstr "Підключити зашифровані файлові контейнери та пристрої VeraCrypt"
 
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.AdditionalSoftware.desktop.in.h:2
+#, fuzzy
 msgid ""
-"Configure the additional software installed from your persistent storage "
+"Configure the additional software installed from your Persistent Storage "
 "when starting Tails"
 msgstr ""
 "Під час запуску Tails налаштуйте додаткове програмне забезпечення, "
@@ -2765,7 +2770,8 @@ msgid "Disable the Unsafe Browser"
 msgstr "Вимкнути небезпечний браузер"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:101
-msgid "Settings were loaded from the persistent storage."
+#, fuzzy
+msgid "Settings were loaded from the Persistent Storage."
 msgstr "Налаштування завантажено з постійного сховища."
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:153
@@ -2811,9 +2817,8 @@ msgstr ""
 "вимкнете Tails."
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:581
-#, fuzzy
 msgid "Impossible to unlock the Persistent Storage."
-msgstr "Не вдалося створити Постійне сховище"
+msgstr "Неможливо розблокувати Постійне сховище."
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:640
 msgid "_Additional Settings"
@@ -3315,29 +3320,24 @@ msgstr ""
 "покращити Tails."
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:493
-#, fuzzy
 msgid "Description"
-msgstr "Опис багу"
+msgstr "Опис"
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:510
-#, fuzzy
 msgid "Technical Details"
-msgstr "Технічні подробиці для додавання"
+msgstr "Технічні подробиці"
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:549
-#, fuzzy
 msgid "Headers"
-msgstr "заголовки"
+msgstr "Заголовки"
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:594
-#, fuzzy
 msgid "information about the error being reported"
-msgstr "надана інформація про помилку"
+msgstr "інформація про помилку, про яку повідомляється"
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:642
-#, fuzzy
 msgid "Debugging Information"
-msgstr "налагоджувальна інформація"
+msgstr "Налагоджувальна інформація"
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:667
 msgid "Technical details to include"
@@ -3814,6 +3814,9 @@ msgstr "Грудень"
 #: ../config/chroot_local-includes/usr/share/tails/tca/time-dialog.ui.in:368
 msgid "Clock"
 msgstr "Годинник"
+
+#~ msgid "Report an Error"
+#~ msgstr "Повідомити про помилку"
 
 #~ msgid "You turned on Offline Mode in the Welcome Screen."
 #~ msgstr "Ви ввімкнули офлайн-режим на Екрані Привітання."
