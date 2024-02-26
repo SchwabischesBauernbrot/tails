@@ -501,7 +501,7 @@ Update other base branches
    It's fine if that results in a no-op (it depends on how exactly previous
    operations were performed).
 
-4. Look at the content of `$RELEASE_BRANCH` and `devel`:
+4. Look at the APT overlays for `$RELEASE_BRANCH` and `devel`:
 
         for branch in ${RELEASE_BRANCH} devel; do
             git switch ${branch}
@@ -510,9 +510,10 @@ Update other base branches
             echo "}}}"
         done
 
-   Ensure that the `$RELEASE_BRANCH` and `devel` branches
-   have the expected content in `config/APT_overlays.d/`: e.g. it must
-   not list any overlay APT suite that has been merged already.
+   Verify that the `$RELEASE_BRANCH` and `devel` branches have nothing
+   in `config/APT_overlays.d/`. If there still are unmerged APT
+   overlays at this point (which is odd), please fix the situation by
+   merging them using `bin/merge-APT-overlays`.
 
 5. Push the modified branches to Git:
 
