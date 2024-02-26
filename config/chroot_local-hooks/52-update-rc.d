@@ -85,3 +85,12 @@ systemctl mask man-db.timer
 # before we enable it
 systemctl mask avahi-daemon.socket
 systemctl mask avahi-daemon.service
+
+# We disable GNOME's file indexing service (Settings → Search) so
+# these services are useless while needlessly consuming
+# resources.
+# In Debian Bookworm, tracker-extract-3.service often fails to connect
+# to the tracker-miner-fs-3.service, causing a timeout which blocks
+# logging in from the Welcome Screen for 30 seconds (#20220).
+systemctl --global mask tracker-extract-3.service
+systemctl --global mask tracker-miner-fs-3.service
