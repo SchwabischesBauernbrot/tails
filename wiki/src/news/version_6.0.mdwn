@@ -156,25 +156,6 @@ Tails 6.0 updates most of the applications included in Tails, among others:
   The extension of GNOME Shell that we used to provide this feature is not well
   maintained and created other problems. ([[!tails_ticket 19920]])
 
-  To reinstall this extension as Additional Software in Tails 6.0:
-
-  1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
-
-  1. Install the `gnome-shell-extension-desktop-icons-ng` package as
-     [[Additional Software|doc/persistent_storage/additional_software]].
-
-  1. Open a *Terminal* and execute the following command once to configure the
-     extension automatically each time you start Tails in the future:
-
-         sudo sh /usr/share/doc/tails/website/news/version_6.0/configure-desktop-icons
-
-  1. Execute the following command to enable the extension:
-
-         gnome-extensions enable ding@rastersoft.com
-
-     You will only have to execute this last command each time you start Tails
-     in the future.
-
 - Remove the item **Wipe** and **Wipe available disk space** from the shortcut
   menu of the *Files* browser.
 
