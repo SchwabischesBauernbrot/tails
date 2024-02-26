@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2024-01-17 22:37+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: Spanish <https://translate.tails.boum.org/projects/tails/"
@@ -128,7 +128,9 @@ msgid "Plug in the external storage device that you want to use."
 msgstr "Introduce el dispositivo de almacenamiento externo que quieres usar."
 
 #. type: Bullet: '  1. '
-msgid "A new device appears in the list of storage devices. Click on it:"
+#, fuzzy
+#| msgid "A new device appears in the list of storage devices. Click on it:"
+msgid "A new device appears in the list of storage devices. Click on it."
 msgstr ""
 "Un nuevo dispositivo aparece en la lista de dispositivos de almacenamiento. "
 "Haz click en él:"
@@ -151,11 +153,17 @@ msgid "<h2 id=\"formatting\">Formatting the device</h2>\n"
 msgstr ""
 
 #. type: Bullet: '  1. '
+#, fuzzy
+#| msgid ""
+#| "   [[!img lib/system-run.png alt=\"Additional partition options\" "
+#| "class=\"symbolic\" link=\"no\"]]\n"
 msgid ""
 "Click on the [[!img lib/view-more.png alt=\"Drive Options\" "
-"class=\"symbolic\" link=\"no\"]] button in the titlebar and choose **Format "
+"class=\"symbolic\" link=\"no\"]] button in the title bar and choose **Format "
 "Disk** to erase all the existing partitions on the device."
 msgstr ""
+"   [[!img lib/system-run.png alt=\"Opciones adicionales de partición\" "
+"class=\"symbolic\" link=\"no\"]]\n"
 
 #. type: Bullet: '  1. '
 #, fuzzy
@@ -170,32 +178,51 @@ msgstr "En el diálogo <span class=\"guilabel\">Formatea Disco</span>:"
 #| "class=\"guilabel\">Overwrite existing data with zeroes</span> in the "
 #| "<span class=\"guilabel\">Erase</span> drop-down list."
 msgid ""
-"If you want to securely erase all data on the device, choose to <span "
-"class=\"guilabel\">Overwrite existing data with zeroes</span> in the <span "
-"class=\"guilabel\">Erase</span> menu."
+"If you want to overwrite all data on the device, choose **Overwrite existing "
+"data with zeroes** in the **Erase** menu."
 msgstr ""
 "Si quieres borrar todos los datos del dispositivo con seguridad, elige <span "
 "class=\"guilabel\">Sobreescribir los datos con ceros</span> en el menú "
 "desplegable <span class=\"guilabel\">Borrar</span>."
 
-#. type: Bullet: '     - '
+#. type: Plain text
+#, no-wrap
 msgid ""
-"Choose <span class=\"guilabel\">Compatible with all systems and devices (MBR/"
-"DOS)</span> in the <span class=\"guilabel\">Partitioning</span> menu."
+"       <div class=\"caution\">\n"
+"       <p>Overwriting existing data does not erase all data on flash\n"
+"       memories, such as USB sticks and SSDs (Solid-State Drives).</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "       <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "</div>\n"
+msgid "       </div>\n"
+msgstr "</div>\n"
+
+#. type: Bullet: '     - '
+#, fuzzy
+#| msgid ""
+#| "Choose <span class=\"guilabel\">Compatible with all systems and devices "
+#| "(MBR/DOS)</span> in the <span class=\"guilabel\">Partitioning</span> menu."
+msgid ""
+"Choose **Compatible with all systems and devices (MBR/DOS)** in the "
+"**Partitioning** menu."
 msgstr ""
 "Elige <span class=\"guilabel\">Compatible con todos los sistemas y "
 "dispositivos (MBR/DOS)</span> en el menú <span class=\"guilabel\">Tipo</"
 "span>."
 
-#. type: Plain text
-#, no-wrap
-msgid "     Then click **Format**.\n"
+#. type: Bullet: '  1. '
+msgid "Click **Format**."
 msgstr ""
 
 #. type: Bullet: '  1. '
-msgid ""
-"In the confirmation dialog, make sure that the device is correct, then click "
-"**Format** to confirm."
+msgid "In the confirmation dialog, make sure that the device is correct."
 msgstr ""
 
 #. type: Plain text
@@ -245,40 +272,65 @@ msgid "         In the example below, we are creating a partition of 4.0 GB on a
 msgstr ""
 
 #. type: Bullet: '     - '
-msgid "In the <span class=\"guilabel\">Format Volume</span> screen:"
-msgstr "En la pantalla <span class=\"guilabel\">Formatear Volumen</span>:"
+#, fuzzy
+#| msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+msgid "In the **Format Volume** dialog:"
+msgstr "En el diálogo <span class=\"guilabel\">Formatea Disco</span>:"
 
 #. type: Bullet: '       - '
-msgid ""
-"<span class=\"guilabel\">Volume Name</span>: you can give a name to the "
-"partition.  This name remains invisible until the partition is open but can "
-"help you to identify it during use."
-msgstr ""
-
-#. type: Bullet: '       - '
-msgid ""
-"<span class=\"guilabel\">Erase</span>: you can choose to securely erase all "
-"data on the partition."
+msgid "**Volume Name**"
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"         <div class=\"caution\">\n"
-"         <p>Secure deletion does not work as expected on USB sticks and\n"
-"         SSDs (Solid-State Drives). Choose instead to overwrite existing\n"
-"         data on the whole device when [[formatting the\n"
-"         device|encrypted_volumes#formatting]].</p>\n"
-"         <p>See also our [[warning about secure deletion on USB sticks and\n"
-"         SSDs|secure_deletion#usb_and_ssd]].</p>\n"
-"         </div>\n"
+"         You can give a name to the partition.\n"
+"         This name remains invisible until the partition is open but can help\n"
+"         you to identify it during use.\n"
 msgstr ""
 
 #. type: Bullet: '       - '
+msgid "**Erase**"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "         You can choose to overwrite existing data on the partition.\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<div class=\"tip\">\n"
+msgid "         <div class=\"caution\">\n"
+msgstr "<div class=\"tip\">\n"
+
+#. type: Plain text
+#, no-wrap
 msgid ""
-"<span class=\"guilabel\">Type</span>: choose <span "
-"class=\"guilabel\">Internal disk for use with Linux systems only (Ext4)</"
-"span> and <span class=\"guilabel\">Password protect volume (LUKS)</span>."
+"         <p>Overwriting existing data does not erase all data on flash\n"
+"         memories, such as USB sticks and SSDs (Solid-State Drives).</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "         <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "</div>\n"
+msgid "         </div>\n"
+msgstr "</div>\n"
+
+#. type: Bullet: '       - '
+msgid "**Type**"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"         Choose **Internal disk for use with Linux systems\n"
+"         only (Ext4)** and **Password protect volume (LUKS)**.\n"
 msgstr ""
 
 #. type: Bullet: '     - '
@@ -305,12 +357,6 @@ msgid ""
 "         <a href=\"https://theintercept.com/2015/03/26/passphrases-can-memorize-attackers-cant-guess/\">Learn\n"
 "         about the maths behind memorizable and secure passphrases.</a></p>\n"
 msgstr ""
-
-#. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "</div>\n"
-msgid "         </div>\n"
-msgstr "</div>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -488,8 +534,12 @@ msgid ""
 msgstr "Introduce el dispositivo de almacenamiento externo que quieres usar."
 
 #. type: Bullet: '1. '
-msgid "The device appears in the list of storage devices. Click on it:"
+#, fuzzy
+#| msgid "A new device appears in the list of storage devices. Click on it:"
+msgid "The device appears in the list of storage devices. Click on it."
 msgstr ""
+"Un nuevo dispositivo aparece en la lista de dispositivos de almacenamiento. "
+"Haz click en él:"
 
 #. type: Plain text
 #, no-wrap
@@ -522,6 +572,9 @@ msgid ""
 msgstr ""
 "   [[!img lib/system-run.png alt=\"Opciones adicionales de partición\" "
 "class=\"symbolic\" link=\"no\"]]\n"
+
+#~ msgid "In the <span class=\"guilabel\">Format Volume</span> screen:"
+#~ msgstr "En la pantalla <span class=\"guilabel\">Formatear Volumen</span>:"
 
 #~ msgid ""
 #~ "<span class=\"application\">GNOME Disks</span> allows you to create "

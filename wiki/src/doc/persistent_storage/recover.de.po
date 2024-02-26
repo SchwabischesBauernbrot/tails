@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2023-11-28 14:43+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -18,8 +18,9 @@ msgstr ""
 "X-Generator: Weblate 4.9.1\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "[[!meta title=\"Rescuing the Persistent Storage of a broken Tails\"]]\n"
+#, fuzzy, no-wrap
+#| msgid "[[!meta title=\"Rescuing the Persistent Storage of a broken Tails\"]]\n"
+msgid "[[!meta title=\"Recovering the Persistent Storage of a broken Tails\"]]\n"
 msgstr "[[!meta title=\"Rettung des beständigen Speichers eines defekten Tails\"]]\n"
 
 #. type: Plain text
@@ -28,9 +29,13 @@ msgid "<!-- XXX: These instructions should be kept in sync with backup.mdwn -->\
 msgstr "<!-- XXX: Diese Anweisungen sollten mit backup.mdwn synchronisiert werden -->\n"
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "If your Tails becomes broken, for example, it no longer starts, you can "
+#| "follow these instructions to try to rescue your Persistent Storage."
 msgid ""
-"If your Tails becomes broken, for example, it no longer starts, you can "
-"follow these instructions to try to rescue your Persistent Storage."
+"If your Tails becomes broken, for example, if it no longer starts, follow "
+"these instructions to try to recover data from your Persistent Storage."
 msgstr ""
 "Wenn Ihr Tails nicht mehr funktioniert, z.B. weil es nicht mehr startet, "
 "können Sie diese Anweisungen befolgen, um zu versuchen, Ihren persistenten "
@@ -42,9 +47,14 @@ msgid "<div class=\"tip\">\n"
 msgstr "<div class=\"tip\">\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<p>It is advisable to keep a current backup of your Persistent Storage. To learn\n"
+#| "how to create a backup of your Persistent Storage, see our [[instructions on\n"
+#| "how to back up your Persistent Storage to another Tails USB\n"
+#| "stick|backup]].</p>\n"
 msgid ""
-"<p>It is advisable to keep a current backup of your Persistent Storage. To learn\n"
+"<p>We recommend you always keep a current backup of your Persistent Storage. To learn\n"
 "how to create a backup of your Persistent Storage, see our [[instructions on\n"
 "how to back up your Persistent Storage to another Tails USB\n"
 "stick|backup]].</p>\n"
@@ -60,10 +70,15 @@ msgid "</div>\n"
 msgstr "</div>\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Install Tails on a new USB stick on which you want to rescue your "
+#| "Persistent Storage. Make sure that this new USB stick is at least as "
+#| "large as the USB stick that has your broken Tails on it."
 msgid ""
-"Install Tails on a new USB stick on which you want to rescue your Persistent "
-"Storage. Make sure that this new USB stick is at least as large as the USB "
-"stick that has your broken Tails on it."
+"Install Tails on a new USB stick onto which you want to recover your "
+"Persistent Storage. Make sure that this new USB stick is at least as large "
+"as the USB stick that has your broken Tails on it."
 msgstr ""
 "Installieren Sie Tails auf einem neuen USB-Stick, auf den Sie Ihren "
 "persistenten Speicher retten wollen. Achten Sie darauf, dass dieser neue USB-"
@@ -107,7 +122,7 @@ msgstr "   <div class=\"caution\">\n"
 msgid ""
 "   <p>Make sure that all applications are closed before continuing with these\n"
 "   instructions. Otherwise, the Persistent Storage might not be properly\n"
-"   rescued from your broken Tails.</p>\n"
+"   recovered from your broken Tails.</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -128,7 +143,8 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   A new encrypted volume appears in the sidebar of the\n"
+"   If the Persistent Storage of your broken Tails is recognized,\n"
+"   a new encrypted volume appears in the sidebar of the\n"
 "   *Files* browser. Click on it and enter the\n"
 "   passphrase of your broken Tails to unlock the volume.\n"
 msgstr ""
@@ -148,8 +164,15 @@ msgstr "   <div class=\"bug\">\n"
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   <p>If an encrypted volume does not appear, then you might not be able to\n"
-"   rescue the Persistent Storage of your broken Tails.</p>\n"
+"   <p>If no encrypted volume appears, then you might not be able to\n"
+"   recover the Persistent Storage of your broken Tails.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"   <p>Try to [[check the file system of the Persistent Storage|check]] on your\n"
+"   broken Tails.</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -181,7 +204,7 @@ msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
-"Execute the following command to rescue the Persistent Storage of your "
+"Execute the following command to recover the Persistent Storage of your "
 "broken Tails to your new Tails:"
 msgstr ""
 
@@ -190,9 +213,10 @@ msgstr ""
 msgid "   <p class=\"command-root\">rsync -PaSHAXv --del /media/amnesia/TailsData/ /live/persistence/TailsData_unlocked</p>\n"
 msgstr ""
 
-#. type: Plain text
-#, no-wrap
-msgid "   When the command finishes, it displays a summary of the data that was copied. For example:\n"
+#. type: Bullet: '1. '
+msgid ""
+"When the command finishes, it displays a summary of the data that was "
+"copied. For example:"
 msgstr ""
 
 #. type: Plain text
@@ -217,6 +241,18 @@ msgid ""
 "   You can now eject the <span class=\"guilabel\">TailsData</span> volume in the\n"
 "   <span class=\"application\">Files</span> browser and unplug the USB stick that\n"
 "   has your broken Tails on it.\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"You can also explore the content of the Persistent Storage on your broken "
+"Tails from the *Files* browser. To do so, execute the following command from "
+"the *Root Terminal*:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "   <p class=\"command-root\">nautilus</p>\n"
 msgstr ""
 
 #, fuzzy, no-wrap

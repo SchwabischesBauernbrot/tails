@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2024-01-30 14:37+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -142,7 +142,9 @@ msgid "Plug in the external storage device that you want to use."
 msgstr "Connecteu el dispositiu d'emmagatzematge extern que voleu utilitzar."
 
 #. type: Bullet: '  1. '
-msgid "A new device appears in the list of storage devices. Click on it:"
+#, fuzzy
+#| msgid "A new device appears in the list of storage devices. Click on it:"
+msgid "A new device appears in the list of storage devices. Click on it."
 msgstr ""
 "Apareix un dispositiu nou a la llista de dispositius d'emmagatzematge. "
 "Cliqueu-lo:"
@@ -174,7 +176,7 @@ msgstr "<h2 id=\"formatting\">Formatar el dispositiu</h2>\n"
 #| "**Format Disk…** to erase all the existing partitions on the device."
 msgid ""
 "Click on the [[!img lib/view-more.png alt=\"Drive Options\" "
-"class=\"symbolic\" link=\"no\"]] button in the titlebar and choose **Format "
+"class=\"symbolic\" link=\"no\"]] button in the title bar and choose **Format "
 "Disk** to erase all the existing partitions on the device."
 msgstr ""
 "Feu clic al botó [[!img lib/view-more.png alt=\"Opcions d'unitat\" "
@@ -188,27 +190,53 @@ msgid "In the **Format Disk** dialog:"
 msgstr "Al diàleg <span class=\"guilabel\">Formata el disc</span>:"
 
 #. type: Bullet: '     - '
+#, fuzzy
+#| msgid ""
+#| "If you want to securely erase all data on the device, choose to <span "
+#| "class=\"guilabel\">Overwrite existing data with zeroes</span> in the "
+#| "<span class=\"guilabel\">Erase</span> menu."
 msgid ""
-"If you want to securely erase all data on the device, choose to <span "
-"class=\"guilabel\">Overwrite existing data with zeroes</span> in the <span "
-"class=\"guilabel\">Erase</span> menu."
+"If you want to overwrite all data on the device, choose **Overwrite existing "
+"data with zeroes** in the **Erase** menu."
 msgstr ""
 "Si voleu esborrar totes les dades del dispositiu de manera segura, trieu "
 "<span class=\"guilabel\">Sobreescriu les dades existents amb zeros</span> al "
 "menú <span class=\"guilabel\">Esborra</span>."
 
-#. type: Bullet: '     - '
+#. type: Plain text
+#, no-wrap
 msgid ""
-"Choose <span class=\"guilabel\">Compatible with all systems and devices (MBR/"
-"DOS)</span> in the <span class=\"guilabel\">Partitioning</span> menu."
+"       <div class=\"caution\">\n"
+"       <p>Overwriting existing data does not erase all data on flash\n"
+"       memories, such as USB sticks and SSDs (Solid-State Drives).</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "       <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "         </div>\n"
+msgid "       </div>\n"
+msgstr "         </div>\n"
+
+#. type: Bullet: '     - '
+#, fuzzy
+#| msgid ""
+#| "Choose <span class=\"guilabel\">Compatible with all systems and devices "
+#| "(MBR/DOS)</span> in the <span class=\"guilabel\">Partitioning</span> menu."
+msgid ""
+"Choose **Compatible with all systems and devices (MBR/DOS)** in the "
+"**Partitioning** menu."
 msgstr ""
 "Trieu <span class=\"guilabel\">Compatible amb tots els sistemes i "
 "dispositius (MBR/DOS)</span> al menú <span class=\"guilabel\">Particions</"
 "span>."
 
-#. type: Plain text
-#, no-wrap
-msgid "     Then click **Format**.\n"
+#. type: Bullet: '  1. '
+msgid "Click **Format**."
 msgstr ""
 
 #. type: Bullet: '  1. '
@@ -216,9 +244,7 @@ msgstr ""
 #| msgid ""
 #| "In the confirmation dialog, make sure that the device is correct. Click "
 #| "<span class=\"bold\">Format</span> to confirm."
-msgid ""
-"In the confirmation dialog, make sure that the device is correct, then click "
-"**Format** to confirm."
+msgid "In the confirmation dialog, make sure that the device is correct."
 msgstr ""
 "Al diàleg de confirmació, assegureu-vos que el dispositiu sigui correcte. "
 "Feu clic a <span class=\"bold\">Formata</span> per confirmar."
@@ -278,57 +304,67 @@ msgid "         In the example below, we are creating a partition of 4.0 GB on a
 msgstr "         A l'exemple següent, estem creant una partició de 4,0 GB en un dispositiu de 8,1 GB.\n"
 
 #. type: Bullet: '     - '
-msgid "In the <span class=\"guilabel\">Format Volume</span> screen:"
-msgstr "A la pantalla <span class=\"guilabel\">Formata volum</span>:"
+#, fuzzy
+#| msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+msgid "In the **Format Volume** dialog:"
+msgstr "Al diàleg <span class=\"guilabel\">Formata el disc</span>:"
 
 #. type: Bullet: '       - '
-msgid ""
-"<span class=\"guilabel\">Volume Name</span>: you can give a name to the "
-"partition.  This name remains invisible until the partition is open but can "
-"help you to identify it during use."
+msgid "**Volume Name**"
 msgstr ""
-"<span class=\"guilabel\">Nom del volum</span>: podeu donar un nom a la "
-"partició. Aquest nom roman invisible fins que la partició està oberta, però "
-"us pot ajudar a identificar-la durant l'ús."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<span class=\"guilabel\">Volume Name</span>: you can give a name to the partition.  This name remains invisible until the partition is open but can help you to identify it during use."
+msgid ""
+"         You can give a name to the partition.\n"
+"         This name remains invisible until the partition is open but can help\n"
+"         you to identify it during use.\n"
+msgstr "<span class=\"guilabel\">Nom del volum</span>: podeu donar un nom a la partició. Aquest nom roman invisible fins que la partició està oberta, però us pot ajudar a identificar-la durant l'ús."
 
 #. type: Bullet: '       - '
-msgid ""
-"<span class=\"guilabel\">Erase</span>: you can choose to securely erase all "
-"data on the partition."
+msgid "**Erase**"
 msgstr ""
-"<span class=\"guilabel\">Esborra</span>: podeu escollir esborrar de manera "
-"segura totes les dades de la partició."
+
+#. type: Plain text
+#, no-wrap
+msgid "         You can choose to overwrite existing data on the partition.\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "         <div class=\"tip\">\n"
+msgid "         <div class=\"caution\">\n"
+msgstr "         <div class=\"tip\">\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"         <div class=\"caution\">\n"
-"         <p>Secure deletion does not work as expected on USB sticks and\n"
-"         SSDs (Solid-State Drives). Choose instead to overwrite existing\n"
-"         data on the whole device when [[formatting the\n"
-"         device|encrypted_volumes#formatting]].</p>\n"
-"         <p>See also our [[warning about secure deletion on USB sticks and\n"
-"         SSDs|secure_deletion#usb_and_ssd]].</p>\n"
-"         </div>\n"
+"         <p>Overwriting existing data does not erase all data on flash\n"
+"         memories, such as USB sticks and SSDs (Solid-State Drives).</p>\n"
 msgstr ""
-"         <div class=\"caution\">\n"
-"         <p>La supressió segura no funciona com s'esperava als llapis USB i\n"
-"         SSD (unitats d'estat sòlid). En lloc d'això, trieu sobreescriure les dades\n"
-"         existents a tot el dispositiu quan [[formateu el\n"
-"         dispositiu|encrypted_volumes#formatting]].</p>\n"
-"         <p>Vegeu també la nostra [[advertència sobre l'eliminació segura dels llapis USB i\n"
-"         SSD|secure_deletion#usb_and_ssd]].</p>\n"
-"         </div>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "         <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "         </div>\n"
+msgstr "         </div>\n"
 
 #. type: Bullet: '       - '
-msgid ""
-"<span class=\"guilabel\">Type</span>: choose <span "
-"class=\"guilabel\">Internal disk for use with Linux systems only (Ext4)</"
-"span> and <span class=\"guilabel\">Password protect volume (LUKS)</span>."
+msgid "**Type**"
 msgstr ""
-"<span class=\"guilabel\">Tipus</span>: trieu <span class=\"guilabel\">Disc "
-"intern per utilitzar només amb sistemes Linux (Ext4)</span> i <span "
-"class=\"guilabel\">Volum de protecció amb contrasenya (LUKS)</span>."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<span class=\"guilabel\">Type</span>: choose <span class=\"guilabel\">Internal disk for use with Linux systems only (Ext4)</span> and <span class=\"guilabel\">Password protect volume (LUKS)</span>."
+msgid ""
+"         Choose **Internal disk for use with Linux systems\n"
+"         only (Ext4)** and **Password protect volume (LUKS)**.\n"
+msgstr "<span class=\"guilabel\">Tipus</span>: trieu <span class=\"guilabel\">Disc intern per utilitzar només amb sistemes Linux (Ext4)</span> i <span class=\"guilabel\">Volum de protecció amb contrasenya (LUKS)</span>."
 
 #. type: Bullet: '     - '
 msgid "In the <span class=\"guilabel\">Set Password</span> screen:"
@@ -358,11 +394,6 @@ msgstr ""
 "         <p>Us recomanem que escolliu una contrasenya llarga de 5 a 7 paraules aleatòries.\n"
 "         <a href=\"https://theintercept.com/2015/03/26/passphrases-can-memorize-attackers-cant-guess/\">Vegeu\n"
 "         les matemàtiques darrere de contrasenyes fàcils de memoritzar i segures.</a></p>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "         </div>\n"
-msgstr "         </div>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -573,7 +604,9 @@ msgstr ""
 "que voleu canviar la contrasenya.\n"
 
 #. type: Bullet: '1. '
-msgid "The device appears in the list of storage devices. Click on it:"
+#, fuzzy
+#| msgid "The device appears in the list of storage devices. Click on it:"
+msgid "The device appears in the list of storage devices. Click on it."
 msgstr ""
 "El dispositiu apareix a la llista de dispositius d'emmagatzematge. Cliqueu-"
 "lo:"
@@ -619,6 +652,36 @@ msgid ""
 msgstr ""
 "   [[!img lib/system-run.png alt=\"Opcions addicionals de la partició\" "
 "class=\"symbolic\" link=\"no\"]]\n"
+
+#~ msgid "In the <span class=\"guilabel\">Format Volume</span> screen:"
+#~ msgstr "A la pantalla <span class=\"guilabel\">Formata volum</span>:"
+
+#~ msgid ""
+#~ "<span class=\"guilabel\">Erase</span>: you can choose to securely erase "
+#~ "all data on the partition."
+#~ msgstr ""
+#~ "<span class=\"guilabel\">Esborra</span>: podeu escollir esborrar de "
+#~ "manera segura totes les dades de la partició."
+
+#, no-wrap
+#~ msgid ""
+#~ "         <div class=\"caution\">\n"
+#~ "         <p>Secure deletion does not work as expected on USB sticks and\n"
+#~ "         SSDs (Solid-State Drives). Choose instead to overwrite existing\n"
+#~ "         data on the whole device when [[formatting the\n"
+#~ "         device|encrypted_volumes#formatting]].</p>\n"
+#~ "         <p>See also our [[warning about secure deletion on USB sticks and\n"
+#~ "         SSDs|secure_deletion#usb_and_ssd]].</p>\n"
+#~ "         </div>\n"
+#~ msgstr ""
+#~ "         <div class=\"caution\">\n"
+#~ "         <p>La supressió segura no funciona com s'esperava als llapis USB i\n"
+#~ "         SSD (unitats d'estat sòlid). En lloc d'això, trieu sobreescriure les dades\n"
+#~ "         existents a tot el dispositiu quan [[formateu el\n"
+#~ "         dispositiu|encrypted_volumes#formatting]].</p>\n"
+#~ "         <p>Vegeu també la nostra [[advertència sobre l'eliminació segura dels llapis USB i\n"
+#~ "         SSD|secure_deletion#usb_and_ssd]].</p>\n"
+#~ "         </div>\n"
 
 #~ msgid ""
 #~ "<span class=\"application\">GNOME Disks</span> allows you to create "

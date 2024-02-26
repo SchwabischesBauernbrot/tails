@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-03 23:05+0000\n"
+"POT-Creation-Date: 2024-02-26 12:27+0100\n"
 "PO-Revision-Date: 2023-03-16 10:28+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -195,7 +195,7 @@ msgid "Choose **Machine**&nbsp;▸**New...**."
 msgstr ""
 
 #. type: Bullet: '  1. '
-msgid "In the **Name and operating system** screen:"
+msgid "In the dialog **Virtual machine Name and Operating System**:"
 msgstr ""
 
 #. type: Bullet: '     1. '
@@ -203,33 +203,35 @@ msgid "Specify:"
 msgstr ""
 
 #. type: Bullet: '        - '
-msgid "A name of your choice"
+msgid "**Name**: a name of your choice"
 msgstr ""
 
 #. type: Bullet: '        - '
-msgid "**Type**: **Linux**"
+msgid "**ISO Image**: the ISO image that you want to start Tails from"
 msgstr ""
 
-#. type: Bullet: '        - '
-msgid "**Version**: **Other Linux (64 bit)**"
-msgstr ""
-
-#. type: Bullet: '     2. '
+#. type: Bullet: '     1. '
 #, fuzzy
 #| msgid "Click **Start**."
-msgid "Click **Next**."
+msgid "Click **Expert Mode**."
 msgstr "Нажмите **Запустить**."
 
 #. type: Bullet: '  1. '
-msgid "In the **Memory size** screen:"
+msgid "In the dialog **Hardware**:"
 msgstr ""
 
 #. type: Bullet: '     1. '
 msgid "Allocate at least 2048 MB of RAM."
 msgstr ""
 
+#. type: Bullet: '     1. '
+#, fuzzy
+#| msgid "Click **Start**."
+msgid "Click **Next**."
+msgstr "Нажмите **Запустить**."
+
 #. type: Bullet: '  1. '
-msgid "In the **Hard drive** screen:"
+msgid "In the dialog **Virtual Hard disk**:"
 msgstr ""
 
 #. type: Bullet: '     1. '
@@ -237,80 +239,10 @@ msgid "Choose **Do not add a virtual hard drive**."
 msgstr ""
 
 #. type: Bullet: '     1. '
-#, fuzzy
-#| msgid "Click **Start**."
-msgid "Click **Create**."
-msgstr "Нажмите **Запустить**."
-
-#. type: Plain text
-#, no-wrap
 msgid ""
-"     1. Click **Continue** in the warning dialog about creating a virtual\n"
-"\tmachine without a hard drive.\n"
+"Click **Continue** in the warning dialog about creating a virtual machine "
+"without a hard drive."
 msgstr ""
-
-#. type: Plain text
-msgid "To configure the virtual machine to start from an ISO image:"
-msgstr "Настройка виртуальной машины для запуска с ISO-образа:"
-
-#. type: Bullet: '  1. '
-msgid "Select the new virtual machine in the left pane."
-msgstr "Выберите новую виртуальную машину в левой панели."
-
-#. type: Bullet: '  1. '
-msgid "Choose **Machine**&nbsp;▸ **Settings...**."
-msgstr ""
-
-#. type: Bullet: '  1. '
-msgid "Select **System** in the left pane."
-msgstr "В левой панели выберите **Система**."
-
-#. type: Bullet: '  1. '
-msgid ""
-"In the **Extended Features** section of the **Motherboard** tab, make sure "
-"that **Enable I/O APIC** is enabled."
-msgstr ""
-"Выберите вкладку **Материнская плата**. В разделе **Дополнительные "
-"возможности**  убедитесь, что активна опция **Включить I/O APIC**."
-
-#. type: Bullet: '  1. '
-msgid "Select **Storage** in the left pane."
-msgstr "В левой панели выберите **Носители**."
-
-#. type: Bullet: '  1. '
-msgid ""
-"Select **Empty** below **Contoller IDE** in the **Storage Tree** selection "
-"list in the right pane."
-msgstr "Под **Контроллер IDE** выберите **Пусто**."
-
-#. type: Bullet: '  1. '
-#, fuzzy
-#| msgid ""
-#| "  1. Click on the **CD** icon on the right of the window and select\n"
-#| "  **Choose a virtual CD/DVD disk file...** to browse for the ISO image\n"
-#| "  you want to start Tails from.\n"
-#| "  1. Check the **Live CD/DVD** option.\n"
-#| "  1. Click **OK**.\n"
-msgid ""
-"Click on the **CD** icon on the right of the window and select **Choose a "
-"virtual CD/DVD disk file...** to browse for the ISO image you want to start "
-"Tails from."
-msgstr ""
-"  1. Нажмите на значок компакт-диска в правой части окна и выберите в меню\n"
-"**Выбрать файл диска...**, чтобы найти ISO-образ, с которого\n"
-"вы хотите запустить Tails.\n"
-"1. Отметьте опцию **Живой CD/DVD**.\n"
-"1. Нажмите **ОК**.\n"
-
-#. type: Bullet: '  1. '
-msgid "Check the **Live CD/DVD** option."
-msgstr ""
-
-#. type: Bullet: '  1. '
-#, fuzzy
-#| msgid "Click **Start**."
-msgid "Click **OK**."
-msgstr "Нажмите **Запустить**."
 
 #. type: Plain text
 msgid "To start the new virtual machine:"
@@ -382,6 +314,54 @@ msgid ""
 "<p>We plan to add back <i>VirtualBox Guest Additions</i> in a future version\n"
 "of Tails. See [[!tails_ticket 18728]].</p>\n"
 msgstr ""
+
+#~ msgid "To configure the virtual machine to start from an ISO image:"
+#~ msgstr "Настройка виртуальной машины для запуска с ISO-образа:"
+
+#~ msgid "Select the new virtual machine in the left pane."
+#~ msgstr "Выберите новую виртуальную машину в левой панели."
+
+#~ msgid "Select **System** in the left pane."
+#~ msgstr "В левой панели выберите **Система**."
+
+#~ msgid ""
+#~ "In the **Extended Features** section of the **Motherboard** tab, make "
+#~ "sure that **Enable I/O APIC** is enabled."
+#~ msgstr ""
+#~ "Выберите вкладку **Материнская плата**. В разделе **Дополнительные "
+#~ "возможности**  убедитесь, что активна опция **Включить I/O APIC**."
+
+#~ msgid "Select **Storage** in the left pane."
+#~ msgstr "В левой панели выберите **Носители**."
+
+#~ msgid ""
+#~ "Select **Empty** below **Contoller IDE** in the **Storage Tree** "
+#~ "selection list in the right pane."
+#~ msgstr "Под **Контроллер IDE** выберите **Пусто**."
+
+#, fuzzy
+#~| msgid ""
+#~| "  1. Click on the **CD** icon on the right of the window and select\n"
+#~| "  **Choose a virtual CD/DVD disk file...** to browse for the ISO image\n"
+#~| "  you want to start Tails from.\n"
+#~| "  1. Check the **Live CD/DVD** option.\n"
+#~| "  1. Click **OK**.\n"
+#~ msgid ""
+#~ "Click on the **CD** icon on the right of the window and select **Choose a "
+#~ "virtual CD/DVD disk file...** to browse for the ISO image you want to "
+#~ "start Tails from."
+#~ msgstr ""
+#~ "  1. Нажмите на значок компакт-диска в правой части окна и выберите в "
+#~ "меню\n"
+#~ "**Выбрать файл диска...**, чтобы найти ISO-образ, с которого\n"
+#~ "вы хотите запустить Tails.\n"
+#~ "1. Отметьте опцию **Живой CD/DVD**.\n"
+#~ "1. Нажмите **ОК**.\n"
+
+#, fuzzy
+#~| msgid "Click **Start**."
+#~ msgid "Click **OK**."
+#~ msgstr "Нажмите **Запустить**."
 
 #, fuzzy
 #~| msgid ""
