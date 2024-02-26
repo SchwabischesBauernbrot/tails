@@ -12,26 +12,13 @@ usability improvements.
 
 <h1 id="features">New features</h1>
 
-## Error detection and repair on the Persistent Storage
+## Error detection on the Persistent Storage
 
-- Detection
+Tails 6.0 warns you about [[errors when reading or writing|ioerror]] from
+your Tails USB stick.
 
-  Tails 6.0 warns you about [[errors when reading or writing|ioerror]] from
-  your Tails USB stick.
-
-  These alerts can help you diagnose hardware failures on your USB stick and
-  backup your Persistent Storage before it's too late.
-
-- Repair
-
-  Since version 5.22, Tails automatically tries to do a light repair on the
-  file system of your Persistent Storage if it is broken when you unlock it.
-
-  We've seen good results from this change in your *WhisperBack* reports, but
-  it was not enough in some cases.
-
-  Tails 6.0 tries to do even more repairs on your Persistent Storage when you
-  unlock it.
+These alerts can help you diagnose hardware failures on your USB stick and
+backup your Persistent Storage before it's too late.
 
 ## Mount external devices automatically
 
@@ -199,9 +186,6 @@ For more details, read our [[!tails_gitweb debian/changelog desc="changelog"]].
   * The *Back Up Persistent Storage* utility ([[!tails_ticket 20143]])
 
   * *Tails Cloner* ([[!tails_ticket 20154]])
-
-- The pointer doesn't change into a spinner anymore in some cases when
-  launching applications. ([[!tails_ticket 19920]])
 
 <h1 id="get">Get Tails 6.0</h1>
 
