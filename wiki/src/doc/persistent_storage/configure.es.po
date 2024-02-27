@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-21 23:11+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2024-01-21 11:37+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: Spanish <http://translate.tails.boum.org/projects/tails/"
@@ -123,8 +123,9 @@ msgid "<div class=\"icon\">\n"
 msgstr "<div class=\"icon\">\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "[[!img lib/apps/stock_folder.png link=\"no\" alt=\"\"]]\n"
+#, fuzzy, no-wrap
+#| msgid "[[!img lib/apps/stock_folder.png link=\"no\" alt=\"\"]]\n"
+msgid "[[!img lib/apps/folder.png link=\"no\" alt=\"\"]]\n"
 msgstr "[[!img lib/apps/stock_folder.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Plain text
@@ -159,8 +160,7 @@ msgid ""
 "  <span class=\"guimenu\">Places</span>&nbsp;▸\n"
 "  <span class=\"guimenuitem\">Persistent</span></span>.\n"
 msgstr ""
-"Para abrir la carpeta <span class=\"filename\">Persistente</span>, "
-"selecciona\n"
+"Para abrir la carpeta <span class=\"filename\">Persistente</span>, selecciona\n"
 "<span class=\"menuchoice\">\n"
 "  <span class=\"guimenu\">Lugares</span>&nbsp;▸\n"
 "  <span class=\"guimenuitem\">Persistent</span></span>.\n"
@@ -483,10 +483,8 @@ msgid ""
 "feature anymore if you only use OpenPGP encryption in\n"
 "<em>Thunderbird</em>.</p>\n"
 msgstr ""
-"<p>Desde Tails 4.13 (Noviembre de 2020), <em>Thunderbird</em> usa su propio "
-"llavero OpenPGP,\n"
-"distinto del llavero que usan <em>GnuPG</em> y <em>Kleopatra</em>. Ya no "
-"necesitas habilitar la funcionalidad GnuPG\n"
+"<p>Desde Tails 4.13 (Noviembre de 2020), <em>Thunderbird</em> usa su propio llavero OpenPGP,\n"
+"distinto del llavero que usan <em>GnuPG</em> y <em>Kleopatra</em>. Ya no necesitas habilitar la funcionalidad GnuPG\n"
 "si sólo usas cifrado OpenPGP en\n"
 "<em>Thunderbird</em>.</p>\n"
 
@@ -607,7 +605,9 @@ msgid "- The public keys of the hosts you connect to"
 msgstr "Las llaves públicas de los hosts a los que te conectas"
 
 #. type: Plain text
-msgid "- The SSH configuration file in *~/.ssh/config*"
+#, fuzzy
+#| msgid "- The SSH configuration file in *~/.ssh/config*"
+msgid "- The SSH configuration file in */home/amnesia/.ssh/config*"
 msgstr "- El archivo de configuración SSH en *~/.ssh/config*"
 
 #. type: Title =
@@ -667,12 +667,9 @@ msgid ""
 "Installing additional packages might break the security built in Tails,\n"
 "so [[be careful with what you install|additional_software#warning]].</p>\n"
 msgstr ""
-"<p>Los paquetes incluidos en Tails se verifican cuidadosamente por seguridad."
-"\n"
-"Instalar paquetes adicionales podría romper la seguridad incorporada en "
-"Tails,\n"
-"por lo que [[debes tener cuidado con lo que "
-"instalas|additional_software#warning]].</p>\n"
+"<p>Los paquetes incluidos en Tails se verifican cuidadosamente por seguridad.\n"
+"Instalar paquetes adicionales podría romper la seguridad incorporada en Tails,\n"
+"por lo que [[debes tener cuidado con lo que instalas|additional_software#warning]].</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -767,11 +764,9 @@ msgstr ""
 "    /home/amnesia\n"
 "    ├── fichero_a → /live/persistence/TailsData_unlocked/dotfiles/fichero_a\n"
 "    └── directorio\n"
-"        ├── fichero_b → /live/persistence/TailsData_unlocked/dotfiles/"
-"directorio/fichero_b\n"
+"        ├── fichero_b → /live/persistence/TailsData_unlocked/dotfiles/directorio/fichero_b\n"
 "        └── subdirectorio\n"
-"            └── fichero_c → /live/persistence/TailsData_unlocked/dotfiles/"
-"directorio/subdirectorio/fichero_c\n"
+"            └── fichero_c → /live/persistence/TailsData_unlocked/dotfiles/directorio/subdirectorio/fichero_c\n"
 
 #. type: Plain text
 #, no-wrap
@@ -786,7 +781,8 @@ msgid ""
 "On Tails and Linux in general, the name of configuration files often starts "
 "with a dot and are sometimes called [[!wikipedia dotfiles]] for this "
 "reason.  The Dotfiles feature of the Persistent Storage makes it easy to "
-"persist such \"*dotfiles*\", for example *~/.gitconfig* or *~/.bashrc*."
+"persist such \"*dotfiles*\", for example */home/amnesia/.gitconfig* or */"
+"home/amnesia/.bashrc*."
 msgstr ""
 
 #. type: Plain text
@@ -829,8 +825,7 @@ msgid ""
 "<span class=\"guilabel\">Dotfiles</span> feature.\n"
 msgstr ""
 "Si tienes más de una pantalla (por ejemplo, dos monitores o un\n"
-"proyector) puedes guardar la configuración de tus pantallas usando la "
-"funcionalidad\n"
+"proyector) puedes guardar la configuración de tus pantallas usando la funcionalidad\n"
 "<span class=\"guilabel\">Dotfiles</span>.\n"
 
 #. type: Bullet: '1. '
@@ -857,19 +852,23 @@ msgid ""
 "live/persistence/TailsData_unlocked/dotfiles</span> folder in the <span "
 "class=\"application\">Files</span> browser."
 msgstr ""
-"Elige **Lugares**&nbsp;▸ **Dotfiles** para abrir el directorio <span class="
-"\"filename\">/live/persistence/TailsData_unlocked/dotfiles</span> en el "
-"explorador de <span class=\"application\">Archivos</span>."
+"Elige **Lugares**&nbsp;▸ **Dotfiles** para abrir el directorio <span "
+"class=\"filename\">/live/persistence/TailsData_unlocked/dotfiles</span> en "
+"el explorador de <span class=\"application\">Archivos</span>."
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Click on the <span class=\"guimenu\">[[!img lib/pan-down.png alt=\"menu "
+#| "toggle\" class=\"symbolic\" link=\"no\"]]</span> button in the title bar "
+#| "and choose <span class=\"guilabel\">Show Hidden Files</span>."
 msgid ""
-"Click on the <span class=\"guimenu\">[[!img lib/pan-down.png alt=\"menu "
-"toggle\" class=\"symbolic\" link=\"no\"]]</span> button in the title bar and "
-"choose <span class=\"guilabel\">Show Hidden Files</span>."
+"Click the [[!img lib/open-menu.png alt=\"\" class=\"symbolic\" link=\"no\"]] "
+"button in the title bar and turn on the option **Show Hidden Files**."
 msgstr ""
-"Haz click en el botón <span class=\"guimenu\">[[!img lib/pan-down.png alt="
-"\"abre menú\" class=symbolic link=\"no\"]]</span> en la barra de título, y "
-"elige <span class=\"guilabel\">Mostrar archivos ocultos</span>."
+"Haz click en el botón <span class=\"guimenu\">[[!img lib/pan-down.png "
+"alt=\"abre menú\" class=symbolic link=\"no\"]]</span> en la barra de título, "
+"y elige <span class=\"guilabel\">Mostrar archivos ocultos</span>."
 
 #. type: Bullet: '1. '
 msgid ""

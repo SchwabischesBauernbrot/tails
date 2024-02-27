@@ -65,8 +65,8 @@ Given qr{^a running "([^"]+)", version "([^"]+)", initially installed at version
         = $c->{stash}->{scenario}->{os_release_file}
         = path($c->{stash}->{scenario}->{tempdir}, 'os_release_file');
     my %os_release = (
-        TAILS_PRODUCT_NAME => $product_name,
-        TAILS_VERSION_ID   => $product_version,
+        NAME => $product_name,
+        VERSION   => $product_version,
         TAILS_CHANNEL      => $channel,
     );
     while (my ($key, $value) = each %os_release) {
@@ -77,8 +77,8 @@ Given qr{^a running "([^"]+)", version "([^"]+)", initially installed at version
         = $c->{stash}->{scenario}->{initial_install_os_release_file}
         = path($c->{stash}->{scenario}->{tempdir}, 'initial_install_os_release_file');
     my %initial_install_os_release = (
-        TAILS_PRODUCT_NAME => $product_name,
-        TAILS_VERSION_ID   => $initial_install_version,
+        NAME => $product_name,
+        VERSION   => $initial_install_version,
         TAILS_CHANNEL      => $channel,
     );
     while (my ($key, $value) = each %initial_install_os_release) {

@@ -2,11 +2,12 @@
 
 import re
 import os.path
+import pathlib
 from argparse import ArgumentParser
 from subprocess import check_call, check_output
 
 MAX_LENGTH = 254  # this depends on a limit of plymouth
-
+SQUASHFS_FAILED = pathlib.Path("/var/lib/live/tails.squashfs_failed")
 
 def run_lspci(lspci_args: list) -> str:
     """
@@ -141,10 +142,15 @@ def main():
         default=False,
     )
     args = p.parse_args()
-    output = run_lspci(["-d::0300", "-nn"])
-    gpus = parse_lspci(output)
-    gpus = sort_gpus(gpus)
-    msg = format_gpus(gpus)
+
+    if SQUASHFS_FAILED.exists():
+        msg = "Error reading data from your Tails USB stick.\nPlease visit https://tails.net/ioerror for troubleshooting."
+    else:
+        output = run_lspci(["-d::0300", "-nn"])
+        gpus = parse_lspci(output)
+        gpus = sort_gpus(gpus)
+        msg = format_gpus(gpus)
+
     cmd = ["/bin/plymouth", "display-message", "--text", msg]
     if not args.dry_run:
         check_call(cmd)

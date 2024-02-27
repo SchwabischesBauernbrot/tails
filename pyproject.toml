@@ -125,6 +125,8 @@ extend-ignore = [
     "RUF100",
     # We don't compile Python code so our `assert`s won't be optimized out
     "S101",
+    # Prone to false positives (see https://github.com/astral-sh/ruff/issues/4045)
+    "S603",
     # We don't record the author of a TODO, for better or worse
     "TD002",
     # Accept commonly used "TODO:Bookworm"

@@ -23,7 +23,10 @@ When /^I bump the (hardware clock's|system) time with "([^"]+)"$/ do |clock_type
     old_time = DateTime.parse(
       $vm.execute_successfully('hwclock -r').stdout
     ).to_time
-    $vm.execute_successfully("hwclock --set --date 'now #{timediff}'")
+    desired_new_time = cmd_helper(
+      ['date', '--utc', '-d', "now #{timediff}", '+%Y-%m-%d %T']
+    ).chomp
+    $vm.execute_successfully("hwclock --set --date '#{desired_new_time}'")
     new_time = DateTime.parse(
       $vm.execute_successfully('hwclock -r').stdout
     ).to_time
@@ -113,10 +116,9 @@ end
 Then /^the system clock is just past Tails' source date$/ do
   system_time_str = $vm.execute_successfully('date').to_s
   system_time = DateTime.parse(system_time_str).to_time
-  source_time_str = $vm.file_content('/etc/amnesia/version')
-                       .split("\n")[0]
-                       .match(/^.* - ([0-9]+)$/)[1]
-  source_time = DateTime.parse(source_time_str).to_time
+  source_time_str = $vm.file_content('/etc/os-release')
+                       .match(/^TAILS_SOURCE_DATE_EPOCH="([0-9]+)"$/)[1]
+  source_time = Time.at(source_time_str.to_i)
   diff = system_time - source_time # => in seconds
   # Half an hour should be enough to boot Tails on any reasonable
   # hardware and VM setup.

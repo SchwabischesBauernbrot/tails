@@ -15,7 +15,8 @@ When /^I click "([^"]+)" in the backup tool$/ do |node|
 end
 
 When /^I enter my persistent storage passphrase into the polkit prompt$/ do
-  deal_with_polkit_prompt(@persistence_password)
+  deal_with_polkit_prompt(@persistence_password,
+                          title: 'Enter a passphrase to unlock the volume')
 end
 
 Then /^the USB drive "([^"]+)" contains the same files as my persistent storage$/ do |disk_name|

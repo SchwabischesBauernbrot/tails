@@ -9,8 +9,7 @@ Feature: I can report a bug with WhisperBack
     Given I have started Tails from DVD without network and logged in
     Then running "sudo /usr/local/sbin/tails-debugging-info" as user "amnesia" fails
 
-
-  Scenario: WhisperBack starts and has debugging information
+  Scenario: WhisperBack has access to debugging information
     Given I have started Tails from DVD without network and logged in
     When I start "WhisperBack" via GNOME Activities Overview
     Then WhisperBack has debugging information

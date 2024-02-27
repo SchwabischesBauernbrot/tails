@@ -16,6 +16,7 @@ systemctl enable tails-autotest-broken-gnome-shell.service
 systemctl enable tails-autotest-remote-shell.service
 systemctl enable tails-create-netns.service
 systemctl enable tails-detect-disk-errors.service
+systemctl enable tails-detect-squashfs-errors.service
 systemctl enable tails-persistent-storage.service
 systemctl enable tails-remove-overlayfs-dirs.service
 systemctl enable tails-set-wireless-devices-state.service
@@ -32,6 +33,7 @@ systemctl --global enable tails-add-GNOME-bookmarks.service
 systemctl --global enable tails-additional-software-install.service
 systemctl --global enable tails-configure-keyboard.service
 systemctl --global enable tails-report-disk-errors.service
+systemctl --global enable tails-report-squashfs-errors.path
 systemctl --global enable tails-security-check.service
 systemctl --global enable tails-upgrade-frontend.service
 systemctl --global enable tails-virt-notify-user.service
@@ -83,3 +85,12 @@ systemctl mask man-db.timer
 # before we enable it
 systemctl mask avahi-daemon.socket
 systemctl mask avahi-daemon.service
+
+# We disable GNOME's file indexing service (Settings → Search) so
+# these services are useless while needlessly consuming
+# resources.
+# In Debian Bookworm, tracker-extract-3.service often fails to connect
+# to the tracker-miner-fs-3.service, causing a timeout which blocks
+# logging in from the Welcome Screen for 30 seconds (#20220).
+systemctl --global mask tracker-extract-3.service
+systemctl --global mask tracker-miner-fs-3.service
