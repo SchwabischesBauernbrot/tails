@@ -12,32 +12,19 @@ usability improvements.
 
 <h1 id="features">New features</h1>
 
-## Error detection and repair on the Persistent Storage
+## Error detection on the Persistent Storage
 
-- Detection
+Tails 6.0 warns you about [[errors when reading or writing|ioerror]] from
+your Tails USB stick.
 
-  Tails 6.0 warns you about [[errors when reading or writing|ioerror]] from
-  your Tails USB stick.
-
-  These alerts can help you diagnose hardware failures on your USB stick and
-  backup your Persistent Storage before it's too late.
-
-- Repair
-
-  Since version 5.22, Tails automatically tries to do a light repair on the
-  file system of your Persistent Storage if it is broken when you unlock it.
-
-  We've seen good results from this change in your *WhisperBack* reports, but
-  it was not enough in some cases.
-
-  Tails 6.0 tries to do even more repairs on your Persistent Storage when you
-  unlock it.
+These alerts can help you diagnose hardware failures on your USB stick and
+backup your Persistent Storage before it's too late.
 
 ## Mount external devices automatically
 
 When you plug in an external storage device, a USB stick or an external hard
-disk, Tails 6.0~rc1 mounts it automatically. If the storage device contains an
-encrypted partition, Tails 6.0~rc1 offers you to unlock the encryption
+disk, Tails 6.0 mounts it automatically. If the storage device contains an
+encrypted partition, Tails 6.0 offers you to unlock the encryption
 automatically.
 
 [[!img test_6.0-rc1/unlock.png link="no" class="screenshot" alt="Authentication Required. A
@@ -53,7 +40,7 @@ device"]] in your computer, they could run software that breaks the security
 built in Tails without your knowledge.
 
 To protect from such attacks while you are away from your computer, Tails
-6.0~rc1 ignores any USB device that is plugged in while your screen is locked.
+6.0 ignores any USB device that is plugged in while your screen is locked.
 
 You can only use new USB devices if they are plugged in while the screen is
 unlocked.
@@ -64,7 +51,7 @@ and reconnect the device to start using it."]]
 
 ## Dark Mode and Night Light
 
-From the system menu of Tails 6.0~rc1, you can now switch between:
+From the system menu of Tails 6.0, you can now switch between:
 
 - The default *light* mode with colder colors and more brightness
 
@@ -93,7 +80,7 @@ to take a screenshot or record a screencast.
 ## Easier Gmail in Thunderbird
 
 Thanks to changes in both Thunderbird and Gmail, it's much easier to configure
-a Gmail account in Thunderbird in Tails 6.0~rc1.
+a Gmail account in Thunderbird in Tails 6.0.
 
 - You don't have to configure anything special in your Gmail account, other
   than the usual 2-Step Verification.
@@ -120,6 +107,8 @@ Italian, and Spanish for Tails, but also made them available to all users of
 ## Included software
 
 Tails 6.0 updates most of the applications included in Tails, among others:
+
+- *Tor Browser* to [13.0.10](https://blog.torproject.org/new-release-tor-browser-13010/).
 
 - *Electrum* from 4.0.9 to 4.3.4
 
@@ -154,26 +143,7 @@ Tails 6.0 updates most of the applications included in Tails, among others:
 - Remove the icons on the desktop.
 
   The extension of GNOME Shell that we used to provide this feature is not well
-  maintained and created other problems. ([[!tails_ticket 19920]])
-
-  To reinstall this extension as Additional Software in Tails 6.0:
-
-  1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
-
-  1. Install the `gnome-shell-extension-desktop-icons-ng` package as
-     [[Additional Software|doc/persistent_storage/additional_software]].
-
-  1. Open a *Terminal* and execute the following command once to configure the
-     extension automatically each time you start Tails in the future:
-
-         sudo sh /usr/share/doc/tails/website/news/version_6.0/configure-desktop-icons
-
-  1. Execute the following command to enable the extension:
-
-         gnome-extensions enable ding@rastersoft.com
-
-     You will only have to execute this last command each time you start Tails
-     in the future.
+  integrated into GNOME and created other problems. ([[!tails_ticket 19920]])
 
 - Remove the item **Wipe** and **Wipe available disk space** from the shortcut
   menu of the *Files* browser.
@@ -212,15 +182,8 @@ For more details, read our [[!tails_gitweb debian/changelog desc="changelog"]].
   that had security implications. ([[!tails_ticket 20135]] and [[!tails_ticket
   20140]])
 
-- Mounting external devices automatically interferes badly with some other
-  features:
-
-  * The *Back Up Persistent Storage* utility ([[!tails_ticket 20143]])
-
-  * *Tails Cloner* ([[!tails_ticket 20154]])
-
-- The pointer doesn't change into a spinner anymore in some cases when
-  launching applications. ([[!tails_ticket 19920]])
+- Mounting external devices automatically interferes with
+  the *Back Up Persistent Storage* utility. ([[!tails_ticket 20143]])
 
 <h1 id="get">Get Tails 6.0</h1>
 
