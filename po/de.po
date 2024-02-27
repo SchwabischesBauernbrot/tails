@@ -42,7 +42,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-26 10:14+0100\n"
+"POT-Creation-Date: 2024-02-28 00:24+0100\n"
 "PO-Revision-Date: 2024-02-25 12:02+0000\n"
 "Last-Translator: curtisb <curtisbaltimore@protonmail.com>\n"
 "Language-Team: German <https://hosted.weblate.org/projects/tor/tails-gui/de/"
@@ -166,7 +166,7 @@ msgstr "Aufheben"
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:729
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-errors:28
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:367
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:356
 msgid "Cancel"
 msgstr "Abbrechen"
 
@@ -1472,7 +1472,7 @@ msgstr "Fehlerbericht senden"
 
 #: config/chroot_local-includes/usr/src/perl5lib/lib/Tails/RunningSystem.pm:221
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:77
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:89
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:130
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:38
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:314
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:460
@@ -1975,7 +1975,7 @@ msgstr ""
 "verwendet wird. Bitte schließen Sie alle Anwendungen, die auf das Ziel "
 "zugreifen könnten, und versuche es erneut."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:31
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:33
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:47
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
@@ -1984,12 +1984,18 @@ msgstr ""
 msgid "Persistent Storage"
 msgstr "Beständiger Datenspeicher"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:57
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:59
 msgid "Failed to start the Persistent Storage service"
 msgstr ""
 "Start des Dienstes für den beständigen Datenspeicher ist fehlgeschlagen"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:90
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:85
+#, fuzzy
+msgid "Error sending keep-alive to the Persistent Storage service"
+msgstr ""
+"Start des Dienstes für den beständigen Datenspeicher ist fehlgeschlagen"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:131
 msgid "Could not find the WhisperBack application"
 msgstr "Konnte WhisperBack-Anwendung nicht finden"
 
@@ -2020,17 +2026,16 @@ msgstr "Aktivierung fehlgeschlagen. Versuche es erneut."
 msgid "The data of this feature is still saved."
 msgstr "Die Daten dieser Funktion werden weiterhin gespeichert."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:282
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:289
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:278
 msgid "Error activating feature {}"
 msgstr "Fehler beim Aktivieren der Funktion: {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:330
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:337
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:319
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:326
 msgid "Error deactivating feature {}"
 msgstr "Fehler bei der Deaktivierung der Funktion: {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:357
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:346
 msgid ""
 "Delete all the data of the {} feature that is saved in the Persistent "
 "Storage?\n"
@@ -2043,34 +2048,34 @@ msgstr ""
 "Wenn du den Vorgang abbrichst, werden die Daten wiederhergestellt, wenn du "
 "diese Funktion wieder einschaltest."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:368
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:357
 msgid "_Delete Data"
 msgstr "_Daten löschen"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:398
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:387
 msgid "Error deleting data of feature {}"
 msgstr "Fehler beim Löschen von Daten der Funktion {}"
 
 #. Translators: Don't translate {applications}, it's a placeholder
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:503
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:492
 #, python-brace-format
 msgid "Close {applications} to continue"
 msgstr "Schliesse {applications} um fortzufahren"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:504
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:493
 msgid " and "
 msgstr " und "
 
 #. Translators: Don't translate {app} and {pid}, they
 #. are placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:515
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:504
 #, python-brace-format
 msgid "{app} (PID: {pid})"
 msgstr "{app} (PID: {pid})"
 
 #. Translators: Don't translate {app} and {pids}, they
 #. are placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:520
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:509
 #, python-brace-format
 msgid "{app} (PIDs: {pids})"
 msgstr "{app} (PIDs: {pids})"
@@ -2105,13 +2110,13 @@ msgstr "gut"
 msgid "Strong"
 msgstr "stark"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:43
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:47
 msgid "You can send an error report to help solve the issue."
 msgstr ""
 "Du kannst einen Fehlerbericht senden, um dabei helfen, das Problem zu "
 "beheben."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:50
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:54
 msgid "_Send Error Report"
 msgstr "_Fehlerbericht senden"
 
@@ -2207,6 +2212,10 @@ msgstr "Beständiger Datenspeicher konnte nicht erstellt werden"
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:281
 msgid "Error deleting Persistent Storage"
 msgstr "Fehler beim Löschen des beständigen Datenspeichers"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:306
+msgid "Details (command output)"
+msgstr ""
 
 #. Translators: Don't translate {volume_label} or {volume_size},
 #. they are placeholders and will be replaced. They need
