@@ -170,4 +170,17 @@ EXPECTED_JOURNAL_ENTRIES = [
     'SYSLOG_IDENTIFIER' => 'usbguard-daemon',
     'MESSAGE'           => /ueventProcessRead: failed to read pending uevent.*/,
   },
+  # https://github.com/alsa-project/alsa-lib/issues/90
+  {
+    'SYSLOG_IDENTIFIER' => 'pulseaudio',
+    'MESSAGE'           => 'ALSA woke us up to write new data to the device, but there was actually nothing to write.',
+  },
+  {
+    'SYSLOG_IDENTIFIER' => 'pulseaudio',
+    'MESSAGE'           => /Most likely this is a bug in the ALSA driver.*./,
+  },
+  {
+    'SYSLOG_IDENTIFIER' => 'pulseaudio',
+    'MESSAGE'           => 'We were woken up with POLLOUT set -- however a subsequent snd_pcm_avail() returned 0 or another value < min_avail.',
+  },
 ].freeze
