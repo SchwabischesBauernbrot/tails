@@ -6,12 +6,12 @@ Documentation=https://tails.net/contribute/design/MAC_address/
 Type=oneshot
 RemainAfterExit=yes
 
-# We sync to make sure the blacklist has disappeared from the
+# We sync to make sure the blocklist has disappeared from the
 # filesystem
 ExecStart=/bin/sh -c \
     '. /usr/local/lib/tails-shell-library/tails-greeter.sh ; \
      if tails_network_enabled ; then \
-         /bin/rm -f /etc/modprobe.d/all-net-blacklist.conf ; \
+         /bin/rm -f /etc/modprobe.d/all-net-blocklist.conf ; \
          /bin/touch /etc/modprobe.d ; \
          /bin/sync ; \
      fi'

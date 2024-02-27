@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:56+0200\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2024-01-30 14:38+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -19,28 +19,64 @@ msgstr ""
 "X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "[[!meta title=\"Securely deleting files and clean diskspace\"]]\n"
-msgstr ""
-"[[!meta title=\"Suprimir fitxers de manera segura i netejar l'espai en disc\""
-"]]\n"
+#, fuzzy, no-wrap
+#| msgid "[[!meta title=\"Securely deleting files and clean diskspace\"]]\n"
+msgid "[[!meta title=\"Securely deleting files\"]]\n"
+msgstr "[[!meta title=\"Suprimir fitxers de manera segura i netejar l'espai en disc\"]]\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "[[!toc levels=1]]\n"
+msgid ""
+"Tails previously included tools to *wipe* files and available disk space. We "
+"removed these tools from Tails 6.0 (February 2024), because we think that "
+"they are not reliable enough on modern storage devices, such as USB sticks "
+"and Solid-State Drives (SSDs)."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"To better protect from data recovery, use encrypted volumes, overwrite the "
+"entire device, or disintegrate it physically."
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "[[!toc levels=1]]\n"
+msgid "[[!toc levels=2]]\n"
 msgstr "[[!toc levels=1]]\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"why\">Why use secure deletion?</h1>\n"
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"why\">Why use secure deletion?</h1>\n"
+msgid "<h1 id=\"risks\">Limitations of file deletion</h1>\n"
 msgstr "<h1 id=\"why\">Per què utilitzar la supressió segura?</h1>\n"
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "To learn more, see the Wikipedia article on [[!wikipedia Data_erasure "
+#| "desc=\"data erasure\"]]."
+msgid "See also [[!wikipedia Data_erasure desc=\"Wikipedia: Data Erasure\"]]."
+msgstr ""
+"Per obtenir més informació, consulteu l'article de la Viquipèdia sobre [[!"
+"wikipedia Data_erasure desc=\"supressió de dades\"]]."
+
+#. type: Plain text
 #, no-wrap
+msgid "<h2 id=\"delete\">Deleting a file does not erase its content</h2>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "**Operating systems do not actually remove the contents of a file when it "
+#| "is\n"
+#| "deleted**, even after emptying the trash or explicitly removing the file, "
+#| "from\n"
+#| "the command line for example.\n"
 msgid ""
-"**Operating systems do not actually remove the contents of a file when it is\n"
-"deleted**, even after emptying the trash or explicitly removing the file, from\n"
-"the command line for example.\n"
+"Operating systems do not actually remove the content of a file when the file "
+"is deleted, even after emptying the trash or removing the file from the "
+"command line."
 msgstr ""
 "**Els sistemes operatius en realitat no eliminen el contingut d'un fitxer "
 "quan\n"
@@ -50,72 +86,22 @@ msgstr ""
 
 #. type: Plain text
 msgid ""
-"Instead, they simply remove the file's entry from the file system directory, "
-"because this requires less work and is therefore faster. The contents of the "
-"file—the actual data—remain on the storage medium. The data will remain "
-"there until the operating system reuses the space for new data."
+"Instead, operating systems only mark the space that was used by the deleted "
+"file as available for future files, because it is much faster to do. "
+"However, the content of the deleted file remains on the device until the "
+"operating system reuses the space for another file."
 msgstr ""
-"En canvi, simplement eliminen l'entrada del fitxer del directori del sistema "
-"de fitxers, perquè això requereix menys treball i, per tant, és més ràpid. "
-"El contingut del fitxer (les dades reals) roman al suport d'emmagatzematge. "
-"Les dades romandran allà fins que el sistema operatiu reutilitzi l'espai per "
-"a dades noves."
 
 #. type: Plain text
-msgid ""
-"Likewise, reformatting, repartitioning or reimaging a system is not always "
-"guaranteed to write to every area of the disk, though all will cause the "
-"disk to appear empty or, in the case of reimaging, empty except for the "
-"files present in the image, to most software."
-msgstr ""
-"De la mateixa manera, no sempre es garanteix que el reformateig, el "
-"reparticionament o la reimatge d'un sistema escrigui a totes les àrees del "
-"disc, tot i que tot farà que el disc aparegui buit o, en el cas de la "
-"reimatge, buit excepte els fitxers presents a la imatge, per a la majoria "
-"del programari."
-
-#. type: Plain text
-msgid ""
-"Finally, even when the storage medium is overwritten, physical properties of "
-"the medium might make it possible to recover the previous contents. In most "
-"cases however, this recovery is not possible by just reading from the "
-"storage device in the usual way, but requires using laboratory techniques "
-"such as disassembling the device and directly accessing/reading from its "
-"components."
-msgstr ""
-"Finalment, fins i tot quan es sobreescriu el suport d'emmagatzematge, les "
-"propietats físiques del mitjà poden permetre recuperar el contingut "
-"anterior. En la majoria dels casos, però, aquesta recuperació no és possible "
-"només llegint des del dispositiu d'emmagatzematge de la manera habitual, "
-"sinó que requereix utilitzar tècniques de laboratori com ara desmuntar el "
-"dispositiu i accedir/llegir directament des dels seus components."
-
-#. type: Plain text
-msgid ""
-"To learn more, see the Wikipedia article on [[!wikipedia Data_erasure desc="
-"\"data erasure\"]]."
-msgstr ""
-"Per obtenir més informació, consulteu l'article de la Viquipèdia sobre [["
-"!wikipedia Data_erasure desc=\"supressió de dades\"]]."
+#, fuzzy, no-wrap
+#| msgid "<div class=\"note\">\n"
+msgid "<div class=\"attack\">\n"
+msgstr "<div class=\"note\">\n"
 
 #. type: Plain text
 #, no-wrap
-msgid "<h1 id=\"usb_and_ssd\">Warning about USB sticks and SSDs</h1>\n"
-msgstr "<h1 id=\"usb_and_ssd\">Avís sobre llapis USB i SSD</h1>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "<div class=\"caution\">\n"
-msgstr "<div class=\"caution\">\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"<p>Secure deletion is not as reliable on USB sticks and SSDs (solid-state\n"
-"drive) as it is on traditional hard disks.</p>\n"
+msgid "<p>Simple data recovery tools can recover deleted files.</p>\n"
 msgstr ""
-"<p>La supressió segura no és tan fiable en llapis USB i SSD (solid-state\n"
-"drive) com en els discs durs tradicionals.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -123,210 +109,174 @@ msgid "</div>\n"
 msgstr "</div>\n"
 
 #. type: Plain text
-msgid ""
-"USB sticks and SSDs sometimes copy the same data to various memory cells to "
-"extend the lifetime of the device. USB sticks and SSDs also have "
-"10&ndash;20% of spare memory cells for the same reason."
+#, no-wrap
+msgid "<h2 id=\"copy\">Other copies of the data might be stored elsewhere</h2>\n"
 msgstr ""
-"Els llapis USB i els SSD de vegades copien les mateixes dades a diverses cel·"
-"les de memòria per allargar la vida útil del dispositiu. Els llapis USB i "
-"els SSD també tenen el 10-20% de les cèl·lules de memòria de recanvi pel "
-"mateix motiu."
 
 #. type: Plain text
-msgid ""
-"As a consequence, part of the data from a given file might still be written "
-"on the device even after securely deleting it."
+msgid "Other copies of the data might exist elsewhere on the device:"
 msgstr ""
-"Com a conseqüència, part de les dades d'un fitxer determinat encara es poden "
-"escriure al dispositiu fins i tot després d'haver-lo suprimit de manera "
-"segura."
-
-#. type: Plain text
-msgid ""
-"This data could be recovered using advanced data forensics techniques, for "
-"example by professional data recovery services."
-msgstr ""
-"Aquestes dades es podrien recuperar mitjançant tècniques forenses de dades "
-"avançades, per exemple mitjançant serveis professionals de recuperació de "
-"dades."
-
-#. type: Plain text
-msgid "To mitigate this risk, you can:"
-msgstr "Per mitigar aquest risc, podeu:"
-
-#. type: Plain text
-msgid "- Encrypt the device before use, to make it hard to recover *any* data."
-msgstr ""
-"- Encriptar el dispositiu abans d'utilitzar-lo, per dificultar la "
-"recuperació de *qualsevol* dada."
 
 #. type: Bullet: '- '
 msgid ""
-"Securely delete the entire device. Some old data might still be present in "
-"the spare memory cells."
+"Some applications, for example, office applications, store temporary backup "
+"versions of the file to be able to recover from failures."
 msgstr ""
-"Suprimir tot el dispositiu de manera segura. Algunes dades antigues encara "
-"poden estar presents a les cel·les de memòria de recanvi."
 
-#. type: Plain text
-msgid "- Physically destroy the device."
-msgstr "- Destruir físicament el dispositiu."
+#. type: Bullet: '- '
+msgid ""
+"Modern operating systems can store a *journal*, a history of recent changes "
+"to the file system, or *snapshots*, an image of the file system at a "
+"particular point in time."
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "<h1 id=\"files\">Securely deleting files</h1>\n"
+msgid "<h2 id=\"spare\">Spare memory cells can store a hidden copy of the data</h2>\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Flash memory devices, such as USB sticks and SSDs (Solid-State Drives), have "
+"*spare memory cells* that are used to replace broken memory cells over "
+"time.  Modern hard disks also integrate small flash memories for performance "
+"and reliability."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Any data that was stored in the device can remain available in these spare "
+"cells."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"These spare cells are managed directly by the device and neither the user "
+"nor the operating system can control what is stored in them."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "<p>Specialized data recovery companies can recover data from spare cells.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "<h1 id=\"mitigation\">Mitigation techniques</h1>\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Given the limitations described above, there is no perfect solution to file "
+"deletion."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"To better protect from data recovery, you can use one or a combination of "
+"these mitigation techniques, depending on the sensitivity of your data and "
+"the risks."
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"files\">Securely deleting files</h1>\n"
+msgid "<h2 id=\"tails\">Use Tails to avoid saving files</h2>\n"
 msgstr "<h1 id=\"files\">Suprimir fitxers de manera segura</h1>\n"
 
 #. type: Plain text
-#, no-wrap
 msgid ""
-"<p>Securely deleting files does not erase the potential backup copies of\n"
-"the file (for example LibreOffice creates backup copies that allow\n"
-"you to recover your work in case LibreOffice stops responding).</p>\n"
+"All the files that you use in Tails disappear automatically when you shut "
+"down, except the files that you choose to store in the Persistent Storage or "
+"other storage devices."
 msgstr ""
-"<p>El fet de suprimir fitxers de manera segura no s'esborra les possibles "
-"còpies de seguretat\n"
-"del fitxer (per exemple LibreOffice crea còpies de seguretat que permeten\n"
-"recuperar el vostre treball en cas que LibreOffice deixi de respondre).</p>\n"
-
-#. type: Bullet: '  1. '
-msgid "Open the <span class=\"application\">Files</span> browser."
-msgstr "Obriu el navegador de <span class=\"application\">Fitxers</span>."
-
-#. type: Bullet: '  1. '
-msgid "Navigate to the folder containing the files that you want to delete."
-msgstr "Navegueu a la carpeta que conté els fitxers que voleu suprimir."
-
-#. type: Bullet: '  1. '
-msgid "Select the files that you want to delete with the mouse."
-msgstr "Seleccioneu els fitxers que voleu eliminar amb el ratolí."
-
-#. type: Bullet: '  1. '
-msgid ""
-"Right-click (on Mac, click with two fingers) on the files and choose <span "
-"class=\"guimenuitem\">Wipe</span>."
-msgstr ""
-"Feu clic amb el botó dret (a Mac, feu clic amb dos dits) als fitxers i trieu "
-"<span class=\"guimenuitem\">Suprimeix</span>."
-
-#. type: Bullet: '  1. '
-msgid "Confirm."
-msgstr "Confirmeu."
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"  1. The deletion will start. It can last from a few seconds to several minutes,\n"
-"  according to the size of the files. Be patient…\n"
-msgstr ""
-"  1. S'iniciarà l'eliminació. Pot durar des d'uns segons fins a diversos "
-"minuts,\n"
-"  segons la mida dels fitxers. Sigueu pacient...\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"disk_space\">Securely cleaning available disk space</h1>\n"
-msgstr ""
-"<h1 id=\"disk_space\">Neteja segura de l'espai disponible en disc</h1>\n"
 
 #. type: Plain text
 msgid ""
-"In order to clean up the contents of all files that were previously "
-"suppressed but not securely deleted from a disk, it is also possible to "
-"securely clean all the free space on the disk."
+"By making it easy to avoid saving files to storage devices in the first "
+"place, using Tails is already an important mitigation technique given the "
+"limitations of file deletion."
 msgstr ""
-"Per netejar el contingut de tots els fitxers que s'han suprimit anteriorment "
-"però que no s'han suprimit de manera segura d'un disc, també és possible "
-"netejar de manera segura tot l'espai lliure del disc."
 
 #. type: Plain text
-msgid ""
-"The disk or the folder can contain other files. Those files will not be "
-"deleted during the operation."
-msgstr ""
-"El disc o la carpeta poden contenir altres fitxers. Aquests fitxers no "
-"s'eliminaran durant l'operació."
-
-#. type: Bullet: '  1. '
-msgid ""
-"Click on the disk that you want to clean in the left pane to navigate to the "
-"root of this disk."
-msgstr ""
-"Feu clic al disc que voleu netejar al panell esquerre per anar a l'arrel "
-"d'aquest disc."
-
-#. type: Bullet: '  1. '
-msgid ""
-"Click on the [[!img lib/open-menu.png alt=\"Menu\" class=\"symbolic\" link="
-"\"no\"]] button in the right corner of the title bar and choose **Show "
-"Hidden Files**."
-msgstr ""
-"Feu clic al botó [[!img lib/open-menu.png alt=\"Menú\" class=\"symbolic\" "
-"link=\"no\"]] a la cantonada dreta de la barra de títol i trieu **Mostra els "
-"fitxers ocults**."
-
-#. type: Bullet: '  1. '
-msgid ""
-"If you want to empty the trash, delete the <span class=\"filename\">."
-"Trash-1000</span> folder or similar."
-msgstr ""
-"Si voleu buidar la paperera, suprimiu la carpeta <span class=\"filename\">."
-"Trash-1000</span> o similar."
-
-#. type: Bullet: '  1. '
-msgid ""
-"Right-click (on Mac, click with two fingers) in empty space in the right "
-"pane and choose <span class=\"guimenuitem\">Wipe available diskspace</span>."
-msgstr ""
-"Feu clic amb el botó dret (a Mac, feu clic amb dos dits) a l'espai buit del "
-"panell dret i trieu <span class=\"guimenuitem\">Esborra l'espai de disc "
-"disponible</span>."
-
-#. type: Bullet: '  1. '
-msgid ""
-"The cleaning starts. It can last from a few minutes to a few hours, "
-"according to the size of the available diskspace. Be patient…"
-msgstr ""
-"Comença la neteja. Pot durar des d'uns minuts fins a unes poques hores, "
-"segons la mida de l'espai de disc disponible. Sigueu pacient…"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"     Note that a file with a name similar to <span\n"
-"     class=\"filename\">tmp.7JwHAyBvA9</span> is created in the\n"
-"     folder. It is made as big as possible to use all the available diskspace and\n"
-"     then securely deleted.\n"
-msgstr ""
-"     Tingueu en compte que un fitxer amb un nom semblant a <span\n"
-"     class=\"filename\">tmp.7JwHAyBvA9</span> es crea a la\n"
-"     carpeta. Es fa el més gran possible per utilitzar tot l'espai de disc "
-"disponible i\n"
-"     després s'elimina de manera segura.\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"device\">Securely erasing an entire device</h1>\n"
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"device\">Securely erasing an entire device</h1>\n"
+msgid "<h2 id=\"encrypt\">Encrypt your storage devices</h2>\n"
 msgstr "<h1 id=\"device\">Esborrar de manera segura un dispositiu sencer</h1>\n"
 
+#. type: Plain text
+msgid ""
+"When all the data on your device is encrypted, data recovery tools can only "
+"recover encrypted data that is useless without your passphrase."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"To better protect deleted files from data recovery, you can reformat your "
+"device and create another encryption with a different passphrase."
+msgstr ""
+
+#. type: Bullet: '- '
+msgid ""
+"For compatibility with Tails only or with another Linux, use [[LUKS "
+"encrypted volumes|encrypted_volumes]]."
+msgstr ""
+
+#. type: Bullet: '- '
+msgid ""
+"For compatibility with Windows or macOS, use [[VeraCrypt encrypted volumes|"
+"veracrypt]]."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>Take into account that you could be forced or tricked to give out your\n"
+"passphrase.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<h1 id=\"device\">Securely erasing an entire device</h1>\n"
+msgid "<h2 id=\"overwrite\">Overwrite the entire device</h2>\n"
+msgstr "<h1 id=\"device\">Esborrar de manera segura un dispositiu sencer</h1>\n"
+
+#. type: Plain text
+msgid ""
+"To better protect deleted files from data recovery, you can also reformat "
+"and overwrite the entire device with zeroes."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Even if some data could still be recovered from [[spare memory cells|"
+"secure_deletion#spare]], overwriting the entire device is especially "
+"important if the device is not encrypted."
+msgstr ""
+
+#. type: Plain text
+msgid "To do so:"
+msgstr ""
+
 #. type: Bullet: '1. '
-msgid "Open the <span class=\"application\">Disks</span> utility."
-msgstr "Obriu la utilitat <span class=\"application\">Discs</span>."
+msgid "Open the *Disks* utility."
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
 msgid "   All the current storage devices are listed in the left pane.\n"
-msgstr ""
-"   Tots els dispositius d'emmagatzematge actuals es mostren al panell "
-"esquerre.\n"
+msgstr "   Tots els dispositius d'emmagatzematge actuals es mostren al panell esquerre.\n"
 
 #. type: Bullet: '1. '
-msgid "Plug in the USB stick or SSD that you want to securely delete."
+#, fuzzy
+#| msgid "Plug in the USB stick or SSD that you want to securely delete."
+msgid "Plug in the device that you want to reformat and overwrite."
 msgstr "Connecteu el llapis USB o SSD que voleu suprimir de manera segura."
 
 #. type: Bullet: '1. '
-msgid "A new device appears in the list of storage devices. Click on it:"
+#, fuzzy
+#| msgid "A new device appears in the list of storage devices. Click on it:"
+msgid "A new device appears in the list of devices. Click on it."
 msgstr ""
 "Apareix un dispositiu nou a la llista de dispositius d'emmagatzematge. "
 "Cliqueu-lo:"
@@ -334,62 +284,343 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   [[!img encrypted_volumes/storage_devices_after.png link=\"no\" alt=\"\"]]\n"
-msgstr ""
-"   [[!img encrypted_volumes/storage_devices_after.png link=\"no\" alt=\"\"]]"
-"\n"
+msgstr "   [[!img encrypted_volumes/storage_devices_after.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Check that the description of the device on the right side of the screen "
+#| "corresponds to your device: its brand, its size, etc."
 msgid ""
-"Check that the description of the device on the right side of the screen "
-"corresponds to your device: its brand, its size, etc."
+"Check that the brand and size of the device in the right pane corresponds to "
+"your device."
 msgstr ""
 "Comproveu que la descripció del dispositiu a la part dreta de la pantalla es "
 "correspon amb el vostre dispositiu: la seva marca, la seva mida, etc."
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Click on the [[!img lib/open-menu.png alt=\"Menu\" class=\"symbolic\" "
+#| "link=\"no\"]] button in the right corner of the title bar and choose "
+#| "**Show Hidden Files**."
 msgid ""
-"Click on the <span class=\"guimenu\">[[!img lib/open-menu.png alt=\"Menu\" "
-"class=\"symbolic\" link=\"no\"]]</span> button in the titlebar and choose "
-"<span class=\"guilabel\">Format Disk…</span> to erase all the existing "
-"partitions on the device."
+"Click on the [[!img lib/view-more.png alt=\"Drive Options\" "
+"class=\"symbolic\" link=\"no\"]] button in the title bar and choose **Format "
+"Disk**."
 msgstr ""
-"Feu clic al botó <span class=\"guimenu\">[[!img lib/open-menu.png alt=\"Menú"
-"\" class=\"symbolic\" link=\"no\"]]</span> a la barra de títol i trieu <span "
-"class=\"guilabel\">Formata disc...</span> per esborrar totes les particions "
-"existents al dispositiu."
+"Feu clic al botó [[!img lib/open-menu.png alt=\"Menú\" class=\"symbolic\" "
+"link=\"no\"]] a la cantonada dreta de la barra de títol i trieu **Mostra els "
+"fitxers ocults**."
 
 #. type: Bullet: '1. '
-msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+#, fuzzy
+#| msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+msgid "In the **Format Disk** dialog:"
 msgstr "Al diàleg <span class=\"guilabel\">Formata el disc</span>:"
 
 #. type: Bullet: '   - '
+#, fuzzy
+#| msgid ""
+#| "Choose to <span class=\"guilabel\">Overwrite existing data with zeroes</"
+#| "span> in the <span class=\"guilabel\">Erase</span> menu."
 msgid ""
-"Choose to <span class=\"guilabel\">Overwrite existing data with zeroes</"
-"span> in the <span class=\"guilabel\">Erase</span> menu."
+"Choose **Overwrite existing data with zeroes (Slow)** in the **Erase** menu."
 msgstr ""
 "Trieu <span class=\"guilabel\">Sobreescriure les dades existents amb zeros</"
 "span> al menú <span class=\"guilabel\">Esborra</span>."
 
-#. type: Bullet: '   - '
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<div class=\"caution\">\n"
+msgid "     <div class=\"caution\">\n"
+msgstr "<div class=\"caution\">\n"
+
+#. type: Plain text
+#, no-wrap
 msgid ""
-"Choose <span class=\"guilabel\">Compatible with all systems and devices (MBR/"
-"DOS)</span> in the <span class=\"guilabel\">Partitioning</span> menu."
+"     <p>Overwriting existing data does not erase all data on flash\n"
+"     memories, such as USB sticks and SSDs (Solid-State Drives).</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "     <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "</div>\n"
+msgid "     </div>\n"
+msgstr "</div>\n"
+
+#. type: Bullet: '   - '
+#, fuzzy
+#| msgid ""
+#| "Choose <span class=\"guilabel\">Compatible with all systems and devices "
+#| "(MBR/DOS)</span> in the <span class=\"guilabel\">Partitioning</span> menu."
+msgid ""
+"Choose **Compatible with all systems and devices (MBR/DOS)** in the "
+"**Partitioning** menu."
 msgstr ""
 "Trieu <span class=\"guilabel\">Compatible amb tots els sistemes i "
-"dispositius (MBR/DOS)</span> al menú <span class=\"guilabel\""
-">Particions</span>."
+"dispositius (MBR/DOS)</span> al menú <span class=\"guilabel\">Particions</"
+"span>."
 
 #. type: Bullet: '1. '
-msgid "Click <span class=\"bold\">Format…</span>."
-msgstr "Feu clic a <span class=\"bold\">Formata...</span>."
+msgid "Click **Format**."
+msgstr ""
 
 #. type: Bullet: '1. '
-msgid ""
-"In the confirmation dialog, make sure that the device is correct. Click "
-"<span class=\"bold\">Format</span> to confirm."
+#, fuzzy
+#| msgid ""
+#| "In the confirmation dialog, make sure that the device is correct. Click "
+#| "<span class=\"bold\">Format</span> to confirm."
+msgid "In the confirmation dialog, make sure that the device is correct."
 msgstr ""
 "Al diàleg de confirmació, assegureu-vos que el dispositiu sigui correcte. "
 "Feu clic a <span class=\"bold\">Formata</span> per confirmar."
+
+#. type: Bullet: '1. '
+msgid "Click **Format** to confirm."
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "- Physically destroy the device."
+msgid "<h2 id=\"destroy\">Physically destroy the device</h2>\n"
+msgstr "- Destruir físicament el dispositiu."
+
+#. type: Plain text
+msgid ""
+"As a last resort, physically destroying the device gives the strongest "
+"guarantee against data recovery."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"It is unreliable to break the device into a few pieces or burn it with wood "
+"fire."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"For top secret documents, the National Security Agency ([[!wikipedia NSA]]) "
+"of the USA recommends disintegration into particles of 2 mm. This can be "
+"achieved using a [good quality household blender](https://commons.erau.edu/"
+"jdfsl/vol16/iss2/1/)."
+msgstr ""
+
+#~ msgid ""
+#~ "Instead, they simply remove the file's entry from the file system "
+#~ "directory, because this requires less work and is therefore faster. The "
+#~ "contents of the file—the actual data—remain on the storage medium. The "
+#~ "data will remain there until the operating system reuses the space for "
+#~ "new data."
+#~ msgstr ""
+#~ "En canvi, simplement eliminen l'entrada del fitxer del directori del "
+#~ "sistema de fitxers, perquè això requereix menys treball i, per tant, és "
+#~ "més ràpid. El contingut del fitxer (les dades reals) roman al suport "
+#~ "d'emmagatzematge. Les dades romandran allà fins que el sistema operatiu "
+#~ "reutilitzi l'espai per a dades noves."
+
+#~ msgid ""
+#~ "Likewise, reformatting, repartitioning or reimaging a system is not "
+#~ "always guaranteed to write to every area of the disk, though all will "
+#~ "cause the disk to appear empty or, in the case of reimaging, empty except "
+#~ "for the files present in the image, to most software."
+#~ msgstr ""
+#~ "De la mateixa manera, no sempre es garanteix que el reformateig, el "
+#~ "reparticionament o la reimatge d'un sistema escrigui a totes les àrees "
+#~ "del disc, tot i que tot farà que el disc aparegui buit o, en el cas de la "
+#~ "reimatge, buit excepte els fitxers presents a la imatge, per a la majoria "
+#~ "del programari."
+
+#~ msgid ""
+#~ "Finally, even when the storage medium is overwritten, physical properties "
+#~ "of the medium might make it possible to recover the previous contents. In "
+#~ "most cases however, this recovery is not possible by just reading from "
+#~ "the storage device in the usual way, but requires using laboratory "
+#~ "techniques such as disassembling the device and directly accessing/"
+#~ "reading from its components."
+#~ msgstr ""
+#~ "Finalment, fins i tot quan es sobreescriu el suport d'emmagatzematge, les "
+#~ "propietats físiques del mitjà poden permetre recuperar el contingut "
+#~ "anterior. En la majoria dels casos, però, aquesta recuperació no és "
+#~ "possible només llegint des del dispositiu d'emmagatzematge de la manera "
+#~ "habitual, sinó que requereix utilitzar tècniques de laboratori com ara "
+#~ "desmuntar el dispositiu i accedir/llegir directament des dels seus "
+#~ "components."
+
+#, no-wrap
+#~ msgid "<h1 id=\"usb_and_ssd\">Warning about USB sticks and SSDs</h1>\n"
+#~ msgstr "<h1 id=\"usb_and_ssd\">Avís sobre llapis USB i SSD</h1>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<p>Secure deletion is not as reliable on USB sticks and SSDs (solid-state\n"
+#~ "drive) as it is on traditional hard disks.</p>\n"
+#~ msgstr ""
+#~ "<p>La supressió segura no és tan fiable en llapis USB i SSD (solid-state\n"
+#~ "drive) com en els discs durs tradicionals.</p>\n"
+
+#~ msgid ""
+#~ "USB sticks and SSDs sometimes copy the same data to various memory cells "
+#~ "to extend the lifetime of the device. USB sticks and SSDs also have "
+#~ "10&ndash;20% of spare memory cells for the same reason."
+#~ msgstr ""
+#~ "Els llapis USB i els SSD de vegades copien les mateixes dades a diverses "
+#~ "cel·les de memòria per allargar la vida útil del dispositiu. Els llapis "
+#~ "USB i els SSD també tenen el 10-20% de les cèl·lules de memòria de "
+#~ "recanvi pel mateix motiu."
+
+#~ msgid ""
+#~ "As a consequence, part of the data from a given file might still be "
+#~ "written on the device even after securely deleting it."
+#~ msgstr ""
+#~ "Com a conseqüència, part de les dades d'un fitxer determinat encara es "
+#~ "poden escriure al dispositiu fins i tot després d'haver-lo suprimit de "
+#~ "manera segura."
+
+#~ msgid ""
+#~ "This data could be recovered using advanced data forensics techniques, "
+#~ "for example by professional data recovery services."
+#~ msgstr ""
+#~ "Aquestes dades es podrien recuperar mitjançant tècniques forenses de "
+#~ "dades avançades, per exemple mitjançant serveis professionals de "
+#~ "recuperació de dades."
+
+#~ msgid "To mitigate this risk, you can:"
+#~ msgstr "Per mitigar aquest risc, podeu:"
+
+#~ msgid ""
+#~ "- Encrypt the device before use, to make it hard to recover *any* data."
+#~ msgstr ""
+#~ "- Encriptar el dispositiu abans d'utilitzar-lo, per dificultar la "
+#~ "recuperació de *qualsevol* dada."
+
+#~ msgid ""
+#~ "Securely delete the entire device. Some old data might still be present "
+#~ "in the spare memory cells."
+#~ msgstr ""
+#~ "Suprimir tot el dispositiu de manera segura. Algunes dades antigues "
+#~ "encara poden estar presents a les cel·les de memòria de recanvi."
+
+#, no-wrap
+#~ msgid ""
+#~ "<p>Securely deleting files does not erase the potential backup copies of\n"
+#~ "the file (for example LibreOffice creates backup copies that allow\n"
+#~ "you to recover your work in case LibreOffice stops responding).</p>\n"
+#~ msgstr ""
+#~ "<p>El fet de suprimir fitxers de manera segura no s'esborra les possibles còpies de seguretat\n"
+#~ "del fitxer (per exemple LibreOffice crea còpies de seguretat que permeten\n"
+#~ "recuperar el vostre treball en cas que LibreOffice deixi de respondre).</p>\n"
+
+#~ msgid "Open the <span class=\"application\">Files</span> browser."
+#~ msgstr "Obriu el navegador de <span class=\"application\">Fitxers</span>."
+
+#~ msgid "Navigate to the folder containing the files that you want to delete."
+#~ msgstr "Navegueu a la carpeta que conté els fitxers que voleu suprimir."
+
+#~ msgid "Select the files that you want to delete with the mouse."
+#~ msgstr "Seleccioneu els fitxers que voleu eliminar amb el ratolí."
+
+#~ msgid ""
+#~ "Right-click (on Mac, click with two fingers) on the files and choose "
+#~ "<span class=\"guimenuitem\">Wipe</span>."
+#~ msgstr ""
+#~ "Feu clic amb el botó dret (a Mac, feu clic amb dos dits) als fitxers i "
+#~ "trieu <span class=\"guimenuitem\">Suprimeix</span>."
+
+#~ msgid "Confirm."
+#~ msgstr "Confirmeu."
+
+#, no-wrap
+#~ msgid ""
+#~ "  1. The deletion will start. It can last from a few seconds to several minutes,\n"
+#~ "  according to the size of the files. Be patient…\n"
+#~ msgstr ""
+#~ "  1. S'iniciarà l'eliminació. Pot durar des d'uns segons fins a diversos minuts,\n"
+#~ "  segons la mida dels fitxers. Sigueu pacient...\n"
+
+#, no-wrap
+#~ msgid "<h1 id=\"disk_space\">Securely cleaning available disk space</h1>\n"
+#~ msgstr "<h1 id=\"disk_space\">Neteja segura de l'espai disponible en disc</h1>\n"
+
+#~ msgid ""
+#~ "In order to clean up the contents of all files that were previously "
+#~ "suppressed but not securely deleted from a disk, it is also possible to "
+#~ "securely clean all the free space on the disk."
+#~ msgstr ""
+#~ "Per netejar el contingut de tots els fitxers que s'han suprimit "
+#~ "anteriorment però que no s'han suprimit de manera segura d'un disc, també "
+#~ "és possible netejar de manera segura tot l'espai lliure del disc."
+
+#~ msgid ""
+#~ "The disk or the folder can contain other files. Those files will not be "
+#~ "deleted during the operation."
+#~ msgstr ""
+#~ "El disc o la carpeta poden contenir altres fitxers. Aquests fitxers no "
+#~ "s'eliminaran durant l'operació."
+
+#~ msgid ""
+#~ "Click on the disk that you want to clean in the left pane to navigate to "
+#~ "the root of this disk."
+#~ msgstr ""
+#~ "Feu clic al disc que voleu netejar al panell esquerre per anar a l'arrel "
+#~ "d'aquest disc."
+
+#~ msgid ""
+#~ "If you want to empty the trash, delete the <span class=\"filename\">."
+#~ "Trash-1000</span> folder or similar."
+#~ msgstr ""
+#~ "Si voleu buidar la paperera, suprimiu la carpeta <span "
+#~ "class=\"filename\">.Trash-1000</span> o similar."
+
+#~ msgid ""
+#~ "Right-click (on Mac, click with two fingers) in empty space in the right "
+#~ "pane and choose <span class=\"guimenuitem\">Wipe available diskspace</"
+#~ "span>."
+#~ msgstr ""
+#~ "Feu clic amb el botó dret (a Mac, feu clic amb dos dits) a l'espai buit "
+#~ "del panell dret i trieu <span class=\"guimenuitem\">Esborra l'espai de "
+#~ "disc disponible</span>."
+
+#~ msgid ""
+#~ "The cleaning starts. It can last from a few minutes to a few hours, "
+#~ "according to the size of the available diskspace. Be patient…"
+#~ msgstr ""
+#~ "Comença la neteja. Pot durar des d'uns minuts fins a unes poques hores, "
+#~ "segons la mida de l'espai de disc disponible. Sigueu pacient…"
+
+#, no-wrap
+#~ msgid ""
+#~ "     Note that a file with a name similar to <span\n"
+#~ "     class=\"filename\">tmp.7JwHAyBvA9</span> is created in the\n"
+#~ "     folder. It is made as big as possible to use all the available diskspace and\n"
+#~ "     then securely deleted.\n"
+#~ msgstr ""
+#~ "     Tingueu en compte que un fitxer amb un nom semblant a <span\n"
+#~ "     class=\"filename\">tmp.7JwHAyBvA9</span> es crea a la\n"
+#~ "     carpeta. Es fa el més gran possible per utilitzar tot l'espai de disc disponible i\n"
+#~ "     després s'elimina de manera segura.\n"
+
+#~ msgid "Open the <span class=\"application\">Disks</span> utility."
+#~ msgstr "Obriu la utilitat <span class=\"application\">Discs</span>."
+
+#~ msgid ""
+#~ "Click on the <span class=\"guimenu\">[[!img lib/open-menu.png "
+#~ "alt=\"Menu\" class=\"symbolic\" link=\"no\"]]</span> button in the "
+#~ "titlebar and choose <span class=\"guilabel\">Format Disk…</span> to erase "
+#~ "all the existing partitions on the device."
+#~ msgstr ""
+#~ "Feu clic al botó <span class=\"guimenu\">[[!img lib/open-menu.png "
+#~ "alt=\"Menú\" class=\"symbolic\" link=\"no\"]]</span> a la barra de títol "
+#~ "i trieu <span class=\"guilabel\">Formata disc...</span> per esborrar "
+#~ "totes les particions existents al dispositiu."
+
+#~ msgid "Click <span class=\"bold\">Format…</span>."
+#~ msgstr "Feu clic a <span class=\"bold\">Formata...</span>."
 
 #, no-wrap
 #~ msgid "<a id=\"why\"></a>\n"
@@ -406,10 +637,6 @@ msgstr ""
 #, fuzzy, no-wrap
 #~ msgid "<a id=\"erase-device\"></a>\n"
 #~ msgstr "<a id=\"usb_and_ssd\"></a>\n"
-
-#, no-wrap
-#~ msgid "<div class=\"note\">\n"
-#~ msgstr "<div class=\"note\">\n"
 
 #~ msgid "[[!meta title=\"Securely delete files and clean diskspace\"]]\n"
 #~ msgstr ""
@@ -467,12 +694,12 @@ msgstr ""
 
 #, fuzzy
 #~ msgid ""
-#~ "  1. Open the file browser, either from the <span class=\"guimenu"
-#~ "\">Places</span> menu or\n"
+#~ "  1. Open the file browser, either from the <span "
+#~ "class=\"guimenu\">Places</span> menu or\n"
 #~ "  the <span class=\"guilabel\">Home</span> icon on the desktop.\n"
 #~ msgstr ""
-#~ "  1. Öffnen Sie den Dateimanager, entweder von dem <span class=\"guimenu"
-#~ "\">Orte</span>-Menü oder\n"
+#~ "  1. Öffnen Sie den Dateimanager, entweder von dem <span "
+#~ "class=\"guimenu\">Orte</span>-Menü oder\n"
 #~ "  dem <span class=\"guilabel\">home</span>-Symbol auf dem Desktop.\n"
 
 #~ msgid ""

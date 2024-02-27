@@ -5,7 +5,7 @@ workflow:
     - if: $CI_COMMIT_TAG
     - if: '$CI_COMMIT_BRANCH =~ /^master|stable|testing|devel$/'
 
-image: debian:bullseye
+image: debian:bookworm
 
 variables:
     GET_SOURCES_ATTEMPTS: 10

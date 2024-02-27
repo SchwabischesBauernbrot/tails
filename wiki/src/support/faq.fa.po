@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-23 00:41+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2020-09-05 06:30+0000\n"
 "Last-Translator: emmapeel <emma.peel@riseup.net>\n"
 "Language-Team: Persian <http://weblate.451f.org:8889/projects/tails/faq/fa/"
@@ -50,6 +50,11 @@ msgstr "[[!toc levels=2]]\n"
 #, fuzzy, no-wrap
 msgid "<h1 id=\"project\">Tails project</h1>\n"
 msgstr "<a id=\"project\"></a>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "<!-- This entire section would be better placed in an \"About Us\" section. See #17700. -->\n"
+msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -234,77 +239,6 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "<h1 id=\"hardware\">Hardware compatibility</h1>\n"
-msgstr "سازگاری سخت‌افزاری\n"
-
-#. type: Plain text
-msgid "See also:"
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"- [[System requirements and recommended hardware|doc/about/requirements]]"
-msgstr ""
-
-#. type: Plain text
-msgid "- [[Known issues|support/known_issues]]"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid "<h2 id=\"32-bit\">Does Tails work on 32-bit computers?</h2>\n"
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"No. Tails stopped working on 32-bit computer in [[Tails 3.0|news/"
-"Tails_3.0_will_require_a_64-bit_processor]] (June 2017). Software built for "
-"64-bit processors can benefit from several improvements that make it harder "
-"for attackers to exploit security vulnerabilities."
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"Before Tails 3.0, we estimated that [[only 4% of our users|news/"
-"Tails_3.0_will_require_a_64-bit_processor]] still had a 32-bit computer. We "
-"decided that the increased security for everybody else was more important "
-"than the compatibility with 32-bit computers."
-msgstr ""
-
-#. type: Plain text
-#, fuzzy, no-wrap
-msgid "<h2 id=\"arm\">Does Tails work on ARM architecture, Raspberry Pi, tablets, smartphones (mobile phones), or Apple M1?</h2>\n"
-msgstr "آیا تیلز روی معماری آرم، رزبری پای یا تبلت‌ها کار می‌کند؟\n"
-
-#. type: Plain text
-#, fuzzy
-msgid ""
-"For the moment, Tails is only available on the x86_64 architecture.  The "
-"Raspberry Pi, most tablets, and most smartphones (mobile phones) are based "
-"on the ARM architecture. Tails does not work on the ARM architecture so far."
-msgstr ""
-"در حال حاضر تیلز تنها روی معماری‌های x86 و x86_64 کار می‌کند. رزبری پای و "
-"بسیاری از تبلت‌ها مبتنی بر معماری آرم هستند. تیلز در حال حاضر روی معماری آرم "
-"کار نمی‌کند."
-
-#. type: Plain text
-msgid ""
-"For this reason, Tails does not work on Mac models that use the Apple M1 "
-"chip."
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"Look for a tablet with an AMD or Intel processor. Try to verify its "
-"compatibility with Debian beforehand, for example make sure that the Wi-Fi "
-"interface is supported."
-msgstr ""
-"به دنبال تبلتی با پردازشگر اینتل یا اِی‌ام‌دی باشید. سعی کنید پیش از استفاده از "
-"سازگاری آن با دبیان مطمئن شوید؛ برای نمونه مطمئن شوید که از رابط وای‌فای آن "
-"پشتیبانی می‌شود."
-
-#. type: Plain text
-#, fuzzy, no-wrap
 msgid "<h1 id=\"installation\">Installation</h1>\n"
 msgstr "<a id=\"installation\"></a>\n"
 
@@ -441,8 +375,53 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "<h1 id=\"browser\">Web browser</h1>\n"
+msgid "<h2 id=\"integrity\">Can I verify the integrity of a Tails USB stick or DVD?</h2>\n"
+msgstr "آیا می‌توانم یکپارچگی یک دستگاه تیلز را تأیید کنم؟\n"
+
+#. type: Plain text
+#, fuzzy
+msgid ""
+"It is impossible to verify the integrity of a Tails USB stick or DVD while "
+"running Tails from it. It would be like asking to someone whether they are "
+"lying: a true liar would always pretend to tell the truth."
+msgstr ""
+"تأیید یکپارچگی یک دستگاه تیلز همزمان با اجرای تیلز از روی همان دستگاه ممکن "
+"نیست. این کار مثل این است که از فردی بپرسید دروغگو هست یا نه؛ پاسخ یک فرد "
+"دروغگو همیشه «نه» خواهد بود."
+
+#. type: Plain text
+msgid ""
+"If you worry that your Tails might be corrupted, do a [[manual upgrade|"
+"upgrade]] from a trusted operating system to upgrade it to a trusted version "
+"of Tails."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "<div class=\"note\">\n"
+msgstr "<div class=\"note\">\n"
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>In the future, we might make it possible to verify the integrity of a Tails\n"
+"USB stick from another trusted OS. ([[!tails_ticket 7496]])</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "</div>\n"
+msgstr "</div>\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+msgid "<h1 id=\"browser\">Tor Browser</h1>\n"
 msgstr "<a id=\"browser\"></a>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "<!-- We might move some of this content to the Tor Browser documentation. See #19122. -->\n"
+msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -491,18 +470,8 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "<div class=\"note\">\n"
-msgstr "<div class=\"note\">\n"
-
-#. type: Plain text
-#, no-wrap
 msgid "<p>We have plans to allow storing the security level in the Persistent Storage. ([[!tails_ticket 9700]])</p>\n"
 msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid "</div>\n"
-msgstr "</div>\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -674,19 +643,6 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "<h2 id=\"java\">Is Java installed in the <span class=\"application\">Tor Browser</span>?</h2>\n"
-msgstr "آیا جاوا روی <span class=\"application\">مرورگر تور</span> نصب شده‌است؟\n"
-
-#. type: Plain text
-msgid ""
-"Tails does not include a Java plugin in its browser because it could break "
-"your anonymity."
-msgstr ""
-"تیلز در مرورگر خود افزایهٔ جاوا ندارد چون ممکن است باعث به خطر افتادن ناشناسی "
-"شما شود."
-
-#. type: Plain text
-#, fuzzy, no-wrap
 msgid "<h1 id=\"networking\">Networking</h1>\n"
 msgstr "<a id=\"networking\"></a>\n"
 
@@ -784,20 +740,7 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "<h2 id=\"dns\">How does the DNS resolution work in Tails?</h2>\n"
-msgstr "گره‌گشایی دی‌ان‌اس در تیلز چگونه انجام می‌شود؟\n"
-
-#. type: Plain text
-msgid ""
-"See our [[design document|contribute/design/Tor_enforcement/DNS]] on this "
-"topic."
-msgstr ""
-"رجوع کنید به [[سند طراحی|contribute/design/Tor_enforcement/DNS]] ما در مورد "
-"این مساله."
-
-#. type: Plain text
-#, fuzzy, no-wrap
-msgid "<h2 id=\"htp\">Why does Tails automatically connect to several websites when starting?</h2>\n"
+msgid "<h2 id=\"htp\">Why does Tails automatically connect to websites when starting?</h2>\n"
 msgstr "چرا تیلز هنگام آغاز شدن خودکار به چندین تارنما متصل می‌شود؟\n"
 
 #. type: Plain text
@@ -859,14 +802,20 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "<h2 id=\"onion-service\">Can I run a Tor onion service on Tails?</h2>\n"
+msgid "<h2 id=\"onion-service\">Can I run a Tor onion service from Tails?</h2>\n"
 msgstr "آیا می‌توانم در تیلز از یک سیستم مخفی تور استفاده کنم؟\n"
+
+#. type: Plain text
+msgid ""
+"You can use [[*OnionShare*|doc/anonymous_internet/onionshare]] to share "
+"files, websites, and chat rooms from Tails using onion services."
+msgstr ""
 
 #. type: Plain text
 #, fuzzy
 msgid ""
-"It is technically possible to use Tails to provide an onion service but it "
-"is complicated and not documented yet."
+"It is technically possible to use Tails to create other onion services, but "
+"it is complicated and not documented yet."
 msgstr ""
 "استفاده از تیلز برای ایجاد یک سرویس مخفی از نظر فنی ممکن است، اما کاری "
 "پیچیده به حساب می‌آید و هنوز مستندسازی نشده‌است."
@@ -884,13 +833,27 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "<h1 id=\"software\">Software not included in Tails</h1>\n"
+msgid "<h1 id=\"software\">Included software</h1>\n"
 msgstr "نرم‌افزارهایی که در تیلز گنجانده نشده‌اند\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
 msgid "<h2 id=\"new-software\">Can my favorite software be included in Tails?</h2>\n"
 msgstr "آیا امکان گنجانده‌شدن نرم‌افزار محبوب من در تیلز وجود دارد؟\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "<div class=\"tip\">\n"
+msgstr "<div class=\"tip\">\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+msgid ""
+"<p>If a software is not included in Tails, but is included in Debian, you can use\n"
+"the [[Additional\n"
+"Software|doc/persistent_storage/configure#additional_software]] feature of\n"
+"the Persistent Storage to install it automatically every time you start Tails.</p>\n"
+msgstr "اگر نرم‌افزاری در تیلز موجود نباشد، اما در دبیان وجود داشته باشد، می‌توانید از ویژگی [[نرم‌افزارهای بیشتر|doc/first_steps/persistence/configure#additional_software]] درایو مانا برای نصب خودکار آن در ابتدای هر نشست کاری استفاده کنید."
 
 #. type: Plain text
 msgid ""
@@ -980,26 +943,12 @@ msgstr ""
 #, fuzzy
 msgid ""
 "After considering all this, if you still think that this software is a good "
-"candidate to be included in Tails, please explain us your proposal on "
-"[[tails-dev@boum.org|about/contact#tails-dev]]."
+"candidate to be included in Tails, please explain us your proposal on [[!"
+"tails_ticket desc=\"GitLab\"]]."
 msgstr ""
 "پس از در نظر گرفتن تمام این موارد اگر همچنان فکر می‌کنید نرم‌افزار مورد نظر "
 "نامزدی خوبی برای حضور در تیلز است، لطفاً پیشنهاد خود را [[برای ما توضیح دهید|"
 "about/contact#tails-dev]]."
-
-#. type: Plain text
-#, no-wrap
-msgid "<div class=\"tip\">\n"
-msgstr "<div class=\"tip\">\n"
-
-#. type: Plain text
-#, fuzzy, no-wrap
-msgid ""
-"<p>If a software is not included in Tails, but is included in Debian, you can use\n"
-"the [[Additional\n"
-"Software|doc/persistent_storage/configure#additional_software]] feature of\n"
-"the Persistent Storage to install it automatically every time you start Tails.</p>\n"
-msgstr "اگر نرم‌افزاری در تیلز موجود نباشد، اما در دبیان وجود داشته باشد، می‌توانید از ویژگی [[نرم‌افزارهای بیشتر|doc/first_steps/persistence/configure#additional_software]] درایو مانا برای نصب خودکار آن در ابتدای هر نشست کاری استفاده کنید."
 
 #. type: Plain text
 msgid "Here is some of the software we are often asked to include in Tails:"
@@ -1009,7 +958,7 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy
-msgid "- **monero**: not in Debian, but see [[!tails_ticket 17823]]"
+msgid "- **monero**: not in Debian ([[!tails_ticket 17823]])"
 msgstr "**torchat**: رجوع کنید به [[!tails_ticket 5554]]"
 
 #. type: Plain text
@@ -1022,11 +971,61 @@ msgstr "**bitmessage**: در دبیان موجود نیست"
 msgid "- **retroshare**: not in Debian"
 msgstr "**retroshare**: در دبیان نیست"
 
+#. type: Plain text
+msgid "- **rar/unrar**: not [[Free Software|doc/about/license]]"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+msgid "<h2 id=\"voip\">Can I do voice or video calls from Tails?</h2>\n"
+msgstr "آیا می‌توانم در تیلز با بیت‌تورنت دانلود کنم؟\n"
+
+#. type: Plain text
+msgid "Not yet."
+msgstr ""
+
 #. type: Bullet: '- '
 msgid ""
-"**rar/unrar**: is not [[free software|doc/about/license]], but you can use "
-"the [[Additional Software|doc/persistent_storage/additional_software]] "
-"feature to install it"
+"Videoconferencing tools that work in web browsers, like *Jitsi* or *Zoom*, "
+"don't work in *Tor Browser* yet."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"  They rely on the [[!wikipedia WebRTC]] technology, which uses\n"
+"  [[!wikipedia User_Datagram_Protocol desc=\"UDP\"]] connections. But, the Tor network only\n"
+"  supports TCP connections, like the ones used for HTTP and email.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"  The Tor Project is working on [supporting UDP traffic over\n"
+"  Tor](https://gitlab.torproject.org/tpo/core/torspec/-/issues/73), which\n"
+"  should remove this limitation.\n"
+msgstr ""
+
+#. type: Bullet: '- '
+msgid ""
+"Proprietary applications like *Skype* or *Zoom* will never be available in "
+"Tails because they are not Free Software."
+msgstr ""
+
+#. type: Bullet: '- '
+msgid ""
+"[*Mumble*](https://www.mumble.info/) is the only voice chat application that "
+"we know works from Tails. You can use the [[Additional Software|doc/"
+"persistent_storage/additional_software]] feature to add *Mumble* to your "
+"Tails."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"  [*Wahay*](https://wahay.org/) is a decentralized voice chat application based\n"
+"  on *Mumble*. If you are a Debian developer, please help us\n"
+"  [[!tails_ticket 17617 desc=\"get *Wahay* in Debian\"]].\n"
 msgstr ""
 
 #. type: Plain text
@@ -1097,13 +1096,13 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
-msgid "<h2 id=\"monero\">How can I use Monero in Tails?</h2>\n"
+msgid "<h2 id=\"monero\">Can I use Monero in Tails?</h2>\n"
 msgstr "آیا می‌توانم در تیلز از یک سیستم مخفی تور استفاده کنم؟\n"
 
 #. type: Plain text
 msgid ""
-"You can install the [[*Feather*|doc/advanced_topics/feather]] Monero wallet "
-"as an AppImage."
+"Yes. You can install the [[*Feather*|doc/advanced_topics/feather]] Monero "
+"wallet as an AppImage."
 msgstr ""
 
 #. type: Plain text
@@ -1112,227 +1111,6 @@ msgid ""
 "Tails currently does not include a Monero wallet. However, we are interested\n"
 "in making it easier to use Monero in Tails in the future. See [[!tails_ticket\n"
 "17823]] for a list of unofficial guides on how to use Monero in Tails.\n"
-msgstr ""
-
-#. type: Plain text
-#, fuzzy, no-wrap
-msgid "<h2 id=\"voip\">Can I do voice or video calls from Tails?</h2>\n"
-msgstr "آیا می‌توانم در تیلز با بیت‌تورنت دانلود کنم؟\n"
-
-#. type: Plain text
-msgid "Not yet."
-msgstr ""
-
-#. type: Bullet: '- '
-msgid ""
-"Videoconferencing tools that work in web browsers, like *Jitsi* or *Zoom*, "
-"don't work in *Tor Browser* yet."
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"  They rely on the [[!wikipedia WebRTC]] technology, which uses\n"
-"  [[!wikipedia User_Datagram_Protocol desc=\"UDP\"]] connections. But, the Tor network only\n"
-"  supports TCP connections, like the ones used for HTTP and email.\n"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"  The Tor Project is working on [supporting UDP traffic over\n"
-"  Tor](https://gitlab.torproject.org/tpo/core/torspec/-/issues/73), which\n"
-"  should remove this limitation.\n"
-msgstr ""
-
-#. type: Bullet: '- '
-msgid ""
-"Proprietary applications like *Skype* or *Zoom* will never be available in "
-"Tails because they are not Free Software."
-msgstr ""
-
-#. type: Bullet: '- '
-msgid ""
-"[*Mumble*](https://www.mumble.info/) is the only voice chat application that "
-"we know works from Tails. You can use the [[Additional Software|doc/"
-"persistent_storage/additional_software]] feature to add *Mumble* to your "
-"Tails."
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"  [*Wahay*](https://wahay.org/) is a decentralized voice chat application based\n"
-"  on *Mumble*. If you are a Debian developer, please help us\n"
-"  [[!tails_ticket 17617 desc=\"get *Wahay* in Debian\"]].\n"
-msgstr ""
-
-#. type: Plain text
-#, fuzzy, no-wrap
-msgid "<h1 id=\"misc\">Other security issues</h1>\n"
-msgstr "مشکلات امنیتی دیگر\n"
-
-#. type: Plain text
-#, fuzzy, no-wrap
-msgid "<h2 id=\"older-version\">Is it safe to use an older version of Tails?</h2>\n"
-msgstr "استفاده از تیلز روی یک سیستم مشکل‌دار امن است؟\n"
-
-#. type: Plain text
-msgid ""
-"It is not safe to use an older version of Tails. Only the latest version of "
-"Tails should be used."
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"Because it is not safe to use an older version of Tails, we distribute only "
-"the latest version of Tails."
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"Older versions of Tails have security vulnerabilities and other issues that "
-"are fixed in the latest version of Tails."
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"We understand why you might want to use an older version of Tails. For "
-"example, the latest version of Tails might not be compatible with your "
-"hardware."
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"If you are experiencing an issue with the latest version of Tails, you can "
-"check our [[list of known issues|support/known_issues]] to find out if there "
-"is a workaround for the issue you are experiencing."
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"If there is no known workaround for the issue you are experiencing, you "
-"might want to [[make a bug report|doc/first_steps/bug_reporting]] to let us "
-"know about the issue."
-msgstr ""
-
-#. type: Plain text
-#, fuzzy, no-wrap
-msgid "<h2 id=\"old-software\">Why does Tails include old versions of software?</h2>\n"
-msgstr "استفاده از تیلز روی یک سیستم مشکل‌دار امن است؟\n"
-
-#. type: Plain text
-msgid "The Tails 5 series is based on Debian 11 (Bullseye)."
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"The version of each application included in Tails corresponds to the version "
-"available in this version of Debian. Even though some versions might be old, "
-"the [Debian Security Team](https://wiki.debian.org/Teams/Security) provides "
-"security updates."
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"Newer versions of all applications will be available starting from Tails "
-"6.0, which will be based on Debian 12 (Bookworm). Until then, you cannot "
-"update any of the applications included in Tails to a newer version."
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"You can see which version of a software package is available in each version "
-"of Debian on <https://packages.debian.org/>."
-msgstr ""
-
-#. type: Plain text
-#, fuzzy, no-wrap
-msgid "<h2 id=\"integrity\">Can I verify the integrity of a Tails USB stick or DVD?</h2>\n"
-msgstr "آیا می‌توانم یکپارچگی یک دستگاه تیلز را تأیید کنم؟\n"
-
-#. type: Plain text
-#, fuzzy
-msgid ""
-"It is impossible to verify the integrity of a Tails USB stick or DVD while "
-"running Tails from it. It would be like asking to someone whether they are "
-"lying: a true liar would always pretend to tell the truth."
-msgstr ""
-"تأیید یکپارچگی یک دستگاه تیلز همزمان با اجرای تیلز از روی همان دستگاه ممکن "
-"نیست. این کار مثل این است که از فردی بپرسید دروغگو هست یا نه؛ پاسخ یک فرد "
-"دروغگو همیشه «نه» خواهد بود."
-
-#. type: Plain text
-msgid ""
-"If you worry that your Tails might be corrupted, do a [[manual upgrade|"
-"upgrade]] from a trusted operating system to upgrade it to a trusted version "
-"of Tails."
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"<p>In the future, we might make it possible to verify the integrity of a Tails\n"
-"USB stick from another trusted OS. ([[!tails_ticket 7496]])</p>\n"
-msgstr ""
-
-#. type: Plain text
-#, fuzzy, no-wrap
-msgid "<h2 id=\"reuse-memory-wipe\">Can I use the memory wipe feature of Tails on another operating system?</h2>\n"
-msgstr "آیا می‌توان از امکان پاک‌سازی حافظهٔ تیلز در سیستم‌‌عامل‌های دیگر استفاده کرد؟\n"
-
-#. type: Plain text
-#, fuzzy
-msgid ""
-"The memory wipe mechanism that Tails uses on shutdown to [[protect against "
-"cold boot attacks|doc/advanced_topics/cold_boot_attacks]] should be reusable "
-"in other Linux distributions."
-msgstr ""
-"سازوکار پاک کردن حافظه که تیلز هنگام خاموش شدن برای [[محافظت در برابر حملات "
-"راه‌اندازی سرد|doc/advanced_topics/cold_boot_attacks]] به کار می‌برد هنوز برای "
-"توزیع‌های دیگر لینوکس امکان‌پذیر نیست. تمایل داریم در آینده این سازوکار را "
-"برای دبیان بسته‌بندی کنیم."
-
-#. type: Plain text
-msgid ""
-"If you want to implement this feature outside of Tails, have a look at the "
-"corresponding [[design documentation|contribute/design/memory_erasure]]."
-msgstr ""
-"اگر می‌خواهید این ویژگی را خارج از تیلز به کار ببرید، [[سند طراحی|contribute/"
-"design/memory_erasure]] مرتبط را ببینید."
-
-#. type: Plain text
-#, no-wrap
-msgid "<h2 id=\"new-identity\">Where is the <span class=\"guilabel\">New Identity</span> button?</h2>\n"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"There is no <span class=\"guilabel\">New Identity</span> button for Tails as a\n"
-"whole.\n"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"The [[<span class=\"guilabel\">New Identity</span> feature of\n"
-"<span class=\"application\">Tor Browser</span>|doc/anonymous_internet/Tor_Browser#new-identity]]\n"
-"is limited to the browser.\n"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"In the same way as the <span class=\"guilabel\">New Identity</span> button of\n"
-"<span class=\"application\">Tor Browser</span> restarts the browser, you have to\n"
-"restart Tails before using a different identity.\n"
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"See also our warning about [[using Tails sessions for only one purpose at a "
-"time|doc/about/warnings/identity#contextual]]."
 msgstr ""
 
 #. type: Plain text
@@ -1359,6 +1137,117 @@ msgid ""
 msgstr ""
 "برای جزییات بیشتر رجوع کنید به [[!wikipedia Linux_malware desc=\"صفحهٔ "
 "ویکی‌پدیا در مورد بدافزارهای لینوکس\"]]."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+msgid "<h2 id=\"old-software\">Why does Tails include old versions of software?</h2>\n"
+msgstr "استفاده از تیلز روی یک سیستم مشکل‌دار امن است؟\n"
+
+#. type: Plain text
+msgid "The Tails 5 series is based on Debian 12 (Bookworm)."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"The version of each application included in Tails corresponds to the version "
+"available in this version of Debian. Even though some versions might be old, "
+"the [Debian Security Team](https://wiki.debian.org/Teams/Security) provides "
+"security updates."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Newer versions of all applications will be available starting from Tails "
+"7.0, which will be based on Debian 13 (Trixie). Until then, you cannot "
+"update any of the applications included in Tails to a newer version."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"You can see which version of a software package is available in each version "
+"of Debian on <https://packages.debian.org/>."
+msgstr ""
+
+#, fuzzy, no-wrap
+#~ msgid "<h1 id=\"hardware\">Hardware compatibility</h1>\n"
+#~ msgstr "سازگاری سخت‌افزاری\n"
+
+#, fuzzy, no-wrap
+#~ msgid "<h2 id=\"arm\">Does Tails work on ARM architecture, Raspberry Pi, tablets, smartphones (mobile phones), or Apple M1?</h2>\n"
+#~ msgstr "آیا تیلز روی معماری آرم، رزبری پای یا تبلت‌ها کار می‌کند؟\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "For the moment, Tails is only available on the x86_64 architecture.  The "
+#~ "Raspberry Pi, most tablets, and most smartphones (mobile phones) are "
+#~ "based on the ARM architecture. Tails does not work on the ARM "
+#~ "architecture so far."
+#~ msgstr ""
+#~ "در حال حاضر تیلز تنها روی معماری‌های x86 و x86_64 کار می‌کند. رزبری پای و "
+#~ "بسیاری از تبلت‌ها مبتنی بر معماری آرم هستند. تیلز در حال حاضر روی معماری "
+#~ "آرم کار نمی‌کند."
+
+#~ msgid ""
+#~ "Look for a tablet with an AMD or Intel processor. Try to verify its "
+#~ "compatibility with Debian beforehand, for example make sure that the Wi-"
+#~ "Fi interface is supported."
+#~ msgstr ""
+#~ "به دنبال تبلتی با پردازشگر اینتل یا اِی‌ام‌دی باشید. سعی کنید پیش از استفاده "
+#~ "از سازگاری آن با دبیان مطمئن شوید؛ برای نمونه مطمئن شوید که از رابط "
+#~ "وای‌فای آن پشتیبانی می‌شود."
+
+#, fuzzy, no-wrap
+#~ msgid "<h2 id=\"java\">Is Java installed in the <span class=\"application\">Tor Browser</span>?</h2>\n"
+#~ msgstr "آیا جاوا روی <span class=\"application\">مرورگر تور</span> نصب شده‌است؟\n"
+
+#~ msgid ""
+#~ "Tails does not include a Java plugin in its browser because it could "
+#~ "break your anonymity."
+#~ msgstr ""
+#~ "تیلز در مرورگر خود افزایهٔ جاوا ندارد چون ممکن است باعث به خطر افتادن "
+#~ "ناشناسی شما شود."
+
+#, fuzzy, no-wrap
+#~ msgid "<h2 id=\"dns\">How does the DNS resolution work in Tails?</h2>\n"
+#~ msgstr "گره‌گشایی دی‌ان‌اس در تیلز چگونه انجام می‌شود؟\n"
+
+#~ msgid ""
+#~ "See our [[design document|contribute/design/Tor_enforcement/DNS]] on this "
+#~ "topic."
+#~ msgstr ""
+#~ "رجوع کنید به [[سند طراحی|contribute/design/Tor_enforcement/DNS]] ما در "
+#~ "مورد این مساله."
+
+#, fuzzy, no-wrap
+#~ msgid "<h1 id=\"misc\">Other security issues</h1>\n"
+#~ msgstr "مشکلات امنیتی دیگر\n"
+
+#, fuzzy, no-wrap
+#~ msgid "<h2 id=\"older-version\">Is it safe to use an older version of Tails?</h2>\n"
+#~ msgstr "استفاده از تیلز روی یک سیستم مشکل‌دار امن است؟\n"
+
+#, fuzzy, no-wrap
+#~ msgid "<h2 id=\"reuse-memory-wipe\">Can I use the memory wipe feature of Tails on another operating system?</h2>\n"
+#~ msgstr "آیا می‌توان از امکان پاک‌سازی حافظهٔ تیلز در سیستم‌‌عامل‌های دیگر استفاده کرد؟\n"
+
+#, fuzzy
+#~ msgid ""
+#~ "The memory wipe mechanism that Tails uses on shutdown to [[protect "
+#~ "against cold boot attacks|doc/advanced_topics/cold_boot_attacks]] should "
+#~ "be reusable in other Linux distributions."
+#~ msgstr ""
+#~ "سازوکار پاک کردن حافظه که تیلز هنگام خاموش شدن برای [[محافظت در برابر "
+#~ "حملات راه‌اندازی سرد|doc/advanced_topics/cold_boot_attacks]] به کار می‌برد "
+#~ "هنوز برای توزیع‌های دیگر لینوکس امکان‌پذیر نیست. تمایل داریم در آینده این "
+#~ "سازوکار را برای دبیان بسته‌بندی کنیم."
+
+#~ msgid ""
+#~ "If you want to implement this feature outside of Tails, have a look at "
+#~ "the corresponding [[design documentation|contribute/design/"
+#~ "memory_erasure]]."
+#~ msgstr ""
+#~ "اگر می‌خواهید این ویژگی را خارج از تیلز به کار ببرید، [[سند طراحی|"
+#~ "contribute/design/memory_erasure]] مرتبط را ببینید."
 
 #, fuzzy
 #~ msgid "Using a VPN instead of Tor."

@@ -17,4 +17,5 @@ chown -R debian-tor:debian-tor /etc/tor
 # to the persistent volume, with unsafe permissions. That's no big deal
 # in /home/amnesia (that is itself not world-readable), *but* the root
 # of the persistent volume has to be world-readable.
-chmod -R go= /etc/skel/* /etc/skel/.[a-z]*
+chmod -R go= /etc/skel/
+chmod 0755 /etc/skel/

@@ -1,6 +1,3 @@
-Cmnd_Alias TCA = /usr/local/lib/run-tca-in-netns ""
-Defaults!TCA env_keep+="DESKTOP_STARTUP_ID"
-Defaults!TCA env_keep+="NOTIFY_SOCKET"
+Cmnd_Alias TCA = /usr/local/bin/tca
+Defaults!TCA env_keep+="ENVFILE"
 amnesia   ALL = NOPASSWD: TCA
-
-

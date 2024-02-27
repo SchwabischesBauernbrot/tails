@@ -32,7 +32,7 @@ Personal Documents
 <a id="persistent_folder"></a>
 
 <div class="icon">
-[[!img lib/apps/stock_folder.png link="no" alt=""]]
+[[!img lib/apps/folder.png link="no" alt=""]]
 <div class="text"><h2>Persistent Folder</h2></div>
 </div>
 
@@ -186,7 +186,7 @@ files.
 [[!img lib/apps/seahorse-key-ssh.png link="no" alt=""]]
 <div class="text"><h2>SSH Client</h2></div>
 </div>
-    
+
 When the SSH Client feature is turned on, all the files related to the Secure
 Shell (SSH) client are saved in the Persistent Storage:
 
@@ -194,7 +194,7 @@ Shell (SSH) client are saved in the Persistent Storage:
 
 - The public keys of the hosts you connect to
 
-- The SSH configuration file in *~/.ssh/config*
+- The SSH configuration file in */home/amnesia/.ssh/config*
 
 Advanced Settings
 =================
@@ -275,7 +275,7 @@ the above example.</p>
 On Tails and Linux in general, the name of configuration files often starts
 with a dot and are sometimes called [[!wikipedia dotfiles]] for this reason.
 The Dotfiles feature of the Persistent Storage makes it easy to persist such
-"*dotfiles*", for example *~/.gitconfig* or *~/.bashrc*.
+"*dotfiles*", for example */home/amnesia/.gitconfig* or */home/amnesia/.bashrc*.
 
 <div class="caution">
 
@@ -311,9 +311,8 @@ projector), you can save the configuration of your displays using the
    to open the <span class="filename">/live/persistence/TailsData_unlocked/dotfiles</span> folder
    in the <span class="application">Files</span> browser.
 
-1. Click on the <span class="guimenu">[[!img lib/pan-down.png alt="menu toggle"
-   class="symbolic" link="no"]]</span> button in the title bar and choose
-   <span class="guilabel">Show Hidden Files</span>.
+1. Click the [[!img lib/open-menu.png alt="" class="symbolic" link="no"]]
+   button in the title bar and turn on the option **Show Hidden Files**.
 
 1. Create a folder called <span class="filename">.config</span>
    (<span class="filename">config</span> preceded by a dot).

@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import argparse
-from tailslib.netnsdrop import run_in_netns
+from tailslib.netnsdrop import run_in_netns_as_amnesia
 
 
 def main():
@@ -15,7 +15,7 @@ def main():
     parser.add_argument("--wm-class", type=str, action="store")
     args = parser.parse_args()
 
-    run_in_netns(
+    run_in_netns_as_amnesia(
         "/bin/sh",
         "-c",
         f". /usr/local/lib/tails-shell-library/tor-browser.sh && \

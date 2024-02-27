@@ -1,6 +1,6 @@
 [[!meta title="virt-manager"]]
 
-[*virt-manager*](http://virt-manager.org/) is a free software
+[*virt-manager*](http://virt-manager.org/) is a Free Software
 virtualization solution for Linux. *virt-manager* has a more complex
 interface than *VirtualBox* or *GNOME Boxes* but it also has a more
 complete set of features.
@@ -9,19 +9,16 @@ complete set of features.
 
 <div class="tip">
 
-<p><em>virt-manager</em> is the only virtualization
-solution that we present that allows the use of a Persistent
-Storage.</span> See [[Running Tails from a USB
+<p><i>virt-manager</i> is the only virtualization
+solution that allows to use a Persistent
+Storage. See [[running Tails from a USB
 image|virt-manager#usb_image]].</p>
 
 </div>
 
 <div class="note">
 
-<p>The following instructions have been tested on Debian 11 (Bullseye).</p>
-
-<p>Please, [[let us know|about/contact#tails-dev]] if they do not apply
-to Debian 12 (Bookworm).</p>
+<p>The following instructions have been tested on Debian 12 (Bookworm).</p>
 
 </div>
 
@@ -90,7 +87,7 @@ Running Tails from an ISO image
 
    2. Unselect **Automatically detected from the installation media / source**.
 
-   3. Specify **Debian 10** in the field **Choose the operating system you are installing**.
+   3. Specify **Debian 11** in the field **Choose the operating system you are installing**.
 
 1. In *step 3*, allocate at least 2048 MB of RAM.
 
@@ -130,7 +127,7 @@ active</span>", then try to start the default virtual network:
 Running Tails from a USB image
 ==============================
 
-Running Tails from a USB image is the only virtualization solution that
+Running Tails from a USB image is the only virtualization software that
 allows you to use a Persistent Storage in a virtual machine.
 
 1. [[Download Tails as a USB image|install/download]], instead of an ISO image.
@@ -165,7 +162,7 @@ allows you to use a Persistent Storage in a virtual machine.
    1. Choose **Browse...**, and **Browse Local** to browse for the USB image
       that you want to start from.
 
-   1. Specify **Debian 10** in the field **Choose the operating system you are
+   1. Specify **Debian 11** in the field **Choose the operating system you are
       installing**.
 
 1. In *step 3*, allocate at least 2048 MB of RAM.
@@ -260,7 +257,7 @@ Storage|persistent_storage]] on it.
 
 Issues with graphics support in Tails running inside a virtual machine
 with *virt-manager* are common. The best solution can vary depending
-on the version of the virtualization solution and on the virtual
+on the version of the virtualization software and on the virtual
 machine configuration. For example:
 
 - The *Auto resize VM with window* feature does not work in all

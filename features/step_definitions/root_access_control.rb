@@ -47,7 +47,7 @@ end
 
 Then /^I can run a command as root with pkexec$/ do
   step 'I run "pkexec touch /root/pkexec-test" in GNOME Terminal'
-  step 'I enter the sudo password in the pkexec prompt'
+  step 'I enter the sudo password in the GNOME authentication prompt'
   try_for(10, msg: 'The /root/pkexec-test file was not created.') do
     $vm.file_exist?('/root/pkexec-test')
   end
@@ -60,7 +60,12 @@ Then /^I cannot run a command as root with pkexec and the standard passwords$/ d
   end
   sleep 2
   @screen.press('Escape')
-  @screen.wait('PolicyKitAuthCompleteFailure.png', 20)
+  Dogtail::Application.new('gnome-terminal-server')
+                      .child('Terminal', roleName: 'terminal')
+                      .text[
+                        'Error executing command as another user: Request dismissed'
+                      ]
+  assert(!$vm.file_exist?('/root/pkexec-test'))
   # Ensure we don't taint the next tests
   $vm.execute('pkill -u amnesia gnome-terminal')
 end

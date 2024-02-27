@@ -32,7 +32,9 @@ class RequestHandler(SimpleHTTPRequestHandler):
         if self.path == "/":
             self.send_response(200)
             self.end_headers()
-            self.wfile.write(hello_message.encode())
+            body = f"<head><title>{hello_message}</title></head>" \
+                f"<h1>{hello_message}</h1>"
+            self.wfile.write(body.encode())
         elif self.path.startswith("/redirect-to?"):
             # Get the URL to redirect to from the url query string
             url = self.path.split("?url=", 1)[1]

@@ -172,7 +172,7 @@ Some was adapted from File::DirCompare:
 
 =cut
 fun upgraded_or_new_files_in_isos (
-    AbsFile $iso1, AbsFile $iso2, $dir, $whitelist_patterns) {
+    AbsFile $iso1, AbsFile $iso2, $dir, $allowlist_patterns) {
     my $iso1_obj = Device::Cdio::ISO9660::IFS->new(-source => $iso1->stringify);
     my $iso2_obj = Device::Cdio::ISO9660::IFS->new(-source => $iso2->stringify);
 
@@ -183,7 +183,7 @@ fun upgraded_or_new_files_in_isos (
         try { @files_in_dir = $iso_obj->readdir($dir) };
         foreach (@files_in_dir) {
             my $filename = Device::Cdio::ISO9660::name_translate($_->{filename});
-            foreach my $re (@{$whitelist_patterns}) {
+            foreach my $re (@{$allowlist_patterns}) {
                 if ($filename =~ $re) {
                     push @wanted_files, $filename;
                     last;

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-21 23:10+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2024-01-30 14:37+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -190,57 +190,87 @@ msgstr ""
 "**Accessoris** &nbsp;▸ **Netejador de Metadades**."
 
 #. type: Title =
-#, no-wrap
-msgid "Removing metadata from the *Files* browser"
+#, fuzzy, no-wrap
+#| msgid "Removing metadata from the *Files* browser"
+msgid "Removing metadata from the command line"
 msgstr "Eliminació de metadades des del navegador de *Fitxers*"
 
 #. type: Plain text
-msgid "You can also remove metadata directly from the *Files* browser:"
+#, no-wrap
+msgid ""
+"*Metadata Cleaner* is a graphical interface for\n"
+"[*mat2*](https://0xacab.org/jvoisin/mat2).\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy
+#| msgid "You can also remove metadata directly from the *Files* browser:"
+msgid "You can also use *mat2* directly on the command line:"
 msgstr ""
 "També podeu eliminar les metadades directament des del navegador de "
 "*Fitxers*:"
 
 #. type: Bullet: '1. '
-msgid "Open the *Files* browser."
-msgstr "Obriu el navegador de *Fitxers*."
-
-#. type: Bullet: '1. '
-msgid ""
-"Navigate to the folder containing the files that you want to remove metadata "
-"from."
+msgid "Open a *Terminal*."
 msgstr ""
-"Navegueu a la carpeta que conté els fitxers dels quals voleu eliminar les "
-"metadades."
 
 #. type: Bullet: '1. '
-msgid "Select the files that you want to remove metadata from."
-msgstr "Seleccioneu els fitxers dels quals voleu eliminar les metadades."
-
-#. type: Bullet: '1. '
-msgid ""
-"Right-click (on Mac, click with two fingers) on the files and choose "
-"**Remove metadata**."
+msgid "Execute the following command."
 msgstr ""
-"Feu clic amb el botó dret (a Mac, feu clic amb dos dits) als fitxers i trieu "
-"**Elimina metadades**."
-
-#. type: Plain text
-#, no-wrap
-msgid "<div class=\"note\">\n"
-msgstr "<div class=\"note\">\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<p>Both techniques rely on the <a\n"
-"href=\"https://0xacab.org/jvoisin/mat2\">mat2</a> toolkit to remove\n"
-"metadata, so they work on the same file formats and remove the same\n"
-"metadata.</p>\n"
+"   Replace <span class=\"command-placeholder\">file.ext</span> with a path to the\n"
+"   file that you want to clean.\n"
 msgstr ""
-"<p>Ambdues tècniques es basen en el <a\n"
-"href=\"https://0xacab.org/jvoisin/mat2\">mat2</a> per eliminar\n"
-"metadades, de manera que funcionen amb els mateixos formats de fitxer i eliminen les mateixes\n"
-"metadades.</p>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "   <p class=\"command-template\">mat2 <span class=\"command-placeholder\">file.ext</span></p>\n"
+msgstr ""
+
+#. type: Bullet: '1. '
+msgid ""
+"After *mat2* finishes, a copy of your file without metadata is available as "
+"<span class=\"command-placeholder\">file.cleaned.ext</span>."
+msgstr ""
+
+#~ msgid "Open the *Files* browser."
+#~ msgstr "Obriu el navegador de *Fitxers*."
+
+#~ msgid ""
+#~ "Navigate to the folder containing the files that you want to remove "
+#~ "metadata from."
+#~ msgstr ""
+#~ "Navegueu a la carpeta que conté els fitxers dels quals voleu eliminar les "
+#~ "metadades."
+
+#~ msgid "Select the files that you want to remove metadata from."
+#~ msgstr "Seleccioneu els fitxers dels quals voleu eliminar les metadades."
+
+#~ msgid ""
+#~ "Right-click (on Mac, click with two fingers) on the files and choose "
+#~ "**Remove metadata**."
+#~ msgstr ""
+#~ "Feu clic amb el botó dret (a Mac, feu clic amb dos dits) als fitxers i "
+#~ "trieu **Elimina metadades**."
+
+#, no-wrap
+#~ msgid "<div class=\"note\">\n"
+#~ msgstr "<div class=\"note\">\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<p>Both techniques rely on the <a\n"
+#~ "href=\"https://0xacab.org/jvoisin/mat2\">mat2</a> toolkit to remove\n"
+#~ "metadata, so they work on the same file formats and remove the same\n"
+#~ "metadata.</p>\n"
+#~ msgstr ""
+#~ "<p>Ambdues tècniques es basen en el <a\n"
+#~ "href=\"https://0xacab.org/jvoisin/mat2\">mat2</a> per eliminar\n"
+#~ "metadades, de manera que funcionen amb els mateixos formats de fitxer i eliminen les mateixes\n"
+#~ "metadades.</p>\n"
 
 #~ msgid ""
 #~ "- Image files, such as .jpeg, .png, and .gif - *LibreOffice* files, such "

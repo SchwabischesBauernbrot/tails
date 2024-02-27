@@ -69,13 +69,13 @@ Feature: Browsing the web using the Tor Browser
     Given I restart monitoring the AppArmor log of "torbrowser_firefox"
     When I open the address "file:///lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html" in the Tor Browser
     Then I do not see "TorBrowserSynapticManual.png" after at most 5 seconds
-    And AppArmor has denied "torbrowser_firefox" from opening "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html"
+    And AppArmor has denied "torbrowser_firefox" from opening "/usr/lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html"
     Given I restart monitoring the AppArmor log of "torbrowser_firefox"
     When I open the address "file:///live/overlay/rw/home/amnesia/.gnupg/synaptic.html" in the Tor Browser
     Then I do not see "TorBrowserSynapticManual.png" after at most 5 seconds
     # Due to our AppArmor aliases, /live/overlay will be treated
     # as /lib/live/mount/overlay.
-    And AppArmor has denied "torbrowser_firefox" from opening "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html"
+    And AppArmor has denied "torbrowser_firefox" from opening "/usr/lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html"
     # We do not get any AppArmor log for when access to files in /tmp is denied
     # since we explictly override (commit 51c0060) the rules (from the user-tmp
     # abstraction) that would otherwise allow it, and we do so with "deny", which
@@ -157,5 +157,6 @@ Feature: Browsing the web using the Tor Browser
     And the computer reboots Tails
     And I enable persistence
     And I log in to a new session
+    And all notifications have disappeared
     And I start the Tor Browser in offline mode
     Then the Tor Browser has a bookmark to eff.org

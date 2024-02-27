@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-11-17 18:41+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2023-07-13 06:33+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: \n"
@@ -64,19 +64,6 @@ msgstr ""
 "l'ordinateur."
 
 #. type: Plain text
-msgid ""
-"This is how Tails looks when run in a virtual machine on Debian using *GNOME "
-"Boxes*:"
-msgstr ""
-"Voilà ce à quoi ressemble Tails dans une machine virtuelle sous Debian en "
-"utilisant *Machines de GNOME* :"
-
-#. type: Plain text
-#, no-wrap
-msgid "[[!img tails-in-vm.png alt=\"\" link=no]]\n"
-msgstr "[[!img tails-in-vm.png alt=\"\" link=no]]\n"
-
-#. type: Plain text
 #, no-wrap
 msgid "<div class=\"note\">\n"
 msgstr "<div class=\"note\">\n"
@@ -94,6 +81,21 @@ msgstr ""
 #, no-wrap
 msgid "</div>\n"
 msgstr "</div>\n"
+
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "This is how Tails looks when run in a virtual machine on Debian using "
+#| "*GNOME Boxes*:"
+msgid "This is how Tails looks when run in a virtual machine on Debian:"
+msgstr ""
+"Voilà ce à quoi ressemble Tails dans une machine virtuelle sous Debian en "
+"utilisant *Machines de GNOME* :"
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!img tails-in-vm.png class=\"screenshot\" alt=\"Tails desktop in a window on a Debian desktop\"]]\n"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -236,32 +238,21 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<p>The following list includes only free software as we believe that\n"
-"this is a necessary condition for the software to be trustworthy. See the\n"
-"[[previous warning|virtualization#trustworthy]] and our statement about\n"
-"[[free software and public scrutiny|about/trust#free_software]].</p>\n"
+"<p>We only mention Free Software, because we believe that it is a necessary\n"
+"condition to be trustworthy. Proprietary virtualization software exist, such as\n"
+"<i>VMWare</i>, but is not listed here on purpose.</p>\n"
 msgstr ""
-"<p>La liste suivante ne comprend que des logiciels libres car nous pensons\n"
-"que c'est une condition nécessaire pour qu'un logiciel soit digne de confiance. Voir\n"
-"l'[[avertissement précédent|virtualization#trustworthy]] et notre déclaration sur les\n"
-"[[logiciels libres et l'examen publique|about/trust#free_software]].</p>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"<p>Proprietary virtualization software solutions exist such as <span\n"
-"class=\"application\">VMWare</span> but are not listed here on\n"
-"purpose.</p>\n"
-msgstr ""
-"<p>Des logiciels propriétaires de virtualisation existent, tels que <span\n"
-"class=\"application\">VMWare</span>, mais ils ne sont pas listés ici\n"
-"à dessein.</p>\n"
 
 #. type: Bullet: '  - '
+#, fuzzy
+#| msgid ""
+#| "**<em>VirtualBox</em>** is available on Linux, Windows, and Mac. Its free "
+#| "software version does not include support for USB devices and does not "
+#| "allow use of a Persistent Storage."
 msgid ""
-"**<em>VirtualBox</em>** is available on Linux, Windows, and Mac. Its free "
-"software version does not include support for USB devices and does not allow "
-"use of a Persistent Storage."
+"***VirtualBox*** is available on Linux, Windows, and Mac. Its Free Software "
+"version does not include support for USB devices and does not allow to use a "
+"Persistent Storage."
 msgstr ""
 "**<em>VirtualBox</em>** est disponible pour Linux, Windows et Mac. Sa "
 "version libre n'inclut pas la gestion des périphériques USB et ne permet pas "
@@ -269,13 +260,17 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "    [[See the corresponding documentation.|virtualbox]]\n"
-msgstr "    [[Voir la documentation correspondante.|virtualbox]]\n"
+msgid "    See [[running Tails in *VirtualBox*|virtualbox]].\n"
+msgstr ""
 
 #. type: Bullet: '  - '
+#, fuzzy
+#| msgid ""
+#| "**<em>GNOME Boxes</em>** is available on Linux. It has a simple user "
+#| "interface but does not allow use of a Persistent Storage."
 msgid ""
-"**<em>GNOME Boxes</em>** is available on Linux. It has a simple user "
-"interface but does not allow use of a Persistent Storage."
+"***GNOME Boxes*** is only available on Linux. It has a simpler user "
+"interface than *virt-manager* but does not allow to use a Persistent Storage."
 msgstr ""
 "**<em>Machines de GNOME</em>** est disponible pour Linux. Son interface "
 "d'utilisation est simple mais elle ne permet pas l'utilisation du stockage "
@@ -283,13 +278,18 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "    [[See the corresponding documentation.|boxes]]\n"
-msgstr "    [[Voir la documentation correspondante.|boxes]]\n"
+msgid "    See [[running Tails in *GNOME Boxes*|boxes]].\n"
+msgstr ""
 
 #. type: Bullet: '  - '
+#, fuzzy
+#| msgid ""
+#| "**<em>virt-manager</em>** is available on Linux. It has a more complex "
+#| "user interface and allows use of a Persistent Storage, either by:"
 msgid ""
-"**<em>virt-manager</em>** is available on Linux. It has a more complex user "
-"interface and allows use of a Persistent Storage, either by:"
+"***virt-manager*** is only available on Linux. It has a more complex user "
+"interface than *GNOME Boxes* but allows to use a Persistent Storage, either "
+"by:"
 msgstr ""
 "**<em>virt-manager</em>** est disponible pour Linux. Il a une interface "
 "d'utilisation plus complexe et permet l'utilisation du stockage persistant, "
@@ -309,8 +309,46 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "    [[See the corresponding documentation.|virt-manager]]\n"
-msgstr "    [[Voir la documentation correspondante.|virt-manager]]\n"
+msgid "    See [[running Tails in *virt-manager*|virt-manager]].\n"
+msgstr ""
+
+#, no-wrap
+#~ msgid "[[!img tails-in-vm.png alt=\"\" link=no]]\n"
+#~ msgstr "[[!img tails-in-vm.png alt=\"\" link=no]]\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<p>The following list includes only free software as we believe that\n"
+#~ "this is a necessary condition for the software to be trustworthy. See the\n"
+#~ "[[previous warning|virtualization#trustworthy]] and our statement about\n"
+#~ "[[free software and public scrutiny|about/trust#free_software]].</p>\n"
+#~ msgstr ""
+#~ "<p>La liste suivante ne comprend que des logiciels libres car nous pensons\n"
+#~ "que c'est une condition nécessaire pour qu'un logiciel soit digne de confiance. Voir\n"
+#~ "l'[[avertissement précédent|virtualization#trustworthy]] et notre déclaration sur les\n"
+#~ "[[logiciels libres et l'examen publique|about/trust#free_software]].</p>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<p>Proprietary virtualization software solutions exist such as <span\n"
+#~ "class=\"application\">VMWare</span> but are not listed here on\n"
+#~ "purpose.</p>\n"
+#~ msgstr ""
+#~ "<p>Des logiciels propriétaires de virtualisation existent, tels que <span\n"
+#~ "class=\"application\">VMWare</span>, mais ils ne sont pas listés ici\n"
+#~ "à dessein.</p>\n"
+
+#, no-wrap
+#~ msgid "    [[See the corresponding documentation.|virtualbox]]\n"
+#~ msgstr "    [[Voir la documentation correspondante.|virtualbox]]\n"
+
+#, no-wrap
+#~ msgid "    [[See the corresponding documentation.|boxes]]\n"
+#~ msgstr "    [[Voir la documentation correspondante.|boxes]]\n"
+
+#, no-wrap
+#~ msgid "    [[See the corresponding documentation.|virt-manager]]\n"
+#~ msgstr "    [[Voir la documentation correspondante.|virt-manager]]\n"
 
 #~ msgid ""
 #~ "Certain users might not want to restart the computer every time they wish "

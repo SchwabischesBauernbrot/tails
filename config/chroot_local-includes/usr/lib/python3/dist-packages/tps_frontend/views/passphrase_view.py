@@ -15,18 +15,29 @@ logger = getLogger(__name__)
 
 
 def wordlist():
-    # XXX:Bookworm: These wordlists are supported on Bookworm (Bullseye only supports English)
-    # wordlist_dict = {'pt_BR':'pt-br', 'de_DE':'de'}
-    wordlist_dict = dict()
+    wordlist_dict = {
+        "ca": "ca",
+        "de": "de",
+        "es": "es",
+        "it": "it",
+        "pt": "pt-br",
+    }
     default_wordlist = "en_securedrop"
-    return wordlist_dict.get(locale.getlocale()[0], default_wordlist)
+    return wordlist_dict.get(locale.getlocale()[0].split("_")[0], default_wordlist)
 
 
 def get_passphrase_suggestion():
     passphrase = ""
     try:
         p = subprocess.run(
-            ["/usr/bin/diceware", "--no-caps", "-d", " ", "--wordlist", wordlist()],
+            [  # noqa: S603
+                "/usr/bin/diceware",
+                "--no-caps",
+                "-d",
+                " ",
+                "--wordlist",
+                wordlist(),
+            ],
             stdout=subprocess.PIPE,
             check=True,
             text=True,

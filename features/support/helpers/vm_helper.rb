@@ -446,6 +446,8 @@ class VM
   end
 
   def execute_successfully(*args, **options)
+    assert(!options[:spawn], 'Spawned commands provide no feedback about success. ' \
+                             'Just use spawn() instead!')
     p = execute(*args, **options)
     begin
       assert_vmcommand_success(p)

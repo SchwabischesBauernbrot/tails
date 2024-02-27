@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2023-03-10 12:28+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -87,14 +87,14 @@ msgstr ""
 msgid "- Throw your mouse pointer to the top-left hot corner."
 msgstr ""
 
-#. type: Bullet: '- '
+#. type: Plain text
 #, fuzzy
 #| msgid ""
 #| "Click on the [[!img lib/system-shutdown.png alt=\"Power Off\" "
 #| "class=\"symbolic\" link=\"no\"]] button to shut down your computer."
 msgid ""
-"Press the <b>Super</b> ([[!img lib/start.png class=\"symbolic\" link=\"no\" "
-"alt=\"\"]]) key on your keyboard."
+"- Press the [[!img lib/start.png class=\"symbolic\" link=\"no\" "
+"alt=\"Super\"]] key on your keyboard."
 msgstr ""
 "Нажмите [[!img lib/system-shutdown.png alt=\"Выключение\" class=\"symbolic\" "
 "link=\"no\"]] для выключения компьютера."
@@ -122,7 +122,7 @@ msgstr "В меню <span class=\"guimenu\">Приложения</span> можн
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img applications.png link=no alt=\"\"]]\n"
-msgid "[[!img applications.png link=\"no\" alt=\"\"]]\n"
+msgid "[[!img applications.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr "[[!img applications.png link=no alt=\"\"]]\n"
 
 #. type: Plain text
@@ -137,41 +137,20 @@ msgstr "<div class=\"icon\">\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
-#| msgid "[[!img lib/apps/help-browser.png link=no]]\n"
-msgid "[[!img lib/apps/help-browser.png link=\"no\" alt=\"\"]]\n"
-msgstr "[[!img lib/apps/help-browser.png link=no]]\n"
+#| msgid "[[!img lib/apps/files.png link=no alt=\"\"]]\n"
+msgid "  [[!img lib/apps/settings.png link=\"no\" alt=\"\"]]\n"
+msgstr "[[!img lib/apps/files.png link=no alt=\"\"]]\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
-#| msgid ""
-#| "<div class=\"text\">\n"
-#| "  <span class=\"guimenuitem\">Help</span>: to access the <span class=\"application\">GNOME Desktop Help</span> choose\n"
-#| "  <span class=\"menuchoice\">\n"
-#| "    <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-#| "    <span class=\"guimenuitem\">Help</span></span>\n"
-#| "  </div>\n"
-#| "</div>\n"
-msgid ""
-"<div class=\"text\">\n"
-"  <span class=\"guimenuitem\">Help</span>: to access the <span class=\"application\">GNOME Desktop Help</span> choose\n"
-"  <span class=\"menuchoice\">\n"
-"    <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"    <span class=\"guimenuitem\">Help</span></span>\n"
-"  </div>\n"
-"</div>\n"
-msgstr ""
-"<div class=\"text\">\n"
-"  <span class=\"guimenuitem\">Справка</span>: для помощи по <span class=\"application\">рабочему столу GNOME</span> выберите\n"
-"  <span class=\"menuchoice\">\n"
-"    <span class=\"guisubmenu\">Утилиты</span>&nbsp;▸\n"
-"    <span class=\"guimenuitem\">Справка</span></span>\n"
-"  </div>\n"
-"</div>\n"
+#| msgid "<div class=\"next\">\n"
+msgid "  <div class=\"text\">\n"
+msgstr "<div class=\"next\">\n"
 
 #. type: Plain text
 #, no-wrap
-msgid "[[!img lib/apps/preferences-system.png link=\"no\" alt=\"\"]]\n"
-msgstr "[[!img lib/apps/preferences-system.png link=\"no\" alt=\"\"]]\n"
+msgid "    <p><b><i>Settings</i></b></p>\n"
+msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -188,12 +167,8 @@ msgstr "[[!img lib/apps/preferences-system.png link=\"no\" alt=\"\"]]\n"
 #| "  </div>\n"
 #| "</div>\n"
 msgid ""
-"<div class=\"text\">\n"
-"  <b>Settings</b>:\n"
-"  to change various system settings such as keyboard, mouse and touchpad,\n"
-"  or displays, choose <b>System Tools&nbsp;▸ Settings</b>.\n"
-"  </div>\n"
-"</div>\n"
+"    <p>To change various system settings such as keyboard, mouse,\n"
+"    touchpad, or displays, choose <b>System Tools&nbsp;▸ Settings</b>.</p>\n"
 msgstr ""
 "<div class=\"text\">\n"
 "  <span class=\"guimenuitem\">Параметры</span>:\n"
@@ -206,26 +181,29 @@ msgstr ""
 "</div>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<div class=\"next\">\n"
+#, fuzzy, no-wrap
+#| msgid "<div class=\"next\">\n"
+msgid "    <div class=\"next\">\n"
 msgstr "<div class=\"next\">\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<p>By default, any setting that you change in Tails is lost when you shut down\n"
-"Tails. Only the settings that you saved in the [[Persistent\n"
-"Storage|persistent_storage]] are restored when you restart Tails.</p>\n"
+"    <p>By default, any setting that you change in Tails is lost when you shut\n"
+"    down. Only the settings that you saved in the [[Persistent\n"
+"    Storage|persistent_storage]] are restored when you restart Tails.</p>\n"
 msgstr ""
 
 #. type: Plain text
-#, no-wrap
-msgid "</div>\n"
-msgstr "</div>\n"
+#, fuzzy, no-wrap
+#| msgid "  </div>\n"
+msgid "    </div>\n"
+msgstr "  </div>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<div class=\"tip\">\n"
+#, fuzzy, no-wrap
+#| msgid "<div class=\"tip\">\n"
+msgid "    <div class=\"tip\">\n"
 msgstr "<div class=\"tip\">\n"
 
 #. type: Plain text
@@ -236,48 +214,58 @@ msgstr "<div class=\"tip\">\n"
 #| "<span class=\"guimenuitem\">Devices</span>&nbsp;▸\n"
 #| "<span class=\"guimenuitem\">Keyboard</span>.</p>\n"
 msgid ""
-"<p>To learn about the many keyboard shortcuts in GNOME,\n"
-"open the <i>Settings</i> utility and choose\n"
-"<b>Keyboard Shortcuts</b>.</p>\n"
+"    <p>To learn about the many keyboard shortcuts in GNOME, open the\n"
+"    <i>Settings</i>. At the bottom of the <b>Keyboard</b> section, choose\n"
+"    <b>View and Customize Shortcuts</b>.</p>\n"
 msgstr ""
 "<p>Хотите познакомиться с богатым семейством клавиатурных комбинаций в GNOME? Выберите в <span class=\"application\">Параметрах</span> пункт <span class=\"guimenuitem\">Устройства</span>&nbsp;▸\n"
 "<span class=\"guimenuitem\">Клавиатура</span>.</p>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "[[!img lib/apps/help-about.png link=no]]\n"
-msgid "[[!img lib/apps/help-about.png link=\"no\" alt=\"\"]]\n"
-msgstr "[[!img lib/apps/help-about.png link=no]]\n"
+#, no-wrap
+msgid "  </div>\n"
+msgstr "  </div>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "</div>\n"
+msgstr "</div>\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
-#| msgid ""
-#| "<div class=\"text\">\n"
-#| "  <span class=\"guimenuitem\">About Tails</span>:\n"
-#| "  to know the version of Tails that you are currently running, choose\n"
-#| "  <span class=\"menuchoice\">\n"
-#| "    <span class=\"guisubmenu\">Tails</span>&nbsp;▸\n"
-#| "    <span class=\"guimenuitem\">About Tails</span></span>\n"
-#| "  </div>\n"
-#| "</div>\n"
-msgid ""
-"<div class=\"text\">\n"
-"  <span class=\"guimenuitem\">About Tails</span>:\n"
-"  to know the version of Tails that you are currently running, choose\n"
-"  <span class=\"menuchoice\">\n"
-"    <span class=\"guisubmenu\">Tails</span>&nbsp;▸\n"
-"    <span class=\"guimenuitem\">About Tails</span></span>\n"
-"  </div>\n"
-"</div>\n"
+#| msgid "[[!img lib/apps/help-about.png link=no]]\n"
+msgid "  [[!img lib/apps/help-about.png link=\"no\" alt=\"\"]]\n"
+msgstr "[[!img lib/apps/help-about.png link=no]]\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "  <p><b><i>About Tails</i></b></p>\n"
 msgstr ""
-"<div class=\"text\">\n"
-"  <span class=\"guimenuitem\">О Tails</span>:\n"
-"  чтобы узнать текущую версию Tails, в меню **Приложения** выберите\n"
-"  <span class=\"menuchoice\">\n"
-"    <span class=\"guisubmenu\">Tails</span>&nbsp;▸\n"
-"    <span class=\"guimenuitem\">About Tails</span></span>\n"
-"  </div>\n"
-"</div>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"  <p>To know the version of Tails that you are currently running, choose\n"
+"  <b>Tails</b>&nbsp;▸ <b>About Tails</b>.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "[[!img lib/apps/help-browser.png link=no]]\n"
+msgid "  [[!img lib/apps/help-browser.png link=\"no\" alt=\"\"]]\n"
+msgstr "[[!img lib/apps/help-browser.png link=no]]\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "  <p><b><i>Help</i></b></p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"  <p>To access the <b>GNOME Desktop Help</b>, choose\n"
+"  <b>Utilities</b>&nbsp;▸ <b>Help</b>.</p>\n"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -294,147 +282,145 @@ msgstr "В <span class=\"guisubmenu\">Избранном</span> вы найдё�
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img lib/apps/tor-browser.png link=no]]\n"
-msgid "[[!img lib/apps/tor-browser.png link=\"no\" alt=\"\"]]\n"
+msgid "  [[!img lib/apps/tor-browser.png link=\"no\" alt=\"\"]]\n"
 msgstr "[[!img lib/apps/tor-browser.png link=no]]\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<div class=\"text\">\n"
-"<strong>Tor Browser</strong> to browse the web anonymously and uncensored<br/>\n"
-"[[See our documentation on browsing the web with <i>Tor Browser</i>|anonymous_internet/Tor_Browser]]\n"
-"</div>\n"
-"</div>\n"
+"  <p><b><i>Tor Browser</i></b> allows you to browse the web anonymously\n"
+"  and uncensored.</p>\n"
 msgstr ""
-"<div class=\"text\">\n"
-"<strong>Tor Browser</strong> для анонимного веб-сёрфинга без цензуры<br/>\n"
-"[[См. нашу документацию о веб-сёрфинге с <i>Tor Browser</i>|anonymous_internet/Tor_Browser]]\n"
-"</div>\n"
-"</div>\n"
 
 #. type: Plain text
 #, no-wrap
-msgid "[[!img lib/apps/tor-connection.png link=\"no\" alt=\"\"]]\n"
+msgid "  <p>See [[browsing the web with <i>Tor Browser</i>|anonymous_internet/Tor_Browser]].</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "[[!img lib/apps/tor-connection.png link=\"no\" alt=\"\"]]\n"
+msgid "  [[!img lib/apps/tor-connection.png link=\"no\" alt=\"\"]]\n"
 msgstr "[[!img lib/apps/tor-connection.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<div class=\"text\">\n"
-"<strong>Tor Connection</strong> to connect to the Tor network<br/>\n"
-"[[See our documentation on connecting to Tor|anonymous_internet/tor]]\n"
-"</div>\n"
-"</div>\n"
+"  <p><b><i>Tor Connection</i></b> allows you to connect to the Tor\n"
+"  network.</p>\n"
 msgstr ""
-"<div class=\"text\">\n"
-"<strong>Tor Connection</strong> для подключения к сети Tor<br/>\n"
-"[[См. нашу документацию по подключению к Tor|anonymous_internet/tor]]\n"
-"</div>\n"
-"</div>\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "See also the documentation on [[connecting to a network|anonymous_internet/networkmanager]]."
+msgid "  <p>See [[connecting to Tor|anonymous_internet/tor]].</p>\n"
+msgstr "См. также документацию по [[подключению к сетям|anonymous_internet/networkmanager]]."
 
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img lib/apps/files.png link=no alt=\"\"]]\n"
-msgid "[[!img lib/apps/persistent_storage.png link=\"no\" alt=\"\"]]\n"
+msgid "  [[!img lib/apps/persistent_storage.png link=\"no\" alt=\"\"]]\n"
 msgstr "[[!img lib/apps/files.png link=no alt=\"\"]]\n"
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"  <p><b><i>Persistent Storage</i></b> allows you to save some of your\n"
+"  files and configuration in an encrypted Persistent Storage on your Tails\n"
+"  USB stick.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "  <p>See [[Persistent Storage|persistent_storage]].</p>\n"
+msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid ""
 #| "<div class=\"text\">\n"
-#| "<strong>Configure persistent volume</strong> to create and configure a Persistent Storage on your Tails USB stick<br/>\n"
-#| "[[See our documentation on the encrypted Persistent Storage|persistence]]\n"
-#| "</div>\n"
+#| "<strong>Tails documentation</strong> to open an offline version of the Tails website and documentation, embeded in Tails<br/>\n"
 #| "</div>\n"
 msgid ""
-"<div class=\"text\">\n"
-"<strong>Persistent Storage</strong> to create and configure a Persistent Storage on your Tails USB stick<br/>\n"
-"[[See our documentation on the Persistent Storage|persistent_storage]]\n"
-"</div>\n"
-"</div>\n"
+"  <p><b><i>Tails Documentation</i></b> opens an offline version of the Tails\n"
+"  website and documentation.</p>\n"
 msgstr ""
 "<div class=\"text\">\n"
-"<strong>Configure persistent volume</strong> для создания и настройки Постоянного хранилища на вашей флешке Tails<br/>\n"
-"[[См. нашу документацию по шифрованному Постоянному хранилищу|persistence]]\n"
+"<strong>Tails documentation</strong> для работы с офлайновой версией сайта  и документации Tails<br/>\n"
 "</div>\n"
-"</div>\n"
-
-#. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "[[!img lib/apps/tails-help.png link=no]]\n"
-msgid "[[!img lib/apps/tails-help.png link=\"no\" alt=\"\"]]\n"
-msgstr "[[!img lib/apps/tails-help.png link=no]]\n"
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"<div class=\"text\">\n"
-"<strong>Tails documentation</strong> to open an offline version of the Tails website and documentation, embeded in Tails<br/>\n"
-"</div>\n"
-"</div>\n"
+msgid "  <p>See our [[documentation|doc]].</p>\n"
 msgstr ""
-"<div class=\"text\">\n"
-"<strong>Tails documentation</strong> для пользования офлайновой версией сайта и документации Tails<br/>\n"
-"</div>\n"
-"</div>\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img lib/apps/whisperback.png link=no]]\n"
-msgid "[[!img lib/apps/whisperback.png link=\"no\" alt=\"\"]]\n"
+msgid "  [[!img lib/apps/whisperback.png link=\"no\" alt=\"\"]]\n"
 msgstr "[[!img lib/apps/whisperback.png link=no]]\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<div class=\"text\">\n"
-"<strong>WhisperBack Error Reporting</strong> to report problems about Tails to our team<br/>\n"
-"[[See our documentation on reporting an error|bug_reporting]]\n"
-"</div>\n"
-"</div>\n"
+"  <p><b><i>WhisperBack Error Reporting</i></b> allows you to report\n"
+"  problems to our team.</p>\n"
 msgstr ""
-"<div class=\"text\">\n"
-"<strong>WhisperBack Error Reporting</strong> для сообщений нашей команде о проблемах в Tails <br/>\n"
-"[[См. нашу документацию о том, как сообщать об ошибках|bug_reporting]]\n"
-"</div>\n"
-"</div>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "  <p>See [[reporting an error|whisperback]].</p>\n"
+msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img lib/apps/tails-installer.png link=no]]\n"
-msgid "[[!img lib/apps/tails-installer.png link=\"no\" alt=\"\"]]\n"
+msgid "  [[!img lib/apps/tails-installer.png link=\"no\" alt=\"\"]]\n"
 msgstr "[[!img lib/apps/tails-installer.png link=no]]\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<div class=\"text\">\n"
-#| "<strong>Tails Installer</strong> to clone Tails to another USB stick<br/>\n"
-#| "</div>\n"
-#| "</div>\n"
+#, no-wrap
 msgid ""
-"<div class=\"text\">\n"
-"<strong>Tails Cloner</strong> to clone Tails to another USB stick<br/>\n"
-"</div>\n"
-"</div>\n"
+"  <p><b><i>Tails Cloner</i></b> allows you to clone your Tails to another\n"
+"  USB stick and back up your Persistent Storage.</p>\n"
 msgstr ""
-"<div class=\"text\">\n"
-"<strong>Tails Installer</strong> для клонирования Tails на другую флешку<br/>\n"
-"</div>\n"
-"</div>\n"
 
 #. type: Plain text
 #, no-wrap
-msgid "[[!img lib/apps/thunderbird.png link=\"no\" alt=\"\"]]\n"
+msgid "  <p>See [[installing by cloning from another Tails on PC|install/clone]].</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "</div>\n"
+msgid ""
+"</div>\n"
+"</div>\n"
+msgstr "</div>\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "[[!img lib/apps/thunderbird.png link=\"no\" alt=\"\"]]\n"
+msgid "  [[!img lib/apps/thunderbird.png link=\"no\" alt=\"\"]]\n"
 msgstr "[[!img lib/apps/thunderbird.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<div class=\"text\"><strong>Thunderbird</strong> email client<br />\n"
-"[[See our documentation on emailing and reading news with <i>Thunderbird</i>|anonymous_internet/thunderbird]]\n"
-"</div>\n"
-"</div>\n"
+"  <p><b><i>Thunderbird</i></b> allows you to write emails and read RSS and\n"
+"  Atom feeds.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<div class=\"text\"><strong>Thunderbird</strong> email client<br />\n"
+#| "[[See our documentation on emailing and reading news with <i>Thunderbird</i>|anonymous_internet/thunderbird]]\n"
+#| "</div>\n"
+#| "</div>\n"
+msgid ""
+"  <p>See [[emailing and reading news with\n"
+"  <i>Thunderbird</i>|anonymous_internet/thunderbird]].</p>\n"
 msgstr ""
 "<div class=\"text\"><strong>Thunderbird</strong> клиент email<br />\n"
 "[[См. нашу документацию по использованию email и чтению новостей с помощью <i>Thunderbird</i>|anonymous_internet/thunderbird]]\n"
@@ -444,17 +430,27 @@ msgstr ""
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img lib/apps/keepassxc.png link=no]]\n"
-msgid "[[!img lib/apps/keepassxc.png link=\"no\" alt=\"\"]]\n"
+msgid "  [[!img lib/apps/keepassxc.png link=\"no\" alt=\"\"]]\n"
 msgstr "[[!img lib/apps/keepassxc.png link=no]]\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<div class=\"text\">\n"
-"<strong>KeePassXC</strong> password manager<br/>\n"
-"[[See our documentation on managing passwords with <i>KeePassXC</i>|encryption_and_privacy/manage_passwords]]\n"
-"</div>\n"
-"</div>\n"
+"  <p><b><i>KeePassXC</i></b> allows you to store and manage secure\n"
+"  passwords.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<div class=\"text\">\n"
+#| "<strong>KeePassXC</strong> password manager<br/>\n"
+#| "[[See our documentation on managing passwords with <i>KeePassXC</i>|encryption_and_privacy/manage_passwords]]\n"
+#| "</div>\n"
+#| "</div>\n"
+msgid ""
+"  <p>See [[managing passwords with\n"
+"  <i>KeePassXC</i>|encryption_and_privacy/manage_passwords]].</p>\n"
 msgstr ""
 "<div class=\"text\">\n"
 "<strong>KeePassXC</strong> парольный менеджер<br/>\n"
@@ -463,24 +459,24 @@ msgstr ""
 "</div>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "[[!img lib/apps/pidgin.png link=\"no\" alt=\"\"]]\n"
-msgstr "[[!img lib/apps/pidgin.png link=\"no\" alt=\"\"]]\n"
+#, fuzzy, no-wrap
+#| msgid "[[!img lib/apps/keepassxc.png link=no]]\n"
+msgid "  [[!img lib/apps/kleopatra.png link=\"no\" alt=\"\"]]\n"
+msgstr "[[!img lib/apps/keepassxc.png link=no]]\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<div class=\"text\">\n"
-"<strong>Pidgin Internet Messenger</strong><br/>\n"
-"[[See our documentation on chatting with <i>Pidgin</i> and OTR|anonymous_internet/pidgin]]\n"
-"</div>\n"
-"</div>\n"
+"  <p><b><i>Kleopatra</i></b> allows you to encrypt text and files using\n"
+"  <i>GnuPG</i>.</p>\n"
 msgstr ""
-"<div class=\"text\">\n"
-"<strong>Pidgin</strong> мессенджер<br/>\n"
-"[[См. нашу документацию об обмене сообщениями с помощью <i>Pidgin</i> и OTR|anonymous_internet/pidgin]]\n"
-"</div>\n"
-"</div>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"  <p>See [[encrypting text and files using <i>GnuPG</i> and\n"
+"  <i>Kleopatra</i>|encryption_and_privacy/kleopatra]].</p>\n"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -497,7 +493,7 @@ msgstr "Через меню <span class=\"guimenu\">Места</span> можно
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img places.png link=no alt=\"\"]]\n"
-msgid "[[!img places.png link=\"no\" alt=\"\"]]\n"
+msgid "[[!img places.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr "[[!img places.png link=no alt=\"\"]]\n"
 
 #. type: Plain text
@@ -517,7 +513,7 @@ msgstr ""
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img tor-status.png link=no alt=\"\"]]\n"
-msgid "[[!img tor-status.png link=\"no\" alt=\"\"]]\n"
+msgid "[[!img tor_status.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr "[[!img tor-status.png link=no alt=\"\"]]\n"
 
 #. type: Plain text
@@ -528,14 +524,19 @@ msgstr ""
 "[[См. нашу документацию о *цепочках Onion*.|anonymous_internet/tor/circuits]]"
 
 #. type: Plain text
-#, no-wrap
-msgid "<h2 id=\"accessibility\">Universal access</h2>\n"
+#, fuzzy, no-wrap
+#| msgid "<h2 id=\"accessibility\">Universal access</h2>\n"
+msgid "<h2 id=\"accessibility\">Accessibility</h2>\n"
 msgstr "<h2 id=\"accessibility\">Универсальный доступ</h2>\n"
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "The universal access menu allows you to activate the screen reader, "
+#| "screen keyboard, large text display, and other accessibility technologies."
 msgid ""
-"The universal access menu allows you to activate the screen reader, screen "
-"keyboard, large text display, and other accessibility technologies."
+"The accessibility menu allows you to activate the screen reader, screen "
+"keyboard, large text display, and other assistive technologies."
 msgstr ""
 "В меню универсального доступа можно включить экранного диктора, экранную "
 "клавиатуру, крупный шрифт и другие функции, облегчающие использование Tails."
@@ -566,7 +567,7 @@ msgstr ""
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img keyboard.png link=no alt=\"\"]]\n"
-msgid "[[!img keyboard.png link=\"no\" alt=\"\"]]\n"
+msgid "[[!img keyboard.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr "[[!img keyboard.png link=no alt=\"\"]]\n"
 
 #. type: Plain text
@@ -587,7 +588,7 @@ msgstr ""
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img system.png link=no alt=\"\"]]\n"
-msgid "[[!img system.png link=\"no\" alt=\"\"]]\n"
+msgid "[[!img system-with-wired.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr "[[!img system.png link=no alt=\"\"]]\n"
 
 #. type: Plain text
@@ -648,11 +649,6 @@ msgstr ""
 msgid "  <p class=\"command\">gsettings set org.gnome.desktop.screensaver lock-enabled false</p>\n"
 msgstr "  <p class=\"pre command\">gsettings set org.gnome.desktop.screensaver lock-enabled false</p>\n"
 
-#. type: Plain text
-#, no-wrap
-msgid "  </div>\n"
-msgstr "  </div>\n"
-
 #. type: Bullet: '- '
 msgid ""
 "Otherwise, you can set up a password to unlock your screen when locking your "
@@ -664,7 +660,7 @@ msgstr ""
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "  [[!img screen-locker.png alt=\"\" link=\"no\"]]\n"
-msgid "  [[!img screen-locker.png link=\"no\" alt=\"\"]]\n"
+msgid "  [[!img screen_locker.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr "  [[!img screen-locker.png alt=\"\" link=\"no\"]]\n"
 
 #. type: Plain text
@@ -705,10 +701,15 @@ msgid ""
 msgstr "<p>Если, пока ваш компьютер в ждущем режиме, вы удалите из USB-порта флешку с Tails, компьютер выключится не сразу, а когда вы нажмёте кнопку питания.</p>\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<p>An attacker with physical access to your computer and capable of finding\n"
+#| "your screen locker password or setting up a [[cold-boot\n"
+#| "attack|doc/advanced_topics/cold_boot_attacks]] can compromise your Tails while\n"
+#| "suspended.</p>\n"
 msgid ""
 "<p>An attacker with physical access to your computer and capable of finding\n"
-"your screen locker password or setting up a [[cold-boot\n"
+"your screen locker password or setting up a [[cold boot\n"
 "attack|doc/advanced_topics/cold_boot_attacks]] can compromise your Tails while\n"
 "suspended.</p>\n"
 msgstr "<p>Злоумышленник с физическим доступом к вашему компьютеру и знанием пароля к блокировщику экрана или способностью организовать [[атаку с холодной загрузкой|doc/advanced_topics/cold_boot_attacks]] может скомпрометировать вашу копию Tails в ждущем режиме.</p>\n"
@@ -720,47 +721,88 @@ msgstr "<p>Для большей безопасности [[полностью �
 
 #. type: Plain text
 #, no-wrap
+msgid "<h3 id=\"night_and_dark\">Dark Mode and Night Light</h3>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "From the system menu, you can choose which Wi-Fi network to connect to."
+msgid "From the system menu, you can switch between:"
+msgstr "В системном меню можно выбрать сеть wi-fi для подключения."
+
+#. type: Plain text
+msgid "- The default *light* mode with colder colors and more brightness"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "[[!img places.png link=no alt=\"\"]]\n"
+msgid "  [[!img light.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
+msgstr "[[!img places.png link=no alt=\"\"]]\n"
+
+#. type: Plain text
+msgid "- A *dark* mode"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "[[!img keyboard.png link=no alt=\"\"]]\n"
+msgid "  [[!img dark.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
+msgstr "[[!img keyboard.png link=no alt=\"\"]]\n"
+
+#. type: Plain text
+msgid "- A *night light* mode with warmer colors and less brightness"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "[[!img nautilus.png link=no]]\n"
+msgid "  [[!img night.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
+msgstr "[[!img nautilus.png link=no]]\n"
+
+#. type: Plain text
+msgid "- A combination of both the *dark* mode and *night light* mode"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "[[!img keyboard.png link=no alt=\"\"]]\n"
+msgid "  [[!img dark_night.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
+msgstr "[[!img keyboard.png link=no alt=\"\"]]\n"
+
+#. type: Plain text
+#, no-wrap
 msgid "<h1 id=\"shortcuts\">Desktop shortcuts</h1>\n"
 msgstr "<h1 id=\"shortcuts\">Ярлыки на рабочем столе</h1>\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<div class=\"text\">\n"
+#| "<strong>Tails documentation</strong> to open an offline version of the Tails website and documentation, embeded in Tails<br/>\n"
+#| "</div>\n"
 msgid ""
-"<div class=\"text\">\n"
-"<strong>Tails documentation</strong> to open an offline version of the Tails website and documentation, embeded in Tails<br/>\n"
-"</div>\n"
+"  <p><b><i>Tails documentation</i></b> opens an offline version of the Tails\n"
+"  website and documentation.</p>\n"
 msgstr ""
 "<div class=\"text\">\n"
 "<strong>Tails documentation</strong> для работы с офлайновой версией сайта  и документации Tails<br/>\n"
 "</div>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid ""
-"<div class=\"text\">\n"
-"<strong>Report an error</strong> to report problems about Tails to our team<br/>\n"
-"[[See our documentation on reporting an error|bug_reporting]]\n"
-"</div>\n"
-"</div>\n"
-msgstr ""
-"<div class=\"text\">\n"
-"<strong>Report an error</strong> для сообщений нашей команде о проблемах с Tails<br/>\n"
-"[[См. нашу документацию о том, как сообщать об ошибках|bug_reporting]]\n"
-"</div>\n"
-"</div>\n"
-
-#. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img user-home.png link=no]]\n"
-msgid "[[!img user-trash.png link=\"no\" alt=\"\"]]\n"
+msgid "  [[!img user-trash.png link=\"no\" alt=\"\"]]\n"
 msgstr "[[!img user-home.png link=no]]\n"
 
 #. type: Plain text
-#, no-wrap
-msgid ""
-"<div class=\"text\"><strong>Trash</strong>, where the \"deleted\" files are\n"
-"moved</div>\n"
-"</div>\n"
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<div class=\"text\"><strong>Trash</strong>, where the \"deleted\" files are\n"
+#| "moved</div>\n"
+#| "</div>\n"
+msgid "  <p><b><i>Trash</i></b> is where the deleted files are moved.</p>\n"
 msgstr ""
 "<div class=\"text\"><strong>Корзина</strong>, куда отправляются «удалённые» файлы</div>\n"
 "</div>\n"
@@ -777,12 +819,6 @@ msgstr ""
 "          to from wiki/src/doc/advanced_topics/internal_hard_disk.mdwn\n"
 "-->\n"
 "<h1 id=\"files\">Файловый менеджер  <span class=\"application\">Файлы</span></h1>\n"
-
-#. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "[[!img nautilus.png link=no]]\n"
-msgid "[[!img nautilus.png link=\"no\" alt=\"\"]]\n"
-msgstr "[[!img nautilus.png link=no]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -851,6 +887,193 @@ msgstr "   <p class=\"pre command\">ssh://user@example.com/</p>\n"
 #. type: Bullet: '1. '
 msgid "Click <span class=\"bold\">Connect</span>."
 msgstr "Нажмите кнопку <span class=\"bold\">Подключиться</span>."
+
+#, fuzzy, no-wrap
+#~| msgid ""
+#~| "<div class=\"text\">\n"
+#~| "  <span class=\"guimenuitem\">Help</span>: to access the <span class=\"application\">GNOME Desktop Help</span> choose\n"
+#~| "  <span class=\"menuchoice\">\n"
+#~| "    <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~| "    <span class=\"guimenuitem\">Help</span></span>\n"
+#~| "  </div>\n"
+#~| "</div>\n"
+#~ msgid ""
+#~ "<div class=\"text\">\n"
+#~ "  <span class=\"guimenuitem\">Help</span>: to access the <span class=\"application\">GNOME Desktop Help</span> choose\n"
+#~ "  <span class=\"menuchoice\">\n"
+#~ "    <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~ "    <span class=\"guimenuitem\">Help</span></span>\n"
+#~ "  </div>\n"
+#~ "</div>\n"
+#~ msgstr ""
+#~ "<div class=\"text\">\n"
+#~ "  <span class=\"guimenuitem\">Справка</span>: для помощи по <span class=\"application\">рабочему столу GNOME</span> выберите\n"
+#~ "  <span class=\"menuchoice\">\n"
+#~ "    <span class=\"guisubmenu\">Утилиты</span>&nbsp;▸\n"
+#~ "    <span class=\"guimenuitem\">Справка</span></span>\n"
+#~ "  </div>\n"
+#~ "</div>\n"
+
+#, no-wrap
+#~ msgid "[[!img lib/apps/preferences-system.png link=\"no\" alt=\"\"]]\n"
+#~ msgstr "[[!img lib/apps/preferences-system.png link=\"no\" alt=\"\"]]\n"
+
+#, fuzzy, no-wrap
+#~| msgid ""
+#~| "<div class=\"text\">\n"
+#~| "  <span class=\"guimenuitem\">About Tails</span>:\n"
+#~| "  to know the version of Tails that you are currently running, choose\n"
+#~| "  <span class=\"menuchoice\">\n"
+#~| "    <span class=\"guisubmenu\">Tails</span>&nbsp;▸\n"
+#~| "    <span class=\"guimenuitem\">About Tails</span></span>\n"
+#~| "  </div>\n"
+#~| "</div>\n"
+#~ msgid ""
+#~ "<div class=\"text\">\n"
+#~ "  <span class=\"guimenuitem\">About Tails</span>:\n"
+#~ "  to know the version of Tails that you are currently running, choose\n"
+#~ "  <span class=\"menuchoice\">\n"
+#~ "    <span class=\"guisubmenu\">Tails</span>&nbsp;▸\n"
+#~ "    <span class=\"guimenuitem\">About Tails</span></span>\n"
+#~ "  </div>\n"
+#~ "</div>\n"
+#~ msgstr ""
+#~ "<div class=\"text\">\n"
+#~ "  <span class=\"guimenuitem\">О Tails</span>:\n"
+#~ "  чтобы узнать текущую версию Tails, в меню **Приложения** выберите\n"
+#~ "  <span class=\"menuchoice\">\n"
+#~ "    <span class=\"guisubmenu\">Tails</span>&nbsp;▸\n"
+#~ "    <span class=\"guimenuitem\">About Tails</span></span>\n"
+#~ "  </div>\n"
+#~ "</div>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Tor Browser</strong> to browse the web anonymously and uncensored<br/>\n"
+#~ "[[See our documentation on browsing the web with <i>Tor Browser</i>|anonymous_internet/Tor_Browser]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
+#~ msgstr ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Tor Browser</strong> для анонимного веб-сёрфинга без цензуры<br/>\n"
+#~ "[[См. нашу документацию о веб-сёрфинге с <i>Tor Browser</i>|anonymous_internet/Tor_Browser]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Tor Connection</strong> to connect to the Tor network<br/>\n"
+#~ "[[See our documentation on connecting to Tor|anonymous_internet/tor]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
+#~ msgstr ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Tor Connection</strong> для подключения к сети Tor<br/>\n"
+#~ "[[См. нашу документацию по подключению к Tor|anonymous_internet/tor]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
+
+#, fuzzy, no-wrap
+#~| msgid ""
+#~| "<div class=\"text\">\n"
+#~| "<strong>Configure persistent volume</strong> to create and configure a Persistent Storage on your Tails USB stick<br/>\n"
+#~| "[[See our documentation on the encrypted Persistent Storage|persistence]]\n"
+#~| "</div>\n"
+#~| "</div>\n"
+#~ msgid ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Persistent Storage</strong> to create and configure a Persistent Storage on your Tails USB stick<br/>\n"
+#~ "[[See our documentation on the Persistent Storage|persistent_storage]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
+#~ msgstr ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Configure persistent volume</strong> для создания и настройки Постоянного хранилища на вашей флешке Tails<br/>\n"
+#~ "[[См. нашу документацию по шифрованному Постоянному хранилищу|persistence]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
+
+#, fuzzy, no-wrap
+#~| msgid "[[!img lib/apps/tails-help.png link=no]]\n"
+#~ msgid "[[!img lib/apps/tails-help.png link=\"no\" alt=\"\"]]\n"
+#~ msgstr "[[!img lib/apps/tails-help.png link=no]]\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Tails documentation</strong> to open an offline version of the Tails website and documentation, embeded in Tails<br/>\n"
+#~ "</div>\n"
+#~ "</div>\n"
+#~ msgstr ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Tails documentation</strong> для пользования офлайновой версией сайта и документации Tails<br/>\n"
+#~ "</div>\n"
+#~ "</div>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>WhisperBack Error Reporting</strong> to report problems about Tails to our team<br/>\n"
+#~ "[[See our documentation on reporting an error|bug_reporting]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
+#~ msgstr ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>WhisperBack Error Reporting</strong> для сообщений нашей команде о проблемах в Tails <br/>\n"
+#~ "[[См. нашу документацию о том, как сообщать об ошибках|bug_reporting]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
+
+#, fuzzy, no-wrap
+#~| msgid ""
+#~| "<div class=\"text\">\n"
+#~| "<strong>Tails Installer</strong> to clone Tails to another USB stick<br/>\n"
+#~| "</div>\n"
+#~| "</div>\n"
+#~ msgid ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Tails Cloner</strong> to clone Tails to another USB stick<br/>\n"
+#~ "</div>\n"
+#~ "</div>\n"
+#~ msgstr ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Tails Installer</strong> для клонирования Tails на другую флешку<br/>\n"
+#~ "</div>\n"
+#~ "</div>\n"
+
+#, no-wrap
+#~ msgid "[[!img lib/apps/pidgin.png link=\"no\" alt=\"\"]]\n"
+#~ msgstr "[[!img lib/apps/pidgin.png link=\"no\" alt=\"\"]]\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Pidgin Internet Messenger</strong><br/>\n"
+#~ "[[See our documentation on chatting with <i>Pidgin</i> and OTR|anonymous_internet/pidgin]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
+#~ msgstr ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Pidgin</strong> мессенджер<br/>\n"
+#~ "[[См. нашу документацию об обмене сообщениями с помощью <i>Pidgin</i> и OTR|anonymous_internet/pidgin]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Report an error</strong> to report problems about Tails to our team<br/>\n"
+#~ "[[See our documentation on reporting an error|bug_reporting]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
+#~ msgstr ""
+#~ "<div class=\"text\">\n"
+#~ "<strong>Report an error</strong> для сообщений нашей команде о проблемах с Tails<br/>\n"
+#~ "[[См. нашу документацию о том, как сообщать об ошибках|bug_reporting]]\n"
+#~ "</div>\n"
+#~ "</div>\n"
 
 #~ msgid ""
 #~ "The Tor status icon and *Onion Circuits* allow you to view the status of "

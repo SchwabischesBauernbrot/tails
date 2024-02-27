@@ -1,5 +1,5 @@
 from gi.repository import Gio
-from typing import List, Optional
+from typing import Optional
 
 import psutil
 
@@ -12,7 +12,7 @@ logger = tps.logging.get_logger(__name__)
 all_apps = Gio.AppInfo.get_all()  # type: List[Gio.AppInfo]
 
 
-class ConflictingApp(object):
+class ConflictingApp:
     """An app that must not be running while the feature this app
     belongs to is activated or deactivated.
 
@@ -34,16 +34,19 @@ class ConflictingApp(object):
         self,
         name: str,
         desktop_id: Optional[str] = None,
-        process_names: Optional[List[str]] = None,
+        process_names: Optional[list[str]] = None,
     ):
         self.name = name
         self.desktop_id = desktop_id
         self.process_names = process_names if process_names else []
 
     def process_belongs_to_app(self, process: psutil.Process) -> bool:
-        return process.name() in self.process_names
+        try:
+            return process.name() in self.process_names
+        except psutil.NoSuchProcess:
+            return False
 
-    def get_processes(self) -> List[psutil.Process]:
+    def get_processes(self) -> list[psutil.Process]:
         return [p for p in psutil.process_iter() if self.process_belongs_to_app(p)]
 
     def try_get_translated_name(self):

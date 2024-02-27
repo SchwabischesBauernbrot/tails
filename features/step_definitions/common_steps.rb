@@ -188,21 +188,29 @@ def activate_gnome_shell_menu_entry(label)
   @screen.press('Return')
 end
 
+def expand_gnome_shell_menu_section(label)
+  expand_button = Dogtail::Application.new('gnome-shell')
+                                      .child(label, roleName: 'label')
+                                      .parent
+                                      .button('')
+  try_for(5) do
+    expand_button.grabFocus
+    expand_button.focused
+  end
+  @screen.press('Return')
+end
+
 Given /^I (dis)?connect the network through GNOME$/ do |disconnect|
   open_gnome_system_menu
 
   # Expand the menu entry for the wired connection
-  if disconnect
-    activate_gnome_shell_menu_entry('Wired Connected')
-  else
-    activate_gnome_shell_menu_entry('Wired Off')
-  end
+  expand_gnome_shell_menu_section('Wired')
 
   # Activate the Connect/Disconnect entry
   if disconnect
-    activate_gnome_shell_menu_entry('Turn Off')
+    activate_gnome_shell_menu_entry('Disconnect Wired')
   else
-    activate_gnome_shell_menu_entry('Connect')
+    activate_gnome_shell_menu_entry('Connect to Wired')
   end
 end
 
@@ -421,16 +429,23 @@ def enter_boot_menu_cmdline
   end
 end
 
-Given /^the computer (?:re)?boots Tails( with genuine APT sources)?$/ do |keep_apt_sources|
+def the_computer_boots
   enter_boot_menu_cmdline
   boot_key = @os_loader == 'UEFI' ? 'F10' : 'Return'
   early_patch = config_bool('EARLY_PATCH') ? ' early_patch=umount' : ''
   extra_boot_options = $config['EXTRA_BOOT_OPTIONS'] || ''
-  @screen.type(' autotest_never_use_this_option' \
+  wait_for_remote_shell = @wait_for_remote_shell ? 'autotest_wait_for_remote_shell' : ''
+  @screen.type(' autotest_never_use_this_option ' \
                ' blacklist=psmouse' \
+               " #{wait_for_remote_shell}" \
                " #{early_patch} #{@boot_options} #{extra_boot_options}",
                [boot_key])
   $vm.wait_until_remote_shell_is_up(5 * 60)
+end
+
+Given /^the computer (?:re)?boots Tails( with genuine APT sources)?$/ do |keep_apt_sources|
+  the_computer_boots
+
   try_for(60) do
     !greeter.nil?
   end
@@ -544,22 +559,6 @@ end
 Given /^the Tails desktop is ready$/ do
   desktop_started_picture = "GnomeApplicationsMenu#{$language}.png"
   @screen.wait(desktop_started_picture, 180)
-  # We want to ensure the Tails Documentation desktop icon is visible,
-  # but it might be obscured by TCA or other windows depending on the
-  # order of steps run before this one.
-  # XXX: Once #18407 is fixed we may be able to remove this.
-  try_for(30) do
-    begin
-      @screen.find('DesktopTailsDocumentation.png')
-    rescue FindFailed
-      # Switch to new workspace
-      @screen.press('super', 'page_down')
-      next
-    end
-    true
-  end
-  # Switch back to initial workspace, in case we changed it above
-  @screen.press('super', 'home')
   # Disable screen blanking since we sometimes need to wait long
   # enough for it to activate, which can cause problems when we are
   # waiting for an image for a very long time.
@@ -751,18 +750,40 @@ Then /^I (do not )?see "([^"]*)" after at most (\d+) seconds$/ do |negation, ima
   end
 end
 
-Given /^I enter the sudo password in the pkexec prompt$/ do
-  step "I enter the \"#{@sudo_password}\" password in the pkexec prompt"
+Given /^I enter the sudo password in the GNOME authentication prompt$/ do
+  step "I enter the \"#{@sudo_password}\" password in the GNOME authentication prompt"
+end
+
+def gnome_shell_unlock_dialog(title = 'Authentication Required')
+  d = Dogtail::Application.new('gnome-shell')
+                          .child(title, roleName: 'label')
+                          .parent.parent.parent.parent.parent.parent.parent
+  assert_equal('dialog', d.roleName)
+  d
+end
+
+def gnome_shell_unlock_dialog?(title = 'Authentication Required')
+  Dogtail::Application.new('gnome-shell')
+                      .child?(
+                        title,
+                        roleName: 'label',
+                        retry:    false
+                      )
 end
 
 def deal_with_polkit_prompt(password, **opts)
   opts[:expect_success] = true if opts[:expect_success].nil?
-  image = 'PolicyKitAuthPrompt.png'
-  @screen.wait(image, 60)
-  @screen.type(password, ['Return'])
+  opts[:title] = 'Authentication Required' if opts[:title].nil?
+  dialog = gnome_shell_unlock_dialog(opts[:title])
+  dialog.child('', roleName: 'password text').text = password
+  @screen.press('Return')
   if opts[:expect_success]
-    @screen.wait_vanish(image, 20)
+    try_for(20) { !gnome_shell_unlock_dialog?(opts[:title]) }
   else
+    # Using Dogtail for this one is not trivial: the error message is
+    # seen as "showing" by Dogtail even when it's not visible on
+    # screen, and I could find no way to tell whether it's
+    # actually displayed.
     @screen.wait('PolicyKitAuthFailure.png', 20)
     # Ensure the dialog is ready to handle whatever else
     # we want to do with it next, such as pressing Escape
@@ -770,8 +791,14 @@ def deal_with_polkit_prompt(password, **opts)
   end
 end
 
-Given /^I enter the "([^"]*)" password in the pkexec prompt$/ do |password|
+Given /^I enter the "([^"]*)" password in the GNOME authentication prompt$/ do |password|
   deal_with_polkit_prompt(password)
+end
+
+Given /^I cancel the GNOME authentication prompt$/ do
+  gnome_shell_unlock_dialog
+  @screen.press('escape')
+  try_for(20) { !gnome_shell_unlock_dialog? }
 end
 
 Given /^process "([^"]+)" is (not )?running$/ do |process, not_running|
@@ -888,11 +915,15 @@ Given /^I switch to the "([^"]+)" NetworkManager connection$/ do |con_name|
 end
 
 When /^I run "([^"]+)" in GNOME Terminal$/ do |command|
-  if !$vm.process_running?('gnome-terminal-server')
+  unless $vm.process_running?('gnome-terminal-server')
     step 'I start "GNOME Terminal" via GNOME Activities Overview'
-    @screen.wait('GnomeTerminalWindow.png', 40)
-  else
-    @screen.wait('GnomeTerminalWindow.png', 20).click
+  end
+  try_for(40) do
+    terminal = Dogtail::Application.new('gnome-terminal-server')
+                                   .child('Terminal', roleName: 'terminal')
+    terminal.text['amnesia@amnesia:']
+    terminal.grabFocus
+    terminal.focused
   end
   @screen.paste(command, app: :terminal)
   @screen.press('Return')
@@ -1029,20 +1060,6 @@ def pulseaudio_sink_inputs
   sink_inputs_line.match(/^\d+/)[0].to_i
 end
 
-When /^I double-click on the (Tails documentation|Report an Error) launcher on the desktop$/ do |launcher|
-  image = "Desktop#{launcher.split.map(&:capitalize).join}.png"
-  info = xul_application_info('Tor Browser')
-  # Sometimes the double-click is lost (#12131).
-  retry_action(10) do
-    if $vm.execute(
-      "pgrep --uid #{info[:user]} --full --exact '#{info[:cmd_regex]}'"
-    ).failure?
-      @screen.wait(image, 10).click(double: true)
-    end
-    step 'the Tor Browser has started'
-  end
-end
-
 Given /^a web server is running on the LAN$/ do
   # Start a new web server unless one is already running
   unless @web_server_url
@@ -1054,7 +1071,6 @@ def start_web_server
   @web_server_ip_addr = $vmnet.bridge_ip_addr
   @web_server_port = 8000
   @web_server_url = "http://#{@web_server_ip_addr}:#{@web_server_port}"
-  web_server_hello_msg = 'Welcome to the LAN web server!'
 
   # Ensure that the LAN web server data directory is empty
   FileUtils.rm_rf(LAN_WEB_SERVER_DATA_DIR)
@@ -1069,7 +1085,7 @@ def start_web_server
     "#{GIT_DIR}/features/scripts/lan-web-server",
     '--address', @web_server_ip_addr,
     '--port', @web_server_port.to_s,
-    '--hello-message', web_server_hello_msg,
+    '--hello-message', LAN_WEB_SERVER_HELLO_MSG,
     '--data-dir', LAN_WEB_SERVER_DATA_DIR
   )
 
@@ -1103,7 +1119,7 @@ def start_web_server
     # Use /usr/bin/curl instead of our curl wrapper script because the
     # wrapper script makes curl use Tor and we want to access the LAN.
     msg = cmd_helper(['curl', '--silent', '--fail', @web_server_url])
-    web_server_hello_msg == msg
+    msg.include?(LAN_WEB_SERVER_HELLO_MSG)
   end
 
   # Remove the header file that was saved by the web server for the
@@ -1192,7 +1208,7 @@ end
 Given /^Tails is fooled to think it is running version (.+)$/ do |version|
   $vm.execute_successfully(
     'sed -i ' \
-    "'s/^TAILS_VERSION_ID=.*$/TAILS_VERSION_ID=\"#{version}\"/' " \
+    "'s/^VERSION=.*$/VERSION=\"#{version}\"/' " \
     '/etc/os-release'
   )
 end
@@ -1202,8 +1218,8 @@ Given /^Tails is fooled to think that version (.+) was initially installed$/ do 
     '/lib/live/mount/rootfs/filesystem.squashfs/etc/os-release'
   fake_os_release_file = $vm.execute_successfully('mktemp').stdout.chomp
   fake_os_release_content = <<~OSRELEASE
-    TAILS_PRODUCT_NAME="Tails"
-    TAILS_VERSION_ID="#{version}"
+    NAME="Tails"
+    VERSION="#{version}"
   OSRELEASE
   $vm.file_overwrite(fake_os_release_file, fake_os_release_content)
   $vm.execute_successfully("chmod a+r #{fake_os_release_file}")
@@ -1214,22 +1230,20 @@ Given /^Tails is fooled to think that version (.+) was initially installed$/ do 
   assert_equal(
     version,
     $vm.execute_successfully(
-      ". #{initial_os_release_file} && echo ${TAILS_VERSION_ID}"
+      ". #{initial_os_release_file} && echo ${VERSION}"
     ).stdout.chomp,
     'Implementation error, alert the test suite maintainer!'
   )
 end
 
-def running_tails_version
-  $vm.execute_successfully('tails-version').stdout.split.first
-end
-
 Then /^Tails is running version (.+)$/ do |version|
-  v1 = running_tails_version
-  assert_equal(version, v1, "The version doesn't match tails-version's output")
-  v2 = $vm.file_content('/etc/os-release')
-          .scan(/TAILS_VERSION_ID="(#{version})"/).flatten.first
-  assert_equal(version, v2, "The version doesn't match /etc/os-release")
+  running_version = $vm.file_content('/etc/os-release')
+                       .match(/^VERSION="(.+)"$/)[1]
+  assert_equal(
+    version,
+    running_version,
+    "The version doesn't match /etc/os-release"
+  )
 end
 
 def size_of_shared_disk_for(files)
@@ -1265,7 +1279,7 @@ end
 
 def mount_usb_drive(disk, **fs_options)
   fs_options[:encrypted] ||= false
-  @tmp_usb_drive_mount_dir = $vm.execute_successfully('mktemp -d').stdout.chomp
+  mount_dir = $vm.execute_successfully('mktemp -d').stdout.chomp
   dev = $vm.disk_dev(disk)
   partition = "#{dev}1"
   if fs_options[:encrypted]
@@ -1277,15 +1291,12 @@ def mount_usb_drive(disk, **fs_options)
       "cryptsetup luksOpen #{partition} #{luks_mapping}"
     )
     $vm.execute_successfully(
-      "mount /dev/mapper/#{luks_mapping} #{@tmp_usb_drive_mount_dir}"
+      "mount /dev/mapper/#{luks_mapping} #{mount_dir}"
     )
   else
-    $vm.execute_successfully("mount #{partition} #{@tmp_usb_drive_mount_dir}")
+    $vm.execute_successfully("mount #{partition} #{mount_dir}")
   end
-  @tmp_filesystem_disk = disk
-  @tmp_filesystem_options = fs_options
-  @tmp_filesystem_partition = partition
-  @tmp_usb_drive_mount_dir
+  mount_dir
 end
 
 When(/^I plug and mount a (\d+) MiB USB drive with an? (.*)$/) do |size_MiB, fs|
@@ -1295,28 +1306,44 @@ When(/^I plug and mount a (\d+) MiB USB drive with an? (.*)$/) do |size_MiB, fs|
   step "I create a gpt partition labeled \"#{disk}\" with " \
        "an #{fs} on disk \"#{disk}\""
   step "I plug USB drive \"#{disk}\""
+  device = $vm.disk_dev(disk)
+  partition = "#{device}1"
+  mount_dir = nil
   fs_options = {}
   fs_options[:filesystem] = /(.*) filesystem/.match(fs)[1]
   if /\bencrypted with password\b/.match(fs)
     fs_options[:encrypted] = true
     fs_options[:password] = /encrypted with password "([^"]+)"/.match(fs)[1]
   end
-  mount_dir = mount_usb_drive(disk, **fs_options)
-  @tmp_filesystem_size_b = convert_to_bytes(
-    avail_space_in_mountpoint_kB(mount_dir),
-    'KB'
-  )
+  # GNOME auto-mounts removable media, except encrypted devices that
+  # need to be manually unlocked with the GNOME password prompt that
+  # automatically appears
+  if fs_options[:encrypted]
+    deal_with_polkit_prompt(fs_options[:password])
+  end
+  # Wait for GNOME to (maybe unlock) and mount
+  try_for(20) do
+    mount_dir = mountpoint(partition)
+    !mount_dir.nil?
+  end
+  @tmp_filesystem_disk = disk
+  @tmp_filesystem_options = fs_options
+  @tmp_filesystem_size_b = avail_space_in_mountpoint(mount_dir)
+  @tmp_usb_drive_mount_dir = mount_dir
 end
 
 When(/^I mount the USB drive again$/) do
-  mount_usb_drive(@tmp_filesystem_disk, **@tmp_filesystem_options)
+  @tmp_usb_drive_mount_dir = mount_usb_drive(@tmp_filesystem_disk,
+                                             **@tmp_filesystem_options)
 end
 
 When(/^I umount the USB drive$/) do
-  $vm.execute_successfully("umount #{@tmp_usb_drive_mount_dir}")
+  device = $vm.execute_successfully(
+    "findmnt --noheadings --output SOURCE #{@tmp_usb_drive_mount_dir}"
+  ).stdout
+  $vm.execute_successfully("umount #{device}")
   if @tmp_filesystem_options[:encrypted]
-    $vm.execute_successfully('cryptsetup luksClose ' \
-                             "#{@tmp_filesystem_disk}_unlocked")
+    $vm.execute_successfully("cryptsetup luksClose #{device}")
   end
 end
 
@@ -1426,6 +1453,18 @@ def gnome_disks_app
   # button instead.
   @screen.wait('GnomeWindowActionsButtons.png', 10)
   disks_app
+end
+
+def select_path_in_file_chooser(file_chooser, path, button_label: 'Open')
+  assert_equal('file chooser', file_chooser.roleName)
+  try_for(10) do
+    @screen.press('ctrl', 'l')
+    file_chooser.focused_child.roleName == 'text'
+  end
+  file_chooser.focused_child.text = path
+  try_for(10) { file_chooser.button(button_label).sensitive }
+  file_chooser.button(button_label).click
+  try_for(10) { !file_chooser.showing }
 end
 
 def save_qrcode(str)

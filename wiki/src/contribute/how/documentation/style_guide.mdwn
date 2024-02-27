@@ -76,9 +76,7 @@ Style and usage
 
   *For example:*
 
-  - [[Set up an administration password
-    |doc/first_steps/welcome_screen/administration_password]] when
-    you start Tails.
+  - When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
 
   - Start Tails and [[set up an administration
     password|doc/first_steps/welcome_screen/administration_password]].
@@ -708,39 +706,54 @@ Style and usage
   and a border of blue background to clarify the context and the nature of
   the image. To take such a screenshot:
 
-  1. In *Gimp* choose **File**&nbsp;▸ **Create**&nbsp;▸ **Screenshot...**.
+  1. In *Gimp* choose **File**&nbsp;▸ **Create**&nbsp;▸ **Screenshot**.
 
   2. Select **Include windows decoration**.
 
   3. Make sure the blue border (`0x204a87`) on each side of the screenshot is at least 18px.
 
-  We also most of the time resize the screenshots to 66%, either when they are
-  too big or when they can be confused for the actual application (see
-  [[!tails_ticket 11527]]). Use the *NoHalo* interpolation in *GIMP*.
+  Use the `screenshot` CSS class to add a gray shadow under the screenshot and
+  help distinguish them from the actual application.
 
-  We always compress screenshots using [[compress-image|style_guide#compress-image]].
+      \[[!img screenshot-good.png link="no" class="screenshot" alt=""]]
 
-  Good:
+  Most often, screenshots are not necessary to follow instructions and can have
+  an empty `alt` tag. Screenshots that describe new features, usually benefit
+  from an `alt` tag that describes what is new.
 
-  [[!img screenshot-blue.png link="no"]]
-
-  Bad:
-
-  [[!img screenshot-transparent.png link="no"]]
-
-  [[!img screenshot-cut.png link="no"]]
+  Compress screenshots using [[compress-image|style_guide#compress-image]].
 
   When an element of a screenshot needs to be highlighted, for example
   because the element is small, has no label or is in a place that is hard
-  to describe, highlight it in red using *Inkscape*:
+  to describe, highlight it in red using Gimp:
 
-  1. Create the base screenshot, resized at 66%.
+  1. Create the base screenshot.
 
-  1. Open it in Inkspace.
+  1. Create a new layer for the highlighting.
 
-  1. Create a red circle or rectangle with a width of 2 px.
+  1. Create a red circle or rectangle with:
 
-  1. Export the screenshot to PNG, respecting its original size.
+     - Red color #ef1f31
+     - Width of 3 px
+     - Margin of 3 px with the highlighted element
+
+  Good:
+
+  [[!img screenshot-good.png link="no" class="screenshot" alt=""]]
+
+  Bad:
+
+  [[!img screenshot-bad.png link="no" class="screenshot" alt=""]]
+
+  If the full size screenshot is too big, in the
+  [img directive](https://ikiwiki.info/ikiwiki/directive/img/):
+
+  - Check if the automatic resizing from local.css to `max-width: 100%` is enough already.
+
+  - Use the `size=""` attribute to resize it even more, if needed.
+
+  - Do not specify any `link=""` attribute to add a link to the full size
+    image, if that's useful.
 
 <a id="secure-boot"></a>
 

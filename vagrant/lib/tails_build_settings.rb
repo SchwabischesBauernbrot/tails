@@ -6,7 +6,7 @@
 VM_MEMORY_BASE = 1.5 * 1024
 
 # Approximate amount of extra space needed for builds
-BUILD_SPACE_REQUIREMENT = 12 * 1024
+BUILD_SPACE_REQUIREMENT = 12 * 1024 + 128
 
 # Virtual machine memory size for on-disk builds
 VM_MEMORY_FOR_DISK_BUILDS = VM_MEMORY_BASE
@@ -16,7 +16,7 @@ VM_MEMORY_FOR_RAM_BUILDS = VM_MEMORY_BASE + BUILD_SPACE_REQUIREMENT
 
 # The builder VM's platform
 ARCHITECTURE = 'amd64'.freeze
-DISTRIBUTION = 'bullseye'.freeze
+DISTRIBUTION = 'bookworm'.freeze
 
 # The name of the Vagrant box
 def box_name
