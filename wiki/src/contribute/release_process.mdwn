@@ -1316,6 +1316,19 @@ Prepare upgrade-description files
        You need to do this manually as the example command below won't
        do it automatically.
 
+       In particular, when releasing a new major version `(N+1).0`
+       (i.e. when Tails is upgraded to a new Debian major release) we
+       pass all of the previous major version's Tails releases with
+       `--previous_version`:
+
+            find ${RELEASE_CHECKOUT:?}/wiki/src/upgrade/v2/Tails \
+                 -type d \
+                 -name "$((${VERSION%%.*}-1)).*" \
+                 -printf '--previous_version %f '
+
+       We do so for a few releases, say until `(N+1).2`, in order to
+       notify users with really old versions to upgrade
+
    Run this command, after adjusting it if needed as explained above:
 
         ${RELEASE_CHECKOUT:?}/config/chroot_local-includes/usr/src/iuk/bin/tails-iuk-generate-upgrade-description-files \
