@@ -501,40 +501,24 @@ Update other base branches
    It's fine if that results in a no-op (it depends on how exactly previous
    operations were performed).
 
-3. Try to merge the `devel` Git branch into `feature/bookworm` (if it exists),
-   *without* merging the corresponding APT suite (for now `feature/bookworm` is
-   handled as any other topic branch forked off `devel`: its base branch is set
-   to `devel`):
+4. Look at the APT overlays for `$RELEASE_BRANCH` and `devel`:
 
-        if git describe origin/feature/bookworm >/dev/null 2>&1; then
-           git checkout feature/bookworm && \
-           git pull && \
-           git merge devel
-        fi
-
-   If the merge conflicts don't look like something you feel confident
-   resolving properly, abort this merge and let the Foundations
-   Team know.
-
-4. Look at the content of `$RELEASE_BRANCH`, `devel` and `feature/bookworm`
-
-        for branch in ${RELEASE_BRANCH} devel feature/bookworm; do
+        for branch in ${RELEASE_BRANCH} devel; do
             git switch ${branch}
             echo "{{{ ${branch}"
             ls config/APT_overlays.d/
             echo "}}}"
         done
 
-
-4. Ensure that the `$RELEASE_BRANCH`, `devel` and `feature/bookworm` (if it exists) branches
-   have the expected content in `config/APT_overlays.d/`: e.g. it must
-   not list any overlay APT suite that has been merged already.
+   Verify that the `$RELEASE_BRANCH` and `devel` branches have nothing
+   in `config/APT_overlays.d/`. If there still are unmerged APT
+   overlays at this point (which is odd), please fix the situation by
+   merging them using `bin/merge-APT-overlays`.
 
 5. Push the modified branches to Git:
 
         git push origin                          \
            "${RELEASE_BRANCH:?}:${RELEASE_BRANCH:?}" \
-           $(if git describe feature/bookworm >/dev/null 2>&1; then echo feature/bookworm:feature/bookworm ; fi) \
            devel:devel
 
 Update more included files
@@ -1332,6 +1316,19 @@ Prepare upgrade-description files
        You need to do this manually as the example command below won't
        do it automatically.
 
+       In particular, when releasing a new major version `(N+1).0`
+       (i.e. when Tails is upgraded to a new Debian major release) we
+       pass all of the previous major version's Tails releases with
+       `--previous_version`:
+
+            find ${RELEASE_CHECKOUT:?}/wiki/src/upgrade/v2/Tails \
+                 -type d \
+                 -name "$((${VERSION%%.*}-1)).*" \
+                 -printf '--previous_version %f '
+
+       We do so for a few releases, say until `(N+1).2`, in order to
+       notify users with really old versions to upgrade
+
    Run this command, after adjusting it if needed as explained above:
 
         ${RELEASE_CHECKOUT:?}/config/chroot_local-includes/usr/src/iuk/bin/tails-iuk-generate-upgrade-description-files \
@@ -1350,7 +1347,7 @@ Prepare upgrade-description files
                 fi
             ) \
             $( \
-                for version in $(echo ${IUK_SOURCE_VERSIONS:?}) 5.8~beta1; do
+                for version in $(echo ${IUK_SOURCE_VERSIONS:?}); do
                    echo "--previous_version ${version:?}"
                 done \
             ) \
@@ -1411,19 +1408,22 @@ Check that incremental upgrades are working
 Check if the upgrades file looks good:
 
     (
-    err() { echo "$*"; exit 1; }
-    cd "${MASTER_CHECKOUT:?}" || err "Cannot change directory"
+    set -e
+    cd "${MASTER_CHECKOUT:?}"
     for version in ${TEST_IUK_SOURCE_VERSIONS:?}; do
-        echo "Upgrade from ${version}"
+        echo "Upgrade from ${version}:"
         udf="wiki/src/upgrade/v2/Tails/${version}/amd64/test/upgrades.yml"
-        grep --quiet --fixed-strings "to_${VERSION}.iuk" "$udf" || err "No IUK mentioned in $udf"
-        grep --quiet --fixed-strings -- "-${VERSION}.iso" "$udf" || err "No ISO mentioned in $udf"
-        cat "wiki/src/upgrade/v2/Tails/${version}/amd64/test/upgrades.yml"
+        echo -n "- IUK: "
+        grep --quiet --fixed-strings "to_${VERSION}.iuk" "$udf" && echo ok || echo missing
+        echo -n "- ISO: "
+        grep --quiet --fixed-strings -- "-${VERSION}.iso" "$udf" && echo ok || echo missing
     done
     )
 
-The above output should mention a valid upgrade path from the last stable version.
-
+The above output should not mention any missing IUKs/ISOs, except when
+releasing a new major version `(N+1).0` (i.e. when Tails is upgraded
+to a new Debian major release) when it is expected that the previous
+stable `N.x` release has no IUK (but it should have an ISO!).
 
 Done with OpenPGP signing
 =========================
@@ -1579,6 +1579,10 @@ Now you can announce and seed the Torrents for the release you're preparing:
 
 Test that you can start downloading the ISO and USB images with a BitTorrent client.
 It can take a few dozen minutes before this works.
+
+Manual testers can now do the "Torrents" part of the manual test
+suite, so delete "⚠ Wait until the Release Manager […]" in that
+section on the testing pad.
 
 <a id="run-automated-tests"></a>
 
@@ -2072,7 +2076,15 @@ Request the publication of the Tor blog post
 
 If you prepared a draft Tor blog post earlier, then:
 
-- Mark the merge request as ready: remove the `Draft:` prefix.
+- If you have developer status (check
+  [here](https://gitlab.torproject.org/tpo/web/blog/-/project_members))
+  then can merge it yourself. Once merged a new pipeline is started
+  whose last stage (Deploy) will require manual action: click on it to
+  open a menu where you will see "deploy-prod ▶️", then click on the ▶️
+  to deploy.
+
+- Otherwise, mark the merge request as ready by remove the `Draft:`
+  prefix, and wait until someone merges it for you.
 
 Amnesia news
 ------------

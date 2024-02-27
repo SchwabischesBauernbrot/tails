@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2023-11-10 20:11+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: Tails localization <tails-l10n@boum.org>\n"
@@ -120,8 +120,8 @@ msgstr ""
 #| "titlebar and choose <span class=\"guilabel\">Format Disk…</span>."
 msgid ""
 "To reset the USB stick, click on the [[!img lib/view-more.png alt=\"Drive "
-"Options\" class=\"symbolic\" link=\"no\"]] button in the titlebar and choose "
-"**Format Disk** to erase all the existing partitions on the device."
+"Options\" class=\"symbolic\" link=\"no\"]] button in the title bar and "
+"choose **Format Disk** to erase all the existing partitions on the device."
 msgstr ""
 "Um den USB-Stick zurückzusetzen, klicken Sie in der oberen Leiste auf die "
 "Schaltfläche <span class=\"guimenu\">[[!img lib/open-menu.png alt=\"Menü\" "
@@ -134,48 +134,84 @@ msgstr ""
 msgid "In the **Format Disk** dialog:"
 msgstr "In dem Fenster <span class=\"guilabel\">Laufwerk formatieren</span>:"
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '   - '
+#, fuzzy
+#| msgid ""
+#| "   1. If you want to erase all data securely, choose to\n"
+#| "   **Overwrite existing data with zeroes** in the\n"
+#| "   **Erase** menu.\n"
 msgid ""
-"   1. If you want to erase all data securely, choose to\n"
-"   **Overwrite existing data with zeroes** in the\n"
-"   **Erase** menu.\n"
+"If you want to overwrite all data on the device, choose **Overwrite existing "
+"data with zeroes** in the **Erase** menu."
 msgstr ""
 "   1. Wenn Sie alle Daten sicher löschen möchten, wählen Sie\n"
 "   <strong>Überschreiben bestehender Daten mit Nullen</strong> im\n"
 "   <strong>Löschen</strong>-Menü.\n"
 
 #. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<div class=\"caution\">\n"
+msgid "     <div class=\"caution\">\n"
+msgstr "<div class=\"caution\">\n"
+
+#. type: Plain text
 #, no-wrap
 msgid ""
-"   2. Choose **Compatible with all systems and devices (MBR/DOS)**\n"
-"   in the **Partitioning** menu.\n"
+"     <p>Overwriting existing data does not erase all data on flash\n"
+"     memories, such as USB sticks and SSDs (Solid-State Drives).</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "     <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "</div>\n"
+msgid "     </div>\n"
+msgstr "</div>\n"
+
+#. type: Bullet: '   - '
+#, fuzzy
+#| msgid ""
+#| "   2. Choose **Compatible with all systems and devices (MBR/DOS)**\n"
+#| "   in the **Partitioning** menu.\n"
+msgid ""
+"Choose **Compatible with all systems and devices (MBR/DOS)** in the "
+"**Partitioning** menu."
 msgstr ""
 "   2. Wählen Sie **Kompatibel mit allen Systemen und Geräten (MBR/DOS)**\n"
 "   im **Partitionierungs**-Menü.\n"
 
-#. type: Bullet: '   3. '
-msgid "Click on the **Format…** button."
+#. type: Bullet: '1. '
+msgid "Click **Format**."
 msgstr ""
 
 #. type: Bullet: '1. '
-msgid ""
-"In the confirmation dialog, click on the <span class=\"bold\">Format</span> "
-"button to confirm."
+#, fuzzy
+#| msgid ""
+#| "In the confirmation dialog, click on the <span class=\"bold\">Format</"
+#| "span> button to confirm."
+msgid "In the confirmation dialog, click **Format** to confirm."
 msgstr ""
 "Klicken Sie auf die <span class=\"bold\">Formatieren</span> Schaltfläche im "
 "Dialogfenster um zu bestätigen."
 
 #. type: Bullet: '1. '
 msgid ""
-"To make sure that all the changes are written to the USB stick, click on the "
-"<span class=\"guimenu\">[[!img lib/media-eject.png alt=\"Eject\" "
-"class=symbolic link=no]]</span> button in the titlebar."
+"To make sure that all the changes are written to the USB stick, click on the"
 msgstr ""
-"Um sicherzugehen, dass alle Änderungen auf den USB-Stick geschrieben sind, "
-"klicken Sie auf die <span class=\"guimenu\">[[!img lib/media-eject.png "
-"alt=\"Auswerfen\" class=symbolic link=no]]</span> Schaltfläche in der "
-"Titelleiste."
+
+#. type: Plain text
+#, no-wrap
+msgid "   [[!img lib/media-eject.png alt=\"Eject\" class=\"symbolic\" link=\"no\"]]\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "   button in the title bar.\n"
+msgstr ""
 
 #. type: Title =
 #, no-wrap
@@ -223,6 +259,16 @@ msgstr ""
 "    ausreichend Speicher für diesen Betriebsmodus hat. Versuchen Sie es mit einem\n"
 "    anderen Computer oder finden Sie ein anderes Linux-System, beispielsweise\n"
 "    einen anderen USB-Stick mit Tails, um das Zurücksetzen durchzuführen.\n"
+
+#~ msgid ""
+#~ "To make sure that all the changes are written to the USB stick, click on "
+#~ "the <span class=\"guimenu\">[[!img lib/media-eject.png alt=\"Eject\" "
+#~ "class=symbolic link=no]]</span> button in the titlebar."
+#~ msgstr ""
+#~ "Um sicherzugehen, dass alle Änderungen auf den USB-Stick geschrieben "
+#~ "sind, klicken Sie auf die <span class=\"guimenu\">[[!img lib/media-eject."
+#~ "png alt=\"Auswerfen\" class=symbolic link=no]]</span> Schaltfläche in der "
+#~ "Titelleiste."
 
 #, no-wrap
 #~ msgid "Using <span class=\"application\">GNOME Disks</span>"

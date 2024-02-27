@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2021-11-07 18:24+0000\n"
 "Last-Translator: dedmoroz <cj75300@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -270,11 +270,6 @@ msgstr ""
 "     <span class=\"guisubmenu\">Утилиты</span>&nbsp;▸\n"
 "     <span class=\"guisubmenuitem\">Unlock VeraCrypt Volumes</span></span>.\n"
 
-#. type: Plain text
-#, no-wrap
-msgid "   [[!img unlock-veracrypt-volumes.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img unlock-veracrypt-volumes.png link=\"no\" alt=\"\"]]\n"
-
 #. type: Bullet: '1. '
 msgid ""
 "Click <span class=\"bold\">Add</span> and choose the file container that you "
@@ -291,18 +286,15 @@ msgstr ""
 "Введите параметры для разблокирования тома. Подробнее см. раздел выше "
 "[[Параметры разблокирования|veracrypt#parameters]]."
 
-#. type: Plain text
-#, no-wrap
-msgid "   Click <span class=\"bold\">Unlock</span>.\n"
-msgstr "   Нажмите <span class=\"bold\">Unlock</span> (Разблокировать).\n"
-
 #. type: Bullet: '1. '
-msgid ""
-"<span class=\"application\">Unlock VeraCrypt Volumes</span> unlocks your "
-"volume."
+msgid "Click **Unlock**."
 msgstr ""
-"<span class=\"application\">Unlock VeraCrypt Volumes</span> разблокирует ваш "
-"том."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<span class=\"application\">Unlock VeraCrypt Volumes</span> unlocks your volume."
+msgid "   <span class=\"application\">Unlock VeraCrypt Volumes</span> unlocks your volume.\n"
+msgstr "<span class=\"application\">Unlock VeraCrypt Volumes</span> разблокирует ваш том."
 
 #. type: Plain text
 #, no-wrap
@@ -377,8 +369,9 @@ msgstr ""
 "устройство только для чтения</span>."
 
 #. type: Plain text
-#, no-wrap
-msgid "     [[!img read-only.png link=\"no\" alt=\"\"]]\n"
+#, fuzzy, no-wrap
+#| msgid "     [[!img read-only.png link=\"no\" alt=\"\"]]\n"
+msgid "     [[!img read-only.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr "     [[!img read-only.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Bullet: '   - '
@@ -389,8 +382,9 @@ msgstr ""
 "Выберите <span class=\"guilabel\">Все файлы</span> в правом нижнем углу."
 
 #. type: Plain text
-#, no-wrap
-msgid "     [[!img all-files.png link=\"no\" alt=\"\"]]\n"
+#, fuzzy, no-wrap
+#| msgid "     [[!img all-files.png link=\"no\" alt=\"\"]]\n"
+msgid "     [[!img all-files.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr "     [[!img all-files.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Bullet: '   - '
@@ -404,104 +398,19 @@ msgstr ""
 "Выберите файл-контейнер и нажмите кнопку <span class=\"bold\">Подключить</"
 "span> в правом верхнем углу."
 
-#. type: Bullet: '1. '
-msgid ""
-"In the left pane, select the new <span class=\"guilabel\">Loop Device</span> "
-"that corresponds to your file container."
+#. type: Plain text
+#, no-wrap
+msgid "   An authentication dialog appears.\n"
 msgstr ""
-"В левой панели выберите новое <span class=\"guilabel\">Петлевое устройство</"
-"span>, соответствующее вашему файловому контейнеру."
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"   In the right pane, it should have an\n"
-"   <span class=\"guilabel\">Encrypted?</span> label.\n"
-msgstr "   В правой панели можете видеть надпись <span class=\"guilabel\">Encrypted?</span>.\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "   [[!img container-locked.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img container-locked.png link=\"no\" alt=\"\"]]\n"
+msgid "   [[!img authentication.png link=\"no\" class=\"screenshot\" alt=\"Authentication required\"]]\n"
+msgstr ""
 
 #. type: Bullet: '1. '
-msgid ""
-"Click the <span class=\"bold\">[[!img lib/unlock.png alt=\"Unlock selected "
-"encrypted partition\" class=\"symbolic\" link=\"no\"]]</span> button in the "
-"right pane."
+msgid "Open your *VeraCrypt* volumes from the **Places** menu."
 msgstr ""
-"Нажмите кнопку <span class=\"bold\">[[!img lib/unlock.png "
-"alt=\"Разблокировать выбранный зашифрованный раздел\" class=\"symbolic\" "
-"link=\"no\"]]</span> на правой панели."
-
-#. type: Bullet: '1. '
-msgid ""
-"Select the file system that appears below the unlocked volume. It probably "
-"has a <span class=\"guilabel\">FAT</span> or <span class=\"guilabel\">NTFS</"
-"span> content."
-msgstr ""
-"Выберите файловую систему, которая отображается под разблокированным томом. "
-"Вероятно, это <span class=\"guilabel\">FAT</span> или <span "
-"class=\"guilabel\">NTFS</span>."
-
-#. type: Bullet: '1. '
-msgid ""
-"Click the <span class=\"bold\">[[!img lib/media-playback-start.png "
-"alt=\"Mount selected partition\" class=\"symbolic\" link=\"no\"]]</span> "
-"button to mount the volume."
-msgstr ""
-"Нажмите кнопку <span class=\"bold\">[[!img lib/media-playback-start.png "
-"alt=\"Смонтировать выбранный раздел\" class=\"symbolic\" link=\"no\"]]</"
-"span> монтирования тома."
-
-#. type: Bullet: '1. '
-msgid ""
-"Click on the <span class=\"filename\">*/media/amnesia/*</span> link in the "
-"right pane to open the volume in the <span class=\"application\">Files</"
-"span> browser."
-msgstr ""
-"Нажмите ссылку <span class=\"filename\">*/media/amnesia/*</span> в правой "
-"панели, чтобы открыть том в менеджере <span class=\"application\">Файлы</"
-"span>."
-
-#. type: Title -
-#, no-wrap
-msgid "Closing a file container"
-msgstr "Закрытие файла-контейнера"
-
-#. type: Plain text
-msgid "You can either:"
-msgstr "Есть два способа."
-
-#. type: Bullet: '- '
-msgid ""
-"In the sidebar of the <span class=\"application\">Files</span> browser, "
-"click on the <span class=\"bold\">[[!img lib/media-eject.png alt=\"Eject\" "
-"class=\"symbolic\" link=\"no\"]]</span> button on the label of the volume "
-"corresponding to your file container."
-msgstr ""
-"В боковой панели файлового менеджера <span class=\"application\">Файлы</"
-"span> нажмите кнопку <span class=\"bold\">[[!img lib/media-eject.png "
-"alt=\"Извлечь\" class=\"symbolic\" link=\"no\"]]</span> на ярлыке тома, "
-"соответствующего файловому контейнеру."
-
-#. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "  [[!img eject-container.png link=\"no\" alt=\"\"]]\n"
-msgid "  [[!img eject.png link=\"no\" alt=\"\"]]\n"
-msgstr "  [[!img eject-container.png link=\"no\" alt=\"\"]]\n"
-
-#. type: Bullet: '- '
-msgid ""
-"In <span class=\"application\">Unlock VeraCrypt Volumes</span>, click on the "
-"<span class=\"bold\">[[!img lib/window-close.png class=\"symbolic\" "
-"link=\"no\" alt=\"\"]]</span> button in the line that corresponds to your "
-"file container."
-msgstr ""
-"В приложении <span class=\"application\">Unlock VeraCrypt Volumes</span> "
-"нажмите кнопку <span class=\"bold\">[[!img lib/window-close.png "
-"class=\"symbolic\" link=\"no\" alt=\"\"]]</span> в строке, соответствующей "
-"вашему файловому контейнеру."
 
 #. type: Title =
 #, no-wrap
@@ -515,68 +424,53 @@ msgstr "[[!img partition-icon.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Plain text
 #, no-wrap
-msgid "<a id=\"partition-files\"></a>\n"
-msgstr "<a id=\"partition-files\"></a>\n"
-
-#. type: Title -
-#, no-wrap
-msgid "Unlocking a partition or drive without keyfiles"
-msgstr "Разблокирование раздела/диска без ключевого файла"
+msgid "<h2 id=\"partition-external\">Unlocking a partition on an external storage device</h2>\n"
+msgstr ""
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "   Otherwise, plug in the USB stick or the hard disk that you want to\n"
+#| "   unlock.\n"
+msgid "Plug in the USB stick or hard disk that you want to unlock."
+msgstr ""
+"   В противном случае подключите флешку или жёсткий диск, которые хотите\n"
+" разблокировать.\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "<h2 id=\"partition-internal\">Unlocking a partition on an internal hard disk</h2>\n"
+msgstr ""
+
+#. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "If your partition or drive is on an internal hard disk, [[set up an "
+#| "administration password|doc/first_steps/welcome_screen/"
+#| "administration_password]] when starting Tails."
 msgid ""
-"If your partition or drive is on an internal hard disk, [[set up an "
-"administration password|doc/first_steps/welcome_screen/"
-"administration_password]] when starting Tails."
+"When starting Tails, [[set up an administration password|doc/first_steps/"
+"welcome_screen/administration_password]]."
 msgstr ""
 "Если ваш раздел находится на внутреннем жёстком диске, [[установите пароль "
 "администратора|doc/first_steps/welcome_screen/administration_password]] при "
 "запуске Tails."
 
-#. type: Plain text
-#, no-wrap
-msgid ""
-"   Otherwise, plug in the USB stick or the hard disk that you want to\n"
-"   unlock.\n"
-msgstr ""
-"   В противном случае подключите флешку или жёсткий диск, которые хотите\n"
-" разблокировать.\n"
-
 #. type: Bullet: '1. '
 msgid ""
-"In the list of partitions, click <span class=\"bold\">Unlock</span> in the "
-"line that corresponds to your USB stick or hard disk."
+"Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to start the "
+"*Disks* utility."
 msgstr ""
-"Нажмите <span class=\"bold\">Unlock</span> (Разблокировать) в строке, "
-"соответствующей вашей флешке или жёсткому диску."
-
-#. type: Plain text
-#, no-wrap
-msgid "   [[!img unlock-veracrypt-volumes-with-partition.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img unlock-veracrypt-volumes-with-partition.png link=\"no\" alt=\"\"]]\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "<a id=\"partition-disks\"></a>\n"
-msgstr "<a id=\"partition-disks\"></a>\n"
-
-#. type: Title -
-#, no-wrap
-msgid "Unlocking a partition or drive with keyfiles"
-msgstr "Разблокирование раздела/диска с ключевым файлом"
 
 #. type: Bullet: '1. '
-msgid ""
-"In the left pane, select the drive that corresponds to your USB stick or "
-"hard disk."
+#, fuzzy
+#| msgid ""
+#| "In the left pane, select the drive that corresponds to your USB stick or "
+#| "hard disk."
+msgid "In the left pane, select the drive that corresponds to your hard disk."
 msgstr ""
 "В левой панели выберите диск, соответствующий вашей флешке или жёсткому "
 "диску."
-
-#. type: Plain text
-#, no-wrap
-msgid "   [[!img partition-locked.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img partition-locked.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -586,38 +480,196 @@ msgstr ""
 "В правой панели выберите раздел, соответствующий вашему тому *VeraCrypt*."
 
 #. type: Plain text
-#, no-wrap
-msgid "   It should have an <span class=\"guilabel\">Encrypted?</span> label.\n"
+#, fuzzy, no-wrap
+#| msgid "   It should have an <span class=\"guilabel\">Encrypted?</span> label.\n"
+msgid "   It should have an **Encrypted?** label.\n"
 msgstr "   У него должна быть надпись <span class=\"guilabel\">Encrypted?</span>.\n"
 
-#. type: Title -
-#, no-wrap
-msgid "Closing a partition or drive"
-msgstr "Закрытие раздела/диска"
-
-#. type: Bullet: '- '
+#. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Click the <span class=\"bold\">[[!img lib/unlock.png alt=\"Unlock "
+#| "selected encrypted partition\" class=\"symbolic\" link=\"no\"]]</span> "
+#| "button in the right pane."
 msgid ""
-"In the sidebar of the <span class=\"application\">Files</span> browser, "
-"click on the <span class=\"bold\">[[!img lib/media-eject.png alt=\"Eject\" "
-"class=\"symbolic\" link=\"no\"]]</span> button on the label of the volume "
-"corresponding to your partition."
+"Click the [[!img lib/unlock.png alt=\"Unlock selected encrypted partition\" "
+"class=\"symbolic\" link=\"no\"]] button in the right pane."
+msgstr ""
+"Нажмите кнопку <span class=\"bold\">[[!img lib/unlock.png "
+"alt=\"Разблокировать выбранный зашифрованный раздел\" class=\"symbolic\" "
+"link=\"no\"]]</span> на правой панели."
+
+#. type: Bullet: '1. '
+msgid "Select the file system that appears below the unlocked volume."
+msgstr ""
+
+#. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Click the <span class=\"bold\">[[!img lib/media-playback-start.png "
+#| "alt=\"Mount selected partition\" class=\"symbolic\" link=\"no\"]]</span> "
+#| "button to mount the volume."
+msgid ""
+"Click the [[!img lib/media-playback-start.png alt=\"Mount selected "
+"partition\" class=\"symbolic\" link=\"no\"]] button to mount the volume."
+msgstr ""
+"Нажмите кнопку <span class=\"bold\">[[!img lib/media-playback-start.png "
+"alt=\"Смонтировать выбранный раздел\" class=\"symbolic\" link=\"no\"]]</"
+"span> монтирования тома."
+
+#. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "Click on the <span class=\"filename\">*/media/amnesia/*</span> link in "
+#| "the right pane to open the volume in the <span "
+#| "class=\"application\">Files</span> browser."
+msgid ""
+"Click on the */media/amnesia/* link in the right pane to open the volume in "
+"the *Files* browser."
+msgstr ""
+"Нажмите ссылку <span class=\"filename\">*/media/amnesia/*</span> в правой "
+"панели, чтобы открыть том в менеджере <span class=\"application\">Файлы</"
+"span>."
+
+#. type: Plain text
+#, no-wrap
+msgid "<h2 id=\"eject\">Ejecting a <i>VeraCrypt</i> volume</h2>\n"
+msgstr ""
+
+#. type: Bullet: '1. '
+msgid "Choose **Applications**&nbsp;▸ **Files** to open the *Files* browser."
+msgstr ""
+
+#. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "In the sidebar of the <span class=\"application\">Files</span> browser, "
+#| "click on the <span class=\"bold\">[[!img lib/media-eject.png "
+#| "alt=\"Eject\" class=\"symbolic\" link=\"no\"]]</span> button on the label "
+#| "of the volume corresponding to your partition."
+msgid ""
+"In the sidebar of the *Files* browser, click on the [[!img lib/media-eject."
+"png alt=\"Eject\" class=\"symbolic\" link=\"no\"]] button on the label of "
+"your *VeraCrypt* volume."
 msgstr ""
 "В боковой панели менеджера <span class=\"application\">Файлы</span> нажмите "
 "кнопку <span class=\"bold\">[[!img lib/media-eject.png alt=\"Извлечь\" class "
 "=\"symbolic\" link =\"no\"]]</span> на ярлыке тома, соответствующего вашему "
 "разделу."
 
-#. type: Bullet: '- '
-msgid ""
-"In <span class=\"application\">Unlock VeraCrypt Volumes</span>, click on the "
-"<span class=\"bold\">[[!img lib/window-close.png class=\"symbolic\" "
-"link=\"no\" alt=\"\"]]</span> button in the line that corresponds to your "
-"USB stick or hard disk."
-msgstr ""
-"В приложении <span class=\"application\">Unlock VeraCrypt Volumes</span> "
-"нажмите кнопку <span class=\"bold\">[[!img lib/window-close.png "
-"class=\"symbolic\" link =\"no\" alt=\"\"]]</span> в строке, соответствующей "
-"вашей флешке или жёсткому диску."
+#, no-wrap
+#~ msgid "   [[!img unlock-veracrypt-volumes.png link=\"no\" alt=\"\"]]\n"
+#~ msgstr "   [[!img unlock-veracrypt-volumes.png link=\"no\" alt=\"\"]]\n"
+
+#, no-wrap
+#~ msgid "   Click <span class=\"bold\">Unlock</span>.\n"
+#~ msgstr "   Нажмите <span class=\"bold\">Unlock</span> (Разблокировать).\n"
+
+#~ msgid ""
+#~ "In the left pane, select the new <span class=\"guilabel\">Loop Device</"
+#~ "span> that corresponds to your file container."
+#~ msgstr ""
+#~ "В левой панели выберите новое <span class=\"guilabel\">Петлевое "
+#~ "устройство</span>, соответствующее вашему файловому контейнеру."
+
+#, no-wrap
+#~ msgid ""
+#~ "   In the right pane, it should have an\n"
+#~ "   <span class=\"guilabel\">Encrypted?</span> label.\n"
+#~ msgstr "   В правой панели можете видеть надпись <span class=\"guilabel\">Encrypted?</span>.\n"
+
+#, no-wrap
+#~ msgid "   [[!img container-locked.png link=\"no\" alt=\"\"]]\n"
+#~ msgstr "   [[!img container-locked.png link=\"no\" alt=\"\"]]\n"
+
+#~ msgid ""
+#~ "Select the file system that appears below the unlocked volume. It "
+#~ "probably has a <span class=\"guilabel\">FAT</span> or <span "
+#~ "class=\"guilabel\">NTFS</span> content."
+#~ msgstr ""
+#~ "Выберите файловую систему, которая отображается под разблокированным "
+#~ "томом. Вероятно, это <span class=\"guilabel\">FAT</span> или <span "
+#~ "class=\"guilabel\">NTFS</span>."
+
+#, no-wrap
+#~ msgid "Closing a file container"
+#~ msgstr "Закрытие файла-контейнера"
+
+#~ msgid "You can either:"
+#~ msgstr "Есть два способа."
+
+#~ msgid ""
+#~ "In the sidebar of the <span class=\"application\">Files</span> browser, "
+#~ "click on the <span class=\"bold\">[[!img lib/media-eject.png "
+#~ "alt=\"Eject\" class=\"symbolic\" link=\"no\"]]</span> button on the label "
+#~ "of the volume corresponding to your file container."
+#~ msgstr ""
+#~ "В боковой панели файлового менеджера <span class=\"application\">Файлы</"
+#~ "span> нажмите кнопку <span class=\"bold\">[[!img lib/media-eject.png "
+#~ "alt=\"Извлечь\" class=\"symbolic\" link=\"no\"]]</span> на ярлыке тома, "
+#~ "соответствующего файловому контейнеру."
+
+#, fuzzy, no-wrap
+#~| msgid "  [[!img eject-container.png link=\"no\" alt=\"\"]]\n"
+#~ msgid "  [[!img eject.png link=\"no\" alt=\"\"]]\n"
+#~ msgstr "  [[!img eject-container.png link=\"no\" alt=\"\"]]\n"
+
+#~ msgid ""
+#~ "In <span class=\"application\">Unlock VeraCrypt Volumes</span>, click on "
+#~ "the <span class=\"bold\">[[!img lib/window-close.png class=\"symbolic\" "
+#~ "link=\"no\" alt=\"\"]]</span> button in the line that corresponds to your "
+#~ "file container."
+#~ msgstr ""
+#~ "В приложении <span class=\"application\">Unlock VeraCrypt Volumes</span> "
+#~ "нажмите кнопку <span class=\"bold\">[[!img lib/window-close.png "
+#~ "class=\"symbolic\" link=\"no\" alt=\"\"]]</span> в строке, "
+#~ "соответствующей вашему файловому контейнеру."
+
+#, no-wrap
+#~ msgid "<a id=\"partition-files\"></a>\n"
+#~ msgstr "<a id=\"partition-files\"></a>\n"
+
+#, no-wrap
+#~ msgid "Unlocking a partition or drive without keyfiles"
+#~ msgstr "Разблокирование раздела/диска без ключевого файла"
+
+#~ msgid ""
+#~ "In the list of partitions, click <span class=\"bold\">Unlock</span> in "
+#~ "the line that corresponds to your USB stick or hard disk."
+#~ msgstr ""
+#~ "Нажмите <span class=\"bold\">Unlock</span> (Разблокировать) в строке, "
+#~ "соответствующей вашей флешке или жёсткому диску."
+
+#, no-wrap
+#~ msgid "   [[!img unlock-veracrypt-volumes-with-partition.png link=\"no\" alt=\"\"]]\n"
+#~ msgstr "   [[!img unlock-veracrypt-volumes-with-partition.png link=\"no\" alt=\"\"]]\n"
+
+#, no-wrap
+#~ msgid "<a id=\"partition-disks\"></a>\n"
+#~ msgstr "<a id=\"partition-disks\"></a>\n"
+
+#, no-wrap
+#~ msgid "Unlocking a partition or drive with keyfiles"
+#~ msgstr "Разблокирование раздела/диска с ключевым файлом"
+
+#, no-wrap
+#~ msgid "   [[!img partition-locked.png link=\"no\" alt=\"\"]]\n"
+#~ msgstr "   [[!img partition-locked.png link=\"no\" alt=\"\"]]\n"
+
+#, no-wrap
+#~ msgid "Closing a partition or drive"
+#~ msgstr "Закрытие раздела/диска"
+
+#~ msgid ""
+#~ "In <span class=\"application\">Unlock VeraCrypt Volumes</span>, click on "
+#~ "the <span class=\"bold\">[[!img lib/window-close.png class=\"symbolic\" "
+#~ "link=\"no\" alt=\"\"]]</span> button in the line that corresponds to your "
+#~ "USB stick or hard disk."
+#~ msgstr ""
+#~ "В приложении <span class=\"application\">Unlock VeraCrypt Volumes</span> "
+#~ "нажмите кнопку <span class=\"bold\">[[!img lib/window-close.png "
+#~ "class=\"symbolic\" link =\"no\" alt=\"\"]]</span> в строке, "
+#~ "соответствующей вашей флешке или жёсткому диску."
 
 #, no-wrap
 #~ msgid "  [[!img eject-partition.png link=\"no\" alt=\"\"]]\n"

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2023-11-21 18:16+0000\n"
 "Last-Translator: _ignifugo <ignifugo@insicuri.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
@@ -144,7 +144,9 @@ msgstr ""
 "Selezionate il dispositivo di memoria esterna che intendete utilizzare."
 
 #. type: Bullet: '  1. '
-msgid "A new device appears in the list of storage devices. Click on it:"
+#, fuzzy
+#| msgid "A new device appears in the list of storage devices. Click on it:"
+msgid "A new device appears in the list of storage devices. Click on it."
 msgstr ""
 "Un nuovo dispositivo appare nella lista dei dispositivi di memoria. Cliccaci:"
 
@@ -176,7 +178,7 @@ msgstr ""
 #| "all the existing partitions on the device."
 msgid ""
 "Click on the [[!img lib/view-more.png alt=\"Drive Options\" "
-"class=\"symbolic\" link=\"no\"]] button in the titlebar and choose **Format "
+"class=\"symbolic\" link=\"no\"]] button in the title bar and choose **Format "
 "Disk** to erase all the existing partitions on the device."
 msgstr ""
 "Clicca sul bottone <span class=\"guimenu\">[[!img lib/open-menu.png "
@@ -198,14 +200,32 @@ msgstr ""
 #| "class=\"guilabel\">Overwrite existing data with zeroes</span> in the "
 #| "<span class=\"guilabel\">Erase</span> drop-down list."
 msgid ""
-"If you want to securely erase all data on the device, choose to <span "
-"class=\"guilabel\">Overwrite existing data with zeroes</span> in the <span "
-"class=\"guilabel\">Erase</span> menu."
+"If you want to overwrite all data on the device, choose **Overwrite existing "
+"data with zeroes** in the **Erase** menu."
 msgstr ""
 "Se volete cancellare tutti i dati in maniera sicura selezionate <span "
 "class=\"guilabel\">Sovrascrivi i\n"
 "dati esistenti con gli zero</span> nel menù a tendina <span "
 "class=\"guilabel\">Cancellare</span>."
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"       <div class=\"caution\">\n"
+"       <p>Overwriting existing data does not erase all data on flash\n"
+"       memories, such as USB sticks and SSDs (Solid-State Drives).</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "       <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "         </div>\n"
+msgid "       </div>\n"
+msgstr "         </div>\n"
 
 #. type: Bullet: '     - '
 #, fuzzy
@@ -214,16 +234,15 @@ msgstr ""
 #| "(MBR/DOS)</span> in the <span class=\"guilabel\">Partitioning</span> drop-"
 #| "down list."
 msgid ""
-"Choose <span class=\"guilabel\">Compatible with all systems and devices (MBR/"
-"DOS)</span> in the <span class=\"guilabel\">Partitioning</span> menu."
+"Choose **Compatible with all systems and devices (MBR/DOS)** in the "
+"**Partitioning** menu."
 msgstr ""
 "Seleziona <span class=\"guilabel\">Compatibile con tutti i sistemi e "
 "dispositivi (MBR/DOS)</span> nel menù a tendina <span "
 "class=\"guilabel\">Partizionamento</span>."
 
-#. type: Plain text
-#, no-wrap
-msgid "     Then click **Format**.\n"
+#. type: Bullet: '  1. '
+msgid "Click **Format**."
 msgstr ""
 
 #. type: Bullet: '  1. '
@@ -231,9 +250,7 @@ msgstr ""
 #| msgid ""
 #| "In the confirmation dialog, make sure that the device is correct. Click "
 #| "<span class=\"bold\">Format</span> to confirm."
-msgid ""
-"In the confirmation dialog, make sure that the device is correct, then click "
-"**Format** to confirm."
+msgid "In the confirmation dialog, make sure that the device is correct."
 msgstr ""
 "Nella finestra di conferma assicurati che il dispositivo sia corretto. "
 "Clicca <span class=\"bold\">Formatta</span> per confermare."
@@ -303,60 +320,66 @@ msgstr ""
 #. type: Bullet: '     - '
 #, fuzzy
 #| msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
-msgid "In the <span class=\"guilabel\">Format Volume</span> screen:"
+msgid "In the **Format Volume** dialog:"
 msgstr ""
-"Nella finestra di dialogo <span class=\"guilabel\">Riavvia Disco</span>:"
+"Nella finestra di dialogo <span class=\"guilabel\">Formatta disco</span>:"
 
 #. type: Bullet: '       - '
-#, fuzzy
-#| msgid ""
-#| "<span class=\"guilabel\">Name</span>: you can set a name for the "
-#| "partition.  This name remains invisible until the partition is open but "
-#| "can help you to identify it during use."
-msgid ""
-"<span class=\"guilabel\">Volume Name</span>: you can give a name to the "
-"partition.  This name remains invisible until the partition is open but can "
-"help you to identify it during use."
+msgid "**Volume Name**"
 msgstr ""
-"<span class=\"guilabel\">Nome</span>: Puoi impostare un nome per la "
-"partizione.…Questo nome rimane invisibile finché non si apre la partizione "
-"ma può aiutarti ad identificarla durante l'utilizzo."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<span class=\"guilabel\">Name</span>: you can set a name for the partition.  This name remains invisible until the partition is open but can help you to identify it during use."
+msgid ""
+"         You can give a name to the partition.\n"
+"         This name remains invisible until the partition is open but can help\n"
+"         you to identify it during use.\n"
+msgstr "<span class=\"guilabel\">Nome</span>: Puoi impostare un nome per la partizione.…Questo nome rimane invisibile finché non si apre la partizione ma può aiutarti ad identificarla durante l'utilizzo."
 
 #. type: Bullet: '       - '
-#, fuzzy
-#| msgid ""
-#| "<span class=\"guilabel\">Passphrase</span>: type a passphrase for the "
-#| "encrypted partition and repeat it to confirm."
-msgid ""
-"<span class=\"guilabel\">Erase</span>: you can choose to securely erase all "
-"data on the partition."
+msgid "**Erase**"
 msgstr ""
-"<span class=\"guilabel\">Frase d'accesso</span>: Scrivi una frase d'accesso "
-"per la partizione cifrata e ripetila per confermare."
+
+#. type: Plain text
+#, no-wrap
+msgid "         You can choose to overwrite existing data on the partition.\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "         <div class=\"tip\">\n"
+msgid "         <div class=\"caution\">\n"
+msgstr "         <div class=\"tip\">\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"         <div class=\"caution\">\n"
-"         <p>Secure deletion does not work as expected on USB sticks and\n"
-"         SSDs (Solid-State Drives). Choose instead to overwrite existing\n"
-"         data on the whole device when [[formatting the\n"
-"         device|encrypted_volumes#formatting]].</p>\n"
-"         <p>See also our [[warning about secure deletion on USB sticks and\n"
-"         SSDs|secure_deletion#usb_and_ssd]].</p>\n"
-"         </div>\n"
+"         <p>Overwriting existing data does not erase all data on flash\n"
+"         memories, such as USB sticks and SSDs (Solid-State Drives).</p>\n"
 msgstr ""
 
-#. type: Bullet: '       - '
-msgid ""
-"<span class=\"guilabel\">Type</span>: choose <span "
-"class=\"guilabel\">Internal disk for use with Linux systems only (Ext4)</"
-"span> and <span class=\"guilabel\">Password protect volume (LUKS)</span>."
+#. type: Plain text
+#, no-wrap
+msgid "         <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>\n"
 msgstr ""
-"<span class=\"guilabel\">Tipo</span>: seleziona <span "
-"class=\"guilabel\">Cifrato, compatibile con sistemi Linux (LUKS + Ext4)</"
-"span>  e <span class=\"guilabel\">Partizione protetto da password (LUKS)</"
-"span>."
+
+#. type: Plain text
+#, no-wrap
+msgid "         </div>\n"
+msgstr "         </div>\n"
+
+#. type: Bullet: '       - '
+msgid "**Type**"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<span class=\"guilabel\">Type</span>: choose <span class=\"guilabel\">Internal disk for use with Linux systems only (Ext4)</span> and <span class=\"guilabel\">Password protect volume (LUKS)</span>."
+msgid ""
+"         Choose **Internal disk for use with Linux systems\n"
+"         only (Ext4)** and **Password protect volume (LUKS)**.\n"
+msgstr "<span class=\"guilabel\">Tipo</span>: seleziona <span class=\"guilabel\">Cifrato, compatibile con sistemi Linux (LUKS + Ext4)</span>  e <span class=\"guilabel\">Partizione protetto da password (LUKS)</span>."
 
 #. type: Bullet: '     - '
 #, fuzzy
@@ -389,11 +412,6 @@ msgid ""
 "         <a href=\"https://theintercept.com/2015/03/26/passphrases-can-memorize-attackers-cant-guess/\">Learn\n"
 "         about the maths behind memorizable and secure passphrases.</a></p>\n"
 msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid "         </div>\n"
-msgstr "         </div>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -601,7 +619,9 @@ msgstr ""
 "volete cambiare la frase d'accesso.\n"
 
 #. type: Bullet: '1. '
-msgid "The device appears in the list of storage devices. Click on it:"
+#, fuzzy
+#| msgid "The device appears in the list of storage devices. Click on it:"
+msgid "The device appears in the list of storage devices. Click on it."
 msgstr ""
 "Il dispositivo viene visualizzato nell'elenco dei dispositivi di "
 "archiviazione. Cliccateci sopra:"
@@ -647,6 +667,23 @@ msgid ""
 msgstr ""
 "   [[!img lib/system-run.png alt=\"Additional partition options\" "
 "class=\"symbolic\" link=\"no\"]]\n"
+
+#, fuzzy
+#~| msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+#~ msgid "In the <span class=\"guilabel\">Format Volume</span> screen:"
+#~ msgstr ""
+#~ "Nella finestra di dialogo <span class=\"guilabel\">Riavvia Disco</span>:"
+
+#, fuzzy
+#~| msgid ""
+#~| "<span class=\"guilabel\">Passphrase</span>: type a passphrase for the "
+#~| "encrypted partition and repeat it to confirm."
+#~ msgid ""
+#~ "<span class=\"guilabel\">Erase</span>: you can choose to securely erase "
+#~ "all data on the partition."
+#~ msgstr ""
+#~ "<span class=\"guilabel\">Frase d'accesso</span>: Scrivi una frase "
+#~ "d'accesso per la partizione cifrata e ripetila per confermare."
 
 #~ msgid ""
 #~ "<span class=\"application\">GNOME Disks</span> allows you to create "

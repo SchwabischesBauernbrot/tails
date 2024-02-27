@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-23 00:41+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2020-01-16 00:26+0000\n"
 "Last-Translator: emmapeel <emma.peel@riseup.net>\n"
 "Language-Team: Tails localization <tails-l10n@boum.org>\n"
@@ -40,7 +40,7 @@ msgstr ""
 
 #. type: Title =
 #, no-wrap
-msgid "Using <span class=\"application\">GNOME Disks</span>"
+msgid "Using the *Disks* utility"
 msgstr ""
 
 #. type: Plain text
@@ -50,9 +50,12 @@ msgstr "<div class=\"caution\">\n"
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"<strong>You might overwrite any hard disk on the computer.</strong> If at some\n"
-"point you are not sure about which device to choose, stop proceeding.\n"
+msgid "<p><b>You might overwrite any hard disk on the computer.</b></p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "<p>If at some point you are not sure about which device to choose, stop proceeding.</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -64,16 +67,10 @@ msgstr "</div>\n"
 msgid "Make sure that the USB stick that you want to reset is unplugged."
 msgstr ""
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '1. '
 msgid ""
-"1. Choose\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Disks</span>\n"
-"   </span>\n"
-"   to start <span class=\"application\">GNOME Disks</span>.\n"
+"Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to start the "
+"*Disks* utility."
 msgstr ""
 
 #. type: Plain text
@@ -102,45 +99,70 @@ msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
-"To reset the USB stick, click on the <span class=\"guimenu\">[[!img lib/open-"
-"menu.png alt=\"Menu\" class=symbolic link=no]]</span> button in the titlebar "
-"and choose <span class=\"guilabel\">Format Disk…</span>."
+"To reset the USB stick, click on the [[!img lib/view-more.png alt=\"Drive "
+"Options\" class=\"symbolic\" link=\"no\"]] button in the title bar and "
+"choose **Format Disk** to erase all the existing partitions on the device."
 msgstr ""
 
 #. type: Bullet: '1. '
-msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
+msgid "In the **Format Disk** dialog:"
 msgstr ""
+
+#. type: Bullet: '   - '
+msgid ""
+"If you want to overwrite all data on the device, choose **Overwrite existing "
+"data with zeroes** in the **Erase** menu."
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+msgid "     <div class=\"caution\">\n"
+msgstr "<div class=\"caution\">\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"   1. If you want to erase all data securely, choose to\n"
-"   **Overwrite existing data with zeroes** in the\n"
-"   **Erase** menu.\n"
+"     <p>Overwriting existing data does not erase all data on flash\n"
+"     memories, such as USB sticks and SSDs (Solid-State Drives).</p>\n"
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"   2. Choose **Compatible with all systems and devices (MBR/DOS)**\n"
-"   in the **Partitioning** menu.\n"
+msgid "     <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>\n"
 msgstr ""
 
-#. type: Bullet: '   3. '
-msgid "Click on the **Format…** button."
+#. type: Plain text
+#, fuzzy, no-wrap
+msgid "     </div>\n"
+msgstr "</div>\n"
+
+#. type: Bullet: '   - '
+msgid ""
+"Choose **Compatible with all systems and devices (MBR/DOS)** in the "
+"**Partitioning** menu."
+msgstr ""
+
+#. type: Bullet: '1. '
+msgid "Click **Format**."
+msgstr ""
+
+#. type: Bullet: '1. '
+msgid "In the confirmation dialog, click **Format** to confirm."
 msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
-"In the confirmation dialog, click on the <span class=\"bold\">Format</span> "
-"button to confirm."
+"To make sure that all the changes are written to the USB stick, click on the"
 msgstr ""
 
-#. type: Bullet: '1. '
-msgid ""
-"To make sure that all the changes are written to the USB stick, click on the "
-"<span class=\"guimenu\">[[!img lib/media-eject.png alt=\"Eject\" "
-"class=symbolic link=no]]</span> button in the titlebar."
+#. type: Plain text
+#, no-wrap
+msgid "   [[!img lib/media-eject.png alt=\"Eject\" class=\"symbolic\" link=\"no\"]]\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "   button in the title bar.\n"
 msgstr ""
 
 #. type: Title =
@@ -166,7 +188,7 @@ msgstr ""
 #. type: Bullet: '2.  '
 msgid ""
 "If Tails starts as usual, follow the instructions for [[resetting a USB "
-"stick using <span class=\"application\">GNOME Disks</span>|linux#disks]]."
+"stick using the *Disks* utility|linux#disks]]."
 msgstr ""
 
 #. type: Plain text
