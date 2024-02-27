@@ -133,6 +133,7 @@ LAN_WEB_SERVER_DATA_DIR = "#{$config['TMPDIR']}/lan-web-server".freeze
 
 # Journal entries of priority "err" or higher that we expect to see
 # in the system journal.
+# rubocop:disable Layout/LineLength
 EXPECTED_JOURNAL_ENTRIES = [
   # libpam-gnome-keyring is not installed in Tails
   {
@@ -184,3 +185,4 @@ EXPECTED_JOURNAL_ENTRIES = [
     'MESSAGE'           => 'We were woken up with POLLOUT set -- however a subsequent snd_pcm_avail() returned 0 or another value < min_avail.',
   },
 ].freeze
+# rubocop:enable Layout/LineLength

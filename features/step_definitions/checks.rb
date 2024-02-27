@@ -154,7 +154,7 @@ Then /^no unexpected services are listening for network connections$/ do
   end
 end
 
-def is_expected_error?(journal_entry)
+def expected_error?(journal_entry)
   # Check if the journal entry matches all fields of any of the expected errors
   EXPECTED_JOURNAL_ENTRIES.each do |expected_error|
     return true if expected_error.all? do |field, pattern|
@@ -177,7 +177,7 @@ Then /^there are no unexpected messages of priority "err" or higher in the journ
   unexpected_errors = false
   output.split("\n").select do |line|
     journal_entry = JSON.parse(line)
-    next if is_expected_error?(journal_entry)
+    next if expected_error?(journal_entry)
 
     unexpected_errors = true
     # Sort the JSON to make the output more readable, put the MESSAGE
