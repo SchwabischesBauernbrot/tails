@@ -1334,7 +1334,7 @@ Prepare upgrade-description files
                 fi
             ) \
             $( \
-                for version in $(echo ${IUK_SOURCE_VERSIONS:?}) 5.8~beta1; do
+                for version in $(echo ${IUK_SOURCE_VERSIONS:?}); do
                    echo "--previous_version ${version:?}"
                 done \
             ) \
