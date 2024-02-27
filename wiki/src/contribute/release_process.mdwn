@@ -1408,19 +1408,22 @@ Check that incremental upgrades are working
 Check if the upgrades file looks good:
 
     (
-    err() { echo "$*"; exit 1; }
-    cd "${MASTER_CHECKOUT:?}" || err "Cannot change directory"
+    set -e
+    cd "${MASTER_CHECKOUT:?}"
     for version in ${TEST_IUK_SOURCE_VERSIONS:?}; do
-        echo "Upgrade from ${version}"
+        echo "Upgrade from ${version}:"
         udf="wiki/src/upgrade/v2/Tails/${version}/amd64/test/upgrades.yml"
-        grep --quiet --fixed-strings "to_${VERSION}.iuk" "$udf" || err "No IUK mentioned in $udf"
-        grep --quiet --fixed-strings -- "-${VERSION}.iso" "$udf" || err "No ISO mentioned in $udf"
-        cat "wiki/src/upgrade/v2/Tails/${version}/amd64/test/upgrades.yml"
+        echo -n "- IUK: "
+        grep --quiet --fixed-strings "to_${VERSION}.iuk" "$udf" && echo ok || echo missing
+        echo -n "- ISO: "
+        grep --quiet --fixed-strings -- "-${VERSION}.iso" "$udf" && echo ok || echo missing
     done
     )
 
-The above output should mention a valid upgrade path from the last stable version.
-
+The above output should not mention any missing IUKs/ISOs, except when
+releasing a new major version `(N+1).0` (i.e. when Tails is upgraded
+to a new Debian major release) when it is expected that the previous
+stable `N.x` release has no IUK (but it should have an ISO!).
 
 Done with OpenPGP signing
 =========================
