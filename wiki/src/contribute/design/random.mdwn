@@ -87,21 +87,10 @@ to ensure that the seed is different at every startup
 During shutdown:
 * Update the seed with random bytes from /dev/urandom
 
-## Availability on different Tails devices
+## Initialization during installation
 
-Storing the entropy pool obviously doesn't work on DVD.
-
-It does also not work on intermediary Tails devices, i.e. ones created
-by simply copying the ISO. This is not by design, but we don't
-want to spend time to fix this because of the plans to ship a USB image,
-which will make this issue obsolete (see [[!tails_ticket 15292]]).
-
-It does work on USB sticks created with Unified USB Installer.
-
-## Initialization during Installation
-
-Tails Installer creates a random seed during installation and writes it
-to LBA 34 to initialize the seed for the first boot.
+When creating a new Tails device, Tails Cloner writes a random seed to 
+LBA 34 to initialize the seed for the first boot.
 
 # Remaining concerns
 
