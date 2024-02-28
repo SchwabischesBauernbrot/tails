@@ -174,7 +174,7 @@ EXPECTED_JOURNAL_ENTRIES = [
   # https://github.com/alsa-project/alsa-lib/issues/90
   {
     'SYSLOG_IDENTIFIER' => 'pulseaudio',
-    'MESSAGE'           => 'ALSA woke us up to write new data to the device, but there was actually nothing to write.',
+    'MESSAGE'           => /ALSA woke us up to (?:read|write) new data (?:to|from) the device, but there was actually nothing to (?:read|write)\./,
   },
   {
     'SYSLOG_IDENTIFIER' => 'pulseaudio',
@@ -182,7 +182,7 @@ EXPECTED_JOURNAL_ENTRIES = [
   },
   {
     'SYSLOG_IDENTIFIER' => 'pulseaudio',
-    'MESSAGE'           => 'We were woken up with POLLOUT set -- however a subsequent snd_pcm_avail() returned 0 or another value < min_avail.',
+    'MESSAGE'           => /We were woken up with (?:POLLIN|POLLOUT) set -- however a subsequent snd_pcm_avail\(\) returned 0 or another value < min_avail\./,
   },
 ].freeze
 # rubocop:enable Layout/LineLength
