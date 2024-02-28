@@ -201,7 +201,7 @@ class TailsInstallerThread(threading.Thread):
             if self.parent.opts.partition:
                 self.live.switch_back_to_full_drive()
 
-            self.live.reset_mbr()
+            self.live.reset_mbr_and_write_random_seed()
             self.live.flush_buffers()
 
             duration = str(datetime.now() - self.now).split(".")[0]

@@ -147,9 +147,11 @@ def get_open_write_fd(block):
     return file_desc
 
 
-def write_to_block_device(block, string):
+def write_to_block_device(block, string, offset: int = 0):
     """Writes a string to a block"""
     file_desc = get_open_write_fd(block)
+    if offset:
+        os.lseek(file_desc, offset, os.SEEK_SET)
     os.write(file_desc, string)
     os.fsync(file_desc)
     os.close(file_desc)
