@@ -16,6 +16,11 @@ esac
 set -u
 set -e
 
+# Unset $quiet to make log_begin_msg() and log_end_msg() print messages
+# to the console, which in turn makes Plymouth write them to
+# /var/log/boot.log.
+quiet=
+
 # Print commands if the "debug=random-seed" boot parameter is set.
 grep -qw "debug=random-seed" /proc/cmdline && set -x
 
