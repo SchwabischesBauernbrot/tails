@@ -92,6 +92,8 @@ def debug_command(args: list, shell=False):
         else:
             command_output = subprocess.check_output(args, stderr=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
+        if strict_mode:
+            raise e
         command_output = e.stdout
     command_output = command_output.decode('UTF-8').strip().split('\n')
     return {'key': '{}'.format(' '.join(args)), 'content': command_output}
@@ -161,10 +163,12 @@ def debug_directory(user, dir_name):
 
 if __name__ == '__main__':
     if sys.argv and len(sys.argv) > 1:
+        strict_mode = '--strict' in sys.argv
         if sys.argv[1] == 'doctest':
             import doctest
             doctest.testmod(optionflags=doctest.ELLIPSIS)
         else:
             main()
     else:
+        strict_mode = False
         main()
