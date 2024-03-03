@@ -239,6 +239,13 @@ Then /^there are no unexpected messages of priority "err" or higher in the journ
          "#{JSON.pretty_generate(unexpected_errors)}")
 end
 
+Then(/^there is no "([^"]*)" message in the journal$/) do |arg|
+  output = $vm.execute_successfully(
+    "journalctl --quiet --no-pager --grep '#{arg}'"
+  ).stdout
+  assert(output.empty?, "Unexpected message found in the journal: #{output}")
+end
+
 Then /^the support documentation page opens in Tor Browser$/ do
   if $language == 'German'
     expected_title = 'Tails - Hilfe & Support'
