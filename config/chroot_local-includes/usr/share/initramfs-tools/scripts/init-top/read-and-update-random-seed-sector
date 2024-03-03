@@ -33,6 +33,8 @@ if [ -z "${FSUUID:-}" ]; then
 fi
 
 # Wait for system partition
+PLYMOUTH_WAIT_MSG="Waiting for system partition"
+plymouth display-message --text="${PLYMOUTH_WAIT_MSG}"
 log_begin_msg "Waiting for system partition to become available"
 i=0
 while true; do
@@ -56,6 +58,7 @@ while true; do
   i="$((i + 1))"
 done
 log_end_msg
+plymouth hide-message --text="${PLYMOUTH_WAIT_MSG}"
 
 # Check if this is first boot
 GUID=$(sgdisk --print "${PARENT_DEVICE}" | \
@@ -74,6 +77,8 @@ log_end_msg
 if [ -n "${FIRST_BOOT:-}" ]; then
   ITERATIONS=$((1 + $(od -An -N2 -t uI /dev/urandom) % 2000))
   echo "First boot, writing random seed $ITERATIONS times..."
+  PLYMOUTH_INIT_MSG="First boot: Initializing random seed"
+  plymouth display-message --text="${PLYMOUTH_INIT_MSG}"
 
   # Debug output for the following loop would be too verbose
   set +x
@@ -84,6 +89,7 @@ if [ -n "${FIRST_BOOT:-}" ]; then
   done
   end_time=$(date +%s)
   echo "Wrote random seed $ITERATIONS times in $((end_time - start_time)) seconds"
+  plymouth hide-message --text="${PLYMOUTH_INIT_MSG}"
 
   # Restore debug output
   [ "${debug:-}" = "random-seed" ] && set -x
