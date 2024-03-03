@@ -71,7 +71,7 @@ and has multiple advantages:
 * The filesystem is not changed, therefore easier to verify
 * Doesn't require persistence to be set up
 * The entropy pool is seeded earlier during the boot process (in the
-initramfs `live-realpremount` stage)
+initramfs `init-top` stage)
 
 The scripts do basically the same `systemd-random-seed.service` does ([see the source code](https://github.com/systemd/systemd/blob/f11fc3fa734059ca9e4afa84f76e3ae4595ce9cc/src/random-seed/random-seed.c#L64)),
 which is also basically the same as the instructions in [this comment
