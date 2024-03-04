@@ -334,8 +334,12 @@ class TailsInstallerCreator(object):
         for obj in self._udisksclient.get_object_manager().get_objects():
             data = self._get_udisks_object_data(obj, force_partitions=force_partitions)
             if data is not None:
-                self.drives[data["device"]] = data
-                mounted_parts.update(data["mounted_partitions"])
+                # We normally list only devices ("parents"), not
+                # partitions, with the exception of partitions where
+                # Tails is installed, so we can upgrade them.
+                if self.device_can_be_upgraded(data) or data["parent"] is None:
+                    self.drives[data["device"]] = data
+                    mounted_parts.update(data["mounted_partitions"])
 
         # Remove parent drives if a valid partition exists.
         # This is always made to avoid listing both the devices
