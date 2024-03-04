@@ -81,11 +81,13 @@ During boot:
 * Read the seed from the location it was stored at
 * Write the seed to /dev/urandom, which causes it to be mixed in with
 the existing bytes in the entropy pool
-* Immediately update the seed with new random bytes from /dev/urandom,
-to ensure that the seed is different at every startup
+* Update the seed with random bytes from /dev/urandom to ensure that
+  some entropy is saved for the next boot, even if the system is not
+  shutting down properly
 
 During shutdown:
-* Update the seed with random bytes from /dev/urandom
+* Update the seed with random bytes from /dev/urandom to save the
+  entropy pool for the next boot
 
 ## Initialization during installation
 

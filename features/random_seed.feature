@@ -12,6 +12,9 @@ Feature: Random Seed
     When I start Tails from USB drive "temp" with network unplugged
     Then the random seed was written multiple times on first boot
     And there is a random seed on USB drive "temp"
+    When I log in to a new session
+    Then there is a random seed on USB drive "temp"
+    And the random seed is different from the previous one
     And I shutdown Tails and wait for the computer to power off
     Then there is a random seed on USB drive "temp"
     And the random seed is different from the previous one

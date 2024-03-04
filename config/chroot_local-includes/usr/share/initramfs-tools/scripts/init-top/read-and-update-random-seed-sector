@@ -98,9 +98,4 @@ if [ -n "${FIRST_BOOT:-}" ]; then
 
   # Restore debug output
   [ "${debug:-}" = "random-seed" ] && set -x
-else
-  log_begin_msg "Writing random seed to LBA 34"
-  # Refresh the random seed
-  dd bs=512 seek=34 count=1 status=none if=/dev/urandom of="${PARENT_DEVICE}"
-  log_end_msg
 fi

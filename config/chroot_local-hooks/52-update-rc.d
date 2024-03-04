@@ -22,6 +22,7 @@ systemctl enable tails-remove-overlayfs-dirs.service
 systemctl enable tails-set-wireless-devices-state.service
 systemctl enable tails-shutdown-on-media-removal.service
 systemctl enable tails-tor-has-bootstrapped.target
+systemctl enable tails-update-random-seed-sector.service
 systemctl enable tails-wait-until-tor-has-bootstrapped.service
 systemctl enable tails-tor-has-bootstrapped-flag-file.service
 systemctl enable tca-portal.socket
