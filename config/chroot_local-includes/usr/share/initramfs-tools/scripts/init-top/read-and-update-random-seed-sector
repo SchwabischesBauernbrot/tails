@@ -16,6 +16,11 @@ esac
 set -u
 set -e
 
+# The plymouth script was run as a dependency and we don't want it to
+# fail the next time it's run as a dependency in the init-premount stage,
+# so we set SPLASH=false which makes it a no-op.
+export SPLASH=false
+
 # Unset $quiet to make log_begin_msg() and log_end_msg() print messages
 # to the console, which in turn makes Plymouth write them to
 # /var/log/boot.log.
