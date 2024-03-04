@@ -730,7 +730,12 @@ Given /^all notifications have disappeared$/ do
       gnome_shell.child?('No Notifications', roleName: 'label')
     end
   end
-  @screen.press('Escape')
+  # Close the notification list
+  retry_action(5) do
+    @screen.press('Escape')
+    !gnome_shell.child?('Do Not Disturb',
+                        roleName: 'label', retry: false)
+  end
   # Increase the chances that by the time we leave this step, the
   # notifications menu was closed and the desktop is back to its
   # normal state. Otherwise, all kinds of trouble may arise: for
