@@ -54,6 +54,14 @@
             <property name="visible">True</property>
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Administration Password</property>
+            <accessibility>
+              <relation type="label-for" target="entry_admin_password"/>
+            </accessibility>
+            <child internal-child="accessible">
+              <object class="AtkObject" id="label_admin_password-atkobject">
+                <property name="AtkObject::accessible-role" translatable="no">label</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -67,6 +75,14 @@
             <property name="can_focus">True</property>
             <property name="visibility">False</property>
             <property name="placeholder_text" translatable="yes">Enter an administration password</property>
+            <accessibility>
+              <relation type="labelled-by" target="label_admin_password"/>
+            </accessibility>
+            <child internal-child="accessible">
+              <object class="AtkObject" id="entry_admin_password-atkobject">
+                <property name="AtkObject::accessible-role" translatable="no">password-text</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">True</property>
@@ -92,6 +108,14 @@
             <property name="can_focus">False</property>
             <property name="label" translatable="yes">Confirm</property>
             <property name="xalign">0</property>
+            <accessibility>
+              <relation type="label-for" target="entry_admin_verify"/>
+            </accessibility>
+            <child internal-child="accessible">
+              <object class="AtkObject" id="label_admin_verify-atkobject">
+                <property name="AtkObject::accessible-role" translatable="no">label</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">False</property>
@@ -105,6 +129,14 @@
             <property name="can_focus">True</property>
             <property name="visibility">False</property>
             <property name="placeholder_text" translatable="yes">Confirm your administration password</property>
+            <accessibility>
+              <relation type="labelled-by" target="label_admin_verify"/>
+            </accessibility>
+            <child internal-child="accessible">
+              <object class="AtkObject" id="entry_admin_verify-atkobject">
+                <property name="AtkObject::accessible-role" translatable="no">password-text</property>
+              </object>
+            </child>
           </object>
           <packing>
             <property name="expand">True</property>
