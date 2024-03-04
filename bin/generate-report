@@ -74,6 +74,7 @@ class ReportGenerator(object):
         closed_issues = []
         project = self.gl.project_from_name(project_name)
         closed_issues_events = project.events.list(as_list=False,
+                                                   get_all=True,
                                                    target_type='issue',
                                                    action='closed',
                                                    after=self.after,
