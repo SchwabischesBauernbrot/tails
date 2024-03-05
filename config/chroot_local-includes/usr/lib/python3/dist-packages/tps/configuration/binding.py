@@ -16,7 +16,7 @@ from tps.mountutil import (
     MOUNTFLAG_NOSYMFOLLOW,
     MOUNTFLAG_REMOUNT,
 )
-from tps.dbus.errors import TargetIsBusyError
+from tps.errors import TargetIsBusyError
 
 logger = tps.logging.get_logger(__name__)
 

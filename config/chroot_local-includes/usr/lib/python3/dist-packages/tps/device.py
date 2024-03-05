@@ -16,7 +16,7 @@ import tps.logging
 from tps import executil, LUKS_HEADER_BACKUP_PATH
 from tps import _, TPS_MOUNT_POINT, udisks
 from tps import InvalidBootDeviceErrorType
-from tps.dbus.errors import (
+from tps.errors import (
     IncorrectPassphraseError,
     TargetIsBusyError,
     NotEnoughMemoryError,

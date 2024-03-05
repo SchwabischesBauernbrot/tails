@@ -5,7 +5,6 @@ from pathlib import Path
 
 from gi.repository import Gio, GLib
 from logging import getLogger
-import time
 from typing import TYPE_CHECKING, Optional
 
 from tps import (
@@ -13,18 +12,22 @@ from tps import (
     InvalidBootDeviceErrorType,
     SYSTEM_PARTITION_MOUNT_POINT,
     LUKS_HEADER_BACKUP_PATH,
+    DBUS_SERVICE_NAME,
+    TPS_IS_CREATED_STATE_FILE,
+    TPS_IS_UNLOCKED_STATE_FILE,
+    TPS_RUNTIME_DIR,
 )
 from tps.configuration import features
 from tps.configuration.config_file import ConfigFile, InvalidStatError
 from tps.configuration.feature import Feature, ConflictingProcessesError
-from tps.dbus.errors import (
+from tps.errors import (
     InvalidConfigFileError,
     FailedPreconditionError,
     FeatureActivationFailedError,
     ActivationFailedError,
     DeactivationFailedError,
 )
-from tps.dbus.object import DBusObject
+from gdbus_util import DBusObject, ExitOnIdleService
 from tps.device import (
     udisks,
     BootDevice,
@@ -47,6 +50,8 @@ from tps import (
 if TYPE_CHECKING:
     from tps.job import Job
 
+TIMEOUT = 30  # seconds
+
 logger = getLogger(__name__)
 
 
@@ -66,7 +71,7 @@ class NotUnlockedError(Exception):
     pass
 
 
-class Service(DBusObject, ServiceUsingJobs):
+class Service(DBusObject, ServiceUsingJobs, ExitOnIdleService):
     dbus_info = """
         <node>
             <interface name='org.boum.tails.PersistentStorage'>
@@ -94,6 +99,7 @@ class Service(DBusObject, ServiceUsingJobs):
                 <method name='UpgradeLUKS'>
                     <arg name='passphrase' direction='in' type='s'/>
                 </method>
+                <method name='KeepAlive'/>
                 <property name="State" type="s" access="read" />
                 <property name="Error" type="u" access="read" />
                 <property name="IsCreated" type="b" access="read"/>
@@ -110,10 +116,12 @@ class Service(DBusObject, ServiceUsingJobs):
 
     dbus_path = DBUS_ROOT_OBJECT_PATH
 
-    def __init__(self, connection: Gio.DBusConnection, loop: GLib.MainLoop):
-        super().__init__(connection=connection)
+    def __init__(self, connection: Gio.DBusConnection):
+        ExitOnIdleService.__init__(self, connection, DBUS_SERVICE_NAME, TIMEOUT)
+        DBusObject.__init__(self, connection=connection)
+        ServiceUsingJobs.__init__(self, connection=connection)
+
         self.connection = connection
-        self.mainloop = loop
         self.object_manager = None  # type: Optional[Gio.DBusObjectManagerServer]
         self.config_file = ConfigFile(TPS_MOUNT_POINT)
         self.bus_id = None
@@ -128,7 +136,16 @@ class Service(DBusObject, ServiceUsingJobs):
         self._upgraded = False
         self._created = False
         self.enable_features_lock = threading.Lock()
+        self.change_properties_lock = threading.Lock()
         self._boot_device = None  # type: Optional[BootDevice]
+        self.is_created_state_file = Path(TPS_IS_CREATED_STATE_FILE)
+        self.is_unlocked_state_file = Path(TPS_IS_UNLOCKED_STATE_FILE)
+
+        # Remove the runtime directory recursively to ensure that we
+        # don't have any stale files from a previous run.
+        executil.check_call(["rm", "-rf", TPS_RUNTIME_DIR])
+        # Create the runtime directory
+        Path(TPS_RUNTIME_DIR).mkdir(parents=True, exist_ok=True)
 
         # Check if the boot device is valid for creating or using a Persistent
         # Storage. We only do this once and not in refresh_state(),
@@ -147,7 +164,15 @@ class Service(DBusObject, ServiceUsingJobs):
             self.Error = e.error_type
             return
 
+        self.register_objects()
         self.refresh_state()
+
+    def check_idle(self) -> bool:
+        for feature in self.features:
+            if not feature.check_idle():
+                return False
+
+        return super().check_idle()
 
     # ----- Exported methods ----- #
 
@@ -163,11 +188,8 @@ class Service(DBusObject, ServiceUsingJobs):
         # error on the client.
         invocation.return_value(None)
         connection.flush_sync()
-        logger.info("Quit() was called, terminating...")
-        self.settle()
-        self.unregister(self.connection)
-        self.wait_for_method_calls_to_finish(True)
-        self.stop()
+        logger.info("Quit() was called, shutting down gracefully...")
+        self.graceful_shutdown()
 
     def Reload(self):
         """Reload the state of the service and all features"""
@@ -485,6 +507,10 @@ class Service(DBusObject, ServiceUsingJobs):
 
         logger.info("Done changing passphrase")
 
+    def KeepAlive(self):
+        """This is a no-op method which clients can call to keep the
+        service from exiting."""
+
     # ----- Exported properties ----- #
 
     @property
@@ -498,11 +524,9 @@ class Service(DBusObject, ServiceUsingJobs):
             # Nothing to do
             return
         self.state = state
-        changed_properties = {"State": GLib.Variant("s", state.name)}
         self.emit_properties_changed_signal(
-            self.connection,
-            DBUS_SERVICE_INTERFACE,
-            changed_properties,
+            interface_name=DBUS_SERVICE_INTERFACE,
+            changed_properties={"State": state.name},
         )
 
     @property
@@ -516,11 +540,9 @@ class Service(DBusObject, ServiceUsingJobs):
             # Nothing to do
             return
         self._error = code
-        changed_properties = {"Error": GLib.Variant("u", code)}
         self.emit_properties_changed_signal(
-            self.connection,
-            DBUS_SERVICE_INTERFACE,
-            changed_properties,
+            interface_name=DBUS_SERVICE_INTERFACE,
+            changed_properties={"Error": code},
         )
 
     @property
@@ -530,15 +552,19 @@ class Service(DBusObject, ServiceUsingJobs):
 
     @IsCreated.setter
     def IsCreated(self, value: bool):
-        if self._created == value:
-            # Nothing to do
-            return
-        self._created = value
-        changed_properties = {"IsCreated": GLib.Variant("b", value)}
+        with self.change_properties_lock:
+            if self._created == value:
+                # Nothing to do
+                return
+            self._created = value
+            if value:
+                self.is_created_state_file.touch()
+            else:
+                self.is_created_state_file.unlink(missing_ok=True)
+
         self.emit_properties_changed_signal(
-            self.connection,
-            DBUS_SERVICE_INTERFACE,
-            changed_properties,
+            interface_name=DBUS_SERVICE_INTERFACE,
+            changed_properties={"IsCreated": value},
         )
 
     @property
@@ -556,15 +582,19 @@ class Service(DBusObject, ServiceUsingJobs):
 
     @IsUnlocked.setter
     def IsUnlocked(self, value: bool):
-        if self._unlocked == value:
-            # Nothing to do
-            return
-        self._unlocked = value
-        changed_properties = {"IsUnlocked": GLib.Variant("b", value)}
+        with self.change_properties_lock:
+            if self._unlocked == value:
+                # Nothing to do
+                return
+            self._unlocked = value
+            if value:
+                self.is_unlocked_state_file.touch()
+            else:
+                self.is_unlocked_state_file.unlink(missing_ok=True)
+
         self.emit_properties_changed_signal(
-            self.connection,
-            DBUS_SERVICE_INTERFACE,
-            changed_properties,
+            interface_name=DBUS_SERVICE_INTERFACE,
+            changed_properties={"IsUnlocked": value},
         )
 
     @property
@@ -580,11 +610,9 @@ class Service(DBusObject, ServiceUsingJobs):
             # Nothing to do
             return
         self._upgraded = value
-        changed_properties = {"IsUpgraded": GLib.Variant("b", value)}
         self.emit_properties_changed_signal(
-            self.connection,
-            DBUS_SERVICE_INTERFACE,
-            changed_properties,
+            interface_name=DBUS_SERVICE_INTERFACE,
+            changed_properties={"IsUpgraded": value},
         )
 
     @property
@@ -599,11 +627,9 @@ class Service(DBusObject, ServiceUsingJobs):
             # Nothing to do
             return
         self._can_unlock = value
-        changed_properties = {"CanUnlock": GLib.Variant("b", value)}
         self.emit_properties_changed_signal(
-            self.connection,
-            DBUS_SERVICE_INTERFACE,
-            changed_properties,
+            interface_name=DBUS_SERVICE_INTERFACE,
+            changed_properties={"CanUnlock": value},
         )
 
     @property
@@ -618,11 +644,9 @@ class Service(DBusObject, ServiceUsingJobs):
             # Nothing to do
             return
         self._can_delete = value
-        changed_properties = {"CanDelete": GLib.Variant("b", value)}
         self.emit_properties_changed_signal(
-            self.connection,
-            DBUS_SERVICE_INTERFACE,
-            changed_properties,
+            interface_name=DBUS_SERVICE_INTERFACE,
+            changed_properties={"CanDelete": value},
         )
 
     @property
@@ -639,11 +663,9 @@ class Service(DBusObject, ServiceUsingJobs):
             # Nothing to do
             return
         self._device = value
-        changed_properties = {"Device": GLib.Variant("s", value)}
         self.emit_properties_changed_signal(
-            self.connection,
-            DBUS_SERVICE_INTERFACE,
-            changed_properties,
+            interface_name=DBUS_SERVICE_INTERFACE,
+            changed_properties={"Device": value},
         )
 
     @property
@@ -653,57 +675,35 @@ class Service(DBusObject, ServiceUsingJobs):
     @Job.setter
     def Job(self, job: "Job"):
         self._job = job
-        changed_properties = {"Job": GLib.Variant("s", self.Job)}
         self.emit_properties_changed_signal(
-            self.connection,
-            DBUS_SERVICE_INTERFACE,
-            changed_properties,
+            interface_name=DBUS_SERVICE_INTERFACE, changed_properties={"Job": self.Job}
         )
 
     # ----- Non-exported functions ----- #
 
-    def start(self):
-        """Start the Persistent Storage service."""
-        try:
-            self.register(self.connection)
+    def register_objects(self):
+        logger.debug("Registering objects")
 
-            # Create the object manager
-            object_manager_path = DBUS_FEATURES_PATH
-            self.object_manager = Gio.DBusObjectManagerServer(
-                object_path=object_manager_path,
-            )
+        # Create the object manager
+        object_manager_path = DBUS_FEATURES_PATH
+        self.object_manager = Gio.DBusObjectManagerServer(
+            object_path=object_manager_path,
+        )
 
-            for FeatureClass in features.get_classes():
-                feature = FeatureClass(self)
-                feature.register(self.connection)
-                self.object_manager.export(
-                    Gio.DBusObjectSkeleton.new(feature.dbus_path)
-                )
-                self.features.append(feature)
+        for FeatureClass in features.get_classes():
+            feature = FeatureClass(self)
+            feature.exit_on_idle_service = self
+            self.object_manager.export(Gio.DBusObjectSkeleton.new(feature.dbus_path))
+            self.features.append(feature)
 
-            # Export the object manager on the connection. We do this
-            # after exporting the features above to avoid
-            # InterfacesAdded signals being emitted.
-            self.object_manager.set_connection(self.connection)
+        # Export the object manager on the connection. We do this
+        # after exporting the features above to avoid
+        # InterfacesAdded signals being emitted.
+        self.object_manager.set_connection(self.connection)
 
-            self.refresh_features()
+        self.refresh_features()
 
-            logger.debug("Done registering objects")
-        except:
-            self.stop()
-            raise
-
-    def stop(self):
-        self.settle()
-        logger.debug("Exiting")
-        self.mainloop.quit()
-
-    def settle(self):
-        # Wait until all pending events on the main loop were handled
-        context = self.mainloop.get_context()  # type: GLib.MainContext
-        while context.iteration(may_block=False):
-            logger.debug("Waiting for mainloop events to be handled")
-            time.sleep(0.1)
+        logger.debug("Done registering objects")
 
     def enable_feature(self, feature: Feature):
         with self.enable_features_lock:
@@ -744,7 +744,7 @@ class Service(DBusObject, ServiceUsingJobs):
                     Bindings = [binding]  # noqa: RUF012
 
                 custom_feature = CustomFeature(self, is_custom=True)
-                custom_feature.register(self.connection)
+                custom_feature.exit_on_idle_service = self
                 self.object_manager.export(
                     Gio.DBusObjectSkeleton.new(custom_feature.dbus_path)
                 )
@@ -755,7 +755,7 @@ class Service(DBusObject, ServiceUsingJobs):
         custom_features = [f for f in self.features if f.is_custom]
         for known_custom_feature in custom_features:
             if known_custom_feature.Bindings[0] not in bindings:
-                known_custom_feature.unregister(self.connection)
+                known_custom_feature.unregister()
                 self.object_manager.unexport(known_custom_feature.dbus_path)
                 self.features.remove(known_custom_feature)
 

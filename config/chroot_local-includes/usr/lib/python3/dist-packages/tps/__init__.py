@@ -33,6 +33,11 @@ LUKS_HEADER_BACKUP_PATH = SYSTEM_PARTITION_MOUNT_POINT + "/luks-header-backup"
 ON_ACTIVATED_HOOKS_DIR = "/usr/local/lib/persistent-storage/on-activated-hooks"
 ON_DEACTIVATED_HOOKS_DIR = "/usr/local/lib/persistent-storage/on-deactivated-hooks"
 
+TPS_RUNTIME_DIR = "/run/tps"
+TPS_IS_CREATED_STATE_FILE = TPS_RUNTIME_DIR + "/is-created"
+TPS_IS_UNLOCKED_STATE_FILE = TPS_RUNTIME_DIR + "/is-unlocked"
+TPS_FEATURES_DIR = TPS_RUNTIME_DIR + "/features"
+
 
 class State(Enum):
     UNKNOWN = 0

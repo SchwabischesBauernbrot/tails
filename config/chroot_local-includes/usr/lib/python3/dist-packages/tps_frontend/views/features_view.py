@@ -1,16 +1,17 @@
 import os.path
 
-from gi.repository import Gdk, Gio, Gtk
+from gi.repository import Gdk, Gio, Gtk, GLib
 import inspect
 from logging import getLogger
 import subprocess
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING
 
 from tps_frontend import (
     FEATURES_VIEW_UI_FILE,
     DBUS_FEATURES_PATH,
     DBUS_SERVICE_NAME,
     DBUS_FEATURE_INTERFACE,
+    _,
 )
 from tps_frontend.view import View
 from tps_frontend.feature import Feature
@@ -31,7 +32,7 @@ class PersistentDirectory(Feature):
         self.open_button.set_visible(self.switch.get_state())
 
     @property
-    def widgets_to_show_while_active(self) -> List[Gtk.Widget]:
+    def widgets_to_show_while_active(self) -> list[Gtk.Widget]:
         return [self.open_button]
 
 
@@ -83,7 +84,7 @@ class Dotfiles(Feature):
     pass
 
 
-def get_feature_classes():
+def get_feature_classes() -> list[type[Feature]]:
     return [
         g for g in globals().values() if inspect.isclass(g) and Feature in g.__bases__
     ]
@@ -104,7 +105,7 @@ class FeaturesView(View):
             None,
             None,
         )  # type: Gio.DBusObjectManagerClient
-        self.features = list()
+        self.features: list[type[Feature]] = []
 
         # Append all non-default paths that contain icons to the search
         # paths
@@ -133,7 +134,7 @@ class FeaturesView(View):
         )  # type: Gtk.ListBox
         dbus_objects = (
             self.object_manager.get_objects()
-        )  # type: List[Gio.DBusObjectProxy]
+        )  # type: list[Gio.DBusObjectProxy]
         for obj in dbus_objects:
             path = obj.get_object_path()
             if os.path.basename(path).startswith("CustomFeature"):
@@ -193,14 +194,27 @@ class FeaturesView(View):
 
     def on_activate_link(self, label: Gtk.Label, uri: str):
         logger.debug("Opening documentation: %s", uri)
-        subprocess.run(["tails-documentation", uri])
+        cmd = ["/usr/local/bin/tails-documentation", uri]
+        try:
+            subprocess.run(cmd, stderr=subprocess.PIPE, text=True, check=True)
+        except subprocess.CalledProcessError as e:
+            logger.error("Failed to open documentation: %s", e)
+            title = _("Failed to open the documentation")
+            self.window.display_command_failed_error(title, cmd, e)
         return True
 
     def on_activate_link_button(self, link_button: Gtk.LinkButton):
         uri = link_button.get_uri()
         page, anchor = uri.split("#")
         logger.debug("Opening documentation: %s", uri)
-        subprocess.run(["tails-documentation", page, anchor])
+        cmd = ["/usr/local/bin/tails-documentation", page, anchor]
+        try:
+            subprocess.run(cmd, stderr=subprocess.PIPE, text=True, check=True)
+        except subprocess.CalledProcessError as e:
+            logger.error("Failed to open documentation: %s", e)
+            title = _("Failed to open the documentation")
+            self.window.display_command_failed_error(title, cmd, e)
+
         return True
 
     def add_custom_feature(self, proxy: Gio.DBusObject):

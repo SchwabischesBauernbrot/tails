@@ -24,7 +24,7 @@ from typing import Optional
 from gi.repository import Gio, GLib
 
 import tailsgreeter.errors
-import tps.dbus.errors as tps_errors
+import tps.errors as tps_errors
 from tailsgreeter import config  # NOQA: E402
 from tps import InvalidBootDeviceErrorType
 

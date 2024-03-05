@@ -1,19 +1,15 @@
 import os
 
-from gi.repository import Gdk, Gio, GLib, Gtk
+from gi.repository import Gdk, Gtk
 from typing import TYPE_CHECKING
 
-from tails_installer import _, TailsInstallerError
-from tails_installer.tps_proxy import tps_proxy
 from tails_installer.utils import _get_datadir
-from tps.dbus.errors import DBusError
 from tps_frontend.passphrase_strength_hint import set_passphrase_strength_hint
 from tps_frontend import CSS_FILE
 
 PASSPHRASE_DIALOG_UI_FILE = os.path.join(_get_datadir(), "passphrase_dialog.ui")
 
 if TYPE_CHECKING:
-    from gi.repository import GObject
     from tails_installer.creator import TailsInstallerCreator
     from tails_installer.gui import TailsInstallerWindow
 
@@ -33,10 +29,8 @@ class PassphraseDialog(Gtk.Dialog):
         self,
         parent: "TailsInstallerWindow",
         creator: "TailsInstallerCreator",
-        *args,
-        **kwargs,
     ):
-        super().__init__(use_header_bar=1, *args, **kwargs)
+        super().__init__(use_header_bar=1)
         self.parent = parent
         self.live = creator
         self.passphrase = None

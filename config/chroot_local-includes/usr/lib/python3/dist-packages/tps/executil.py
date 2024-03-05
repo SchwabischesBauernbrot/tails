@@ -5,15 +5,22 @@ from os import PathLike
 import sys
 from pathlib import Path
 import subprocess
-from typing import List, Union
+from typing import Union
+
+from gi.repository import GLib
 
 import tps
 import tps.logging
+from gdbus_util import DBusError
 
 logger = tps.logging.get_logger(__name__)
 
 
-def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
+class HookFailedError(DBusError):
+    name = "org.boum.tails.PersistentStorage.Error.HookFailed"
+
+
+def _run(cmd: list, *args, **kwargs) -> subprocess.CompletedProcess:
     """Run a command and print it's stderr continuously but also return
     stderr in the return CompletedProcess and any raised CalledProcessError.
 
@@ -31,7 +38,7 @@ def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
     kwargs["stderr"] = subprocess.PIPE
     kwargs["text"] = True
     try:
-        p = subprocess.run(cmd, *args, **kwargs)
+        p = subprocess.run(cmd, *args, **kwargs)  # noqa: PLW1510
     except subprocess.CalledProcessError as e:
         print(e.stderr, file=sys.stderr)
         raise
@@ -39,18 +46,18 @@ def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
         print(p.stderr, file=sys.stderr)
         return p
     finally:
-        logger.debug(f"Done executing command", stacklevel=5)
+        logger.debug("Done executing command", stacklevel=5)
 
 
-def run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
+def run(cmd: list, *args, **kwargs) -> subprocess.CompletedProcess:
     return _run(cmd, *args, **kwargs)
 
 
-def check_call(cmd: List, *args, **kwargs):
+def check_call(cmd: list, *args, **kwargs):
     return _run(cmd, *args, **kwargs, check=True)
 
 
-def check_output(cmd: List, *args, **kwargs) -> str:
+def check_output(cmd: list, *args, **kwargs) -> str:
     p = _run(cmd, *args, **kwargs, check=True, stdout=subprocess.PIPE)
     return p.stdout
 
@@ -71,11 +78,21 @@ def execute_hooks(hooks_dir: Union[str, PathLike]):
         logger.info(f"Executing hook {file}", stacklevel=4)
         try:
             check_call([str(file)])
+        except subprocess.CalledProcessError as e:
+            # The hook might have failed because the user did something
+            # unexpected. We include the stderr in the error message,
+            # which might help the user to debug the issue themself.
+            path = GLib.markup_escape_text(str(file))
+            msg = f"Command <tt>{path}</tt> failed with exit code {e.returncode}."
+            if e.stderr:
+                stderr = GLib.markup_escape_text(e.stderr.strip())
+                msg = f"{msg} Command output:\n\n<tt>{stderr}</tt>"
+            raise HookFailedError(msg) from e
         finally:
-            logger.debug(f"Done executing hook", stacklevel=4)
+            logger.debug("Done executing hook", stacklevel=4)
 
 
-def prepare_for_profiling(cmd: List) -> List:
+def prepare_for_profiling(cmd: list) -> list:
     uptime = Path("/proc/uptime").read_text().split()[0]
     profile_file = tempfile.NamedTemporaryFile(
         prefix=f"{uptime}-{os.path.basename(cmd[0])}.",
@@ -93,4 +110,5 @@ def prepare_for_profiling(cmd: List) -> List:
         "--summary",
         "--trace=file,process,network,signal,ipc,desc,memory",
         f"--output={profile_file.name}",
-    ] + cmd
+        *cmd,
+    ]
