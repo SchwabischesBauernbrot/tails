@@ -50,7 +50,7 @@ git add "config/chroot-local_includes${PATCHING_FILE}"
 
 # Run iso from commandline
 
-as you not always want to click you through virt-maanger you can use qemu/kmv directly:
+To run an ISO directly without clicking through virt-manager:
 
 ```sh
 kvm -m 2048 -cdrom <ISO NAME>.iso
@@ -59,10 +59,10 @@ kvm -m 2048 -cdrom <ISO NAME>.iso
 you can even share a directoy with the client system:
 
 ```sh
-kvm -m 2048 -virtfs local,path=/path/to/file,security_model=passthrough,mount_tag=src --cdrom /path/to/tails.iso
+kvm -m 2048 -virtfs local,path=/path/to/tails-git-dir,security_model=passthrough,mount_tag=src --cdrom /path/to/tails.iso
 ```
 
-The shared directory can be used as `early_patch` source (needs the hook script in the directory) or you can mount it in the client (you need to set an adminstrator password):
+By passing through the Tails Git directory, the `early_patch` kernel command-line option can be used (see  [[contribute/build/early-patch]]). To mount the directory manually in the VM (after setting an admin password):
 
 ```sh
 sudo mount -t 9p -o trans=virtio src /mnt/
@@ -70,7 +70,7 @@ sudo mount -t 9p -o trans=virtio src /mnt/
 
 # Use the remote shell
 
-It may be very handsome to have a propper shell without the need to login into Tails. To do so you need to add `autotest_never_use_this_option` to the kernel commandline, to enable the support for remote shell on Tails side.
+It may be useful to have a proper shell without the need to log in into Tails. You can use the `autotest_never_use_this_option` kernel command-line option, to enable remote shell support in Tails.
 
 You need to add a virtio channel device to your client config:
 ```xml
@@ -80,8 +80,8 @@ You need to add a virtio channel device to your client config:
 </channel>
 ```
 
-After the iso has started you can now connect to the socket and communicate with Tails.
-Here an example how to use in Python:
+After the ISO has started you can now connect to the socket and communicate with Tails.
+Here is an example how to use the remote shell in Python:
 
 ```py
 import json
