@@ -174,7 +174,7 @@ Then /^there are no unexpected messages of priority "err" or higher in the journ
 
   # Check if any of the journal entries are unexpected
   unexpected_errors = false
-  output.split("\n").select do |line|
+  output.split("\n").each do |line|
     journal_entry = JSON.parse(line)
     next if expected_journal_error?(journal_entry)
 
