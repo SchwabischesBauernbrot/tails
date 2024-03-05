@@ -133,7 +133,7 @@ end
 
 def tails_installer_is_device_selected?(name)
   device = $vm.disk_dev(name)
-  tails_installer_selected_device[/\(#{device}\d*\)$/]
+  tails_installer_selected_device[/\(#{device}\d*( \[Tails\])?\)$/]
 end
 
 def tails_installer_match_status(pattern)

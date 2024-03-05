@@ -456,11 +456,19 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         size = _format_bytes_in_gb(
             device["parent_size"] if device["parent_size"] else device["size"]
         )
-        pretty_name = _("%(size)s %(vendor)s %(model)s device (%(device)s)") % {
+        if device["parent"] and device["label"] and len(device["label"]) > 0:
+            label = " [%(label)s]" % {"label": device["label"]}
+        else:
+            label = ""
+
+        pretty_name = _(
+            "%(size)s %(vendor)s %(model)s device (%(device)s%(label)s)"
+        ) % {
             "size": size,
             "vendor": device["vendor"],
             "model": device["model"],
             "device": device["device"],
+            "label": label,
         }
         return pretty_name
 
