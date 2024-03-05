@@ -764,8 +764,6 @@ class TailsInstallerCreator(object):
             % {"device": self.drive["device"]}
         )
 
-        self.log.debug(pformat(self.drive))
-
         target = self.try_getting_udisks_object(self.drive["udi"], "block")
         if unmount_all:
             if self.drive["parent"]:
