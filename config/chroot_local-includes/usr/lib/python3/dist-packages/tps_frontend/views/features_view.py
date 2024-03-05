@@ -4,7 +4,7 @@ from gi.repository import Gdk, Gio, Gtk
 import inspect
 from logging import getLogger
 import subprocess
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING
 
 from tps_frontend import (
     FEATURES_VIEW_UI_FILE,
@@ -32,7 +32,7 @@ class PersistentDirectory(Feature):
         self.open_button.set_visible(self.switch.get_state())
 
     @property
-    def widgets_to_show_while_active(self) -> List[Gtk.Widget]:
+    def widgets_to_show_while_active(self) -> list[Gtk.Widget]:
         return [self.open_button]
 
 
@@ -135,7 +135,7 @@ class FeaturesView(View):
         )  # type: Gtk.ListBox
         dbus_objects = (
             self.object_manager.get_objects()
-        )  # type: List[Gio.DBusObjectProxy]
+        )  # type: list[Gio.DBusObjectProxy]
         for obj in dbus_objects:
             path = obj.get_object_path()
             if os.path.basename(path).startswith("CustomFeature"):
