@@ -173,20 +173,22 @@ Then /^there are no unexpected messages of priority "err" or higher in the journ
   ).stdout
 
   # Check if any of the journal entries are unexpected
-  unexpected_errors = false
+  unexpected_errors = []
   output.split("\n").each do |line|
     journal_entry = JSON.parse(line)
     next if expected_journal_error?(journal_entry)
 
-    unexpected_errors = true
     # Sort the JSON to make the output more readable, put the MESSAGE
     # and SYSLOG_IDENTIFIER fields first
     sorted_entry = journal_entry.sort_by do |key, _value|
       [key == 'MESSAGE' ? 0 : 1, key == 'SYSLOG_IDENTIFIER' ? 0 : 1, key]
     end
-    puts "Unexpected error message: #{JSON.pretty_generate(Hash[sorted_entry])}"
+    unexpected_errors << Hash[sorted_entry]
   end
-  assert(!unexpected_errors, 'Unexpected error messages found in the journal')
+  # Print the unexpected errors as a pretty JSON array if there are any
+  assert(unexpected_errors.empty?,
+         'Unexpected error messages in the journal: ' \
+         "#{JSON.pretty_generate(unexpected_errors)}")
 end
 
 Then /^the support documentation page opens in Tor Browser$/ do
