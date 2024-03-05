@@ -1,8 +1,8 @@
 #!/usr/bin/env python3
 
 """
-  Detect SQUASHFS error and if detected create
-  /var/lib/live/tails.squashfs_failed. That file will be used to show
+  Detect SQUASHFS and other I/O error and if detected create
+  /var/lib/live/tails.disk.ioerrors. That file will be used to show
   the user an error.
 
   Copyright (C) 2023 Tails developers <tails@boum.org>
@@ -25,12 +25,13 @@ import pathlib
 import systemd.daemon
 import systemd.journal
 
-# File that indicates SQUASHFS errors
-squashfs_failed = pathlib.Path("/var/lib/live/tails.squashfs_failed")
+# File that indicates SQUASHFS and other I/O errors
+DISK_IOERRORS = pathlib.Path("/var/lib/live/tails.disk.ioerrors")
 
 def process_entries(journal: systemd.journal.Reader):
     """Process all journald messages and search for SQUASHFS error."""
     for e in journal:
+        msg = e["MESSAGE"]
         if e["MESSAGE"].startswith("SQUASHFS error:"):
             print(e["MESSAGE"])     # Add detected logs to own log
             squashfs_failed.touch(exist_ok=True)
@@ -45,7 +46,7 @@ def main():
     j.add_match(SYSLOG_IDENTIFIER="kernel")
 
     # On start we havn't detected any error
-    squashfs_failed.unlink(missing_ok=True)
+    DISK_IOERRORS.unlink(missing_ok=True)
 
     systemd.daemon.notify('STATUS=Processing existing messages...\n')
 

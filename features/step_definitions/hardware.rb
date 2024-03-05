@@ -11,10 +11,10 @@ Given /^I start the computer from DVD with network unplugged( and an unsupported
 end
 
 When /^Tails detects disk read failures$/ do
-  squashfs_failed = '/var/lib/live/tails.squashfs_failed'
-  $vm.execute('systemctl --now disable tails-detect-squashfs-errors')
-  $vm.execute_successfully("touch #{squashfs_failed}")
-  try_for(60) { $vm.file_exist?(squashfs_failed) }
+  disk_ioerrors = '/var/lib/live/tails.disk.ioerrors'
+  $vm.execute('systemctl --now disable tails-detect-disk-ioerrors')
+  $vm.execute_successfully("touch #{disk_ioerrors}")
+  try_for(60) { $vm.file_exist?(disk_ioerrors) }
   RemoteShell::SignalReady.new($vm)
 end
 
