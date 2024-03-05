@@ -126,6 +126,40 @@ Scripts:
 * [[!tails_gitweb config/chroot_local-includes/usr/local/lib/tails-autotest-remote-shell]]
 * [[!tails_gitweb config/chroot_local-includes/lib/systemd/system/tails-autotest-remote-shell.service]]
 
+### Use the remote shell on yor host
+
+You need to add a virtio channel device to your client config:
+```xml
+<channel type='unix'>
+  <source mode="bind" path='/path/to/remote-shell.socket'/>
+  <target type='virtio' name='org.tails.remote_shell.0'/>
+</channel>
+```
+
+After the ISO has started you can now connect to the socket and communicate with Tails.
+Here is an example how to use the remote shell in Python:
+
+```py
+import json
+import socket
+
+
+client = socket.socket( socket.AF_UNIX, socket.SOCK_STREAM )
+client.connect("/path/to/remote-shell.socket")
+
+id = 1
+_type = "sh_call"
+env = {}
+user = "root"
+cmd = "echo 'huhu?"
+data = [id, _type, user, env, cmd]
+client.send(json.dumps(data).encode()+b"\n")
+
+answer = json.loads(client.recv(1024).decode())
+print(answer)
+>>> '[1, "success", 1, "huhu?", ""]\n'
+```
+
 ## Chutney
 
 Chutney is an orchestration tool for quickly setting up a complete Tor
