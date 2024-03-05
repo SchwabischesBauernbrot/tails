@@ -11,9 +11,10 @@ from tps_frontend import (
     DBUS_FEATURES_PATH,
     DBUS_SERVICE_NAME,
     DBUS_FEATURE_INTERFACE,
+    CUSTOM_FEATURE_UI_FILE,
 )
 from tps_frontend.view import View
-from tps_frontend.feature import Feature
+from tps_frontend.feature import Feature, CustomFeatureRow
 
 if TYPE_CHECKING:
     from gi.repository import Handy
@@ -120,6 +121,7 @@ class FeaturesView(View):
             "network_list_box",
             "applications_list_box",
             "advanced_settings_list_box",
+            "custom_features_list_box",
         ]:
             listbox = self.builder.get_object(listbox_name)  # type: Gtk.ListBox
             listbox.set_header_func(self.add_separator)
@@ -204,7 +206,7 @@ class FeaturesView(View):
         return True
 
     def add_custom_feature(self, proxy: Gio.DBusObject):
-        row = self.builder.get_object("custom_feature_row")  # type: Handy.ActionRow
-        row.set_title(proxy.get_cached_property("Description").get_string())
+        description = proxy.get_cached_property("Description").get_string()
+        row = CustomFeatureRow(title=description)
         self.custom_features_list_box.add(row)
         self.custom_features_box.show_all()
