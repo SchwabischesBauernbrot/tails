@@ -755,6 +755,26 @@ class TailsInstallerCreator(object):
         else:
             self.log.debug("Using existing mount: %s" % self.dest)
 
+    def has_persistent_storage(self, drive=None):
+        if drive is None:
+            drive = self.drive
+        if drive["parent"]:
+            parent_udi = drive["parent_udi"]
+        else:
+            parent_udi = drive["udi"]
+        parent = self.try_getting_udisks_object(parent_udi, "block")
+        if parent.props.partition_table:
+            for child_udi in parent.props.partition_table.props.partitions:
+                try:
+                    child = self.try_getting_udisks_object(child_udi, "partition")
+                    block_type = child.props.block.props.id_type
+                    partition_label = child.props.partition.props.name
+                    if block_type == "crypto_LUKS" and partition_label == "TailsData":
+                        return True
+                except AttributeError:
+                    continue
+        return False
+
     def unmount_device(self):
         """Unmount our device"""
         self.log.debug(
