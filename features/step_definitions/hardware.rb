@@ -12,8 +12,16 @@ end
 
 When /^Tails detects disk read failures$/ do
   disk_ioerrors = '/var/lib/live/tails.disk.ioerrors'
-  $vm.execute('systemctl --now disable tails-detect-disk-ioerrors')
-  $vm.execute_successfully("touch #{disk_ioerrors}")
+  fake_ioerror_script_path = '/tmp/fake_ioerror.py'
+  fake_ioerror_script = <<~FAKEIOERROR
+    from systemd import journal
+    journal.send("SQUASHFS error: A fake error.", SYSLOG_IDENTIFIER="kernel", PRIORITY=3)
+  FAKEIOERROR
+  $vm.file_overwrite(fake_ioerror_script_path, fake_ioerror_script)
+  $vm.execute(
+    'systemctl --quiet is-active tails-detect-disk-ioerrors'
+  ).success?
+  $vm.execute_successfully("python3 #{fake_ioerror_script_path}")
   try_for(60) { $vm.file_exist?(disk_ioerrors) }
   RemoteShell::SignalReady.new($vm)
 end
