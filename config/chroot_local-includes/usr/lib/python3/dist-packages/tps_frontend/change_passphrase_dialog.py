@@ -69,7 +69,8 @@ class ChangePassphraseDialog(Gtk.Dialog):
             method_name="ChangePassphrase",
             parameters=parameters,
             flags=Gio.DBusCallFlags.NONE,
-            timeout_msec=-1,
+            # We've seen this operation take up to 45 seconds
+            timeout_msec=GLib.MAXINT,
             cancellable=None,
             callback=self.on_change_passphrase_finished,
         )
