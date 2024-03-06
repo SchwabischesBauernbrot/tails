@@ -86,13 +86,19 @@ Options for '@product' features:
   --disable-chutney  EXPERIMENTAL: All tests will be run using the real Tor
                      network, not a simulated one.
                      Expect this to break many test cases.
-  --late-patch FILE  Copies files into the VM before running the test suite.
-                     This often can avoid a rebuild.
+  --late-patch
+  --late-patch=FILE
+                     Copies files into the VM before running the test suite,
+                     which often can avoid a rebuild.
                      FILE is a text file where each line contains tab-separated
                      source and destination. If only a source is given, it is
                      assumed to be a file inside config/chroot_local-includes,
                      and the corresponding destination is inferred. Lines with
                      a leading \"#\" are ignored.
+                     FILE is optional, and if not given we copy in all files in
+                     config/chroot_local-includes that have changed since the
+                     commit the system under testing was built from, including
+                     untracked files.
   --early-patch      Boots the system with the \"early_patch=umount\" cmdline option.
                      See wiki/src/contribute/build/early-patch.mdwn for details
                      This is useful when you need something to be patched early
@@ -254,7 +260,7 @@ EARLY_PATCH=${EARLY_PATCH-}
 EXTRA_BOOT_OPTIONS=${EXTRA_BOOT_OPTIONS-}
 ALL_TESTS=${ALL_TESTS-}
 
-LONGOPTS="allow-non-root,artifacts-base-uri:,view,view-interact,vnc-server-only,capture,capture-all,help,tmpdir:,keep-chutney,keep-snapshots,disable-chutney,late-patch:,early-patch,extra-boot-options:,all-tests,iso:,old-iso:,interactive-debugging,image-bumping-mode"
+LONGOPTS="allow-non-root,artifacts-base-uri:,view,view-interact,vnc-server-only,capture,capture-all,help,tmpdir:,keep-chutney,keep-snapshots,disable-chutney,late-patch::,early-patch,extra-boot-options:,all-tests,iso:,old-iso:,interactive-debugging,image-bumping-mode"
 OPTS=$(getopt -o "" --longoptions $LONGOPTS -n "${NAME}" -- "$@")
 eval set -- "$OPTS"
 while [ $# -gt 0 ]; do
@@ -310,10 +316,13 @@ while [ $# -gt 0 ]; do
             ;;
         --late-patch)
             shift
-            LATE_PATCH="$(realpath -s "$1")"
-            if ! [[ -f "$LATE_PATCH" ]]; then
-                echo "--late-patch requires a valid FILE as argument"
-                exit 2
+            if [ -n "${1:-}" ]; then
+                LATE_PATCH="$(realpath -s "$1")"
+                if [ ! -e "$LATE_PATCH" ]; then
+                    error "--late-patch: FILE doesn't exist"
+                fi
+            else
+                LATE_PATCH=''
             fi
             export LATE_PATCH
             ;;
