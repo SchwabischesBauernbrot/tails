@@ -126,9 +126,10 @@ Scripts:
 * [[!tails_gitweb config/chroot_local-includes/usr/local/lib/tails-autotest-remote-shell]]
 * [[!tails_gitweb config/chroot_local-includes/lib/systemd/system/tails-autotest-remote-shell.service]]
 
-### Use the remote shell on yor host
+### Using the remote shell with non-test suite Tails VMs
 
-You need to add a virtio channel device to your client config:
+The remote shell could potentially be useful for debugging a Tails VM that was not started as part of the automated test suite.
+To do that, add a virtio channel device to the libvirt config of the VM:
 ```xml
 <channel type='unix'>
   <source mode="bind" path='/path/to/remote-shell.socket'/>
@@ -136,8 +137,8 @@ You need to add a virtio channel device to your client config:
 </channel>
 ```
 
-After the ISO has started you can now connect to the socket and communicate with Tails.
-Here is an example how to use the remote shell in Python:
+When the VM has started you can connect to the socket and execute commands via the remote shell.
+Here is an example how to do that in Python:
 
 ```py
 import json
