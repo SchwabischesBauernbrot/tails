@@ -9,7 +9,7 @@ import stat
 from typing import Optional, Callable
 
 import psutil
-from gi.repository import GLib, UDisks
+from gi.repository import GLib, UDisks, Gio
 
 from tailslib import LIVE_USER_UID, LIVE_USERNAME
 import tps.logging
@@ -730,6 +730,18 @@ class TPSPartition:
                 and "No keyslot with given passphrase found" in err.message
             ):
                 raise IncorrectPassphraseError(err) from err
+            if err.matches(Gio.DBusError.quark(), Gio.DBusError.NO_REPLY):
+                # Check if udisks2.service was oom-killed
+                output = executil.check_output(
+                    ["systemctl", "show", "--property=Result", "udisks2.service"]
+                ).strip()
+                if output == "Result=oom-kill":
+                    msg = _(
+                        "Not enough memory to change the passphrase of the"
+                        " Persistent Storage. Try again after closing some"
+                        " applications or rebooting."
+                    )
+                    raise NotEnoughMemoryError(msg) from err
             raise
 
 

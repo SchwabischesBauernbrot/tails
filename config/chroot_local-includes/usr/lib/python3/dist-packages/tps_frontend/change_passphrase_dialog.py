@@ -2,7 +2,7 @@ from logging import getLogger
 from gi.repository import Gdk, Gio, GLib, Gtk
 from typing import TYPE_CHECKING
 
-from tps.dbus.errors import IncorrectPassphraseError
+from tps.dbus.errors import IncorrectPassphraseError, NotEnoughMemoryError
 
 from tps_frontend import _, CHANGE_PASSPHRASE_DIALOG_UI_FILE
 from tps_frontend.passphrase_strength_hint import set_passphrase_strength_hint
@@ -95,6 +95,15 @@ class ChangePassphraseDialog(Gtk.Dialog):
                 self.set_sensitive(True)
                 self.get_window().set_cursor(None)
                 return
+            elif NotEnoughMemoryError.is_instance(e):
+                NotEnoughMemoryError.strip_remote_error(e)
+                self.destroy()
+                self.parent.display_error(
+                    _("Changing the passphrase failed"),
+                    e.message,
+                    with_send_report_button=False,
+                )
+                self.response(Gtk.ResponseType.NONE)
             else:
                 self.destroy()
                 self.parent.display_error(
