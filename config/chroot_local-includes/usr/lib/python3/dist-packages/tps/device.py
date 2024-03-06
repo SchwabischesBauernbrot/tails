@@ -278,16 +278,24 @@ class TPSPartition:
     def exists(cls) -> bool:
         """Return true if the Persistent Storage partition exists and
         false otherwise."""
-        return bool(cls.find())
+        try:
+            cls.find()
+            return True
+        except (InvalidPartitionError, InvalidBootDeviceError):
+            return False
 
     @classmethod
-    def find(cls) -> Optional["TPSPartition"]:
-        """Return the Persistent Storage encrypted partition or None
-        if it couldn't be found."""
-        try:
-            parent_device = BootDevice.get_tails_boot_device()
-        except InvalidBootDeviceError:
-            return None
+    def find(cls) -> "TPSPartition":
+        """Return the Persistent Storage encrypted partition.
+
+        Raises:
+            InvalidBootDeviceError: if the boot device is not found
+            InvalidPartitionError: if the partition is not found
+        """
+
+        # This raises a InvalidBootDeviceError if no valid boot device
+        # is be found
+        parent_device = BootDevice.get_tails_boot_device()
 
         partitions = parent_device.partition_table.props.partitions
         for partition_name in sorted(partitions):
@@ -296,7 +304,7 @@ class TPSPartition:
                 continue
             if partition.get_partition().props.name == TPS_PARTITION_LABEL:
                 return TPSPartition(partition)
-        return None
+        raise InvalidPartitionError(f"Partition {TPS_PARTITION_LABEL} not found")
 
     @classmethod
     def pbkdf_parameters(cls, memory_cost=None):

@@ -30,6 +30,7 @@ from tps.device import (
     BootDevice,
     TPSPartition,
     InvalidBootDeviceError,
+    InvalidPartitionError,
 )
 from tps.job import ServiceUsingJobs
 from tps import (
@@ -298,9 +299,10 @@ class Service(DBusObject, ServiceUsingJobs):
             msg = "Can't activate features when state is '%s'" % self.state.name
             raise FailedPreconditionError(msg)
 
-        partition = TPSPartition.find()
-        if not partition:
-            raise NotCreatedError("No Persistent Storage found")
+        try:
+            TPSPartition.find()
+        except (InvalidBootDeviceError, InvalidPartitionError) as e:
+            raise NotCreatedError("No Persistent Storage found") from e
 
         try:
             self.do_activate()
@@ -477,9 +479,10 @@ class Service(DBusObject, ServiceUsingJobs):
 
         logger.info("Changing passphrase...")
 
-        partition = TPSPartition.find()
-        if not partition:
-            raise NotCreatedError("No Persistent Storage found")
+        try:
+            partition = TPSPartition.find()
+        except (InvalidBootDeviceError, InvalidPartitionError) as e:
+            raise NotCreatedError("No Persistent Storage found") from e
 
         partition.change_passphrase(passphrase, new_passphrase)
 
@@ -784,8 +787,10 @@ class Service(DBusObject, ServiceUsingJobs):
             return
 
         # Check if the partition exists
-        self._tps_partition = TPSPartition.find()
-        if not self._tps_partition:
+        try:
+            self._tps_partition = TPSPartition.find()
+        except (InvalidBootDeviceError, InvalidPartitionError):
+            self._tps_partition = None
             self.State = State.NOT_CREATED
             self.Device = ""
             self.IsCreated = False
