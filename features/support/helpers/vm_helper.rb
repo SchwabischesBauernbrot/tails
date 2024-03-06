@@ -605,9 +605,22 @@ class VM
     end
 
     File.open(fname).each_line do |line|
-      next unless line.count("\t") == 1 && !line.start_with?('#')
+      next if line.start_with?('#')
 
       src, dest = line.strip.split("\t", 2)
+      if dest.nil?
+        if src.start_with?('config/chroot_local-includes/')
+          dest = src.delete_prefix('config/chroot_local-includes')
+        else
+          candidate_src = File.join('config/chroot_local-includes', src)
+          if File.exist?(candidate_src)
+            src = candidate_src
+            dest = src
+          else
+            debug_log("Error in --late-patch: not sure what to do with line: #{line}")
+          end
+        end
+      end
       unless File.exist?(src)
         debug_log("Error in --late-patch: #{src} does not exist")
         next

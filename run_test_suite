@@ -89,9 +89,10 @@ Options for '@product' features:
   --late-patch FILE  Copies files into the VM before running the test suite.
                      This often can avoid a rebuild.
                      FILE is a text file where each line contains tab-separated
-                     source and destination.
-                     lines without a tab are ignored.
-                     lines with a leading \"#\" are ignored.
+                     source and destination. If only a source is given, it is
+                     assumed to be a file inside config/chroot_local-includes,
+                     and the corresponding destination is inferred. Lines with
+                     a leading \"#\" are ignored.
   --early-patch      Boots the system with the \"early_patch=umount\" cmdline option.
                      See wiki/src/contribute/build/early-patch.mdwn for details
                      This is useful when you need something to be patched early
