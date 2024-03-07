@@ -712,18 +712,18 @@ class TPSPartition:
                 and "No keyslot with given passphrase found" in err.message
             ):
                 raise IncorrectPassphraseError(err) from err
-            if err.matches(Gio.DBusError.quark(), Gio.DBusError.NO_REPLY):
-                # Check if udisks2.service was oom-killed
-                output = executil.check_output(
-                    ["systemctl", "show", "--property=Result", "udisks2.service"]
-                ).strip()
-                if output == "Result=oom-kill":
-                    msg = _(
+            if (
+                err.matches(Gio.DBusError.quark(), Gio.DBusError.NO_REPLY)
+                and udisks_oom_killed()
+            ):
+                raise NotEnoughMemoryError(
+                    _(
                         "Not enough memory to change the passphrase of the"
                         " Persistent Storage. Try again after closing some"
                         " applications or rebooting."
                     )
-                    raise NotEnoughMemoryError(msg) from err
+                ) from err
+
             raise
 
 
@@ -864,3 +864,30 @@ def wait_for_udisks_object(
         time.sleep(1)
         continue
     raise TimeoutError("Timeout while waiting for udisks object")
+
+
+def udisks_oom_killed() -> bool:
+    """Check if udisks2.service was oom-killed.
+    Returns: True if udisks2.service was oom-killed, False otherwise.
+    """
+
+    # Check the Result property of udisks2.service
+    output = executil.check_output(
+        ["systemctl", "show", "--property=Result", "udisks2.service"]
+    ).strip()
+    match output:
+        case "Result=oom-kill":
+            return True
+        case "Result=signal":
+            # Sometimes systemd doesn't detect that the service was
+            # oom-killed and shows "Result=signal" instead. To also
+            # handle that case, we check if the service was killed
+            # via SIGKILL, in which case we assume that it was a
+            # result of the OOM killer.
+            output = executil.check_output(
+                ["systemctl status udisks2 | grep -m 1 -o 'signal=[A-Z]*'"],
+                shell=True,  # noqa: S604  # nosec B604
+            ).strip()
+            if output == "signal=KILL":
+                logger.warning("udisks2.service was killed via SIGKILL")
+                return True
