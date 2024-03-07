@@ -72,6 +72,7 @@ Feature: create an IUK
     When I create an IUK
     Then the saved IUK contains a SquashFS that deletes file "A"
 
+  @xattr
   Scenario: create an IUK when files have been upgraded in filesystem.squashfs
     Given an old ISO image whose filesystem.squashfs contains file "system-systemd\\x2dcryptsetup.slice" modified at 1333333333
     And a new ISO image whose filesystem.squashfs contains file "system-systemd\\x2dcryptsetup.slice" modified at 1336666666
