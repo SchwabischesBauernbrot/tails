@@ -1,3 +1,5 @@
+require 'ipaddr'
+
 Then /^the included OpenPGP keys are valid for the next (\d+) months?$/ do |months|
   assert_all_keys_are_valid_for_n_months(:OpenPGP, Integer(months))
 end
@@ -146,11 +148,11 @@ def listening_services
     {
       proto: proto,
       state: splitted[1],
-      addr:  addr,
-      port:  port,
+      addr:  IPAddr.new(addr),
+      port:  port.to_i,
       proc:  users[:proc],
-      pid:   users[:pid],
-      fd:    users[:fd],
+      pid:   users[:pid].to_i,
+      fd:    users[:fd].to_i,
     }
   end
 end
@@ -158,7 +160,7 @@ end
 Then /^no unexpected services are listening for network connections$/ do
   listening_services.each do |service|
     service => {addr:, port:, proc:}
-    if /127(\.[[:digit:]]{1,3}){3}/.match(addr).nil?
+    if !addr.loopback?
       if SERVICES_EXPECTED_ON_ALL_IFACES.include?([proc, addr, port]) ||
          SERVICES_EXPECTED_ON_ALL_IFACES.include?([proc, addr, '*'])
         puts "Service '#{proc}' is listening on #{addr}:#{port} " \
