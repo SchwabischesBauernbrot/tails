@@ -49,7 +49,7 @@ To check if the desired version is available, you can use this:
     (
         set -eu
         typeset -a tbbUrls
-        tbbUrls=( 'https://archive.torproject.org/tor-package-archive/torbrowser/?C=M;O=D' 'https://www.torproject.org/dist/torbrowser/?C=M;O=D' 'https://people.torproject.org/~gk/builds/?C=M;O=D' 'https://people.torproject.org/~boklm/builds/?C=M;O=D' 'https://people.torproject.org/~pierov/builds/?C=M;O=D' 'https://people.torproject.org/~richard/builds/tor-browser/?C=M;O=D' )
+        tbbUrls=( 'https://archive.torproject.org/tor-package-archive/torbrowser/?C=M;O=D' 'https://www.torproject.org/dist/torbrowser/?C=M;O=D' 'https://people.torproject.org/~gk/builds/?C=M;O=D' 'https://people.torproject.org/~boklm/builds/?C=M;O=D' 'https://people.torproject.org/~pierov/builds/?C=M;O=D' 'https://people.torproject.org/~richard/builds/tor-browser/?C=M;O=D' 'https://tb-build-02.torproject.org/~ma1/builds/torbrowser/release/unsigned/' 'https://tb-build-02.torproject.org/~richard/builds/torbrowser/release/unsigned/' )
 
         while true
         do
@@ -145,7 +145,8 @@ we verify the checksum file.
 
 ### Else
 
-Nowadays (since 2022) it is common that tarballs are put on a webserver that doesn't support http: it will
+Nowadays, tarballs are usually put on a web server, such as
+`https://tb-build-*.torproject.org/`, that doesn't support http: it will
 redirect to https.
 
 If this is the case, you must put those tarballs on a server that allows us to use plain HTTP.
