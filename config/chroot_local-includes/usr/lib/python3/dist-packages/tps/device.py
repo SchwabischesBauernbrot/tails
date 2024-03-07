@@ -25,9 +25,9 @@ from tps.job import Job
 
 logger = tps.logging.get_logger(__name__)
 
-TAILS_MOUNTPOINT = "/lib/live/mount/medium"
 PARTITION_GUID = "8DA63339-0007-60C0-C436-083AC8230908"  # Linux reserved
 TPS_PARTITION_LABEL = "TailsData"
+UDISKS_BLOCK_DEVICES_PATH = "/org/freedesktop/UDisks2/block_devices"
 
 # Leave at least 200 MiB of memory to the system to avoid triggering the
 # OOM killer.
@@ -67,16 +67,6 @@ class InvalidPartitionTableTypeError(InvalidBootDeviceError):
         super().__init__(f"Partition table type: {partition_table_type}")
 
 
-class NoUdisksBlockObjectError(InvalidBootDeviceError):
-    def __init__(self, device: str):
-        super().__init__(f"Could not get udisks object of boot device {device}")
-
-
-class NoUdisksPartitionObjectError(InvalidBootDeviceError):
-    def __init__(self, device: str):
-        super().__init__(f"Boot device {device} is not a partition")
-
-
 class UnsupportedInstallationMethodError(InvalidBootDeviceError):
     pass
 
@@ -105,33 +95,17 @@ class BootDevice:
 
     @classmethod
     def get_tails_boot_device(cls) -> "BootDevice":
-        """Get the device which Tails was booted from. Raise a
-        InvalidBootDeviceError (or instance of a child exception class)
-        if it can't be found."""
-        # Get the underlying block device of the Tails system partition
-        try:
-            dev_num = os.stat(TAILS_MOUNTPOINT).st_dev
-        except FileNotFoundError as e:
-            raise InvalidBootDeviceError(e) from e
-
-        block = udisks.get_block_for_dev(dev_num)
-        if not block or not block.get_object():
-            raise NoUdisksBlockObjectError(
-                f"{os.major(dev_num)}:{os.minor(dev_num)}",
+        """Get the device which Tails was booted from.
+        Raises an InvalidBootDeviceError if it can't be found."""
+        device_path = os.path.realpath("/dev/bilibop")
+        device_basename = os.path.basename(device_path)
+        udisks_obj_path = f"{UDISKS_BLOCK_DEVICES_PATH}/{device_basename}"
+        device_object = udisks.get_object(udisks_obj_path)
+        if not device_object:
+            raise InvalidBootDeviceError(
+                f"Could not get udisks object {udisks_obj_path} of boot device {device_path}"
             )
-        device_object = block.get_object()
-
-        # Get the udisks partition object
-        partition = device_object.get_partition()
-        if not partition:
-            raise NoUdisksPartitionObjectError(block.props.device)
-        partition_name = partition.props.name
-        if partition_name != "Tails":
-            raise UnsupportedInstallationMethodError(
-                f"Partition name: {partition_name}"
-            )
-
-        return BootDevice(udisks.get_object(partition.props.table))
+        return BootDevice(device_object)
 
     def get_beginning_of_free_space(self) -> int:
         """Get the beginning of the free space on the device, in bytes"""
