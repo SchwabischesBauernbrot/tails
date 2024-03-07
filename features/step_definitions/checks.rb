@@ -161,8 +161,7 @@ Then /^no unexpected services are listening for network connections$/ do
   listening_services.each do |service|
     service => {addr:, port:, proc:}
     if !addr.loopback?
-      if SERVICES_EXPECTED_ON_ALL_IFACES.include?([proc, addr, port]) ||
-         SERVICES_EXPECTED_ON_ALL_IFACES.include?([proc, addr, '*'])
+      if SERVICES_EXPECTED_ON_ALL_IFACES.include?([proc, addr, port])
         puts "Service '#{proc}' is listening on #{addr}:#{port} " \
              'but has an exception'
       else

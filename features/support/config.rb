@@ -105,7 +105,6 @@ MISC_FILES_DIR = "#{Dir.pwd}/features/misc_files".freeze
 SERVICES_EXPECTED_ON_ALL_IFACES =
   [
     ['cups-browsed', IPAddr.new('0.0.0.0'),    631],
-    ['cupsd',        '*',                      631],
     ['onion-grater', IPAddr.new('0.0.0.0'),    951],
     ['tor',          IPAddr.new('10.200.1.1'), 9050],
   ].freeze
