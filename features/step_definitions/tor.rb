@@ -200,19 +200,19 @@ Then /^the firewall is configured to block all external IPv6 traffic$/ do
   end
 end
 
-def firewall_has_dropped_packet_to?(proto, host, port)
-  regex = '^Dropped outbound packet: .* '
-  regex += "DST=#{Regexp.escape(host)} .* "
-  regex += "PROTO=#{Regexp.escape(proto)} "
-  regex += ".* DPT=#{port} " if port
+def firewall_has_dropped_packet_to?(host, proto: nil, port: nil, uid: nil, gid: nil)
+  regex = ['^Dropped outbound packet:']
+  regex << "DST=#{Regexp.escape(host)}"
+  regex << "PROTO=#{Regexp.escape(proto.upcase)}" if proto
+  regex << "DPT=#{port}" if port
+  regex << "UID=#{uid}" if uid
+  regex << "GID=#{gid}" if gid
+  regex = regex.join('\s(?:.*\s)?')
   $vm.execute("journalctl --dmesg --output=cat | grep -qP '#{regex}'").success?
 end
 
 When /^I open an untorified (TCP|UDP|ICMP) connection to (\S*)(?: on port (\d+))?$/ do |proto, host, port|
   port_suffix = port.nil? ? '' : ":#{port}"
-  assert(!firewall_has_dropped_packet_to?(proto, host, port),
-         "A #{proto} packet to #{host}#{port_suffix}" \
-         ' has already been dropped by the firewall')
   @conn_proto = proto
   @conn_host = host
   @conn_port = port
@@ -229,6 +229,11 @@ When /^I open an untorified (TCP|UDP|ICMP) connection to (\S*)(?: on port (\d+))
     cmd = "ping -c 5 #{host}"
     user = 'root'
   end
+  @conn_uid = $vm.execute_successfully("id --user #{user}").stdout.chomp.to_i
+  @conn_gid = $vm.execute_successfully("id --group #{user}").stdout.chomp.to_i
+  assert(!firewall_has_dropped_packet_to?(host, proto:, port:, uid: @conn_uid, gid: @conn_gid),
+         "A #{proto} packet to #{host}#{port_suffix}" \
+         ' has already been dropped by the firewall')
   @conn_res = $vm.execute(cmd, user:)
 end
 
@@ -248,9 +253,12 @@ end
 
 Then /^the untorified connection is logged as dropped by the firewall$/ do
   port_suffix = @conn_port.nil? ? '' : ":#{@conn_port}"
-  assert(firewall_has_dropped_packet_to?(@conn_proto, @conn_host, @conn_port),
-         "No #{@conn_proto} packet to #{@conn_host}#{port_suffix}" \
-         ' was dropped by the firewall')
+  assert(
+    firewall_has_dropped_packet_to?(
+      @conn_host, proto: @conn_proto, port: @conn_port, uid: @conn_uid, gid: @conn_gid
+    ),
+    "No #{@conn_proto} packet to #{@conn_host}#{port_suffix} " \
+    'was dropped by the firewall')
 end
 
 When /^the system DNS is(?: still)? using the local DNS resolver$/ do
