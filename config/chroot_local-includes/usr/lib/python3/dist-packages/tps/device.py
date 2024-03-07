@@ -100,7 +100,7 @@ class BootDevice:
         device_path = os.path.realpath("/dev/bilibop")
         device_basename = os.path.basename(device_path)
         udisks_obj_path = f"{UDISKS_BLOCK_DEVICES_PATH}/{device_basename}"
-        device_object = udisks.get_object(udisks_obj_path)
+        device_object = udisks().get_object(udisks_obj_path)
         if not device_object:
             raise InvalidBootDeviceError(
                 f"Could not get udisks object {udisks_obj_path} of boot device {device_path}"
@@ -111,7 +111,7 @@ class BootDevice:
         """Get the beginning of the free space on the device, in bytes"""
         # Get the partitions
         partitions = [
-            udisks.get_object(p).get_partition()
+            udisks().get_object(p).get_partition()
             for p in self.partition_table.props.partitions
         ]
         # Get the ends of the partitions, in bytes
@@ -143,7 +143,7 @@ class TPSPartition:
             raise PartitionNotUnlockedError(
                 f"Device {self.device_path} is not unlocked"
             )
-        return CleartextDevice(udisks.get_object(cleartext_device_path))
+        return CleartextDevice(udisks().get_object(cleartext_device_path))
 
     def try_get_cleartext_device(self) -> Optional["CleartextDevice"]:
         """Get the cleartext device of Persistent Storage encrypted
@@ -273,7 +273,7 @@ class TPSPartition:
 
         partitions = parent_device.partition_table.props.partitions
         for partition_name in sorted(partitions):
-            partition = udisks.get_object(partition_name)
+            partition = udisks().get_object(partition_name)
             if not partition:
                 continue
             if partition.get_partition().props.name == TPS_PARTITION_LABEL:
@@ -365,10 +365,10 @@ class TPSPartition:
             arg_name=TPS_PARTITION_LABEL,
             arg_options=GLib.Variant("a{sv}", {}),
         )
-        udisks.settle()
+        udisks().settle()
 
         # Get the UDisks partition object
-        partition = TPSPartition(udisks.get_object(object_path))
+        partition = TPSPartition(udisks().get_object(object_path))
 
         # Initialize the LUKS partition via cryptsetup. We can't use
         # udisks for this because it doesn't support setting the key
@@ -422,7 +422,7 @@ class TPSPartition:
                 },
             ),
         )
-        udisks.settle()
+        udisks().settle()
 
         if is_backup:
             # We let the caller mount the backup partition
@@ -608,7 +608,7 @@ class TPSPartition:
                     raise IncorrectPassphraseError(err) from err
                 raise
 
-        udisks.settle()
+        udisks().settle()
 
         if rename_dm_device:
             # Wait for the cleartext device to become available to udisks

@@ -232,7 +232,7 @@ class Service(DBusObject, ServiceUsingJobs):
             raise FailedPreconditionError(msg)
 
         dev_num = os.stat(device).st_rdev
-        device = BootDevice(udisks.get_block_for_dev(dev_num).get_object())
+        device = BootDevice(udisks().get_block_for_dev(dev_num).get_object())
         partition = TPSPartition.create(None, passphrase, device)
 
         # Mount the cleartext device
@@ -292,7 +292,7 @@ class Service(DBusObject, ServiceUsingJobs):
 
         # Wait for all udev and UDisks events to finish
         executil.check_call(["udevadm", "settle"])
-        udisks.settle()
+        udisks().settle()
 
         # Check if we can activate the Persistent Storage
         if self.state != State.UNLOCKED:
