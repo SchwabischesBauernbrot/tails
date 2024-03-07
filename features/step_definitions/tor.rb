@@ -219,11 +219,11 @@ When /^I open an untorified (TCP|UDP|ICMP) connection to (\S*)(?: on port (\d+))
   case proto
   when 'TCP'
     assert_not_nil(port)
-    cmd = "echo | nc.traditional #{host} #{port}"
+    cmd = "nc.traditional -v -z #{host} #{port}"
     user = LIVE_USER
   when 'UDP'
     assert_not_nil(port)
-    cmd = "echo | nc.traditional -u #{host} #{port}"
+    cmd = "nc.traditional -v -z -u #{host} #{port}"
     user = LIVE_USER
   when 'ICMP'
     cmd = "ping -c 5 #{host}"
@@ -234,11 +234,11 @@ end
 
 Then /^the untorified connection fails$/ do
   case @conn_proto
-  when 'TCP'
+  when 'TCP', 'UDP'
     expected_in_stderr = 'Connection refused'
     conn_failed = !@conn_res.success? &&
                   @conn_res.stderr.chomp.end_with?(expected_in_stderr)
-  when 'UDP', 'ICMP'
+  when 'ICMP'
     conn_failed = !@conn_res.success?
   end
   assert(conn_failed,
