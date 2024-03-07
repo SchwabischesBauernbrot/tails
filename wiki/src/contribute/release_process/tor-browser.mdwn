@@ -43,28 +43,31 @@ Upgrade Tor Browser in Tails
 Wait
 ------------
 
-To check if the desired version is available, you can use this:
+To check if the desired version is available:
 
-    ```sh
-    (
-        set -eu
-        typeset -a tbbUrls
-        tbbUrls=( 'https://archive.torproject.org/tor-package-archive/torbrowser/?C=M;O=D' 'https://www.torproject.org/dist/torbrowser/?C=M;O=D' 'https://people.torproject.org/~gk/builds/?C=M;O=D' 'https://people.torproject.org/~boklm/builds/?C=M;O=D' 'https://people.torproject.org/~pierov/builds/?C=M;O=D' 'https://people.torproject.org/~richard/builds/tor-browser/?C=M;O=D' 'https://tb-build-02.torproject.org/~ma1/builds/torbrowser/release/unsigned/' 'https://tb-build-02.torproject.org/~richard/builds/torbrowser/release/unsigned/' )
+1. Set `TBB_VERSION` to the version of Tor Browser you are waiting for, e.g. 42.0.12.
 
-        while true
-        do
-            if (for u in "${tbbUrls[@]}"; do
-                    echo "query ${u}" >&2
-                elinks -no-numbering  -dump "$u" | sed -e "s+^+[${u//+/ }]+" ; done
-                ) | grep -F -e "${TBB_VERSION?}" -e "$(date +%F)"  -e "$(date +%F -d yesterday)" --color=always
-            then
-                echo FOUND
-                notify-send "Release dir" 'found'
-            fi
-            sleep 10m
-        done
-    )
-    ```
+2. Run this script:
+
+        ```sh
+        (
+            set -eu
+            typeset -a tbbUrls
+            tbbUrls=( 'https://archive.torproject.org/tor-package-archive/torbrowser/?C=M;O=D' 'https://www.torproject.org/dist/torbrowser/?C=M;O=D' 'https://people.torproject.org/~gk/builds/?C=M;O=D' 'https://people.torproject.org/~boklm/builds/?C=M;O=D' 'https://people.torproject.org/~pierov/builds/?C=M;O=D' 'https://people.torproject.org/~richard/builds/tor-browser/?C=M;O=D' 'https://tb-build-02.torproject.org/~ma1/builds/torbrowser/release/unsigned/' 'https://tb-build-02.torproject.org/~richard/builds/torbrowser/release/unsigned/' )
+            while true
+            do
+                if (for u in "${tbbUrls[@]}"; do
+                        echo "query ${u}" >&2
+                    elinks -no-numbering  -dump "$u" | sed -e "s+^+[${u//+/ }]+" ; done
+                    ) | grep -F -e "${TBB_VERSION?}" -e "$(date +%F)"  -e "$(date +%F -d yesterday)" --color=always
+                then
+                    echo FOUND
+                    notify-send "Release dir" 'found'
+                fi
+                sleep 10m
+            done
+        )
+        ```
 
 Verify
 ------------
