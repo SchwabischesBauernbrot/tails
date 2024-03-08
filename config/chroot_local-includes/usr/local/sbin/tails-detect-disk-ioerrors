@@ -48,14 +48,14 @@ def main():
     # On start we havn't detected any error
     DISK_IOERRORS.unlink(missing_ok=True)
 
-    systemd.daemon.notify('STATUS=Processing existing messages...\n')
+    systemd.daemon.notify("STATUS=Processing existing messages...\n")
 
-    #Process all existing log entries since boot
-    process_entries(j)
+    # Process all existing log entries since boot
+    process_entries(j, ioerror_pattern)
 
     # Notify systemd that we're ready
-    systemd.daemon.notify('READY=1')
-    systemd.daemon.notify('STATUS=Waiting for new messages to process...\n')
+    systemd.daemon.notify("READY=1")
+    systemd.daemon.notify("STATUS=Waiting for new messages to process...\n")
 
     # Wait for new messages to be appended to journald
     while True:
@@ -64,5 +64,5 @@ def main():
             process_entries(j)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
