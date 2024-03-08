@@ -601,6 +601,15 @@ class VM
     include_dir = File.join('config', 'chroot_local-includes')
     if fname.nil? || fname.empty?
       commit = $vm.execute_successfully('. /etc/os-release; echo "${TAILS_GIT_COMMIT}"').stdout.chomp
+      if commit.empty?
+        # When testing the testoverlayfs IUKs /etc/os-release is
+        # overwritten with a simplified version that doesn't contain
+        # TAILS_GIT_COMMIT, so we recover it from the originally
+        # installed filesystem.squashfs.
+        commit = $vm.execute_successfully(
+          '. /lib/live/mount/rootfs/filesystem.squashfs/etc/os-release; echo "${TAILS_GIT_COMMIT}"'
+        ).stdout.chomp
+      end
       debug_log("late-patch: patching all changed files since build commit #{commit}")
       modified = cmd_helper(['git', 'diff', commit, '--name-only', '--', include_dir]).chomp.split("\n")
       untracked = cmd_helper(['git', 'ls-files', '--others', '--exclude-standard', '--', include_dir]).chomp.split("\n")
