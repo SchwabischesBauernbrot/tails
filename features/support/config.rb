@@ -108,6 +108,7 @@ SERVICES_EXPECTED_ON_ALL_IFACES =
     ['onion-grater', IPAddr.new('0.0.0.0'),    951],
     ['tor',          IPAddr.new('10.200.1.1'), 9050],
   ].freeze
+SERVICES_BLOCKED_FOR_LIVE_USER = [9052, 9063].freeze
 # OpenDNS
 SOME_DNS_SERVER = '208.67.222.222'.freeze
 RTL_LANGUAGES = ['Arabic', 'Persian'].freeze
