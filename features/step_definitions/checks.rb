@@ -193,6 +193,8 @@ Then /^the live user can only access allowed local services$/ do
       "the firewall unexpectedly #{should_block ? 'failed to log' : 'logged'} a " \
       "dropped #{proto} packet to #{addr}:#{port}"
     )
+    puts "#{LIVE_USER} could#{should_block ? ' not' : ''} access #{proc} on " \
+         "#{addr}:#{port} (#{proto}) as expected"
   end
 end
 
