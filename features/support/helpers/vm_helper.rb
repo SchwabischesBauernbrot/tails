@@ -597,26 +597,36 @@ class VM
     end
   end
 
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity
   def late_patch(fname: $config['LATE_PATCH'])
     include_dir = File.join('config', 'chroot_local-includes')
     if fname.nil? || fname.empty?
-      commit = $vm.execute_successfully('. /etc/os-release; echo "${TAILS_GIT_COMMIT}"').stdout.chomp
+      commit = $vm.execute_successfully(
+        '. /etc/os-release; echo "${TAILS_GIT_COMMIT}"'
+      ).stdout.chomp
       if commit.empty?
         # When testing the testoverlayfs IUKs /etc/os-release is
         # overwritten with a simplified version that doesn't contain
         # TAILS_GIT_COMMIT, so we recover it from the originally
         # installed filesystem.squashfs.
         commit = $vm.execute_successfully(
-          '. /lib/live/mount/rootfs/filesystem.squashfs/etc/os-release; echo "${TAILS_GIT_COMMIT}"'
+          '. /lib/live/mount/rootfs/filesystem.squashfs/etc/os-release; ' \
+          'echo "${TAILS_GIT_COMMIT}"'
         ).stdout.chomp
       end
       debug_log("late-patch: patching all changed files since build commit #{commit}")
-      modified = cmd_helper(['git', 'diff', commit, '--name-only', '--', include_dir]).chomp.split("\n")
-      untracked = cmd_helper(['git', 'ls-files', '--others', '--exclude-standard', '--', include_dir]).chomp.split("\n")
+      modified = cmd_helper(['git', 'diff', commit, '--name-only', '--',
+                             include_dir,]).chomp.split("\n")
+      untracked = cmd_helper(['git', 'ls-files', '--others', '--exclude-standard',
+                              '--', include_dir,]).chomp.split("\n")
       files_to_copy = modified + untracked
     else
       files_to_copy = File.open(fname).map do |line|
-        next if line.start_with?('#') or line.empty?
+        next if line.start_with?('#') || line.empty?
+
         line.chomp.split("\t", 2)
       end
     end
@@ -649,6 +659,10 @@ class VM
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def file_append(path, lines)
     lines = lines.join("\n") if lines.instance_of?(Array)
