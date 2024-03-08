@@ -69,10 +69,13 @@ def tps_device() -> Optional[str]:
 
 def tps_cleartext_device() -> Optional[str]:
     """get the cleartext device name of the Persistent Storage."""
+    print("tps_cleartext_device...")
     device = tps.device.TPSPartition.find()
+    print(f"tps-device={device}")
     if not device:
         return None
     device = device.try_get_cleartext_device()
+    print(f"cleartext-device={device}")
     if not device:
         return None
     device_path = device.device_path
@@ -96,9 +99,11 @@ class IOErrorPattern:
     def _add_pattern_boot_device(self, device: str):
         self.patterns.append(f"I/O error, dev {device}, sector")
         self.boot_device = device
+        print(f"set boot device to {device}")
 
     def _add_pattern_tps_device(self, device: str):
         self.tps_device = device
+        print(f"set tps device to {device}")
 
     def _add_pattern_cleartext_device(self, device: str):
         self.patterns.extend(
@@ -111,9 +116,13 @@ class IOErrorPattern:
             ]
         )
         self.cleartext_device = device
+        print(f"set cleartext device to {device}")
 
     def _update_patterns(self):
         """Check and update the pattern list."""
+
+        print("_update_pattern.")
+
         if not self.boot_device:
             self._add_pattern_boot_device(boot_device())
 
@@ -124,6 +133,7 @@ class IOErrorPattern:
                 # ISO has no tps device
                 self.tps_device = False  # False: Do not check again
                 self.update_patterns_finished = True
+                print ("update_patterns_finished = True")
                 return
 
             _device = tps_device()
@@ -135,6 +145,7 @@ class IOErrorPattern:
             if _device:
                 self._add_pattern_cleartext_device(_device)
                 self.update_patterns_finished = True
+                print ("update_patterns_finished = True")
 
     def match_message(self, msg: str) -> bool:
         """Do the msg match any of the patterns."""
@@ -195,6 +206,7 @@ def main():
 
     systemd.daemon.notify("STATUS=Processing existing messages...\n")
 
+    print("process first batch...")
     # Process all existing log entries since boot
     process_entries(j, ioerror_pattern)
 
@@ -202,6 +214,7 @@ def main():
     systemd.daemon.notify("READY=1")
     systemd.daemon.notify("STATUS=Waiting for new messages to process...\n")
 
+    print("start loop")
     # Wait for new messages to be appended to journald
     while True:
         state_change = j.wait()
