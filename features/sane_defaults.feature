@@ -12,3 +12,6 @@ Feature: Tails has a sane default configuration
     Given I have started Tails from DVD and logged in and the network is connected
     Then no unexpected services are listening for network connections
 
+  Scenario: The live user can only access the expected local services
+    Given I have started Tails from DVD and logged in and the network is connected
+    Then the live user can only access allowed local services

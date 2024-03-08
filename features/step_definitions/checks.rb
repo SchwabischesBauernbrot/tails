@@ -171,6 +171,27 @@ Then /^no unexpected services are listening for network connections$/ do
   end
 end
 
+Then /^the live user can only access allowed local services$/ do
+  live_user_blocked_ports = [9052, 9063]
+  listening_services.each do |service|
+    service => {proto:, addr:, port:, proc:}
+    proto.upcase!
+    should_block = live_user_blocked_ports.include?(port)
+    step "I open an untorified #{proto} connection to #{addr} on port #{port}"
+    if should_block
+      step 'the untorified connection fails'
+    end
+    dropped = firewall_has_dropped_packet_to?(
+      addr.to_s, proto:, port:, uid: @conn_uid, gid: @conn_gid
+    )
+    assert_equal(
+      should_block, dropped,
+      "the firewall unexpectedly #{should_block ? 'failed to log' : 'logged'} a " \
+      "dropped #{proto} packet to #{addr}:#{port}"
+    )
+  end
+end
+
 Then /^the support documentation page opens in Tor Browser$/ do
   if $language == 'German'
     expected_title = 'Tails - Hilfe & Support'
