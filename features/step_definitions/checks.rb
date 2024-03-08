@@ -172,12 +172,16 @@ Then /^no unexpected services are listening for network connections$/ do
 end
 
 Then /^the live user can only access allowed local services$/ do
+  uid = $vm.execute_successfully("id --user #{LIVE_USER}").stdout.chomp.to_i
+  gid = $vm.execute_successfully("id --group #{LIVE_USER}").stdout.chomp.to_i
   live_user_blocked_ports = [9052, 9063]
   listening_services.each do |service|
     service => {proto:, addr:, port:, proc:}
     proto.upcase!
     should_block = live_user_blocked_ports.include?(port)
     step "I open an untorified #{proto} connection to #{addr} on port #{port}"
+    assert_equal(uid, @conn_uid)
+    assert_equal(gid, @conn_gid)
     if should_block
       step 'the untorified connection fails'
     end
