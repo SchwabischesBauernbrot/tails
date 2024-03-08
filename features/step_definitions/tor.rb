@@ -237,8 +237,8 @@ When /^I open an untorified (TCP|UDP|ICMP) connection to (\S*)(?: on port (\d+))
     !firewall_has_dropped_packet_to?(
       host, proto:, port:, uid: @conn_uid, gid: @conn_gid
     ),
-    "A #{proto} packet to #{host}#{port_suffix} has already been dropped " \
-    'by the firewall'
+    "Anti-test failed: A #{proto} packet to #{host}#{port_suffix} has already " \
+    'been dropped by the firewall'
   )
   @conn_res = $vm.execute(cmd, user:)
 end
