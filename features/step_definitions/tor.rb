@@ -233,9 +233,13 @@ When /^I open an untorified (TCP|UDP|ICMP) connection to (\S*)(?: on port (\d+))
   end
   @conn_uid = $vm.execute_successfully("id --user #{user}").stdout.chomp.to_i
   @conn_gid = $vm.execute_successfully("id --group #{user}").stdout.chomp.to_i
-  assert(!firewall_has_dropped_packet_to?(host, proto:, port:, uid: @conn_uid, gid: @conn_gid),
-         "A #{proto} packet to #{host}#{port_suffix}" \
-         ' has already been dropped by the firewall')
+  assert(
+    !firewall_has_dropped_packet_to?(
+      host, proto:, port:, uid: @conn_uid, gid: @conn_gid
+    ),
+    "A #{proto} packet to #{host}#{port_suffix} has already been dropped " \
+    'by the firewall'
+  )
   @conn_res = $vm.execute(cmd, user:)
 end
 
@@ -260,7 +264,8 @@ Then /^the untorified connection is logged as dropped by the firewall$/ do
       @conn_host, proto: @conn_proto, port: @conn_port, uid: @conn_uid, gid: @conn_gid
     ),
     "No #{@conn_proto} packet to #{@conn_host}#{port_suffix} " \
-    'was dropped by the firewall')
+    'was dropped by the firewall'
+  )
 end
 
 When /^the system DNS is(?: still)? using the local DNS resolver$/ do

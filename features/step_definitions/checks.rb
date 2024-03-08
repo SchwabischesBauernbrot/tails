@@ -136,7 +136,8 @@ Then /^the live user owns its home directory which has strict permissions$/ do
 end
 
 def listening_services
-  $vm.execute_successfully('ss --no-header -ltupn').stdout.chomp.split("\n").filter_map do |line|
+  $vm.execute_successfully('ss --no-header -ltupn')
+     .stdout.chomp.split("\n").filter_map do |line|
     splitted = line.split(/[[:blank:]]+/)
     proto = splitted[0]
     next unless ['tcp', 'udp'].include?(proto)
@@ -146,7 +147,7 @@ def listening_services
       /users:\(\("(?<proc>[^"]+)",pid=(?<pid>\d+),fd=(?<fd>\d+)\)\)/
     )
     {
-      proto: proto,
+      proto:,
       state: splitted[1],
       addr:  IPAddr.new(addr),
       port:  port.to_i,
@@ -160,14 +161,13 @@ end
 Then /^no unexpected services are listening for network connections$/ do
   listening_services.each do |service|
     service => {addr:, port:, proc:}
-    if !addr.loopback?
-      if SERVICES_EXPECTED_ON_ALL_IFACES.include?([proc, addr, port])
-        puts "Service '#{proc}' is listening on #{addr}:#{port} " \
-             'but has an exception'
-      else
-        raise "Unexpected service '#{proc}' listening on #{addr}:#{port}"
-      end
+    next if addr.loopback?
+    unless SERVICES_EXPECTED_ON_ALL_IFACES.include?([proc, addr, port])
+      raise "Unexpected service '#{proc}' listening on #{addr}:#{port}"
     end
+
+    puts "Service '#{proc}' is listening on #{addr}:#{port} " \
+         'but has an exception'
   end
 end
 
