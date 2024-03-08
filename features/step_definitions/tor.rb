@@ -117,6 +117,8 @@ Then /^the firewall is configured to only allow the (.+) users? to connect direc
                "The following lan-targeted rule's destination is " \
                "#{destination} which may not be a private subnet:\n" +
                rule.to_s)
+      elsif action.name == 'call' && action.elements[1].name == 'log_reject'
+        next
       else
         raise "Unexpected iptables OUTPUT chain rule:\n#{rule}"
       end
