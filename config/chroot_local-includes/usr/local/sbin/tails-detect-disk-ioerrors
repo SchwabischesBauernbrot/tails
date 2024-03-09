@@ -38,11 +38,11 @@ import systemd.journal
 # File that indicates SQUASHFS and other I/O errors
 DISK_IOERRORS = pathlib.Path("/var/lib/live/tails.disk.ioerrors")
 
-udisks = UDisks.Client.new_sync()
-
 
 def boot_device() -> Optional[str]:
     """get the boot device name"""
+    udisks = tps.device.udisks
+
     dev_num = os.stat(tps.device.TAILS_MOUNTPOINT).st_dev
     block = udisks.get_block_for_dev(dev_num)
     device_path = block.props.device
@@ -69,6 +69,12 @@ def tps_device() -> Optional[str]:
 
 def tps_cleartext_device() -> Optional[str]:
     """get the cleartext device name of the Persistent Storage."""
+
+    # The script starts early in boot process and the
+    # UDisks sync does not find the cleartext device.
+    # So we have to update udisks.
+    tps.device.udisks = UDisks.Client.new_sync()
+
     print("tps_cleartext_device...")
     device = tps.device.TPSPartition.find()
     print(f"tps-device={device}")
