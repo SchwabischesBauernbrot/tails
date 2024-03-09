@@ -128,8 +128,10 @@ Scripts:
 
 ### Using the remote shell with non-test suite Tails VMs
 
-The remote shell could potentially be useful for debugging a Tails VM that was not started as part of the automated test suite.
-To do that, add a virtio channel device to the libvirt config of the VM:
+The remote shell could potentially be useful for debugging a Tails VM
+that was not started as part of the automated test suite. To do that,
+add a virtio channel device to the libvirt config of the VM:
+
 ```xml
 <channel type='unix'>
   <source mode="bind" path='/path/to/remote-shell.socket'/>
@@ -137,8 +139,9 @@ To do that, add a virtio channel device to the libvirt config of the VM:
 </channel>
 ```
 
-When the VM has started you can connect to the socket and execute commands via the remote shell.
-Here is an example how to do that in Python:
+When the VM has started you can connect to the socket and execute
+commands via the remote shell. Here is an example how to do that in
+Python:
 
 ```py
 import json
