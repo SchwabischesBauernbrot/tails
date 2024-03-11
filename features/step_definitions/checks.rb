@@ -160,7 +160,9 @@ end
 
 Then /^no unexpected services are listening for network connections$/ do
   listening_services.each do |service|
-    service => {addr:, port:, proc:}
+    addr = service[:addr]
+    port = service[:port]
+    proc = service[:proc]
     next if addr.loopback?
     unless SERVICES_EXPECTED_ON_ALL_IFACES.include?([proc, addr, port])
       raise "Unexpected service '#{proc}' listening on #{addr}:#{port}"
@@ -175,7 +177,10 @@ Then /^the live user can only access allowed local services$/ do
   uid = $vm.execute_successfully("id --user #{LIVE_USER}").stdout.chomp.to_i
   gid = $vm.execute_successfully("id --group #{LIVE_USER}").stdout.chomp.to_i
   listening_services.each do |service|
-    service => {proto:, addr:, port:, proc:}
+    proto = service[:proto]
+    addr = service[:addr]
+    port = service[:port]
+    proc = service[:proc]
     proto.upcase!
     should_block = SERVICES_BLOCKED_FOR_LIVE_USER.include?(port)
     step "I open an untorified #{proto} connection to #{addr} on port #{port}"
