@@ -16,6 +16,10 @@ def remove_xattrs(file: Path, prefix: str) -> None:
     for attr_name in attrs:
         if attr_name.startswith(prefix):
             log.debug("Removing xattr %s on %s", attr_name, file)
+            # It's safe to delete elements from the dictionary `attrs` even
+            # though we are iterating over it, because xattr.__iter__ returns
+            # a new list which is separate from the list that is modified
+            # by xattr.__delitem__.
             del attrs[attr_name]
 
 
