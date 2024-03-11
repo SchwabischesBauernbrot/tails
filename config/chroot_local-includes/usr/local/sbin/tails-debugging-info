@@ -89,8 +89,8 @@ def debug_command(args: list, shell=False):
             command_output = subprocess.check_output(  # nosec subprocess_popen_with_shell_equals_true
                 " ".join(args),
                 stderr=subprocess.PIPE,
-                shell=True,
-            )  # noqa: S602
+                shell=True,  # noqa: S602
+            )
         else:
             command_output = subprocess.check_output(args, stderr=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
