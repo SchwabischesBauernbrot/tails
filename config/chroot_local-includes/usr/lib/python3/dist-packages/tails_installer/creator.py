@@ -130,6 +130,11 @@ class TailsInstallerCreator(object):
                     time.sleep(1)
             if exception:
                 raise exception
+            else:
+                raise Exception(
+                    "@retry() internal error: reaching here without catching an "
+                    "exception means that the wrapped function was never called"
+                )
 
         return wrapper
 
