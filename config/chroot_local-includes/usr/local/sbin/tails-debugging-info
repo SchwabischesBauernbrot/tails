@@ -61,16 +61,13 @@ def main():
     """
 
     config = None
-    with open('/etc/whisperback/debugging-info.json', 'r') as conf_file:
+    with open('/etc/whisperback/debugging-info.json') as conf_file:
         config = json.load(conf_file)
 
     info = []
     for _type, _args in config:
         if _type == 'command':
-            if 'shell' in _args:
-                shell = _args['shell']
-            else:
-                shell = False
+            shell = _args['shell'] if 'shell' in _args else False
             info.append(debug_command(args=_args['args'], shell=shell))  # nosec any_other_function_with_shell_equals_true
         elif _type == 'directory':
             info.append(debug_directory(_args['user'], _args['path']))
@@ -121,8 +118,8 @@ def debug_file(user, filename):
 
     file_content = []
     with open(filename) as f:
-        for l in f:
-            file_content.append(l.replace('\n', ''))
+        for line in f:
+            file_content.append(line.replace('\n', ''))
     return {'key': filename, 'content': file_content}
 
 
