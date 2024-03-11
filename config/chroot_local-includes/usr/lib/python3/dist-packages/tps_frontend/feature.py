@@ -4,7 +4,6 @@ import os
 import re
 from typing import TYPE_CHECKING
 
-from gi.repository import Gio, GLib, GObject, Gtk, Handy
 from tps.dbus.errors import DBusError, SymlinkSourceDirectoryError, TargetIsBusyError
 
 from tps_frontend import (
@@ -13,7 +12,13 @@ from tps_frontend import (
     DBUS_JOB_INTERFACE,
     DBUS_SERVICE_NAME,
     _,
+    CUSTOM_FEATURE_UI_FILE,
 )
+
+import gi
+
+gi.require_version("Handy", "1")
+from gi.repository import Gio, GLib, GObject, Gtk, Handy  # noqa: E402
 
 if TYPE_CHECKING:
     from gi.repository import Atk
@@ -526,6 +531,15 @@ class Feature:
             yield
         finally:
             self._ignore_switch_state_change = False
+
+
+@Gtk.Template.from_file(CUSTOM_FEATURE_UI_FILE)
+class CustomFeatureRow(Handy.ActionRow):
+    __gtype_name__ = "CustomFeatureRow"
+
+    def __init__(self, title: str):
+        super().__init__()
+        self.set_title(title)
 
 
 def camel_to_snake(name):
