@@ -202,7 +202,9 @@ class FeaturesView(View):
         uri = link_button.get_uri()
         page, anchor = uri.split("#")
         logger.debug("Opening documentation: %s", uri)
-        subprocess.run(["/usr/local/bin/tails-documentation", page, anchor])  # noqa: PLW1510
+        subprocess.run(
+            ["/usr/local/bin/tails-documentation", page, anchor]
+        )  # noqa: PLW1510
         return True
 
     def add_custom_feature(self, proxy: Gio.DBusObject):
