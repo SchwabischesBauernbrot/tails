@@ -39,10 +39,9 @@ investigated carefully.
 
 import json
 import os
-import sys
 import subprocess
+import sys
 from pwd import getpwuid
-
 
 # AppArmor Ux rules don't sanitize PATH, which can lead to an
 # exploited application (that's allowed to run this script unconfined)
@@ -69,7 +68,7 @@ def main():
         if _type == "command":
             shell = _args["shell"] if "shell" in _args else False
             info.append(  # nosec any_other_function_with_shell_equals_true
-                debug_command(args=_args["args"], shell=shell)
+                debug_command(args=_args["args"], shell=shell),
             )
         elif _type == "directory":
             info.append(debug_directory(_args["user"], _args["path"]))
@@ -88,13 +87,15 @@ def debug_command(args: list, shell=False):
     try:
         if shell:
             command_output = subprocess.check_output(  # nosec subprocess_popen_with_shell_equals_true
-                " ".join(args), stderr=subprocess.PIPE, shell=True
+                " ".join(args),
+                stderr=subprocess.PIPE,
+                shell=True,
             )  # noqa: S602
         else:
             command_output = subprocess.check_output(args, stderr=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
         if strict_mode:
-            raise e
+            raise
         command_output = e.stdout
     command_output = command_output.decode("UTF-8").strip().split("\n")
     return {"key": "{}".format(" ".join(args)), "content": command_output}
@@ -119,8 +120,8 @@ def debug_file(user, filename):
     if owner != user:
         return {
             "key": filename,
-            "content": """WARNING: not opening file {}, because it is """
-            """owned by {} instead of {}""".format(filename, owner, user),
+            "content": f"""WARNING: not opening file {filename}, because it is """
+            f"""owned by {owner} instead of {user}""",
         }
 
     file_content = []
@@ -155,8 +156,8 @@ def debug_directory(user, dir_name):
     if owner != user:
         return {
             "key": dir_name,
-            "content": """WARNING: not opening directory {}, because """
-            """it is owned by {} instead of {}""".format(dir_name, owner, user),
+            "content": f"""WARNING: not opening directory {dir_name}, because """
+            f"""it is owned by {owner} instead of {user}""",
         }
 
     files = os.listdir(dir_name)
