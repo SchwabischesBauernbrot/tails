@@ -68,9 +68,9 @@ def main():
     for _type, _args in config:
         if _type == "command":
             shell = _args["shell"] if "shell" in _args else False
-            info.append(
+            info.append(  # nosec any_other_function_with_shell_equals_true
                 debug_command(args=_args["args"], shell=shell)
-            )  # nosec any_other_function_with_shell_equals_true
+            )
         elif _type == "directory":
             info.append(debug_directory(_args["user"], _args["path"]))
         else:
@@ -87,7 +87,9 @@ def debug_command(args: list, shell=False):
     """
     try:
         if shell:
-            command_output = subprocess.check_output(' '.join(args), stderr=subprocess.PIPE, shell=True)  # nosec any_other_function_with_shell_equals_true
+            command_output = subprocess.check_output(  # nosec subprocess_popen_with_shell_equals_true
+                " ".join(args), stderr=subprocess.PIPE, shell=True
+            )  # noqa: S602
         else:
             command_output = subprocess.check_output(args, stderr=subprocess.PIPE)
     except subprocess.CalledProcessError as e:
