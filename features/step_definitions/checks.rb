@@ -154,6 +154,43 @@ Then /^no unexpected services are listening for network connections$/ do
   end
 end
 
+def expected_journal_error?(journal_entry)
+  # Check if the journal entry matches all fields of any of the expected errors
+  EXPECTED_JOURNAL_ENTRIES.any? do |expected_error|
+    expected_error.all? do |field, pattern|
+      if pattern.is_a?(Regexp)
+        journal_entry[field] =~ pattern
+      else
+        journal_entry[field] == pattern
+      end
+    end
+  end
+end
+
+Then /^there are no unexpected messages of priority "err" or higher in the journal$/ do
+  output = $vm.execute_successfully(
+    'journalctl --priority=3 --output=json --no-pager'
+  ).stdout
+
+  # Check if any of the journal entries are unexpected
+  unexpected_errors = []
+  output.split("\n").each do |line|
+    journal_entry = JSON.parse(line)
+    next if expected_journal_error?(journal_entry)
+
+    # Sort the JSON to make the output more readable, put the MESSAGE
+    # and SYSLOG_IDENTIFIER fields first
+    sorted_entry = journal_entry.sort_by do |key, _value|
+      [key == 'MESSAGE' ? 0 : 1, key == 'SYSLOG_IDENTIFIER' ? 0 : 1, key]
+    end
+    unexpected_errors << Hash[sorted_entry]
+  end
+  # Print the unexpected errors as a pretty JSON array if there are any
+  assert(unexpected_errors.empty?,
+         'Unexpected error messages in the journal: ' \
+         "#{JSON.pretty_generate(unexpected_errors)}")
+end
+
 Then /^the support documentation page opens in Tor Browser$/ do
   if $language == 'German'
     expected_title = 'Tails - Hilfe & Support'
