@@ -58,7 +58,7 @@ check-black:
   script:
   - apt-get -qy install black
   - black --version
-  - black --check .
+  - black -t py311 --check .
 
 ruff-changed-files:
   only:
