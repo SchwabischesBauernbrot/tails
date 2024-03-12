@@ -39,27 +39,6 @@ lint-po:
     - *prepare-lint-po
     - /tmp/jenkins-tools/slaves/lint_po
 
-bandit:
-  script:
-  - apt-get -qy install python3-bandit file
-  - bandit --version
-  - './bin/bandit-tree --configfile .bandit.yml
-                       -ll
-                       --format xml
-                       --output bandit.xml
-                       .'
-  artifacts:
-    when: always
-    reports:
-      junit: bandit.xml
-
-check-black:
-  image: debian:bookworm
-  script:
-  - apt-get -qy install black
-  - black --version
-  - black -t py311 --check .
-
 ruff-lint-changed-files:
   only:
     - merge_requests
