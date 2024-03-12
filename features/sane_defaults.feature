@@ -15,3 +15,11 @@ Feature: Tails has a sane default configuration
   Scenario: The live user can only access the expected local services
     Given I have started Tails from DVD and logged in and the network is connected
     Then the live user can only access allowed local services
+
+  Scenario: No unexpected error messages in the journal after booting from DVD
+    Given I have started Tails from DVD without network and logged in
+    Then there are no unexpected messages of priority "err" or higher in the journal
+
+  Scenario: No unexpected error messages in the journal after booting from USB drive
+    Given I have started Tails without network from a USB drive with a persistent partition enabled and logged in
+    Then there are no unexpected messages of priority "err" or higher in the journal
