@@ -658,7 +658,7 @@ Given /^I enable persistence( with the changed passphrase)?$/ do |with_changed_p
   # unlocked.
   try_for(60) do
     !greeter.child?('Unlock Encryption', roleName: 'push button') && \
-      !greeter.child?('Unlocking', roleName: 'push button')
+      !greeter.child?('Unlocking…', roleName: 'push button')
   end
 
   # Figure out which language is set now that the Persistent Storage is
