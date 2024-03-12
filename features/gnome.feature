@@ -26,9 +26,6 @@ Feature: GNOME is well-integrated into Tails
     When I start "Disks" via GNOME Activities Overview
     # The close button of GNOME Disks is not accessible
     And I close the "gnome-disks" window via Alt+F4
-    When I start "Electrum Bitcoin Wallet" via GNOME Activities Overview
-    # TODO: Only starts with Persistent Storage
-    # When I start "Electrum Bitcoin Wallet" via GNOME Activities Overview
     When I start "GNOME Terminal" via GNOME Activities Overview
     And I close the "gnome-terminal-server" window
     When I start "Files" via GNOME Activities Overview
@@ -38,8 +35,6 @@ Feature: GNOME is well-integrated into Tails
     When I start "Persistent Storage Backup" via GNOME Activities Overview
     When I start "Pidgin" via GNOME Activities Overview
     And I close the "Pidgin" window
-    # TODO: Requires admin password and handling polkit
-    # When I start "Synaptic Package Manager" via GNOME Activities Overview
     When I start "Thunderbird" via GNOME Activities Overview
     And I close the "Thunderbird" window
     When I start "Tor Browser" via GNOME Activities Overview
