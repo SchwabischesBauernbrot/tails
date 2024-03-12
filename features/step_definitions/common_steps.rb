@@ -1010,8 +1010,6 @@ def launch_app(desktop_file_name, app_name, **options)
   app = nil
   try_for(options[:timeout]) do
     app = Dogtail::Application.new(app_name)
-  rescue Dogtail::Failure
-    false
   end
   app
 end
