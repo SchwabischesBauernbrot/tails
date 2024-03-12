@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2023-04-03 20:28+0000\n"
 "Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
@@ -37,33 +37,24 @@ msgid "Unlock the Persistent Storage"
 msgstr "Déverrouiller le stockage persistant"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "When starting Tails, keep the Persistent Storage locked and [[set up an "
+#| "administration password|doc/first_steps/welcome_screen/"
+#| "administration_password]]."
 msgid ""
-"When starting Tails, keep the Persistent Storage locked and [[set up an "
-"administration password|doc/first_steps/welcome_screen/"
-"administration_password]]."
+"When starting Tails, [[set up an administration password|doc/first_steps/"
+"welcome_screen/administration_password]]."
 msgstr ""
 "Lorsque vous démarrez Tails, gardez le stockage persistant verrouillé et "
 "[[définissez un mot de passe d'administration|doc/first_steps/welcome_screen/"
 "administration_password]]."
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '1. '
 msgid ""
-"1. Choose\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Disks</span>\n"
-"   </span>\n"
-"   to open <span class=\"application\">GNOME Disks</span>.\n"
+"Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to open the "
+"*Disks* utility."
 msgstr ""
-"1. Choisissez\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilitaires</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Disques</span>\n"
-"   </span>\n"
-"   pour ouvrir l'utilitaire <span class=\"application\">Disques de GNOME</span>.\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -155,23 +146,32 @@ msgstr ""
 "   et entrez votre mot de passe d'administration pour ouvrir le terminal superutilisateur.\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "In the terminal, execute the following command, replacing `[device]` with "
+#| "the device name found in step 8:"
 msgid ""
-"In the terminal, execute the following command, replacing `[device]` with "
-"the device name found in step 8:"
+"In the terminal, execute the following command. Replace <span "
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 8:"
 msgstr ""
 "Dans le terminal, exécutez la commande suivante en remplaçant "
 "`[périphérique]` par le nom de périphérique trouvé à l'étape 8 :"
 
 #. type: Plain text
 #, no-wrap
-msgid "        fsck -y [device]\n"
-msgstr "        fsck -y [périphérique]\n"
+msgid "   <p class=\"command-template\">fsck -y <span class=\"command-placeholder\">device</span></p>\n"
+msgstr ""
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   To do so, you can type <span class=\"command\">fsck -y&nbsp;</span> and press\n"
+#| "   <span class=\"keycap\">Shift+Ctrl+V</span> to paste the device name from the\n"
+#| "   clipboard.\n"
 msgid ""
-"   To do so, you can type <span class=\"command\">fsck -y&nbsp;</span> and press\n"
-"   <span class=\"keycap\">Shift+Ctrl+V</span> to paste the device name from the\n"
+"   To do so, you can type <code>fsck -y&nbsp;</code> and press\n"
+"   **Shift+Ctrl+V** to paste the device name from the\n"
 "   clipboard.\n"
 msgstr ""
 "   Pour se faire, vous pouvez taper <span class=\"command\">fsck -y&nbsp;</span> et appuyer sur\n"
@@ -179,25 +179,55 @@ msgstr ""
 "   presse-papier.\n"
 
 #. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "If the file system is free of errors, the last line from the output of "
+#| "<span class=\"command\">fsck</span> starts with <span "
+#| "class=\"command\">TailsData: clean</span>."
 msgid ""
-"If the file system is free of errors, the last line from the output of <span "
-"class=\"command\">fsck</span> starts with <span class=\"command\">TailsData: "
-"clean</span>."
+"If the file system is free of errors, the last line from the output of "
+"`fsck` starts with `TailsData: clean`."
 msgstr ""
 "Si le système de fichiers n'a pas d'erreur, la dernière ligne du résultat de "
 "<span class=\"command\">fsck</span> commence par <span "
 "class=\"command\">TailsData: clean</span>."
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   If the file system has errors, <span class=\"command\">fsck</span> tries to\n"
+#| "   fix them automatically. After it finishes, you can try executing the same\n"
+#| "   command again to check if all errors are solved.\n"
 msgid ""
-"   If the file system has errors, <span class=\"command\">fsck</span> tries to\n"
+"   If the file system has errors, `fsck` tries to\n"
 "   fix them automatically. After it finishes, you can try executing the same\n"
 "   command again to check if all errors are solved.\n"
 msgstr ""
 "   Si le système de fichiers a des erreurs, <span class=\"command\">fsck</span> essaye de\n"
 "   les corriger automatiquement. Après qu'il ait fini, vous pouvez essayer d'exécuter à nouveau \n"
 "   la même commande pour vérifier si toutes les erreurs ont été corrigées.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "1. Choose\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Disks</span>\n"
+#~ "   </span>\n"
+#~ "   to open <span class=\"application\">GNOME Disks</span>.\n"
+#~ msgstr ""
+#~ "1. Choisissez\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilitaires</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Disques</span>\n"
+#~ "   </span>\n"
+#~ "   pour ouvrir l'utilitaire <span class=\"application\">Disques de GNOME</span>.\n"
+
+#, no-wrap
+#~ msgid "        fsck -y [device]\n"
+#~ msgstr "        fsck -y [périphérique]\n"
 
 #~ msgid ""
 #~ "Click on **Unlock** to unlock the Persistent Storage. Enter the "

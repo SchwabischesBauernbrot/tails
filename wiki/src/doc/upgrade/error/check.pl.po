@@ -3,39 +3,34 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
+#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2021-09-07 14:15+0200\n"
-"PO-Revision-Date: 2023-12-25 07:21+0000\n"
-"Last-Translator: Rcvrvugyvgvb <xzdfrlhz@duck.com>\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
-"|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "[[!meta title=\"Error while checking for upgrades\"]]\n"
-msgstr "[[!meta title=\"Błąd podczas sprawdzania aktualizacji\"]]\n"
+msgstr ""
 
 #. type: Plain text
 msgid ""
 "Tails could not determine whether an upgrade is available from our website.  "
 "This is most likely caused by a network connection problem."
 msgstr ""
-"Tails nie mógł ustalić, czy aktualizacja jest dostępna na naszej stronie "
-"internetowej.  Jest to najprawdopodobniej spowodowane problemem z "
-"połączeniem sieciowym."
 
 #. type: Plain text
 msgid "To solve it:"
-msgstr "Aby go rozwiązać:"
+msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
@@ -50,71 +45,4 @@ msgstr ""
 
 #. type: Bullet: '1. '
 msgid "If the problem persists, do a [[manual upgrade|doc/upgrade#manual]]."
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid "<a id=\"4.18\"></a>\n"
-msgstr ""
-
-#. type: Title =
-#, no-wrap
-msgid "Automatic upgrades are broken between Tails 4.15 and Tails 4.18"
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"To upgrade from Tails 4.15, Tails 4.16, Tails 4.17, or Tails 4.18, you can "
-"either:"
-msgstr ""
-
-#. type: Plain text
-msgid "- Do a [[manual upgrade|doc/upgrade#manual]]."
-msgstr ""
-
-#. type: Plain text
-msgid "- Fix the automatic upgrade from a terminal. To do so:"
-msgstr ""
-
-#. type: Bullet: '  1. '
-msgid ""
-"Start Tails and set up an [[administration password|doc/first_steps/"
-"welcome_screen/administration_password]]."
-msgstr ""
-
-#. type: Bullet: '  1. '
-msgid "In a terminal, execute the following command:"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"         torsocks curl --silent https://tails.net/isrg-root-x1-cross-signed.pem \\\n"
-"         | sudo tee --append /usr/local/etc/ssl/certs/tails.net-CA.pem \\\n"
-"         && systemctl --user restart tails-upgrade-frontend\n"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid "     <div class=\"note\">\n"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"     <p>This command is a single command that wraps across several lines.\n"
-"     Copy and paste the entire block at once and make sure that it executes\n"
-"     as a single command.</p>\n"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid "     </div>\n"
-msgstr ""
-
-#. type: Bullet: '  1. '
-msgid ""
-"Approximately 30 seconds later, you should be prompted to upgrade to the "
-"latest version of Tails. If no prompt appears, you might already be running "
-"the latest version of Tails."
 msgstr ""

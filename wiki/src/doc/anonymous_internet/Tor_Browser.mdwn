@@ -38,34 +38,40 @@ Make sure that you are:
 
 <h1 id="confinement">AppArmor confinement, downloading, and uploading files</h1>
 
-<span class="application">Tor Browser</span> in Tails is confined with
-[[!debwiki AppArmor]] to protect the system and your data from some
-types of attacks against <span class="application">Tor Browser</span>.
-As a consequence, <span class="application">Tor Browser</span> in Tails can
-only read and write to a limited number of folders.
+*Tor Browser* can only read and write to the following folders:
+
+- *Documents*
+- *Downloads*
+- *Music*
+- *Pictures*
+- *Videos*
+- *Tor Browser*
+- *Persistent/Tor Browser*, if you have a Persistent Storage
+
+This is because, in Tails, *Tor Browser* is confined using
+*[[!debwiki AppArmor]]* to protect your files from some
+types of attacks against *Tor Browser*.
+
+For example, thanks to this confinement, even if an attacker manages to exploit
+a security vulnerability in *Tor Browser*, they wouldn't be able to access all
+the content of your Persistent Storage.
 
 <div class="note">
 
-<p>This is why, for example, you might face <em>Permission
-denied</em> errors if you try to download files to the
-<em>Home</em> folder.</p>
+<p>This is why you get the following error if you try to download files to
+another folder:</p>
+
+<p class="code">Could not read the contents of <span class="command-placeholder">folder</span>.</p>
+
+<p class="code">Error opening directory <span class="command-placeholder">folder</span>: Permission denied</p>
 
 </div>
 
-- You can save files from <span class="application">Tor
-Browser</span> to the <span class="filename">Tor Browser</span> folder
-that is located in the <span class="filename">Home</span> folder.
-The content of this folder will disappear once you shut down Tails.
+- If you want to download a file from *Tor Browser*, save it to one of these
+  folders.
 
-- If you want to upload files with <span class="application">Tor
-Browser</span>, copy them to that folder first.
-
-- If you turned on the [[Persistent Folder|persistent_storage/configure#persistent_folder]]
-feature of the Persistent Storage, you can also use the
-*Persistent/Tor Browser* folder
-to download and upload files from *Tor Browser*. The
-content of the *Persistent/Tor Browser* folder is saved across different
-working sessions.
+- If you want to upload a file from *Tor Browser*, copy it first to one of
+  these folders.
 
 <div class="tip">
 
@@ -193,8 +199,7 @@ the most usable experience.
 
 To change the security level, click on the [[!img security-level.png
 class="symbolic" link="no"]] icon on the right of the address bar
-and choose
-<span class="guilabel">Advanced Security Settings&hellip;</span>.
+and choose **Settings&hellip;**.
 
 [[!img security-levels.png link="no" alt=""]]
 
@@ -236,10 +241,8 @@ to get more detailed information about the circuits being used.
 
 <h1 id="new-identity"><span class="guilabel">New Identity</span> feature</h1>
 
-To switch to a new identity, choose
-<span class="menuchoice">
-  <span class="guimenu">[[!img lib/open-menu.png alt="" class=symbolic link=no]]</span>&nbsp;▸
-  <span class="guimenuitem">New Identity</span></span>.
+To switch to a new identity, choose [[!img lib/open-menu.png alt=""
+class="symbolic" link="no"]]&nbsp;▸ **New identity**.
 
 The New Identity feature of
 <i>Tor Browser</i>:
@@ -263,8 +266,6 @@ as the Tor circuits used ouside of
 For more details, see the [design and implementation of the Tor Browser](https://2019.www.torproject.org/projects/torbrowser/design/#new-identity).
 
 <h1 id="noscript">NoScript to have even more control over JavaScript</h1>
-
-[[!img noscript.png link=no alt=""]]
 
 <span class="application">Tor Browser</span> includes the
 <span class="application">NoScript</span> extension to:

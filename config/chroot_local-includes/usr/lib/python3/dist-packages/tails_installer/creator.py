@@ -37,7 +37,6 @@ import sys
 from typing import Optional
 
 from io import StringIO
-from datetime import datetime
 from pprint import pformat
 
 import gi
@@ -55,6 +54,7 @@ from tails_installer.utils import (
     write_to_block_device,
     mebibytes_to_bytes,
     TailsError,
+    get_persistent_storage_backup_size,
 )
 from tails_installer import _  # NOQA: E402
 from tails_installer.config import CONFIG  # NOQA: E402
@@ -366,19 +366,28 @@ class TailsInstallerCreator(object):
         if callback:
             callback()
 
+    def log_write_speed(write_size):
+        def decorator(func):
+            def wrapper(self, *args, **kwargs):
+                start = time.monotonic()
+                ret_val = func(self, *args, **kwargs)
+                delta = time.monotonic() - start
+                if write_size(self) and delta > 0.0:
+                    self.log.info(
+                        _("Wrote to device at %(speed)d MB/s")
+                        % {"speed": (write_size(self) / delta) / 1000**2}
+                    )
+                return ret_val
+
+            return wrapper
+
+        return decorator
+
+    @log_write_speed(write_size=lambda self: self.source.size)
     def extract_iso(self):
         """Extract our ISO with 7-zip directly to the USB key"""
         self.log.info(_("Extracting live image to the target device..."))
-        start = datetime.now()
         self.source.clone(self.dest)
-        delta = datetime.now() - start
-        if delta.seconds:
-            self.mb_per_sec = (self.source.size / delta.seconds) / 1024**2
-            if self.mb_per_sec:
-                self.log.info(
-                    _("Wrote to device at %(speed)d MB/sec")
-                    % {"speed": self.mb_per_sec}
-                )
 
     def syslinux_options(self):
         opts = []
@@ -1028,9 +1037,8 @@ class TailsInstallerCreator(object):
         )
         shutil.rmtree(tmpdir)
 
+    @log_write_speed(write_size=lambda self: get_persistent_storage_backup_size())
     def clone_persistent_storage(self):
-        if not self.opts.clone_persistent_storage_requested:
-            return
         self.log.info(_("Cloning Persistent Storage..."))
         tps_proxy.call_sync(
             method_name="CreateBackup",

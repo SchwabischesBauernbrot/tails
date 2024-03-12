@@ -135,19 +135,24 @@ Two APT hooks are configured in
 [[!tails_gitweb config/chroot_local-includes/etc/apt/apt.conf.d/80tails-additional-software.disabled]],
 which are enabled by
 [[!tails_gitweb config/chroot_local-hooks/99-zz-install-ASP-DPKG-hooks]] in the
-end of the build process.
+end of the build process. See
+[the apt.conf man page](https://manpages.debian.org/stable/apt/apt.conf.5.en.html#HOW_APT_CALLS_DPKG(1))
+for details about the APT hooks mechanism.
 
-The first hook `DPkg::Pre-Install-Pkgs` runs before any actual
-installation happens and calls
-`/usr/local/sbin/tails-additional-software apt-pre` which saves a list
-of installed and removed packages as JSON in
-`/run/live-additional-software/packages`.
+The first hook
+[[!tails_gitweb config/chroot_local-includes/usr/local/lib/additional-software/asp-pre-apt]]
+is configured via `DPkg::Pre-Install-Pkgs` to run *before* APT invokes
+dpkg to install or remove any packages. It saves the list of packages
+to be installed or removed in `/run/live-additional-software/packages`.
 
-The second hook `DPkg::Post-Invoke` runs in the end of the installation
-process and calls `/usr/local/sbin/tails-additional-software apt-post`.
-It double forks so that APT properly returns, then parses the JSON file
-written beforehand in order to check which packages were manually
-installed or removed.
+The second hook
+[[!tails_gitweb config/chroot_local-includes/usr/local/lib/additional-software/asp-post-apt]]
+is configured via `DPkg::Post-Invoke` to run *after* APT invokes dpkg to
+install or remove packages. It starts a transient systemd service which runs
+[[!tails_gitweb config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes]]
+asynchronously, in order to not block APT. This script then reads the
+list of files written by the first hook and checks which packages were
+manually installed or removed.
 
 ### When a package is installed
 

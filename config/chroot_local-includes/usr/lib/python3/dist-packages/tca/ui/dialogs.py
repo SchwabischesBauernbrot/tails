@@ -8,6 +8,7 @@ import gi
 
 from tailsgreeter.ui.popover import Popover
 import tca.config
+import tailslib.release
 
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
@@ -19,12 +20,8 @@ from gi.repository import Gdk, GdkPixbuf, Gtk, GLib, Pango  # noqa: E402
 log = getLogger("dialogs")
 
 
-def get_build_year():
-    with open("/etc/amnesia/version") as buf:
-        firstline = buf.readline()
-        date = firstline.split(" - ")[1]
-        year = date[:4]
-        return int(year)
+def get_release_year():
+    return tailslib.release.get_release_date().year
 
 
 def get_time_dialog(initial_tz: Optional[str] = None):
@@ -94,7 +91,7 @@ def get_time_dialog(initial_tz: Optional[str] = None):
     builder.get_object("minute").set_value(now.minute)
     builder.get_object("day").set_range(1, 31)
     builder.get_object("day").set_value(now.day)
-    min_year = get_build_year()
+    min_year = get_release_year()
     max_year = max(now.year, min_year + 10)
     builder.get_object("year").set_range(min_year, max_year)
     builder.get_object("year").set_value(now.year)
@@ -147,12 +144,12 @@ class TimezonePopover:
         self.relative_to = relative_to
         self._create_tz_store()
         self.value_changed_by_user = False
-        popover_box = self.builder.get_object("box_{}_popover".format(self.id))
+        popover_box = self.builder.get_object(f"box_{self.id}_popover")
         self.popover = Popover(self.relative_to, popover_box)
         self.popover.widget.set_constrain_to(Gtk.PopoverConstraint.NONE)
         self.popover.widget.set_position(Gtk.PositionType.RIGHT)
 
-        self.treeview = self.builder.get_object("treeview_{}".format(self.id))
+        self.treeview = self.builder.get_object(f"treeview_{self.id}")
         self.treeview.connect("row-activated", self.cb_treeview_row_activated)
 
         # Fill the treeview
@@ -161,7 +158,7 @@ class TimezonePopover:
         column = Gtk.TreeViewColumn("", renderer, text=0)
         self.treeview.append_column(column)
 
-        searchentry = self.builder.get_object("searchentry_{}".format(self.id))
+        searchentry = self.builder.get_object(f"searchentry_{self.id}")
         searchentry.connect("search-changed", self.cb_searchentry_search_changed)
         searchentry.connect("activate", self.cb_searchentry_activate)
 

@@ -133,7 +133,7 @@ If your current passphrase has 4 random words or fewer:
 
   We still recommend changing your passphrase to be 5 random words or more.
 
-### Persistent Storage (4 words of fewer)
+### Persistent Storage (4 words or fewer)
 
 To secure your Persistent Storage:
 
@@ -472,15 +472,15 @@ PBKDF2 or Argon2id.
       Replace <span class="command-placeholder">[partition]</span> with the
       partition name found in step 4.
 
-      <p class="pre command">sudo cryptsetup luksDump /dev/<span class="command-placeholder">[partition]</span></p>
+      <p class="pre command-template">sudo cryptsetup luksDump /dev/<span class="command-placeholder">[partition]</span></p>
 
       In the output:
 
-      - <span class="command">Version</span> indicates the version of LUKS,
-        either <span class="command">1</span> or <span class="command">2</span>.
+      - `Version` indicates the version of LUKS,
+        either `1` or `2`.
 
-      - <span class="command">PBKDF</span> indicates the key derivation function,
-        either <span class="command">pbkdf2</span> or <span class="command">argon2id</span>.
+      - `PBKDF` indicates the key derivation function,
+        either `pbkdf2` or `rgon2id`.
 
 ### Other encrypted volumes
 
@@ -491,12 +491,12 @@ PBKDF2 or Argon2id.
       Replace <span class="command-placeholder">[partition]</span> with the
       partition name found in step 6.
 
-      <p class="pre command">sudo cryptsetup luksDump /dev/<span class="command-placeholder">[partition]</span></p>
+      <p class="pre command-template">sudo cryptsetup luksDump /dev/<span class="command-placeholder">[partition]</span></p>
 
       In the output:
 
-      - <span class="command">Version</span> indicates the version of LUKS,
-        either <span class="command">1</span> or <span class="command">2</span>.
+      - `Version` indicates the version of LUKS,
+        either `1` or `2`.
 
-      - <span class="command">PBKDF</span> indicates the key derivation function,
-        either <span class="command">pbkdf2</span> or <span class="command">argon2id</span>.
+      - `PBKDF` indicates the key derivation function,
+        either `pbkdf2` or `argon2id`.

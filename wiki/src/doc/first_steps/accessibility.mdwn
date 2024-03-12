@@ -6,36 +6,34 @@ assistive devices.
 
 [[!toc]]
 
-Universal access menu
-=====================
+<h1 id="menu">Accessibility menu</h1>
 
-You can activate most of these technologies from the universal access menu (the
-[[!img lib/preferences-desktop-accessibility.png alt="Universal Access" class="symbolic" link="no"]]
-icon which looks like a person) in the top bar:
+You can activate several assistive technologies, like a screen reader or large
+text, from the accessibility menu in the top bar, the
+[[!img lib/accessibility.png alt="accessiblity menu" class="symbolic" link="no"]]
+icon that looks like a person.
 
-[[!img desktop/accessibility.png link="no"
-alt="Universal Access menu with the following options (disabled
-by default): High Contrast, Zoom, Large Text, Screen Reader, Screen Keyboard,
+[[!img desktop/accessibility.png link="no" class="screenshot"
+alt="Accessibility menu with the following options, all disabled
+by default: High Contrast, Zoom, Large Text, Screen Reader, Screen Keyboard,
 Visual Alters, Sticky Keys, Slow Keys, Bounce Keys, and Mouse Keys"]]
 
-These technologies are documented in more details in the
-[GNOME universal access documentation](https://help.gnome.org/users/gnome-help/stable/a11y.html).
+These technologies are documented in more details in
+[GNOME Help: Accessibility](https://help.gnome.org/users/gnome-help/stable/a11y.html).
 
-Keyboard shortcuts
-==================
+<h1 id="shortcuts">Keyboard shortcuts</h1>
 
 <table>
-<tr><td>Turn screen reader on or off</td><td>Alt+Super+S</td></tr>
-<tr><td>Turn zoom on or off</td><td>Alt+Super+8</td></tr>
+<tr><td>Turn screen reader on or off</td><td>Alt+[[!img lib/start.png class="symbolic" link="no" alt="Super"]]+S</td></tr>
+<tr><td>Turn zoom on or off</td><td>Alt+[[!img lib/start.png class="symbolic" link="no" alt="Super"]]+8</td></tr>
 </table>
 
-To access the universal access menu using the keyboard:
+To access the accessibility menu using the keyboard:
 
 1. Press <span class="keycap">Ctrl+Alt+Tab</span> to move the keyboard
    focus to the top bar.
 
-1. Use the arrow keys on the keyboard to select the universal access
-   menu.
+1. Use the arrow keys on the keyboard to select the accessibility menu.
 
 1. Press <span class="bold">Enter</span> to open the menu.
 
@@ -47,34 +45,59 @@ To access the universal access menu using the keyboard:
 
 1. Press <span class="bold">Esc</span> to close the menu.
 
-Screen reader
-=============
+<h1 id="reader">Screen reader</h1>
 
-To hear screen elements spoken to you, you can activate the
-<span class="guilabel">Screen Reader</span> accessibility feature.
+To hear screen elements spoken to you, turn on the **Screen Reader** from the
+accessibility menu ([[!img lib/accessibility.png alt="accessiblity menu"
+class="symbolic" link="no"]]).
 
-For more detailed documentation refer to the official [<span
-class="application">Orca</span> Screen Reader
-documentation](https://help.gnome.org/users/orca/stable/).
+[GNOME Help: *Orca* Screen Reader](https://help.gnome.org/users/orca/stable/)
 
-<div class="bug">
+<h1 id="keyboard">Screen keyboard</h1>
 
-<p>The screen reader takes around 10 seconds to start.</p>
+If you prefer a pointing device over the keyboard, turn on the **Screen
+Keyboard** from the accessibility menu ([[!img lib/accessibility.png
+alt="accessiblity menu" class="symbolic" link="no"]]).
+
+<div class="tip">
+
+<p>You can also use the screen keyboard to protect against hardware keyloggers
+by avoiding to use the actual keyboard.</p>
+
+<p>If a keylogger has been physically installed on the computer, your
+passwords, personal information, and other data typed on the keyboard could be
+stored and accessed by someone else, even if you are using Tails.</p>
+
+<p>For an example, see
+<a href="https://www.youtube.com/watch?v=6JJo8qCYE8M">KeeLog: KeyGrabber
+forensic keylogger getting started</a>.</p>
+
+<p>Keyloggers are more likely on public computers, in internet cafés or
+libraries, and on desktop computers, where a device is easier to hide.</p>
+
+<p>[[Reducing risks when using untrusted
+computers|doc/about/warnings/computer]]</p>
 
 </div>
 
 <div class="bug">
 
-<p>The screen reader does not work with the <span class="application">Unsafe
-Browser</span>.</p>
+<p>The screen keyboard doesn't work in a <i>Root Terminal</i>. ([[!tails_ticket
+18061]])</p>
+
+<p>Instead, open a <i>Terminal</i> and execute the following command to log in
+as root:</p>
+
+<p class="command">sudo -i</p>
 
 </div>
 
-Screen keyboard
-===============
+<div class="bug">
 
-If you prefer a pointing device over the keyboard, you can activate the
-<span class="guilabel">Screen Keyboard</span> accessibility feature.
+<p>The screen keyboard doesn't work in <i>Kleopatra</i>, <i>Electrum</i>, and
+<i>KeePassXC</i>. ([[!tails_ticket 19695]])</p>
 
-For more detailed documentation refer to the official
-[<span class="application">GNOME</span> Screen Keyboard documentation](https://help.gnome.org/users/gnome-help/stable/keyboard-osk.html.en).
+<p>Instead, you can use the screen keyboard in the <i>Text Editor</i> first,
+then cut and paste into one of these applications.</p>
+
+</div>

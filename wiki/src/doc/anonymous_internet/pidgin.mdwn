@@ -14,29 +14,23 @@ documentation on [[chatting with <i>Dino</i> and OMEMO|doc/advanced_topics/dino]
 
 </div>
 
-You can use it to connect to [[!wikipedia Internet_Relay_Chat]] or [[!wikipedia XMPP]]
-(also known as Jabber) servers, and have several accounts connected at
+You can use *Pidgin* to connect to [[!wikipedia Internet_Relay_Chat]] or [[!wikipedia XMPP]]
+(also known as Jabber) servers. You can have several accounts connected at
 the same time.
 
-To start <span class="application">Pidgin</span> choose
-<span class="menuchoice">
-  <span class="guimenu">Applications</span>&nbsp;▸
-  <span class="guisubmenu">Internet</span>&nbsp;▸
-  <span class="guimenuitem">Pidgin Instant Messenger</span>
-</span> or click on the <span class="application">Pidgin</span> icon in
-the [[<span class="guilabel">Favorites</span> submenu|doc/first_steps/desktop#favorites]].
+Even though *Pidgin* supports other protocols, it is only possible to use IRC
+and XMPP with *Pidgin* in Tails for security reasons.
 
-For more detailed documentation refer to the [official <span
-class="application">Pidgin</span> user
-guide](https://developer.pidgin.im/wiki/Using%20Pidgin).
+To start *Pidgin* choose **Applications**&nbsp;▸ **Internet**&nbsp;▸ **Pidgin**.
+
+For more documentation, visit the official [*Pidgin*
+FAQ](https://developer.pidgin.im/wiki/Using%20Pidgin).
 
 [[!toc]]
 
-<span class="application">Off-the-record</span> (<span class="application">OTR</span>) encryption
-=================================================================================================
+<h1 id="otr">OTR encryption</h1>
 
-As explained on its [official page](https://otr.cypherpunks.ca/),
-<span class="application">Off-the-Record</span> messaging allows you to
+[OTR (Off-the-Record)](https://otr.cypherpunks.ca/) encryption allows you to
 have private conversations over instant messaging by providing:
 
 - **Encryption**
@@ -74,7 +68,7 @@ not private.</p>
 
 <div class="tip">
 
-<p>To store your OTR keys and preferences across separate working sessions,
+<p>To store your OTR keys and <i>Pidgin</i> settings across different Tails sessions,
 you can turn on the [[Pidgin Internet Messenger|persistent_storage/configure#pidgin]]
 feature of the Persistent Storage.</p>
 
@@ -97,22 +91,3 @@ Tor is sometimes used to send spam.
 - [OFTC and Tor](https://www.oftc.net/Tor/)
 
 - [List of IRC/chat networks that block or support Tor](https://gitlab.torproject.org/legacy/trac/-/wikis/doc/BlockingIrc)
-
-Adding support for another protocol
-===================================
-
-For security reasons, it is only possible to use IRC and XMPP with
-<span class="application">Pidgin</span> in Tails. Here are the
-prerequisites to enable another protocol that is supported by <span
-class="application">Pidgin</span> otherwise:
-
-- The support in <span class="application">Pidgin</span> for this protocol has been successfully tested
-  in Tails.
-
-- Someone volunteers to maintain the corresponding support in Tails
-  on the long term.
-
-- Someone has verified that the security record of the desired plugin
-  (including open bugs) is good enough.
-
-If you want to work on this issue, see [[our contribute page|contribute/how/code]].

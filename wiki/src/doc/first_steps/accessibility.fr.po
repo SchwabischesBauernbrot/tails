@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2022-12-19 03:08+0100\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2022-12-20 14:06+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
@@ -33,64 +33,77 @@ msgstr ""
 "les personnes avec divers handicaps et ayant des besoins spécifiques et pour "
 "interagir avec des périphériques d'assistance courants."
 
-#. type: Title =
+#. type: Plain text
 #, no-wrap
-msgid "Universal access menu"
-msgstr "Menu d'accès universel"
+msgid "<h1 id=\"menu\">Accessibility menu</h1>\n"
+msgstr ""
 
 #. type: Plain text
 msgid ""
-"You can activate most of these technologies from the universal access menu "
-"(the"
+"You can activate several assistive technologies, like a screen reader or "
+"large text, from the accessibility menu in the top bar, the"
 msgstr ""
-"Vous pouvez activer la plupart de ces technologies depuis le menu d'accès "
-"universel (l'icône"
 
 #. type: Plain text
-#, no-wrap
-msgid "[[!img lib/preferences-desktop-accessibility.png alt=\"Universal Access\" class=\"symbolic\" link=\"no\"]]\n"
+#, fuzzy, no-wrap
+#| msgid "[[!img lib/preferences-desktop-accessibility.png alt=\"Universal Access\" class=\"symbolic\" link=\"no\"]]\n"
+msgid "[[!img lib/accessibility.png alt=\"accessiblity menu\" class=\"symbolic\" link=\"no\"]]\n"
 msgstr "[[!img lib/preferences-desktop-accessibility.png alt=\"Accès universel\" class=\"symbolic\" link=\"no\"]]\n"
 
 #. type: Plain text
-msgid "icon which looks like a person) in the top bar:"
+#, fuzzy
+#| msgid "icon which looks like a person) in the top bar:"
+msgid "icon that looks like a person."
 msgstr "qui ressemble à une personne) dans la barre supérieure :"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "[[!img desktop/accessibility.png link=\"no\"\n"
+#| "alt=\"Universal Access menu with the following options (disabled\n"
+#| "by default): High Contrast, Zoom, Large Text, Screen Reader, Screen Keyboard,\n"
+#| "Visual Alters, Sticky Keys, Slow Keys, Bounce Keys, and Mouse Keys\"]]\n"
 msgid ""
-"[[!img desktop/accessibility.png link=\"no\"\n"
-"alt=\"Universal Access menu with the following options (disabled\n"
-"by default): High Contrast, Zoom, Large Text, Screen Reader, Screen Keyboard,\n"
+"[[!img desktop/accessibility.png link=\"no\" class=\"screenshot\"\n"
+"alt=\"Accessibility menu with the following options, all disabled\n"
+"by default: High Contrast, Zoom, Large Text, Screen Reader, Screen Keyboard,\n"
 "Visual Alters, Sticky Keys, Slow Keys, Bounce Keys, and Mouse Keys\"]]\n"
 msgstr ""
 "[[!img desktop/accessibility.png link=\"no\"\n"
 "alt=\"Menu d'accès universel avec les options suivantes (désactivées\n"
-"par défaut) : Contraste élevé, Zoom, Grand Texte, Lecteur d'écran, Clavier "
-"visuel,\n"
-"Alertes visuelles, Touches rémanentes, Touches lentes, Touches rebond et "
-"Touches de la souris\"]]\n"
+"par défaut) : Contraste élevé, Zoom, Grand Texte, Lecteur d'écran, Clavier visuel,\n"
+"Alertes visuelles, Touches rémanentes, Touches lentes, Touches rebond et Touches de la souris\"]]\n"
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "These technologies are documented in more details in the [GNOME universal "
+#| "access documentation](https://help.gnome.org/users/gnome-help/stable/a11y."
+#| "html)."
 msgid ""
-"These technologies are documented in more details in the [GNOME universal "
-"access documentation](https://help.gnome.org/users/gnome-help/stable/a11y."
-"html)."
+"These technologies are documented in more details in [GNOME Help: "
+"Accessibility](https://help.gnome.org/users/gnome-help/stable/a11y.html)."
 msgstr ""
 "Ces technologies sont documentées plus en détail dans la [documentation "
 "GNOME pour l'accès universel](https://help.gnome.org/users/gnome-help/stable/"
 "a11y.html.fr)."
 
-#. type: Title =
-#, no-wrap
-msgid "Keyboard shortcuts"
-msgstr "Raccourcis clavier"
-
 #. type: Plain text
 #, no-wrap
+msgid "<h1 id=\"shortcuts\">Keyboard shortcuts</h1>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<table>\n"
+#| "<tr><td>Turn screen reader on or off</td><td>Alt+Super+S</td></tr>\n"
+#| "<tr><td>Turn zoom on or off</td><td>Alt+Super+8</td></tr>\n"
+#| "</table>\n"
 msgid ""
 "<table>\n"
-"<tr><td>Turn screen reader on or off</td><td>Alt+Super+S</td></tr>\n"
-"<tr><td>Turn zoom on or off</td><td>Alt+Super+8</td></tr>\n"
+"<tr><td>Turn screen reader on or off</td><td>Alt+[[!img lib/start.png class=\"symbolic\" link=\"no\" alt=\"Super\"]]+S</td></tr>\n"
+"<tr><td>Turn zoom on or off</td><td>Alt+[[!img lib/start.png class=\"symbolic\" link=\"no\" alt=\"Super\"]]+8</td></tr>\n"
 "</table>\n"
 msgstr ""
 "<table>\n"
@@ -99,7 +112,9 @@ msgstr ""
 "</table>\n"
 
 #. type: Plain text
-msgid "To access the universal access menu using the keyboard:"
+#, fuzzy
+#| msgid "To access the universal access menu using the keyboard:"
+msgid "To access the accessibility menu using the keyboard:"
 msgstr "Pour accéder au menu d'accès universel à l'aide du clavier :"
 
 #. type: Bullet: '1. '
@@ -111,7 +126,10 @@ msgstr ""
 "focus du clavier vers la barre supérieure."
 
 #. type: Bullet: '1. '
-msgid "Use the arrow keys on the keyboard to select the universal access menu."
+#, fuzzy
+#| msgid ""
+#| "Use the arrow keys on the keyboard to select the universal access menu."
+msgid "Use the arrow keys on the keyboard to select the accessibility menu."
 msgstr ""
 "Utiliser les touches directionnelles du clavier pour sélectionner le menu "
 "d'accès universel."
@@ -136,40 +154,79 @@ msgstr ""
 msgid "Press <span class=\"bold\">Esc</span> to close the menu."
 msgstr "Appuyer sur <span class=\"bold\">Échap</span> pour fermer le menu."
 
-#. type: Title =
+#. type: Plain text
 #, no-wrap
-msgid "Screen reader"
-msgstr "Lecteur d'écran"
+msgid "<h1 id=\"reader\">Screen reader</h1>\n"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"To hear screen elements spoken to you, you can activate the\n"
-"<span class=\"guilabel\">Screen Reader</span> accessibility feature.\n"
+"To hear screen elements spoken to you, turn on the **Screen Reader** from the\n"
+"accessibility menu ([[!img lib/accessibility.png alt=\"accessiblity menu\"\n"
+"class=\"symbolic\" link=\"no\"]]).\n"
 msgstr ""
-"Afin d'obtenir une lecture des éléments présents à l'écran, vous pouvez activer la\n"
-"fonctionnalité d'accessibilité <span class=\"guilabel\">Lecteur d'écran</span>.\n"
+
+#. type: Plain text
+msgid ""
+"[GNOME Help: *Orca* Screen Reader](https://help.gnome.org/users/orca/stable/)"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "<h1 id=\"keyboard\">Screen keyboard</h1>\n"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"For more detailed documentation refer to the official [<span\n"
-"class=\"application\">Orca</span> Screen Reader\n"
-"documentation](https://help.gnome.org/users/orca/stable/).\n"
+"If you prefer a pointing device over the keyboard, turn on the **Screen\n"
+"Keyboard** from the accessibility menu ([[!img lib/accessibility.png\n"
+"alt=\"accessiblity menu\" class=\"symbolic\" link=\"no\"]]).\n"
 msgstr ""
-"Pour plus d'informations, veuillez consulter la [documentation officielle du lecteur d'écran <span\n"
-"class=\"application\">Orca</span>\n"
-"](https://help.gnome.org/users/orca/stable/index.html.fr).\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<div class=\"bug\">\n"
+#, fuzzy, no-wrap
+#| msgid "<div class=\"bug\">\n"
+msgid "<div class=\"tip\">\n"
 msgstr "<div class=\"bug\">\n"
 
 #. type: Plain text
 #, no-wrap
-msgid "<p>The screen reader takes around 10 seconds to start.</p>\n"
-msgstr "<p>Le lecteur d'écran met environ 10 secondes à démarrer.</p>\n"
+msgid ""
+"<p>You can also use the screen keyboard to protect against hardware keyloggers\n"
+"by avoiding to use the actual keyboard.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>If a keylogger has been physically installed on the computer, your\n"
+"passwords, personal information, and other data typed on the keyboard could be\n"
+"stored and accessed by someone else, even if you are using Tails.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>For an example, see\n"
+"<a href=\"https://www.youtube.com/watch?v=6JJo8qCYE8M\">KeeLog: KeyGrabber\n"
+"forensic keylogger getting started</a>.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>Keyloggers are more likely on public computers, in internet cafés or\n"
+"libraries, and on desktop computers, where a device is easier to hide.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>[[Reducing risks when using untrusted\n"
+"computers|doc/about/warnings/computer]]</p>\n"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -178,33 +235,108 @@ msgstr "</div>\n"
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"<p>The screen reader does not work with the <span class=\"application\">Unsafe\n"
-"Browser</span>.</p>\n"
-msgstr "<p>Le lecteur d'écran ne marche pas avec le <span class=\"application\">Navigateur non sécurisé</span>.</p>\n"
-
-#. type: Title =
-#, no-wrap
-msgid "Screen keyboard"
-msgstr "Clavier visuel"
+msgid "<div class=\"bug\">\n"
+msgstr "<div class=\"bug\">\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"If you prefer a pointing device over the keyboard, you can activate the\n"
-"<span class=\"guilabel\">Screen Keyboard</span> accessibility feature.\n"
+"<p>The screen keyboard doesn't work in a <i>Root Terminal</i>. ([[!tails_ticket\n"
+"18061]])</p>\n"
 msgstr ""
-"Si vous préférez utiliser un dispositif de pointage pour le clavier, vous pouvez activer la\n"
-"fonctionnalité d'accessibilité <span class=\"guilabel\">Clavier visuel</span>.\n"
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"For more detailed documentation refer to the official\n"
-"[<span class=\"application\">GNOME</span> Screen Keyboard documentation](https://help.gnome.org/users/gnome-help/stable/keyboard-osk.html.en).\n"
+"<p>Instead, open a <i>Terminal</i> and execute the following command to log in\n"
+"as root:</p>\n"
 msgstr ""
-"Pour une documentation plus détaillée, consultez la \n"
-"[documentation officielle du clavier visuel de <span class=\"application\">GNOME</span>](https://help.gnome.org/users/gnome-help/stable/keyboard-osk.html.fr).\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "<p class=\"command\">sudo -i</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>The screen keyboard doesn't work in <i>Kleopatra</i>, <i>Electrum</i>, and\n"
+"<i>KeePassXC</i>. ([[!tails_ticket 19695]])</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>Instead, you can use the screen keyboard in the <i>Text Editor</i> first,\n"
+"then cut and paste into one of these applications.</p>\n"
+msgstr ""
+
+#, no-wrap
+#~ msgid "Universal access menu"
+#~ msgstr "Menu d'accès universel"
+
+#~ msgid ""
+#~ "You can activate most of these technologies from the universal access "
+#~ "menu (the"
+#~ msgstr ""
+#~ "Vous pouvez activer la plupart de ces technologies depuis le menu d'accès "
+#~ "universel (l'icône"
+
+#, no-wrap
+#~ msgid "Keyboard shortcuts"
+#~ msgstr "Raccourcis clavier"
+
+#, no-wrap
+#~ msgid "Screen reader"
+#~ msgstr "Lecteur d'écran"
+
+#, no-wrap
+#~ msgid ""
+#~ "To hear screen elements spoken to you, you can activate the\n"
+#~ "<span class=\"guilabel\">Screen Reader</span> accessibility feature.\n"
+#~ msgstr ""
+#~ "Afin d'obtenir une lecture des éléments présents à l'écran, vous pouvez activer la\n"
+#~ "fonctionnalité d'accessibilité <span class=\"guilabel\">Lecteur d'écran</span>.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "For more detailed documentation refer to the official [<span\n"
+#~ "class=\"application\">Orca</span> Screen Reader\n"
+#~ "documentation](https://help.gnome.org/users/orca/stable/).\n"
+#~ msgstr ""
+#~ "Pour plus d'informations, veuillez consulter la [documentation officielle du lecteur d'écran <span\n"
+#~ "class=\"application\">Orca</span>\n"
+#~ "](https://help.gnome.org/users/orca/stable/index.html.fr).\n"
+
+#, no-wrap
+#~ msgid "<p>The screen reader takes around 10 seconds to start.</p>\n"
+#~ msgstr "<p>Le lecteur d'écran met environ 10 secondes à démarrer.</p>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<p>The screen reader does not work with the <span class=\"application\">Unsafe\n"
+#~ "Browser</span>.</p>\n"
+#~ msgstr "<p>Le lecteur d'écran ne marche pas avec le <span class=\"application\">Navigateur non sécurisé</span>.</p>\n"
+
+#, no-wrap
+#~ msgid "Screen keyboard"
+#~ msgstr "Clavier visuel"
+
+#, no-wrap
+#~ msgid ""
+#~ "If you prefer a pointing device over the keyboard, you can activate the\n"
+#~ "<span class=\"guilabel\">Screen Keyboard</span> accessibility feature.\n"
+#~ msgstr ""
+#~ "Si vous préférez utiliser un dispositif de pointage pour le clavier, vous pouvez activer la\n"
+#~ "fonctionnalité d'accessibilité <span class=\"guilabel\">Clavier visuel</span>.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "For more detailed documentation refer to the official\n"
+#~ "[<span class=\"application\">GNOME</span> Screen Keyboard documentation](https://help.gnome.org/users/gnome-help/stable/keyboard-osk.html.en).\n"
+#~ msgstr ""
+#~ "Pour une documentation plus détaillée, consultez la \n"
+#~ "[documentation officielle du clavier visuel de <span class=\"application\">GNOME</span>](https://help.gnome.org/users/gnome-help/stable/keyboard-osk.html.fr).\n"
 
 #, no-wrap
 #~ msgid "<span class=\"application\">Dasher</span> graphical text entry application"

@@ -3,17 +3,27 @@ When /^I(?:| try to) open "([^"]+)" with Evince$/ do |filename|
 end
 
 Then /^I can print the current document to "([^"]+)"$/ do |output_file|
+  evince = Dogtail::Application.new('evince')
   @screen.press('ctrl', 'p')
-  @screen.wait('EvincePrintDialog.png', 10)
-  @screen.wait('EvincePrintToFile.png', 10).click
-  @screen.wait('EvincePrintOutputFileButton.png', 10).click
-  @screen.wait('Gtk3PrintFileDialog.png', 10)
-  # At this point, the destination file's basename *without its extension*
-  # is selected. So, to replace it, accordingly we paste only the desired
-  # destination file's name *without its extension*.
-  @screen.paste(output_file.sub(/[.]pdf$/, ''))
-  @screen.press('Return')
-  @screen.wait('Gtk3PrintButton.png', 10).click
+  print_dialog = evince.dialog('Print')
+  print_dialog.child('Print to File', roleName: 'table cell').grabFocus
+  output_file_selection_button = nil
+  try_for(10) do
+    output_file_selection_button = print_dialog
+                                   .children(roleName: 'push button')
+                                   .find { |b| /[.]pdf$/.match(b.name) }
+    !output_file_selection_button.nil?
+  end
+  output_file_selection_button.click
+  select_path_in_file_chooser(
+    evince.child(
+      'Select a filename',
+      roleName: 'file chooser'
+    ),
+    output_file,
+    button_label: 'Select'
+  )
+  print_dialog.button('Print').click
   try_for(10, msg: "The document was not printed to #{output_file}") do
     $vm.file_exist?(output_file)
   end

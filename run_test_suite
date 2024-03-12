@@ -389,7 +389,7 @@ if [ -n "${JENKINS_URL:-}" ]; then
     # environment variables instead.
     elif echo "${GIT_BRANCH}" | grep -q -E '[+-]force-all-tests$' \
        || git_on_a_tag \
-       || [ "${GIT_BRANCH#origin/}" = feature/bullseye ] \
+       || [ "${GIT_BRANCH#origin/}" = feature/bookworm ] \
        || [ "${GIT_BRANCH#origin/}" = testing ] \
        || [ "${GIT_BRANCH#origin/}" = devel ] \
        || [ -n "${ALL_TESTS:-}" ]; then

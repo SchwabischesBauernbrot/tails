@@ -15,6 +15,7 @@ from tailslib import LIVE_USER_UID, LIVE_USERNAME
 import tps.logging
 from tps import executil, LUKS_HEADER_BACKUP_PATH
 from tps import _, TPS_MOUNT_POINT, udisks
+from tps import InvalidBootDeviceErrorType
 from tps.dbus.errors import (
     IncorrectPassphraseError,
     TargetIsBusyError,
@@ -54,6 +55,29 @@ class PartitionNotUnlockedError(Exception):
 
 
 class InvalidBootDeviceError(Exception):
+    # Assume that any problem that's not handled differently in specific subclasses
+    # is the result of installing Tails in an unsupported manner.
+    error_type: InvalidBootDeviceErrorType = (
+        InvalidBootDeviceErrorType.UNSUPPORTED_INSTALLATION_METHOD
+    )
+
+
+class InvalidPartitionTableTypeError(InvalidBootDeviceError):
+    def __init__(self, partition_table_type: str):
+        super().__init__(f"Partition table type: {partition_table_type}")
+
+
+class NoUdisksBlockObjectError(InvalidBootDeviceError):
+    def __init__(self, device: str):
+        super().__init__(f"Could not get udisks object of boot device {device}")
+
+
+class NoUdisksPartitionObjectError(InvalidBootDeviceError):
+    def __init__(self, device: str):
+        super().__init__(f"Boot device {device} is not a partition")
+
+
+class UnsupportedInstallationMethodError(InvalidBootDeviceError):
     pass
 
 
@@ -65,7 +89,7 @@ class InvalidStatError(Exception):
     pass
 
 
-class BootDevice(object):
+class BootDevice:
     def __init__(self, udisks_object: UDisks.Object):
         self.udisks_object = udisks_object
         self.partition_table = (
@@ -73,11 +97,7 @@ class BootDevice(object):
         )  # type: UDisks.PartitionTable
         partition_table_type = self.partition_table.props.type
         if partition_table_type != "gpt":
-            logger.debug(f"Partition table type: {partition_table_type}")
-            raise InvalidBootDeviceError(
-                "You can only create a Persistent Storage on a USB stick "
-                "installed with a USB image or Tails Cloner."
-            )
+            raise InvalidPartitionTableTypeError(partition_table_type)
         self.block = self.udisks_object.get_block()
         if not self.block:
             raise InvalidBootDeviceError("Device is not a block device")
@@ -86,33 +106,29 @@ class BootDevice(object):
     @classmethod
     def get_tails_boot_device(cls) -> "BootDevice":
         """Get the device which Tails was booted from. Raise a
-        InvalidBootDeviceError if it can't be found."""
+        InvalidBootDeviceError (or instance of a child exception class)
+        if it can't be found."""
         # Get the underlying block device of the Tails system partition
         try:
             dev_num = os.stat(TAILS_MOUNTPOINT).st_dev
         except FileNotFoundError as e:
-            raise InvalidBootDeviceError(e)
+            raise InvalidBootDeviceError(e) from e
 
         block = udisks.get_block_for_dev(dev_num)
         if not block or not block.get_object():
-            msg = (
-                f"Could not get udisks object of boot device "
-                f"{os.major(dev_num)}:{os.minor(dev_num)}"
+            raise NoUdisksBlockObjectError(
+                f"{os.major(dev_num)}:{os.minor(dev_num)}",
             )
-            raise InvalidBootDeviceError(msg)
         device_object = block.get_object()
 
         # Get the udisks partition object
         partition = device_object.get_partition()
         if not partition:
-            msg = f"Boot device {block.props.device} is not a partition"
-            raise InvalidBootDeviceError(msg)
+            raise NoUdisksPartitionObjectError(block.props.device)
         partition_name = partition.props.name
         if partition_name != "Tails":
-            logger.debug(f"Partition name: {partition_name}")
-            raise InvalidBootDeviceError(
-                "You can only create a Persistent Storage on a USB stick "
-                "installed with a USB image or Tails Cloner."
+            raise UnsupportedInstallationMethodError(
+                f"Partition name: {partition_name}"
             )
 
         return BootDevice(udisks.get_object(partition.props.table))
@@ -131,7 +147,7 @@ class BootDevice(object):
         return max(partition_ends)
 
 
-class TPSPartition(object):
+class TPSPartition:
     """The Persistent Storage encrypted partition"""
 
     def __init__(self, udisks_object: UDisks.Object):
@@ -142,9 +158,7 @@ class TPSPartition(object):
         self.device_path = self.block.props.device
         self.partition = self.udisks_object.get_partition()  # type: UDisks.Partition
         if not self.partition:
-            raise InvalidPartitionError(
-                f"Device {self.device_path} is not a " f"partition"
-            )
+            raise InvalidPartitionError(f"Device {self.device_path} is not a partition")
 
     def get_cleartext_device(self) -> "CleartextDevice":
         """Get the cleartext device of Persistent Storage encrypted
@@ -153,7 +167,7 @@ class TPSPartition(object):
         cleartext_device_path = encrypted.props.cleartext_device
         if cleartext_device_path == "/":
             raise PartitionNotUnlockedError(
-                f"Device {self.device_path} is " f"not unlocked"
+                f"Device {self.device_path} is not unlocked"
             )
         return CleartextDevice(udisks.get_object(cleartext_device_path))
 
@@ -170,9 +184,7 @@ class TPSPartition(object):
         """Get the UDisks.Encrypted interface of the partition"""
         encrypted = self.udisks_object.get_encrypted()
         if not encrypted:
-            raise InvalidPartitionError(
-                f"Device {self.device_path} is not " f"encrypted"
-            )
+            raise InvalidPartitionError(f"Device {self.device_path} is not encrypted")
         return encrypted
 
     def is_unlocked(self) -> bool:
@@ -660,7 +672,7 @@ class TPSPartition(object):
 
         # Restore the LUKS header backup
         logger.info(
-            f"Unlocking LUKS header backup succeeded, " f"restoring the backup header."
+            "Unlocking LUKS header backup succeeded, restoring the backup header."
         )
         self.restore_luks_header_backup()
 
@@ -721,7 +733,7 @@ class TPSPartition(object):
             raise
 
 
-class CleartextDevice(object):
+class CleartextDevice:
     def __init__(self, udisks_object: UDisks.Object):
         self.udisks_object = udisks_object
         self.block = self.udisks_object.get_block()
@@ -735,7 +747,7 @@ class CleartextDevice(object):
             [
                 "findmnt",
                 f"--source={self.device_path}",
-                f"--mountpoint={str(self.mount_point)}",
+                f"--mountpoint={self.mount_point!s}",
             ]
         )
         if p.returncode == 0:
@@ -745,6 +757,24 @@ class CleartextDevice(object):
         # If the return code is not 0 and not 1, something unexpected
         # happened, so we raise a CalledProcessException
         p.check_returncode()
+
+    def fsck(self):
+        try:
+            executil.check_call(
+                [
+                    "e2fsck",
+                    # Force checking even if the file system seems clean:
+                    # some filesystems are corrupted in a way that fsck
+                    # won't spot it without this option, and then mount
+                    # will fail.
+                    "-f",
+                    # Fix any problems that can be safely fixed.
+                    "-p",
+                    self.device_path,
+                ]
+            )
+        except subprocess.CalledProcessError as e:
+            logger.warning("e2fsck returned %i", e.returncode)
 
     def mount(self):
         # Ensure that the mount point exists

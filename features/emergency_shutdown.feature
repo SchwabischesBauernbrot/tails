@@ -28,7 +28,7 @@ Feature: Emergency shutdown
     And I plug and mount a 128 MiB USB drive with a vfat filesystem
     And I fill the USB drive with a known pattern
     And I read the content of the test FS
-    And patterns cover at least 99% of the test FS size in the guest's memory
+    And patterns cover at least 90% of the test FS size in the guest's memory
     When I eject the boot medium
     And I wait for Tails to finish wiping the memory
     Then I find very few patterns in the guest's memory

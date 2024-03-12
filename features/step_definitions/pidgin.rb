@@ -425,7 +425,7 @@ end
 
 def pidgin_add_certificate_from(cert_file)
   src = '/usr/share/ca-certificates/mozilla/' \
-        'Staat_der_Nederlanden_EV_Root_CA.crt'
+        'Baltimore_CyberTrust_Root.crt'
   # Here, we need a certificate that is not already in the NSS database
   step "I copy \"#{src}\" to \"#{cert_file}\" as user \"amnesia\""
 

@@ -5,7 +5,7 @@ workflow:
     - if: $CI_COMMIT_TAG
     - if: '$CI_COMMIT_BRANCH =~ /^master|stable|testing|devel$/'
 
-image: debian:bullseye
+image: debian:bookworm
 
 variables:
     GET_SOURCES_ATTEMPTS: 10
@@ -153,9 +153,9 @@ test-perl5lib:
 shellcheck:
   image: debian:testing
   script:
-  - apt-get -qy install python3 shellcheck xmlstarlet file
+  - apt-get -qy install python3 shellcheck xmlstarlet git
   - shellcheck --version
-  - './bin/shellcheck-tree --format=checkstyle
+  - 'git ls-files -z | ./bin/test-utils/is-file-type filter --zero shell | xargs --verbose --no-run-if-empty -0 shellcheck --format=checkstyle
        | xmlstarlet tr config/ci/shellcheck/checkstyle2junit.xslt
        > shellcheck.xml'
   artifacts:

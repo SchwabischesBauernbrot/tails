@@ -21,6 +21,13 @@ import subprocess
 import random
 from pathlib import Path
 
+# Make electrum use the cursor size configured in GNOME
+# refs: #20206
+os.environ['XCURSOR_SIZE'] = subprocess.check_output(
+    ['/usr/bin/gsettings', 'get', 'org.gnome.desktop.interface', 'cursor-size'],
+    text=True,
+).strip()
+
 translation = gettext.translation("tails", '/usr/share/locale', fallback=True)
 _ = translation.gettext
 
@@ -65,7 +72,7 @@ def main(*args):
 
 
 def exec_electrum(*args):
-    os.execv('/usr/bin/electrum', ['/usr/bin/electrum'] + list(args))
+    os.execv('/usr/bin/electrum', ['/usr/bin/electrum', *list(args)])
 
 
 def should_show_donation_message() -> bool:
@@ -85,12 +92,12 @@ def should_show_donation_message() -> bool:
 
     # If the other conditions are met, show the message in 1/5 of the
     # cases.
-    return random.randint(0, 19) == 0
+    return random.randint(0, 19) == 0  # noqa: S311
 
 
 def show_donation_message():
     # To test the donation message, execute `ELECTRUM_DONATION_MESSAGE=1 electrum` with a Persistent Storage and a wallet
-    if random.randint(0, 1) == 0:
+    if random.randint(0, 1) == 0:  # noqa: S311
         # In half of the cases, display a message with benevolent incentive
         text = _('Tails needs donations to keep everybody free and safe '
                  'online.\n\nEvery bit helps in our fight against surveillance '
@@ -106,7 +113,7 @@ def show_donation_message():
 
     # results 0 == True; 1 == False; 5 == Timeout
     p = subprocess.run([
-        'zenity',
+        '/usr/bin/zenity',
         '--question',
         '--title', '',
         '--text', text,
@@ -115,12 +122,12 @@ def show_donation_message():
         '--icon-name', 'tails-logo-drawing',
         '--modal',
         '--ellipsize',
-    ])
+    ], check=False)
     if p.returncode == 0:
         # Show a GNOME notification to let the user know that we're
         # opening Electrum with our donation address.
         subprocess.check_call([
-            'notify-send',
+            '/usr/bin/notify-send',
             _('Opening Electrum with our donation address...'),
             _('Thank you for making the Internet a safer place!'),
         ])
@@ -165,7 +172,7 @@ def verify_start():
     exit_text = _('_Exit')
 
     p = subprocess.run([
-        'zenity',
+        '/usr/bin/zenity',
         '--question',
         '--title', '',
         '--default-cancel',
@@ -173,7 +180,7 @@ def verify_start():
         '--ok-label', launch_text,
         '--cancel-label', exit_text,
         '--text', dialog_msg,
-    ])
+    ], check=False)
     return p.returncode == 0
 
 

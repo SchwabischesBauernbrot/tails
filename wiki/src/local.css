@@ -56,11 +56,18 @@ body {
   background: url(lib/strip.png);
   margin: 0;
   padding: 0;
-}
-
-body {
   font-size: 87.5%;
   line-height: 1.5em;
+}
+
+/* Preload background images */
+
+body:after {
+  content: url(lib/go-up.png);
+  position: absolute;
+  top: -9999rem;
+  left: -9999rem;
+  opacity: 0;
 }
 
 p {
@@ -89,6 +96,11 @@ h2, h2 .code {
 h3, h3 .code {
   font-size: 20px;
   margin: 1.5em 0 0.75em 0;
+}
+
+h4 {
+  font-size: 16px;
+  font-weight: bold;
 }
 
 p, h1, h2, h3, h4, h5, h6, blockquote {
@@ -138,7 +150,7 @@ div#feedlink {
 .toc {
   float: none;
   margin: 30px 0;
-  padding: 1em 1em 1em 2em;
+  padding: 15px 30px;
   max-width: 45em;
   background-color: var(--background-gray);
   border: 1px solid var(--light-gray);
@@ -224,6 +236,10 @@ img.top-margin { /* Overwrite style.css */
 
 img.right-margin { /* Overwrite style.css */
   margin-right: 4em;
+}
+
+img.screenshot {
+  box-shadow: 5px 5px 5px var(--medium-light-gray);
 }
 
 /* Images with caption */
@@ -343,12 +359,15 @@ header.title { /* Override style.css */
 }
 
 #searchform button {
-  background: var(--medium-light-green) url(lib/search.png) no-repeat center;
+  background-image: url(lib/search.png) !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
   width: 40px;
   border: 0;
   border-radius: 0 5px 5px 0;
   box-shadow: var(--banner-button-shadow);
   cursor: pointer;
+  margin-bottom: 0;
 }
 
 #searchform button span {
@@ -507,7 +526,7 @@ label[for="searchbox"]{
 
 #crumbs li {
   display: inline-block;
-  background: url(lib/go-right.png) no-repeat right 2px;
+  background: url(lib/crumbs.png) no-repeat right 2px;
   padding-right: 18px;
   color: var(--medium-dark-gray);
 }
@@ -699,6 +718,10 @@ a:focus, button:focus, input:focus, textarea:focus, video:focus {
   margin-top: 30px;
 }
 
+.block .block {
+  border: none;
+}
+
 .blocks .block-full {
   width: 100%;
 }
@@ -784,14 +807,9 @@ article.inlinepage {
   top: 5px;
 }
 
-.inlinepage img {
-  max-width: 100%;
-  height: auto;
-}
-
 /* Buttons and calls for action */
 
-.button, input[type="submit"] {
+button, .button > a, label.button, input[type="submit"] {
   color: black !important;
   background: var(--medium-light-green) !important;
   border: none !important;
@@ -804,7 +822,11 @@ article.inlinepage {
   margin-bottom: 1.5em;
 }
 
-.button:hover {
+button {
+  font-family: "DejaVu Sans", "Verdana", sans-serif;
+}
+
+button:hover, .button > a:hover, label.button:hover, input[type="submit"]:hover {
   background: var(--medium-dark-green) !important;
 }
 
@@ -813,12 +835,12 @@ article.inlinepage {
   text-decoration: none !important;
 }
 
-.cfa {
+.cta {
   width: 300px;
   margin: 1em auto;
 }
 
-.cfa a {
+.cta a {
   background: var(--medium-light-green) !important;
   color: black !important;
   text-decoration: none !important;
@@ -833,12 +855,8 @@ article.inlinepage {
   font-family: "Source Sans Pro Regular", "DejaVu Sans", "Verdana", sans-serif;
 }
 
-.cfa a:hover {
+.cta a:hover {
   background: var(--medium-dark-green) !important;
-}
-
-.cfa a:visited {
-  color: black !important;
 }
 
 /* Toggleable */
@@ -889,20 +907,14 @@ article.inlinepage {
 /* Icons */
 
 div.icon {
+  display: flex;
+  align-items: flex-start;
+  gap: 30px;
   margin-bottom: 1.5em;
-  position: relative;
 }
 
-div.icon img {
-  display: inline-block;
-}
-
-div.icon div.text {
-  position: absolute;
-  top: 0;
-  display: inline-block;
-  vertical-align: top;
-  margin-left: 1em;
+div.icon div.text h2 {
+  margin-top: 20px;
 }
 
 /* Documentation styling */
@@ -927,9 +939,7 @@ span.keycap { font-weight: bold; }
 
 span.menuchoice { font-weight: bold; }
 
-span.replaceable { font-style: italic; }
-
-div.bug, div.caution, div.next, div.note, div.tip, div.trophy, div.attack {
+div.bug, div.caution, div.next, div.note, div.tip, div.attack {
   background-color: var(--background-yellow);
   border: 1px solid var(--light-gray);
   border-radius: 5px;
@@ -951,7 +961,7 @@ div.caution {
 }
 
 div.next {
-  background-image: url(lib/go-next.png);
+  background-image: url(lib/next.png);
 }
 
 div.note {
@@ -962,26 +972,22 @@ div.tip {
   background-image: url(lib/admon-tip.png);
 }
 
-div.trophy {
-  background-image: url(lib/trophy-gold.png);
-}
-
 div.attack {
   background-image: url(lib/weather-showers-scattered.png);
 }
 
-div.bug > *:first-child, div.caution > *:first-child, div.next > *:first-child, div.note > *:first-child, div.tip > *:first-child, div.trophy > *:first-child {
+div.bug > *:first-child, div.caution > *:first-child, div.next > *:first-child, div.note > *:first-child, div.tip > *:first-child {
   margin-top: 0;
 }
 
-div.bug > *:last-child, div.caution > *:last-child, div.next > *:last-child, div.note > *:last-child, div.tip > *:last-child, div.trophy > *:last-child,
-div.bug > *:only-child, div.caution > *:only-child, div.next > *:only-child, div.note > *:only-child, div.tip > *:only-child, div.trophy > *:only-child {
+div.bug > *:last-child, div.caution > *:last-child, div.next > *:last-child, div.note > *:last-child, div.tip > *:last-child,
+div.bug > *:only-child, div.caution > *:only-child, div.next > *:only-child, div.note > *:only-child, div.tip > *:only-child {
   margin-bottom: 1.5em;
 }
 
 /* Code, preformatted text, and command lines */
 
-pre, code, .code, .command, .command-root, .command-template, .command-placeholder {
+pre, code, .code, .command, .command-root, .command-windows, .command-template, .command-placeholder {
   font-family: "Source Code Pro Regular", "Courier", monospace;
   font-size: 14px;
   color: var(--dark-gray);
@@ -990,11 +996,11 @@ pre, code, .code, .command, .command-root, .command-template, .command-placehold
   border-radius: 5px;
 }
 
-code, span.code, span.command, span.command-root, span.command-template, span.command-placeholder {
+code, span.code, span.command, span.command-root, span.command-windows, span.command-template, span.command-placeholder {
   padding: 0 2px;
 }
 
-pre, p.code, p.command, p.command-root, p.command-template, p.command-placeholder {
+pre, p.code, p.command, p.command-root, p.command-windows, p.command-template, p.command-placeholder {
   margin: 1.5em 1em 1.5em 1.5em;
   padding: 2px 5px;
   max-width: none;
@@ -1008,11 +1014,15 @@ pre, p.code, p.command, p.command-root, p.command-template, p.command-placeholde
   content: '# ' !important;
 }
 
+.command-windows::before {
+  content: '> ' !important;
+}
+
 .command-template, .command-placeholder {
   user-select: none;
 }
 
-.nowrap, .command, .command-template, .command-root {
+.nowrap, .command, .command-template, .command-root, .command-windows {
   white-space: nowrap;
 }
 
@@ -1027,7 +1037,7 @@ pre, p.code, p.command, p.command-root, p.command-template, p.command-placeholde
   padding-right: 4px !important;
 }
 
-code .command-placeholder, .code .command-placeholder, .command .command-placeholder, .command-root .command-placeholder, .command-template .command-placeholder,
+code .command-placeholder, .code .command-placeholder, .command .command-placeholder, .command-root .command-placeholder, .command-windows .command-placeholder, .command-template .command-placeholder,
 pre code {
   border: none;
   padding: 0 2px 0 0 !important;
@@ -1038,7 +1048,7 @@ pre code {
 img.symbolic {
   display: inline-block;
   position: relative;
-  top: 3px;
+  top: 2px;
 }
 
 /* Highlight */
@@ -1179,6 +1189,7 @@ div#highlight p {
 #footer ul {
   list-style: none;
   margin-left: 0;
+  padding-left: 0;
 }
 
 #footer a {
@@ -1190,11 +1201,12 @@ div#highlight p {
 }
 
 #footer button {
-  border: 0;
-  font-weight: normal;
-  padding: 6px;
-  background: var(--light-gray);
-  box-shadow: var(--gray-button-shadow);
+  background: var(--light-gray) !important;
+  box-shadow: var(--gray-button-shadow) !important;
+}
+
+#footer button:hover {
+  background: var(--medium-light-gray) !important;
 }
 
 #footer p a {
@@ -1230,8 +1242,7 @@ html[dir="rtl"] div.bug,
 html[dir="rtl"] div.caution,
 html[dir="rtl"] div.next,
 html[dir="rtl"] div.note,
-html[dir="rtl"] div.tip,
-html[dir="rtl"] div.trophy {
+html[dir="rtl"] div.tip {
   background-position: right center;
   padding-right: 5em;
   padding-left: 1em;

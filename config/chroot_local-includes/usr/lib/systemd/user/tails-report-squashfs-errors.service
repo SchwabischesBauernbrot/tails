@@ -1,0 +1,11 @@
+[Unit]
+Description=Report errors about disk squashfs being corrupted
+ConditionUser=1000
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/lib/tails-report-squashfs-errors
+RemainAfterExit=yes
+
+
+

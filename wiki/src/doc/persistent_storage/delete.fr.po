@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-11-23 12:56+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2023-07-14 18:33+0000\n"
 "Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: \n"
@@ -60,11 +60,16 @@ msgstr ""
 "     #8436 (Wipe the LUKS header when deleting a persistent volume). -->\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "<p>This technique is fast but might not prevent a strong attacker from\n"
+#| "recovering files from an old Persistent Storage using advanced [[data\n"
+#| "recovery techniques|encryption_and_privacy/secure_deletion#why]].</p>\n"
 msgid ""
-"<p>This technique is fast but might not prevent a strong attacker from\n"
-"recovering files from an old Persistent Storage using advanced [[data\n"
-"recovery techniques|encryption_and_privacy/secure_deletion#why]].</p>\n"
+"<p>This technique is might not prevent a strong attacker from\n"
+"recovering files from an old Persistent Storage using advanced data\n"
+"recovery techniques, especially if\n"
+"the Persistent Storage had a weak passphrase.</p>\n"
 msgstr ""
 "<p>Cette technique est rapide mais n'empêchera peut-être pas un attaquant expérimenté de\n"
 "récupérer des fichiers d'un ancien stockage persistant en utilisant [[des\n"
@@ -72,19 +77,23 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"<p>To securely delete the Persistent Storage, you have to [[securely\n"
-"delete the entire USB stick|encryption_and_privacy/secure_deletion#device]],\n"
-"which is a much slower operation.</p>\n"
+msgid "<p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>\n"
 msgstr ""
-"<p>Pour effacer de manière sécurisée le stockage persistant, vous devez [[effacer\n"
-"de manière sécurisée toute la clé USB|encryption_and_privacy/secure_deletion#device]],\n"
-"c'est une opération beaucoup plus lente.</p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "</div>\n"
 msgstr "</div>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "<p>To securely delete the Persistent Storage, you have to [[securely\n"
+#~ "delete the entire USB stick|encryption_and_privacy/secure_deletion#device]],\n"
+#~ "which is a much slower operation.</p>\n"
+#~ msgstr ""
+#~ "<p>Pour effacer de manière sécurisée le stockage persistant, vous devez [[effacer\n"
+#~ "de manière sécurisée toute la clé USB|encryption_and_privacy/secure_deletion#device]],\n"
+#~ "c'est une opération beaucoup plus lente.</p>\n"
 
 #~ msgid ""
 #~ "Choose <span class=\"menuchoice\"> <span class=\"guimenu\">Applications</"

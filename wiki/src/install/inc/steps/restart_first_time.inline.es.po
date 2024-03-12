@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
-"PO-Revision-Date: 2023-12-29 16:22+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
+"PO-Revision-Date: 2024-01-21 11:38+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: Spanish <http://translate.tails.boum.org/projects/tails/"
 "restart_first_timeinline/es/>\n"
@@ -202,28 +202,17 @@ msgid ""
 "     <p class=\"code upgrade-linux\">https://tails.net/upgrade/linux?back=1</p>\n"
 "     <p class=\"code upgrade-clone\">https://tails.net/upgrade/clone?back=1</p>\n"
 msgstr ""
-"     <p class=\"code windows\">https://tails.net/install/windows/index.es."
-"html?back=1</p>\n"
-"     <p class=\"code mac\">https://tails.net/install/mac/index.es."
-"html?back=1</p>\n"
-"     <p class=\"code linux\">https://tails.net/install/linux/index.es."
-"html?back=1</p>\n"
-"     <p class=\"code expert\">https://tails.net/install/expert/index.es."
-"html?back=1</p>\n"
-"     <p class=\"code pc-clone\">https://tails.net/install/clone/pc/index.es."
-"html?back=1</p>\n"
-"     <p class=\"code mac-clone\">https://tails.net/install/clone/mac/index.es"
-".html?back=1</p>\n"
-"     <p class=\"code upgrade-tails\">https://tails.net/upgrade/tails/index.es"
-".html?back=1</p>\n"
-"     <p class=\"code upgrade-windows\">https://tails.net/upgrade/windows/"
-"index.es.html?back=1</p>\n"
-"     <p class=\"code upgrade-mac\">https://tails.net/upgrade/mac/index.es."
-"html?back=1</p>\n"
-"     <p class=\"code upgrade-linux\">https://tails.net/upgrade/linux/index.es"
-".html?back=1</p>\n"
-"     <p class=\"code upgrade-clone\">https://tails.net/upgrade/clone/index.es"
-".html?back=1</p>\n"
+"     <p class=\"code windows\">https://tails.net/install/windows/index.es.html?back=1</p>\n"
+"     <p class=\"code mac\">https://tails.net/install/mac/index.es.html?back=1</p>\n"
+"     <p class=\"code linux\">https://tails.net/install/linux/index.es.html?back=1</p>\n"
+"     <p class=\"code expert\">https://tails.net/install/expert/index.es.html?back=1</p>\n"
+"     <p class=\"code pc-clone\">https://tails.net/install/clone/pc/index.es.html?back=1</p>\n"
+"     <p class=\"code mac-clone\">https://tails.net/install/clone/mac/index.es.html?back=1</p>\n"
+"     <p class=\"code upgrade-tails\">https://tails.net/upgrade/tails/index.es.html?back=1</p>\n"
+"     <p class=\"code upgrade-windows\">https://tails.net/upgrade/windows/index.es.html?back=1</p>\n"
+"     <p class=\"code upgrade-mac\">https://tails.net/upgrade/mac/index.es.html?back=1</p>\n"
+"     <p class=\"code upgrade-linux\">https://tails.net/upgrade/linux/index.es.html?back=1</p>\n"
+"     <p class=\"code upgrade-clone\">https://tails.net/upgrade/clone/index.es.html?back=1</p>\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -296,8 +285,9 @@ msgid "[[!inline pages=\"install/inc/steps/mac_startup_disks.inline\" raw=\"yes\
 msgstr "[[!inline pages=\"install/inc/steps/mac_startup_disks.inline.es\" raw=\"yes\" sort=\"age\"]]\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<h2 id=\"troubleshooting\">Troubleshooting</h2>\n"
+#, fuzzy, no-wrap
+#| msgid "<h2 id=\"troubleshooting\">Troubleshooting</h2>\n"
+msgid "<h2 id=\"troubleshoot-start\">Troubleshoot Tails not starting</h2>\n"
 msgstr "<h2 id=\"troubleshooting\">Solucionar problemas</h2>\n"
 
 #. type: Plain text
@@ -328,8 +318,11 @@ msgstr ""
 #, no-wrap
 msgid ""
 "<li class=\"windows upgrade-windows linux expert pc-clone upgrade-clone upgrade-tails upgrade-linux\">\n"
-"<p>If the Boot Menu appears but your USB stick is not listed in the Boot Menu,\n"
-"wait a few minutes and try again. Some USB sticks need some rest after installing.</p>\n"
+"<p>If the Boot Menu appears but your USB stick is not listed in the Boot Menu:</p>\n"
+"  <ol>\n"
+"  <li><p>Wait 2&ndash;3 minutes and try again. Some USB sticks need some rest after installing.</p></li>\n"
+"  <li><p>Try all other USB ports on the computer. Some USB ports cannot be used to start from.</p></li>\n"
+"  </ol>\n"
 "</li>\n"
 msgstr ""
 
@@ -404,14 +397,21 @@ msgid "<h1 id=\"tails\" class=\"step windows linux mac\">Welcome to Tails!</h1>\
 msgstr "<h1 id=\"tails\" class=\"step windows linux mac\">¡Bienvenido/a a Tails!</h1>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<div class=\"step-image\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
+#, fuzzy, no-wrap
+#| msgid "<div class=\"step-image\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
+msgid "<div class=\"step-image windows linux mac\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
 msgstr "<div class=\"step-image\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 class=\"clone upgrade\">Starting Tails</h2>\n"
 msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<div class=\"step-image\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
+msgid "<div class=\"step-image clone upgrade\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
+msgstr "<div class=\"step-image\">[[!img install/inc/infography/tails.png link=\"no\" alt=\"\"]]</div>\n"
 
 #. type: Bullet: '1. '
 #, fuzzy
@@ -440,9 +440,9 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
-#| msgid "   [[!img doc/first_steps/welcome_screen/welcome-screen.png link=\"no\" alt=\"Welcome to Tails!\"]]\n"
-msgid "   [[!img doc/first_steps/welcome_screen/welcome_screen.png link=\"no\" alt=\"Welcome to Tails!\"]]\n"
-msgstr "   [[!img doc/first_steps/welcome_screen/welcome-screen.png link=\"no\" alt=\"¡Bienvenido a Tails!\"]]\n"
+#| msgid "   [[!img doc/first_steps/welcome_screen/welcome_screen.png link=\"no\" alt=\"Welcome to Tails!\"]]\n"
+msgid "   [[!img doc/first_steps/welcome_screen/welcome_screen.png class=\"screenshot\" alt=\"Welcome to Tails!\"]]\n"
+msgstr "   [[!img doc/first_steps/welcome_screen/welcome_screen.png link=\"no\" alt=\"¡Bienvenido a Tails!\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -453,7 +453,7 @@ msgid ""
 msgstr ""
 "1. En la Pantalla de Bienvenida, elige tu idioma y la configuración\n"
 "de tu teclado en la sección <span class=\"guilabel\">Language & Region</span>\n"
-"y presiona <span class=\"bold\">Start Tails</span>.\n"
+"y presiona <span class=\"bold\">Iniciar Tails</span>.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -468,8 +468,9 @@ msgid "After 15&ndash;30 seconds, the Tails desktop appears."
 msgstr "Luego de 15&ndash;30 segundos, el escritorio de Tails aparecerá."
 
 #. type: Plain text
-#, no-wrap
-msgid "   [[!img install/inc/screenshots/desktop.png link=\"no\" alt=\"Tails desktop\"]]\n"
+#, fuzzy, no-wrap
+#| msgid "   [[!img install/inc/screenshots/desktop.png link=\"no\" alt=\"Tails desktop\"]]\n"
+msgid "   [[!img install/inc/screenshots/desktop.png class=\"screenshot\" alt=\"\"]]\n"
 msgstr "   [[!img install/inc/screenshots/desktop.png link=\"no\" alt=\"EscritorioTails\"]]\n"
 
 #, no-wrap

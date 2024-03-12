@@ -16,8 +16,7 @@ To know which packages are available in Debian:
 - Browse locally with
   the <span class="application">Synaptic Package Manager</span>:
 
-  1. [[Set up an administration password
-     |first_steps/welcome_screen/administration_password]] when you start Tails.
+  1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
 
   1. Choose <span class="menuchoice">
      <span class="guimenu">Applications</span>&nbsp;▸
@@ -87,36 +86,41 @@ Examples of additional useful software
 
 - [*Calibre*](https://calibre-ebook.com/), an EPUB reader and library manager.
 
-<a id="language-packs"></a>
+- [*GtkHash*](https://gtkhash.org/), a utility to calculate the checksum of files.
 
-Language packs
---------------
+<a id="language-packages"></a>
 
-- For *LibreOffice*: <code>libreoffice-l10n-<span class="command-placeholder">lang</span></code>
-
-- For *Thunderbird*: <code>thunderbird-l10n-<span class="command-placeholder">lang</span></code>
+Language packages and dictionaries
+----------------------------------
 
 Replace <span class="command-placeholder">lang</span> with the code for your
-language. For example, `es` for Spanish or `de` for German.
+language. For example, `vi` for Vietnamese.
 
-Spell-checking dictionaries
----------------------------
+Tails already includes language packages and dictionaries for Arabic,
+German, Spanish, Farsi, French, Hindi, Bahasa Indonesia, Italian,
+Portuguese, Russian, Turkish, and Simplified Chinese.
 
-- <code>hunspell-<span class="command-placeholder">lang</span></code>
+- *LibreOffice* language package: <code>libreoffice-l10n-<span class="command-placeholder">lang</span></code>
 
-The `hunspell` dictionaries are used for spell-checking by *Tor Browser*,
-*LibreOffice*, *Thunderbird*, and many other applications.
+  [List of available *LibreOffice* language packages](https://packages.debian.org/search?keywords=libreoffice-l10n&searchon=names&suite=stable&section=all)
 
-Replace <span class="command-placeholder">lang</span> with the code for your
-language. For example, `es` for Spanish or `de` for German.
+- *Thunderbird* language package: <code>thunderbird-l10n-<span class="command-placeholder">lang</span></code>
+
+  [List of available *Thunderbird* language packages](https://packages.debian.org/search?keywords=thunderbird-l10n&searchon=names&suite=stable&section=all)
+
+- *Hunspell* dictionnary: <code>hunspell-<span class="command-placeholder">lang</span></code>
+
+  The *Hunspell* dictionaries are used for spell-checking by *Tor Browser*,
+  *LibreOffice*, *Thunderbird*, and many other applications.
+
+  [List of available *Hunspell* dictionnaries](https://packages.debian.org/search?keywords=hunspell&searchon=names&suite=stable&section=all)
 
 Installing additional software
 ==============================
 
 To install a package using <span class="application">Synaptic</span>:
 
-1. When starting Tails, set up an [[administration password
-   |first_steps/welcome_screen/administration_password]].
+1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
 
 1. Choose <span class="menuchoice">
      <span class="guimenu">Applications</span>&nbsp;▸
@@ -155,7 +159,7 @@ To install an additional package automatically when starting Tails:
    a notification appears to ask if you want to install this package
    every time you start Tails in the future.
 
-   [[!img add.png link="no" alt=""]]
+   [[!img add.png link="no" class="screenshot" alt=""]]
 
    - If you choose <span class="bold">Install Every Time</span>,
      the package is saved in the Persistent Storage and will be reinstalled
@@ -277,8 +281,7 @@ When you installed the package, if you chose:
 
   - Using <span class="application">Synaptic</span>:
 
-    1. When starting Tails, set up an [[administration password
-       |first_steps/welcome_screen/administration_password]].
+    1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
 
     1. Choose <span class="menuchoice">
        <span class="guimenu">Applications</span>&nbsp;▸
@@ -297,15 +300,14 @@ When you installed the package, if you chose:
   After the package is removed, a notification appears to ask if you want to
   remove this package from your list of additional software.
 
-  [[!img remove.png link="no" alt=""]]
+  [[!img remove.png link="no" class="screenshot" alt=""]]
 
 Freeing space in your Persistent Storage
 ----------------------------------------
 
 After you installed many packages that you are not using anymore, you can free some space in your Persistent Storage:
 
-1. [[Set up an administration password
-   |first_steps/welcome_screen/administration_password]] when you start Tails.
+1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
 
 1. Choose <span class="menuchoice">
    <span class="guimenu">Applications</span>&nbsp;▸
@@ -337,8 +339,7 @@ only in very rare occasions.</p>
 Sometimes, you might need to configure additional APT repositories. For
 example, to install packages from the `non-free` section of Debian. To do so:
 
-1. [[Set up an administration password
-   |first_steps/welcome_screen/administration_password]] when you start Tails.
+1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
 
 1. Create an <span class="filename">apt-sources.list.d</span> folder in your
    Persistent Storage:

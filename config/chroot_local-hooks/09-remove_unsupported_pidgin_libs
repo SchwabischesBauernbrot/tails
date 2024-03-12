@@ -8,6 +8,6 @@ echo "Removing Pidgin libraries for protocols we do not support"
 
 KEEP="irc|jabber|xmpp"
 
-find /usr/lib/purple-2/ -name 'lib*.so' \
+find /usr/lib/x86_64-linux-gnu/purple-2/ -name 'lib*.so' \
    | /bin/grep -Ev "/lib($KEEP)\.so" \
    | xargs rm

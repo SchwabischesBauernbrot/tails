@@ -1,5 +1,3 @@
-#!/usr/bin/python3
-
 from pathlib import Path
 import re
 import ipaddress
@@ -10,7 +8,7 @@ import json
 import socket
 from stem.control import Controller
 import stem.socket
-from typing import List, Optional, Dict, Any, Tuple, cast
+from typing import Optional, Any, cast
 import tca.config
 
 from tca.ui.asyncutils import AsyncCallback
@@ -42,13 +40,10 @@ class StemFDSocket(stem.socket.ControlSocket):
 
 
 def recover_fd_from_parent() -> tuple:
-    fds = [int(fd) for fd in os.getenv("INHERIT_FD", "").split(",")]
-    # fds[0] must be a rw fd for state file
-    # fds[1] must be a socket to tca-portal
-
-    statefile = os.fdopen(fds[0], "r+")
-    portal = socket.socket(fileno=fds[1])
-
+    # file descriptor 3 must be a rw fd for state file
+    # file descriptor 4 must be a socket to tca-portal
+    statefile = os.fdopen(3, "r+")
+    portal = socket.socket(fileno=4)
     return (statefile, portal)
 
 
@@ -70,7 +65,7 @@ class TorConnectionProxy:
         address: str,
         port: int,
         proxy_type: str,
-        auth: Optional[Tuple[str, str]] = None,
+        auth: Optional[tuple[str, str]] = None,
         enabled: bool = True,
     ):
         self.enabled = enabled
@@ -95,7 +90,7 @@ class TorConnectionProxy:
         kwargs = dict(
             proxy_type=obj["proxy_type"], address=obj["address"], port=int(obj["port"])
         )
-        auth: Tuple[Optional[str], Optional[str]] = (
+        auth: tuple[Optional[str], Optional[str]] = (
             obj.get("username"),
             obj.get("password"),
         )
@@ -120,15 +115,15 @@ class TorConnectionProxy:
 
     @classmethod
     def from_tor_value(
-        cls, proxy_type: str, val: str, auth_values: Optional[List[str]] = None
+        cls, proxy_type: str, val: str, auth_values: Optional[list[str]] = None
     ) -> "TorConnectionProxy":
         address, port = val.split(":")
-        auth: Optional[Tuple[str, str]] = None
+        auth: Optional[tuple[str, str]] = None
         if auth_values and any(auth_values):
             if len(auth_values) == 1:
-                auth = cast(Tuple[str, str], tuple(auth_values[0].split(":", 1)))
+                auth = cast(tuple[str, str], tuple(auth_values[0].split(":", 1)))
             elif len(auth_values) == 2:
-                auth = cast(Tuple[str, str], tuple(auth_values))
+                auth = cast(tuple[str, str], tuple(auth_values))
             else:
                 raise ValueError(
                     "auth_values must either be ['user:password'] "
@@ -138,8 +133,8 @@ class TorConnectionProxy:
         obj = cls(address, int(port), proxy_type, auth=auth)
         return obj
 
-    def to_tor_value_options(self) -> Dict[str, Optional[str]]:
-        r: Dict[str, Optional[str]] = {}
+    def to_tor_value_options(self) -> dict[str, Optional[str]]:
+        r: dict[str, Optional[str]] = {}
         if self.enabled:
             r[self.proxy_type] = "%s:%d" % (self.address, self.port)
         for proxy_type in PROXY_TYPES:
@@ -151,7 +146,7 @@ class TorConnectionProxy:
                 r[option] = None
         if self.enabled and self.auth is not None:
             if self.proxy_type == "HTTPSProxy":
-                r["HTTPSProxyAuthenticator"] = "%s:%s" % self.auth
+                r["HTTPSProxyAuthenticator"] = "{}:{}".format(*self.auth)
             else:
                 r["Socks5ProxyUsername"], r["Socks5ProxyPassword"] = self.auth
         return r
@@ -174,11 +169,13 @@ VALID_BRIDGE_TYPES = {"bridge", "obfs4"}
 
 class TorConnectionConfig:
     def __init__(
-        self,
-        bridges: list = [],
-        proxy: TorConnectionProxy = TorConnectionProxy.noproxy(),
+        self, bridges: Optional[list] = None, proxy: Optional[TorConnectionProxy] = None
     ):
-        self.bridges: List[str] = bridges
+        if bridges is None:
+            bridges = []
+        if proxy is None:
+            proxy = TorConnectionProxy.noproxy()
+        self.bridges: list[str] = bridges
         self.proxy: TorConnectionProxy = proxy
 
     def bridge_line_is_simple(self, line):
@@ -278,7 +275,7 @@ class TorConnectionConfig:
         return " ".join(parts)
 
     @classmethod
-    def parse_bridge_lines(cls, lines: List[str]) -> List[str]:
+    def parse_bridge_lines(cls, lines: list[str]) -> list[str]:
         """
         Parse a list of lines and returns only normalized, meaningful lines.
 
@@ -288,11 +285,11 @@ class TorConnectionConfig:
         >>> TorConnectionConfig.parse_bridge_lines([" bridge 1.2.3.4:80 ", "", "  "])
         ['1.2.3.4:80']
         """
-        parsed_bridges = (cls.parse_bridge_line(l) for l in lines)
+        parsed_bridges = (cls.parse_bridge_line(line) for line in lines)
         return [b for b in parsed_bridges if b]
 
     @classmethod
-    def parse_qr_content(cls, content: str) -> List[str]:
+    def parse_qr_content(cls, content: str) -> list[str]:
         """
         Parse the content of a QR code received by BridgeDB.
 
@@ -321,8 +318,8 @@ class TorConnectionConfig:
             # JSON even though they are Python.
             try:
                 lines = json.loads(bridge_strings.replace("'", '"'))
-            except json.decoder.JSONDecodeError:
-                raise ValueError("Not a valid QR code")
+            except json.decoder.JSONDecodeError as e:
+                raise ValueError("Not a valid QR code") from e
         else:
             # "New" format: strings separated by \n
             lines = bridge_strings.split("\n")
@@ -330,7 +327,7 @@ class TorConnectionConfig:
         return cls.parse_bridge_lines(lines)
 
     @classmethod
-    def get_default_bridges(cls, only_type: Optional[str] = None) -> List[str]:
+    def get_default_bridges(cls, only_type: Optional[str] = None) -> list[str]:
         """Get default bridges from a txt file."""
         bridges = []
         with open(os.path.join(tca.config.data_path, "default_bridges.txt")) as buf:
@@ -346,7 +343,7 @@ class TorConnectionConfig:
                 bridges.append(parsed)
         return bridges
 
-    def enable_bridges(self, bridges: List[str]):
+    def enable_bridges(self, bridges: list[str]):
         if not bridges:
             raise ValueError("Can't set empty bridge list")
         self.bridges.clear()
@@ -367,7 +364,7 @@ class TorConnectionConfig:
         cls,
         stem_controller: Controller,
     ):
-        bridges: List[str] = []
+        bridges: list[str] = []
         if stem_controller.get_conf("UseBridges") != "0":
             bridges = stem_controller.get_conf("Bridge", multiple=True)
 
@@ -418,11 +415,11 @@ class TorConnectionConfig:
             data["bridges"] = []
         return data
 
-    def to_tor_conf(self) -> Dict[str, Any]:
+    def to_tor_conf(self) -> dict[str, Any]:
         """
         returns a dict whose output fits to stem.control.Controller.set_options
         """
-        r: Dict[str, Any] = {}
+        r: dict[str, Any] = {}
         r["UseBridges"] = "1" if self.bridges else "0"
         r["Bridge"] = self.bridges if self.bridges else None
         r.update(self.proxy.to_tor_value_options().items())
