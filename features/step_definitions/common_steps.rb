@@ -1042,6 +1042,13 @@ def launch_persistent_storage
   )
 end
 
+def launch_tails_backup
+  launch_app(
+    'tails-backup.desktop',
+    'zenity'
+  )
+end
+
 def launch_thunderbird
   launch_app(
     'thunderbird.desktop',

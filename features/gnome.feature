@@ -17,7 +17,10 @@ Feature: GNOME is well-integrated into Tails
     Then the "Dogtail rules!" notification is shown to the user
 
   Scenario: I can launch various apps via GNOME Activities Overview
-    Given I have started Tails from DVD and logged in with an administration password and the network is connected
+    # Start from a snapshot with a Persistent Storage because some apps
+    # only start when a Persistent Storage is available (e.g. Electrum
+    # and Persistent Storage Backup).
+    Given I have started Tails without network from a USB drive with a persistent partition enabled and logged in
     When I start "Additional Software" via GNOME Activities Overview
     And I close the "tails-additional-software-config" window
     When I start "Disks" via GNOME Activities Overview
@@ -32,8 +35,7 @@ Feature: GNOME is well-integrated into Tails
     And I close the "org.gnome.Nautilus" window
     When I start "Persistent Storage" via GNOME Activities Overview
     And I close the "tps-frontend" window
-    # TODO: Only with Persistent Storage(?)
-    # When I start "Persistent Storage Backup" via GNOME Activities Overview
+    When I start "Persistent Storage Backup" via GNOME Activities Overview
     When I start "Pidgin" via GNOME Activities Overview
     And I close the "Pidgin" window
     # TODO: Requires admin password and handling polkit
