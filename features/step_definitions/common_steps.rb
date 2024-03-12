@@ -1014,13 +1014,6 @@ def launch_app(desktop_file_name, app_name, **options)
   app
 end
 
-def launch_persistent_storage
-  launch_app(
-    'org.boum.tails.PersistentStorage.desktop',
-    'tps-frontend'
-  )
-end
-
 def launch_gnome_disks
   launch_app(
     'org.gnome.DiskUtility.desktop',
@@ -1039,6 +1032,13 @@ def launch_nautilus
   launch_app(
     'org.gnome.Nautilus.desktop',
     'org.gnome.Nautilus'
+  )
+end
+
+def launch_persistent_storage
+  launch_app(
+    'org.boum.tails.PersistentStorage.desktop',
+    'tps-frontend'
   )
 end
 
