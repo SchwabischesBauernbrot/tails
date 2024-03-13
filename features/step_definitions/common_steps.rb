@@ -540,10 +540,9 @@ Given /^I set an administration password$/ do
   open_greeter_additional_settings
   @screen.wait('TailsGreeterAdminPassword.png', 20).click
   @screen.wait('TailsGreeterAdminPasswordDialog.png', 10)
-  @screen.type(@sudo_password)
-  @screen.press('Tab')
-  @screen.type(@sudo_password)
-  @screen.press('Return')
+  greeter.childLabelled('Administration Password').text = @sudo_password
+  greeter.childLabelled('Confirm').text = @sudo_password
+  greeter.child('Add', roleName: 'push button').click
   # Wait for the Administration Password dialog to be closed,
   # otherwise the next step can fail.
   @screen.wait('TailsGreeterLoginButton.png', 10)
