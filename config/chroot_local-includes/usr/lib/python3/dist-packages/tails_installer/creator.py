@@ -596,7 +596,7 @@ class TailsInstallerCreator:
                             " previous Tails system: %(message)s"
                         )
                         % {"message": str(e)}
-                    )
+                    ) from e
             elif os.path.isdir(path):
                 try:
                     _set_liberal_perms_recursive(path)
@@ -614,7 +614,7 @@ class TailsInstallerCreator:
                             " previous Tails system: %(message)s"
                         )
                         % {"message": str(e)}
-                    )
+                    ) from e
 
     def get_liveos(self):
         return self.get_liveos_file_path(CONFIG["main_liveos_dir"])
@@ -720,11 +720,11 @@ class TailsInstallerCreator:
                             "mount device: %(message)s"
                         )
                         % {"message": str(e)}
-                    )
+                    ) from e
             except Exception as e:
                 raise TailsInstallerError(
                     _("Unable to mount device: %(message)s") % {"message": str(e)}
-                )
+                ) from e
 
             # Get the new mount point
             if not mount:
