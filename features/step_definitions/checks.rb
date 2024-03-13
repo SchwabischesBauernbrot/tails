@@ -182,7 +182,7 @@ Then /^the live user can only access allowed local services$/ do
     port = service[:port]
     proc = service[:proc]
     proto.upcase!
-    should_block = SERVICES_BLOCKED_FOR_LIVE_USER.include?(port)
+    should_block = !SERVICES_ALLOWED_FOR_LIVE_USER.include?([addr, port])
     step "I open an untorified #{proto} connection to #{addr} on port #{port}"
     assert_equal(uid, @conn_uid)
     assert_equal(gid, @conn_gid)
