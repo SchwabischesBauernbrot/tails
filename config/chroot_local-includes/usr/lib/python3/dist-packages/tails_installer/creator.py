@@ -85,11 +85,9 @@ class TailsInstallerCreator:
     source = None  # the object representing our live source image
     label = CONFIG["branding"]["partition_label"]  # if one doesn't exist
     fstype = None  # the format of our usb stick
-    drives = {}  # {device: {'label': label, 'mount': mountpoint}}
     overlay = 0  # size in mb of our persisten overlay
     dest = None  # the mount point of of our selected drive
     uuid = None  # the uuid of our selected drive
-    pids = []  # a list of pids of all of our subprocesses
     output = StringIO()  # log subprocess output in case of errors
     totalsize = 0  # the total size of our overlay + iso
     _drive = None  # mountpoint of the currently selected drive
@@ -107,7 +105,8 @@ class TailsInstallerCreator:
         self.opts = opts
         self._error_log_filename = self._setup_error_log_file()
         self._setup_logger()
-        self.drives = {}
+        self.drives = {}  # {device: {'label': label, 'mount': mountpoint}}
+        self.pids = []  # a list of pids of all of our subprocesses
         self._udisksclient = UDisks.Client.new_sync()
 
     def retry(func):
