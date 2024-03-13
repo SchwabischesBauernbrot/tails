@@ -1147,7 +1147,7 @@ class TailsInstallerCreator:
                 # We don't want any failure here to block other tear down tasks
                 try:
                     os.unlink(self._error_log_filename)
-                except:
+                except Exception:
                     print("Could not delete log file.", file=sys.stderr)
 
     def bootable_partition(self):
