@@ -95,7 +95,7 @@ class TailsInstallerCreator:
     _drive = None  # mountpoint of the currently selected drive
     mb_per_sec = 0  # how many megabytes per second we can write
     log = None
-    valid_fstypes = set(["vfat", "msdos"])
+    valid_fstypes = frozenset(["vfat", "msdos"])
     passphrase = None  # type: Optional[str]
 
     drive = property(
