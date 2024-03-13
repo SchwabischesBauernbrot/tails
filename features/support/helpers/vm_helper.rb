@@ -597,17 +597,55 @@ class VM
     end
   end
 
-  def late_patch(fname = nil)
-    fname = $config['LATE_PATCH'] if fname.nil?
+  # rubocop:disable Metrics/AbcSize
+  # rubocop:disable Metrics/CyclomaticComplexity
+  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable Metrics/PerceivedComplexity
+  def late_patch(fname: $config['LATE_PATCH'])
+    include_dir = File.join('config', 'chroot_local-includes')
     if fname.nil? || fname.empty?
-      debug_log('late_patch called but no filename found')
-      return
+      commit = $vm.execute_successfully(
+        '. /etc/os-release; echo "${TAILS_GIT_COMMIT}"'
+      ).stdout.chomp
+      if commit.empty?
+        # When testing the testoverlayfs IUKs /etc/os-release is
+        # overwritten with a simplified version that doesn't contain
+        # TAILS_GIT_COMMIT, so we recover it from the originally
+        # installed filesystem.squashfs.
+        commit = $vm.execute_successfully(
+          '. /lib/live/mount/rootfs/filesystem.squashfs/etc/os-release; ' \
+          'echo "${TAILS_GIT_COMMIT}"'
+        ).stdout.chomp
+      end
+      debug_log("late-patch: patching all changed files since build commit #{commit}")
+      modified = cmd_helper(['git', 'diff', commit, '--name-only', '--',
+                             include_dir,]).chomp.split("\n")
+      untracked = cmd_helper(['git', 'ls-files', '--others', '--exclude-standard',
+                              '--', include_dir,]).chomp.split("\n")
+      files_to_copy = modified + untracked
+    else
+      files_to_copy = File.open(fname).map do |line|
+        next if line.start_with?('#') || line.empty?
+
+        line.chomp.split("\t", 2)
+      end
     end
 
-    File.open(fname).each_line do |line|
-      next unless line.count("\t") == 1 && !line.start_with?('#')
-
-      src, dest = line.strip.split("\t", 2)
+    files_to_copy.each do |src_dest|
+      src, dest = src_dest
+      if dest.nil?
+        if src.start_with?(include_dir)
+          dest = src.delete_prefix(include_dir)
+        else
+          candidate_src = File.join(include_dir, src)
+          if File.exist?(candidate_src)
+            src = candidate_src
+            dest = src
+          else
+            debug_log("Error in --late-patch: not sure what to do with line: #{line}")
+          end
+        end
+      end
       unless File.exist?(src)
         debug_log("Error in --late-patch: #{src} does not exist")
         next
@@ -621,6 +659,10 @@ class VM
       end
     end
   end
+  # rubocop:enable Metrics/AbcSize
+  # rubocop:enable Metrics/MethodLength
+  # rubocop:enable Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity
 
   def file_append(path, lines)
     lines = lines.join("\n") if lines.instance_of?(Array)
