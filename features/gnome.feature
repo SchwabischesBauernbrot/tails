@@ -17,10 +17,12 @@ Feature: GNOME is well-integrated into Tails
     Then the "Dogtail rules!" notification is shown to the user
 
   Scenario: I can launch various apps via GNOME Activities Overview
-    # Start from a snapshot with a Persistent Storage because some apps
-    # only start when a Persistent Storage is available (e.g. Electrum
-    # and Persistent Storage Backup).
+    # Some apps (Electrum and Persistent Storage Backup) only start when
+    # a Persistent Storage is available.
     Given I have started Tails without network from a USB drive with a persistent partition enabled and logged in
+    # Some apps (Tor Browser) only start when the network is plugged.
+    And the network is plugged
+    And Tor is ready
     When I start "Additional Software" via GNOME Activities Overview
     And I close the "tails-additional-software-config" window
     When I start "Disks" via GNOME Activities Overview
