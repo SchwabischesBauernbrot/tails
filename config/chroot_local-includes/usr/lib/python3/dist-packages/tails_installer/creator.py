@@ -95,8 +95,7 @@ class TailsInstallerCreator:
     _drive = None  # mountpoint of the currently selected drive
     mb_per_sec = 0  # how many megabytes per second we can write
     log = None
-    ext_fstypes = set(["ext2", "ext3", "ext4"])
-    valid_fstypes = set(["vfat", "msdos"]) | ext_fstypes
+    valid_fstypes = set(["vfat", "msdos"])
     passphrase = None  # type: Optional[str]
 
     drive = property(
@@ -108,7 +107,6 @@ class TailsInstallerCreator:
         self.opts = opts
         self._error_log_filename = self._setup_error_log_file()
         self._setup_logger()
-        self.valid_fstypes -= self.ext_fstypes
         self.drives = {}
         self._udisksclient = UDisks.Client.new_sync()
 
