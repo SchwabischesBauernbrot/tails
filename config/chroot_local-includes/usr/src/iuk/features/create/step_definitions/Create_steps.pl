@@ -337,7 +337,7 @@ fun squashfs_in_iuk_contains(:$iuk_in, :$squashfs_name, :$expected_file,
         # on overlayfs, deleted files are stored using character devices,
         # that one needs to be root to create
         'sudo',
-        'rdsquashfs', '--quiet', '--set-times', '--chown',
+        'rdsquashfs', '--quiet', '--set-times', '--set-xattr', '--chown',
         '--unpack-root', $tempdir->child('squashfs-root'),
         '--unpack-path', "/",
         $iuk_in->mountpoint->child($squashfs_path),
@@ -354,6 +354,18 @@ fun squashfs_in_iuk_contains(:$iuk_in, :$squashfs_name, :$expected_file,
     );
 
     return unless $exists;
+
+    # In passing, verify there is no trusted.overlay.* xattr,
+    # which would make IUKs non-reproducible
+    my $xattrs = capturex(
+        'sudo', 'rdsquashfs', '--xattr',
+        '/',
+        $iuk_in->mountpoint->child($squashfs_path),
+    );
+    if ($xattrs) {
+        warn "The root directory in the SquashFS diff has xattrs:\n$xattrs";
+        return;
+    }
 
     if (defined $expected_mtime) {
         $expected_mtime = $ENV{SOURCE_DATE_EPOCH} if $expected_mtime eq 'SOURCE_DATE_EPOCH';

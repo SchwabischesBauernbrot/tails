@@ -360,11 +360,11 @@ Then /^I can listen to an Ogg audio track in Tor Browser$/ do
     @screen.wait_vanish(info[:browser_stop_button_image], 3)
     open_test_url.call
   end
-  try_for(20) { pulseaudio_sink_inputs.zero? }
+  try_for(20) { pipewire_input_ports.zero? }
   open_test_url.call
   retry_tor(recovery_on_failure) do
     sleep 30
-    assert_equal(1, pulseaudio_sink_inputs)
+    assert(pipewire_input_ports.positive?)
   end
 end
 
