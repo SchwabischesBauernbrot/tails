@@ -521,7 +521,6 @@ class TailsInstallerCreator:
         shutil.copy(infile, outfile_new)
         infile = open(infile)
         outfile_new = open(outfile_new, "w")
-        usblabel = self.uuid and "UUID=" + self.uuid or "LABEL=" + self.label
         for line in infile.readlines():
             line = re.sub("/isolinux/", "/syslinux/", line)
             outfile_new.write(line)
