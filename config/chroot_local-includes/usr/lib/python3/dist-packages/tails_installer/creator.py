@@ -42,8 +42,8 @@ import gi
 gi.require_version("UDisks", "2.0")
 from gi.repository import UDisks, GLib, Gio  # NOQA: E402
 
-from tails_installer.utils import (
-    _move_if_exists,  # NOQA: E402
+from tails_installer.utils import (  # NOQA: E402
+    _move_if_exists,
     _unlink_if_exists,
     bytes_to_unicode,
     _set_liberal_perms_recursive,
@@ -55,7 +55,7 @@ from tails_installer.utils import (
 )
 from tails_installer import _  # NOQA: E402
 from tails_installer.config import CONFIG  # NOQA: E402
-from tails_installer.tps_proxy import tps_proxy
+from tails_installer.tps_proxy import tps_proxy  # NOQA: E402
 
 SYSTEM_PARTITION_FLAGS = [
     0,  # system partition
