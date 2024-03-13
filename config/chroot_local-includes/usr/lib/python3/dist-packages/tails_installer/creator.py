@@ -23,20 +23,19 @@ that provides platform-specific implementation
 for Linux
 """
 
-import subprocess
-import tempfile
 import logging
-import shutil
-import signal
-import time
 import os
 import re
+import shutil
+import signal
 import stat
+import subprocess
 import sys
-from typing import Optional
-
+import tempfile
+import time
 from io import StringIO
 from pprint import pformat
+from typing import Optional
 
 import gi
 
