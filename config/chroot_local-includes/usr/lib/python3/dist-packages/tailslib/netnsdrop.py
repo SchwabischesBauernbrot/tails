@@ -7,6 +7,7 @@ a somewhat similar structure. This is:
     - somewhere in /etc/sudoers.d/ the wrapper can be run as root
     - the systemd user unit tails-a11y-bus-proxy is running
 """
+
 import os
 import logging
 
