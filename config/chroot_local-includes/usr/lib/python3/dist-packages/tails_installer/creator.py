@@ -72,10 +72,8 @@ class TailsInstallerError(TailsError):
     """A generic error message that is thrown by the Tails Installer"""
 
 
-
 class UDisksObjectNotFound(TailsInstallerError):
     """Thrown when referring to a Udisks object that does not exist"""
-
 
 
 class TailsInstallerCreator:
@@ -192,9 +190,7 @@ class TailsInstallerCreator:
         block = obj.props.block
         self.log.debug("looking at %s", obj.get_object_path())
         if not block:
-            self.log.debug(
-                "skip %s which is not a block device", obj.get_object_path()
-            )
+            self.log.debug("skip %s which is not a block device", obj.get_object_path())
             return
         partition = obj.props.partition
         filesystem = obj.props.filesystem
@@ -767,7 +763,8 @@ class TailsInstallerCreator:
                 )
         if target.props.partition_table:
             self.log.debug(
-                'Unmounting all partitions on "%s"', target.get_object_path(),
+                'Unmounting all partitions on "%s"',
+                target.get_object_path(),
             )
             unmount_candidates = [
                 self.try_getting_udisks_object(udi, "partition")
@@ -1022,9 +1019,7 @@ class TailsInstallerCreator:
             else:
                 raise TailsInstallerError(_("Unsupported filesystem: %s") % self.fstype)
         if self.drive["label"] != self.label:
-            self.log.info(
-                "Setting %s label to %s", self.drive["device"], self.label
-            )
+            self.log.info("Setting %s label to %s", self.drive["device"], self.label)
             try:
                 if self.fstype in ("vfat", "msdos"):
                     try:
@@ -1035,9 +1030,7 @@ class TailsInstallerCreator:
                         # dosfslabel returns an error code even upon success
                         pass
                 else:
-                    self.popen(
-                        f'/sbin/e2label {self.drive["device"]} {self.label}'
-                    )
+                    self.popen(f'/sbin/e2label {self.drive["device"]} {self.label}')
             except TailsInstallerError as e:
                 self.log.error(
                     _("Unable to change volume label: %s"),
