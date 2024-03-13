@@ -490,8 +490,8 @@ class TailsInstallerCreator:
             raise TailsInstallerError(
                 _(
                     "Not enough free space on device."
-                    + "\n%(iso_size)dMB ISO + %(overlay_size)dMB overlay "
-                    + "> %(free_space)dMB free space"
+                    "\n%(iso_size)dMB ISO + %(overlay_size)dMB overlay "
+                    "> %(free_space)dMB free space"
                 )
                 % {
                     "iso_size": self.source.size / 1024**2,
@@ -520,8 +520,8 @@ class TailsInstallerCreator:
         shutil.copy(infile, outfile_new)
         infile = open(infile)
         outfile_new = open(outfile_new, "w")
-        for line in infile.readlines():
-            line = re.sub("/isolinux/", "/syslinux/", line)
+        for input_line in infile.readlines():
+            line = re.sub("/isolinux/", "/syslinux/", input_line)
             outfile_new.write(line)
         infile.close()
         outfile_new.close()
