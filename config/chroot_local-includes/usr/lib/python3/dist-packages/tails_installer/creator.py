@@ -47,7 +47,6 @@ from tails_installer.utils import (
     _move_if_exists,  # NOQA: E402
     _unlink_if_exists,
     bytes_to_unicode,
-    unicode_to_filesystemencoding,
     _set_liberal_perms_recursive,
     underlying_physical_device,
     write_to_block_device,
