@@ -540,10 +540,9 @@ Given /^I set an administration password$/ do
   open_greeter_additional_settings
   @screen.wait('TailsGreeterAdminPassword.png', 20).click
   @screen.wait('TailsGreeterAdminPasswordDialog.png', 10)
-  @screen.type(@sudo_password)
-  @screen.press('Tab')
-  @screen.type(@sudo_password)
-  @screen.press('Return')
+  greeter.childLabelled('Administration Password').text = @sudo_password
+  greeter.childLabelled('Confirm').text = @sudo_password
+  greeter.child('Add', roleName: 'push button').click
   # Wait for the Administration Password dialog to be closed,
   # otherwise the next step can fail.
   @screen.wait('TailsGreeterLoginButton.png', 10)
@@ -1059,10 +1058,11 @@ Then /^there is a GNOME bookmark for the (amnesiac|persistent) (.*) directory$/ 
   @screen.press('Escape')
 end
 
-def pulseaudio_sink_inputs
-  pa_info = $vm.execute_successfully('pacmd info', user: LIVE_USER).stdout
-  sink_inputs_line = pa_info.match(/^\d+ sink input\(s\) available\.$/)[0]
-  sink_inputs_line.match(/^\d+/)[0].to_i
+def pipewire_input_ports
+  pa_info = $vm.execute(
+    'pw-link --links | grep "<-"', user: LIVE_USER
+  ).stdout.chomp
+  pa_info.split("\n").length
 end
 
 Given /^a web server is running on the LAN$/ do
