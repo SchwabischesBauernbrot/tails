@@ -778,7 +778,7 @@ class TailsInstallerCreator:
                     continue
                 old_udi = udi
                 udi = encrypted.props.cleartext_device
-                obj = self._get_object(udi, prop="block")
+                obj = self._get_object(udi, prop="block")  # noqa:PLW2901
                 self.log.debug(
                     'Found unlocked encrypted mapping "%s" in "%s"', udi, old_udi
                 )
