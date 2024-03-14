@@ -729,6 +729,7 @@ class TailsInstallerCreator:
             self.log.debug("Using existing mount: %s", self.dest)
 
     def has_persistent_storage(self, drive=None):
+        """Returns True iff the drive has a Tails persistent partition"""
         if drive is None:
             drive = self.drive
         if drive["parent"]:
