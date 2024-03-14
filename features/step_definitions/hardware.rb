@@ -10,12 +10,29 @@ Given /^I start the computer from DVD with network unplugged( and an unsupported
   the_computer_boots
 end
 
-When /^Tails detects disk read failures$/ do
+When /^Tails detects disk read failures on (.+)$/ do | device |
   disk_ioerrors = '/var/lib/live/tails.disk.ioerrors'
   fake_ioerror_script_path = '/tmp/fake_ioerror.py'
+
+  case device
+  when 'SquashFS'
+    fake_error = 'SQUASHFS error: A fake error.'
+  when 'boot device'
+    b_d = boot_device.delete_prefix('/dev/')
+    fake_error = "EXT4-fs error (device #{b_d}): A fake boot device error"
+  when 'Persistence'
+    cleartext_device = 'dm-0'  # I don't know how to request the system to get this information
+                               # I see it in udisks2ctl --block-device <tps_device>,
+                               # but the output is not for consuming it in scripts.
+    fake_error = "EXT4-fs error (device #{cleartext_device}): A fake cleartext device error"
+  when 'tps'
+    tps_device = $vm.persistent_storage_dev_on_disk('__internal').delete_prefix('/dev/')
+    fake_error = "EXT4-fs error (device #{tps_device}): A fake cleartext device error"
+  end
+
   fake_ioerror_script = <<~FAKEIOERROR
     from systemd import journal
-    journal.send("SQUASHFS error: A fake error.", SYSLOG_IDENTIFIER="kernel", PRIORITY=3)
+    journal.send("#{fake_error}", SYSLOG_IDENTIFIER="kernel", PRIORITY=3)
   FAKEIOERROR
   $vm.file_overwrite(fake_ioerror_script_path, fake_ioerror_script)
   $vm.execute(
