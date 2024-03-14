@@ -1,3 +1,5 @@
+require 'ipaddr'
+
 Then /^the included OpenPGP keys are valid for the next (\d+) months?$/ do |months|
   assert_all_keys_are_valid_for_n_months(:OpenPGP, Integer(months))
 end
@@ -133,24 +135,70 @@ Then /^the live user owns its home directory which has strict permissions$/ do
   assert_equal('700', perms)
 end
 
-Then /^no unexpected services are listening for network connections$/ do
-  $vm.execute_successfully('ss -ltupn').stdout.chomp.split("\n").each do |line|
+def listening_services
+  $vm.execute_successfully('ss --no-header -ltupn')
+     .stdout.chomp.split("\n").filter_map do |line|
     splitted = line.split(/[[:blank:]]+/)
     proto = splitted[0]
     next unless ['tcp', 'udp'].include?(proto)
 
-    laddr, lport = splitted[4].split(':')
-    proc = /users:\(\("([^"]+)"/.match(splitted[6])[1]
-    # Services listening on loopback is not a threat
-    if /127(\.[[:digit:]]{1,3}){3}/.match(laddr).nil?
-      if SERVICES_EXPECTED_ON_ALL_IFACES.include?([proc, laddr, lport]) ||
-         SERVICES_EXPECTED_ON_ALL_IFACES.include?([proc, laddr, '*'])
-        puts "Service '#{proc}' is listening on #{laddr}:#{lport} " \
-             'but has an exception'
-      else
-        raise "Unexpected service '#{proc}' listening on #{laddr}:#{lport}"
-      end
+    addr, port = splitted[4].split(':')
+    users = splitted[6].match(
+      /users:\(\("(?<proc>[^"]+)",pid=(?<pid>\d+),fd=(?<fd>\d+)\)\)/
+    )
+    {
+      proto:,
+      state: splitted[1],
+      addr:  IPAddr.new(addr),
+      port:  port.to_i,
+      proc:  users[:proc],
+      pid:   users[:pid].to_i,
+      fd:    users[:fd].to_i,
+    }
+  end
+end
+
+Then /^no unexpected services are listening for network connections$/ do
+  listening_services.each do |service|
+    addr = service[:addr]
+    port = service[:port]
+    proc = service[:proc]
+    next if addr.loopback?
+    unless SERVICES_EXPECTED_ON_ALL_IFACES.include?([proc, addr, port])
+      raise "Unexpected service '#{proc}' listening on #{addr}:#{port}"
     end
+
+    puts "Service '#{proc}' is listening on #{addr}:#{port} " \
+         'but has an exception'
+  end
+end
+
+Then /^the live user can only access allowed local services$/ do
+  uid = $vm.execute_successfully("id --user #{LIVE_USER}").stdout.chomp.to_i
+  gid = $vm.execute_successfully("id --group #{LIVE_USER}").stdout.chomp.to_i
+  listening_services.each do |service|
+    proto = service[:proto]
+    addr = service[:addr]
+    port = service[:port]
+    proc = service[:proc]
+    proto.upcase!
+    should_block = !SERVICES_ALLOWED_FOR_LIVE_USER.include?([addr, port])
+    step "I open an untorified #{proto} connection to #{addr} on port #{port}"
+    assert_equal(uid, @conn_uid)
+    assert_equal(gid, @conn_gid)
+    if should_block
+      step 'the untorified connection fails'
+    end
+    dropped = firewall_has_dropped_packet_to?(
+      addr.to_s, proto:, port:, uid: @conn_uid, gid: @conn_gid
+    )
+    assert_equal(
+      should_block, dropped,
+      "the firewall unexpectedly #{should_block ? 'failed to log' : 'logged'} a " \
+      "dropped #{proto} packet to #{addr}:#{port}"
+    )
+    puts "#{LIVE_USER} could#{should_block ? ' not' : ''} access #{proc} on " \
+         "#{addr}:#{port} (#{proto}) as expected"
   end
 end
 

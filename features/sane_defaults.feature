@@ -9,10 +9,12 @@ Feature: Tails has a sane default configuration
 
   @not_release_blocker
   Scenario: No unexpected network services
-    Given I have started Tails from DVD without network and logged in
-    When the network is plugged
-    And Tor is ready
+    Given I have started Tails from DVD and logged in and the network is connected
     Then no unexpected services are listening for network connections
+
+  Scenario: The live user can only access the expected local services
+    Given I have started Tails from DVD and logged in and the network is connected
+    Then the live user can only access allowed local services
 
   Scenario: No unexpected error messages in the journal after booting from DVD
     Given I have started Tails from DVD without network and logged in

@@ -117,6 +117,8 @@ Then /^the firewall is configured to only allow the (.+) users? to connect direc
                "The following lan-targeted rule's destination is " \
                "#{destination} which may not be a private subnet:\n" +
                rule.to_s)
+      elsif action.name == 'call' && action.elements[1].name == 'log_reject'
+        next
       else
         raise "Unexpected iptables OUTPUT chain rule:\n#{rule}"
       end
@@ -200,45 +202,54 @@ Then /^the firewall is configured to block all external IPv6 traffic$/ do
   end
 end
 
-def firewall_has_dropped_packet_to?(proto, host, port)
-  regex = '^Dropped outbound packet: .* '
-  regex += "DST=#{Regexp.escape(host)} .* "
-  regex += "PROTO=#{Regexp.escape(proto)} "
-  regex += ".* DPT=#{port} " if port
+def firewall_has_dropped_packet_to?(host, proto: nil, port: nil, uid: nil, gid: nil)
+  regex = ['^Dropped outbound packet:']
+  regex << "DST=#{Regexp.escape(host)}"
+  regex << "PROTO=#{Regexp.escape(proto.upcase)}" if proto
+  regex << "DPT=#{port}" if port
+  regex << "UID=#{uid}" if uid
+  regex << "GID=#{gid}" if gid
+  regex = regex.join('\s(?:.*\s)?')
   $vm.execute("journalctl --dmesg --output=cat | grep -qP '#{regex}'").success?
 end
 
 When /^I open an untorified (TCP|UDP|ICMP) connection to (\S*)(?: on port (\d+))?$/ do |proto, host, port|
   port_suffix = port.nil? ? '' : ":#{port}"
-  assert(!firewall_has_dropped_packet_to?(proto, host, port),
-         "A #{proto} packet to #{host}#{port_suffix}" \
-         ' has already been dropped by the firewall')
   @conn_proto = proto
   @conn_host = host
   @conn_port = port
   case proto
   when 'TCP'
     assert_not_nil(port)
-    cmd = "echo | nc.traditional #{host} #{port}"
+    cmd = "nc.traditional -v -z #{host} #{port}"
     user = LIVE_USER
   when 'UDP'
     assert_not_nil(port)
-    cmd = "echo | nc.traditional -u #{host} #{port}"
+    cmd = "nc.traditional -v -z -u #{host} #{port}"
     user = LIVE_USER
   when 'ICMP'
     cmd = "ping -c 5 #{host}"
     user = 'root'
   end
+  @conn_uid = $vm.execute_successfully("id --user #{user}").stdout.chomp.to_i
+  @conn_gid = $vm.execute_successfully("id --group #{user}").stdout.chomp.to_i
+  assert(
+    !firewall_has_dropped_packet_to?(
+      host, proto:, port:, uid: @conn_uid, gid: @conn_gid
+    ),
+    "Anti-test failed: A #{proto} packet to #{host}#{port_suffix} has already " \
+    'been dropped by the firewall'
+  )
   @conn_res = $vm.execute(cmd, user:)
 end
 
 Then /^the untorified connection fails$/ do
   case @conn_proto
-  when 'TCP'
+  when 'TCP', 'UDP'
     expected_in_stderr = 'Connection refused'
     conn_failed = !@conn_res.success? &&
                   @conn_res.stderr.chomp.end_with?(expected_in_stderr)
-  when 'UDP', 'ICMP'
+  when 'ICMP'
     conn_failed = !@conn_res.success?
   end
   assert(conn_failed,
@@ -248,9 +259,13 @@ end
 
 Then /^the untorified connection is logged as dropped by the firewall$/ do
   port_suffix = @conn_port.nil? ? '' : ":#{@conn_port}"
-  assert(firewall_has_dropped_packet_to?(@conn_proto, @conn_host, @conn_port),
-         "No #{@conn_proto} packet to #{@conn_host}#{port_suffix}" \
-         ' was dropped by the firewall')
+  assert(
+    firewall_has_dropped_packet_to?(
+      @conn_host, proto: @conn_proto, port: @conn_port, uid: @conn_uid, gid: @conn_gid
+    ),
+    "No #{@conn_proto} packet to #{@conn_host}#{port_suffix} " \
+    'was dropped by the firewall'
+  )
 end
 
 When /^the system DNS is(?: still)? using the local DNS resolver$/ do
