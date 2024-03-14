@@ -749,7 +749,7 @@ class TailsInstallerCreator:
         return False
 
     def unmount_device(self):
-        """Unmount our device"""
+        """Unmount all filesystems and close LUKS volumes on our device"""
         if self.drive["parent_udi"]:
             target_udi = self.drive["parent_udi"]
         else:
