@@ -135,7 +135,7 @@ class TailsInstallerThread(threading.Thread):
         self.live.save_full_drive()
         try:
             if self.parent.opts.partition:
-                self.live.unmount_device(unmount_all=True)
+                self.live.unmount_device()
                 if not self.live.can_read_partition_table():
                     self.live.log.info("Clearing unreadable partition table.")
                     self.live.clear_all_partition_tables()
@@ -196,7 +196,7 @@ class TailsInstallerThread(threading.Thread):
 
             # Flush all filesystem buffers and unmount
             self.live.flush_buffers()
-            self.live.unmount_device(unmount_all=True)
+            self.live.unmount_device()
 
             if self.parent.opts.partition:
                 self.live.switch_back_to_full_drive()

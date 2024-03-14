@@ -748,31 +748,24 @@ class TailsInstallerCreator:
                     continue
         return False
 
-    def unmount_device(self, unmount_all=False):
+    def unmount_device(self):
         """Unmount our device"""
-        self.log.debug(
-            _('Entering unmount_device for "%(device)s"')
-            % {"device": self.drive["device"]}
-        )
-
-        target = self.try_getting_udisks_object(self.drive["udi"], "block")
-        if unmount_all:
-            if self.drive["parent"]:
-                target = self.try_getting_udisks_object(
-                    self.drive["parent_udi"], "block"
-                )
-        if target.props.partition_table:
-            self.log.debug(
-                'Unmounting all partitions on "%s"',
-                target.get_object_path(),
-            )
-            unmount_candidates = [
-                self.try_getting_udisks_object(udi, "partition")
-                for udi in target.props.partition_table.props.partitions
-            ]
+        if self.drive["parent_udi"]:
+            target_udi = self.drive["parent_udi"]
         else:
-            unmount_candidates = [target]
-
+            target_udi = self.drive["udi"]
+        self.log.debug(
+            _('Entering unmount_device for "%(device)s"') % {"device": target_udi}
+        )
+        target = self.try_getting_udisks_object(target_udi, "block")
+        self.log.debug(
+            'Unmounting all partitions on "%s"',
+            target.get_object_path(),
+        )
+        unmount_candidates = [
+            self.try_getting_udisks_object(udi, "partition")
+            for udi in target.props.partition_table.props.partitions
+        ]
         for obj in unmount_candidates:
             dev_path = obj.props.block.props.device
             udi = obj.get_object_path()
@@ -1060,7 +1053,7 @@ class TailsInstallerCreator:
             os.stat(tmp_syslinux).st_mode | stat.S_IEXEC | stat.S_IXGRP | stat.S_IXOTH,
         )
         self.flush_buffers()
-        self.unmount_device(unmount_all=True)
+        self.unmount_device()
         self.popen(
             "{} {} -d {} {}".format(
                 tmp_syslinux,
