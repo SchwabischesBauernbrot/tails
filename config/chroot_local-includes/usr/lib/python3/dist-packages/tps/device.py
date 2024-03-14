@@ -67,10 +67,6 @@ class InvalidPartitionTableTypeError(InvalidBootDeviceError):
         super().__init__(f"Partition table type: {partition_table_type}")
 
 
-class UnsupportedInstallationMethodError(InvalidBootDeviceError):
-    pass
-
-
 class InvalidCleartextDeviceError(Exception):
     pass
 
