@@ -95,7 +95,7 @@ class BootDevice:
         Raises an InvalidBootDeviceError if it can't be found."""
         device_path = os.path.realpath("/dev/bilibop")
         device_basename = os.path.basename(device_path)
-        udisks_obj_path = f"{UDISKS_BLOCK_DEVICES_PATH}/{device_basename}"
+        udisks_obj_path = os.path.join(UDISKS_BLOCK_DEVICES_PATH, device_basename)
         device_object = udisks().get_object(udisks_obj_path)
         if not device_object:
             raise InvalidBootDeviceError(
