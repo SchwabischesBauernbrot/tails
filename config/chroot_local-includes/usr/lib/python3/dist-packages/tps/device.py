@@ -883,6 +883,6 @@ def udisks_oom_killed() -> bool:
             output = executil.check_output(
                 ["systemctl", "show", "--value", "--property=ExecMainStatus", "udisks2"]
             ).strip()
-            if output == "9": # SIGKILL
+            if output == "9":  # SIGKILL
                 logger.warning("udisks2.service was killed via SIGKILL")
                 return True
