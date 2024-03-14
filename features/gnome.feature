@@ -23,6 +23,7 @@ Feature: GNOME is well-integrated into Tails
     # Some apps (Tor Browser) only start when the network is plugged.
     And the network is plugged
     And Tor is ready
+    And all notifications have disappeared
     When I start "Additional Software" via GNOME Activities Overview
     And I close the "tails-additional-software-config" window
     When I start "Disks" via GNOME Activities Overview
