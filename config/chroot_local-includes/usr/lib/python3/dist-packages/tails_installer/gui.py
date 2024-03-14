@@ -196,7 +196,7 @@ class TailsInstallerThread(threading.Thread):
 
             # Flush all filesystem buffers and unmount
             self.live.flush_buffers()
-            self.live.unmount_device()
+            self.live.unmount_device(unmount_all=True)
 
             if self.parent.opts.partition:
                 self.live.switch_back_to_full_drive()
