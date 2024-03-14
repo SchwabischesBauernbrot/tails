@@ -885,9 +885,8 @@ def udisks_oom_killed() -> bool:
             # via SIGKILL, in which case we assume that it was a
             # result of the OOM killer.
             output = executil.check_output(
-                ["systemctl status udisks2 | grep -m 1 -o 'signal=[A-Z]*'"],
-                shell=True,  # noqa: S604  # nosec B604
+                ["systemctl", "show", "--value", "--property=ExecMainStatus", "udisks2"]
             ).strip()
-            if output == "signal=KILL":
+            if output == "9": # SIGKILL
                 logger.warning("udisks2.service was killed via SIGKILL")
                 return True
