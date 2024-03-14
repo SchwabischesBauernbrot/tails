@@ -815,8 +815,6 @@ class TailsInstallerCreator:
                 # track partitions with Tails installed for upgrading
                 # purposes) and we end up here.
                 pass
-            if not unmount_all:
-                break
         if (
             not self.opts.partition
             and self.dest is not None
