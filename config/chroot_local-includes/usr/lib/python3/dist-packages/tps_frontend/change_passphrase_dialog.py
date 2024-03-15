@@ -104,6 +104,7 @@ class ChangePassphraseDialog(Gtk.Dialog):
                     with_send_report_button=False,
                 )
                 self.response(Gtk.ResponseType.NONE)
+                return
             else:
                 DBusError.strip_remote_error(e)
                 self.destroy()
@@ -111,6 +112,7 @@ class ChangePassphraseDialog(Gtk.Dialog):
                     _("Changing the passphrase failed"), e.message
                 )
                 self.response(Gtk.ResponseType.NONE)
+                return
 
         logger.info("Passphrase was changed successfully")
         self.destroy()
