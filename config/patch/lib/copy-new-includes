@@ -1,0 +1,85 @@
+#!/bin/bash
+
+set -euo pipefail
+
+if [ "${EUID}" -ne 0 ]; then
+  echo >&2 "This script must be run as root"
+  exit 1
+fi
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+INCLUDES_DIR="config/chroot_local-includes"
+
+# shellcheck source=lib.sh
+. "${DIR}/lib.sh"
+
+if [ -z "${TARGET_ROOT:-}" ]; then
+  TARGET_ROOT="/"
+fi
+
+copy_file() {
+  local src=$1
+  local dest=$2
+
+  # Remove any .in extensions from the destination to replace the
+  # localized file instead of the template file
+  dest=${dest%.in}
+
+  # Remove files which don't exist anymore in the source
+  if ! [ -e "${src}" ]; then
+    if ! [ -e "${dest}" ]; then
+      echo >&2 "${dest} does not exist, nothing to do"
+      return
+    fi
+
+    echo >&2 "Removing ${dest}"
+    rm -rf "${dest}"
+    return
+  fi
+
+  echo >&2 "Copying ${src} to ${dest}"
+
+  # Create the target directory
+  mkdir -p "$(dirname "${dest}")"
+
+  # Delete symlinks in the destination which would get dereferenced by
+  # the cp command below
+  if [ -L "${dest}" ]; then
+    rm "${dest}"
+  fi
+
+  # Copy the file. Don't preserve ownership (i.e. change ownership to
+  # root) to avoid issues like:
+  #
+  #   sudo: /etc/sudoers.d/zzz_tbb is owned by uid 1000, should be 0
+  #
+  cp --no-dereference --preserve=all --no-preserve=ownership "${src}" "${dest}"
+}
+
+# Avoid that git fails due to dubious ownership
+git config --global --add safe.directory "${GIT_REPO}"
+
+# Figure out the commit which we use as the base which we compare HEAD to.
+if [ -z "${COMMIT:-}" ]; then
+  COMMIT=$(patch_base_ref)
+fi
+
+FILES_TO_COPY="$(untracked_and_modified_files "${COMMIT}" "${INCLUDES_DIR}")"
+
+while IFS= read -r file; do
+  if [ -z "${file}" ]; then
+    continue
+  fi
+
+  src="${GIT_REPO}/${file}"
+  dest=$(realpath -s "${TARGET_ROOT}/${file#"${INCLUDES_DIR}"}")
+  copy_file "${src}" "${dest}"
+done <<< "${FILES_TO_COPY}"
+
+# Re-apply all modified patches
+reapply_patches "${COMMIT}" "${TARGET_ROOT}"
+
+update_patch_base_ref
+
+apply_changes "${COMMIT}"

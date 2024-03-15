@@ -1,0 +1,12 @@
+#!/bin/bash
+
+set -euo pipefail
+set -x
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+# shellcheck source=../../lib/lib.sh
+. "${DIR}/../../lib/lib.sh"
+
+SCRIPT="${LIB_DIR}/bind-new-includes"
+run_with_plymouth_msg "patch: Bind mounting new includes" "${SCRIPT}"

@@ -21,6 +21,8 @@ option="$(tr ' ' '\n' < /proc/cmdline | grep '^early_patch\b')"
 
 [ -n "$option" ] || exit 0
 
+umount_option="$(echo "$option" | grep -w umount || true)"
+
 . /scripts/functions
 
 MOUNTPOINT=/root/mnt
@@ -32,12 +34,35 @@ run() {
 
   mkdir -p "$MOUNTPOINT"
   mount -t 9p src "$MOUNTPOINT"
-  "${MOUNTPOINT}/hook" /root
 
-  # early_patch=umount will umount the filesystem immediately after running the hook
-  # this is needed to have early_patch in the test suite.
-  # In fact, qemu cannot do snapshots while this is mounted
-  if echo "$option" | grep -qw umount; then
+  # Mount /proc and /dev into the chroot unless umount was requested.
+  # This is needed for the bind mount hooks to work.
+  if [ -z "${umount_option}" ]; then
+    mount -t proc /proc /root/proc
+    mount --bind /dev /root/dev
+  fi
+
+  # Avoid that git fails because of dubious ownership
+  chroot /root git config --global --add safe.directory "${MOUNTPOINT#/root}"
+
+  if [ -n "${umount_option}" ]; then
+    HOOK_DIR="${MOUNTPOINT}/config/patch/hooks/umount"
+  else
+    HOOK_DIR="${MOUNTPOINT}/config/patch/hooks/default"
+  fi
+  HOOKS=$(ls -1 "${HOOK_DIR}"/* 2>/dev/null || true)
+
+  for hook in $HOOKS; do
+    # The #/root part makes the path relative to the chroot
+    echo >&2 "Running hook: ${hook#/root}"
+    chroot /root "${hook#/root}"
+  done
+
+  # Unmount the git repo if umount was requested. This is needed when
+  # running the test suite, because the test suite uses qemu snapshots
+  # and qemu cannot do snapshots while something is mounted from the
+  # host.
+  if [ -n "${umount_option}" ]; then
       umount "$MOUNTPOINT"
   fi
 }

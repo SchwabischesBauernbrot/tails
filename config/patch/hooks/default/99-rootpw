@@ -1,0 +1,9 @@
+#!/bin/bash
+
+# Set the root password to "root"
+
+set -euo pipefail
+set -x
+
+PW="root"
+usermod -p "$(echo "${PW}" | mkpasswd -s)" root

@@ -1,0 +1,139 @@
+#!/bin/bash
+
+# This script applies changes made to config/chroot_local-includes/ to
+# the root filesystem. It compares the current state of the git repo
+# with the commit which the Tails image was built from or the last
+# commit which this script was run with. Any removed files are removed
+# from the root filesystem, any added or modified files are bind mounted
+# to the root filesystem. It also applies any modified patches in
+# config/chroot_local-patches.
+#
+# For some changes this script also makes sure that the changes take
+# effect immediately. For example, it reloads the dconf database if any
+# dconf files were changed.
+
+set -euo pipefail
+
+if [ "${EUID}" -ne 0 ]; then
+  echo >&2 "This script must be run as root"
+  exit 1
+fi
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+INCLUDES_DIR="config/chroot_local-includes/"
+
+# shellcheck source=lib.sh
+. "${DIR}/lib.sh"
+
+if [ -z "${TARGET_ROOT:-}" ]; then
+  TARGET_ROOT="/"
+fi
+
+OWNER_UID=$(stat -c %u "${GIT_REPO}")
+
+# Load the fuse module which is required by bindfs
+modprobe -vvv fuse
+
+# Map the owner of the git repo to 0 to avoid issues like:
+#
+#   sudo: /etc/sudoers.d/zzz_tbb is owned by uid 1000, should be 0
+#
+bindfs --map="${OWNER_UID}/0:@${OWNER_UID}/@0" "${GIT_REPO}" "${GIT_REPO}"
+
+bind_file() {
+  local src=$1
+  local dest=$2
+
+  # Remove any .in extensions from the destination to replace the
+  # localized file instead of the template file
+  dest=${dest%.in}
+
+  # Remove files which don't exist anymore in the source
+  if ! [ -e "${src}" ]; then
+    if ! [ -e "${dest}" ]; then
+      echo >&2 "${dest} does not exist, nothing to do"
+      return
+    fi
+
+    echo >&2 "Removing ${dest}"
+    mountpoint -q "${dest}" && umount --recursive "${dest}"
+    rm -rf "${dest}"
+    return
+  fi
+
+  echo >&2 "Bind mounting ${src} to ${dest}"
+
+  # Delete symlinks in the destination which would get dereferenced by
+  # the findmnt below
+  if [ -L "${dest}" ]; then
+    rm "${dest}"
+  fi
+
+  # Check if something is already mounted on the destination
+  local mount_src
+  mount_src=$(findmnt --output=FSROOT --noheadings --notruncate --canonicalize --first --mountpoint "${dest}" || true)
+  if [ "${GIT_REPO}${mount_src}" = "${src}" ]; then
+    echo >&2 "Source is already mounted, nothing to do"
+    return
+  fi
+  if [ -n "${mount_src}" ]; then
+    echo >&2 "Something else is mounted on the destination, unmounting it: ${mount_src}"
+    if ! umount "${dest}"; then
+      echo >&2 "Failed to unmount ${dest}"
+      return
+    fi
+  fi
+
+  # Handle symlink
+  if [ -L "${src}" ]; then
+    echo >&2 "Source is a symlink, copying it to the destination"
+    # Ensure there is nothing in our way
+    rm -rf "${dest}"
+    # Ensure that the parent directory exists
+    mkdir -p "$(dirname "${dest}")"
+    # Copy symlink
+    cp --no-dereference "${src}" "${dest}"
+    return
+  fi
+
+  # Create the destination if it doesn't exist
+  if ! [ -e "${dest}" ]; then
+    if [ -d "${src}" ]; then
+      mkdir -p "${dest}"
+    else
+      mkdir -p "$(dirname "${dest}")"
+      touch "${dest}"
+    fi
+  fi
+
+  mount --bind "${src}" "${dest}"
+}
+
+# Avoid that git fails due to dubious ownership
+git config --global --add safe.directory "${GIT_REPO}"
+
+# Figure out the commit which we use as the base which we compare HEAD to.
+if [ -z "${COMMIT:-}" ]; then
+  COMMIT=$(patch_base_ref)
+fi
+
+FILES_TO_BIND="$(untracked_and_modified_files "${COMMIT}" "${INCLUDES_DIR}")"
+
+# Bind mount the files
+while IFS= read -r file; do
+  if [ -z "${file}" ]; then
+    continue
+  fi
+
+  src="${GIT_REPO}/${file}"
+  dest=$(realpath -s "${TARGET_ROOT}/${file#"${INCLUDES_DIR}"}")
+  bind_file "${src}" "${dest}"
+done <<<"${FILES_TO_BIND}"
+
+# Re-apply all modified patches
+reapply_patches "${COMMIT}" "${TARGET_ROOT}"
+
+update_patch_base_ref
+
+apply_changes "${COMMIT}"
