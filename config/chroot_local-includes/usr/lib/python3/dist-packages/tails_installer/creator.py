@@ -757,10 +757,14 @@ class TailsInstallerCreator:
             target_udi = self.drive["udi"]
         self.log.debug('Unmounting all partitions on "%s"', target_udi)
         target = self.try_getting_udisks_object(target_udi, "block")
-        unmount_candidates = [
-            self.try_getting_udisks_object(udi, "partition")
-            for udi in target.props.partition_table.props.partitions
-        ]
+        if target.props.partition_table:
+            unmount_candidates = [
+                self.try_getting_udisks_object(udi, "partition")
+                for udi in target.props.partition_table.props.partitions
+            ]
+        else:
+            unmount_candidates = [target]
+
         for obj in unmount_candidates:
             dev_path = obj.props.block.props.device
             udi = obj.get_object_path()
