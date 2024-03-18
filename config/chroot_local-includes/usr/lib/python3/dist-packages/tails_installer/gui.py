@@ -246,7 +246,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self.source_available = False
         self.target_available = False
         self.target_selected = False
-        self.devices_with_persistence = []
         self.force_reinstall = False
         self.force_reinstall_button_available = False
 
@@ -552,7 +551,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             self.__liststore_target.clear()
             self.live.log.debug("drives: %s" % self.live.drives)
             target_list = []
-            self.devices_with_persistence = []
             for device, info in list(self.live.drives.items()):
                 # Skip the device that is the source of the copy
                 if (
@@ -568,13 +566,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 # Skip the running device
                 if self.live.running_device() in [info["udi"], info["parent_udi"]]:
                     self.live.log.debug("Skipping running device: %s" % info["device"])
-                    continue
-                # Skip LUKS-encrypted partitions
-                if info["fstype"] and info["fstype"] == "crypto_LUKS":
-                    self.live.log.debug(
-                        "Skipping LUKS-encrypted partition: %s" % info["device"]
-                    )
-                    self.devices_with_persistence.append(info["parent"])
                     continue
                 pretty_name = self.get_device_pretty_name(info)
                 # Skip devices with non-removable bit enabled
@@ -779,7 +770,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                         else self.live.drive["size"]
                     ),
                 }
-                if self.live.drive["parent"] in self.devices_with_persistence:
+                if self.live.has_persistent_storage():
                     delete_message = _(
                         "\n\nThe Persistent Storage on this USB stick will be lost."
                     )
