@@ -2,7 +2,7 @@ from logging import getLogger
 from gi.repository import Gdk, Gio, GLib, Gtk
 from typing import TYPE_CHECKING
 
-from tps.dbus.errors import IncorrectPassphraseError
+from tps.dbus.errors import IncorrectPassphraseError, NotEnoughMemoryError, DBusError
 
 from tps_frontend import _, CHANGE_PASSPHRASE_DIALOG_UI_FILE
 from tps_frontend.passphrase_strength_hint import set_passphrase_strength_hint
@@ -29,7 +29,7 @@ class ChangePassphraseDialog(Gtk.Dialog):
     error_infobar_label = Gtk.Template.Child()  # type: Gtk.Label
 
     def __init__(self, parent: "Window", service_proxy: Gio.DBusProxy, *args, **kwargs):
-        super().__init__(use_header_bar=1, *args, **kwargs)
+        super().__init__(*args, use_header_bar=1, **kwargs)
         self.service_proxy = service_proxy
         self.parent = parent
 
@@ -69,7 +69,8 @@ class ChangePassphraseDialog(Gtk.Dialog):
             method_name="ChangePassphrase",
             parameters=parameters,
             flags=Gio.DBusCallFlags.NONE,
-            timeout_msec=-1,
+            # We've seen this operation take up to 45 seconds
+            timeout_msec=GLib.MAXINT,
             cancellable=None,
             callback=self.on_change_passphrase_finished,
         )
@@ -94,12 +95,24 @@ class ChangePassphraseDialog(Gtk.Dialog):
                 self.set_sensitive(True)
                 self.get_window().set_cursor(None)
                 return
+            elif NotEnoughMemoryError.is_instance(e):
+                NotEnoughMemoryError.strip_remote_error(e)
+                self.destroy()
+                self.parent.display_error(
+                    _("Changing the passphrase failed"),
+                    e.message,
+                    with_send_report_button=False,
+                )
+                self.response(Gtk.ResponseType.NONE)
+                return
             else:
+                DBusError.strip_remote_error(e)
                 self.destroy()
                 self.parent.display_error(
                     _("Changing the passphrase failed"), e.message
                 )
                 self.response(Gtk.ResponseType.NONE)
+                return
 
         logger.info("Passphrase was changed successfully")
         self.destroy()
