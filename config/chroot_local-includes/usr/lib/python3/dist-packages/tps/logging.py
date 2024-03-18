@@ -4,12 +4,12 @@ import threading
 
 class CustomAdapter(logging.LoggerAdapter):
     def process(self, msg, kwargs):
-        thread_name = threading.current_thread().name
-        if thread_name == "MainThread":
-            thread_name = "0"
+        t = threading.current_thread()
+        if t.name == "MainThread":
+            _id = "0"
         else:
-            thread_name = thread_name.removeprefix("Thread-")
-        return f"[{thread_name}] {msg}", kwargs
+            _id = f"{t.native_id}-{t.name.removeprefix('Thread-')}"
+        return f"[{_id}] {msg}", kwargs
 
 
 def get_logger(name: str) -> logging.LoggerAdapter:
