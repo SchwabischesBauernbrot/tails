@@ -29,4 +29,4 @@ Feature: Tails has a sane default configuration
     # "Persistent browser bookmarks" scenario, so we use the same
     # initial conditions here.
     Given I have started Tails without network from a USB drive with a persistent partition enabled and logged in
-    Then there is no "Could not connect to filesystem miner endpoint" message in the journal
+    Then the tracker-miner-fs service didn't time out
