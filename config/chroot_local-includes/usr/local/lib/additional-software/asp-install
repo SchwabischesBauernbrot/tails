@@ -180,7 +180,7 @@ def save_old_apt_lists(srcdir=APT_LISTS_DIR, destdir=OLD_APT_LISTS_DIR):
         logging.warning("Warning: a copy of the APT lists already exists, "
                         "which should never happen. Removing it.")
         delete_old_apt_lists(destdir)
-    subprocess.run(['cp', '--archive', srcdir, destdir], check=True)
+    subprocess.run(['/bin/cp', '--archive', srcdir, destdir], check=True)
 
 
 def delete_old_apt_lists(old_apt_lists_dir=OLD_APT_LISTS_DIR):
