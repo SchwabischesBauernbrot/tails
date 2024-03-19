@@ -106,7 +106,7 @@ def install_additional_packages(upgrade_mode=False):
         logging.warning("Warning: no packages to install, exiting")
         return True
 
-    installing_notification_id = None
+    installing_notification_id: int | None = None
     if not upgrade_mode:
         installing_notification_id = notify(
             _("Installing your additional software from persistent "
@@ -123,14 +123,16 @@ def install_additional_packages(upgrade_mode=False):
         logging.warning("Warning: installation of %s failed"
                         % " ".join(packages))
         if not upgrade_mode:
-            _close_notification(installing_notification_id)
+            if installing_notification_id is not None:
+                _close_notification(installing_notification_id)
             notify_failure(_("The installation of your additional software "
                              "failed"))
         return False
     else:
         logging.info("Installation completed successfully.")
         if not upgrade_mode:
-            _close_notification(installing_notification_id)
+            if installing_notification_id is not None:
+                _close_notification(installing_notification_id)
             # XXX: there should be a "Configure" button in this notification.
             # However, the easy way to implement it makes this process not
             # return until the notification is clicked. The notification
