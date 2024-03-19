@@ -227,7 +227,7 @@ def has_additional_packages_list():
 def _close_notification(notification_id):
     """Close a notification shown to the user of the live system."""
     subprocess.run(
-            ["sudo", "-u", LIVE_USERNAME,
+            ["/bin/sudo", "-u", LIVE_USERNAME,
              "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{uid}/bus".format(
                   uid=pwd.getpwnam(LIVE_USERNAME).pw_uid),
              "gdbus", "call",
