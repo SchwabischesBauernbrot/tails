@@ -45,10 +45,10 @@ log_begin_msg "Waiting for system partition to become available"
 i=0
 while true; do
   if [ -b "/dev/disk/by-uuid/${FSUUID}" ]; then
-    SYSTEM_PARTITION=$(readlink -f "/dev/disk/by-uuid/${FSUUID}")
-    PARENT_PATH=$(udevadm info --query=property --name="${SYSTEM_PARTITION}" |
-      sed -n '/^ID_PATH=/ s/^ID_PATH=// p')
-    PARENT_DEVICE=$(readlink -f "/dev/disk/by-path/${PARENT_PATH}")
+    SYSTEM_PARTITION="$(readlink -f "/dev/disk/by-uuid/${FSUUID}")"
+    PARENT_PATH="$(udevadm info --query=property --name="${SYSTEM_PARTITION}" |
+      sed -n '/^ID_PATH=/ s/^ID_PATH=// p')"
+    PARENT_DEVICE="$(readlink -f "/dev/disk/by-path/${PARENT_PATH}")"
     if [ -b "${PARENT_DEVICE}" ]; then
       break
     fi
