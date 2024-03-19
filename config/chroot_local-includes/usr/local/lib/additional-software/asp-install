@@ -236,7 +236,9 @@ def _close_notification(notification_id):
              "--object-path", "/org/freedesktop/Notifications",
              "--method", "org.freedesktop.Notifications.CloseNotification",
              str(notification_id)],
-            stdout=subprocess.DEVNULL)
+            stdout=subprocess.DEVNULL,
+            check=False,
+    )
 
 
 def main():
