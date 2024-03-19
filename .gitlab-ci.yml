@@ -33,6 +33,7 @@ build-website:
   script:
     - apt-get -qy install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
     - ./build-website
+    - ls -alh config/chroot_local-includes/usr/share/doc/tails/website
     - apt-get install -y openssh-client rsync
     - test -e .ssh || mkdir .ssh
     - cp "$TEST_STATIC_GITLAB_SHIM_SSH_PRIVATE_KEY" .ssh/private_key
