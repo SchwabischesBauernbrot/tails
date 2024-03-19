@@ -214,7 +214,7 @@ def has_additional_packages_list():
     try:
         packages_list_path = get_packages_list_path()
     except FileNotFoundError as e:
-        logging.warning("Warning: {}".format(e))
+        logging.warning(e)
         return False
     if os.path.isfile(packages_list_path):
         logging.info("Found additional packages list.")
