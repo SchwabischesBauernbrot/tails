@@ -7,7 +7,6 @@ import os
 import pwd
 import shutil
 import subprocess
-from typing import List
 
 import additional_software
 from additional_software import notify_failure, \
@@ -145,7 +144,7 @@ def install_additional_packages(upgrade_mode=False):
         return True
 
 
-def _launch_apt_get(specific_args: List[str]):
+def _launch_apt_get(specific_args: list[str]):
     """Launch apt-get with given arguments.
 
     Launch apt-get with given arguments list, log its standard and error output
