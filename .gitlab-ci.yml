@@ -20,6 +20,10 @@ before_script:
   - git clone https://gitlab.tails.boum.org/tails/jenkins-tools.git /tmp/jenkins-tools
 
 build-website:
+  cache:
+    key: website-$CI_COMMIT_BRANCH
+    paths:
+      - config/chroot_local-includes/usr/share/doc/tails/website
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
