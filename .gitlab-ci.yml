@@ -30,7 +30,7 @@ build-website:
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
-    - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "wip/sysadmin-16956-static-shim"'
+    - if: '$CI_COMMIT_BRANCH == "wip/sysadmin-16956-static-shim"'
   script:
     - apt-get -qy install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
     - ./build-website --refresh || ./build-website --rebuild
