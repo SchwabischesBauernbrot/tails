@@ -35,7 +35,7 @@ build-website:
         - .gitlab-ci.yml
   script:
     - apt-get -qy install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
-    - ./build-website || ./build-website --rebuild
+    - ./build-website --refresh || ./build-website --rebuild
     - ls -alh config/chroot_local-includes/usr/share/doc/tails/website
     - apt-get install -y openssh-client rsync
     - test -e .ssh || mkdir .ssh
