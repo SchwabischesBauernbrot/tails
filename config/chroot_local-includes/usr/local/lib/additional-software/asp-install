@@ -115,9 +115,8 @@ def install_additional_packages(upgrade_mode=False):
     logging.info("Will install the following packages: %s"
                  % " ".join(packages))
     apt_get_returncode = _launch_apt_get(
-        ["--no-remove",
-         "--option", "DPkg::Options::=--force-confold",
-         "install"] + list(packages))
+        ["--no-remove", "--option", "DPkg::Options::=--force-confold",
+         "install", *list(packages)])
     if apt_get_returncode:
         logging.warning("Warning: installation of %s failed"
                         % " ".join(packages))
