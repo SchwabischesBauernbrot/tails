@@ -43,7 +43,7 @@ build-website:
     - echo "here is the SSH key we will deploy with"
     - ssh-keygen -y -f .ssh/private_key
     - echo -n "Begin rsync to static-gitlab-shim, time is " && date '+%Y-%m-%d %H-%M-%S%z'
-    - rsync --rsh="ssh -o UserKnownHostsFile=.ssh/known_hosts -i .ssh/private_key" --checksum --archive --no-times --verbose --mkpath --delete "config/chroot_local-includes/usr/share/doc/tails/website" static-shim@skink.tails.boum.org:/home/static-shim/website
+    - rsync --rsh="ssh -p 3004 -o UserKnownHostsFile=.ssh/known_hosts -i .ssh/private_key" --checksum --archive --no-times --verbose --mkpath --delete "config/chroot_local-includes/usr/share/doc/tails/website" static-shim@skink.tails.boum.org:/home/static-shim/website
     - echo -n "Finished rsync to gitlab-static-shim, time is " && date '+%Y-%m-%d %H-%M-%S%z'
 
 lint-po:
