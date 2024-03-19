@@ -73,6 +73,8 @@ spawn_shell() {
   # Stop plymouth, so that the user can see the shell
   /bin/plymouth quit || true
 
+  tail -n 20 /root/var/log/boot.log >&2
+
   # Disable xtrace to make the following output more readable
   set +x
   echo -e >&2 "\nThe early_patch hook failed. Spawning a shell to allow debugging..."
