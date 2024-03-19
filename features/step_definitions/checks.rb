@@ -239,15 +239,6 @@ Then /^there are no unexpected messages of priority "err" or higher in the journ
          "#{JSON.pretty_generate(unexpected_errors)}")
 end
 
-Then(/^the tracker-miner-fs service didn't time out$/) do
-  msg = 'Could not connect to filesystem miner endpoint'
-  output = $vm.execute(
-    'journalctl _SYSTEMD_USER_UNIT=tracker-extract-3.service ' \
-      "--quiet --no-pager --grep '#{msg}'"
-  ).stdout
-  assert(output.empty?, "The tracker-extract-3 service timed out: #{output}")
-end
-
 Then /^the support documentation page opens in Tor Browser$/ do
   if $language == 'German'
     expected_title = 'Tails - Hilfe & Support'

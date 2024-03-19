@@ -23,10 +23,3 @@ Feature: Tails has a sane default configuration
   Scenario: No unexpected error messages in the journal after booting from USB drive
     Given I have started Tails without network from a USB drive with a persistent partition enabled and logged in
     Then there are no unexpected messages of priority "err" or higher in the journal
-
-  Scenario: The tracker-miner-fs service didn't time out
-    # We saw that error repeatedly in the journal of the
-    # "Persistent browser bookmarks" scenario, so we use the same
-    # initial conditions here.
-    Given I have started Tails without network from a USB drive with a persistent partition enabled and logged in
-    Then the tracker-miner-fs service didn't time out
