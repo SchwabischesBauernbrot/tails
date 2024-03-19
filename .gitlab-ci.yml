@@ -20,6 +20,8 @@ before_script:
   - git clone https://gitlab.tails.boum.org/tails/jenkins-tools.git /tmp/jenkins-tools
 
 build-website:
+  variables:
+    GIT_CLEAN_FLAGS: -ffdx -e config/chroot_local-includes/usr/share/doc/tails/website/
   cache:
     key: website-$CI_COMMIT_BRANCH
     paths:
