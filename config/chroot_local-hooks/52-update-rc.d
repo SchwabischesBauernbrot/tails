@@ -58,6 +58,15 @@ systemctl enable  cups.socket
 systemctl disable NetworkManager.service
 systemctl disable NetworkManager-wait-online.service
 
+# tracker-extract-3.service is a helper service that is controlled by
+# tracker-miner-fs-3.service. It should not be started automatically
+# by systemd. In Bookworm, it has a WantedBy=default.target dependency,
+# which causes it to fail after a 30s timeout because it's started
+# before tracker-miner-fs-3.service, see #20243.
+# TODO:Trixie: The version of tracker-extract in Trixie does not have
+# dependency on default.target anymore, so we can remove this line.
+systemctl --global disable tracker-extract-3.service
+
 # systemd-networkd fallbacks to Google's nameservers when no other nameserver
 # is provided by the network configuration. As of Debian Buster,
 # this service is disabled
