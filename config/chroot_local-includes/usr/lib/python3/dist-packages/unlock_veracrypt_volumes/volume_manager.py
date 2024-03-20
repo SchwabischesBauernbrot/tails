@@ -123,7 +123,7 @@ class VolumeManager(object):
             return
 
         if path:
-            self.unlock_file_container(path)
+            self.attach_file_container(path)
 
     def attach_file_container(self, path: str) -> Union[Volume, None]:
         logger.debug(
