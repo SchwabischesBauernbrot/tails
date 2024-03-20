@@ -8,6 +8,7 @@ Feature: Random Seed
     And I temporarily create a 7200 MiB disk named "temp"
     And I plug USB drive "temp"
     And I write the Tails USB image to disk "temp"
+
     Then there is no random seed on USB drive "temp"
     When I start Tails from USB drive "temp" with network unplugged
     Then the random seed was written multiple times on first boot
