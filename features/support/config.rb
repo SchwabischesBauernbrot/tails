@@ -195,5 +195,10 @@ EXPECTED_JOURNAL_ENTRIES = [
     'SYSLOG_IDENTIFIER' => 'pulseaudio',
     'MESSAGE'           => /We were woken up with (?:POLLIN|POLLOUT) set -- however a subsequent snd_pcm_avail\(\) returned 0 or another value < min_avail\./,
   },
+  # The spice client connection is sometimes lost, not clear why.
+  {
+    'SYSLOG_IDENTIFIER' => 'spice-vdagentd',
+    'MESSAGE'           => 'AIIEEE lost spice client connection, reconnecting (err: )',
+  },
 ].freeze
 # rubocop:enable Layout/LineLength
