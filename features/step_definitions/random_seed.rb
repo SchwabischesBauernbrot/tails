@@ -19,6 +19,15 @@ def bin_to_hex(data)
   data.unpack1('H*')
 end
 
+When /^I wait for the random seed to be updated$/ do
+  try_for(60) do
+    cmd = 'systemctl show --property=Result tails-update-random-seed-sector.service'
+    output = $vm.execute_successfully(cmd).stdout.chomp
+    assert_match(/^Result=success$/, output)
+    sleep 1
+  end
+end
+
 Then /^there is (a|no) random seed on USB drive "([^"]+)"$/ do |randomness, name|
   should_be_random = (randomness == 'a')
 
