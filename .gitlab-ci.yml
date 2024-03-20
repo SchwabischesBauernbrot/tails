@@ -21,7 +21,7 @@ before_script:
 
 build-website:
   variables:
-    GIT_CLEAN_FLAGS: -ffdx -e config/chroot_local-includes/usr/share/doc/tails/website/ -e .ikiwiki/
+    GIT_CLEAN_FLAGS: -ffdx -e config/chroot_local-includes/usr/share/doc/tails/website/ -e .ikiwiki/ -e '*.pot'
   cache:
     key: website-$CI_COMMIT_BRANCH
     paths:
