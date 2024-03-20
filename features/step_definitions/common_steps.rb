@@ -710,7 +710,10 @@ Given /^available upgrades have been checked$/ do
 end
 
 Given /^all notifications have disappeared$/ do
-  gnome_shell = Dogtail::Application.new('gnome-shell')
+  gnome_shell = nil
+  try_for(30) do
+    gnome_shell = Dogtail::Application.new('gnome-shell')
+  end
   retry_action(10, recovery_proc: proc { @screen.press('Escape') }) do
     @screen.press('super', 'v') # Show the notification list
     gnome_shell.child('Do Not Disturb',
