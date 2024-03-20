@@ -13,7 +13,7 @@ After=gnome-session.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/dd bs=512 seek=34 count=1 if=/dev/urandom of=/dev/bilibop
+ExecStart=/usr/bin/dd bs=512 seek=34 count=1 oflag=direct if=/dev/urandom of=/dev/bilibop
 
 [Install]
 WantedBy=gnome-session.target
