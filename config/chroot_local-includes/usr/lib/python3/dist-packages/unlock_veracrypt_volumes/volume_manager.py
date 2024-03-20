@@ -2,7 +2,7 @@ import subprocess
 import time
 import os
 from logging import getLogger
-from typing import List, Union
+from typing import Union
 from threading import Lock
 
 from gi.repository import Gtk, Gio, UDisks, GUdev, GLib
@@ -84,11 +84,11 @@ class VolumeManager(object):
             self.device_list.remove(volume)
             self.device_list.add(volume)
 
-    def get_tcrypt_volumes(self) -> List[Volume]:
+    def get_tcrypt_volumes(self) -> list[Volume]:
         """Returns all connected TCRYPT volumes"""
         return [volume for volume in self.get_all_volumes() if volume.is_tcrypt]
 
-    def get_all_volumes(self) -> List[Volume]:
+    def get_all_volumes(self) -> list[Volume]:
         """Returns all connected volumes"""
         volumes = list()
         gio_volumes = self.gio_volume_monitor.get_volumes()
