@@ -23,7 +23,7 @@ WAIT_FOR_LOOP_SETUP_TIMEOUT = 1
 logger = getLogger(__name__)
 
 
-class VolumeManager(object):
+class VolumeManager:
     def __init__(self, application: Gtk.Application):
         self.udisks_client = UDisks.Client.new_sync()
         self.udisks_manager = self.udisks_client.get_manager()
