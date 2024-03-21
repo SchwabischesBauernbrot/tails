@@ -226,3 +226,13 @@ AfterConfiguration do |config|
     config.formats << hook unless config.formats.include?(hook)
   end
 end
+
+module Cucumber
+  module StepMatchSearch
+    class AttemptToGuessAmbiguousMatch
+      def best_matches(step_name, step_matches)
+        [step_matches.last]
+      end
+    end
+  end
+end
