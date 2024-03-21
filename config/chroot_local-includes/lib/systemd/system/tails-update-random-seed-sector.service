@@ -9,11 +9,11 @@ ConditionKernelCommandLine=!toram
 ConditionPathExists=/dev/bilibop
 # Run this service at the end of the boot process because we might
 # gather some entropy during boot.
-After=multi-user.target
+After=gnome-session.target
 
 [Service]
 Type=simple
 ExecStart=/usr/bin/dd bs=512 seek=34 count=1 if=/dev/urandom of=/dev/bilibop
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=gnome-session.target

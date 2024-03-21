@@ -1,0 +1,9 @@
+[Unit]
+Description=Start the system GNOME session target
+After=gnome-session.target
+
+[Service]
+ExecStart=/bin/sudo /bin/systemctl start gnome-session.target
+
+[Install]
+WantedBy=gnome-session.target
