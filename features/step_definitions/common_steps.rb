@@ -938,10 +938,11 @@ When /^I run "([^"]+)" in GNOME Terminal$/ do |command|
       # The command was pasted successfully
       true
     else
-      # The command was not pasted successfully. Press Ctrl+C to cancel
-      # whatever keyboard input the terminal received (if any) and try
-      # again.
-      @screen.press('ctrl', 'c')
+      # The command was not pasted successfully. Close the terminal and
+      # open a new one.
+      app.child('Close', roleName: 'push button').click
+      app = launch_gnome_terminal
+      terminal = app.child('Terminal', roleName: 'terminal')
       false
     end
   end
