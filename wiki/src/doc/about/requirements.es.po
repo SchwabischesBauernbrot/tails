@@ -7,7 +7,7 @@ msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-01-31 15:45+0100\n"
-"PO-Revision-Date: 2024-01-07 12:38+0000\n"
+"PO-Revision-Date: 2024-03-22 06:06+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: Spanish <http://translate.tails.boum.org/projects/tails/"
 "requirements/es/>\n"
@@ -176,6 +176,10 @@ msgid ""
 "list of recommended hardware. Below are some guidelines if you, or your "
 "organization, are considering acquiring a laptop dedicated to running Tails."
 msgstr ""
+"Los modelos de portátiles evolucionan demasiado rápido como para que podamos "
+"ofrecer una lista actualizada del hardware recomendado. A continuación te "
+"ofrecemos algunas pautas si tú, o tu organización, estáis considerando "
+"adquirir un portátil dedicado a ejecutar Tails."
 
 #. type: Title ###
 #, no-wrap
@@ -185,6 +189,7 @@ msgstr "Para PC"
 #. type: Plain text
 msgid "- Avoid \"gaming\" models with Nvidia or AMD Radeon graphics cards."
 msgstr ""
+"- Evita los modelos \"gaming\" con tarjetas gráficas Nvidia o AMD Radeon."
 
 #. type: Bullet: '- '
 msgid ""
@@ -250,39 +255,46 @@ msgstr "Para actualizar la lista de computadoras Mac:"
 msgid ""
 "Store an archive of WhisperBack reports from the last 6 months in a folder."
 msgstr ""
+"Guarda en una carpeta un archivo de los informes WhisperBack de los últimos "
+"6 meses."
 
 #. type: Bullet: '2. '
 msgid "Decrypt all the reports:"
-msgstr ""
+msgstr "Descifra todos los informes:"
 
 #. type: Plain text
 #, no-wrap
 msgid "   ~/Tails/blueprints/stats/whisperback_scripts/decrypt.rb\n"
-msgstr ""
+msgstr "   ~/Tails/blueprints/stats/whisperback_scripts/decrypt.rb\n"
 
 #. type: Bullet: '3. '
 msgid "Extract the list of computer models:"
-msgstr ""
+msgstr "Extrae la lista de modelos de computadora:"
 
 #. type: Plain text
 #, no-wrap
 msgid "   ~/Tails/blueprints/stats/whisperback_scripts/content_of.rb \"/usr/sbin/dmidecode -s system-product-name\" > machines\n"
 msgstr ""
+"   ~/Tails/blueprints/stats/whisperback_scripts/content_of.rb \"/usr/sbin/"
+"dmidecode -s system-product-name\" > machines\n"
 
 #. type: Bullet: '4. '
 msgid "Sort and count identical models:"
-msgstr ""
+msgstr "Ordena y cuenta modelos idénticos:"
 
 #. type: Plain text
 #, no-wrap
 msgid "   grep -v Bug_report machines | sort | uniq -c | sort -rhk 1 > top\n"
-msgstr ""
+msgstr "   grep -v Bug_report machines | sort | uniq -c | sort -rhk 1 > top\n"
 
 #. type: Bullet: '5. '
 msgid ""
 "Share WhisperBack reports number with the Foundations team and ask them to "
 "evaluate hardware compatibility hints in those reports."
 msgstr ""
+"Comparte el número de informes de WhisperBack con el equipo de Foundations y "
+"pídeles que evalúen las sugerencias de compatibilidad de hardware en esos "
+"informes."
 
 #. type: Plain text
 #, no-wrap
@@ -295,20 +307,23 @@ msgstr ""
 
 #. type: Bullet: '   - '
 msgid "Check whether the wlan0 interface was the same hardware device"
-msgstr ""
+msgstr "Comprobar si la interfaz wlan0 era el mismo dispositivo de hardware"
 
 #. type: Bullet: '   - '
 msgid "Check whether the report was about hardware compatibility issues"
 msgstr ""
+"Comprobar si el informe trata sobre problemas de compatibilidad de hardware"
 
 #. type: Bullet: '6. '
 msgid ""
 "Check whether these Mac models still support the latest version of macOS."
 msgstr ""
+"Comprobar si estos modelos de Mac aún son compatibles con la última versión "
+"de macOS."
 
 #. type: Plain text
 msgid "To update the list of PC computers:"
-msgstr ""
+msgstr "Para actualizar la lista de computadoras PC:"
 
 #. type: Plain text
 msgid "- Check what's commonly available with refurbishing companies."
@@ -316,7 +331,7 @@ msgstr ""
 
 #. type: Plain text
 msgid "- Ask tails-assembly@ for models."
-msgstr ""
+msgstr "- Preguntar a tails-assembly@ por los modelos."
 
 #. type: Plain text
 #, no-wrap
