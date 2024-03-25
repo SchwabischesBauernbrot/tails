@@ -91,7 +91,7 @@ def tps_cleartext_device() -> Optional[str]:
 class IOErrorPattern:
     def __init__(self):
         self.patterns = ["SQUASHFS error:"]
-        self.update_patterns = ["EXT-fs", "I/O error", "critical target error"]
+        self.update_patterns = ["I/O error", "critical target error"]
         self.update_patterns_finished = False
 
         # None: is not checked
@@ -114,8 +114,6 @@ class IOErrorPattern:
     def _add_pattern_cleartext_device(self, device: str):
         self.patterns.extend(
             [
-                f"EXT4-fs ({device}): I/O error",
-                f"EXT4-fs error (device {device})",
                 f"critical target error, dev {device}, sector",
                 f"Buffer I/O error on dev {device}, logical block",
                 f"JBD2: I/O error when updating journal superblock for {device}",
