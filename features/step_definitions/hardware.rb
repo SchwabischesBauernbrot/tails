@@ -19,15 +19,15 @@ When /^Tails detects disk read failures on (.+)$/ do | device |
     fake_error = 'SQUASHFS error: A fake error.'
   when 'boot device'
     b_d = boot_device.delete_prefix('/dev/')
-    fake_error = "EXT4-fs error (device #{b_d}): A fake boot device error"
+    fake_error = "I/O error, dev #{b_d}, sector - a fake boot device one."
   when 'Persistence'
     cleartext_device = 'dm-0'  # I don't know how to request the system to get this information
                                # I see it in udisks2ctl --block-device <tps_device>,
                                # but the output is not for consuming it in scripts.
-    fake_error = "EXT4-fs error (device #{cleartext_device}): A fake cleartext device error"
+    fake_error = "critical target error, dev #{cleartext_device}, sector - a fake persitence one."
   when 'tps'
     tps_device = $vm.persistent_storage_dev_on_disk('__internal').delete_prefix('/dev/')
-    fake_error = "EXT4-fs error (device #{tps_device}): A fake cleartext device error"
+    fake_error = "Buffer I/O error on dev #{tps_device}, logical block - a fake tps one."
   end
 
   fake_ioerror_script = <<~FAKEIOERROR
