@@ -58,36 +58,6 @@ def boot_device() -> Optional[str]:
     return device_path.split("/")[-1]
 
 
-def tps_device() -> Optional[str]:
-    """get the device name of the Persistent Storage."""
-    device = tps.device.TPSPartition.find()
-    if not device:
-        return None
-    device_path = device.device_path
-    return device_path.split("/")[-1]
-
-
-def tps_cleartext_device() -> Optional[str]:
-    """get the cleartext device name of the Persistent Storage."""
-
-    # The script starts early in boot process and the
-    # UDisks sync does not find the cleartext device.
-    # So we have to update udisks.
-    tps.device.udisks = UDisks.Client.new_sync()
-
-    print("tps_cleartext_device...")
-    device = tps.device.TPSPartition.find()
-    print(f"tps-device={device}")
-    if not device:
-        return None
-    device = device.try_get_cleartext_device()
-    print(f"cleartext-device={device}")
-    if not device:
-        return None
-    device_path = device.device_path
-    return device_path.split("/")[-1]
-
-
 class IOErrorPattern:
     def __init__(self):
         self.patterns = ["SQUASHFS error:"]
@@ -99,8 +69,6 @@ class IOErrorPattern:
         #        (e.g. started from a DVD will not have a TPS device)
         # type(str): name of the device
         self.boot_device: Optional[str] = None
-        self.tps_device: Optional[str] = None
-        self.cleartext_device: Optional[str] = None
 
     def _add_pattern_boot_device(self, device: str):
         self.patterns.extend(
@@ -112,20 +80,6 @@ class IOErrorPattern:
         self.boot_device = device
         print(f"set boot device to {device}")
 
-    def _add_pattern_tps_device(self, device: str):
-        self.tps_device = device
-        print(f"set tps device to {device}")
-
-    def _add_pattern_cleartext_device(self, device: str):
-        self.patterns.extend(
-            [
-                f"Buffer I/O error on dev {device}, logical block",
-                f"JBD2: I/O error when updating journal superblock for {device}",
-            ]
-        )
-        self.cleartext_device = device
-        print(f"set cleartext device to {device}")
-
     def _update_patterns(self):
         """Check and update the pattern list."""
 
@@ -133,27 +87,8 @@ class IOErrorPattern:
 
         if not self.boot_device:
             self._add_pattern_boot_device(boot_device())
-
-        if self.tps_device is None:
-            try:
-                tps.device.BootDevice.get_tails_boot_device()
-            except tps.device.NoUdisksPartitionObjectError:
-                # ISO has no tps device
-                self.tps_device = False  # False: Do not check again
-                self.update_patterns_finished = True
-                print ("update_patterns_finished = True")
-                return
-
-            _device = tps_device()
-            if _device:
-                self._add_pattern_tps_device(_device)
-
-        if self.tps_device and not self.cleartext_device:
-            _device = tps_cleartext_device()
-            if _device:
-                self._add_pattern_cleartext_device(_device)
-                self.update_patterns_finished = True
-                print ("update_patterns_finished = True")
+            self.update_patterns_finished = True
+            print ("update_patterns_finished = True")
 
     def match_message(self, msg: str) -> bool:
         """Do the msg match any of the patterns."""

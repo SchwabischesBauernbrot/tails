@@ -27,5 +27,3 @@ Feature: Hardware failures
       | SquashFS |
       | boot device |
       | boot device with a target error |
-      | Persistence |
-      | tps |

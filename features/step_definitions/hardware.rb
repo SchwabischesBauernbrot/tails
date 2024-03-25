@@ -23,14 +23,6 @@ When /^Tails detects disk read failures on (.+)$/ do |device|
   when 'boot device with a target error'
     b_d = boot_device.delete_prefix('/dev/').delete_suffix('1')
     fake_error = "critical target error, dev #{b_d}, sector - a fake boot device one."
-  when 'Persistence'
-    cleartext_device = 'dm-0'  # I don't know how to request the system to get this information
-                               # I see it in udisks2ctl --block-device <tps_device>,
-                               # but the output is not for consuming it in scripts.
-    fake_error = "critical target error, dev #{cleartext_device}, sector - a fake persitence one."
-  when 'tps'
-    tps_device = $vm.persistent_storage_dev_on_disk('__internal').delete_prefix('/dev/')
-    fake_error = "Buffer I/O error on dev #{tps_device}, logical block - a fake tps one."
   end
 
   fake_ioerror_script = <<~FAKEIOERROR
