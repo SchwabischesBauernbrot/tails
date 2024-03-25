@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2022-08-30 21:51+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2023-02-25 12:27+0000\n"
 "Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: \n"
@@ -22,11 +22,25 @@ msgstr ""
 msgid "[[!meta robots=\"noindex\"]]\n"
 msgstr "[[!meta robots=\"noindex\"]]\n"
 
+#. type: Plain text
+#, no-wrap
+msgid "<h1 id=\"install\" class=\"step\">Install <span class=\"upgrade\">an intermediary</span> Tails using <em>balenaEtcher</em></h1>\n"
+msgstr "<h1 id=\"install\" class=\"step\">Installer <span class=\"upgrade\">un Tails intermédiaire</span> avec <em>balenaEtcher</em></h1>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<div class=\"step-image usb\">[[!img install/inc/infography/install-tails.png link=\"no\" alt=\"\"]]</div>\n"
+"<div class=\"step-image upgrade\">[[!img install/inc/infography/install-upgrade-usb-only.png link=\"no\" alt=\"\"]]</div>\n"
+msgstr ""
+"<div class=\"step-image usb\">[[!img install/inc/infography/install-tails.png link=\"no\" alt=\"\"]]</div>\n"
+"<div class=\"step-image upgrade\">[[!img install/inc/infography/install-upgrade-usb-only.png link=\"no\" alt=\"\"]]</div>\n"
+
 #. type: Bullet: '1. '
 msgid ""
 "<p class=\"mac upgrade-mac\"> Open <span class=\"application\">Finder</span> "
-"and choose <span class=\"application\">balenaEtcher</span> in <span class="
-"\"guilabel\">Applications</span>.  </p>"
+"and choose <span class=\"application\">balenaEtcher</span> in <span "
+"class=\"guilabel\">Applications</span>.  </p>"
 msgstr ""
 "<p class=\"mac upgrade-mac\"> Ouvrir <span class=\"application\">Finder</"
 "span> et choisir <span class=\"application\">balenaEtcher</span> dans <span "
@@ -65,8 +79,7 @@ msgid ""
 "   </div>\n"
 msgstr ""
 "   <div class=\"bug windows upgrade-windows\">\n"
-"   <p>Si <i>balenaEtcher</i> ne démarre pas, redémarrez Windows et essayez à "
-"nouveau.</p>\n"
+"   <p>Si <i>balenaEtcher</i> ne démarre pas, redémarrez Windows et essayez à nouveau.</p>\n"
 "   </div>\n"
 
 #. type: Plain text
@@ -79,29 +92,14 @@ msgstr "   [[!img install/inc/screenshots/etcher_in_mac.png class=\"mac upgrade-
 msgid "   [[!img install/inc/screenshots/etcher_in_windows.png class=\"windows upgrade-windows\" link=\"no\" alt=\"\"]]\n"
 msgstr "   [[!img install/inc/screenshots/etcher_in_windows.png class=\"windows upgrade-windows\" link=\"no\" alt=\"\"]]\n"
 
-#. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"install\" class=\"step\">Install <span class=\"upgrade\">an intermediary</span> Tails using <em>balenaEtcher</em></h1>\n"
-msgstr ""
-"<h1 id=\"install\" class=\"step\">Installer <span class=\"upgrade\">un Tails "
-"intermédiaire</span> avec <em>balenaEtcher</em></h1>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"<div class=\"step-image usb\">[[!img install/inc/infography/install-tails.png link=\"no\" alt=\"\"]]</div>\n"
-"<div class=\"step-image upgrade\">[[!img install/inc/infography/install-upgrade-usb-only.png link=\"no\" alt=\"\"]]</div>\n"
-msgstr ""
-"<div class=\"step-image usb\">[[!img install/inc/infography/install-tails.png link=\"no\" alt=\"\"]]</div>\n"
-"<div class=\"step-image upgrade\">[[!img install/inc/infography/install-upgrade-usb-only.png link=\"no\" alt=\"\"]]</div>\n"
-
 #. type: Bullet: '1. '
 msgid ""
 "Plug in the USB stick on which you want to install <span class=\"usb\">Tails."
 "</span> <span class=\"upgrade\">the intermediary Tails.</span>"
 msgstr ""
-"Brancher la clé USB sur laquelle vous voulez installer <span class=\"usb"
-"\">Tails.</span> <span class=\"upgrade\"> le Tails intermédiaire.</span>"
+"Brancher la clé USB sur laquelle vous voulez installer <span "
+"class=\"usb\">Tails.</span> <span class=\"upgrade\"> le Tails intermédiaire."
+"</span>"
 
 #. type: Plain text
 #, no-wrap
@@ -122,21 +120,33 @@ msgid "   Choose the USB image that you downloaded earlier.\n"
 msgstr "   Choisir l'image USB que vous avez téléchargé précédemment.\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <div class=\"note\">\n"
+#| "   <p>Make sure that the USB image has an\n"
+#| "   <span class=\"filename\">.img</span> file extension.</p>\n"
 msgid ""
 "   <div class=\"note\">\n"
-"   <p>Make sure that the USB image has an\n"
-"   <span class=\"filename\">.img</span> file extension.</p>\n"
+"   <p>Make sure that the USB image is called <i>[[!inline pages=\"inc/stable_amd64_img_filename\" raw=\"yes\" sort=\"age\"]]</i> and has an\n"
+"   <i>.img</i> file extension.</p>\n"
 msgstr ""
 "   <div class=\"note\">\n"
 "   <p>Assurez-vous que l'image USB a une\n"
 "   extension de fichier <span class=\"filename\">.img</span>.</p>\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <p>If the image has an <i>.iso</i> file\n"
+#| "   extension, it is not the correct image. Please go back to the\n"
+#| "   <span class=\"windows\">[[download step|windows#download]].</span>\n"
+#| "   <span class=\"mac\">[[download step|mac#download]].</span>\n"
+#| "   <span class=\"upgrade-windows\">[[download step|upgrade/windows#download]].</span>\n"
+#| "   <span class=\"upgrade-mac\">[[download step|upgrade/mac#download]].</span></p>\n"
+#| "   </div>\n"
 msgid ""
 "   <p>If the image has an <i>.iso</i> file\n"
-"   extension, it is not the correct image. Please go back to the\n"
+"   extension, it is the wrong image. Please go back to the\n"
 "   <span class=\"windows\">[[download step|windows#download]].</span>\n"
 "   <span class=\"mac\">[[download step|mac#download]].</span>\n"
 "   <span class=\"upgrade-windows\">[[download step|upgrade/windows#download]].</span>\n"
@@ -147,10 +157,8 @@ msgstr ""
 "   ce n'est pas la bonne image. Veuillez retournez à\n"
 "   <span class=\"windows\">[[l'étape télécharger|windows#download]].</span>\n"
 "   <span class=\"mac\">[[l'étape télécharger|mac#download]].</span>\n"
-"   <span class=\"upgrade-windows\">[[l'étape télécharger|upgrade/"
-"windows#download]].</span>\n"
-"   <span class=\"upgrade-mac\">[[l'étape télécharger|upgrade/"
-"mac#download]].</span></p>\n"
+"   <span class=\"upgrade-windows\">[[l'étape télécharger|upgrade/windows#download]].</span>\n"
+"   <span class=\"upgrade-mac\">[[l'étape télécharger|upgrade/mac#download]].</span></p>\n"
 "   </div>\n"
 
 #. type: Bullet: '1. '

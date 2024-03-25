@@ -89,9 +89,7 @@ When /^I start a process allocating (\d+) ([[:alpha:]]+) of memory with a known 
     import math
     import time
     pattern = "wipe_didnt_work\\n"
-    buffer = ""
-    for x in range(math.ceil(#{convert_to_bytes(size.to_i, unit)} / len(pattern))):
-      buffer += pattern
+    buffer = pattern * math.ceil(#{convert_to_bytes(size.to_i, unit)} / len(pattern))
     with open("#{fillram_done_path}", "w") as f:
       f.write("done")
     time.sleep(365*24*60*60)
@@ -109,19 +107,43 @@ When /^I kill the allocating process$/ do
   end
 end
 
-def avail_space_in_mountpoint_kB(mountpoint)
+def avail_space_in_mountpoint(mountpoint)
   $vm.execute_successfully(
-    "df --output=avail '#{mountpoint}'"
+    "df --block-size=1 --output=avail '#{mountpoint}'"
   ).stdout.split("\n")[1].to_i
 end
 
 def assert_filesystem_is_full(mountpoint)
-  avail_space = avail_space_in_mountpoint_kB(mountpoint)
+  avail_space = avail_space_in_mountpoint(mountpoint)
   assert_equal(
     0, avail_space,
-    "#{avail_space} kB is still free on #{mountpoint}," \
+    "#{avail_space} bytes are still free on #{mountpoint}," \
     'while this filesystem was expected to be full'
   )
+end
+
+# Fill file at path with pattern (+ newline) until the device is
+# full. If `iterations` is given then the pattern (+ newline) is
+# written exactly that many times (also it is much slower).
+def fill_file(path:, pattern: 'wipe_didnt_work', iterations: nil)
+  # We use `yes(1)` because it is extremely fast. Piping into `dd`
+  # when iterations is not set might seem pointless but `yes` aborts
+  # before the device is completely full for some reason while `dd`
+  # doesn't, so this ensures that we truly fill the device.
+  cmd = "yes #{pattern} | dd of=#{path}"
+  if iterations
+    # The "+ 1" is for the newline added by `yes`
+    cmd += " bs=#{pattern.size + 1} count=#{iterations}"
+  end
+  p = $vm.execute(cmd)
+  $vm.execute_successfully('sync')
+  if iterations
+    assert_vmcommand_success(p)
+  else
+    assert_equal(1, p.returncode)
+    assert(p.stderr['No space left on device'])
+    assert_filesystem_is_full(path)
+  end
 end
 
 When /^I mount a (\d+) MiB tmpfs on "([^"]+)" and fill it with a known pattern$/ do |size_MiB, mountpoint|
@@ -130,18 +152,11 @@ When /^I mount a (\d+) MiB tmpfs on "([^"]+)" and fill it with a known pattern$/
   $vm.execute_successfully(
     "mount -t tmpfs -o 'size=#{size_MiB}M' tmpfs '#{mountpoint}'"
   )
-  $vm.execute_successfully(
-    "while echo wipe_didnt_work >> '#{mountpoint}/file'; do true ; done"
-  )
-  assert_filesystem_is_full(mountpoint)
+  fill_file(path: "#{mountpoint}/file")
 end
 
 When(/^I fill the USB drive with a known pattern$/) do
-  $vm.execute_successfully(
-    "while echo wipe_didnt_work >> '#{@tmp_usb_drive_mount_dir}/file'; do " \
-    'true ; done'
-  )
-  assert_filesystem_is_full(@tmp_usb_drive_mount_dir)
+  fill_file(path: "#{@tmp_usb_drive_mount_dir}/file")
 end
 
 When(/^I read the content of the test FS$/) do
@@ -225,12 +240,9 @@ When /^I fill a (\d+) MiB file with a known pattern on the (persistent|root) fil
   else
     raise 'This should not happen'
   end
-  # Note that `yes` prints its own newline, so we have to skip it in
+  # `fill_file` prints its own newline after each `pattern`, so we have to skip it in
   # `pattern` below.
-  $vm.execute_successfully(
-    "yes #{pattern[0..-2]} | " \
-    "dd of=#{dest_file} bs=#{pattern.size} count=#{pattern_nb}"
-  )
+  fill_file(path: dest_file, pattern: pattern[0..-2], iterations: pattern_nb)
 end
 
 When(/^I drop all kernel caches$/) do

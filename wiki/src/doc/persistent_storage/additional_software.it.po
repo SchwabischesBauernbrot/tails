@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-03 23:17+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2023-03-13 17:35+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
@@ -63,8 +63,8 @@ msgstr ""
 
 #. type: Bullet: '1. '
 msgid ""
-"[[Set up an administration password |first_steps/welcome_screen/"
-"administration_password]] when you start Tails."
+"When starting Tails, [[set up an administration password|doc/first_steps/"
+"welcome_screen/administration_password]]."
 msgstr ""
 
 #. type: Bullet: '    1. '
@@ -232,42 +232,21 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#, no-wrap
-msgid "<a id=\"language-packs\"></a>\n"
+msgid ""
+"- [*GtkHash*](https://gtkhash.org/), a utility to calculate the checksum of "
+"files."
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<a id=\"language-packs\"></a>\n"
+msgid "<a id=\"language-packages\"></a>\n"
 msgstr "<a id=\"language-packs\"></a>\n"
 
 #. type: Title -
 #, no-wrap
-msgid "Language packs"
+msgid "Language packages and dictionaries"
 msgstr ""
-
-#. type: Bullet: '- '
-#, fuzzy
-#| msgid ""
-#| "for <span class=\"application\">LibreOffice</span>: <span "
-#| "class=\"command\">libreoffice-l10n-<span class=\"command-"
-#| "placeholder\">lang</span></span>"
-msgid ""
-"For *LibreOffice*: <code>libreoffice-l10n-<span class=\"command-"
-"placeholder\">lang</span></code>"
-msgstr ""
-"per <span class=\"application\">LibreOffice</span>: <span "
-"class=\"command\">libreoffice-l10n-<span class=\"command-placeholder\">lang</"
-"span></span>"
-
-#. type: Bullet: '- '
-#, fuzzy
-#| msgid ""
-#| "for <span class=\"application\">Thunderbird</span>: <span "
-#| "class=\"command\">thunderbird-l10n-<span class=\"command-"
-#| "placeholder\">lang</span></span>"
-msgid ""
-"For *Thunderbird*: <code>thunderbird-l10n-<span class=\"command-"
-"placeholder\">lang</span></code>"
-msgstr ""
-"per <span class=\"application\">Thunderbird</span>: <span "
-"class=\"command\">thunderbird-l10n-<span class=\"command-placeholder\">lang</"
-"span></span>"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -277,15 +256,55 @@ msgstr ""
 #| "<span class=\"command\">de</span> for German.\n"
 msgid ""
 "Replace <span class=\"command-placeholder\">lang</span> with the code for your\n"
-"language. For example, `es` for Spanish or `de` for German.\n"
+"language. For example, `vi` for Vietnamese.\n"
 msgstr ""
 "Sostituisci <span class=\"command-placeholder\">lang</span> con il codice della tua\n"
 "lingua. Ad esempio, <span class=\"command\">es</span> per lo spagnolo o\n"
 "<span class=\"command\">de</span> per il tedesco.\n"
 
-#. type: Title -
+#. type: Plain text
+msgid ""
+"Tails already includes language packages and dictionaries for Arabic, "
+"German, Spanish, Farsi, French, Hindi, Bahasa Indonesia, Italian, "
+"Portuguese, Russian, Turkish, and Simplified Chinese."
+msgstr ""
+
+#. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "for <span class=\"application\">LibreOffice</span>: <span "
+#| "class=\"command\">libreoffice-l10n-<span class=\"command-"
+#| "placeholder\">lang</span></span>"
+msgid ""
+"*LibreOffice* language package: <code>libreoffice-l10n-<span class=\"command-"
+"placeholder\">lang</span></code>"
+msgstr ""
+"per <span class=\"application\">LibreOffice</span>: <span "
+"class=\"command\">libreoffice-l10n-<span class=\"command-placeholder\">lang</"
+"span></span>"
+
+#. type: Plain text
 #, no-wrap
-msgid "Spell-checking dictionaries"
+msgid "  [List of available *LibreOffice* language packages](https://packages.debian.org/search?keywords=libreoffice-l10n&searchon=names&suite=stable&section=all)\n"
+msgstr ""
+
+#. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "for <span class=\"application\">Thunderbird</span>: <span "
+#| "class=\"command\">thunderbird-l10n-<span class=\"command-"
+#| "placeholder\">lang</span></span>"
+msgid ""
+"*Thunderbird* language package: <code>thunderbird-l10n-<span class=\"command-"
+"placeholder\">lang</span></code>"
+msgstr ""
+"per <span class=\"application\">Thunderbird</span>: <span "
+"class=\"command\">thunderbird-l10n-<span class=\"command-placeholder\">lang</"
+"span></span>"
+
+#. type: Plain text
+#, no-wrap
+msgid "  [List of available *Thunderbird* language packages](https://packages.debian.org/search?keywords=thunderbird-l10n&searchon=names&suite=stable&section=all)\n"
 msgstr ""
 
 #. type: Bullet: '- '
@@ -293,27 +312,33 @@ msgstr ""
 #| msgid ""
 #| "<span class=\"command\">hunspell-<span class=\"command-"
 #| "placeholder\">lang</span></span>"
-msgid "<code>hunspell-<span class=\"command-placeholder\">lang</span></code>"
+msgid ""
+"*Hunspell* dictionnary: <code>hunspell-<span class=\"command-"
+"placeholder\">lang</span></code>"
 msgstr ""
 "<span class=\"command\">hunspell-<span class=\"command-placeholder\">lang</"
 "span></span>"
 
 #. type: Plain text
-#, fuzzy
+#, fuzzy, no-wrap
 #| msgid ""
 #| "The <span class=\"command\">hunspell</span> dictionaries are used for\n"
 #| "spell-checking by <span class=\"application\">Tor Browser</span>,\n"
 #| "<span class=\"application\">LibreOffice</span>,\n"
-#| "<span class=\"application\">Thunderbird</span>, and many other "
-#| "applications.\n"
+#| "<span class=\"application\">Thunderbird</span>, and many other applications.\n"
 msgid ""
-"The `hunspell` dictionaries are used for spell-checking by *Tor Browser*, "
-"*LibreOffice*, *Thunderbird*, and many other applications."
+"  The *Hunspell* dictionaries are used for spell-checking by *Tor Browser*,\n"
+"  *LibreOffice*, *Thunderbird*, and many other applications.\n"
 msgstr ""
 "Il dizionario <span class=\"command\">hunspell</span> è usato come\n"
 "correttore ortografico da <span class=\"application\">Tor Browser</span>,\n"
 "<span class=\"application\">LibreOffice</span>,\n"
 "<span class=\"application\">Thunderbird</span> e molte altre applicazioni.\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "  [List of available *Hunspell* dictionnaries](https://packages.debian.org/search?keywords=hunspell&searchon=names&suite=stable&section=all)\n"
+msgstr ""
 
 #. type: Title =
 #, no-wrap
@@ -324,12 +349,6 @@ msgstr "Installare programmi addizionali"
 #, no-wrap
 msgid "To install a package using <span class=\"application\">Synaptic</span>:\n"
 msgstr "Per installare un pacchetto usando <span class=\"application\">Synaptic</span>:\n"
-
-#. type: Bullet: '    1. '
-msgid ""
-"When starting Tails, set up an [[administration password |first_steps/"
-"welcome_screen/administration_password]]."
-msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -421,7 +440,7 @@ msgstr ""
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img persistence/persistent-storage.png link=\"no\" alt=\"\"]]\n"
-msgid "   [[!img add.png link=\"no\" alt=\"\"]]\n"
+msgid "   [[!img add.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr "[[!img persistence/persistent-storage.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Bullet: '   - '
@@ -715,7 +734,7 @@ msgstr ""
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "[[!img persistence/persistent-storage.png link=\"no\" alt=\"\"]]\n"
-msgid "  [[!img remove.png link=\"no\" alt=\"\"]]\n"
+msgid "  [[!img remove.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr "[[!img persistence/persistent-storage.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Title -

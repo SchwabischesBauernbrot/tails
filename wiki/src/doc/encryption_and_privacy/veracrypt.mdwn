@@ -102,17 +102,15 @@ Unlocking a file container without keyfiles
      <span class="guisubmenu">Utilities</span>&nbsp;▸
      <span class="guisubmenuitem">Unlock VeraCrypt Volumes</span></span>.
 
-   [[!img unlock-veracrypt-volumes.png link="no" alt=""]]
-
 1. Click <span class="bold">Add</span> and choose the file container
    that you want to unlock.
 
 1. Enter the parameters to unlock the volume. For more information, see
    the [[Unlocking parameters|veracrypt#parameters]] section above.
 
-   Click <span class="bold">Unlock</span>.
+1. Click **Unlock**.
 
-1. <span class="application">Unlock VeraCrypt Volumes</span> unlocks your volume.
+   <span class="application">Unlock VeraCrypt Volumes</span> unlocks your volume.
 
    If unlocking the volume fails (for example, if you mistyped the
    password), click on <span class="bold">Unlock</span> to try
@@ -142,162 +140,87 @@ Unlocking a file container with keyfiles
      check box in the bottom-left corner if you want to modify the content of
      the file container.
 
-     [[!img read-only.png link="no" alt=""]]
+     [[!img read-only.png link="no" class="screenshot" alt=""]]
 
    - Choose <span class="guilabel">All Files</span> in the file filter in the
      bottom-right corner.
 
-     [[!img all-files.png link="no" alt=""]]
+     [[!img all-files.png link="no" class="screenshot" alt=""]]
 
    - Navigate to the folder containing the file container that you want to open.
 
    - Select the file container and click <span class="bold">Attach</span>.
 
-1. In the left pane, select the new <span class="guilabel">Loop Device</span>
-   that corresponds to your file container.
+   An authentication dialog appears.
 
-   In the right pane, it should have an
-   <span class="guilabel">Encrypted?</span> label.
-
-   [[!img container-locked.png link="no" alt=""]]
-
-1. Click the <span class="bold">[[!img lib/unlock.png alt="Unlock
-   selected encrypted partition" class="symbolic" link="no"]]</span>
-   button in the right pane.
+   [[!img authentication.png link="no" class="screenshot" alt="Authentication required"]]
 
 1. Enter the parameters to unlock the volume. For more information, see
    the [[Unlocking parameters|veracrypt#parameters]] section above.
 
-   Click <span class="bold">Unlock</span>.
+1. Click **Unlock**.
 
-1. Select the file system that appears below the unlocked volume. It
-   probably has a <span class="guilabel">FAT</span> or
-   <span class="guilabel">NTFS</span> content.
-
-1. Click the <span class="bold">[[!img lib/media-playback-start.png
-   alt="Mount selected partition" class="symbolic" link="no"]]</span>
-   button to mount the volume.
-
-1. Click on the <span class="filename">*/media/amnesia/*</span> link in
-   the right pane to open the volume in the
-   <span class="application">Files</span> browser.
-
-Closing a file container
-------------------------
-
-You can either:
-
-- In the sidebar of the <span class="application">Files</span> browser,
-  click on the <span class="bold">[[!img lib/media-eject.png
-  alt="Eject" class="symbolic" link="no"]]</span> button on the label
-  of the volume corresponding to your file container.
-
-  [[!img eject-container.png link="no" alt=""]]
-
-- In <span class="application">Unlock VeraCrypt Volumes</span>, click on the
-  <span class="bold">[[!img lib/window-close.png class="symbolic"
-  link="no" alt=""]]</span> button in the line that corresponds to your
-  file container.
+1. Open your *VeraCrypt* volumes from the **Places** menu.
 
 Using a partition or drive
 ==========================
 
 [[!img partition-icon.png link="no" alt=""]]
 
-<a id="partition-files"></a>
+<h2 id="partition-external">Unlocking a partition on an external storage device</h2>
 
-Unlocking a partition or drive without keyfiles
------------------------------------------------
+1. Plug in the USB stick or hard disk that you want to unlock.
 
-1. If your partition or drive is on an internal hard disk, [[set up an administration
-   password|doc/first_steps/welcome_screen/administration_password]] when
-   starting Tails.
+   An authentication dialog appears.
 
-   Otherwise, plug in the USB stick or the hard disk that you want to
-   unlock.
-
-1. Choose
-   <span class="menuchoice">
-     <span class="guimenu">Applications</span>&nbsp;▸
-     <span class="guisubmenu">Utilities</span>&nbsp;▸
-     <span class="guisubmenuitem">Unlock VeraCrypt Volumes</span></span>.
-
-1. In the list of partitions, click <span class="bold">Unlock</span> in the
-   line that corresponds to your USB stick or hard disk.
-
-   [[!img unlock-veracrypt-volumes-with-partition.png link="no" alt=""]]
+   [[!img authentication.png link="no" class="screenshot" alt="Authentication required"]]
 
 1. Enter the parameters to unlock the volume. For more information, see
    the [[Unlocking parameters|veracrypt#parameters]] section above.
 
-   Click <span class="bold">Unlock</span>.
+1. Click **Unlock**.
 
-1. Click <span class="bold">Open</span> to open the volume in the
-   <span class="application">Files</span> browser.
+1. Open your *VeraCrypt* volumes from the **Places** menu.
 
-<a id="partition-disks"></a>
+<h2 id="partition-internal">Unlocking a partition on an internal hard disk</h2>
 
-Unlocking a partition or drive with keyfiles
---------------------------------------------
+1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
 
-1. If your partition or drive is on an internal hard disk, [[set up an administration
-   password|doc/first_steps/welcome_screen/administration_password]] when
-   starting Tails.
-   
-   Otherwise, plug in the USB stick or the hard disk that you want to
-   unlock.
+1. Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to start the
+   *Disks* utility.
 
-1. Choose
-   <span class="menuchoice">
-     <span class="guimenu">Applications</span>&nbsp;▸
-     <span class="guisubmenu">Utilities</span>&nbsp;▸
-     <span class="guisubmenuitem">Disks</span></span>
-   to start the <span class="application">Disks</span> utility.
-
-1. In the left pane, select the drive that corresponds to your USB stick or
-   hard disk.
-
-   [[!img partition-locked.png link="no" alt=""]]
+1. In the left pane, select the drive that corresponds to your hard disk.
 
 1. In the right pane, select the partition that corresponds to your *VeraCrypt*
    volume.
 
-   It should have an <span class="guilabel">Encrypted?</span> label.
+   It should have an **Encrypted?** label.
 
-1. Click the <span class="bold">[[!img lib/unlock.png alt="Unlock
-   selected encrypted partition" class="symbolic" link="no"]]</span>
+1. Click the [[!img lib/unlock.png alt="Unlock
+   selected encrypted partition" class="symbolic" link="no"]]
    button in the right pane.
+
+   An authentication dialog appears.
 
 1. Enter the parameters to unlock the volume. For more information, see
    the [[Unlocking parameters|veracrypt#parameters]] section above.
 
-   Click <span class="bold">Unlock</span>.
+1. Click **Unlock**.
 
-1. Select the file system that appears below the unlocked volume. It
-   probably has a <span class="guilabel">FAT</span> or
-   <span class="guilabel">NTFS</span> content.
+1. Select the file system that appears below the unlocked volume.
 
-1. Click the <span class="bold">[[!img lib/media-playback-start.png
-   alt="Mount selected partition" class="symbolic" link="no"]]</span>
+1. Click the [[!img lib/media-playback-start.png
+   alt="Mount selected partition" class="symbolic" link="no"]]
    button to mount the volume.
 
-1. Click on the <span class="filename">*/media/amnesia/*</span> link in
+1. Click on the */media/amnesia/* link in
    the right pane to open the volume in the
-   <span class="application">Files</span> browser.
+   *Files* browser.
 
-Closing a partition or drive
-----------------------------
+<h2 id="eject">Ejecting a <i>VeraCrypt</i> volume</h2>
 
-You can either:
+1. Choose **Applications**&nbsp;▸ **Files** to open the *Files* browser.
 
-- In the sidebar of the <span class="application">Files</span> browser,
-  click on the <span class="bold">[[!img lib/media-eject.png
-  alt="Eject" class="symbolic" link="no"]]</span> button on the label
-  of the volume corresponding to your partition.
-
-  [[!img eject-partition.png link="no" alt=""]]
-
-- In <span class="application">Unlock VeraCrypt Volumes</span>, click on the
-  <span class="bold">[[!img lib/window-close.png class="symbolic"
-  link="no" alt=""]]</span> button in the line that corresponds to your
-  USB stick or hard disk.
+1. In the sidebar of the *Files* browser, click on the
+   [[!img lib/media-eject.png alt="Eject" class="symbolic" link="no"]] button
+   on the label of your *VeraCrypt* volume.

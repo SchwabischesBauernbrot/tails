@@ -67,14 +67,20 @@ extend-select = [
 extend-ignore = [
     # Accept shared, mostly innocuous habit
     "RET505",
+    # Error-prone
+    "RSE102",
     # Allow noqa directives that may be useful with other linters
     "RUF100",
     # We don't compile Python code so our `assert`s won't be optimized out
     "S101",
+    # Prone to false positives (see https://github.com/astral-sh/ruff/issues/4045)
+    "S603",
     # We don't record the author of a TODO, for better or worse
     "TD002",
     # Accept commonly used "TODO:Bookworm"
     "TD007",
+    # We use os.exec*() instead of subprocess to replace the current process
+    "S606",
 
     # Now, things we don't like but that we don't consider serious enough for CI to fail
 

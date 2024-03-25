@@ -1,20 +1,27 @@
-from enum import Enum
+from enum import Enum, IntEnum
 import gettext
 import gi
 import os
 
-_ = gettext.gettext
-
-# Don't connect to the udisks service when we're just running the
-# tests - they don't use it and it might not even be running,
-# which would cause this line to throw an exception
-udisks = None
+# We don't need udisks when running the tests
 if not os.getenv("BEHAVE") and not os.getenv("NO_UDISKS"):
     gi.require_version("UDisks", "2.0")
     from gi.repository import UDisks
 
-    # noinspection PyArgumentList
-    udisks = UDisks.Client.new_sync()  # type: UDisks.Client
+_ = gettext.gettext
+
+_udisks = None  # type: UDisks.Client | None
+
+
+def udisks() -> "UDisks.Client":
+    global _udisks  # noqa: PLW0603
+    # Connect to the udisks service if we haven't already or if the
+    # connection was lost (we check for the latter by calling
+    # get_manager() which returns None if the connection was lost).
+    if _udisks is None or _udisks.get_manager() is None:
+        _udisks = UDisks.Client.new_sync()  # type: UDisks.Client
+    return _udisks
+
 
 DBUS_SERVICE_NAME = "org.boum.tails.PersistentStorage"
 DBUS_ROOT_OBJECT_PATH = "/org/boum/tails/PersistentStorage"
@@ -47,6 +54,16 @@ class State(Enum):
 
 
 IN_PROGRESS_STATES = (State.CREATING, State.DELETING, State.UNLOCKING)
+
+
+class InvalidBootDeviceErrorType(IntEnum):
+    # 0 is the value of the Error property when no error was raised yet,
+    # so let's ensure we don't use it for anything else.
+    UNKNOWN = 0
+    UNSUPPORTED_INSTALLATION_METHOD = 1
+    TOO_MANY_PARTITIONS = 2
+    READ_ONLY = 3
+
 
 PROFILING = False
 PROFILES_DIR = "/run/tails-persistent-storage/profiles"

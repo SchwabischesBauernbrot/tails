@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2023-07-24 17:37+0000\n"
 "Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
@@ -89,11 +89,14 @@ msgid "</div>\n"
 msgstr "</div>\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy
+#| msgid ""
+#| "For more detailed documentation, refer to the [official\n"
+#| "<span class=\"application\">Thunderbird</span>\n"
+#| "help](https://support.mozilla.org/en-US/products/thunderbird).\n"
 msgid ""
-"For more detailed documentation, refer to the [official\n"
-"<span class=\"application\">Thunderbird</span>\n"
-"help](https://support.mozilla.org/en-US/products/thunderbird).\n"
+"For more documentation, visit the official [*Thunderbird* Support](https://"
+"support.mozilla.org/en-US/products/thunderbird) website."
 msgstr ""
 "Pour une documentation détaillée, consultez [l'aide\n"
 "<span class=\"application\">Thunderbird</span>\n"
@@ -175,53 +178,6 @@ msgstr ""
 "   Si la configuration automatique échoue, consultez votre fournisseur de courrier électronique\n"
 "   pour savoir comment configurer votre compte manuellement.\n"
 
-#. type: Plain text
-#, no-wrap
-msgid "   <div class=\"tip\" id=\"gmail\">\n"
-msgstr "   <div class=\"tip\" id=\"gmail\">\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "   <h2>Configuring a Gmail account</h2>\n"
-msgstr "   <h2>Configurer un compte Gmail</h2>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"   <p>If you are using Gmail, you need to first configure your account to\n"
-"   allow access from other email clients, such as\n"
-"   <span class=\"application\">Thunderbird</span>.</p>\n"
-msgstr ""
-"   <p>Si vous utilisez Gmail, vous avez d'abord besoin de configurer votre compte pour\n"
-"   permettre l'accès à d'autres clients de messagerie électroniques, tel que\n"
-"   <span class=\"application\">Thunderbird</span>.</p>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"   <p>To configure your Gmail account to allow access from\n"
-"   <span class=\"application\">Thunderbird</span>, you need to:</p>\n"
-msgstr ""
-"   <p>Pour configurer votre compte Gmail pour autoriser l'accès depuis\n"
-"   <span class=\"application\">Thunderbird</span>, vous avez besoin de :</p>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"   <ol>\n"
-"     <li>Enable IMAP or POP. See <a href=\"https://support.google.com/mail/answer/7126229\">Gmail Help: Check Gmail through other email platforms</a>.</li>\n"
-"     <li>Turn on 2-Step Verification. See <a href=\"https://support.google.com/accounts/answer/185839\">Google Account Help: 2-Step Verification</a>.</li>\n"
-"     <li>Create an App Password. See <a href=\"https://support.google.com/mail/answer/185833\">Gmail Help: Sign in with App Passwords</a>.</li>\n"
-"     <li>Use the App Password in <em>Thunderbird</em>.</li>\n"
-"   </ol>\n"
-msgstr ""
-"   <ol>\n"
-"     <li>Activer IMAP ou POP. Voir <a href=\"https://support.google.com/mail/answer/7126229\">Aide Gmail : Consulter Gmail via d'autres plates-formes de messagerie</a>.</li>\n"
-"     <li>Activer la vérification en deux étapes. Voir <a href=\"https://support.google.com/accounts/answer/185839\">Aide compte Google : Protéger votre compte avec la validation en deux étapes</a>.</li>\n"
-"     <li>Créer un mot de passe d'application. Voir <a href=\"https://support.google.com/mail/answer/185833\">Aide Gmail : Se connecter avec des mots de passe d'application</a>.</li>\n"
-"     <li>Utiliser le mot de passe d'application dans <em>Thunderbird</em>.</li>\n"
-"   </ol>\n"
-
 #. type: Bullet: '1. '
 msgid ""
 "If the automatic configuration succeeds, you might have to specify which "
@@ -273,6 +229,37 @@ msgstr ""
 "   Pour en savoir plus, voir également la [comparaison entre POP et\n"
 "   IMAP](https://help.riseup.net/fr/email/clients#choisir-imap-ou-pop) de\n"
 "   Riseup.\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "   <div class=\"tip\" id=\"gmail\">\n"
+msgid "<div class=\"tip\" id=\"gmail\">\n"
+msgstr "   <div class=\"tip\" id=\"gmail\">\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "<h2>Gmail</h2>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "<p>You can use your Gmail account with <i>Thunderbird</i> in Tails.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<ol>\n"
+"  <li>\n"
+"    <p>Make sure that you have 2-Step Verification turned on in your Gmail account.</p>\n"
+"    <p>See <a href=\"https://support.google.com/accounts/answer/185839\">Google Account Help: 2-Step Verification</a>.</p>\n"
+"  </li>\n"
+"  <li>\n"
+"    <p>Configure the new account as IMAP when <i>Thunderbird</i> asks you to\n"
+"    choose between POP and IMAP.</p>\n"
+"  </li>\n"
+"</ol>\n"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -365,8 +352,7 @@ msgid ""
 "install the <code>thunderbird-l10n-<span class=\"command-placeholder\">lang</span></code>\n"
 "package using the [[Additional Software|persistent_storage/additional_software]]\n"
 "feature. Replace <span class=\"command-placeholder\">lang</span> with the code\n"
-"for your language. For example, `es` for Spanish or\n"
-"`de` for German.\n"
+"for your language. For example, `vi` for Vietnamese.\n"
 msgstr ""
 "Pour utiliser *Thunderbird* dans une autre langue, vous pouvez\n"
 "installer le paquet <span class=\"command\">thunderbird-l10n-<span class=\"command-placeholder\">lang</span></span>\n"
@@ -374,6 +360,19 @@ msgstr ""
 "Remplacer <span class=\"command-placeholder\">lang</span> par le code\n"
 "de votre langue. Par exemple, <span class=\"command\">es</span> pour l'espagnol ou\n"
 "<span class=\"command\">de</span> pour l'allemand.\n"
+
+#. type: Plain text
+msgid ""
+"Tails already includes language packages for Arabic, German, Spanish, Farsi, "
+"French, Hindi, Bahasa Indonesia, Italian, Portuguese, Russian, Turkish, and "
+"Simplified Chinese."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"[List of available *Thunderbird* language packages](https://packages.debian."
+"org/search?keywords=thunderbird-l10n&searchon=names&suite=stable&section=all)"
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -735,6 +734,44 @@ msgstr ""
 #. type: Plain text
 msgid "- To send an unencrypted email, turn off the **Encrypt** toggle button."
 msgstr ""
+
+#, no-wrap
+#~ msgid "   <h2>Configuring a Gmail account</h2>\n"
+#~ msgstr "   <h2>Configurer un compte Gmail</h2>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "   <p>If you are using Gmail, you need to first configure your account to\n"
+#~ "   allow access from other email clients, such as\n"
+#~ "   <span class=\"application\">Thunderbird</span>.</p>\n"
+#~ msgstr ""
+#~ "   <p>Si vous utilisez Gmail, vous avez d'abord besoin de configurer votre compte pour\n"
+#~ "   permettre l'accès à d'autres clients de messagerie électroniques, tel que\n"
+#~ "   <span class=\"application\">Thunderbird</span>.</p>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "   <p>To configure your Gmail account to allow access from\n"
+#~ "   <span class=\"application\">Thunderbird</span>, you need to:</p>\n"
+#~ msgstr ""
+#~ "   <p>Pour configurer votre compte Gmail pour autoriser l'accès depuis\n"
+#~ "   <span class=\"application\">Thunderbird</span>, vous avez besoin de :</p>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "   <ol>\n"
+#~ "     <li>Enable IMAP or POP. See <a href=\"https://support.google.com/mail/answer/7126229\">Gmail Help: Check Gmail through other email platforms</a>.</li>\n"
+#~ "     <li>Turn on 2-Step Verification. See <a href=\"https://support.google.com/accounts/answer/185839\">Google Account Help: 2-Step Verification</a>.</li>\n"
+#~ "     <li>Create an App Password. See <a href=\"https://support.google.com/mail/answer/185833\">Gmail Help: Sign in with App Passwords</a>.</li>\n"
+#~ "     <li>Use the App Password in <em>Thunderbird</em>.</li>\n"
+#~ "   </ol>\n"
+#~ msgstr ""
+#~ "   <ol>\n"
+#~ "     <li>Activer IMAP ou POP. Voir <a href=\"https://support.google.com/mail/answer/7126229\">Aide Gmail : Consulter Gmail via d'autres plates-formes de messagerie</a>.</li>\n"
+#~ "     <li>Activer la vérification en deux étapes. Voir <a href=\"https://support.google.com/accounts/answer/185839\">Aide compte Google : Protéger votre compte avec la validation en deux étapes</a>.</li>\n"
+#~ "     <li>Créer un mot de passe d'application. Voir <a href=\"https://support.google.com/mail/answer/185833\">Aide Gmail : Se connecter avec des mots de passe d'application</a>.</li>\n"
+#~ "     <li>Utiliser le mot de passe d'application dans <em>Thunderbird</em>.</li>\n"
+#~ "   </ol>\n"
 
 #, no-wrap
 #~ msgid "<h3>Export your private key using the <em>Passwords and Keys</em> utility</h3>\n"

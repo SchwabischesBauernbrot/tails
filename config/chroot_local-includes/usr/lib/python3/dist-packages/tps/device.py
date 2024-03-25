@@ -9,12 +9,13 @@ import stat
 from typing import Optional, Callable
 
 import psutil
-from gi.repository import GLib, UDisks
+from gi.repository import GLib, UDisks, Gio
 
 from tailslib import LIVE_USER_UID, LIVE_USERNAME
 import tps.logging
 from tps import executil, LUKS_HEADER_BACKUP_PATH
 from tps import _, TPS_MOUNT_POINT, udisks
+from tps import InvalidBootDeviceErrorType
 from tps.dbus.errors import (
     IncorrectPassphraseError,
     TargetIsBusyError,
@@ -24,9 +25,9 @@ from tps.job import Job
 
 logger = tps.logging.get_logger(__name__)
 
-TAILS_MOUNTPOINT = "/lib/live/mount/medium"
 PARTITION_GUID = "8DA63339-0007-60C0-C436-083AC8230908"  # Linux reserved
 TPS_PARTITION_LABEL = "TailsData"
+UDISKS_BLOCK_DEVICES_PATH = "/org/freedesktop/UDisks2/block_devices"
 
 # Leave at least 200 MiB of memory to the system to avoid triggering the
 # OOM killer.
@@ -54,7 +55,16 @@ class PartitionNotUnlockedError(Exception):
 
 
 class InvalidBootDeviceError(Exception):
-    pass
+    # Assume that any problem that's not handled differently in specific subclasses
+    # is the result of installing Tails in an unsupported manner.
+    error_type: InvalidBootDeviceErrorType = (
+        InvalidBootDeviceErrorType.UNSUPPORTED_INSTALLATION_METHOD
+    )
+
+
+class InvalidPartitionTableTypeError(InvalidBootDeviceError):
+    def __init__(self, partition_table_type: str):
+        super().__init__(f"Partition table type: {partition_table_type}")
 
 
 class InvalidCleartextDeviceError(Exception):
@@ -65,7 +75,7 @@ class InvalidStatError(Exception):
     pass
 
 
-class BootDevice(object):
+class BootDevice:
     def __init__(self, udisks_object: UDisks.Object):
         self.udisks_object = udisks_object
         self.partition_table = (
@@ -73,11 +83,7 @@ class BootDevice(object):
         )  # type: UDisks.PartitionTable
         partition_table_type = self.partition_table.props.type
         if partition_table_type != "gpt":
-            logger.debug(f"Partition table type: {partition_table_type}")
-            raise InvalidBootDeviceError(
-                "You can only create a Persistent Storage on a USB stick "
-                "installed with a USB image or Tails Cloner."
-            )
+            raise InvalidPartitionTableTypeError(partition_table_type)
         self.block = self.udisks_object.get_block()
         if not self.block:
             raise InvalidBootDeviceError("Device is not a block device")
@@ -85,43 +91,23 @@ class BootDevice(object):
 
     @classmethod
     def get_tails_boot_device(cls) -> "BootDevice":
-        """Get the device which Tails was booted from. Raise a
-        InvalidBootDeviceError if it can't be found."""
-        # Get the underlying block device of the Tails system partition
-        try:
-            dev_num = os.stat(TAILS_MOUNTPOINT).st_dev
-        except FileNotFoundError as e:
-            raise InvalidBootDeviceError(e)
-
-        block = udisks.get_block_for_dev(dev_num)
-        if not block or not block.get_object():
-            msg = (
-                f"Could not get udisks object of boot device "
-                f"{os.major(dev_num)}:{os.minor(dev_num)}"
-            )
-            raise InvalidBootDeviceError(msg)
-        device_object = block.get_object()
-
-        # Get the udisks partition object
-        partition = device_object.get_partition()
-        if not partition:
-            msg = f"Boot device {block.props.device} is not a partition"
-            raise InvalidBootDeviceError(msg)
-        partition_name = partition.props.name
-        if partition_name != "Tails":
-            logger.debug(f"Partition name: {partition_name}")
+        """Get the device which Tails was booted from.
+        Raises an InvalidBootDeviceError if it can't be found."""
+        device_path = os.path.realpath("/dev/bilibop")
+        device_basename = os.path.basename(device_path)
+        udisks_obj_path = os.path.join(UDISKS_BLOCK_DEVICES_PATH, device_basename)
+        device_object = udisks().get_object(udisks_obj_path)
+        if not device_object:
             raise InvalidBootDeviceError(
-                "You can only create a Persistent Storage on a USB stick "
-                "installed with a USB image or Tails Cloner."
+                f"Could not get udisks object {udisks_obj_path} of boot device {device_path}"
             )
-
-        return BootDevice(udisks.get_object(partition.props.table))
+        return BootDevice(device_object)
 
     def get_beginning_of_free_space(self) -> int:
         """Get the beginning of the free space on the device, in bytes"""
         # Get the partitions
         partitions = [
-            udisks.get_object(p).get_partition()
+            udisks().get_object(p).get_partition()
             for p in self.partition_table.props.partitions
         ]
         # Get the ends of the partitions, in bytes
@@ -131,7 +117,7 @@ class BootDevice(object):
         return max(partition_ends)
 
 
-class TPSPartition(object):
+class TPSPartition:
     """The Persistent Storage encrypted partition"""
 
     def __init__(self, udisks_object: UDisks.Object):
@@ -142,9 +128,7 @@ class TPSPartition(object):
         self.device_path = self.block.props.device
         self.partition = self.udisks_object.get_partition()  # type: UDisks.Partition
         if not self.partition:
-            raise InvalidPartitionError(
-                f"Device {self.device_path} is not a " f"partition"
-            )
+            raise InvalidPartitionError(f"Device {self.device_path} is not a partition")
 
     def get_cleartext_device(self) -> "CleartextDevice":
         """Get the cleartext device of Persistent Storage encrypted
@@ -153,9 +137,9 @@ class TPSPartition(object):
         cleartext_device_path = encrypted.props.cleartext_device
         if cleartext_device_path == "/":
             raise PartitionNotUnlockedError(
-                f"Device {self.device_path} is " f"not unlocked"
+                f"Device {self.device_path} is not unlocked"
             )
-        return CleartextDevice(udisks.get_object(cleartext_device_path))
+        return CleartextDevice(udisks().get_object(cleartext_device_path))
 
     def try_get_cleartext_device(self) -> Optional["CleartextDevice"]:
         """Get the cleartext device of Persistent Storage encrypted
@@ -170,9 +154,7 @@ class TPSPartition(object):
         """Get the UDisks.Encrypted interface of the partition"""
         encrypted = self.udisks_object.get_encrypted()
         if not encrypted:
-            raise InvalidPartitionError(
-                f"Device {self.device_path} is not " f"encrypted"
-            )
+            raise InvalidPartitionError(f"Device {self.device_path} is not encrypted")
         return encrypted
 
     def is_unlocked(self) -> bool:
@@ -266,25 +248,33 @@ class TPSPartition(object):
     def exists(cls) -> bool:
         """Return true if the Persistent Storage partition exists and
         false otherwise."""
-        return bool(cls.find())
+        try:
+            cls.find()
+            return True
+        except (InvalidPartitionError, InvalidBootDeviceError):
+            return False
 
     @classmethod
-    def find(cls) -> Optional["TPSPartition"]:
-        """Return the Persistent Storage encrypted partition or None
-        if it couldn't be found."""
-        try:
-            parent_device = BootDevice.get_tails_boot_device()
-        except InvalidBootDeviceError:
-            return None
+    def find(cls) -> "TPSPartition":
+        """Return the Persistent Storage encrypted partition.
+
+        Raises:
+            InvalidBootDeviceError: if the boot device is not found
+            InvalidPartitionError: if the partition is not found
+        """
+
+        # This raises a InvalidBootDeviceError if no valid boot device
+        # is be found
+        parent_device = BootDevice.get_tails_boot_device()
 
         partitions = parent_device.partition_table.props.partitions
         for partition_name in sorted(partitions):
-            partition = udisks.get_object(partition_name)
+            partition = udisks().get_object(partition_name)
             if not partition:
                 continue
             if partition.get_partition().props.name == TPS_PARTITION_LABEL:
                 return TPSPartition(partition)
-        return None
+        raise InvalidPartitionError(f"Partition {TPS_PARTITION_LABEL} not found")
 
     @classmethod
     def pbkdf_parameters(cls, memory_cost=None):
@@ -371,10 +361,10 @@ class TPSPartition(object):
             arg_name=TPS_PARTITION_LABEL,
             arg_options=GLib.Variant("a{sv}", {}),
         )
-        udisks.settle()
+        udisks().settle()
 
         # Get the UDisks partition object
-        partition = TPSPartition(udisks.get_object(object_path))
+        partition = TPSPartition(udisks().get_object(object_path))
 
         # Initialize the LUKS partition via cryptsetup. We can't use
         # udisks for this because it doesn't support setting the key
@@ -428,7 +418,7 @@ class TPSPartition(object):
                 },
             ),
         )
-        udisks.settle()
+        udisks().settle()
 
         if is_backup:
             # We let the caller mount the backup partition
@@ -614,7 +604,7 @@ class TPSPartition(object):
                     raise IncorrectPassphraseError(err) from err
                 raise
 
-        udisks.settle()
+        udisks().settle()
 
         if rename_dm_device:
             # Wait for the cleartext device to become available to udisks
@@ -660,7 +650,7 @@ class TPSPartition(object):
 
         # Restore the LUKS header backup
         logger.info(
-            f"Unlocking LUKS header backup succeeded, " f"restoring the backup header."
+            "Unlocking LUKS header backup succeeded, restoring the backup header."
         )
         self.restore_luks_header_backup()
 
@@ -718,10 +708,22 @@ class TPSPartition(object):
                 and "No keyslot with given passphrase found" in err.message
             ):
                 raise IncorrectPassphraseError(err) from err
+            if (
+                err.matches(Gio.DBusError.quark(), Gio.DBusError.NO_REPLY)
+                and udisks_oom_killed()
+            ):
+                raise NotEnoughMemoryError(
+                    _(
+                        "Not enough memory to change the passphrase of the"
+                        " Persistent Storage. Try again after closing some"
+                        " applications or rebooting."
+                    )
+                ) from err
+
             raise
 
 
-class CleartextDevice(object):
+class CleartextDevice:
     def __init__(self, udisks_object: UDisks.Object):
         self.udisks_object = udisks_object
         self.block = self.udisks_object.get_block()
@@ -735,7 +737,7 @@ class CleartextDevice(object):
             [
                 "findmnt",
                 f"--source={self.device_path}",
-                f"--mountpoint={str(self.mount_point)}",
+                f"--mountpoint={self.mount_point!s}",
             ]
         )
         if p.returncode == 0:
@@ -745,6 +747,24 @@ class CleartextDevice(object):
         # If the return code is not 0 and not 1, something unexpected
         # happened, so we raise a CalledProcessException
         p.check_returncode()
+
+    def fsck(self):
+        try:
+            executil.check_call(
+                [
+                    "e2fsck",
+                    # Force checking even if the file system seems clean:
+                    # some filesystems are corrupted in a way that fsck
+                    # won't spot it without this option, and then mount
+                    # will fail.
+                    "-f",
+                    # Fix any problems that can be safely fixed.
+                    "-p",
+                    self.device_path,
+                ]
+            )
+        except subprocess.CalledProcessError as e:
+            logger.warning("e2fsck returned %i", e.returncode)
 
     def mount(self):
         # Ensure that the mount point exists
@@ -840,3 +860,29 @@ def wait_for_udisks_object(
         time.sleep(1)
         continue
     raise TimeoutError("Timeout while waiting for udisks object")
+
+
+def udisks_oom_killed() -> bool:
+    """Check if udisks2.service was oom-killed.
+    Returns: True if udisks2.service was oom-killed, False otherwise.
+    """
+
+    # Check the Result property of udisks2.service
+    output = executil.check_output(
+        ["systemctl", "show", "--property=Result", "udisks2.service"]
+    ).strip()
+    match output:
+        case "Result=oom-kill":
+            return True
+        case "Result=signal":
+            # Sometimes systemd doesn't detect that the service was
+            # oom-killed and shows "Result=signal" instead. To also
+            # handle that case, we check if the service was killed
+            # via SIGKILL, in which case we assume that it was a
+            # result of the OOM killer.
+            output = executil.check_output(
+                ["systemctl", "show", "--value", "--property=ExecMainStatus", "udisks2"]
+            ).strip()
+            if output == "9":  # SIGKILL
+                logger.warning("udisks2.service was killed via SIGKILL")
+                return True

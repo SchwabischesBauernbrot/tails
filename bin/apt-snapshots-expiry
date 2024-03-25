@@ -16,10 +16,10 @@ for dir in config/APT_snapshots.d vagrant/definitions/tails-builder/config/APT_s
         else
             case "${ARCHIVE:?}" in
                 'debian-security')
-                    DIST='bullseye-security'
+                    DIST='bookworm-security'
                     ;;
                 'torproject')
-                    DIST='bullseye'
+                    DIST='bookworm'
                     ;;
                 *)
                     DIST='stable'

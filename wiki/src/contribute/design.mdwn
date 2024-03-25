@@ -149,7 +149,7 @@ leave *less* traces on local storage:
 - widespread operating systems and shipped Internet applications
   generally default to write all kinds of traces to local storage; Tor
   distributions that depend on such systems are therefore forced to
-  adopt a blacklist approach to lessen the amount of traces left
+  adopt a blocklist approach to lessen the amount of traces left
   behind. Such an approach is known to be prone to human error,
   such as [[!tor_bug 7449]].
 
@@ -580,7 +580,7 @@ features in the base operating system.
 
 Since one goal of the PELD is to permit usage of untrusted computers
 while preserving anonymity, measures MUST be taken against hardware
-that might de-anonymize or facilitate recording of a user, such as
+that might deanonymize or facilitate recording of a user, such as
 hardware [keyloggers](http://en.wikipedia.org/wiki/Keylogger). Thus a
 virtual keyboard (usable with the mouse) MUST be available.
 
@@ -772,7 +772,7 @@ Additionally, Tails installs by default:
  - All available Tor Browser localization packages
  - For each Tier-1 language, when available in Debian:
    - Spell checking dictionaries (usable at least in Tor Browser,
-     LibreOffice and gedit)
+     LibreOffice and GNOME Text Editor)
    - Localization packages for LibreOffice and Thunderbird
 
 ### 3.3.3 Input methods
@@ -1202,9 +1202,7 @@ restart actions, as well as screen locking.
 
 ### 3.6.23 DHCP hostname leaks
 
-Tails prevents dhclient from sending the hostname over the network.
-
-We patch NetworkManager to make it never instruct dhclient to send the
+We patch NetworkManager so its DHCP client does not send the
 hostname in DHCP requests, until [[!gnomebug 768076]] is fixed.
 
 * [[!tails_gitweb_repo network-manager]]

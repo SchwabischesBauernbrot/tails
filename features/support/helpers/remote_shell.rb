@@ -37,6 +37,8 @@ module RemoteShell
     Object::Timeout.timeout(opts[:timeout], Timeout) do
       socket.puts(JSON.dump([id] + args))
       socket.flush
+      return if opts[:spawn]
+
       loop do
         # Calling socket.readline() and then just wait for the data to
         # arrive is prone to stalling for some reason. A timed read()
@@ -88,12 +90,14 @@ module RemoteShell
 
   class ShellCommand
     # If `:spawn` is false the server will block until it has finished
-    # executing `cmd`. If it's true the server won't block, and the
-    # response will always be [0, "", ""] (only used as an
-    # ACK). execute() will always block until a response is received,
-    # though. Spawning is useful when starting processes in the
+    # executing `cmd`, which in turn blocks the call of
+    # `execute()`. Otherwise, if `:spawn` is true, there is no
+    # blocking or even acknowledgement that the server received the
+    # remote call. Spawning is useful when starting processes in the
     # background (or running scripts that does the same) or any
-    # application we want to interact with.
+    # application we want to interact with. It is the caller's
+    # responsibility to some how (even implicitly) verify that the
+    # server executed the spawned command.
     def self.execute(vm, cmd, **opts)
       opts[:user] ||= 'root'
       opts[:spawn] = false unless opts.key?(:spawn)
@@ -179,6 +183,32 @@ module RemoteShell
     def initialize(vm, code, **opts)
       @code = code
       @exception, @stdout, @stderr = self.class.execute(vm, code, **opts)
+    end
+
+    def success?
+      @exception.nil?
+    end
+
+    def failure?
+      !success?
+    end
+
+    def to_s
+      "Exception: #{@exception}\n" \
+        "STDOUT:\n#{@stdout}" \
+        "STDERR:\n#{@stderr}"
+    end
+  end
+
+  class SignalReady
+    def self.execute(vm)
+      RemoteShell.communicate(vm, 'signal_ready')
+    end
+
+    attr_reader :returncode, :stdout, :stderr
+
+    def initialize(vm)
+      @returncode, @stdout, @stderr = self.class.execute(vm)
     end
 
     def success?

@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-27 22:20+0000\n"
-"PO-Revision-Date: 2023-12-29 16:23+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
+"PO-Revision-Date: 2024-01-28 10:36+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: Spanish <http://translate.tails.boum.org/projects/tails/"
 "first_steps_persistence_copy/es/>\n"
@@ -26,7 +26,7 @@ msgstr "[[!meta title=\"Hacer una copia de respaldo de tu Almacenamiento Persist
 #. type: Plain text
 #, fuzzy, no-wrap
 #| msgid "<!-- XXX: These instructions should be kept in sync with doc/first_steps/persistence/rescue.mdwn -->\n"
-msgid "<!-- XXX: These instructions should be kept in sync with rescue.mdwn -->\n"
+msgid "<!-- XXX: These instructions should be kept in sync with recover.mdwn -->\n"
 msgstr "<!-- XXX: These instructions should be kept in sync with doc/first_steps/persistence/rescue.mdwn -->\n"
 
 #. type: Plain text
@@ -41,9 +41,8 @@ msgstr "<div class=\"tip\">\n"
 #| "see our [[instructions on rescuing your Persistent\n"
 #| "Storage from a broken Tails|doc/first_steps/persistence/rescue]].</p>\n"
 msgid ""
-"<p>If your Tails is broken and you are trying to rescue your Persistent Storage,\n"
-"see our [[instructions on rescuing the Persistent\n"
-"Storage of a broken Tails|rescue]].</p>\n"
+"<p>If your Tails is broken and you are trying to recover your Persistent Storage,\n"
+"see [[recovering the Persistent Storage of a broken Tails|recover]] instead.</p>\n"
 msgstr ""
 "<p>Si tu Tails está roto y estás intentando rescatar tu Almacenamiento Persistente,\n"
 "mira nuestras [[instrucciones para rescatar tu Almacenamiento Persistente de un\n"
@@ -108,7 +107,7 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "   [[!img clone.png link=\"no\" alt=\"\"]]\n"
+msgid "   [[!img clone.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr ""
 
 #. type: Bullet: '1. '
@@ -262,9 +261,8 @@ msgstr "Inserta tu memoria USB Tails de respaldo."
 #| "first_steps/welcome_screen/administration_password]], and unlock the "
 #| "Persistent Storage."
 msgid ""
-"When starting Tails, unlock your Persistent Storage and [[set up an "
-"administration password|doc/first_steps/welcome_screen/"
-"administration_password]]."
+"When starting Tails, [[set up an administration password|doc/first_steps/"
+"welcome_screen/administration_password]]."
 msgstr ""
 "Arranca en tu Tails actual, configura una [[contraseña de administrador|doc/"
 "first_steps/welcome_screen/administration_password]], y desbloquea el "
@@ -294,10 +292,9 @@ msgstr ""
 "Almacenamiento Persistente:"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<p class=\"pre command root\">rsync -PaSHAXv --del /live/persistence/TailsData_unlocked/ /media/amnesia/TailsData</p>\n"
+#, no-wrap
 msgid "       rsync -PaSHAXv --del /live/persistence/TailsData_unlocked/ /media/amnesia/TailsData\n"
-msgstr "<p class=\"pre command root\">rsync -PaSHAXv --del /live/persistence/TailsData_unlocked/ /media/amnesia/TailsData</p>\n"
+msgstr "       rsync -PaSHAXv --del /live/persistence/TailsData_unlocked/ /media/amnesia/TailsData\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -308,20 +305,13 @@ msgid ""
 msgstr "Cuando la orden termina te muestra un sumario de los datos que se copiaron. Por ejemplo:"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<pre>\n"
-#| "sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
-#| "total size is 32.30M  speedup is 1.00\n"
-#| "</pre>\n"
+#, no-wrap
 msgid ""
 "       sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
 "       total size is 32.30M  speedup is 1.00\n"
 msgstr ""
-"<pre>\n"
-"sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
-"total size is 32.30M  speedup is 1.00\n"
-"</pre>\n"
+"       sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
+"       total size is 32.30M  speedup is 1.00\n"
 
 #~ msgid "Start on your current Tails and unlock the Persistent Storage."
 #~ msgstr ""

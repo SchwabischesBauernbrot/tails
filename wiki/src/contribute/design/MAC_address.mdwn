@@ -111,7 +111,7 @@ happens on a global, omniscient level thanks to AdvCapSniff:
    situation where security guards are sent to investigate an "alien
    computer" at your workplace, or similar). [AvoidIdMacSpoof]
 
-4. Avoid network connection problems due to MAC address white-listing,
+4. Avoid network connection problems due to MAC address allowlisting,
    fixed ARP tables, hardware or driver issues, or
    similar. [AvoidConnectionProbs]
 
@@ -130,7 +130,7 @@ value for both AvoidTracking and AvoidIdTails value.
 
 MAC spoofing could hinder AvoidIdMacSpoof if detected by the ISP's
 hardware (i.e. no trusted router in the way). Similarly, ISP-provided
-hardware may employ some sort of MAC address white-listing (e.g. only
+hardware may employ some sort of MAC address allowlisting (e.g. only
 X unique ones are allowed) that can prevent AvoidConnectionProbs.
 
 Summary: MAC spoofing should be avoided but isn't terribly dangerous
@@ -361,9 +361,9 @@ As suggested in the "Leak prevention" section, we block all network
 devices' modules from being loaded until the user has made the decision about
 whether to enable MAC spoofing or not. The way we do this is by
 generating a list of all network device modules during build time, and
-add these to a `modprobe.d`-type blacklist. An implication of this is
+add these to a `modprobe.d`-type blocklist. An implication of this is
 that in-kernel drivers and modules installed after build time will not
-be in the blacklist and hence are not supported. In the Welcome Screen's
+be in the blocklist and hence are not supported. In the Welcome Screen's
 post-login script (when we know the user's decision) we unblock the
 network by simply removing that list, and then we have udev "re-probe"
 for network devices and load their modules.
@@ -489,7 +489,7 @@ For any network device, the MAC address is recorded both before and
 after the actual MAC spoofing. If the values are equal, or if they
 could not be obtained, we fail closed by going into "panic mode" for
 the device. This means that the device is `down`:ed, and its module is
-unloaded and blacklisted. If the network device's interface still
+unloaded and blocklisted. If the network device's interface still
 exists after this, networking is completely disabled by shutting down
 NetworkManager. The user is notified of which device was the culprit,
 and whether the module was unloaded, or if the network was completely

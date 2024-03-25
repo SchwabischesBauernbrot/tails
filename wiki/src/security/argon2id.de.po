@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-09-04 09:56+0200\n"
+"POT-Creation-Date: 2024-01-23 00:41+0000\n"
 "PO-Revision-Date: 2023-11-28 14:43+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -54,10 +54,8 @@ msgid ""
 "LUKS encrypted volumes unless you use a long passphrase of 5 random words or\n"
 "more.**\n"
 msgstr ""
-"**Wir empfehlen Ihnen, die Passphrase Ihres persistenten Speichers und "
-"anderer\n"
-"LUKS-verschlüsselten Volumes zu ändern, es sei denn, Sie verwenden eine "
-"lange Passphrase von 5 zufälligen Wörtern oder\n"
+"**Wir empfehlen Ihnen, die Passphrase Ihres persistenten Speichers und anderer\n"
+"LUKS-verschlüsselten Volumes zu ändern, es sei denn, Sie verwenden eine lange Passphrase von 5 zufälligen Wörtern oder\n"
 "mehr.**\n"
 
 #. type: Plain text
@@ -293,9 +291,10 @@ msgid "  We still recommend changing your passphrase to be 5 random words or mor
 msgstr ""
 
 #. type: Title ###
-#, no-wrap
-msgid "Persistent Storage (4 words of fewer)"
-msgstr ""
+#, fuzzy, no-wrap
+#| msgid "Persistent Storage"
+msgid "Persistent Storage (4 words or fewer)"
+msgstr "Der beständige Speicher"
 
 #. type: Plain text
 msgid "To secure your Persistent Storage:"
@@ -860,8 +859,7 @@ msgid ""
 "      The output is a list of the storage devices and partitions on the system.\n"
 "      For example:\n"
 msgstr ""
-"      Die Ausgabe ist eine Liste der Speichergeräte und Partitionen auf dem "
-"System.\n"
+"      Die Ausgabe ist eine Liste der Speichergeräte und Partitionen auf dem System.\n"
 "      Zum Beispiel:\n"
 
 #. type: Plain text
@@ -905,7 +903,7 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "      <p class=\"pre command\">sudo cryptsetup luksDump /dev/<span class=\"command-placeholder\">[partition]</span></p>\n"
+msgid "      <p class=\"pre command-template\">sudo cryptsetup luksDump /dev/<span class=\"command-placeholder\">[partition]</span></p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -914,19 +912,12 @@ msgid "      In the output:\n"
 msgstr "      In der Ausgabe:\n"
 
 #. type: Bullet: '      - '
-msgid ""
-"<span class=\"command\">Version</span> indicates the version of LUKS, either "
-"<span class=\"command\">1</span> or <span class=\"command\">2</span>."
+msgid "`Version` indicates the version of LUKS, either `1` or `2`."
 msgstr ""
-"<span class=\"command\">Version</span> gibt die Version von LUKS an, "
-"entweder <span class=\"command\">1</span> oder <span class=\"command\""
-">2</span>."
 
 #. type: Bullet: '      - '
 msgid ""
-"<span class=\"command\">PBKDF</span> indicates the key derivation function, "
-"either <span class=\"command\">pbkdf2</span> or <span "
-"class=\"command\">argon2id</span>."
+"`PBKDF` indicates the key derivation function, either `pbkdf2` or `rgon2id`."
 msgstr ""
 
 #. type: Title ###
@@ -940,3 +931,17 @@ msgid ""
 "      Replace <span class=\"command-placeholder\">[partition]</span> with the\n"
 "      partition name found in step 6.\n"
 msgstr ""
+
+#. type: Bullet: '      - '
+msgid ""
+"`PBKDF` indicates the key derivation function, either `pbkdf2` or `argon2id`."
+msgstr ""
+
+#~ msgid ""
+#~ "<span class=\"command\">Version</span> indicates the version of LUKS, "
+#~ "either <span class=\"command\">1</span> or <span class=\"command\">2</"
+#~ "span>."
+#~ msgstr ""
+#~ "<span class=\"command\">Version</span> gibt die Version von LUKS an, "
+#~ "entweder <span class=\"command\">1</span> oder <span class=\"command\">2</"
+#~ "span>."

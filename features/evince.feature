@@ -4,8 +4,6 @@ Feature: Using Evince
   I want to view and print PDF files in Evince
   And AppArmor should prevent Evince from doing dangerous things
 
-  #10994
-  @fragile
   Scenario: I can view and print a PDF file stored in /usr/share
     Given I have started Tails from DVD without network and logged in
     When I open "/usr/share/cups/data/default-testpage.pdf" with Evince
@@ -34,14 +32,14 @@ Feature: Using Evince
     Given I restart monitoring the AppArmor log of "/usr/bin/evince"
     When I try to open "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/default-testpage.pdf" with Evince
     Then Evince tells me it cannot open "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/default-testpage.pdf"
-    And AppArmor has denied "/usr/bin/evince" from opening "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/default-testpage.pdf"
+    And AppArmor has denied "/usr/bin/evince" from opening "/usr/lib/live/mount/overlay/rw/home/amnesia/.gnupg/default-testpage.pdf"
     When I close Evince
     Given I restart monitoring the AppArmor log of "/usr/bin/evince"
     When I try to open "/live/overlay/rw/home/amnesia/.gnupg/default-testpage.pdf" with Evince
     Then Evince tells me it cannot open "/live/overlay/rw/home/amnesia/.gnupg/default-testpage.pdf"
     # Due to our AppArmor aliases, /live/overlay will be treated
-    # as /lib/live/mount/overlay.
-    And AppArmor has denied "/usr/bin/evince" from opening "/lib/live/mount/overlay/rw/home/amnesia/.gnupg/default-testpage.pdf"
+    # as /usr/lib/live/mount/overlay.
+    And AppArmor has denied "/usr/bin/evince" from opening "/usr/lib/live/mount/overlay/rw/home/amnesia/.gnupg/default-testpage.pdf"
 
   Scenario: I can view and print a PDF file stored in persistent /home/amnesia/Persistent
     Given I have started Tails without network from a USB drive with a persistent partition enabled and logged in
