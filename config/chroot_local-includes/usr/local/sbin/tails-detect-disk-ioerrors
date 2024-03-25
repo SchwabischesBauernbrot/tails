@@ -103,7 +103,12 @@ class IOErrorPattern:
         self.cleartext_device: Optional[str] = None
 
     def _add_pattern_boot_device(self, device: str):
-        self.patterns.append(f"I/O error, dev {device}, sector")
+        self.patterns.extend(
+                [
+                    f"I/O error, dev {device}, sector",
+                    f"critical target error, dev {device}, sector",
+                ]
+            )
         self.boot_device = device
         print(f"set boot device to {device}")
 
@@ -114,7 +119,6 @@ class IOErrorPattern:
     def _add_pattern_cleartext_device(self, device: str):
         self.patterns.extend(
             [
-                f"critical target error, dev {device}, sector",
                 f"Buffer I/O error on dev {device}, logical block",
                 f"JBD2: I/O error when updating journal superblock for {device}",
             ]

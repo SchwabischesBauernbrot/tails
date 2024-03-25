@@ -13,6 +13,7 @@ Feature: Hardware failures
       | device |
       | SquashFS |
       | boot device |
+      | boot device with a target error |
 
   @doc
   Scenario Outline: Alerting about disk read failures in GNOME
@@ -25,5 +26,6 @@ Feature: Hardware failures
       | device |
       | SquashFS |
       | boot device |
+      | boot device with a target error |
       | Persistence |
       | tps |

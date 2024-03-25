@@ -10,7 +10,7 @@ Given /^I start the computer from DVD with network unplugged( and an unsupported
   the_computer_boots
 end
 
-When /^Tails detects disk read failures on (.+)$/ do | device |
+When /^Tails detects disk read failures on (.+)$/ do |device|
   disk_ioerrors = '/var/lib/live/tails.disk.ioerrors'
   fake_ioerror_script_path = '/tmp/fake_ioerror.py'
 
@@ -18,8 +18,11 @@ When /^Tails detects disk read failures on (.+)$/ do | device |
   when 'SquashFS'
     fake_error = 'SQUASHFS error: A fake error.'
   when 'boot device'
-    b_d = boot_device.delete_prefix('/dev/')
+    b_d = boot_device.delete_prefix('/dev/').delete_suffix('1')
     fake_error = "I/O error, dev #{b_d}, sector - a fake boot device one."
+  when 'boot device with a target error'
+    b_d = boot_device.delete_prefix('/dev/').delete_suffix('1')
+    fake_error = "critical target error, dev #{b_d}, sector - a fake boot device one."
   when 'Persistence'
     cleartext_device = 'dm-0'  # I don't know how to request the system to get this information
                                # I see it in udisks2ctl --block-device <tps_device>,
