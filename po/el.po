@@ -33,7 +33,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-26 10:14+0100\n"
+"POT-Creation-Date: 2024-03-26 11:11+0100\n"
 "PO-Revision-Date: 2024-01-15 22:06+0000\n"
 "Last-Translator: george kitsoukakis <norhorn@gmail.com>\n"
 "Language-Team: Greek <https://hosted.weblate.org/projects/tor/tails-gui/el/"
@@ -154,10 +154,10 @@ msgstr "Απομάκρυνση"
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:729
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:720
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-errors:28
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:367
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:372
 msgid "Cancel"
 msgstr "Ακύρωση"
 
@@ -775,12 +775,12 @@ msgid "_Offline Mode"
 msgstr "_Λειτουργία εκτός σύνδεσης"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:276
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:413
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:445
 msgid "Enable networking (default)"
 msgstr "Ενεργοποίηση δικτύωσης (προεπιλογή)"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:278
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:459
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:491
 msgid "Disable all networking"
 msgstr "Απενεργοποιήστε όλα τα δίκτυα"
 
@@ -926,30 +926,21 @@ msgstr "_Τύποι"
 msgid "_Keyboard Layout"
 msgstr "_Διάταξη Πληκτρολογίου"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:314
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:309
 #, python-format
 msgid "Unable to write on %(device)s, skipping."
 msgstr "Αδυναμία εγγραφής στο %(device)s, παράκαμψη."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:359
-#, python-format
-msgid ""
-"Some partitions of the target device %(device)s are mounted. They will be "
-"unmounted before starting the installation process."
-msgstr ""
-"Κάποιες κατατμήσεις του δίσκου %(device)s είναι προσαρτημένες. Θα "
-"αποσυνδεθούν πριν ξεκινήσει η διαδικασία εγκατάστασης."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:377
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:358
 #, fuzzy, python-format
 msgid "Wrote to device at %(speed)d MB/s"
 msgstr "Έγινε εγγραφή στην συσκευή με ταχύτητα %(speed)d MB/sec"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:389
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:370
 msgid "Extracting live image to the target device..."
 msgstr "Εξαγωγή ζωντανής εικόνας στην επιλεγμένη συσκευή..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:484
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:465
 #, python-format
 msgid ""
 "There was a problem executing the following command: `%(command)s`.\n"
@@ -959,7 +950,7 @@ msgstr ""
 "`%(command)s`.\n"
 "Μια λεπτομερείς καταγραφή του σφάλματος καταχωρήθηκε στο ''%(filename)s''."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:503
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:484
 #, python-format
 msgid ""
 "Not enough free space on device.\n"
@@ -969,163 +960,148 @@ msgstr ""
 "%(iso_size)dMB ISO + %(overlay_size)dMB overlay > %(free_space)dMB ελεύθερου "
 "χώρου"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:516
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:497
 #, python-format
 msgid "Creating %sMB persistent overlay"
 msgstr "Δημιουργία %sMB μόνιμου χώρου"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:583
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:563
 #, python-format
 msgid "Unable to copy %(infile)s to %(outfile)s: %(message)s"
 msgstr "Αδυναμία αντιγραφής %(infile)s στο %(outfile)s: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:596
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:576
 msgid "Removing existing Tails system"
 msgstr "Αφαίρεση υπάρχοντος συστήματος Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:607
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:587
 #, python-format
 msgid "Unable to remove file from previous Tails system: %(message)s"
 msgstr ""
 "Η αφαίρεση του αρχείου του προηγούμενου συστήματος Tails δεν είναι δυνατή: "
 "%(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:617
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:597
 #, python-format
 msgid "Unable to chmod %(file)s: %(message)s"
 msgstr "Αδυναμία εφαρμογής chmod στο/στα αρχείο/α %(file)s: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:625
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:605
 #, python-format
 msgid "Unable to remove directory from previous Tails system: %(message)s"
 msgstr ""
 "Η αφαίρεση του καταλόγου προηγούμενου συστήματος Tails δεν είναι δυνατή: "
 "%(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:676
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:656
 #, python-format
 msgid "Cannot find device %s"
 msgstr "Αδυναμία εύρεσης συσκευής %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:712
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:976
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:692
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1007
 msgid "Unknown filesystem.  Your device may need to be reformatted."
 msgstr "Άγνωστο σύστημα αρχείων. Η συσκευή μπορεί να χρειάζεται διαμόρφωση."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:715
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:979
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:695
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1010
 #, python-format
 msgid "Unsupported filesystem: %s"
 msgstr "Μη υποστηριζόμενο σύστημα αρχείων: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:731
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:711
 #, python-format
 msgid "Unknown GLib exception while trying to mount device: %(message)s"
 msgstr ""
 "Άγνωστη εξαίρεση GLib κατά την προσπάθεια προσάρτησης της συσκευής: "
 "%(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:738
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:718
 #, python-format
 msgid "Unable to mount device: %(message)s"
 msgstr "Αδυναμία προσάρτησης συσκευής: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:743
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:723
 msgid "No mount points found"
 msgstr "Δεν βρέθηκαν σημεία προσάρτησης"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:754
-#, python-format
-msgid "Entering unmount_device for \"%(device)s\""
-msgstr "Εισαγωγή unmount_device για ''%(device)s''"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:765
-#, python-format
-msgid "Unmounting mounted filesystems on \"%(device)s\""
-msgstr "Αποπροσάρτηση προσαρτημένων συστημάτων αρχείων σε ''%(device)s''"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:771
-#, python-format
-msgid "Unmounting \"%(udi)s\" on \"%(device)s\""
-msgstr "Αποπροσάρτηση ''%(udi)s'' σε ''%(device)s''"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:784
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:815
 #, python-format
 msgid "Mount %s exists after unmounting"
 msgstr "Η προσάρτηση %s παραμένει μετά την αποπροσάρτηση"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:815
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:846
 #, python-format
 msgid "Partitioning device %(device)s"
 msgstr "Κατάτμηση συσκευής %(device)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:960
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:991
 #, python-format
 msgid "Unsupported device '%(device)s', please report a bug."
 msgstr ""
 "Μη υποστηριζόμενη συσκευή '%(device)s', παρακαλούμε να αναφέρετε το σφάλμα."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:963
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:994
 msgid "Trying to continue anyway."
 msgstr "Προσπάθεια να συνεχίσετε ούτως ή άλλως."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:972
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1003
 msgid "Verifying filesystem..."
 msgstr "Έλεγχος συστήματος αρχείων..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1001
-#, python-format
-msgid "Unable to change volume label: %(message)s"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1026
+#, fuzzy, python-format
+msgid "Unable to change volume label: %s"
 msgstr "Αδυναμία αλλαγής ετικέτας του τομέα: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1007
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1032
 msgid "Installing bootloader..."
 msgstr "Εγκατάσταση φορτωτή εκκίνησης..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1015
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1040
 #, python-format
 msgid "Removing %(file)s"
 msgstr "Απομακρύνονται τα %(file)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1045
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1069
 msgid "Cloning Persistent Storage..."
 msgstr "Αντίγραφο μόνιμου αποθηκευτικού χώρου..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1128
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1152
 #, python-format
 msgid "%s already bootable"
 msgstr "%s ήδη επανεκκινήσιμο"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1149
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1173
 msgid "Unable to find partition"
 msgstr "Αδυναμία εντοπισμού κατάτμησης"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1195
 #, python-format
 msgid "Formatting %(device)s as FAT32"
 msgstr "Η συσκευή %(device)s διαμορφώνεται ως FAT32"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1248
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1272
 #, python-format
 msgid "Reading extracted MBR from %s"
 msgstr "Γίνεται ανάγνωση του εξαγόμενου MBR από %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1253
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1277
 #, python-format
 msgid "Could not read the extracted MBR from %(path)s"
 msgstr "Δεν ήταν δυνατή η ανάγνωση του εξαγόμενου MBR από %(path)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1267
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1268
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1291
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1292
 #, python-format
 msgid "Resetting Master Boot Record of %s"
 msgstr "Επαναφορά Master Boot Record στο %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1273
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1297
 msgid "Drive is a loopback, skipping MBR reset"
 msgstr "Η συσκευή είναι loopback. Παρακάμπτεται η επαναφορά του MBR"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1277
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1301
 msgid "Synchronizing data on disk..."
 msgstr "Γίνεται συγχρονισμός των δεδομένων δίσκου..."
 
@@ -1146,58 +1122,58 @@ msgstr "Η εγκατάσταση ολοκληρώθηκε! (%s)"
 msgid "Tails installation failed!"
 msgstr "Η εγκατάσταση του Tails απέτυχε!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:318
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:317
 #: ../config/chroot_local-includes/usr/share/applications/tails-installer.desktop.in.h:1
 msgid "Tails Cloner"
 msgstr "Πρόγραμμα αντιγραφής Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:370
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:369
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:164
 msgid "Clone the current Tails"
 msgstr "Κλωνοποίηση του τρέχοντος Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:378
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:377
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:200
 msgid "Use a downloaded Tails ISO image"
 msgstr "Χρησιμοποιήστε μια κατεβασμένη ISO image του Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:430
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:429
 msgid "Upgrade"
 msgstr "Αναβάθμιση"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:431
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:430
 msgid "Manual Upgrade Instructions"
 msgstr "Οδηγίες χειροκίνητης αναβάθμισης"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:442
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:715
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:441
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:706
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:374
 msgid "Install"
 msgstr "Εγκατάσταση"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:445
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:444
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:131
 msgid "Installation Instructions"
 msgstr "Οδηγίες εγκατάστασης"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:448
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:447
 msgid "Backup Instructions"
 msgstr "Οδηγίες λήψης αντιγράφου ασφαλείας"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:459
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:458
 #, python-format
 msgid "%(size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(size)s %(vendor)s %(model)s συσκευή (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:472
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:471
 msgid "No ISO image selected"
 msgstr "Δεν έχει επιλεχθεί ISO image"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:472
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:471
 msgid "Please select a Tails ISO image."
 msgstr "Παρακαλούμε επιλέξτε ένα ISO image του Tails."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:530
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:529
 msgid ""
 "Clone the current Persistent Storage\n"
 "Impossible to clone the Persistent Storage because it is locked."
@@ -1205,12 +1181,12 @@ msgstr ""
 "Κλωνοποίηση τρέχων μόνιμου αποθηκευτικού χώρου\n"
 "Αδύνατη η κλωνοποίηση του αποθηκευτικού χώρου, είναι κλειδωμένο."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:534
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:533
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:180
 msgid "Clone the current Persistent Storage"
 msgstr "Αντίγραφο του υπάρχων μόνιμου αποθηκευτικού χώρου"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:537
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:536
 msgid ""
 "Clone the current Persistent Storage\n"
 "You can only choose to reinstall when cloning the Persistent Storage."
@@ -1219,7 +1195,7 @@ msgstr ""
 "Μπορείτε να επιλέξετε επανεγκατάσταση μόνο όταν κλωνοποιείτε τον "
 "αποθηκευτικό χώρο."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:583
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:574
 #, python-format
 msgid ""
 "The USB stick \"%(pretty_name)s\" is configured as non-removable by its "
@@ -1230,7 +1206,7 @@ msgstr ""
 "αφαιρέσιμο από τον κατασκευαστή του και το Tails θα αποτύχουν να εκκινηθούν "
 "σε αυτό. Παρακαλώ προσπαθήστε να εγκαταστήσετε σε διαφορετικό μοντέλο."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:593
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:584
 #, python-format
 msgid ""
 "The device \"%(pretty_name)s\" is too small to install Tails (at least "
@@ -1239,7 +1215,7 @@ msgstr ""
 "Η συσκευή \"%(pretty_name)s\" είναι πολύ μικρή για να εγκαταστήσετε το Tails "
 "(απαιτούνται τουλάχιστον %(size)s GB)."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:608
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:599
 #, python-format
 msgid ""
 "To upgrade device \"%(pretty_name)s\" from this Tails, you need to use a "
@@ -1251,36 +1227,36 @@ msgstr ""
 "κατεβάσει:\n"
 "%(dl_url)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:629
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:620
 msgid "No device suitable to install Tails could be found"
 msgstr ""
 "Δε βρέθηκε συσκευή που να πληρεί τις προϋποθέσεις για την εγκατάσταση του "
 "Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:632
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:623
 #, fuzzy, python-format
 msgid "Plug in a USB stick of at least %0.1f GB."
 msgstr ""
 "Παρακαλώ εισάγετε μονάδα δίσκου usb ή κάρτα SD μεγέθους τουλάχιστον %0.1f GB."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:645
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:636
 msgid "An error happened while installing Tails"
 msgstr "Προέκυψε σφάλμα κατά την εγκατάσταση του Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:702
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:693
 msgid "Installation complete!"
 msgstr "Η εγκατάσταση ολοκληρώθηκε!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:764
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:755
 msgid "Unable to mount device"
 msgstr "Αδυναμία προσάρτησης συσκευής"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:771
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:762
 #, python-format
 msgid "%(parent_size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(parent_size)s %(vendor)s %(model)s συσκευή (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:784
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:775
 #, fuzzy
 msgid ""
 "\n"
@@ -1291,11 +1267,11 @@ msgstr ""
 "\n"
 "Ο μόνιμος χώρος του αφαιρούμενου μέσου USB θα χαθεί."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:786
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:777
 msgid "Delete Persistent Storage and Reinstall"
 msgstr "Διαγραφή του μόνιμου αποθηκευτικού χώρου και επανεγκατάσταση"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:788
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:779
 msgid ""
 "\n"
 "\n"
@@ -1305,20 +1281,20 @@ msgstr ""
 "\n"
 "Όλα τα δεδομένα αυτής της μονάδας USB θα χαθούν."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:789
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:780
 msgid "Delete All Data and Install"
 msgstr "Διαγραφή όλων των δεδομένων και εγκατάσταση"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:790
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:781
 #, python-format
 msgid "%(description)s%(delete_message)s"
 msgstr "%(description)s%(delete_message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:795
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:786
 msgid "Confirm the target USB stick"
 msgstr "Επιβεβαιώστε τη μονάδα USB προορισμού"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:838
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:829
 msgid ""
 "The selected file is unreadable. Please fix its permissions or select "
 "another file."
@@ -1326,7 +1302,7 @@ msgstr ""
 "Το συγκεκριμένο αρχείο δεν μπορεί να αναγνωσθεί. Παρακαλώ διορθώστε τα "
 "δικαιώματά του ή διαλέξτε άλλο αρχείο."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:848
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:839
 msgid ""
 "Unable to use the selected file.  You may have better luck if you move your "
 "ISO to the root of your drive (ie: C:\\)"
@@ -1334,7 +1310,7 @@ msgstr ""
 "Αδυναμία χρήσης του επιλεγμένου αρχείου. Μπορεί να έχετε καλύτερη τύχη αν "
 "μετακινήσετε το ISO στη ρίζα του δίσκου σας (π.χ.: C:\\)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:857
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:848
 #, python-format
 msgid "%(filename)s selected"
 msgstr "επιλέχθηκαν %(filename)s"
@@ -1617,7 +1593,7 @@ msgid "Password"
 msgstr "Κωδικός ασφαλείας"
 
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:150
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:93
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:109
 msgid "Confirm"
 msgstr "Επιβεβαίωση"
 
@@ -1901,7 +1877,7 @@ msgstr "Κατάσταση του Tor"
 msgid "Open Onion Circuits"
 msgstr "Άνοιγμα κυκλωμάτων του Onion"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:362
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:340
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1914,11 +1890,11 @@ msgstr ""
 "\n"
 "Δοκιμάστε ξανά μετά το κλείσιμο ορισμένων εφαρμογών ή κάντε επανεκκίνηση."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:376
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:354
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Δημιουργία διαμερίσματος για τον Μόνιμο αποθηκευτικό χώρο..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:398
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:376
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
@@ -1926,23 +1902,23 @@ msgstr ""
 "Εκκίνηση της κρυπτογράφησης LUKS... Ο υπολογιστής ενδέχεται να σταματήσει να "
 "ανταποκρίνεται για μερικά δευτερόλεπτα."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:425
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:403
 msgid "Unlocking the encryption..."
 msgstr "Ξεκλείδωμα της κρυπτογράφησης..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:433
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:411
 msgid "Formatting the file system..."
 msgstr "Μορφοποίηση συστήματος αρχείων..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:451
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:429
 msgid "Activating the Persistent Storage..."
 msgstr "Ενεργοποίηση μόνιμου αποθηκευτικού χώρου..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:456
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:434
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Ολοκλήρωση της ρύθμισης μόνιμου αποθηκευτικού χώρου..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:706
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:684
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1954,6 +1930,17 @@ msgstr ""
 "που θα μπορούσαν να έχουν πρόσβαση και δοκιμάστε ξανά. Εάν αυτό δε "
 "λειτουργήσει, επανεκκινήστε το Tails και δοκιμάστε να διαγράψετε τον Μόνιμο "
 "αποθηκευτικό χώρο χωρίς να τον ξεκλειδώσετε."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:717
+#, fuzzy
+msgid ""
+"Not enough memory to change the passphrase of the Persistent Storage. Try "
+"again after closing some applications or rebooting."
+msgstr ""
+"Διατίθεται μόνο {available_memory} KiB μνήμης, χρειάζεται τουλάχιστον "
+"{required_memory} KiB.\n"
+"\n"
+"Δοκιμάστε ξανά μετά το κλείσιμο ορισμένων εφαρμογών ή κάντε επανεκκίνηση."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/configuration/binding.py:425
 #, python-brace-format
@@ -1982,44 +1969,44 @@ msgstr "Αποτυχία εκκίνησης της υπηρεσίας Μόνιμ
 msgid "Could not find the WhisperBack application"
 msgstr "Δεν ήταν δυνατή η εύρεση της εφαρμογής WhisperBack"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:87
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:92
 msgid "Delete Data…"
 msgstr "Διαγραφή δεδομένων…"
 
 #. Translators: Don't translate {feature}, it's a placeholder
 #. and will be replaced.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:93
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:98
 #, python-brace-format
 msgid "Delete {feature} data"
 msgstr "Διαγραφή δεδομένων {feature}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:115
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:120
 msgid "Activation failed"
 msgstr "Αποτυχία ενεργοποίησης"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:176
 msgid "Activation failed. Try again or delete data."
 msgstr "Η ενεργοποίηση απέτυχε. Δοκιμάστε ξανά ή διαγράψτε δεδομένα."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:178
 msgid "Activation failed. Try again."
 msgstr "Η ενεργοποίηση απέτυχε. Προσπαθήστε ξανά."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:175
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:180
 msgid "The data of this feature is still saved."
 msgstr "Τα δεδομένα αυτής της δυνατότητας εξακολουθούν να είναι αποθηκευμένα."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:282
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:289
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:287
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:294
 msgid "Error activating feature {}"
 msgstr "Σφάλμα ενεργοποίησης λειτουργίας: {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:330
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:337
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:335
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:342
 msgid "Error deactivating feature {}"
 msgstr "Σφάλμα απενεργοποίησης λειτουργίας {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:357
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:362
 msgid ""
 "Delete all the data of the {} feature that is saved in the Persistent "
 "Storage?\n"
@@ -2032,34 +2019,34 @@ msgstr ""
 "Εάν κάνετε ακύρωση, τα δεδομένα θα αποκατασταθούν όταν ενεργοποιήσετε ξανά "
 "αυτήν τη λειτουργία."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:368
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:373
 msgid "_Delete Data"
 msgstr "_Διαγραφή δεδομένων"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:398
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:403
 msgid "Error deleting data of feature {}"
 msgstr "Σφάλμα κατά τη διαγραφή δεδομένων της δυνατότητας {}"
 
 #. Translators: Don't translate {applications}, it's a placeholder
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:503
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:508
 #, python-brace-format
 msgid "Close {applications} to continue"
 msgstr "Κλείστε {applications} για να συνεχίσετε"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:504
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:509
 msgid " and "
 msgstr " και "
 
 #. Translators: Don't translate {app} and {pid}, they
 #. are placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:515
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:520
 #, python-brace-format
 msgid "{app} (PID: {pid})"
 msgstr "{app} (PID: {pid})"
 
 #. Translators: Don't translate {app} and {pids}, they
 #. are placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:520
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:525
 #, python-brace-format
 msgid "{app} (PIDs: {pids})"
 msgstr "{app} (PIDs: {pids})"
@@ -2070,11 +2057,12 @@ msgstr "{app} (PIDs: {pids})"
 msgid "Change Passphrase"
 msgstr "Αλλαγή φράσης πρόσβασης"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:90
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:91
 msgid "The current passphrase is incorrect"
 msgstr "Η τρέχουσα φράση πρόσβασης είναι λανθασμένη"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:100
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:102
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:112
 msgid "Changing the passphrase failed"
 msgstr "Η αλλαγή της φράσης πρόσβασης απέτυχε"
 
@@ -2417,7 +2405,7 @@ msgstr ""
 
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:95
 #: ../config/chroot_local-includes/usr/share/applications/unsafe-browser.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:512
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:544
 msgid "Unsafe Browser"
 msgstr "Unsafe Browser"
 
@@ -2697,24 +2685,24 @@ msgstr ""
 "πραγματοποιήσετε διαχειριστικές εργασίες. Ειδάλλως θα απενεργοποιηθεί για "
 "καλύτερη ασφάλεια."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:69
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:77
 msgid "Enter an administration password"
 msgstr "Εισάγετε έναν κωδικό διαχειριστή"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:107
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:131
 msgid "Confirm your administration password"
 msgstr "Επιβεβαίωσε τον κωδικό διαχειριστή"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:124
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:156
 msgid "Disable"
 msgstr "Απενεργοοίηση"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:154
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:186
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:840
 msgid "MAC Address Anonymization"
 msgstr "Ανωνυμοποίηση διευθύνσεων MAC"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:170
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:202
 msgid ""
 "MAC address anonymization hides the serial number of your network interface "
 "(Wi-Fi or wired) from the local network. Anonymizing MAC addresses is "
@@ -2726,20 +2714,20 @@ msgstr ""
 "ασφαλέστερο γιατί βοηθά στην απόκρυψη της γεωγραφικής θέσης. Μπορεί όμως να "
 "δημιουργήσει προβλήματα συνδεσιμότητας ή να φαίνεται ύποπτο."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:212
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:244
 msgid "Anonymize all MAC addresses (default)"
 msgstr "Ανωνυμοποιήστε όλες τις διευθύνσεις MAC (προεπιλογή)"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:258
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:290
 msgid "Don't anonymize MAC addresses"
 msgstr "Χωρίς ανωνυμοποίηση των διευθύνσεων MAC"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:311
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:343
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:844
 msgid "Network Configuration"
 msgstr "Ρύθμιση δικτύου"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:327
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:359
 msgid ""
 "We replaced this additional setting in Tails 4.19 (June 2021) with a Tor "
 "Connection assistant integrated in the desktop.\n"
@@ -2759,11 +2747,11 @@ msgstr ""
 "Αν θέλετε να δουλέψετε εκτός σύνδεσης, ενεργοποιήστε τη Λειτουργία εκτός "
 "σύνδεσης στις επιπλέον ρυθμίσεις."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:357
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:389
 msgid "Offline Mode"
 msgstr "Λειτουργία εκτός σύνδεσης"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:373
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:405
 msgid ""
 "If you want to work completely offline, you can disable all networking for "
 "increased security."
@@ -2771,7 +2759,7 @@ msgstr ""
 "Αν θέλετε να δουλέψετε χωρίς καμία σύνδεση στο Διαδίκτυο, μπορείτε να "
 "απενεργοποιήσετε όλη τη δικτύωση για αυξημένη ασφάλεια."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:528
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:560
 msgid ""
 "The Unsafe Browser allows you to sign in to a network using a captive "
 "portal.\n"
@@ -2801,11 +2789,11 @@ msgstr ""
 "(Δεκέμβριος 2022), μετά τη διόρθωση του ζητήματος ασφαλείας που μας "
 "υποχρέωσε να το απενεργοποιήσουμε από προεπιλογή στο Tails 4.8 (Ιούνιο 2020)."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:576
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:608
 msgid "Enable the Unsafe Browser (default)"
 msgstr "Ενεργοποίηση του Unsafe Browser (προεπιλογή)"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:622
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:654
 msgid "Disable the Unsafe Browser"
 msgstr "Απενεργοποίηση του Unsafe Browser"
 
@@ -3870,7 +3858,28 @@ msgstr "Δεκέμβριος"
 msgid "Clock"
 msgstr "Ρολόι"
 
+#, python-format
+#~ msgid ""
+#~ "Some partitions of the target device %(device)s are mounted. They will be "
+#~ "unmounted before starting the installation process."
+#~ msgstr ""
+#~ "Κάποιες κατατμήσεις του δίσκου %(device)s είναι προσαρτημένες. Θα "
+#~ "αποσυνδεθούν πριν ξεκινήσει η διαδικασία εγκατάστασης."
+
+#, python-format
+#~ msgid "Entering unmount_device for \"%(device)s\""
+#~ msgstr "Εισαγωγή unmount_device για ''%(device)s''"
+
+#, python-format
+#~ msgid "Unmounting mounted filesystems on \"%(device)s\""
+#~ msgstr "Αποπροσάρτηση προσαρτημένων συστημάτων αρχείων σε ''%(device)s''"
+
+#, python-format
+#~ msgid "Unmounting \"%(udi)s\" on \"%(device)s\""
+#~ msgstr "Αποπροσάρτηση ''%(udi)s'' σε ''%(device)s''"
+
 #, fuzzy
+#~| msgid "Report an error"
 #~ msgid "Report an Error"
 #~ msgstr "Αναφορά σφάλματος"
 

@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-26 10:14+0100\n"
+"POT-Creation-Date: 2024-03-26 11:11+0100\n"
 "PO-Revision-Date: 2024-02-08 21:01+0000\n"
 "Last-Translator: tictactoe <phandinhminh@protonmail.ch>\n"
 "Language-Team: Vietnamese <https://hosted.weblate.org/projects/tor/tails-gui/"
@@ -128,10 +128,10 @@ msgstr "Gỡ bỏ"
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:729
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:720
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-errors:28
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:367
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:372
 msgid "Cancel"
 msgstr "Hủy bỏ"
 
@@ -737,12 +737,12 @@ msgid "_Offline Mode"
 msgstr "_Chế độ ngoại tuyến"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:276
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:413
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:445
 msgid "Enable networking (default)"
 msgstr "Kích hoạt kết nối mạng (mặc định)"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:278
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:459
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:491
 msgid "Disable all networking"
 msgstr "Vô hiệu hoá tất cả các chức năng mạng"
 
@@ -886,30 +886,21 @@ msgstr "_Định dạng"
 msgid "_Keyboard Layout"
 msgstr "_Bố cục bàn phím"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:314
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:309
 #, python-format
 msgid "Unable to write on %(device)s, skipping."
 msgstr "Không thể viết lên %(device)s, đang bỏ qua."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:359
-#, python-format
-msgid ""
-"Some partitions of the target device %(device)s are mounted. They will be "
-"unmounted before starting the installation process."
-msgstr ""
-"Một vài phân vùng của thiết bị %(device)s đã được gắn lên. Chũng sẽ bị gỡ ra "
-"trước khi bắt đầu quá trình cài đặt."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:377
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:358
 #, fuzzy, python-format
 msgid "Wrote to device at %(speed)d MB/s"
 msgstr "Đã được viết vào thiết bị tại %(speed)d MB/giây"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:389
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:370
 msgid "Extracting live image to the target device..."
 msgstr "Đang trích xuất hình ảnh live trực tuyến tới thiết bị đích..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:484
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:465
 #, python-format
 msgid ""
 "There was a problem executing the following command: `%(command)s`.\n"
@@ -919,7 +910,7 @@ msgstr ""
 "`%(command)s`.\n"
 "Một nhật ký Log lỗi bug chi tiết hơn đã được ghi nhận vào \"%(filename)s\"."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:503
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:484
 #, python-format
 msgid ""
 "Not enough free space on device.\n"
@@ -929,160 +920,144 @@ msgstr ""
 "%(iso_size)dMB ISO + %(overlay_size)dMB đè lên > %(free_space)dMB không gian "
 "trống"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:516
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:497
 #, python-format
 msgid "Creating %sMB persistent overlay"
 msgstr "Đang tạo vùng cố định %sMB"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:583
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:563
 #, python-format
 msgid "Unable to copy %(infile)s to %(outfile)s: %(message)s"
 msgstr "Không thể chép %(infile)s tới %(outfile)s: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:596
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:576
 msgid "Removing existing Tails system"
 msgstr "Loại bỏ hệ thống Tails đang tồn tại"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:607
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:587
 #, python-format
 msgid "Unable to remove file from previous Tails system: %(message)s"
 msgstr "Không thể loại bỏ tập tin khỏi hệ thống Tails trước đó: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:617
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:597
 #, python-format
 msgid "Unable to chmod %(file)s: %(message)s"
 msgstr "Không thể chmod %(file)s: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:625
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:605
 #, python-format
 msgid "Unable to remove directory from previous Tails system: %(message)s"
 msgstr "Không thể loại bỏ thư mục khỏi hệ thống Tails trước đó: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:676
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:656
 #, python-format
 msgid "Cannot find device %s"
 msgstr "Không thể tìm thấy thiết bị %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:712
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:976
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:692
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1007
 msgid "Unknown filesystem.  Your device may need to be reformatted."
 msgstr ""
 "Định dạng không xác định.  Thiết bị của bạn có thể cần được định dạng lại."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:715
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:979
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:695
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1010
 #, python-format
 msgid "Unsupported filesystem: %s"
 msgstr "Tập tin hệ thống không được hỗ trợ: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:731
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:711
 #, python-format
 msgid "Unknown GLib exception while trying to mount device: %(message)s"
 msgstr ""
 "Ngoại lệ GLib không xác định trong khi cố gắng gắn kết nối thiết bị: "
 "%(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:738
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:718
 #, python-format
 msgid "Unable to mount device: %(message)s"
 msgstr "Không thể gắn thiết bị: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:743
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:723
 msgid "No mount points found"
 msgstr "Không có ổ đĩa được tìm thấy"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:754
-#, python-format
-msgid "Entering unmount_device for \"%(device)s\""
-msgstr "Đang nhập _thiết bị rời unmount cho \"%(device)s\""
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:765
-#, python-format
-msgid "Unmounting mounted filesystems on \"%(device)s\""
-msgstr ""
-"Đang tách rời unmount hệ thống tập tin đã gắn mounted trên \"%(device)s\""
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:771
-#, python-format
-msgid "Unmounting \"%(udi)s\" on \"%(device)s\""
-msgstr "Đang tách rời unmount \"%(udi)s\" trên \"%(device)s\""
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:784
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:815
 #, python-format
 msgid "Mount %s exists after unmounting"
 msgstr "Việc gắn %s thoát ra sau khi gỡ bỏ"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:815
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:846
 #, python-format
 msgid "Partitioning device %(device)s"
 msgstr "Đang phân vùng thiết bị %(device)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:960
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:991
 #, python-format
 msgid "Unsupported device '%(device)s', please report a bug."
 msgstr "Thiết bị không được hỗ trợ '%(device)s', vui lòng báo lỗi."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:963
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:994
 msgid "Trying to continue anyway."
 msgstr "Dù sao cũng cứ cố gắng tiếp tục."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:972
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1003
 msgid "Verifying filesystem..."
 msgstr "Đang xác minh hệ thống tập tin..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1001
-#, python-format
-msgid "Unable to change volume label: %(message)s"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1026
+#, fuzzy, python-format
+msgid "Unable to change volume label: %s"
 msgstr "Không thể đổi tên ổ đĩa: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1007
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1032
 msgid "Installing bootloader..."
 msgstr "Đang cài đặt chương trình khởi động..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1015
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1040
 #, python-format
 msgid "Removing %(file)s"
 msgstr "Đang loại bỏ %(file)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1045
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1069
 msgid "Cloning Persistent Storage..."
 msgstr "Nhân bản Clone Ổ đĩa lưu trữ Bền vững..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1128
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1152
 #, python-format
 msgid "%s already bootable"
 msgstr "%s đã có thể khởi động"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1149
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1173
 msgid "Unable to find partition"
 msgstr "Không thể tìm thấy phân vùng"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1195
 #, python-format
 msgid "Formatting %(device)s as FAT32"
 msgstr "Đang định dạng %(device)s ở dạng FAT32"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1248
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1272
 #, python-format
 msgid "Reading extracted MBR from %s"
 msgstr "Đọc MBR được giải nén từ %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1253
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1277
 #, python-format
 msgid "Could not read the extracted MBR from %(path)s"
 msgstr "Đã không thể đọc nổi MBR được giải nén từ %(path)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1267
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1268
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1291
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1292
 #, python-format
 msgid "Resetting Master Boot Record of %s"
 msgstr "Đang thiết lập lại Master Boot Record của %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1273
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1297
 msgid "Drive is a loopback, skipping MBR reset"
 msgstr "Ổ đĩa là loopback, bỏ qua việc thiết lập lại MBR"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1277
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1301
 msgid "Synchronizing data on disk..."
 msgstr "Đang đồng bộ hóa dữ liệu trên ổ đĩa..."
 
@@ -1103,60 +1078,60 @@ msgstr "Cài đặt hoàn tất! (%s)"
 msgid "Tails installation failed!"
 msgstr "Việc cài đặt Tails đã thất bại!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:318
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:317
 #: ../config/chroot_local-includes/usr/share/applications/tails-installer.desktop.in.h:1
 #, fuzzy
 msgid "Tails Cloner"
 msgstr "Trình cài đặt Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:370
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:369
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:164
 msgid "Clone the current Tails"
 msgstr "Tạo bản sao clone của Tails hiện tại"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:378
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:377
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:200
 msgid "Use a downloaded Tails ISO image"
 msgstr "Sử dụng tập tin image ISO Tails đã được tải xuống"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:430
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:429
 msgid "Upgrade"
 msgstr "Nâng cấp"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:431
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:430
 msgid "Manual Upgrade Instructions"
 msgstr "Hướng dẫn nâng cấp thủ công"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:442
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:715
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:441
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:706
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:374
 msgid "Install"
 msgstr "Cài đặt"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:445
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:444
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:131
 msgid "Installation Instructions"
 msgstr "Hướng dẫn cài đặt"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:448
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:447
 #, fuzzy
 msgid "Backup Instructions"
 msgstr "Hướng dẫn nâng cấp thủ công"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:459
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:458
 #, python-format
 msgid "%(size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(size)s %(vendor)s %(model)s thiết bị (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:472
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:471
 msgid "No ISO image selected"
 msgstr "Không có tập tin image ISO nào được chọn"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:472
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:471
 msgid "Please select a Tails ISO image."
 msgstr "Xin vui lòng lựa chọn một tập tin image ISO Tails."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:530
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:529
 msgid ""
 "Clone the current Persistent Storage\n"
 "Impossible to clone the Persistent Storage because it is locked."
@@ -1164,12 +1139,12 @@ msgstr ""
 "Nhân bản Clone Ổ đĩa lưu trữ Bền vững hiện thời\n"
 "Không thể thực thi nhân bản clone Ổ đĩa lưu trữ Bền vững bởi vì nó bị khoá."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:534
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:533
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:180
 msgid "Clone the current Persistent Storage"
 msgstr "Nhân bản Clone Ổ đĩa lưu trữ Bền vững hiện thời"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:537
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:536
 msgid ""
 "Clone the current Persistent Storage\n"
 "You can only choose to reinstall when cloning the Persistent Storage."
@@ -1178,7 +1153,7 @@ msgstr ""
 "Bạn chỉ có thể lựa chọn cài đặt lại trong khi nhân bản clone Ổ đĩa lưu trữ "
 "Bền vững."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:583
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:574
 #, python-format
 msgid ""
 "The USB stick \"%(pretty_name)s\" is configured as non-removable by its "
@@ -1189,7 +1164,7 @@ msgstr ""
 "sản xuất của nó và Tails sẽ bị hỏng nếu khởi chạy từ nó. Xin vui lòng thử "
 "cài đặt trên một mô-đen khác."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:593
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:584
 #, python-format
 msgid ""
 "The device \"%(pretty_name)s\" is too small to install Tails (at least "
@@ -1198,7 +1173,7 @@ msgstr ""
 "Thiết bị \"%(pretty_name)s\" quá nhỏ để cài đặt Tails (yêu cầu ít nhất "
 "%(size)s GB)."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:608
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:599
 #, python-format
 msgid ""
 "To upgrade device \"%(pretty_name)s\" from this Tails, you need to use a "
@@ -1209,33 +1184,33 @@ msgstr ""
 "một đĩa image ISO Tails đã được tải xuống:\n"
 "%(dl_url)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:629
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:620
 msgid "No device suitable to install Tails could be found"
 msgstr "Đã không thể tìm thấy thiết bị nào phù hợp cho việc cài đặt Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:632
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:623
 #, fuzzy, python-format
 msgid "Plug in a USB stick of at least %0.1f GB."
 msgstr "Hãy cắm một ổ USB di động hay thẻ SD với dung lượng ít nhất %0.1f GB."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:645
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:636
 msgid "An error happened while installing Tails"
 msgstr "Một lỗi đã xuất hiện trong khi cài đặt Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:702
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:693
 msgid "Installation complete!"
 msgstr "Cài đặt hoàn tất!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:764
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:755
 msgid "Unable to mount device"
 msgstr "Không thể gắn thiết bị"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:771
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:762
 #, python-format
 msgid "%(parent_size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(parent_size)s %(vendor)s %(model)s thiết bị (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:784
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:775
 #, fuzzy
 msgid ""
 "\n"
@@ -1246,11 +1221,11 @@ msgstr ""
 "\n"
 "Ổ lưu trữ liên tục kéo dài trên thẻ nhớ USB này sẽ bị mất."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:786
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:777
 msgid "Delete Persistent Storage and Reinstall"
 msgstr "Xoá Ổ đĩa lưu trữ liên tục kéo dài và Cài đặt lại"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:788
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:779
 msgid ""
 "\n"
 "\n"
@@ -1260,20 +1235,20 @@ msgstr ""
 "\n"
 "Mọi dữ liệu trên chiếc thẻ nhớ USB này sẽ bị mất."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:789
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:780
 msgid "Delete All Data and Install"
 msgstr "Xoá tất cả Dữ liệu và Cài đặt"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:790
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:781
 #, python-format
 msgid "%(description)s%(delete_message)s"
 msgstr "%(description)s%(delete_message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:795
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:786
 msgid "Confirm the target USB stick"
 msgstr "Hãy xác nhận thẻ nhớ USB đích đến"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:838
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:829
 msgid ""
 "The selected file is unreadable. Please fix its permissions or select "
 "another file."
@@ -1281,7 +1256,7 @@ msgstr ""
 "Tập tin được chọn không thể đọc được. Vui lòng sửa quyền hạn của nó hoặc "
 "chọn một tập tin khác."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:848
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:839
 msgid ""
 "Unable to use the selected file.  You may have better luck if you move your "
 "ISO to the root of your drive (ie: C:\\)"
@@ -1289,7 +1264,7 @@ msgstr ""
 "Không thể sử dụng tập tin được chọn.  Bạn có thể may mắn hơn nếu bạn di "
 "chuyển ISO của bạn tới root gốc ổ đĩa của bạn (ví dụ như: C:\\)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:857
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:848
 #, python-format
 msgid "%(filename)s selected"
 msgstr "%(filename)s được chọn"
@@ -1566,7 +1541,7 @@ msgid "Password"
 msgstr "Mật khẩu"
 
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:150
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:93
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:109
 msgid "Confirm"
 msgstr "Xác nhận"
 
@@ -1848,7 +1823,7 @@ msgstr "Trạng thái Tor"
 msgid "Open Onion Circuits"
 msgstr "Mở các mạch nối Onion"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:362
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:340
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1861,11 +1836,11 @@ msgstr ""
 "\n"
 "Hãy thử lại sau khi đóng một số các ứng dụng hoặc khởi động lại máy."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:376
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:354
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Tạo ra một phân vùng bộ nhớ cho Ổ đĩa lưu trữ Bền vững..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:398
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:376
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
@@ -1873,23 +1848,23 @@ msgstr ""
 "Đang khởi tạo mã hoá LUKS... Máy tính có thể sẽ dừng phản hồi trong một vài "
 "giây."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:425
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:403
 msgid "Unlocking the encryption..."
 msgstr "Đang mở khoá mã hoá..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:433
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:411
 msgid "Formatting the file system..."
 msgstr "Đang Format hệ thống file tập tin..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:451
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:429
 msgid "Activating the Persistent Storage..."
 msgstr "Đang kích hoạt Ổ đĩa lưu trữ Bền vững..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:456
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:434
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Đang hoàn tất cài đặt thiết lập Ổ đĩa lưu trữ Bền vững..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:706
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:684
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1900,6 +1875,17 @@ msgstr ""
 "dụng nó. Xin vui lòng đóng tất cả các ứng dụng mà có thể đang truy cập nó và "
 "thử lại. Nếu như điều đó không thực hiện được, hãy khởi động lại Tails và "
 "thử xoá bỏ đi Ổ đĩa lưu trữ Bền vững mà không mở khoá nó."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:717
+#, fuzzy
+msgid ""
+"Not enough memory to change the passphrase of the Persistent Storage. Try "
+"again after closing some applications or rebooting."
+msgstr ""
+"Chỉ có {available_memory} KiB của bộ nhớ là khả dụng, cần có ít nhất "
+"{required_memory} KiB.\n"
+"\n"
+"Hãy thử lại sau khi đóng một số các ứng dụng hoặc khởi động lại máy."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/configuration/binding.py:425
 #, python-brace-format
@@ -1928,44 +1914,44 @@ msgstr "Đã thất bại khi khởi chạy dịch vụ Ổ đĩa lưu trữ B�
 msgid "Could not find the WhisperBack application"
 msgstr "Đã không thể tìm thấy ứng dụng WhisperBack"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:87
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:92
 msgid "Delete Data…"
 msgstr "Xóa Dữ liệu…"
 
 #. Translators: Don't translate {feature}, it's a placeholder
 #. and will be replaced.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:93
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:98
 #, python-brace-format
 msgid "Delete {feature} data"
 msgstr "Xoá dữ liệu {feature}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:115
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:120
 msgid "Activation failed"
 msgstr "Việc kích hoạt đã thất bại"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:176
 msgid "Activation failed. Try again or delete data."
 msgstr "Việc kích hoạt đã thất bại. Hãy thử lại lần nữa hoặc xoá dữ liệu đi."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:178
 msgid "Activation failed. Try again."
 msgstr "Việc kích hoạt đã thất bại. Hãy thử lại lần nữa."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:175
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:180
 msgid "The data of this feature is still saved."
 msgstr "Dữ liệu của tính năng này vẫn được lưu lại."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:282
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:289
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:287
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:294
 msgid "Error activating feature {}"
 msgstr "Có lỗi xảy ra khi kích hoạt tính năng {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:330
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:337
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:335
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:342
 msgid "Error deactivating feature {}"
 msgstr "Có lỗi xảy ra khi bỏ kích hoạt tính năng {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:357
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:362
 msgid ""
 "Delete all the data of the {} feature that is saved in the Persistent "
 "Storage?\n"
@@ -1978,34 +1964,34 @@ msgstr ""
 "Nếu như bạn đóng lại, dữ liệu sẽ được khôi phục khi bạn bật tính năng này "
 "lên trở lại."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:368
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:373
 msgid "_Delete Data"
 msgstr "_Xoá bỏ Dữ liệu"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:398
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:403
 msgid "Error deleting data of feature {}"
 msgstr "Đã có lỗi xảy ra khi xoá bỏ dữ liệu của tính năng {}"
 
 #. Translators: Don't translate {applications}, it's a placeholder
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:503
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:508
 #, python-brace-format
 msgid "Close {applications} to continue"
 msgstr "Hãy đóng {applications} để tiếp tục"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:504
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:509
 msgid " and "
 msgstr " và "
 
 #. Translators: Don't translate {app} and {pid}, they
 #. are placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:515
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:520
 #, python-brace-format
 msgid "{app} (PID: {pid})"
 msgstr "{app} (PID: {pid})"
 
 #. Translators: Don't translate {app} and {pids}, they
 #. are placeholders.
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:520
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:525
 #, python-brace-format
 msgid "{app} (PIDs: {pids})"
 msgstr "{app} (PIDs: {pids})"
@@ -2016,11 +2002,12 @@ msgstr "{app} (PIDs: {pids})"
 msgid "Change Passphrase"
 msgstr "Thay đổi cụm mật khẩu"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:90
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:91
 msgid "The current passphrase is incorrect"
 msgstr "Cụm mật khẩu hiện tại là không chính xác"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:100
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:102
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:112
 msgid "Changing the passphrase failed"
 msgstr "Việc thay đổi cụm mật khẩu đã thất bại"
 
@@ -2364,7 +2351,7 @@ msgstr ""
 
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:95
 #: ../config/chroot_local-includes/usr/share/applications/unsafe-browser.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:512
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:544
 msgid "Unsafe Browser"
 msgstr "Trình duyệt Không an toàn"
 
@@ -2642,24 +2629,24 @@ msgstr ""
 "Thiết lập một mật khẩu quản trị nếu bạn cần thực hiện các tác vụ quản trị. "
 "Nếu không, mật khẩu quản trị được vô hiệu để an toàn hơn."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:69
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:77
 msgid "Enter an administration password"
 msgstr "Nhập một mật khẩu quản trị"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:107
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:131
 msgid "Confirm your administration password"
 msgstr "Xác nhận mật khẩu quản trị của bạn"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:124
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:156
 msgid "Disable"
 msgstr "Vô hiệu"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:154
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:186
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:840
 msgid "MAC Address Anonymization"
 msgstr "Ẩn danh hoá địa chỉ MAC"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:170
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:202
 msgid ""
 "MAC address anonymization hides the serial number of your network interface "
 "(Wi-Fi or wired) from the local network. Anonymizing MAC addresses is "
@@ -2671,20 +2658,20 @@ msgstr ""
 "bởi nó giúp bạn ẩn đi vị trí địa lý của bạn. Nhưng nó cũng đồng thời tạo ra "
 "một số vấn đề kết nối hoặc trông khả nghi."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:212
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:244
 msgid "Anonymize all MAC addresses (default)"
 msgstr "Ẩn danh hoá tất cả các địa chỉ MAC (mặc định)"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:258
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:290
 msgid "Don't anonymize MAC addresses"
 msgstr "Không ẩn danh các địa chỉ MAC"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:311
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:343
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:844
 msgid "Network Configuration"
 msgstr "Cấu hình mạng lưới"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:327
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:359
 msgid ""
 "We replaced this additional setting in Tails 4.19 (June 2021) with a Tor "
 "Connection assistant integrated in the desktop.\n"
@@ -2704,11 +2691,11 @@ msgstr ""
 "Nếu bạn muốn làm việc ngoại tuyến, hãy kích hoạt Chế độ Ngoại tuyến trong "
 "phần cài đặt bổ sung."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:357
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:389
 msgid "Offline Mode"
 msgstr "Chế độ Ngoại tuyến"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:373
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:405
 msgid ""
 "If you want to work completely offline, you can disable all networking for "
 "increased security."
@@ -2716,7 +2703,7 @@ msgstr ""
 "Nếu bạn muốn làm việc hoàn toàn ngoại tuyến, bạn có thể tắt tất cả mạng để "
 "tăng cường bảo mật."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:528
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:560
 msgid ""
 "The Unsafe Browser allows you to sign in to a network using a captive "
 "portal.\n"
@@ -2747,11 +2734,11 @@ msgstr ""
 "cơ bảo mật mà khiến chúng ta tắt nó đi theo mặc định trong Tails 4.8 (tháng "
 "sáu 2020)."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:576
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:608
 msgid "Enable the Unsafe Browser (default)"
 msgstr "Bật Trình duyệt Không an toàn (mặc định)"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:622
+#: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:654
 msgid "Disable the Unsafe Browser"
 msgstr "Tắt Trình duyệt Không an toàn"
 
@@ -3812,7 +3799,29 @@ msgstr "Tháng mười hai"
 msgid "Clock"
 msgstr "Đồng hồ"
 
+#, python-format
+#~ msgid ""
+#~ "Some partitions of the target device %(device)s are mounted. They will be "
+#~ "unmounted before starting the installation process."
+#~ msgstr ""
+#~ "Một vài phân vùng của thiết bị %(device)s đã được gắn lên. Chũng sẽ bị gỡ "
+#~ "ra trước khi bắt đầu quá trình cài đặt."
+
+#, python-format
+#~ msgid "Entering unmount_device for \"%(device)s\""
+#~ msgstr "Đang nhập _thiết bị rời unmount cho \"%(device)s\""
+
+#, python-format
+#~ msgid "Unmounting mounted filesystems on \"%(device)s\""
+#~ msgstr ""
+#~ "Đang tách rời unmount hệ thống tập tin đã gắn mounted trên \"%(device)s\""
+
+#, python-format
+#~ msgid "Unmounting \"%(udi)s\" on \"%(device)s\""
+#~ msgstr "Đang tách rời unmount \"%(udi)s\" trên \"%(device)s\""
+
 #, fuzzy
+#~| msgid "Report an error"
 #~ msgid "Report an Error"
 #~ msgstr "Báo cáo một lỗi"
 

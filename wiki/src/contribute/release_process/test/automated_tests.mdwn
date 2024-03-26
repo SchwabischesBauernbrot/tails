@@ -126,6 +126,44 @@ Scripts:
 * [[!tails_gitweb config/chroot_local-includes/usr/local/lib/tails-autotest-remote-shell]]
 * [[!tails_gitweb config/chroot_local-includes/lib/systemd/system/tails-autotest-remote-shell.service]]
 
+### Using the remote shell with non-test suite Tails VMs
+
+The remote shell could potentially be useful for debugging a Tails VM
+that was not started as part of the automated test suite. To do that,
+add a virtio channel device to the libvirt config of the VM:
+
+```xml
+<channel type='unix'>
+  <source mode="bind" path='/path/to/remote-shell.socket'/>
+  <target type='virtio' name='org.tails.remote_shell.0'/>
+</channel>
+```
+
+When the VM has started you can connect to the socket and execute
+commands via the remote shell. Here is an example how to do that in
+Python:
+
+```py
+import json
+import socket
+
+
+client = socket.socket( socket.AF_UNIX, socket.SOCK_STREAM )
+client.connect("/path/to/remote-shell.socket")
+
+id = 1
+_type = "sh_call"
+env = {}
+user = "root"
+cmd = "echo 'huhu?"
+data = [id, _type, user, env, cmd]
+client.send(json.dumps(data).encode()+b"\n")
+
+answer = json.loads(client.recv(1024).decode())
+print(answer)
+>>> '[1, "success", 1, "huhu?", ""]\n'
+```
+
 ## Chutney
 
 Chutney is an orchestration tool for quickly setting up a complete Tor
@@ -312,6 +350,204 @@ make note of:
 Each such new scenario should sniff network traffic, and check that
 all Internet traffic has only flowed through Tor. See the `apt`
 feature for a simple example of how to do it.
+
+### The interactive debugging REPL
+
+Running the test suite with the `--interactive-debugging` option can
+be really useful when investigating problems in the test suite (or
+developing new steps/scenarios, which usually means encountering a lot
+of problems) since it allows invoking a debugging REPL in the context
+a failure occurred at, where you can rapidly iterate on code and find
+solutions.
+
+The debugging REPL is not only accessible when failures occur, you can
+also manually put a "breakpoint" either directly in the code using
+`pause()`, or by adding the step "I pause" at a suitable place in a
+scenario.
+
+While it is quite nice to copy-paste code between your editor and the
+debugging REPL, we can do better: you can edit the code in the usual
+files in your editor, and then hot-reload it in the debugging REPL
+using something like `load
+'features/step_definitions/common_steps.rb'` (see the "Limitations of
+code reloading" section below for some expectations on what is
+possible to do with this).
+
+#### Interactive debugging example
+
+Note: if the code you need to modify is located directly in a step
+definition, please see the "Limitations of code reloading" section
+below!
+
+Let's say we have a scenario:
+
+```gherkin
+Scenario: test
+  Given some context
+  When I do foo
+  Then foo was successful
+  And maybe more stuff
+```
+
+where the core of the `I do foo` step is in a top-level function
+`foo()` that it calls, and let's say there is a bug in `foo()` that
+makes it raise some exception. So we insert a breakpoint before `I do
+foo`:
+
+```gherkin
+Scenario: test
+  Given some context
+  And I pause
+  When I do foo
+  Then foo was successful
+  And maybe more stuff
+```
+
+(Instead of injecting a breakpoint we could also rely on
+`--interactive-debugging`, but this way we can fix the bug and let the
+full scenario run with the fix when we quit the REPL.)
+
+We start the test suite for the problematic scenario, and it stops at
+the breakpoint we injected:
+
+```
+Paused
+
+Return/q: Continue; d: Debugging REPL
+```
+
+We press `d` to enter the debugging REPL, which is a normal `pry`
+session (very similar to `irb` if you are familiar with it):
+
+```
+[1] pry(#<Object>)>
+```
+
+We test `foo()` and see that it indeed fails just as when Cucumber
+runs the `I do foo` step:
+
+```
+[1] pry(#<Object>)> foo()
+RuntimeError: something went wrong
+from features/step_definitions/test.rb:36:in `foo'
+```
+
+Then I start fixing `foo()` in `features/step_definitions/test.rb`
+using my editor, and if I want to try my modification I reload the
+code and call `foo()` again:
+
+```
+[2] pry(#<Object>)> load 'features/step_definitions/test.rb'
+=> true
+[3] pry(#<Object>)> foo()
+RuntimeError: something else went wrong this time
+from features/step_definitions/test.rb:36:in `foo'
+```
+
+We're not quite there yet! Also, something to keep in mind is that if
+`foo()` changes some state, that state might have to be manually
+reverted in the REPL before calling the modified `foo()` again (so the
+easiest situation is if `foo()` is idempotent).
+
+So we hack, hack, hack and eventually:
+
+```
+[...]
+[9] pry(#<Object>)> load 'features/step_definitions/test.rb'
+=> true
+[10] pry(#<Object>)> foo()
+foo() didn't fail!
+=> nil
+```
+
+Wohoo! We are done!? Not necessarily, let's say that while the
+modifications we did indeed made `foo()` not raise an exception there
+still is an issue that won't be detected until we run the `foo was
+successful` step. So we might want to incorporate that into our test
+loop (and again, if `foo was successful` changes state it might have
+to be manually reverted afterwards):
+
+```
+[11] pry(#<Object>)> step 'foo was successful'
+RuntimeError: foo() did something wrong earlier
+from features/step_definitions/test.rb:40:in `/^foo was successful$/'
+```
+
+Again we hack, hack, hack and eventually:
+
+```
+[...]
+[21] pry(#<Object>)> load 'features/step_definitions/test.rb'
+=> true
+[22] pry(#<Object>)> foo()
+foo() did exactly what it should!
+=> nil
+[23] pry(#<Object>)> step 'foo was successful'
+foo() did exactly what it should earlier!
+=> nil
+```
+
+Now we can just quit the REPL (`exit` or Ctrl+D) and `I do foo` will
+call the redefined `foo()` and the scenario should pass (unless there
+is an issue in the `maybe more stuff` step, then we rinse and repeat)!
+
+#### Limitations of code reloading
+
+One issue while reloading some code with `load` (like in the example
+above) is if there are step definitions in that file. Cucumber doesn't
+replace existing step definitions even when defining a step again with
+the exact same pattern, it just happily keeps all of them and fails
+when it notices that they are ambiguous when the step is run next time
+and all of them match.
+
+Cucumber has the `--guess` argument which makes it able to pick the
+"best match" among several ambiguous steps, but it doesn't work for
+completely identical patterns as in our case. So what I do is that I
+paste in this monkeypatch into the debugging REPL which simply makes
+it pick the most recent definition (so the most recent `load`):
+
+```rb
+module Cucumber
+  module StepMatchSearch
+    class AttemptToGuessAmbiguousMatch
+      def best_matches(step_name, step_matches)
+        [step_matches.last]
+      end
+    end
+  end
+end
+```
+
+So, with the above patch, and `--guess` passed as an argument to
+`cucumber`, i.e. something like:
+
+```sh
+./run_test_suite --iso tails-amd64-6.0.iso -- --guess features/test.feature
+```
+
+then we can `load` a redefined step and run it manually in the
+debuggin REPL:
+
+```
+[24] pry(#<Object>)> load 'features/step_definitions/test.rb'
+=> true
+[25] pry(#<Object>)> step 'foo was successful'
+now this step does something different
+=> nil
+```
+
+However, due to how Cucumber is implemented, only manually calling
+`step` will invoke the redefined step; if you quit the debugging REPL
+and let Cucumber continue running the scenario, then it will still run
+the original code for any redefined steps. Note that the difference vs
+the example above is where the code lives: in the _step definition_
+(then Cucumber won't run the modified code) vs a modified _function_
+called by the step (then Cucumber will run the modified code, like in
+the example).
+
+This might be fixable by monkeypatching Cucumber further, but until
+that is figured out you are limited to calling the relevant steps
+manually using `step` in the debugging REPL, which isn't too bad.
 
 ## Writing new steps
 
