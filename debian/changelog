@@ -1,8 +1,339 @@
-tails (6.1) UNRELEASED; urgency=medium
+tails (6.1) unstable; urgency=medium
 
-  * Dummy entry for next release.
+  * Install intel-microcode 3.20240312.1 to fix RFDS Intel CPU vulnerabilities
+    (tails/tails!1463)
 
- -- anonym <anonym@riseup.net>  Tue, 27 Feb 2024 16:58:21 +0100
+    Closes issues:
+      - Upgrade intel-microcode to mitigate the RFDS ("register file data sampling")
+        and Intel Processor Return Predictions Advisory (INTEL-SA-00982) hardware
+        vulnerability (tails/tails#20293)
+
+    Commits:
+      - Install intel-microcode 3.20240312.1 to fix RFDS Intel CPU vulnerabilities
+
+  * Resolve "Upgrade to Tor Browser 13.0.13 based on 115.9.1" (tails/tails!1462)
+
+    Closes issues:
+      - Upgrade to Tor Browser 13.0.13 based on 115.9.1 (tails/tails#20289)
+
+    Commits:
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 13.0.13
+
+  * tails-create-iuk: don't break when an updated file has a backslash in its name
+    (tails/tails!1443)
+
+    Closes issues:
+      - tails-create-iuk fails when an updated file has a backslash in its name
+        (tails/tails#20230)
+
+    Commits:
+      - Document non-obvious behavior
+      - IUK creation: don't break when an updated file has a backslash in its name
+      - IUK test suite: add tag to ease development
+      - IUK test suite: verify that our removal of trusted.overlay.* xattrs works
+      - IUK test suite: preserve xattrs when unpacking test SquashFS
+      - IUK test suite: add regression test for backslash in name of updated file
+
+  * Actually set Mutter's check-alive-timeout in gdm to 300s (tails/tails!1430)
+
+    Closes issues:
+      - Welcome Screen frequently shows "Welcome to Tails!" is not responding
+        (tails/tails#20236)
+
+    Commits:
+      - Actually set Mutter's check-alive-timeout in gdm to 300s
+
+  * Fix Onion Circuits (tails/tails!1428)
+
+    Closes issues:
+      - Write automated tests for Onion Circuits (tails/tails#18338)
+      - Onion Circuits is broken (tails/tails#20233)
+
+    Commits:
+      - Test suite: Test that Onion Circuits works
+      - Fix Onion Circuits
+
+  * Resolve "Upgrade to Tor Browser based on ESR 115.9" (tails/tails!1455)
+
+    Closes issues:
+      - Upgrade to Tor Browser based on ESR 115.9 (tails/tails#20261)
+
+    Commits:
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 13.0.12
+
+  * Test suite: Use Dogtail to set up admin password (tails/tails!1447)
+
+    Closes issues:
+      - Test suite: Use Dogtail to set up admin password (tails/tails#20251)
+
+    Commits:
+      - Test suite: Use Dogtail to set up admin password
+      - Welcome Screen: Make admin password entries accessible
+
+  * Test suite: Make closing notification list more robust (tails/tails!1435)
+
+    Closes issues:
+      - Test suite: Step 'all notifications have disappeared' is flaky
+        (tails/tails#20244)
+
+    Commits:
+      - Test suite: Make closing notification list more robust
+
+  * Enable Tracker again (tails/tails!1434)
+
+    Closes issues:
+      - Opening GNOME Videos shows an error message about tracker-miner-fs-3.service
+        being masked (tails/tails#20243)
+      - tracker-extract-3.service often fails to connect to filesystem miner
+        (tails/tails#20220)
+      - Opening GNOME Videos displays error dialog: tracker-miner-fs-3-service is
+        masked (tails/tails#20237)
+
+    Commits:
+      - Test suite: delete scenario for detecting tails#20220
+      - Only start tracker-miner-fs-3.service after gnome-session.target
+      - Don't pull in tracker-extract-3.service before default.target
+      - Test suite: Fix scenario "The tracker-miner-fs service didn't time out"
+      - Make Tracker not index or monitor any directories
+      - Test suite: Test that tracker-miner-fs service didn't time out
+      - Enable Tracker again
+
+  * Install alsa-topology-conf (tails/tails!1452)
+
+    Closes issues:
+      - Consider installing alsa-topology-conf package (tails/tails#20270)
+
+    Commits:
+      - Install alsa-topology-conf (refs: tails/tails#20270)
+
+  * GitLab CI: Fix Ruff CI job (tails/tails!1446)
+
+    Closes issues:
+      - Ruff CI job doesn't check any files (tails/tails#20266)
+
+    Commits:
+      - GitLab CI: Fix Ruff CI job
+
+  * Resolve "Step "I enable persistence" returns before Persistent Storage was
+    unlocked" (tails/tails!1445)
+
+    Closes issues:
+      - Step "I enable persistence" returns before Persistent Storage was unlocked
+        (tails/tails#20264)
+
+    Commits:
+      - Test suite: Don't retry Dogtail method which we expect to fail
+      - Test suite: Fix button label
+
+  * Test suite: add scenario verifying that the live user can access exactly the
+    local services it is supposed to (tails/tails!1444)
+
+    Closes issues:
+      - Add test: the amnesia user can only access the expected services
+        (tails/tails#20199)
+
+    Commits:
+      - Test suite: also use allowlist approach to track which services should be
+        available for the live user
+      - Firewall: allow root to use Tor's DNSPort
+      - Test suite: don't use fancy ruby pattern matching for Hash unpacking
+      - Test suite: extract to constant
+      - Test suite: pretty log what was tested
+      - Test suite: make sure the connection was made by the live user
+      - Test suite: make explicit that check is an anti-test
+      - Appease rubocop
+      - Test suite: add scenario verifying that the live user can access exactly the
+        local services it is supposed to
+      - Firewall: don't DROP OUTPUT, LOG and REJECT instead
+      - Test suite: allow matching dropped packets based on uid and gid
+      - Test suite: add seemingly forgotten step
+      - Test suite: improve how we test untorified connections
+      - Test suite: cupsd is no longer listening on anything but loopback
+      - Test suite: optimize scenario
+      - Test suite: improve typing and use IPAddr#loopback? instead of regex
+      - Test suite: refactor
+
+  * Build system: bump RAM to avoid OOM during mksquashfs (refs: tails/tails#20228)
+    (tails/tails!1441)
+
+    Closes issues:
+      - Building in RAM FTBFS due to oom (tails/tails#20228)
+
+    Commits:
+      - Build system: bump RAM to avoid OOM during mksquashfs (refs: tails/tails#20228)
+
+  * Test suite: improve --late-patch (tails/tails!1440)
+
+    Closes issues:
+      - Test suite: Improve --late-patch (tails/tails#20256)
+
+    Commits:
+      - Appease rubocop
+      - Test suite: make --late-patch without argument work with the testoverlayfs IUK
+        tests
+      - Test suite: fix cmd_helper() multi-line output
+      - Test suite: make --late-patch without argument copy all changed files
+      - Test suite: make --late-patch infer destination when only source is given
+
+  * tps-frontend: Disable timeout for ChangePassphrase call (tails/tails!1439)
+
+    Closes issues:
+      - Changing passphrase of Persistent Storage reports an error even if it
+        eventually succeeds after the frontend stopped waiting for it
+        (tails/tails#20217)
+
+    Commits:
+      - Fix "Passphrase was changed successfully" printed on error
+      - Appease black
+      - Use os.path.join for aesthetic reasons
+      - Remove unused error
+      - Use `systemctl show` to get terminating signal
+      - GitLab CI: Make black target Python 3.11
+      - tps: Work around systemd not detecting oom-kill
+      - tps: Reconnect to udisks if the D-Bus connection is lost
+      - tps: Use more efficient method to get boot device
+      - tps: More useful error messages
+      - tps-frontend: Strip D-Bus error
+      - tps: Raise a NotEnoughMemoryError if udisks2 is oom-killed
+      - tps: Include Thread ID (TID) in log output
+      - tps: Fix method name included in log output
+      - Fix Ruff B026
+      - tps-frontend: Disable timeout for ChangePassphrase call
+
+  * tps-frontend: Fix only one custom feature being shown (tails/tails!1438)
+
+    Closes issues:
+      - Only one custom feature is shown in Persistent Storage UI (tails/tails#19267)
+
+    Commits:
+      - Reformat with black
+      - Reformat with black
+      - Silence linting failure
+      - Use absolute paths
+      - Fix Ruff UP035
+      - tps-frontend: Fix only one custom feature being shown
+
+  * Install PipeWire instead of PulseAudio (tails/tails!1433)
+
+    Closes issues:
+      - Replace PulseAudio with PipeWire (tails/tails#20219)
+
+    Commits:
+      - Install PipeWire instead of PulseAudio
+
+  * Help the RM when we FTBFS during release process due to an unused APT source,
+    take 2 (tails/tails!1432)
+
+    Closes issues:
+      - FTBFS during release process when an unused APT source is configured
+        (tails/tails#20009)
+
+    Commits:
+      - Fix error reporting
+
+  * Test suite: Check for unexpected error messages in journal (tails/tails!1424)
+
+    Closes issues:
+      - Test suite: Check unexpected journal messages of priority "err" or higher
+        (tails/tails#19648)
+
+    Commits:
+      - Drop investigating errors in the journal from manual test suite
+      - Print errors in assert
+      - Use .each instead of .select
+      - Refactor
+      - Update expected journal entries
+      - Make RuboCop happy
+      - Add expected journal entries for ALSA bug
+      - Remove diversion of non-existent file
+      - Test suite: Check for unexpected error messages in journal
+
+  * Avoid starting unnecessary services for Debian-gdm (tails/tails!1422)
+
+    Commits:
+      - Avoid starting unnecessary services for Debian-gdm
+
+  * Test suite improvements (tails/tails!1411)
+
+    Commits:
+      - Test suite: make sure notifications have disappeared
+      - Test suite: Fix Tor Browser not starting because Tor is not ready
+      - Test suite: Don't start Electrum and Synaptic via remote shell
+      - Test suite: Start tails-backup via remote shell
+      - Test suite: Sort launch_* functions alphabetically
+      - Simplify try_for() block
+      - Test suite: Use Enter again to open file chooser
+      - Test suite: Start apps via remote shell
+      - Test suite: Use dogtail to attach disk in GNOME Disks
+
+  * Allow tails-debugging-info commands to fail (tails/tails!1410)
+
+    Closes issues:
+      - tails-debugging-info crashes if any of the commands it runs fails
+        (tails/tails#20200)
+
+    Commits:
+      - Revert "Ensure tails-debugging-info does not crash in case lsblk returns a non-
+        zero exit code"
+      - place error suppression at the right place
+      - more ruff improvements
+      - permanently disable B603
+      - silence errors
+      - black reformatting
+      - simple ruff-suggested improvements
+      - Improve scenario description
+      - Add scenario which runs tails-debugging-info --strict and checks the exit code
+      - Add --strict mode to tails-debugging-info
+      - Allow tails-debugging-info commands to fail
+
+  * Tails Cloner: unmount all filesystems on target device (tails/tails!1372)
+
+    Closes issues:
+      - Tails Cloner fails on "Partitioning device" several times... and then succeeds
+        (tails/tails#20195)
+      - The retry decorator is buggy when the 10 attempts fail: "cannot access local
+        variable 'e' where it is not associated with a value" (tails/tails#20252)
+      - Tails Cloner fails installing to/upgrading devices with other mounted
+        partitions (tails/tails#20149)
+
+    Commits:
+      - Cloner: handle unmounting devices without partition tables again
+      - Cloner: drop excessive debug logging
+      - Cloner: appease Ruff vs PLW2901 (redefined-loop-name)
+      - Cloner: add docstring
+      - Cloner: update docstring
+      - Cloner: make unmount_device() always unmount all filesystems on the device
+      - Cloner: also unmount before resetting the MBR
+      - Cloner: drop nonsense code
+      - Update Cloner screenshot vs changes from tails!1372
+      - Reformat with black
+      - Fix more instances of RUF012
+      - Fix 1 instance of RUF012: this class attribute does not need to be mutable
+      - Simplify
+      - Override Ruff E402: we have gi.require_version
+      - Sort imports
+      - Catch regular program errors but not important system exceptions
+      - Fix Ruff B904
+      - Fix Ruff ISC003 and PLW2901
+      - Remove unused import
+      - Remove dead code
+      - Fix a bunch of Ruff violations
+      - Revert "Cloner and Test suite: add label to device pretty name, adjust test
+        accordingly"
+      - Cloner: defensive proramming++
+      - Cloner: drop useless debug logging
+      - Cloner: unmount all partitions related to the target when needed
+      - Cloner: improve detection of persistent storage and allow installing to LUKS
+        devices
+      - Cloner: only list partitions as targets when they are upgradeable
+      - Cloner: Fix scoping issue in retry()-wrapper's error handling
+      - Cloner and Test suite: add label to device pretty name, adjust test accordingly
+
+  * Upgrade Thunderbird to 115.9
+
+ -- Tails developers <tails@boum.org>  Tue, 26 Mar 2024 13:35:48 +0100
 
 tails (6.0) unstable; urgency=medium
 
