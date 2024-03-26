@@ -457,18 +457,15 @@ Given /^I change the passphrase of the Persistent Storage( back to the original)
   change_passphrase_dialog
     .child('Current Passphrase', roleName: 'label')
     .labelee
-    .grabFocus
-  @screen.type(current_passphrase)
+    .text = current_passphrase
   change_passphrase_dialog
     .child('New Passphrase', roleName: 'label')
     .labelee
-    .grabFocus
-  @screen.type(new_passphrase)
+    .text = new_passphrase
   change_passphrase_dialog
     .child('Confirm New Passphrase', roleName: 'label')
     .labelee
-    .grabFocus
-  @screen.type(new_passphrase)
+    .text = new_passphrase
   change_passphrase_dialog.button('Change').click
   # Wait for the dialog to close
   try_for(60) do
