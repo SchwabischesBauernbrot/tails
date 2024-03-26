@@ -1153,18 +1153,23 @@ When /^I close the "([^"]+)" window$/ do |app_name|
 
   # Wait for the app to close
   try_for(10) do
-    !app.showing
+    assert_raises(Dogtail::Failure) do
+      Dogtail::Application.new(app_name, retry: false)
+    end
   end
 end
 
 When /^I close the "([^"]+)" window via Alt\+F4$/ do |app_name|
-  app = Dogtail::Application.new(app_name)
+  # Check that the app is running
+  Dogtail::Application.new(app_name)
 
   @screen.press('alt', 'F4')
 
   # Wait for the app to close
   try_for(10) do
-    !app.showing
+    assert_raises(Dogtail::Failure) do
+      Dogtail::Application.new(app_name, retry: false)
+    end
   end
 end
 
