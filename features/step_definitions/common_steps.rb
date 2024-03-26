@@ -838,10 +838,17 @@ Then /^Tails eventually (shuts down|restarts)$/ do |mode|
   try_for(3 * 60) do
     if mode == 'restarts'
       @screen.find('TailsGreeter.png')
-      true
+    elsif !$vm.running?
+      # The VM has shut down as expected
     else
-      !$vm.running?
+      # It sometimes happens that the VM automatically restarts after
+      # shutdown. To avoid the test failing in that case, we also check
+      # here if we see the greeter and in that case force a shutdown of
+      # the VM.
+      @screen.wait('TailsGreeter.png', 1)
+      $vm.power_off
     end
+    true
   end
 end
 
