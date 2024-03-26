@@ -50,9 +50,9 @@ sensible-editor "config/chroot-local_includes${PATCHING_FILE}"
 git add "config/chroot-local_includes${PATCHING_FILE}"
 ```
 
-# Run iso in fire 'n' forget mode
+# Run iso from commandline
 
-as you not always want to click you through virt-maanger you can use qemu/kmv directly:
+To run an ISO directly without clicking through virt-manager:
 
 ```sh
 kvm -m 2048 -cdrom <ISO NAME>.iso
@@ -61,10 +61,11 @@ kvm -m 2048 -cdrom <ISO NAME>.iso
 you can even share a directoy with the client system:
 
 ```sh
-kvm -m 2048 -virtfs local,path=/path/to/file,mount_tag=host0,security_model=passthrough,id=host0 -cdrom /path/to/tails.iso
+kvm -m 2048 -virtfs local,path=/path/to/tails-git-dir,security_model=passthrough,mount_tag=src --cdrom /path/to/tails.iso
 ```
 
-inside the client you can now mount the directory via (you need to have a adminstrator password):
+By passing through the Tails Git directory, the `early_patch` kernel command-line option can be used (see  [[contribute/build/early-patch]]). To mount the directory manually in the VM (after setting an admin password):
+
 ```sh
-sudo mount -t 9p -o trans=virtio host0 /mnt/
+sudo mount -t 9p -o trans=virtio src /mnt/
 ```
