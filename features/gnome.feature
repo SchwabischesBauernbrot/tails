@@ -36,8 +36,9 @@ Feature: GNOME is well-integrated into Tails
     When I start "Persistent Storage" via GNOME Activities Overview
     And I close the "tps-frontend" window
     When I start "Persistent Storage Backup" via GNOME Activities Overview
+    And I close the "zenity" window
     When I start "Pidgin" via GNOME Activities Overview
-    And I close the "Pidgin" window
+    And I close the "Pidgin" window via Alt+F4
     When I start "Thunderbird" via GNOME Activities Overview
     And I close the "Thunderbird" window
     When I start "Tor Browser" via GNOME Activities Overview
