@@ -1151,8 +1151,9 @@ When /^I close the "([^"]+)" window$/ do |app_name|
     raise 'Close button has no click or press action'
   end
 
-  # Wait for the app to close
-  try_for(10) do
+  # Wait for the app to terminate (some apps take a while to actually
+  # terminate after the window is closed, for example GNOME Files).
+  try_for(60) do
     assert_raises(Dogtail::Failure) do
       Dogtail::Application.new(app_name, retry: false)
     end
@@ -1163,7 +1164,7 @@ When /^I close the "([^"]+)" window via Alt\+F4$/ do |app_name|
   # Check that the app is running
   Dogtail::Application.new(app_name)
 
-  try_for(10) do
+  try_for(60) do
     @screen.press('alt', 'F4')
     assert_raises(Dogtail::Failure) do
       Dogtail::Application.new(app_name, retry: false)
