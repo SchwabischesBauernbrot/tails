@@ -166,7 +166,7 @@ class Screen
     raise FindFailed, "cannot find #{pattern} on the screen"
   end
 
-  def exists(pattern, **opts)
+  def exists?(pattern, **opts)
     opts[:log] = true if opts[:log].nil?
     !find(pattern, **opts).nil?
   rescue FindFailed
@@ -208,7 +208,7 @@ class Screen
           "can not find any of the patterns #{patterns} on the screen"
   end
 
-  def exists_any(*args, **opts)
+  def exists_any?(*args, **opts)
     !find_any(*args, **opts).nil?
   rescue FindFailed
     false
