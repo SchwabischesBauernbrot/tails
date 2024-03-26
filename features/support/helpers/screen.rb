@@ -134,7 +134,7 @@ class Screen
                          screenshot, sensitivity, show_image, show_old)
   end
 
-  def real_find(pattern, **opts)
+  def find(pattern, **opts)
     opts[:log] = true if opts[:log].nil?
     opts[:sensitivity] ||= OPENCV_MIN_SIMILARITY
     if pattern.instance_of?(String)
@@ -160,15 +160,10 @@ class Screen
     opts[:log] = true if opts[:log].nil?
     debug_log("Screen: waiting for #{pattern}") if opts[:log]
     try_for(timeout, delay: 0) do
-      return real_find(pattern, **opts)
+      return find(pattern, **opts)
     end
   rescue Timeout::Error
     raise FindFailed, "cannot find #{pattern} on the screen"
-  end
-
-  def find(pattern, **opts)
-    debug_log("Screen: trying to find #{pattern}") if opts[:log]
-    wait(pattern, 10, **opts.clone.update(log: false))
   end
 
   def exists(pattern, **opts)
@@ -203,7 +198,7 @@ class Screen
       debug_log("Screen: trying to find any of #{patterns.join(', ')}")
     end
     patterns.each do |pattern|
-      return real_find(pattern, **opts.clone.update(log: false))
+      return find(pattern, **opts.clone.update(log: false))
     rescue FindFailed
       # Ignore. We'll throw an appropriate exception after having
       # looped through all patterns and found none of them.
