@@ -1,17 +1,10 @@
-Given /^I reload the code so the step below is modified$/ do
-  modified_code = <<-RUBY
-When /^I do something$/ do
-  @something = 2
-  puts "@something ← \#{@something}"
-  nil
-end
-RUBY
-  Tempfile.create(['test', '.rb']) do |f|
-    puts "Loading file with step redefinition: #{f.path}"
-    File.write(f.path, modified_code)
-    # @__cucumber_runtime.support_code.load_file(f.path)
-    load f.path
-  end
+Given /^I (modify|restore) the "I do something" step$/ do |action|
+  value = action == 'modify' ? 2 : 1
+  path = "#{GIT_DIR}/features/step_definitions/test.rb"
+  File.write(
+    path,
+    File.read(path).gsub(/^  @something = .*$/, "  @something = #{value}")
+  )
 end
 
 When /^I do something$/ do

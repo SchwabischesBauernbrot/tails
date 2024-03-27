@@ -1495,6 +1495,10 @@ When /^Tails system time is magically synchronized$/ do
   $vm.host_to_guest_time_sync
 end
 
+When /^I reload step definitions$/ do
+  next
+end
+
 # Useful for debugging scenarios: e.g. inject this step in a scenario
 # at some point when you want to investigate the state.
 When /^I pause$/ do
