@@ -1495,14 +1495,52 @@ When /^Tails system time is magically synchronized$/ do
   $vm.host_to_guest_time_sync
 end
 
+def reload_code(path_glob)
+  # When reloading step definitions all of them will become
+  # ambiguous since there is an existing one with matching an
+  # identical pattern. So we enable cucumber's --guess option which
+  # we have monkeypatched to use the last (loaded) definition.
+  configuration = @__cucumber_runtime
+                    .support_code
+                    .instance_variable_get('@configuration')
+  unless configuration.guess?
+    options = configuration.instance_variable_get('@options')
+    options[:guess] = true
+    # This will enable the monkeypatch handling step redifinitions
+    options[:redefine_steps] = true
+  end
+  # Some tests (e.g. those tagged @source) change the current working
+  # directory so the glob below finds nothing unless we restore it to
+  # the usual GIT_DIR. Also, we want the glob to result in relative
+  # paths from GIT_DIR to match how they are loaded by cucumber at the
+  # test suite initialization.
+  Dir.chdir(GIT_DIR) do
+    Dir.glob(path_glob).each { |file| load file }
+  end
+  nil
+end
+
+def reload_step_definitions
+  reload_code("features/step_definitions/**/*.rb")
+end
+
+def reload_all_code
+  reload_code("features/**/*.rb")
+end
+
 When /^I reload step definitions$/ do
-  next
+  reload_step_definitions
+end
+
+When /^I reload all code$/ do
+  reload_all_code
 end
 
 # Useful for debugging scenarios: e.g. inject this step in a scenario
 # at some point when you want to investigate the state.
-When /^I pause$/ do
+When /^I pause( and then reload step definitions)?$/ do |reload|
   pause
+  step 'I reload step definitions' if reload
 end
 
 # Useful for debugging Tails features: let's say you want to fix a bug
