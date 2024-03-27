@@ -381,7 +381,7 @@ Given /^the system is( very)? low on memory$/ do |very_low|
   mem_to_fill_kib = mem_available_kib - low_mem_kib
   if mem_to_fill_kib <= 0
     debug_log("Available memory is already low enough: #{mem_available_kib} KiB")
-    return
+    next
   end
 
   # Write a file that will fill up the memory
