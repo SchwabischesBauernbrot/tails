@@ -540,10 +540,9 @@ Given /^I set an administration password$/ do
   open_greeter_additional_settings
   @screen.wait('TailsGreeterAdminPassword.png', 20).click
   @screen.wait('TailsGreeterAdminPasswordDialog.png', 10)
-  @screen.type(@sudo_password)
-  @screen.press('Tab')
-  @screen.type(@sudo_password)
-  @screen.press('Return')
+  greeter.childLabelled('Administration Password').text = @sudo_password
+  greeter.childLabelled('Confirm').text = @sudo_password
+  greeter.child('Add', roleName: 'push button').click
   # Wait for the Administration Password dialog to be closed,
   # otherwise the next step can fail.
   @screen.wait('TailsGreeterLoginButton.png', 10)
@@ -730,7 +729,12 @@ Given /^all notifications have disappeared$/ do
       gnome_shell.child?('No Notifications', roleName: 'label')
     end
   end
-  @screen.press('Escape')
+  # Close the notification list
+  retry_action(5) do
+    @screen.press('Escape')
+    !gnome_shell.child?('Do Not Disturb',
+                        roleName: 'label', retry: false)
+  end
   # Increase the chances that by the time we leave this step, the
   # notifications menu was closed and the desktop is back to its
   # normal state. Otherwise, all kinds of trouble may arise: for
@@ -834,10 +838,17 @@ Then /^Tails eventually (shuts down|restarts)$/ do |mode|
   try_for(3 * 60) do
     if mode == 'restarts'
       @screen.find('TailsGreeter.png')
-      true
+    elsif !$vm.running?
+      # The VM has shut down as expected
     else
-      !$vm.running?
+      # It sometimes happens that the VM automatically restarts after
+      # shutdown. To avoid the test failing in that case, we also check
+      # here if we see the greeter and in that case force a shutdown of
+      # the VM.
+      @screen.wait('TailsGreeter.png', 1)
+      $vm.power_off
     end
+    true
   end
 end
 
@@ -915,12 +926,14 @@ Given /^I switch to the "([^"]+)" NetworkManager connection$/ do |con_name|
 end
 
 When /^I run "([^"]+)" in GNOME Terminal$/ do |command|
-  unless $vm.process_running?('gnome-terminal-server')
-    step 'I start "GNOME Terminal" via GNOME Activities Overview'
-  end
-  try_for(40) do
-    terminal = Dogtail::Application.new('gnome-terminal-server')
-                                   .child('Terminal', roleName: 'terminal')
+  app = if $vm.process_running?('gnome-terminal-server')
+          Dogtail::Application.new('gnome-terminal-server')
+        else
+          launch_gnome_terminal
+        end
+  terminal = app.child('Terminal', roleName: 'terminal')
+
+  try_for(5) do
     terminal.text['amnesia@amnesia:']
     terminal.grabFocus
     terminal.focused
@@ -989,6 +1002,95 @@ def switch_input_source
   sleep 1
 end
 
+def launch_app(desktop_file_name, app_name, **options)
+  options[:user] ||= LIVE_USER
+  options[:timeout] ||= 30
+  options[:check_started] = true unless options.key?(:check_started)
+  # We use systemd-run to launch the app, because we want the app to run
+  # in the active systemd login session, so that polkit rules for active
+  # sessions apply to it.
+  cmd = ['systemd-run', '--user',
+         '--remain-after-exit',
+         'gtk-launch', desktop_file_name,].join(' ')
+  $vm.execute(cmd, **options)
+
+  unless options[:check_started]
+    return
+  end
+
+  app = nil
+  try_for(options[:timeout]) do
+    app = Dogtail::Application.new(app_name)
+  end
+  app
+end
+
+def launch_gnome_disks
+  launch_app(
+    'org.gnome.DiskUtility.desktop',
+    'gnome-disks'
+  )
+end
+
+def launch_gnome_terminal
+  launch_app(
+    'org.gnome.Terminal.desktop',
+    'gnome-terminal-server'
+  )
+end
+
+def launch_nautilus
+  launch_app(
+    'org.gnome.Nautilus.desktop',
+    'org.gnome.Nautilus'
+  )
+end
+
+def launch_persistent_storage
+  launch_app(
+    'org.boum.tails.PersistentStorage.desktop',
+    'tps-frontend'
+  )
+end
+
+def launch_tails_backup
+  launch_app(
+    'tails-backup.desktop',
+    'zenity'
+  )
+end
+
+def launch_thunderbird
+  launch_app(
+    'thunderbird.desktop',
+    'Thunderbird'
+  )
+end
+
+def launch_tor_browser(**options)
+  launch_app(
+    'tor-browser.desktop',
+    'Firefox',
+    **options
+  )
+end
+
+def launch_unlock_veracrypt_volumes
+  launch_app(
+    'unlock-veracrypt-volumes.desktop',
+    'unlock-veracrypt-volumes'
+  )
+end
+
+def launch_unsafe_browser(**options)
+  options[:timeout] ||= 60
+  launch_app(
+    'unsafe-browser.desktop',
+    'Firefox',
+    **options
+  )
+end
+
 Given /^I start "([^"]+)" via GNOME Activities Overview$/ do |app_name|
   # Search disambiguations: below we assume that there is only one
   # result, since multiple results introduces a race that leads to a
@@ -1032,6 +1134,47 @@ Given /^I start "([^"]+)" via GNOME Activities Overview$/ do |app_name|
   end
 end
 
+When /^I close the "([^"]+)" window$/ do |app_name|
+  app = nil
+  try_for(60) do
+    app = Dogtail::Application.new(app_name)
+  end
+
+  close_button = app.child(
+    'Close',
+    roleName:    'push button',
+    # For some reason, the 'showing' attribute of the close button is
+    # false in some apps (e.g. Nautilus), even though it's visible.
+    showingOnly: false
+  )
+
+  # Some close buttons have a "click" action, some have a "press"
+  # action (for example Thunderbird).
+  if close_button.actions.include?('click')
+    close_button.click
+  elsif close_button.actions.include?('press')
+    close_button.press
+  else
+    raise 'Close button has no click or press action'
+  end
+
+  # Wait for the app to close
+  try_for(10) do
+    !app.showing
+  end
+end
+
+When /^I close the "([^"]+)" window via Alt\+F4$/ do |app_name|
+  app = Dogtail::Application.new(app_name)
+
+  @screen.press('alt', 'F4')
+
+  # Wait for the app to close
+  try_for(10) do
+    !app.showing
+  end
+end
+
 When /^I press the "([^"]+)" key$/ do |key|
   @screen.press(key)
 end
@@ -1054,10 +1197,11 @@ Then /^there is a GNOME bookmark for the (amnesiac|persistent) (.*) directory$/ 
   @screen.press('Escape')
 end
 
-def pulseaudio_sink_inputs
-  pa_info = $vm.execute_successfully('pacmd info', user: LIVE_USER).stdout
-  sink_inputs_line = pa_info.match(/^\d+ sink input\(s\) available\.$/)[0]
-  sink_inputs_line.match(/^\d+/)[0].to_i
+def pipewire_input_ports
+  pa_info = $vm.execute(
+    'pw-link --links | grep "<-"', user: LIVE_USER
+  ).stdout.chomp
+  pa_info.split("\n").length
 end
 
 Given /^a web server is running on the LAN$/ do
@@ -1440,19 +1584,6 @@ Given /^I create a symlink "(\S+)" to "(\S+)"$/ do |link, target|
   $vm.execute_successfully(
     "ln -s --no-target-directory '#{target}' '#{link}'"
   )
-end
-
-def gnome_disks_app
-  disks_app = Dogtail::Application.new('gnome-disks')
-  # Give GNOME Shell some time to draw the minimize/maximize/close
-  # buttons in the title bar, to ensure the other title bar buttons we
-  # will later click, such as GnomeDisksDriveMenuButton.png, have
-  # stopped moving. Otherwise, we sometimes lose the race: the
-  # coordinates returned by Screen#wait are obsolete by the time we
-  # run Screen#click, which makes us click on the minimize
-  # button instead.
-  @screen.wait('GnomeWindowActionsButtons.png', 10)
-  disks_app
 end
 
 def select_path_in_file_chooser(file_chooser, path, button_label: 'Open')

@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright © 2008-2013  Red Hat, Inc. All rights reserved.
 # Copyright © 2008-2013  Luke Macken <lmacken@redhat.com>
@@ -24,31 +23,29 @@ that provides platform-specific implementation
 for Linux
 """
 
-import subprocess
-import tempfile
 import logging
-import shutil
-import signal
-import time
 import os
 import re
+import shutil
+import signal
 import stat
+import subprocess
 import sys
-from typing import Optional
-
+import tempfile
+import time
 from io import StringIO
 from pprint import pformat
+from typing import Optional
 
 import gi
 
 gi.require_version("UDisks", "2.0")
 from gi.repository import UDisks, GLib, Gio  # NOQA: E402
 
-from tails_installer.utils import (
-    _move_if_exists,  # NOQA: E402
+from tails_installer.utils import (  # NOQA: E402
+    _move_if_exists,
     _unlink_if_exists,
     bytes_to_unicode,
-    unicode_to_filesystemencoding,
     _set_liberal_perms_recursive,
     underlying_physical_device,
     write_to_block_device,
@@ -58,7 +55,7 @@ from tails_installer.utils import (
 )
 from tails_installer import _  # NOQA: E402
 from tails_installer.config import CONFIG  # NOQA: E402
-from tails_installer.tps_proxy import tps_proxy
+from tails_installer.tps_proxy import tps_proxy  # NOQA: E402
 
 SYSTEM_PARTITION_FLAGS = [
     0,  # system partition
@@ -74,28 +71,27 @@ ESP_GUID = "C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
 class TailsInstallerError(TailsError):
     """A generic error message that is thrown by the Tails Installer"""
 
-    pass
+
+class UDisksObjectNotFound(TailsInstallerError):
+    """Thrown when referring to a Udisks object that does not exist"""
 
 
-class TailsInstallerCreator(object):
+class TailsInstallerCreator:
     """An OS-independent parent class for Tails Installer Creators"""
 
     min_installation_device_size = CONFIG["min_installation_device_size"]
     source = None  # the object representing our live source image
     label = CONFIG["branding"]["partition_label"]  # if one doesn't exist
     fstype = None  # the format of our usb stick
-    drives = {}  # {device: {'label': label, 'mount': mountpoint}}
     overlay = 0  # size in mb of our persisten overlay
     dest = None  # the mount point of of our selected drive
     uuid = None  # the uuid of our selected drive
-    pids = []  # a list of pids of all of our subprocesses
     output = StringIO()  # log subprocess output in case of errors
     totalsize = 0  # the total size of our overlay + iso
     _drive = None  # mountpoint of the currently selected drive
     mb_per_sec = 0  # how many megabytes per second we can write
     log = None
-    ext_fstypes = set(["ext2", "ext3", "ext4"])
-    valid_fstypes = set(["vfat", "msdos"]) | ext_fstypes
+    valid_fstypes = frozenset(["vfat", "msdos"])
     passphrase = None  # type: Optional[str]
 
     drive = property(
@@ -107,20 +103,28 @@ class TailsInstallerCreator(object):
         self.opts = opts
         self._error_log_filename = self._setup_error_log_file()
         self._setup_logger()
-        self.valid_fstypes -= self.ext_fstypes
-        self.drives = {}
+        self.drives = {}  # {device: {'label': label, 'mount': mountpoint}}
+        self.pids = []  # a list of pids of all of our subprocesses
         self._udisksclient = UDisks.Client.new_sync()
 
     def retry(func):
         def wrapper(*args, **kwargs):
+            exception = None
             for attempt in range(1, 11):
                 try:
                     return func(*args, **kwargs)
                 except Exception as e:
+                    exception = e
                     args[0].log.debug(e)
                     args[0].log.debug("Retrying %d" % attempt)
                     time.sleep(1)
-            raise e
+            if exception:
+                raise exception
+            else:
+                raise Exception(
+                    "@retry() internal error: reaching here without catching an "
+                    "exception means that the wrapped function was never called"
+                )
 
         return wrapper
 
@@ -148,12 +152,12 @@ class TailsInstallerCreator(object):
         self.log.addHandler(self.file_handler)
 
     def try_getting_udisks_object(self, object_path: str, prop: str) -> UDisks.Object:
-        for attempt in range(1, 100):
+        for _attempt in range(1, 100):
             udisks_object = self._udisksclient.get_object(object_path)
             if udisks_object is not None and hasattr(udisks_object.props, prop):
                 return udisks_object
             time.sleep(0.1)
-        raise Exception("Could not get udisks object %s" % object_path)
+        raise UDisksObjectNotFound("Could not get udisks object %s" % object_path)
 
     @retry
     def detect_partition(self, udi: str, callback=None, force_partitions=False):
@@ -184,18 +188,16 @@ class TailsInstallerCreator(object):
         Returns a dictionarty containing our own description of a udisk object
         """
         block = obj.props.block
-        self.log.debug("looking at %s" % obj.get_object_path())
+        self.log.debug("looking at %s", obj.get_object_path())
         if not block:
-            self.log.debug(
-                "skip %s which is not a block device" % obj.get_object_path()
-            )
+            self.log.debug("skip %s which is not a block device", obj.get_object_path())
             return
         partition = obj.props.partition
         filesystem = obj.props.filesystem
         drive = self._udisksclient.get_drive_for_block(block)
         if not drive:
             self.log.debug(
-                "skip %s which has no associated drive" % obj.get_object_path()
+                "skip %s which has no associated drive", obj.get_object_path()
             )
             return
         data = {
@@ -215,7 +217,6 @@ class TailsInstallerCreator(object):
             "parent_size": None,
             "parent_data": None,
             "size": block.props.size,
-            "mounted_partitions": {},
             "is_device_big_enough_for_installation": True,
             "is_device_big_enough_for_upgrade": True,
             "is_device_big_enough_for_reinstall": True,
@@ -230,8 +231,7 @@ class TailsInstallerCreator(object):
         iface = drive.props.connection_bus
         if iface != "usb" and iface != "sdio" and self.opts.force != data["device"]:
             self.log.warning(
-                'Skipping device "%(device)s" connected to "%(interface)s" interface'
-                % {"device": data["udi"], "interface": iface}
+                'Skipping device "%s" connected to "%s" interface', data["udi"], iface
             )
             return
 
@@ -293,11 +293,6 @@ class TailsInstallerCreator(object):
         else:
             mount = data["mount"] = None
 
-        if parent_block and mount:
-            if not data["parent"] in data["mounted_partitions"]:
-                data["mounted_partitions"][data["parent"]] = set()
-            data["mounted_partitions"][data["parent"]].add(data["udi"])
-
         data["free"] = mount and self.get_free_bytes(mount) / 1024**2 or None
         data["free"] = None  # XXX ?
 
@@ -326,13 +321,15 @@ class TailsInstallerCreator(object):
     @retry
     def detect_supported_drives(self, callback=None, force_partitions=False):
         """Detect all supported (USB and SDIO) storage devices using UDisks."""
-        mounted_parts = {}  # type: dict[str, set]
         self.drives = {}
         for obj in self._udisksclient.get_object_manager().get_objects():
             data = self._get_udisks_object_data(obj, force_partitions=force_partitions)
             if data is not None:
-                self.drives[data["device"]] = data
-                mounted_parts.update(data["mounted_partitions"])
+                # We normally list only devices ("parents"), not
+                # partitions, with the exception of partitions where
+                # Tails is installed, so we can upgrade them.
+                if self.device_can_be_upgraded(data) or data["parent"] is None:
+                    self.drives[data["device"]] = data
 
         # Remove parent drives if a valid partition exists.
         # This is always made to avoid listing both the devices
@@ -346,22 +343,6 @@ class TailsInstallerCreator(object):
                 drives_to_delete.add(parent)
         for d in drives_to_delete:
             del self.drives[d]
-
-        self.log.debug(pformat(mounted_parts))
-
-        for device, data in self.drives.items():
-            if self.source and self.source.dev and data["udi"] == self.source.dev:
-                continue
-            if device in mounted_parts and len(mounted_parts[device]) > 0:
-                data["mounted_partitions"] = mounted_parts[device]
-                self.log.debug(
-                    _(
-                        "Some partitions of the target device %(device)s are mounted. "
-                        "They will be unmounted before starting the "
-                        "installation process."
-                    )
-                    % {"device": data["device"]}
-                )
 
         if callback:
             callback()
@@ -501,8 +482,8 @@ class TailsInstallerCreator(object):
             raise TailsInstallerError(
                 _(
                     "Not enough free space on device."
-                    + "\n%(iso_size)dMB ISO + %(overlay_size)dMB overlay "
-                    + "> %(free_space)dMB free space"
+                    "\n%(iso_size)dMB ISO + %(overlay_size)dMB overlay "
+                    "> %(free_space)dMB free space"
                 )
                 % {
                     "iso_size": self.source.size / 1024**2,
@@ -529,11 +510,10 @@ class TailsInstallerCreator(object):
     def _update_configs(self, infile, outfile):
         outfile_new = "%s.new" % outfile
         shutil.copy(infile, outfile_new)
-        infile = open(infile, "r")
+        infile = open(infile)
         outfile_new = open(outfile_new, "w")
-        usblabel = self.uuid and "UUID=" + self.uuid or "LABEL=" + self.label
-        for line in infile.readlines():
-            line = re.sub("/isolinux/", "/syslinux/", line)
+        for input_line in infile.readlines():
+            line = re.sub("/isolinux/", "/syslinux/", input_line)
             outfile_new.write(line)
         infile.close()
         outfile_new.close()
@@ -608,7 +588,7 @@ class TailsInstallerCreator(object):
                             " previous Tails system: %(message)s"
                         )
                         % {"message": str(e)}
-                    )
+                    ) from e
             elif os.path.isdir(path):
                 try:
                     _set_liberal_perms_recursive(path)
@@ -626,7 +606,7 @@ class TailsInstallerCreator(object):
                             " previous Tails system: %(message)s"
                         )
                         % {"message": str(e)}
-                    )
+                    ) from e
 
     def get_liveos(self):
         return self.get_liveos_file_path(CONFIG["main_liveos_dir"])
@@ -658,7 +638,7 @@ class TailsInstallerCreator(object):
 
     def get_overlay(self):
         return os.path.join(
-            self.get_liveos(), "overlay-%s-%s" % (self.label, self.uuid or "")
+            self.get_liveos(), "overlay-{}-{}".format(self.label, self.uuid or "")
         )
 
     def _set_drive(self, drive):
@@ -674,7 +654,7 @@ class TailsInstallerCreator(object):
         #    raise TailsInstallerError(_('Cannot find device %s') % drive)
         if drive not in self.drives:
             raise TailsInstallerError(_("Cannot find device %s") % drive)
-        self.log.debug("%s selected: %s" % (drive, self.drives[drive]))
+        self.log.debug("%s selected: %s", drive, self.drives[drive])
         self._drive = drive
         self.uuid = self.drives[drive]["uuid"]
         self.fstype = self.drives[drive]["fstype"]
@@ -709,7 +689,7 @@ class TailsInstallerCreator(object):
         """Mount our device if it is not already mounted"""
         if not self.fstype:
             raise TailsInstallerError(
-                _("Unknown filesystem.  Your device " "may need to be reformatted.")
+                _("Unknown filesystem.  Your device may need to be reformatted.")
             )
         if self.fstype not in self.valid_fstypes:
             raise TailsInstallerError(_("Unsupported filesystem: %s") % self.fstype)
@@ -732,11 +712,11 @@ class TailsInstallerCreator(object):
                             "mount device: %(message)s"
                         )
                         % {"message": str(e)}
-                    )
+                    ) from e
             except Exception as e:
                 raise TailsInstallerError(
                     _("Unable to mount device: %(message)s") % {"message": str(e)}
-                )
+                ) from e
 
             # Get the new mount point
             if not mount:
@@ -744,38 +724,89 @@ class TailsInstallerCreator(object):
             else:
                 self.dest = self.drive["mount"] = mount
                 self.drive["free"] = self.get_free_bytes(self.dest) / 1024**2
-                self.log.debug("Mounted %s to %s " % (self.drive["device"], self.dest))
+                self.log.debug("Mounted %s to %s", self.drive["device"], self.dest)
         else:
-            self.log.debug("Using existing mount: %s" % self.dest)
+            self.log.debug("Using existing mount: %s", self.dest)
+
+    def has_persistent_storage(self, drive=None):
+        """Returns True iff the drive has a Tails persistent partition"""
+        if drive is None:
+            drive = self.drive
+        if drive["parent"]:
+            parent_udi = drive["parent_udi"]
+        else:
+            parent_udi = drive["udi"]
+        parent = self.try_getting_udisks_object(parent_udi, "block")
+        if parent.props.partition_table:
+            for child_udi in parent.props.partition_table.props.partitions:
+                try:
+                    child = self.try_getting_udisks_object(child_udi, "partition")
+                    block_type = child.props.block.props.id_type
+                    partition_label = child.props.partition.props.name
+                    if block_type == "crypto_LUKS" and partition_label == "TailsData":
+                        return True
+                except AttributeError:
+                    continue
+        return False
 
     def unmount_device(self):
-        """Unmount our device"""
-        self.log.debug(
-            _('Entering unmount_device for "%(device)s"')
-            % {"device": self.drive["device"]}
-        )
-
-        self.log.debug(pformat(self.drive))
-        if self.drive["mount"] is None:
-            udis = self.drive["mounted_partitions"]
+        """Unmount all filesystems and close LUKS volumes on our device"""
+        if self.drive["parent_udi"]:
+            target_udi = self.drive["parent_udi"]
         else:
-            udis = [self.drive["udi"]]
-        if udis:
-            self.log.info(
-                _('Unmounting mounted filesystems on "%(device)s"')
-                % {"device": self.drive["device"]}
-            )
+            target_udi = self.drive["udi"]
+        self.log.debug('Unmounting all partitions on "%s"', target_udi)
+        target = self.try_getting_udisks_object(target_udi, "block")
+        if target.props.partition_table:
+            unmount_candidates = [
+                self.try_getting_udisks_object(udi, "partition")
+                for udi in target.props.partition_table.props.partitions
+            ]
+        else:
+            unmount_candidates = [target]
 
-        for udi in udis:
-            self.log.debug(
-                _('Unmounting "%(udi)s" on "%(device)s"')
-                % {"device": self.drive["device"], "udi": udi}
-            )
-            filesystem = self._get_object(udi, prop="filesystem").props.filesystem
-            filesystem.call_unmount_sync(
-                arg_options=GLib.Variant("a{sv}", None), cancellable=None
-            )
-        self.drive["mount"] = None
+        for obj in unmount_candidates:
+            dev_path = obj.props.block.props.device
+            udi = obj.get_object_path()
+            self.log.debug('Looking if "%s" needs unmounting', udi)
+            encrypted = obj.props.encrypted
+            if encrypted:
+                # cleartext_device is '/' when locked
+                if encrypted.props.cleartext_device == "/":
+                    continue
+                old_udi = udi
+                udi = encrypted.props.cleartext_device
+                obj = self._get_object(udi, prop="block")  # noqa:PLW2901
+                self.log.debug(
+                    'Found unlocked encrypted mapping "%s" in "%s"', udi, old_udi
+                )
+            filesystem = obj.props.filesystem
+            if filesystem:
+                try:
+                    filesystem.call_unmount_sync(
+                        arg_options=GLib.Variant("a{sv}", None), cancellable=None
+                    )
+                    self.log.debug('Unmounted filesystem "%s"', udi)
+                except GLib.Error as e:
+                    if "is not mounted" not in e.message:
+                        raise e
+            if encrypted:
+                try:
+                    encrypted.call_lock_sync(
+                        arg_options=GLib.Variant("a{sv}", None), cancellable=None
+                    )
+                    self.log.debug('Locked "%s"', udi)
+                except gi.repository.GLib.GError as e:
+                    if "is not unlocked" not in e.message:
+                        raise e
+            try:
+                self.drives[dev_path]["mount"] = None
+            except KeyError:
+                # If we are unmounting all partitions on a device we
+                # often do not track them in self.drives (we only
+                # track partitions with Tails installed for upgrading
+                # purposes) and we end up here.
+                pass
         if (
             not self.opts.partition
             and self.dest is not None
@@ -962,7 +993,7 @@ class TailsInstallerCreator(object):
             )
             self.log.info(_("Trying to continue anyway."))
             append = "1"
-        self.drive = "%s%s" % (full_drive_name, append)
+        self.drive = f"{full_drive_name}{append}"
 
     def switch_back_to_full_drive(self):
         self.drives[self._full_drive["device"]] = self._full_drive
@@ -973,33 +1004,27 @@ class TailsInstallerCreator(object):
         if self.fstype not in self.valid_fstypes:
             if not self.fstype:
                 raise TailsInstallerError(
-                    _("Unknown filesystem.  Your device " "may need to be reformatted.")
+                    _("Unknown filesystem.  Your device may need to be reformatted.")
                 )
             else:
                 raise TailsInstallerError(_("Unsupported filesystem: %s") % self.fstype)
         if self.drive["label"] != self.label:
-            self.log.info(
-                "Setting %(device)s label to %(label)s"
-                % {"device": self.drive["device"], "label": self.label}
-            )
+            self.log.info("Setting %s label to %s", self.drive["device"], self.label)
             try:
                 if self.fstype in ("vfat", "msdos"):
                     try:
                         self.popen(
-                            "/sbin/dosfslabel %s %s"
-                            % (self.drive["device"], self.label)
+                            f'/sbin/dosfslabel {self.drive["device"]} {self.label}'
                         )
                     except TailsInstallerError:
                         # dosfslabel returns an error code even upon success
                         pass
                 else:
-                    self.popen(
-                        "/sbin/e2label %s %s" % (self.drive["device"], self.label)
-                    )
+                    self.popen(f'/sbin/e2label {self.drive["device"]} {self.label}')
             except TailsInstallerError as e:
                 self.log.error(
-                    _("Unable to change volume label: %(message)s")
-                    % {"message": str(e)}
+                    _("Unable to change volume label: %s"),
+                    str(e),
                 )
 
     def install_bootloader(self):
@@ -1029,8 +1054,7 @@ class TailsInstallerCreator(object):
         self.flush_buffers()
         self.unmount_device()
         self.popen(
-            "%s %s -d %s %s"
-            % (
+            "{} {} -d {} {}".format(
                 tmp_syslinux,
                 " ".join(self.syslinux_options()),
                 "syslinux",
@@ -1102,7 +1126,7 @@ class TailsInstallerCreator(object):
                 # We don't want any failure here to block other tear down tasks
                 try:
                     os.unlink(self._error_log_filename)
-                except:
+                except Exception:
                     print("Could not delete log file.", file=sys.stderr)
 
     def bootable_partition(self):
@@ -1144,7 +1168,7 @@ class TailsInstallerCreator(object):
         dev = parted.Device(path=parent)
         disk = parted.Disk(device=dev)
         for part in disk.partitions:
-            if self._drive == "/dev/%s" % (part.getDeviceNodeName(),):
+            if self._drive == f"/dev/{part.getDeviceNodeName()}":
                 return disk, part
         raise TailsInstallerError(_("Unable to find partition"))
 
@@ -1210,7 +1234,7 @@ class TailsInstallerCreator(object):
         self.flush_buffers(silent=True)
         time.sleep(3)
         self._get_object(prop="block").props.block.call_rescan_sync(
-            GLib.Variant("a{" "sv}", None)
+            GLib.Variant("a{sv}", None)
         )
 
     def get_mbr(self):

@@ -5,8 +5,6 @@
 
 set -eu
 
-export TOR_CONTROL_PORT=951
-
 if [ "$(id -u)" = 1000 ]; then
   ENVFILE=$(mktemp --suffix -env)
   export ENVFILE
@@ -18,4 +16,5 @@ exec /bin/ip netns exec onioncircs \
   sudo -u amnesia -- \
   /usr/local/lib/run-with-env --env-file="${ENVFILE}" --delete -- \
   /usr/local/lib/run-with-ibus-and-a11y-bus-proxy -- \
+  env TOR_CONTROL_PORT=951 \
   /usr/bin/onioncircuits "$@"

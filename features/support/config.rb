@@ -1,4 +1,5 @@
 require 'fileutils'
+require 'ipaddr'
 require 'resolv'
 require 'yaml'
 require "#{Dir.pwd}/features/support/helpers/misc_helpers.rb"
@@ -103,10 +104,20 @@ LIBVIRT_NETWORK_UUID = 'f2305af3-2a64-4f16-afe6-b9dbf02a597e'.freeze
 MISC_FILES_DIR = "#{Dir.pwd}/features/misc_files".freeze
 SERVICES_EXPECTED_ON_ALL_IFACES =
   [
-    ['cups-browsed', '0.0.0.0', '631'],
-    ['cupsd', '*', '631'],
-    ['onion-grater', '0.0.0.0', '951'],
-    ['tor', '10.200.1.1', '9050'],
+    ['cups-browsed', IPAddr.new('0.0.0.0'),    631],
+    ['onion-grater', IPAddr.new('0.0.0.0'),    951],
+    ['tor',          IPAddr.new('10.200.1.1'), 9050],
+  ].freeze
+SERVICES_ALLOWED_FOR_LIVE_USER =
+  [
+    [IPAddr.new('0.0.0.0'),    631],
+    [IPAddr.new('0.0.0.0'),    951],
+    [IPAddr.new('10.200.1.1'), 9050],
+    [IPAddr.new('127.0.0.1'),  5353],
+    [IPAddr.new('127.0.0.1'),  631],
+    [IPAddr.new('127.0.0.1'),  9062],
+    [IPAddr.new('127.0.0.1'),  9040],
+    [IPAddr.new('127.0.0.1'),  9050],
   ].freeze
 # OpenDNS
 SOME_DNS_SERVER = '208.67.222.222'.freeze
@@ -130,3 +141,64 @@ CONNECTIVITY_CHECK_ALLOWED_NODES = (CONNECTIVITY_CHECK_HOSTS.map do |ip|
 end).freeze
 
 LAN_WEB_SERVER_DATA_DIR = "#{$config['TMPDIR']}/lan-web-server".freeze
+
+# Journal entries of priority "err" or higher that we expect to see
+# in the system journal.
+# rubocop:disable Layout/LineLength
+EXPECTED_JOURNAL_ENTRIES = [
+  # libpam-gnome-keyring is not installed in Tails
+  {
+    'SYSLOG_IDENTIFIER' => 'gdm-password]',
+    'MESSAGE'           => /PAM unable to dlopen\(pam_gnome_keyring.so\):.*No such file or directory/,
+  },
+  {
+    'SYSLOG_IDENTIFIER' => 'gdm-password]',
+    'MESSAGE'           => 'PAM adding faulty module: pam_gnome_keyring.so',
+  },
+  # gdm-session-worker <= 44.0 tries to unref a NULL object
+  # https://gitlab.gnome.org/GNOME/gdm/-/issues/730
+  {
+    'SYSLOG_IDENTIFIER' => 'gdm-launch-environment]',
+    'MESSAGE'           => "GLib-GObject: g_object_unref: assertion 'G_IS_OBJECT (object)' failed",
+  },
+  # gnome-session tries to put autostart apps into a systemd scope after
+  # it started them, which fails if the process already exited.
+  # https://gitlab.gnome.org/GNOME/gnome-session/-/issues/120
+  {
+    'SYSLOG_IDENTIFIER' => 'systemd',
+    'MESSAGE'           => /Failed to start app-gnome-.*.scope - Application launched by gnome-session-binary/,
+  },
+  # The tails-autotest-remote-shell sometimes fails with an I/O error.
+  # It's automatically restarted by systemd, so this is not a big deal.
+  {
+    'SYSLOG_IDENTIFIER' => 'systemd',
+    'MESSAGE'           => /Failed to start tails-autotest-remote-shell.service.*/,
+  },
+  # USBGuard prints this message when it receives an ENOBUFS error when
+  # trying to read a pending uevent. This happens sometimes during boot
+  # and is not a problem, USBGuard continues to function normally.
+  # https://github.com/USBGuard/usbguard/issues/349
+  {
+    'SYSLOG_IDENTIFIER' => 'usbguard-daemon',
+    'MESSAGE'           => /ueventProcessRead: failed to read pending uevent.*/,
+  },
+  # https://github.com/alsa-project/alsa-lib/issues/90
+  {
+    'SYSLOG_IDENTIFIER' => 'pulseaudio',
+    'MESSAGE'           => /ALSA woke us up to (?:read|write) new data (?:to|from) the device, but there was actually nothing to (?:read|write)\./,
+  },
+  {
+    'SYSLOG_IDENTIFIER' => 'pulseaudio',
+    'MESSAGE'           => /Most likely this is a bug in the ALSA driver.*./,
+  },
+  {
+    'SYSLOG_IDENTIFIER' => 'pulseaudio',
+    'MESSAGE'           => /We were woken up with (?:POLLIN|POLLOUT) set -- however a subsequent snd_pcm_avail\(\) returned 0 or another value < min_avail\./,
+  },
+  # The spice client connection is sometimes lost, not clear why.
+  {
+    'SYSLOG_IDENTIFIER' => 'spice-vdagentd',
+    'MESSAGE'           => 'AIIEEE lost spice client connection, reconnecting (err: )',
+  },
+].freeze
+# rubocop:enable Layout/LineLength

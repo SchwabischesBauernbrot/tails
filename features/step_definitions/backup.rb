@@ -1,5 +1,5 @@
 When /^I start Tails' custom backup tool$/ do
-  step 'I start "Persistent Storage Backup" via GNOME Activities Overview'
+  launch_tails_backup
 end
 
 Then /^the backup tool displays "([^"]+)"$/ do |expected|

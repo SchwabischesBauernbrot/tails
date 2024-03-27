@@ -53,8 +53,10 @@ elif [ "$mode" = srcuris ]; then
   rm /debootstrap/$mode.tmp
 elif [ "$mode" = update ]; then
   echo "command:" "$@" >> /debootstrap/noop
+  set +e
   apt-get.real "$@"
   RET=$?
+  set -e
   if [ $RET -ne 0 ] && building_with_tagged_APT_snapshots ; then
     echo "APT update failed."
     echo "You may be experiencing a known issue,"
