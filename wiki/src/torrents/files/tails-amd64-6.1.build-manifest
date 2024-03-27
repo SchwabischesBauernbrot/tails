@@ -1,9 +1,9 @@
 ---
 origin_references:
   debian:
-    reference: '2024021201'
+    reference: '2024032501'
   debian-security:
-    reference: '2024022602'
+    reference: '2024032602'
   torproject:
     reference: '2024013101'
 packages:
@@ -29,6 +29,9 @@ packages:
   - arch: all
     package: akonadi-mime-data
     version: 4:22.12.3-1
+  - arch: all
+    package: alsa-topology-conf
+    version: 1.2.5.1-2
   - arch: amd64
     package: alsa-utils
     version: 1.2.8-1
@@ -463,7 +466,7 @@ packages:
     version: 20230625-2
   - arch: all
     package: firmware-linux-free
-    version: 20200122-2
+    version: 20200122-4
   - arch: all
     package: firmware-linux-nonfree
     version: 20230625-2
@@ -478,7 +481,7 @@ packages:
     version: 20230625-2
   - arch: all
     package: firmware-sof-signed
-    version: 2023.12-1
+    version: 2023.12.1-1
   - arch: all
     package: firmware-ti-connectivity
     version: 20230625-2
@@ -1087,7 +1090,7 @@ packages:
     version: 1.2.2-2+b1
   - arch: amd64
     package: intel-microcode
-    version: 3.20231114.1~deb12u1
+    version: 3.20240312.1
   - arch: all
     package: intltool-debian
     version: 0.35.0+20060710.6
@@ -1232,9 +1235,6 @@ packages:
   - arch: all
     package: libasound2-data
     version: 1.2.8-1
-  - arch: amd64
-    package: libasound2-plugins
-    version: 1.2.7.1-1
   - arch: amd64
     package: libasound2
     version: 1.2.8-1+b1
@@ -3693,9 +3693,6 @@ packages:
     package: libpulse0
     version: 16.1+dfsg1-2+b1
   - arch: amd64
-    package: libpulsedsp
-    version: 16.1+dfsg1-2+b1
-  - arch: amd64
     package: libpurple0
     version: 2.14.12-1
   - arch: all
@@ -4110,9 +4107,6 @@ packages:
     package: libspeex1
     version: 1.2.1-2
   - arch: amd64
-    package: libspeexdsp1
-    version: 1.2.1-1
-  - arch: amd64
     package: libsphinxbase3
     version: 0.8+5prealpha+1-16
   - arch: amd64
@@ -4447,7 +4441,7 @@ packages:
     version: 2.38.1-5+b1
   - arch: amd64
     package: libuv1
-    version: 1.44.2-1
+    version: 1.44.2-1+deb12u1
   - arch: amd64
     package: libv4l-0
     version: 1.22.1-5+b2
@@ -4556,6 +4550,9 @@ packages:
   - arch: amd64
     package: libwildmidi2
     version: 0.4.3-1
+  - arch: amd64
+    package: libwireplumber-0.4-0
+    version: 0.4.13-1
   - arch: amd64
     package: libwmf-0.2-7
     version: 0.2.12-5.1
@@ -5169,11 +5166,17 @@ packages:
     package: pinentry-qt
     version: 1.2.1-1
   - arch: amd64
+    package: pipewire-alsa
+    version: 0.3.65-3+deb12u1
+  - arch: all
+    package: pipewire-audio
+    version: 0.3.65-3+deb12u1
+  - arch: amd64
     package: pipewire-bin
     version: 0.3.65-3+deb12u1
   - arch: amd64
-    package: pipewire-media-session
-    version: 0.4.2-3
+    package: pipewire-pulse
+    version: 0.3.65-3+deb12u1
   - arch: amd64
     package: pipewire
     version: 0.3.65-3+deb12u1
@@ -5285,12 +5288,6 @@ packages:
   - arch: amd64
     package: psmisc
     version: 23.6-1
-  - arch: amd64
-    package: pulseaudio-utils
-    version: 16.1+dfsg1-2+b1
-  - arch: amd64
-    package: pulseaudio
-    version: 16.1+dfsg1-2+b1
   - arch: all
     package: python-apt-common
     version: 2.6.0
@@ -5737,37 +5734,37 @@ packages:
     version: 5.3.0-2
   - arch: all
     package: thunderbird-l10n-ar
-    version: 1:115.8.0-1~deb12u1
+    version: 1:115.9.0-1~deb12u1
   - arch: all
     package: thunderbird-l10n-de
-    version: 1:115.8.0-1~deb12u1
+    version: 1:115.9.0-1~deb12u1
   - arch: all
     package: thunderbird-l10n-es-es
-    version: 1:115.8.0-1~deb12u1
+    version: 1:115.9.0-1~deb12u1
   - arch: all
     package: thunderbird-l10n-fr
-    version: 1:115.8.0-1~deb12u1
+    version: 1:115.9.0-1~deb12u1
   - arch: all
     package: thunderbird-l10n-id
-    version: 1:115.8.0-1~deb12u1
+    version: 1:115.9.0-1~deb12u1
   - arch: all
     package: thunderbird-l10n-it
-    version: 1:115.8.0-1~deb12u1
+    version: 1:115.9.0-1~deb12u1
   - arch: all
     package: thunderbird-l10n-pt-br
-    version: 1:115.8.0-1~deb12u1
+    version: 1:115.9.0-1~deb12u1
   - arch: all
     package: thunderbird-l10n-ru
-    version: 1:115.8.0-1~deb12u1
+    version: 1:115.9.0-1~deb12u1
   - arch: all
     package: thunderbird-l10n-tr
-    version: 1:115.8.0-1~deb12u1
+    version: 1:115.9.0-1~deb12u1
   - arch: all
     package: thunderbird-l10n-zh-cn
-    version: 1:115.8.0-1~deb12u1
+    version: 1:115.9.0-1~deb12u1
   - arch: amd64
     package: thunderbird
-    version: 1:115.8.0-1~deb12u1
+    version: 1:115.9.0-1~deb12u1
   - arch: all
     package: timgm6mb-soundfont
     version: 1.3-5
@@ -5891,6 +5888,9 @@ packages:
   - arch: amd64
     package: wireless-tools
     version: 30~pre9-14
+  - arch: amd64
+    package: wireplumber
+    version: 0.4.13-1
   - arch: amd64
     package: wpasupplicant
     version: 2:2.10-12
