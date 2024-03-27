@@ -228,18 +228,16 @@ AfterConfiguration do |config|
 end
 
 module Cucumber
-  module StepMatchSearch
-    # This class is only used when the cucumber --guess option was
-    # given, or if that option was enabled dynamically when running
-    # reload_code(). We don't care about cucumber's normal guessing
-    # since we are careful about not writing ambiguous step patterns
-    # so instead we hijack it to resolve ambiguous step definitions
-    # after reloading code with that step by using the last one that
-    # was loaded.
-    class AttemptToGuessAmbiguousMatch
-      def best_matches(step_name, step_matches)
-        [step_matches.last]
-      end
+  # This class is only used when the cucumber --guess option was
+  # given, or if that option was enabled dynamically when running
+  # reload_code(). We don't care about cucumber's normal guessing
+  # since we are careful about not writing ambiguous step patterns
+  # so instead we hijack it to resolve ambiguous step definitions
+  # after reloading code with that step by using the last one that
+  # was loaded.
+  class StepMatchSearch::AttemptToGuessAmbiguousMatch
+    def best_matches(_step_name, step_matches)
+      [step_matches.last]
     end
   end
 
@@ -274,10 +272,10 @@ module Cucumber
                     &.support_code
                     &.instance_variable_get('@configuration')
                     &.instance_variable_get('@options')
-        if !options.nil? && options[:redefine_steps]
-          rb_language.step_definitions.each do |step|
-            step.proc = proc if step.regexp == regexp
-          end
+        return unless !options.nil? && options[:redefine_steps]
+
+        rb_language.step_definitions.each do |step|
+          step.proc = proc if step.regexp == regexp
         end
       end
     end

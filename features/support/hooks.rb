@@ -474,12 +474,10 @@ end
 After('@source') do |scenario|
   Dir.chdir @orig_pwd
   FileUtils.remove_entry_secure @git_clone
-  if scenario.failed?
-    if config_bool('INTERACTIVE_DEBUGGING')
-      pause(
-        "Scenario failed: #{scenario.name}. " \
-        "The error was: #{scenario.exception.class.name}: #{scenario.exception}"
-      )
-    end
+  if scenario.failed? && config_bool('INTERACTIVE_DEBUGGING')
+    pause(
+      "Scenario failed: #{scenario.name}. " \
+      "The error was: #{scenario.exception.class.name}: #{scenario.exception}"
+    )
   end
 end

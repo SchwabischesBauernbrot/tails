@@ -1501,8 +1501,8 @@ def reload_code(path_glob)
   # identical pattern. So we enable cucumber's --guess option which
   # we have monkeypatched to use the last (loaded) definition.
   configuration = @__cucumber_runtime
-                    .support_code
-                    .instance_variable_get('@configuration')
+                  .support_code
+                  .instance_variable_get('@configuration')
   unless configuration.guess?
     options = configuration.instance_variable_get('@options')
     options[:guess] = true
@@ -1515,17 +1515,17 @@ def reload_code(path_glob)
   # paths from GIT_DIR to match how they are loaded by cucumber at the
   # test suite initialization.
   Dir.chdir(GIT_DIR) do
-    Dir.glob(path_glob).each { |file| load file }
+    Dir.glob(path_glob).each { |file| load(file) }
   end
   nil
 end
 
 def reload_step_definitions
-  reload_code("features/step_definitions/**/*.rb")
+  reload_code('features/step_definitions/**/*.rb')
 end
 
 def reload_all_code
-  reload_code("features/**/*.rb")
+  reload_code('features/**/*.rb')
 end
 
 When /^I reload step definitions$/ do
