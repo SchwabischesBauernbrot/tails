@@ -58,7 +58,7 @@ check-black:
   script:
   - apt-get -qy install black
   - black --version
-  - black --check .
+  - black -t py311 --check .
 
 ruff-changed-files:
   only:
@@ -67,7 +67,7 @@ ruff-changed-files:
   image: debian:sid
 
   script:
-    - apt-get -qy install ruff findutils git
+    - apt-get -qy install ruff findutils git python3
     - ruff --version
     - git fetch origin "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
     - ./bin/test-utils/ruff HEAD "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}" --output-format=junit --output-file=ruff.xml

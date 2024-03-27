@@ -25,9 +25,8 @@ use English qw{-no_match_vars};
 use File::Basename;
 use File::Spec::Functions;
 use Function::Parameters;
-use IPC::Run;
 use Path::Tiny;
-use Tails::IUK::Utils qw{extract_file_from_iso extract_here_file_from_iso run_as_root stdout_as_root};
+use Tails::IUK::Utils qw{extract_file_from_iso extract_here_file_from_iso run_as_root};
 use Types::Path::Tiny qw{AbsDir AbsFile AbsPath File};
 use Types::Standard qw(ArrayRef Enum Str);
 use Try::Tiny;
@@ -376,38 +375,14 @@ method create_squashfs_diff () {
 
     run_as_root("umount", $union_mount);
 
-    # Remove trusted.overlay.* xattrs
-    my @xattrs_dump = stdout_as_root(
-        qw{getfattr --dump --recursive --no-dereference --absolute-names},
-        q{--match=^trusted\.overlay\.},
-        $union_upperdir->stringify,
+    run_as_root(
+        # This code is only used from a Git checkout.
+        path(__FILE__)->parent->parent->parent
+                      ->child('bin', 'tails-remove-matching-xattrs')
+                      ->absolute,
+        '--directory', $union_upperdir,
+        '--prefix', 'trusted.overlay.',
     );
-    my %xattrs;
-    my $current_filename;
-    foreach (@xattrs_dump) {
-        defined || last;
-        chomp;
-        if (! length($_)) {
-            $current_filename = undef;
-            next;
-        } elsif (my ($filename) = ($_ =~ m{\A [#] \s+ file: \s+ (.*) \z}xms)) {
-            $current_filename = $filename;
-        } elsif (my ($xattr, $value) = ($_ =~ m{\A(trusted[.]overlay[.][^=]+)=(.*)\z}xms)) {
-            push @{$xattrs{$xattr}}, $current_filename;
-        } else {
-            croak "Unrecognized line, aborting: '$_'";
-        }
-    }
-    while (my ($xattr, $files) = each %xattrs) {
-        my $stdin = join(chr(0), @$files);
-        my ($stdout, $stderr);
-        IPC::Run::run [
-            qw{sudo xargs --null --no-run-if-empty},
-            'setfattr', '--remove=' . $xattr,
-            '--no-dereference',
-            '--'
-        ], \$stdin or croak "xargs failed: $?";
-    }
 
     $t1 = time;
     run_as_root(

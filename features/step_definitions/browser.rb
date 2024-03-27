@@ -64,11 +64,8 @@ def set_browser_url(url)
   end
 end
 
-When /^I (?:try to )?start the Unsafe Browser$/ do
-  $vm.spawn(
-    'gio launch /usr/share/applications/unsafe-browser.desktop',
-    user: LIVE_USER
-  )
+When /^I (try to )?start the Unsafe Browser$/ do |try_to|
+  launch_unsafe_browser(check_started: !try_to)
 end
 
 When /^I successfully start the Unsafe Browser(?: in "([^"]+)")?$/ do |lang_code|
@@ -360,11 +357,11 @@ Then /^I can listen to an Ogg audio track in Tor Browser$/ do
     @screen.wait_vanish(info[:browser_stop_button_image], 3)
     open_test_url.call
   end
-  try_for(20) { pulseaudio_sink_inputs.zero? }
+  try_for(20) { pipewire_input_ports.zero? }
   open_test_url.call
   retry_tor(recovery_on_failure) do
     sleep 30
-    assert_equal(1, pulseaudio_sink_inputs)
+    assert(pipewire_input_ports.positive?)
   end
 end
 
@@ -443,7 +440,7 @@ Then /^Tor Browser's circuit view is working$/ do
 end
 
 When /^I start the Tor Browser( in offline mode)?$/ do |offline|
-  step 'I start "Tor Browser" via GNOME Activities Overview'
+  launch_tor_browser(check_started: !offline)
   if offline
     start_button = Dogtail::Application
                    .new('zenity')

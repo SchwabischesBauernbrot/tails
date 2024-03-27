@@ -6,7 +6,7 @@
 VM_MEMORY_BASE = 1.5 * 1024
 
 # Approximate amount of extra space needed for builds
-BUILD_SPACE_REQUIREMENT = 12 * 1024 + 128
+BUILD_SPACE_REQUIREMENT = 13 * 1024
 
 # Virtual machine memory size for on-disk builds
 VM_MEMORY_FOR_DISK_BUILDS = VM_MEMORY_BASE

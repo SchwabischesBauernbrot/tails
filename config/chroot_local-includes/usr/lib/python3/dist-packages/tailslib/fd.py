@@ -3,6 +3,7 @@
 This is useful when you want to open a socket or file with higher
 privileges and then drop privileges and pass the file descriptor to
 another process."""
+
 from pathlib import Path
 import logging
 import os

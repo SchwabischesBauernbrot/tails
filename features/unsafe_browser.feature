@@ -81,5 +81,5 @@ Feature: Browsing the web using the Unsafe Browser
     And the network is unplugged
     # NetworkManager apparently needs some time to notice that the connection is now off
     And I wait 10 seconds
-    When I start the Unsafe Browser
+    When I try to start the Unsafe Browser
     Then I am told I cannot start the Unsafe Browser when I am offline
