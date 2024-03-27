@@ -1693,6 +1693,10 @@ Lead the internal manual testing to conclusion
    To communicate this to them, delete "⚠ Wait until the Release Manager […]" in
    the "Reproducibility" section on the pad.
 
+   Note that the Trusted Reproducer has 72 hours to complete this check, you do
+   not have to wait for this to be completed, just make sure they are informed
+   that the Reproducibility check can be started.
+
 1. Make sure that enough people are here to run the tests, that they
    report their results in due time, and that they make it clear when
    they're leaving for good.
@@ -1723,9 +1727,10 @@ Lead the internal manual testing to conclusion
 1. If you were the one running the [automated test suite](#run-automated-tests),
    check its results.
 
-1. Triage test results, reproduce bugs as needed, decide what the next
-   step is and make sure it happens: add to known issues? file an issue?
-   release blocker? improve the test description (steps, expected outcome)?
+1. Triage test results (except for the reproducibility test), reproduce bugs as
+   needed, decide what the next step is and make sure it happens: add to known
+   issues? file an issue? release blocker? improve the test description (steps,
+   expected outcome)?
 
 Prepare announcements and blog posts
 ====================================
