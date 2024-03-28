@@ -78,6 +78,10 @@ exec_firefox_helper() {
     # https://gitlab.torproject.org/legacy/trac/-/issues/27903
     export GSETTINGS_BACKEND=memory
 
+    # tor-browser-build#41017: Nvidia drivers create a shader cache by
+    # default in $HOME/.cache/nvidia. We we can easily disable it.
+    export __GL_SHADER_DISK_CACHE=0
+
     exec "${TBB_INSTALL}"/"${binary}" "${@}"
 }
 
