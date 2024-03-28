@@ -938,7 +938,23 @@ When /^I run "([^"]+)" in GNOME Terminal$/ do |command|
     terminal.grabFocus
     terminal.focused
   end
-  @screen.paste(command, app: :terminal)
+
+  try_for(20) do
+    @screen.paste(command, app: :terminal)
+    if terminal.text[command]
+      # The command was pasted successfully
+      true
+    else
+      debug_log('Error while pasting; trying again...')
+      # The command was not pasted successfully. Close the terminal and
+      # open a new one.
+      app.child('Close', roleName: 'push button').click
+      app = launch_gnome_terminal
+      terminal = app.child('Terminal', roleName: 'terminal')
+      false
+    end
+  end
+
   @screen.press('Return')
 end
 
