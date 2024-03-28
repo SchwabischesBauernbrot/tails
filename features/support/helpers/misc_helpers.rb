@@ -383,7 +383,7 @@ def notify_user(message)
   cmd_helper(alarm_script.gsub('%m', message))
 end
 
-def pause(message = 'Paused')
+def pause(message = 'Paused', quiet: false)
   notify_user(message)
   $stderr.puts
   warn message
@@ -400,7 +400,7 @@ def pause(message = 'Paused')
     when 'd'
       RubyVM::DebugInspector.open do |inspector|
         # The 4th frame is the caller in this context
-        inspector.frame_binding(4).pry
+        inspector.frame_binding(4).pry(quiet: quiet)
       end
     end
   end
