@@ -1,0 +1,126 @@
+resource_rules:
+
+  issues:
+    rules:
+      - name: Stalled WIP
+        actions:
+          summarize:
+            destination: zen/tails
+            title: "Triage stalled work-in-progress: #{Time.now.strftime('%Y-%m-%d')}"
+            summary: |
+              Hello, dear contributor!
+              
+              This is an automated process that flags issues in a ~'Doing' state
+              that have not been updated since more than 3 months.
+              
+              If you've been mentioned in a comment below, please make sure to
+              update the corresponding issue(s) in order to better reflect your
+              plans, avoid too much WIP for yourself, and encourage team work.
+
+              Please, either unassign yourself or communicate your plans
+              directly in the issue, for example by commenting about your
+              planned time frame, replacing the "Doing" label with "To Do", or
+              setting a suitable milestone.
+
+              Thanks for contributing!
+
+              /assign @zen
+              /label ~"T:Communicate"
+              /label ~"To Do"
+          comment_type: thread
+          comment_on_summary: |
+            #{resource['assignee'].nil? ? 'TicketGardener' : ('@' + resource['assignee']['username'])}, please update the following issue: {{full_reference}}+
+        conditions:
+          state: opened
+          labels:
+            - Doing
+          date:
+            attribute: updated_at
+            condition: older_than
+            interval_type: months
+            interval: 3
+      - name: Stalled validation
+        actions:
+          summarize:
+            destination: tails/tails
+            title: "Triage stalled validation: #{Time.now.strftime('%Y-%m-%d')}"
+            summary: |
+              Hello, dear contributor!
+              
+              This is an automated process that flags issues in a ~'Needs validation' state
+              that have not been updated since more than 45 days.
+              
+              If you've been mentioned in a comment below, please make sure to
+              update the corresponding issue(s) in order to better reflect your
+              plans, avoid too much WIP for yourself, and encourage team work.
+
+              Please, do one of the following: 
+
+              - if you're the author of the work, unassign yourself and try to
+                find someone who can complete the review; or
+
+              - if you are the reviewer, please either unassign yourself to
+                make it clear that someone else can handle it, or coordinate
+                with the author and commit with a certain time frame for
+                handling the review.
+
+              Thanks for contributing!
+
+              /assign @zen
+              /label ~"T:Communicate"
+              /label ~"To Do"
+          comment_type: thread
+          comment_on_summary: |
+            #{resource['assignee'].nil? ? 'TicketGardener' : ('@' + resource['assignee']['username'])}, please update the following issue: {{full_reference}}+
+        conditions:
+          state: opened
+          labels:
+            - Needs Validation
+          date:
+            attribute: updated_at
+            condition: older_than
+            interval_type: days
+            interval: 45
+
+  merge_requests:
+    rules:
+      - name: Stalled MRs
+        actions:
+          summarize:
+            destination: tails/tails
+            title: "Triage stalled merge requests: #{Time.now.strftime('%Y-%m-%d')}"
+            summary: |
+              Hello, dear contributor!
+              
+              This is an automated process that flags MRs that have not been updated since more than 45 days.
+              
+              If you've been mentioned in a comment below, please make sure to
+              update the corresponding issue(s) in order to better reflect your
+              plans, avoid too much WIP for yourself, and encourage team work.
+
+              Please, do one of the following:
+
+              - if you are the author of the work, unassign yourself to make it
+                clear that someone else can handle it, or
+  
+              - if you are the reviewer, please either unassign yourself to
+                make it clear that someone else can handle it, or coordinate
+                with the author and commit with a certain time frame for
+                handling the review.
+  
+              Thanks for contributing!
+  
+              /assign @zen
+              /label ~"T:Communicate"
+              /label ~"To Do"
+          comment_type: thread
+          comment_on_summary: |
+            #{resource['assignee'].nil? ? 'TicketGardener' : ('@' + resource['assignee']['username'])}, please update the following MR: {{full_reference}}+
+        conditions:
+          state: opened
+          draft: false
+          date:
+            attribute: updated_at
+            condition: older_than
+            interval_type: days
+            interval: 45
