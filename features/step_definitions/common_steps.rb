@@ -1503,12 +1503,10 @@ def reload_code(path_glob)
   configuration = @__cucumber_runtime
                   .support_code
                   .instance_variable_get('@configuration')
-  unless configuration.guess?
-    options = configuration.instance_variable_get('@options')
-    options[:guess] = true
-    # This will enable the monkeypatch handling step redifinitions
-    options[:redefine_steps] = true
-  end
+  options = configuration.instance_variable_get('@options')
+  options[:guess] = true
+  # This will enable the monkeypatch handling step redifinitions
+  options[:redefine_steps] = true
   # Some tests (e.g. those tagged @source) change the current working
   # directory so the glob below finds nothing unless we restore it to
   # the usual GIT_DIR. Also, we want the glob to result in relative
