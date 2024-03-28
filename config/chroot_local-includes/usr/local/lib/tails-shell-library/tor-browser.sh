@@ -41,6 +41,34 @@ exec_firefox_helper() {
     # https://gitlab.torproject.org/legacy/trac/-/issues/5261
     unset SESSION_MANAGER
 
+    # If XAUTHORITY is unset, set it to its default value of $HOME/.Xauthority
+    # before we change HOME below.  (See xauth(1) and #1945.)  XDM and KDM rely
+    # on applications using this default value.
+    # export XAUTHORITY="~/.Xauthority"
+    #
+    # Skipped because Tails always set it.
+
+    # Prevent disk leaks in $HOME/.local/share (tor-browser#17560)
+    # function erase_leaky() { [...] }
+    #
+    # Skipped in Tails because it is amnesic.
+
+    # export HOME="${PWD}"
+    #
+    # Skipped because in Tails the browser has been modified to behave
+    # like a normal application, not a bundled executable that tries
+    # to isolate itself from the rest of the system, where changing
+    # HOME might make sense.
+
+    # [% IF c("var/asan") -%]
+    # We need to disable LSan which is enabled by default now. Otherwise we'll get
+    # a crash during shutdown: https://bugs.torproject.org/10599#comment:59
+    # export ASAN_OPTIONS="detect_leaks=0"
+    # [% END -%]
+    #
+    # Skipped because Tor Browser x86_64 isn't enabling asan so the
+    # above part is not included in its start script.
+
     # Enable bundled fonts to decrease fingerprint.
     # https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/13313
     export FONTCONFIG_PATH="${TBB_INSTALL}/fontconfig"
