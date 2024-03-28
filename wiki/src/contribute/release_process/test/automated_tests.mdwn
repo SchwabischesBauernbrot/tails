@@ -378,7 +378,7 @@ are doing (see the "Limitations of code reloading" section
 below). Avoid using the built-in `load()` since it does not support
 redefining steps, which our `reload_code()` does.
 
-#### Interactive debugging example
+#### Example: interactive debugging
 
 Let's say we have a scenario:
 
@@ -496,6 +496,99 @@ continue the run, invoking the redefined version of `I do foo` which
 also makes `foo was successful` happy, and the scenario should pass
 (unless there is an issue in the `maybe more stuff` step, then we
 rinse and repeat)!
+
+#### Example: writing a new scenario
+
+Let's say we want to implement the silly scenario from the previous
+example, so we first create `features/test.feature`:
+
+```gherkin
+@source
+Feature: test
+
+Scenario: test
+  Given some context
+  When I do foo
+  Then foo was successful
+  And maybe more stuff
+```
+
+We run this feature, and cucumber will actually output the step
+definition stubs we need:
+
+```
+[...]
+1 scenario (1 undefined)
+4 steps (4 undefined)
+0m0.004s
+
+You can implement step definitions for undefined steps with these snippets:
+
+Given(/^some context$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+When(/^I do foo$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^foo was successful$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^maybe more stuff$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+```
+
+which we put into `features/step_definitions/test.rb`, but we replace
+`pending` with `pause` to get a breakpoint in each of these step
+definition stubs:
+
+```rb
+Given(/^some context$/) do
+  pause
+end
+
+When(/^I do foo$/) do
+  pause
+end
+
+Then(/^foo was successful$/) do
+  pause
+end
+
+Then(/^maybe more stuff$/) do
+  pause
+end
+```
+
+Then we run the feature again. and we work similarly to how we did in
+the previous example, now implementing the new steps by doing the
+following as we encounter each of their breakpoints:
+
+1. we interactively test code snippets in the debugging REPL and
+   explore solutions,
+2. we take the good bits and write them into the step definition in
+   `features/step_definitions/test.rb`,
+3. we run `reload_step_definitions` + `step ...` to test it,
+4. we iterate until the step passes and does what we want it to,
+5. and then we finally escape the breakpoint and see cucumber run the
+   step successfully.
+
+After the last step we have implemented the whole scenario and all its
+steps in a single run, avoiding the costs of having to re-run the
+scenario multiple times just to test some change we did to some step.
+
+Like we mentioned in the previous example, some steps alter state and
+have to be manually reverted so you have the required state to test
+the step with again. If the revert is awkward or time consuming, and
+this is mostly about the Tails VM's state, do not hesitate to manually
+save a snapshot in the debugging REPL with `$vm.save_snapshot('foo')`,
+and then restore it with `$vm.restore_snapshot('foo')` before `step
+...` each time you want to test it. Note that this will not revert any
+Ruby state, like `@class_variables` and `@global_variables` used by
+some steps.
 
 #### Limitations of code reloading
 
