@@ -273,3 +273,17 @@ https-get-expired-sid:
     - *install-https-get-expired-build-deps
     - *build-https-get-expired
     - *test-https-get-expired
+
+ticket-gardener:
+  when: manual
+  script:
+    - apt-get -qy install ruby
+    - gem install gitlab-triage
+    - |
+      /usr/local/bin/gitlab-triage \
+        --dry-run \
+        --source-id tails \
+        --source groups \
+        --policies-file ${CI_PROJECT_DIR}/config/gitlab-triage/policies/stalled.yml \
+        --host-url https://gitlab.tails.boum.org/ \
+        --token ${API_TOKEN}
