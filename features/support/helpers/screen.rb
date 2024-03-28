@@ -181,6 +181,8 @@ class Screen
       find(pattern, **opts.clone.update(log: false))
     rescue FindFailed
       true
+    else
+      false
     end
     debug_log("Screen: #{pattern} has vanished") if opts[:log]
     nil
