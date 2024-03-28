@@ -1,4 +1,5 @@
 require 'date'
+require 'debug_inspector'
 require 'English'
 require 'io/console'
 require 'pry'
@@ -397,7 +398,10 @@ def pause(message = 'Paused')
     when 'q', "\r", 3.chr # Ctrl+C => 3
       return
     when 'd'
-      binding.pry(quiet: true) # rubocop:disable Lint/Debugger
+      RubyVM::DebugInspector.open do |inspector|
+        # The 4th frame is the caller in this context
+        inspector.frame_binding(4).pry
+      end
     end
   end
 end
