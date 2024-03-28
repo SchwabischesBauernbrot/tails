@@ -242,11 +242,6 @@ module Cucumber
   end
 
   module RbSupport
-    # We need access to the cucumber runtime in RbStepDefinition
-    class RbLanguage
-      attr_reader :runtime
-    end
-
     # Add support for re-defining steps dynamically during a run. When
     # code is reloaded all steps are instatiated as RbStepDefinition
     # again, but we also have to modify existing instances or else
@@ -267,12 +262,7 @@ module Cucumber
         assert_equal(3, args.length, 'Please update the monkeypatch')
         assert_empty(opts, 'Please update the monkeypatch')
         rb_language, regexp, proc = args
-        options = rb_language
-                    &.runtime
-                    &.support_code
-                    &.instance_variable_get('@configuration')
-                    &.instance_variable_get('@options')
-        return unless !options.nil? && options[:redefine_steps]
+        return unless !$cucumber_options.nil? && $cucumber_options[:redefine_steps]
 
         rb_language.step_definitions.each do |step|
           step.proc = proc if step.regexp == regexp

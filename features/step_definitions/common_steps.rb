@@ -1500,13 +1500,9 @@ def reload_code(path_glob)
   # ambiguous since there is an existing one with matching an
   # identical pattern. So we enable cucumber's --guess option which
   # we have monkeypatched to use the last (loaded) definition.
-  configuration = @__cucumber_runtime
-                  .support_code
-                  .instance_variable_get('@configuration')
-  options = configuration.instance_variable_get('@options')
-  options[:guess] = true
+  $cucumber_options[:guess] = true
   # This will enable the monkeypatch handling step redifinitions
-  options[:redefine_steps] = true
+  $cucumber_options[:redefine_steps] = true
   # Some tests (e.g. those tagged @source) change the current working
   # directory so the glob below finds nothing unless we restore it to
   # the usual GIT_DIR. Also, we want the glob to result in relative

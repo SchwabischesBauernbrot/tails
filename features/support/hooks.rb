@@ -7,6 +7,20 @@ require 'tmpdir'
 AfterConfiguration do |config|
   puts("Cucumber tags: #{config.tag_expressions}")
 
+  # We'll need access to cucumber's options in some places where
+  # @__cucumber_runtime (which has a reference to it) is awkward to
+  # access, so we make a global reference to them for those
+  # situations.
+  # Note that we use `instance_variable_get` to work around this
+  # warning:
+  #
+  #     Deprecated: Configuration#options will be removed from the
+  #     next release of Cucumber. Please use the configuration object
+  #     directly instead.
+  #
+  # We'll revisit what to do then.
+  $cucumber_options = config.instance_variable_get('@options')
+
   # Reorder the execution of some features. As we progress through a
   # run we accumulate more and more snapshots and hence use more and
   # more disk space, but some features will leave nothing behind
