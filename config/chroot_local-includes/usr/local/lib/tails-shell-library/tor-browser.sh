@@ -23,22 +23,32 @@ exec_firefox_helper() {
     local binary="${1}"; shift
 
     export LD_LIBRARY_PATH="${TBB_INSTALL}"
-    export FONTCONFIG_PATH="${TBB_INSTALL}/fontconfig"
-    export FONTCONFIG_FILE="fonts.conf"
     export GNOME_ACCESSIBILITY=1
 
     # Don't let Tor Browser manage the tor daemon: we do it ourselves.
     export TOR_SKIP_LAUNCH=1
-    # New in 9.5: Avoid overwriting user's dconf values. Fixes #27903.
-    export GSETTINGS_BACKEND=memory
 
     # The Tor Browser often assumes that the current directory is
     # where the browser lives, e.g. for the fixed set of fonts set by
     # fontconfig above.
     cd "${TBB_INSTALL}"
 
-    # From start-browser:
+    # Environment stuff from the upstream start-browser script:
+
+    # Do not (try to) connect to the session manager.  Otherwise it
+    # does (and fails) but if it succeeded it would be "very bad",
+    # although details on why are missing.
+    # https://gitlab.torproject.org/legacy/trac/-/issues/5261
     unset SESSION_MANAGER
+
+    # Enable bundled fonts to decrease fingerprint.
+    # https://gitlab.torproject.org/tpo/applications/tor-browser/-/issues/13313
+    export FONTCONFIG_PATH="${TBB_INSTALL}/fontconfig"
+    export FONTCONFIG_FILE="fonts.conf"
+
+    # Avoid overwriting user's dconf values.
+    # https://gitlab.torproject.org/legacy/trac/-/issues/27903
+    export GSETTINGS_BACKEND=memory
 
     exec "${TBB_INSTALL}"/"${binary}" "${@}"
 }
