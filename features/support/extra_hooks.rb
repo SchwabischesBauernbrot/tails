@@ -241,32 +241,30 @@ module Cucumber
     end
   end
 
-  module RbSupport
-    # Add support for re-defining steps dynamically during a run. When
-    # code is reloaded all steps are instatiated as RbStepDefinition
-    # again, but we also have to modify existing instances or else
-    # cucumber will use the old definitions since it already has
-    # matched each step read from the .feature files to these old
-    # instances.
-    class RbStepDefinition
-      attr_reader :regexp
-      attr_accessor :proc
-      alias old_initialize initialize
+  # Add support for re-defining steps dynamically during a run. When
+  # code is reloaded all steps are instatiated as RbStepDefinition
+  # again, but we also have to modify existing instances or else
+  # cucumber will use the old definitions since it already has
+  # matched each step read from the .feature files to these old
+  # instances.
+  class RbSupport::RbStepDefinition
+    attr_reader :regexp
+    attr_accessor :proc
+    alias old_initialize initialize
 
-      # We deliberately keep this monkeypatch as non-invasive as
-      # possible by hiding the added functionality behind a bool that
-      # is only set if reload_code() was ever called, which it isn't
-      # during a normal run.
-      def initialize(*args, **opts)
-        old_initialize(*args, **opts)
-        assert_equal(3, args.length, 'Please update the monkeypatch')
-        assert_empty(opts, 'Please update the monkeypatch')
-        rb_language, regexp, proc = args
-        return unless !$cucumber_options.nil? && $cucumber_options[:redefine_steps]
+    # We deliberately keep this monkeypatch as non-invasive as
+    # possible by hiding the added functionality behind a bool that
+    # is only set if reload_code() was ever called, which it isn't
+    # during a normal run.
+    def initialize(*args, **opts)
+      old_initialize(*args, **opts)
+      assert_equal(3, args.length, 'Please update the monkeypatch')
+      assert_empty(opts, 'Please update the monkeypatch')
+      rb_language, regexp, proc = args
+      return unless !$cucumber_options.nil? && $cucumber_options[:redefine_steps]
 
-        rb_language.step_definitions.each do |step|
-          step.proc = proc if step.regexp == regexp
-        end
+      rb_language.step_definitions.each do |step|
+        step.proc = proc if step.regexp == regexp
       end
     end
   end
