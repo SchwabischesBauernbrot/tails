@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: transitails 1\n"
-"POT-Creation-Date: 2024-03-28 01:50+0000\n"
+"POT-Creation-Date: 2024-03-28 02:08+0000\n"
 "PO-Revision-Date: 2023-10-05 23:13+0000\n"
 "Last-Translator: _ignifugo <ignifugo@insicuri.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
@@ -165,13 +165,22 @@ msgstr ""
 "</div>\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <div class=\"note upgrade\">\n"
+#| "   <p>The Persistent Storage of your Tails USB stick will be preserved.</p>\n"
+#| "   <p class=\"upgrade-clone\">The Persistent Storage of the other Tails will not be copied.</p>\n"
+#| "   </div>\n"
 msgid ""
 "   <li><p>If you select the option <b>Clone the current Persistent Storage</b>,\n"
 "   the Persistent Storage of the other Tails will also be copied when\n"
-"   upgrading. You will loose all the data in your Persistent Storage, if you\n"
+"   upgrading. You will lose all the data in your Persistent Storage, if you\n"
 "   have one.</p></li>\n"
 msgstr ""
+"   <div class=\"note upgrade\">\n"
+"<p>L'Archivio Persistente della tua chiave  USB Tails sarà conservato.</p>\n"
+"<p class=\"upgrade-clone\">L'Archivio Persistente dell'altro Tails non sarà copiato</p>\n"
+"</div>\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -207,6 +216,17 @@ msgstr ""
 #. type: Bullet: '1. '
 msgid "Read the warning message in the confirmation dialog."
 msgstr "Leggi il messaggio di avviso nella finestra di conferma."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<div class=\"trophy upgrade\">\n"
+msgid "   <div class=\"bug\">\n"
+msgstr "<div class=\"trophy upgrade\">\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "   <p>There is currently no confirmation dialog when upgrading. ([[!tails_ticket 20247]])</p>\n"
+msgstr ""
 
 #. type: Bullet: '1. '
 msgid "Click **Delete All Data and Install** to confirm."
