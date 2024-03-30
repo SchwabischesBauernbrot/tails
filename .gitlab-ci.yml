@@ -37,6 +37,7 @@ build-website:
     - ( test -d wiki/src/.ikiwiki && ls -alh wiki/src/.ikiwiki ) || echo "No IKIWIKI cache"
     - ls -alh wiki/src/
     - ( test -d config/chroot_local-includes/usr/share/doc/tails/website && ls -alh config/chroot_local-includes/usr/share/doc/tails/website ) || echo "No WEBSITE cache"
+    - find /cache
     - ./build-website --refresh
     - apt-get install -y openssh-client rsync
     - test -e .ssh || mkdir .ssh
