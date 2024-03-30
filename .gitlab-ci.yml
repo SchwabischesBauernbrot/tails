@@ -34,9 +34,9 @@ build-website:
   script:
     - echo CI_COMMIT_BRANCH = $CI_COMMIT_BRANCH
     - apt-get -qy install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
-    - ls -alh wiki/src/.ikiwiki
+    - ( test -d wiki/src/.ikiwiki && ls -alh wiki/src/.ikiwiki ) || echo "No IKIWIKI cache"
     - ls -alh wiki/src/
-    - ls -alh config/chroot_local-includes/usr/share/doc/tails/website/
+    - ( test -d config/chroot_local-includes/usr/share/doc/tails/website && ls -alh config/chroot_local-includes/usr/share/doc/tails/website ) || echo "No WEBSITE cache"
     - ./build-website --refresh
     - apt-get install -y openssh-client rsync
     - test -e .ssh || mkdir .ssh
