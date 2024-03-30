@@ -27,7 +27,7 @@ build-website:
     paths:
       - config/chroot_local-includes/usr/share/doc/tails/website
       - .ikiwiki
-      - **.pot
+      - '**.pot'
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
