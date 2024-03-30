@@ -35,6 +35,8 @@ build-website:
     - if: '$CI_COMMIT_BRANCH == "wip/sysadmin-16956-static-shim"'
   script:
     - echo CI_COMMIT_BRANCH = $CI_COMMIT_BRANCH
+    - ls -alh wiki/src/.ikiwiki
+    - ls -alh config/chroot_local-includes/usr/share/doc/tails/website/
     - apt-get -qy install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
     - ./build-website --refresh
     - ls -alh config/chroot_local-includes/usr/share/doc/tails/website
