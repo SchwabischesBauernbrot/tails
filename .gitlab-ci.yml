@@ -27,7 +27,7 @@ build-website:
     key: website-$CI_COMMIT_BRANCH
     paths:
       - config/chroot_local-includes/usr/share/doc/tails/website
-      - .ikiwiki
+      - wiki/src/.ikiwiki
       - '**.pot'
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
