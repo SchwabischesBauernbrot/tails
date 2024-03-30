@@ -22,7 +22,7 @@ before_script:
 build-website:
   image: docker.io/zenfufu/website-builder
   variables:
-    GIT_CLEAN_FLAGS: -ffdx -e config/chroot_local-includes/usr/share/doc/tails/website/ -e .ikiwiki/ -e '**.pot' -e .ssh
+    GIT_CLEAN_FLAGS: -ffdx -e config/chroot_local-includes/usr/share/doc/tails/website/ -e .ikiwiki/ -e 'wiki/src/**.pot' -e .ssh
   cache:
     key: website-$CI_COMMIT_BRANCH
     paths:
