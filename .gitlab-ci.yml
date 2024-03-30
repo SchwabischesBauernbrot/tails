@@ -21,14 +21,12 @@ before_script:
 
 build-website:
   image: docker.io/zenfufu/website-builder
-  variables:
-    GIT_CLEAN_FLAGS: -ffdx -e config/chroot_local-includes/usr/share/doc/tails/website/ -e .ikiwiki/ -e wiki/src/**.pot
   cache:
     key: website-$CI_COMMIT_BRANCH
     paths:
       - config/chroot_local-includes/usr/share/doc/tails/website
       - wiki/src/.ikiwiki
-      - '**.pot'
+      - wiki/src/**.pot
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
