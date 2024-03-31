@@ -20,7 +20,6 @@ module OpenCV
     # in the parent process, which will spam our log with useless
     # information, so we disable such reports temporarily.
     Thread.report_on_exception = false
-    debug_log('OpenCV: starting opencv_match_template.py')
     stdout, stderr, p = Open3.capture3(
       env, 'python3', "#{GIT_DIR}/features/scripts/opencv_match_template.py",
       screen, image, sensitivity.to_s, show_match.to_s, show_old.to_s
