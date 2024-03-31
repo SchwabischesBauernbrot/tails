@@ -150,7 +150,7 @@ class Screen
     end
 
     m = Match.new(image, self, *p)
-    debug_log("Screen: found #{image} at (#{m.middle.join(', ')})")
+    debug_log("Screen: found #{image} at (#{m.middle.join(', ')})") if opts[:log]
     m
   end
 
@@ -158,7 +158,9 @@ class Screen
     opts[:log] = true if opts[:log].nil?
     debug_log("Screen: waiting for #{pattern}") if opts[:log]
     try_for(timeout, delay: 0) do
-      return find(pattern, **opts)
+      m = find(pattern, **opts.clone.update(log: false))
+      debug_log("Screen: found #{m.image} at (#{m.middle.join(', ')})") if opts[:log]
+      return m
     end
   rescue Timeout::Error
     raise FindFailed, "cannot find #{pattern} on the screen"
@@ -190,11 +192,11 @@ class Screen
 
   def find_any(patterns, **opts)
     opts[:log] = true if opts[:log].nil?
-    if opts[:log]
-      debug_log("Screen: trying to find any of #{patterns.join(', ')}")
-    end
+    debug_log("Screen: trying to find any of #{patterns.join(', ')}") if opts[:log]
     patterns.each do |pattern|
-      return find(pattern, **opts.clone.update(log: false))
+      m = find(pattern, **opts.clone.update(log: false))
+      debug_log("Screen: found #{m.image} at (#{m.middle.join(', ')})") if opts[:log]
+      return m
     rescue FindFailed
       # Ignore. We'll throw an appropriate exception after having
       # looped through all patterns and found none of them.
@@ -214,7 +216,9 @@ class Screen
     opts[:log] = true if opts[:log].nil?
     debug_log("Screen: waiting for any of #{patterns.join(', ')}") if opts[:log]
     try_for(time, delay: 0, log: false) do
-      return find_any(patterns, **opts.clone.update(log: false))
+      m = find_any(patterns, **opts.clone.update(log: false))
+      debug_log("Screen: found #{m.image} at (#{m.middle.join(', ')})") if opts[:log]
+      return m
     end
   rescue Timeout::Error
     raise FindFailed, "can not find any of the patterns #{patterns} " \
