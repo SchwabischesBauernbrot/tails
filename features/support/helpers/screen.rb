@@ -157,7 +157,7 @@ class Screen
   def wait(pattern, timeout, **opts)
     opts[:log] = true if opts[:log].nil?
     debug_log("Screen: waiting for #{pattern}") if opts[:log]
-    try_for(timeout, delay: 0) do
+    try_for(timeout, delay: 0, log: false) do
       m = find(pattern, **opts.clone.update(log: false))
       debug_log("Screen: found #{m.image} at (#{m.middle.join(', ')})") if opts[:log]
       return m
