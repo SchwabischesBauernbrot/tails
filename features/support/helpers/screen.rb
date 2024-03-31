@@ -157,9 +157,16 @@ class Screen
   def wait(pattern, timeout, **opts)
     opts[:log] = true if opts[:log].nil?
     debug_log("Screen: waiting for #{pattern}") if opts[:log]
+    start_time = Time.now
     try_for(timeout, delay: 0, log: false) do
       m = find(pattern, **opts.clone.update(log: false))
-      debug_log("Screen: found #{m.image} at (#{m.middle.join(', ')})") if opts[:log]
+      if opts[:log]
+        elapsed = time_delta(start_time, Time.now)
+        debug_log(
+          "Screen: found #{m.image} at (#{m.middle.join(', ')}) after " \
+          "#{elapsed} seconds"
+        )
+      end
       return m
     end
   rescue Timeout::Error
@@ -177,6 +184,7 @@ class Screen
   def wait_vanish(pattern, timeout, **opts)
     opts[:log] = true if opts[:log].nil?
     debug_log("Screen: waiting for #{pattern} to vanish") if opts[:log]
+    start_time = Time.now
     try_for(timeout, delay: 0, log: false) do
       find(pattern, **opts.clone.update(log: false))
     rescue FindFailed
@@ -184,7 +192,8 @@ class Screen
     else
       false
     end
-    debug_log("Screen: #{pattern} has vanished") if opts[:log]
+    elapsed = time_delta(start_time, Time.now)
+    debug_log("Screen: #{pattern} vanished after #{elapsed} seconds") if opts[:log]
     nil
   rescue Timeout::Error
     raise FindFailed, "can still find #{pattern} on the screen"
@@ -215,9 +224,16 @@ class Screen
   def wait_any(patterns, time, **opts)
     opts[:log] = true if opts[:log].nil?
     debug_log("Screen: waiting for any of #{patterns.join(', ')}") if opts[:log]
+    start_time = Time.now
     try_for(time, delay: 0, log: false) do
       m = find_any(patterns, **opts.clone.update(log: false))
-      debug_log("Screen: found #{m.image} at (#{m.middle.join(', ')})") if opts[:log]
+      if opts[:log]
+        elapsed = time_delta(start_time, Time.now)
+        debug_log(
+          "Screen: found #{m.image} at (#{m.middle.join(', ')}) after " \
+          "#{elapsed} seconds"
+        )
+      end
       return m
     end
   rescue Timeout::Error
