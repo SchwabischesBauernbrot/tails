@@ -183,17 +183,15 @@ if [ -n "${GIT_BRANCH}" ]; then
 	cat >> config/chroot_local-includes/etc/os-release <<EOF
 TAILS_GIT_BRANCH="$GIT_BRANCH"
 EOF
+        if [ "$GIT_BRANCH" != "$(base_branch)" ]; then
+		cat >> config/chroot_local-includes/etc/os-release <<EOF
+TAILS_GIT_BASE_BRANCH="$(base_branch)"
+TAILS_GIT_BASE_COMMIT="$GIT_BASE_BRANCH_COMMIT"
+EOF
+        fi
 else
 	cat >> config/chroot_local-includes/etc/os-release <<EOF
 TAILS_GIT_TAG="$(git_current_tag)"
-EOF
-fi
-
-if  [ "$GIT_BRANCH" != "$(base_branch)" ] ; then
-
-	cat >> config/chroot_local-includes/etc/os-release <<EOF
-TAILS_GIT_BASE_BRANCH="$(base_branch)"
-TAILS_GIT_BASE_COMMIT="$GIT_BASE_BRANCH_COMMIT"
 EOF
 fi
 
