@@ -400,7 +400,7 @@ def pause(message = 'Paused', quiet: false)
     when 'd'
       RubyVM::DebugInspector.open do |inspector|
         # The 4th frame is the caller in this context
-        inspector.frame_binding(4).pry(quiet: quiet)
+        inspector.frame_binding(4).pry(quiet:)
       end
     end
   end
