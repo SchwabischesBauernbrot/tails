@@ -31,11 +31,12 @@ build-website:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
     - if: '$CI_COMMIT_BRANCH == "wip/sysadmin-16956-static-shim"'
   script:
+    - date
     - echo CI_COMMIT_BRANCH = $CI_COMMIT_BRANCH
     - apt-get -qy install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
-    - ( test -d wiki/src/.ikiwiki && ls -alh wiki/src/.ikiwiki ) || echo "No IKIWIKI cache"
-    - ls -alh wiki/src/
-    - ( test -d config/chroot_local-includes/usr/share/doc/tails/website && ls -alh config/chroot_local-includes/usr/share/doc/tails/website ) || echo "No WEBSITE cache"
+    - ( test -d wiki/src/.ikiwiki && ls -alh --time-style=full-iso wiki/src/.ikiwiki ) || echo "No IKIWIKI cache"
+    - ls -alh --time-style=full-iso wiki/src/
+    - ( test -d config/chroot_local-includes/usr/share/doc/tails/website && ls -alh --time-style=full-iso config/chroot_local-includes/usr/share/doc/tails/website ) || echo "No WEBSITE cache"
     - find /cache
     - ./build-website --refresh
     - apt-get install -y openssh-client rsync
