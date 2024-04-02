@@ -21,6 +21,9 @@ before_script:
 
 build-website:
   image: docker.io/zenfufu/website-builder
+  variables:
+    GIT_DEPTH: 1
+    GIT_STRATEGY: clone
   cache:
     key: website-$CI_COMMIT_BRANCH
     paths:
