@@ -729,7 +729,6 @@ class VM
   end
 
   def save_snapshot(name)
-    debug_log("Saving snapshot '#{name}'...")
     # If we have no qcow2 disk device, we'll use "memory state"
     # snapshots, and if we have at least one qcow2 disk device, we'll
     # use internal "system checkpoint" (memory + disks) snapshots. We
@@ -752,8 +751,10 @@ class VM
     # anything relating to external snapshots, but actually "memory
     # state"(-only) snapshots.
     if internal_snapshot
+      debug_log("Saving \"internal\" snapshot '#{name}'...")
       save_internal_snapshot(name)
     else
+      debug_log("Saving \"memory state\" snapshot '#{name}'...")
       save_ram_only_snapshot(name)
       # For consistency with the internal snapshot case (which is
       # "live", so the domain doesn't go down) we immediately restore
