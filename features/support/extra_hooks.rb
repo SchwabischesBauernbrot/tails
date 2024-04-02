@@ -260,9 +260,9 @@ module Cucumber
       old_initialize(*args, **opts)
       assert_equal(3, args.length, 'Please update the monkeypatch')
       assert_empty(opts, 'Please update the monkeypatch')
-      rb_language, regexp, proc = args
       return unless !$cucumber_options.nil? && $cucumber_options[:redefine_steps]
 
+      rb_language, regexp, proc = args
       rb_language.step_definitions.each do |step|
         step.proc = proc if step.regexp == regexp
       end
