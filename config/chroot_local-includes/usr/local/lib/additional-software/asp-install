@@ -7,7 +7,6 @@ import os
 import pwd
 import shutil
 import subprocess
-from typing import List
 
 import additional_software
 from additional_software import notify_failure, \
@@ -106,7 +105,7 @@ def install_additional_packages(upgrade_mode=False):
         logging.warning("Warning: no packages to install, exiting")
         return True
 
-    installing_notification_id = None
+    installing_notification_id: int | None = None
     if not upgrade_mode:
         installing_notification_id = notify(
             _("Installing your additional software from persistent "
@@ -116,21 +115,22 @@ def install_additional_packages(upgrade_mode=False):
     logging.info("Will install the following packages: %s"
                  % " ".join(packages))
     apt_get_returncode = _launch_apt_get(
-        ["--no-remove",
-         "--option", "DPkg::Options::=--force-confold",
-         "install"] + list(packages))
+        ["--no-remove", "--option", "DPkg::Options::=--force-confold",
+         "install", *list(packages)])
     if apt_get_returncode:
         logging.warning("Warning: installation of %s failed"
                         % " ".join(packages))
         if not upgrade_mode:
-            _close_notification(installing_notification_id)
+            if installing_notification_id is not None:
+                _close_notification(installing_notification_id)
             notify_failure(_("The installation of your additional software "
                              "failed"))
         return False
     else:
         logging.info("Installation completed successfully.")
         if not upgrade_mode:
-            _close_notification(installing_notification_id)
+            if installing_notification_id is not None:
+                _close_notification(installing_notification_id)
             # XXX: there should be a "Configure" button in this notification.
             # However, the easy way to implement it makes this process not
             # return until the notification is clicked. The notification
@@ -143,7 +143,7 @@ def install_additional_packages(upgrade_mode=False):
         return True
 
 
-def _launch_apt_get(specific_args: List[str]):
+def _launch_apt_get(specific_args: list[str]):
     """Launch apt-get with given arguments.
 
     Launch apt-get with given arguments list, log its standard and error output
@@ -151,8 +151,8 @@ def _launch_apt_get(specific_args: List[str]):
     apt_get_env = os.environ.copy()
     # The environnment provided in GDM PostLogin hooks doesn't contain /sbin/
     # which is required by dpkg. Let's use the default path for root in Tails.
-    apt_get_env['PATH'] = "/usr/local/sbin:/usr/local/bin:/usr/sbin:" \
-                          "/usr/bin:/sbin:/bin"
+    apt_get_env['PATH'] = \
+        "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
     # We will log the output and want it in English when included in bug
     # reports
     apt_get_env['LANG'] = "C"
@@ -180,7 +180,7 @@ def save_old_apt_lists(srcdir=APT_LISTS_DIR, destdir=OLD_APT_LISTS_DIR):
         logging.warning("Warning: a copy of the APT lists already exists, "
                         "which should never happen. Removing it.")
         delete_old_apt_lists(destdir)
-    subprocess.run(['cp', '--archive', srcdir, destdir], check=True)
+    subprocess.run(['/bin/cp', '--archive', srcdir, destdir], check=True)
 
 
 def delete_old_apt_lists(old_apt_lists_dir=OLD_APT_LISTS_DIR):
@@ -214,7 +214,7 @@ def has_additional_packages_list():
     try:
         packages_list_path = get_packages_list_path()
     except FileNotFoundError as e:
-        logging.warning("Warning: {}".format(e))
+        logging.warning(e)
         return False
     if os.path.isfile(packages_list_path):
         logging.info("Found additional packages list.")
@@ -227,7 +227,7 @@ def has_additional_packages_list():
 def _close_notification(notification_id):
     """Close a notification shown to the user of the live system."""
     subprocess.run(
-            ["sudo", "-u", LIVE_USERNAME,
+            ["/bin/sudo", "-u", LIVE_USERNAME,
              "DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/{uid}/bus".format(
                   uid=pwd.getpwnam(LIVE_USERNAME).pw_uid),
              "gdbus", "call",
@@ -236,7 +236,9 @@ def _close_notification(notification_id):
              "--object-path", "/org/freedesktop/Notifications",
              "--method", "org.freedesktop.Notifications.CloseNotification",
              str(notification_id)],
-            stdout=subprocess.DEVNULL)
+            stdout=subprocess.DEVNULL,
+            check=False,
+    )
 
 
 def main():
