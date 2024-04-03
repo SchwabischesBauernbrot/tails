@@ -49,3 +49,9 @@ def start_as_transient_systemd_service(service_name, command, *args):
         *args,
     ]
     subprocess.check_call(cmdline)
+
+
+def get_boot_device():
+    """Return the underlying device of the root filesystem."""
+    cmdline = ["/usr/local/lib/tails-get-boot-device"]
+    return subprocess.check_output(cmdline, text=True).strip()
