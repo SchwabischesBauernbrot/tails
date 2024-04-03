@@ -1314,7 +1314,7 @@ When /^AppArmor has (not )?denied "([^"]+)" from opening "([^"]+)"$/ do |anti_te
       audit_log = $vm.execute(
         'journalctl --full --no-pager ' \
         "--since='#{@apparmor_profile_monitoring_start[profile]}' " \
-        "SYSLOG_IDENTIFIER=kernel | grep -E -w '#{audit_line_regex}'"
+        "SYSLOG_IDENTIFIER=kernel | grep -w '#{audit_line_regex}'"
       ).stdout.chomp
       assert(audit_log.empty? == (anti_test ? true : false))
       true
