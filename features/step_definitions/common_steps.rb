@@ -1332,7 +1332,7 @@ When /^AppArmor has (not )?denied "([^"]+)" from opening "([^"]+)"$/ do |anti_te
          "It seems the profile '#{profile}' isn't being monitored by the " \
          "'I monitor the AppArmor log of ...' step")
   audit_line_regex = format(
-    'apparmor="DENIED" operation="open" profile="%<profile>s" name="%<file>s"',
+    'apparmor="DENIED".*operation="open".*profile="%<profile>s".*name="%<file>s"',
     profile:,
     file:
   )
