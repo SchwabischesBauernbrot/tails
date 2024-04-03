@@ -510,9 +510,9 @@ method run () {
                     $upgrade_path->{'total-size'}
                 ),
             ),
-            title        => __(q{Upgrade available}),
-            ok_label     => __(q{Upgrade now}),
-            cancel_label => __(q{Upgrade later}),
+            title          => __(q{Upgrade available}),
+            ok_label       => __(q{Upgrade now}),
+            cancel_label   => __(q{Upgrade later}),
             default_cancel => 1,
             ));
         $self->do_incremental_upgrade($upgrade_path);
