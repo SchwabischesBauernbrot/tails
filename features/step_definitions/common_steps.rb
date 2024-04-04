@@ -1518,7 +1518,7 @@ end
 # Useful for debugging scenarios: e.g. inject this step in a scenario
 # at some point when you want to investigate the state.
 When /^I pause$/ do
-  pause
+  pause(quiet: true)
 end
 
 # Useful for debugging Tails features: let's say you want to fix a bug
