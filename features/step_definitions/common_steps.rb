@@ -938,7 +938,23 @@ When /^I run "([^"]+)" in GNOME Terminal$/ do |command|
     terminal.grabFocus
     terminal.focused
   end
-  @screen.paste(command, app: :terminal)
+
+  try_for(20) do
+    @screen.paste(command, app: :terminal)
+    if terminal.text[command]
+      # The command was pasted successfully
+      true
+    else
+      debug_log('Error while pasting; trying again...')
+      # The command was not pasted successfully. Close the terminal and
+      # open a new one.
+      app.child('Close', roleName: 'push button').click
+      app = launch_gnome_terminal
+      terminal = app.child('Terminal', roleName: 'terminal')
+      false
+    end
+  end
+
   @screen.press('Return')
 end
 
@@ -1158,20 +1174,24 @@ When /^I close the "([^"]+)" window$/ do |app_name|
     raise 'Close button has no click or press action'
   end
 
-  # Wait for the app to close
-  try_for(10) do
-    !app.showing
+  # Wait for the app to terminate (some apps take a while to actually
+  # terminate after the window is closed, for example GNOME Files).
+  try_for(60) do
+    assert_raises(Dogtail::Failure) do
+      Dogtail::Application.new(app_name, retry: false)
+    end
   end
 end
 
 When /^I close the "([^"]+)" window via Alt\+F4$/ do |app_name|
-  app = Dogtail::Application.new(app_name)
+  # Check that the app is running
+  Dogtail::Application.new(app_name)
 
-  @screen.press('alt', 'F4')
-
-  # Wait for the app to close
-  try_for(10) do
-    !app.showing
+  try_for(60) do
+    @screen.press('alt', 'F4')
+    assert_raises(Dogtail::Failure) do
+      Dogtail::Application.new(app_name, retry: false)
+    end
   end
 end
 
@@ -1312,7 +1332,7 @@ When /^AppArmor has (not )?denied "([^"]+)" from opening "([^"]+)"$/ do |anti_te
          "It seems the profile '#{profile}' isn't being monitored by the " \
          "'I monitor the AppArmor log of ...' step")
   audit_line_regex = format(
-    'apparmor="DENIED" operation="open" profile="%<profile>s" name="%<file>s"',
+    'apparmor="DENIED".*operation="open".*profile="%<profile>s".*name="%<file>s"',
     profile:,
     file:
   )
@@ -1533,7 +1553,7 @@ end
 # Useful for debugging scenarios: e.g. inject this step in a scenario
 # at some point when you want to investigate the state.
 When /^I pause( and then reload step definitions)?$/ do |reload|
-  pause
+  pause(quiet: true)
   step 'I reload step definitions' if reload
 end
 

@@ -28,7 +28,7 @@ class ASPNotifier:
 
         # We need to hold a reference to the notification until the callbacks
         # are called. That's why we use an instance variable.
-        self.notification = Notify.Notification.new(
+        self.notification: Notify.Notification = Notify.Notification.new(
                 title, body, icon="package-x-generic")
         if urgent:
             self.notification.set_urgency(Notify.Urgency.CRITICAL)
