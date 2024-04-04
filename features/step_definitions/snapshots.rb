@@ -128,6 +128,7 @@ unless defined? CHECKPOINTS
       checkpoint_description = checkpoint[:description]
       parent_checkpoint = checkpoint[:parent_checkpoint]
       steps = checkpoint[:steps]
+      # rubocop:disable Metrics/BlockNesting
       if parent_checkpoint
         if VM.snapshot_exists?(parent_checkpoint)
           $vm.restore_snapshot(parent_checkpoint)
@@ -136,6 +137,7 @@ unless defined? CHECKPOINTS
         end
         post_snapshot_restore_hook(parent_checkpoint, num_try)
       end
+      # rubocop:enable Metrics/BlockNesting
       log_scenario("Checkpoint: #{checkpoint_description}")
       step_action = 'Given'
       if parent_checkpoint
