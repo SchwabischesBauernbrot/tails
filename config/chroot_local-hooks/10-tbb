@@ -16,8 +16,6 @@ echo "Install the Tor Browser"
 # Import install_fake_package and strip_nondeterminism_wrapper
 . /usr/local/lib/tails-shell-library/build.sh
 
-LANGUAGES_FILE="/usr/share/tails/greeter/supported_languages"
-
 download_and_verify_files() {
     local base_url target_files destination apt_proxy
     base_url="${1}"
@@ -253,19 +251,6 @@ strip_nondeterminism () {
         strip_nondeterminism_wrapper --type zip --timestamp "${tbb_timestamp}" \
                                      "${archive}" 2>/dev/null
     done
-}
-
-supported_locale () {
-    local locale
-    locale="$1"
-
-    # shellcheck disable=SC2013
-    for supported_language in $(cat "$LANGUAGES_FILE") ; do
-        if echo "$locale" | grep -qs -E "^${supported_language}"; then
-            return 0
-        fi
-    done
-    return 1
 }
 
 get_firefox_version() {
