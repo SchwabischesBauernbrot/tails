@@ -35,11 +35,9 @@ Successful tests:
 Notes:
 
 * the partition number may need to be 4, in order to be compatible
-  with the BIOSes supporting only USB-Zip;
-  [reference](http://syslinux.zytor.com/archives/2009-May/012380.html)
+  with the BIOSes supporting only USB-Zip.
 
-* the partition type may need to be `1c`, i.e. hidden FAT32 LBA;
-  [reference](http://syslinux.zytor.com/archives/2009-May/012384.html)
+* the partition type may need to be `1c`, i.e. hidden FAT32 LBA.
 
 * boot failures were experienced when testing without the `-entry
   4 -type 1c` options.
