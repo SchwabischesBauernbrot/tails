@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2024-02-08 03:39+0000\n"
-"PO-Revision-Date: 2023-12-22 15:11+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
+"PO-Revision-Date: 2024-03-14 16:07+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: \n"
 "Language: ca\n"
@@ -28,12 +28,13 @@ msgid "<h1 id=\"etcher\" class=\"step\">Install <em>balenaEtcher</em></h1>\n"
 msgstr "<h1 id=\"etcher\" class=\"step\">Instal·lar <em>balenaEtcher</em></h1>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<div class=\"step-image\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+#, no-wrap
 msgid ""
 "<div class=\"step-image usb\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
 "<div class=\"step-image upgrade\">[[!img inc/infography/install-etcher-with-intermediary.png link=\"no\" alt=\"\"]]</div>\n"
-msgstr "<div class=\"step-image\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+msgstr ""
+"<div class=\"step-image usb\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+"<div class=\"step-image upgrade\">[[!img inc/infography/install-etcher-with-intermediary.png link=\"no\" alt=\"\"]]</div>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -47,20 +48,16 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<p><a href=\"https://etcher.balena.io/\"><i>balenaEtcher</i></a> is the Free Software tool that we recommend to install Tails on USB sticks.</p>\n"
-msgstr ""
+msgstr "<p><a href=\"https://etcher.balena.io/\"><i>balenaEtcher</i></a> és l'eina de Programari Lliure que us recomanem per instal·lar Tails en llapis USB.</p>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "Instead of installing <span class=\"application\">balenaEtcher</span>, you can\n"
-#| "also [[!toggle id=\"dd\" text=\"install Tails using `dd` on the command\n"
-#| "line\"]].\n"
+#, no-wrap
 msgid ""
 "Instead of using <span class=\"application\">balenaEtcher</span>, you can\n"
 "also [[!toggle id=\"dd\" text=\"install Tails using `dd` on the command\n"
 "line\"]].\n"
 msgstr ""
-"En lloc d'instal·lar <span class=\"application\">balenaEtcher</span>, podeu\n"
+"En lloc d'utilitzar <span class=\"application\">balenaEtcher</span>, podeu\n"
 "també [[!toggle id=\"dd\" text=\"instal·lar Tails utilitzant `dd` a la línia\n"
 "d'ordres\"]].\n"
 
@@ -78,29 +75,20 @@ msgstr "[[!toggle id=\"dd\" text=\"\"\"<span class=\"hide-button\"></span>\"\"\"
 msgid "Make sure that your USB stick is unplugged."
 msgstr "Assegureu-vos que el vostre llapis USB estigui desconnectat."
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '1. '
 msgid ""
-"1. Open <span class=\"application\">Terminal</span> from\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
+"Open the **Terminal** utility from **Applications**&nbsp;▸ **Utilities**."
 msgstr ""
-"1. Obriu el <span class=\"application\">Terminal</span> des de\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Aplicacions</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilitats</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
+"Obriu la utilitat **Terminal** des d'**Aplicacions**&nbsp;▸ **Utilitats**."
 
 #. type: Bullet: '1. '
-msgid "Execute the following command:"
-msgstr "Executeu l'ordre següent:"
+msgid "Execute the following command."
+msgstr "Executeu l'ordre següent."
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"pre command\">diskutil list</p>\n"
-msgstr "   <p class=\"pre command\">diskutil list</p>\n"
+msgid "   <p class=\"command\">diskutil list</p>\n"
+msgstr "   <p class=\"command\">diskutil list</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -131,8 +119,8 @@ msgid "Plug your USB stick into the computer."
 msgstr "Connecteu el vostre llapis USB a l'ordinador."
 
 #. type: Bullet: '1. '
-msgid "Execute again the same command:"
-msgstr "Torneu a executar la mateixa ordre:"
+msgid "Execute again the same command."
+msgstr "Torneu a executar la mateixa ordre."
 
 #. type: Plain text
 #, no-wrap
@@ -146,39 +134,29 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"       /dev/disk0\n"
-"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
-"        1:                      EFI              209.7 MB  disk0s1\n"
-"        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"        3:                      EFI              134.1 GB  disk0s3\n"
-"        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-"      /dev/disk1\n"
+"       /dev/disk1\n"
 "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
 "        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
 "        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 msgstr ""
-"       /dev/disk0\n"
-"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
-"        1:                      EFI              209.7 MB  disk0s1\n"
-"        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"        3:                      EFI              134.1 GB  disk0s3\n"
-"        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-"      /dev/disk1\n"
+"       /dev/disk1\n"
 "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
 "        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
 "        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 
 #. type: Bullet: '1. '
+msgid "Take note of the device name of your USB stick."
+msgstr "Preneu nota del nom del dispositiu del vostre llapis USB."
+
+#. type: Plain text
+#, no-wrap
 msgid ""
-"Take note of the *device name* of your USB stick.  In this example, the USB "
-"stick is 8.0 GB and its device name is <code>/dev/disk1</code>.  Yours might "
-"be different."
+"   In this example, the USB stick is 8.0 GB and its device name is <span class=\"command-placeholder\">/dev/disk1</span>.\n"
+"   Yours might be different.\n"
 msgstr ""
-"Preneu nota del *nom del dispositiu* del vostre llapis USB. En aquest "
-"exemple, el llapis USB té 8,0 GB i el nom del dispositiu és <code>/dev/"
-"disk1</code>. El vostre pot ser diferent."
+"   En aquest exemple, el llapis USB té 8,0 GB i el seu nom de dispositiu és "
+"<span class=\"command-placeholder\">/dev/disk1</span>.\n"
+"   El vostre pot ser diferent.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -192,6 +170,21 @@ msgstr ""
 "   <p>Si no esteu segur del nom del dispositiu, millor no continueu o\n"
 "   <strong>correu el risc de sobreescriure qualsevol disc dur del sistema</strong>.</p>\n"
 "   </div>\n"
+
+#. type: Bullet: '1. '
+msgid ""
+"Execute the following command to safely eject the USB stick. Replace <span "
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
+msgstr ""
+"Executeu l'ordre següent per expulsar el llapis USB de manera segura. "
+"Substituïu <span class=\"command-placeholder\">dispositiu</span> amb el nom "
+"del dispositiu que heu trobat al pas 6."
+
+#. type: Plain text
+#, no-wrap
+msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+msgstr "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">dispositiu</span></p>\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -249,11 +242,6 @@ msgstr ""
 "     <div class=\"tip\">\n"
 "     <p>Podeu provar d'afegir <code>r</code> abans del <code>disc</code> per fer la instal·lació més ràpida.</p>\n"
 "     </div>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
-msgstr "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">dispositiu</span></p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -316,8 +304,10 @@ msgstr "   </div>\n"
 
 #. type: Plain text
 #, no-wrap
-msgid "   The installation is complete once the command prompt reappeared.\n"
-msgstr "   La instal·lació s'haurà completat un cop hagi tornat a aparèixer l'indicador d'ordres.\n"
+msgid "   The installation is complete when the command prompt reappears.\n"
+msgstr ""
+"   La instal·lació s'haurà completat un cop hagi tornat a aparèixer "
+"l'indicador d'ordres.\n"
 
 #. type: Bullet: '1. '
 msgid "Click on the following button to download <em>balenaEtcher</em>:"
@@ -326,12 +316,12 @@ msgstr "Feu clic al botó següent per baixar <em>balenaEtcher</em>:"
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"button\">[[Download <i>balenaEtcher</i> for macOS|https://tails.net/etcher/balenaEtcher.dmg]]</p>\n"
-msgstr ""
+msgstr "   <p class=\"button\">[[Baixa <i>balenaEtcher</i> per a macOS|https://tails.net/etcher/balenaEtcher.dmg]]</p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   Save your download to your usual *Downloads* folder and not to the USB stick.\n"
-msgstr ""
+msgstr "   Deseu la baixada a la vostra carpeta habitual *Baixades* i no al llapis USB.\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -365,14 +355,49 @@ msgstr ""
 "class=\"application\">balenaEtcher</span>."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "   Optionally, eject the <span class=\"application\">balenaEtcher</span> disk image\n"
-#| "   from the desktop.\n"
+#, no-wrap
 msgid "   Optionally, eject the disk image of *balenaEtcher* from the sidebar of *Finder*.\n"
-msgstr ""
-"   Opcionalment, expulseu la imatge de disc <span class=\"application\">balenaEtcher</span>\n"
-"   des de l'escriptori.\n"
+msgstr "   Opcionalment, expulseu la imatge de disc de *balenaEtcher* des de la barra lateral del *Finder*.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "1. Open <span class=\"application\">Terminal</span> from\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
+#~ msgstr ""
+#~ "1. Obriu el <span class=\"application\">Terminal</span> des de\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Aplicacions</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilitats</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "       /dev/disk0\n"
+#~ "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#~ "        1:                      EFI              209.7 MB  disk0s1\n"
+#~ "        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#~ "        3:                      EFI              134.1 GB  disk0s3\n"
+#~ "        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+#~ "      /dev/disk1\n"
+#~ "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+#~ "        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
+#~ msgstr ""
+#~ "       /dev/disk0\n"
+#~ "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#~ "        1:                      EFI              209.7 MB  disk0s1\n"
+#~ "        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#~ "        3:                      EFI              134.1 GB  disk0s3\n"
+#~ "        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+#~ "      /dev/disk1\n"
+#~ "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+#~ "        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 
 #, no-wrap
 #~ msgid "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Download balenaEtcher for macOS</a>\n"

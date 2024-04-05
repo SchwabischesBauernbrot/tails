@@ -6,17 +6,14 @@ Then /^the Additional Software (upgrade|installation) service has started$/ do |
   if $vm.file_exist?(ASP_CONF) && !$vm.file_empty?(ASP_CONF)
     case service
     when 'installation'
-      service = 'tails-additional-software-install'
+      service_name = 'tails-additional-software-install.service'
       seconds_to_wait = 600
     when 'upgrade'
-      service = 'tails-additional-software-upgrade'
+      service_name = 'tails-additional-software-upgrade.service'
       seconds_to_wait = 900
     end
     try_for(seconds_to_wait, delay: 10) do
-      $vm.execute("systemctl status #{service}.service").success?
-    end
-    if service == 'installation'
-      step 'I am notified that the installation succeeded'
+      $vm.execute("systemctl status #{service_name}").success?
     end
   end
 end
@@ -113,8 +110,10 @@ end
 Given /^I remove "([^"]*)" from the list of Additional Software using Additional Software GUI$/ do |package|
   asp_gui = Dogtail::Application.new('tails-additional-software-config')
   installed_package = asp_gui.child(package, roleName: 'label')
-  # Clicking this button using Dogtail works, but afterwards the ASP
-  # GUI becomes inaccessible.
+  # We can't use the click action here because this button causes a
+  # modal dialog to be run via gtk_dialog_run() which causes the
+  # application to hang when triggered via a ATSPI action. See
+  # https://gitlab.gnome.org/GNOME/gtk/-/issues/1281
   installed_package.parent.parent.child('Remove', roleName: 'push button').grabFocus
   @screen.press('Return')
   asp_gui.child('Question', roleName: 'alert').button('Remove').click
@@ -169,8 +168,8 @@ end
 Then /^I can open the Additional Software log file from the notification$/ do
   click_gnome_shell_notification_button('Show Log')
   try_for(60) do
-    Dogtail::Application.new('gedit').child(
-      "log [Read-Only] (#{ASP_STATE_DIR}) - gedit", roleName: 'frame'
+    Dogtail::Application.new('gnome-text-editor').child(
+      "log (#{ASP_STATE_DIR}) - Text Editor", roleName: 'frame'
     )
   end
 end

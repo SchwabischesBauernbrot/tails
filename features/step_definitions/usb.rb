@@ -291,8 +291,7 @@ def enable_all_tps_features
 end
 
 When /^I (enable|disable) the first tps feature$/ do |mode|
-  step 'I start "Persistent Storage" via GNOME Activities Overview'
-  assert persistent_storage_main_frame.child('Personal Documents', roleName: 'label')
+  launch_persistent_storage
   persistent_folder_switch = persistent_storage_main_frame.child(
     'Activate Persistent Folder',
     roleName: 'toggle button'
@@ -344,7 +343,7 @@ end
 
 Given /^I try to create a persistent partition( for Additional Software)?( using the wizard that was already open)?$/ do |asp, dontrun|
   unless asp || dontrun
-    step 'I start "Persistent Storage" via GNOME Activities Overview'
+    launch_persistent_storage
   end
   persistent_storage_main_frame.button('Co_ntinue').click
   persistent_storage_main_frame
@@ -382,7 +381,7 @@ Given /^the system is( very)? low on memory$/ do |very_low|
   mem_to_fill_kib = mem_available_kib - low_mem_kib
   if mem_to_fill_kib <= 0
     debug_log("Available memory is already low enough: #{mem_available_kib} KiB")
-    return
+    next
   end
 
   # Write a file that will fill up the memory
@@ -445,7 +444,7 @@ Given /^I change the passphrase of the Persistent Storage( back to the original)
     new_passphrase = @changed_persistence_password
   end
 
-  step 'I start "Persistent Storage" via GNOME Activities Overview'
+  launch_persistent_storage
 
   # We can't use the click action here because this button causes a
   # modal dialog to be run via gtk_dialog_run() which causes the
@@ -458,18 +457,15 @@ Given /^I change the passphrase of the Persistent Storage( back to the original)
   change_passphrase_dialog
     .child('Current Passphrase', roleName: 'label')
     .labelee
-    .grabFocus
-  @screen.type(current_passphrase)
+    .text = current_passphrase
   change_passphrase_dialog
     .child('New Passphrase', roleName: 'label')
     .labelee
-    .grabFocus
-  @screen.type(new_passphrase)
+    .text = new_passphrase
   change_passphrase_dialog
     .child('Confirm New Passphrase', roleName: 'label')
     .labelee
-    .grabFocus
-  @screen.type(new_passphrase)
+    .text = new_passphrase
   change_passphrase_dialog.button('Change').click
   # Wait for the dialog to close
   try_for(60) do
@@ -602,20 +598,9 @@ Then /^a Tails persistence partition exists( with LUKS version 1)? on USB drive 
   dev = $vm.persistent_storage_dev_on_disk(name)
   check_part_integrity(name, dev, 'crypto', 'crypto_LUKS',
                        part_label: 'TailsData')
-
-  luks_dev = nil
   # The LUKS container may already be opened, e.g. by udisks after
   # we've created the Persistent Storage.
-  c = $vm.execute("ls -1 --hide 'control' /dev/mapper/")
-  if c.success?
-    c.stdout.split("\n").each do |candidate|
-      luks_info = $vm.execute("cryptsetup status '#{candidate}'")
-      if luks_info.success? && luks_info.stdout.match("^\s+device:\s+#{dev}$")
-        luks_dev = "/dev/mapper/#{candidate}"
-        break
-      end
-    end
-  end
+  luks_dev = luks_mapping(dev)
   if luks_dev.nil?
     assert_vmcommand_success(
       $vm.execute("echo #{@persistence_password} | " \
@@ -668,8 +653,10 @@ Given /^I enable persistence( with the changed passphrase)?$/ do |with_changed_p
   # the unlock button is made invisible when the Persistent Storage is
   # unlocked.
   try_for(60) do
-    !greeter.child?('Unlock Encryption', roleName: 'push button') && \
-      !greeter.child?('Unlocking', roleName: 'push button')
+    !greeter.child?('Unlock Encryption',
+                    roleName: 'push button', retry: false) && \
+      !greeter.child?('Unlocking…',
+                      roleName: 'push button', retry: false)
   end
 
   # Figure out which language is set now that the Persistent Storage is
@@ -831,7 +818,40 @@ def parse_udisksctl_info(input)
       tree[section][key] += line
     end
   end
+  fs_section = tree['org.freedesktop.UDisks2.Filesystem']
+  if fs_section && fs_section['MountPoints']
+    fs_section['MountPoints'] = fs_section['MountPoints'].split
+  end
   tree
+end
+
+# Get the LUKS mapping of device, or nil if there is none
+def luks_mapping(device)
+  c = $vm.execute("ls -1 --hide 'control' /dev/mapper/")
+  if c.success?
+    c.stdout.split("\n").each do |candidate|
+      luks_info = $vm.execute("cryptsetup status '#{candidate}'")
+      if luks_info.success? && luks_info.stdout.match("^\s+device:\s+#{device}$")
+        return "/dev/mapper/#{candidate}"
+      end
+    end
+  end
+  nil
+end
+
+# Returns the first non-nosymfollow mountpoint of device. If the
+# device has a LUKS mapping we instead return where it is mounted.
+def mountpoint(device)
+  info = parse_udisksctl_info(
+    $vm.execute_successfully("udisksctl info -b #{device}").stdout
+  )
+  if info['org.freedesktop.UDisks2.Block']['IdType'] == 'crypto_LUKS'
+    luks_device = luks_mapping(device)
+    mountpoint(luks_device) if luks_device
+  else
+    info['org.freedesktop.UDisks2.Filesystem']['MountPoints']
+      .find { |p| !p.match?(Regexp.new('^/run/nosymfollow/')) }
+  end
 end
 
 Then /^Tails is running from (.*) drive "([^"]+)"$/ do |bus, name|
@@ -1088,7 +1108,7 @@ Then /^only the expected files are present on the persistence partition on USB d
 end
 
 When /^I delete the persistent partition$/ do
-  step 'I start "Persistent Storage" via GNOME Activities Overview'
+  launch_persistent_storage
 
   # If we just do delete_btn.click, then dogtail won't find tps-frontend anymore.
   # Related to https://gitlab.gnome.org/GNOME/gtk/-/issues/1281 mentioned
@@ -1131,23 +1151,11 @@ def iuk_changes(version) # rubocop:disable Metrics/MethodLength
     },
     {
       filesystem:  :rootfs,
-      path:        'etc/amnesia/version',
-      status:      :modified,
-      new_content: <<~CONTENT,
-        #{version} - 20380119
-        ffffffffffffffffffffffffffffffffffffffff
-        live-build: 3.0.5+really+is+2.0.12-0.tails2
-        live-boot: 4.0.2-1
-        live-config: 4.0.4-1
-      CONTENT
-    },
-    {
-      filesystem:  :rootfs,
       path:        'etc/os-release',
       status:      :modified,
       new_content: <<~CONTENT,
-        TAILS_PRODUCT_NAME="Tails"
-        TAILS_VERSION_ID="#{version}"
+        NAME="Tails"
+        VERSION="#{version}"
       CONTENT
     },
     {
@@ -1168,16 +1176,16 @@ def iuk_changes(version) # rubocop:disable Metrics/MethodLength
   ]
 
   case version
-  when '2.2~testoverlayfsng'
+  when '6.2~testoverlayfs'
     changes
-  when '2.3~testoverlayfsng'
+  when '6.3~testoverlayfs'
     changes + [
       {
         filesystem:  :rootfs,
-        path:        'some_new_file_2.3',
+        path:        'some_new_file_6.3',
         status:      :added,
         new_content: <<~CONTENT,
-          Some content 2.3
+          Some content 6.3
         CONTENT
       },
       {
@@ -1197,7 +1205,7 @@ def iuk_changes(version) # rubocop:disable Metrics/MethodLength
 end
 
 Given /^the file system changes introduced in version (.+) are (not )?present(?: in the (\S+) Browser's chroot)?$/ do |version, not_present, chroot_browser|
-  assert(['2.2~testoverlayfsng', '2.3~testoverlayfsng'].include?(version))
+  assert(['6.2~testoverlayfs', '6.3~testoverlayfs'].include?(version))
   upgrade_applied = not_present.nil?
   chroot_browser = "#{chroot_browser.downcase}-browser" if chroot_browser
   changes = iuk_changes(version)
@@ -1313,11 +1321,8 @@ Given /^Tails is fooled to think a (.+) SquashFS delta is installed$/ do |versio
     'Implementation error, alert the test suite maintainer!'
   )
   $vm.execute_successfully(
-    "sed --regexp-extended -i '1s/^\S+ /#{version}/' /etc/amnesia/version"
-  )
-  $vm.execute_successfully(
-    "sed -i 's/^TAILS_VERSION_ID=.*/TAILS_VERSION_ID=#{version}/' " \
-    '/etc/amnesia/version'
+    "sed -i 's/^VERSION=.*/VERSION=\"#{version}\"/' " \
+    '/etc/os-release'
   )
 end
 
@@ -1477,26 +1482,29 @@ Given /^I install a Tails USB image to the (\d+) MiB disk with GNOME Disks$/ do 
   ).round(1).to_s
   debug_log("Expected size of destination disk: #{size_in_GB_of_destination_disk}")
 
-  step 'I start "Disks" via GNOME Activities Overview'
-  disks = gnome_disks_app
+  disks = launch_gnome_disks
   destination_disk_label_regexp = /^#{size_in_GB_of_destination_disk} GB Drive/
   disks.children(roleName: 'table cell')
        .find { |row| destination_disk_label_regexp.match(row.name) }
        .grabFocus
-  @screen.wait('GnomeDisksDriveMenuButton.png', 5).click
-  disks.child('Restore Disk Image…', roleName: 'push button')
+  disks.child(description: 'Drive Options', roleName: 'toggle button')
        .click
+  disks.child('Restore Disk Image…', roleName: 'push button').click
   restore_dialog = disks.child('Restore Disk Image', roleName: 'dialog')
   # Open the file chooser
   @screen.press('Enter')
   select_disk_image_dialog = disks.child('Select Disk Image to Restore',
                                          roleName: 'file chooser')
-  @screen.paste(
-    @usb_image_path,
-    app: :gtk_file_chooser
-  )
-  sleep 2 # avoid ENTER being eaten by the auto-completion system
-  @screen.press('Enter')
+  select_disk_image_dialog.child('File Chooser Widget',
+                                 roleName: 'file chooser')
+                          .doActionNamed('show_location')
+  text_entry = select_disk_image_dialog.child('Location Layer')
+                                       .child(roleName: 'text')
+  text_entry.text = @usb_image_path
+  # For some reason two activate calls are necessary to close the dialog
+  text_entry.activate
+  text_entry.activate
+
   try_for(10) do
     !select_disk_image_dialog.showing
   end
@@ -1585,7 +1593,7 @@ Then /^(no )?persistent Greeter options were restored$/ do |no|
   $language, $lang_code = greeter_language
   # Our Dogtail wrapper code automatically translates strings to $language
   settings_restored = greeter
-                      .child?('Settings were loaded from the persistent storage.',
+                      .child?('Settings were loaded from the Persistent Storage.',
                               roleName: 'label')
   if no
     assert(!settings_restored)
@@ -1636,7 +1644,7 @@ Then /^the Persistent directory does not exist$/ do
 end
 
 When /^I delete the data of the Persistent Folder feature$/ do
-  step 'I start "Persistent Storage" via GNOME Activities Overview'
+  launch_persistent_storage
 
   def persistent_folder_delete_button(**opts)
     persistent_storage_main_frame.child(
@@ -1677,7 +1685,7 @@ Then /^the Welcome Screen tells me that the Persistent Folder feature couldn't b
 end
 
 Then /^the Persistent Storage settings tell me that the Persistent Folder feature couldn't be activated$/ do
-  step 'I start "Persistent Storage" via GNOME Activities Overview'
+  launch_persistent_storage
 
   persistent_folder_row = persistent_storage_frontend
                           .child('Activate Persistent Folder').parent

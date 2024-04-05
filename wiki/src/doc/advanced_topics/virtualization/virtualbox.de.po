@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-03 23:05+0000\n"
+"POT-Creation-Date: 2024-02-26 12:27+0100\n"
 "PO-Revision-Date: 2023-11-12 20:11+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: \n"
@@ -208,7 +208,7 @@ msgid "Choose **Machine**&nbsp;▸**New...**."
 msgstr ""
 
 #. type: Bullet: '  1. '
-msgid "In the **Name and operating system** screen:"
+msgid "In the dialog **Virtual machine Name and Operating System**:"
 msgstr ""
 
 #. type: Bullet: '     1. '
@@ -216,33 +216,35 @@ msgid "Specify:"
 msgstr ""
 
 #. type: Bullet: '        - '
-msgid "A name of your choice"
+msgid "**Name**: a name of your choice"
 msgstr ""
 
 #. type: Bullet: '        - '
-msgid "**Type**: **Linux**"
+msgid "**ISO Image**: the ISO image that you want to start Tails from"
 msgstr ""
 
-#. type: Bullet: '        - '
-msgid "**Version**: **Other Linux (64 bit)**"
-msgstr ""
-
-#. type: Bullet: '     2. '
+#. type: Bullet: '     1. '
 #, fuzzy
 #| msgid "Click **Start**."
-msgid "Click **Next**."
+msgid "Click **Expert Mode**."
 msgstr "Klicken Sie auf **Starten**."
 
 #. type: Bullet: '  1. '
-msgid "In the **Memory size** screen:"
+msgid "In the dialog **Hardware**:"
 msgstr ""
 
 #. type: Bullet: '     1. '
 msgid "Allocate at least 2048 MB of RAM."
 msgstr ""
 
+#. type: Bullet: '     1. '
+#, fuzzy
+#| msgid "Click **Start**."
+msgid "Click **Next**."
+msgstr "Klicken Sie auf **Starten**."
+
 #. type: Bullet: '  1. '
-msgid "In the **Hard drive** screen:"
+msgid "In the dialog **Virtual Hard disk**:"
 msgstr ""
 
 #. type: Bullet: '     1. '
@@ -250,77 +252,10 @@ msgid "Choose **Do not add a virtual hard drive**."
 msgstr ""
 
 #. type: Bullet: '     1. '
-#, fuzzy
-#| msgid "Click **Start**."
-msgid "Click **Create**."
-msgstr "Klicken Sie auf **Starten**."
-
-#. type: Plain text
-#, no-wrap
 msgid ""
-"     1. Click **Continue** in the warning dialog about creating a virtual\n"
-"\tmachine without a hard drive.\n"
+"Click **Continue** in the warning dialog about creating a virtual machine "
+"without a hard drive."
 msgstr ""
-
-#. type: Plain text
-msgid "To configure the virtual machine to start from an ISO image:"
-msgstr ""
-"Die virtuelle Maschine so konfigurieren, dass sie von einem ISO-Image "
-"startet:"
-
-#. type: Bullet: '  1. '
-msgid "Select the new virtual machine in the left pane."
-msgstr "Wählen Sie die neue virtuelle Maschine im linken Fensterbereich aus."
-
-#. type: Bullet: '  1. '
-msgid "Choose **Machine**&nbsp;▸ **Settings...**."
-msgstr ""
-
-#. type: Bullet: '  1. '
-#, fuzzy
-#| msgid "Select **Storage** in left pane."
-msgid "Select **System** in the left pane."
-msgstr "Wählen Sie **Massenspeicher** im linken Fensterbereich aus."
-
-#. type: Bullet: '  1. '
-msgid ""
-"In the **Extended Features** section of the **Motherboard** tab, make sure "
-"that **Enable I/O APIC** is enabled."
-msgstr ""
-"Stellen Sie sicher, dass im Reiter **Motherboard** im Abschnitt **Extended "
-"Features** die Option **Enable I/O APIC** ausgewählt ist."
-
-#. type: Bullet: '  1. '
-msgid "Select **Storage** in the left pane."
-msgstr "Wählen Sie **Massenspeicher** im linken Fensterbereich aus."
-
-#. type: Bullet: '  1. '
-msgid ""
-"Select **Empty** below **Contoller IDE** in the **Storage Tree** selection "
-"list in the right pane."
-msgstr ""
-"Wählen Sie **Leer** unterhalb von **Controller: IDE** in der "
-"**Speicherbaum**-Auswahl im rechten Fensterbereich aus."
-
-#. type: Bullet: '  1. '
-msgid ""
-"Click on the **CD** icon on the right of the window and select **Choose a "
-"virtual CD/DVD disk file...** to browse for the ISO image you want to start "
-"Tails from."
-msgstr ""
-"Klicken Sie auf das **CD**-Symbol rechts im Fenster und wählen Sie **Datei "
-"für virtuelle CD/DVD auswählen...** um nach dem ISO-Abbild zu suchen, von "
-"dem Sie Tails starten möchten."
-
-#. type: Bullet: '  1. '
-msgid "Check the **Live CD/DVD** option."
-msgstr ""
-
-#. type: Bullet: '  1. '
-#, fuzzy
-#| msgid "Click **Start**."
-msgid "Click **OK**."
-msgstr "Klicken Sie auf **Starten**."
 
 #. type: Plain text
 msgid "To start the new virtual machine:"
@@ -392,6 +327,51 @@ msgid ""
 "<p>We plan to add back <i>VirtualBox Guest Additions</i> in a future version\n"
 "of Tails. See [[!tails_ticket 18728]].</p>\n"
 msgstr ""
+
+#~ msgid "To configure the virtual machine to start from an ISO image:"
+#~ msgstr ""
+#~ "Die virtuelle Maschine so konfigurieren, dass sie von einem ISO-Image "
+#~ "startet:"
+
+#~ msgid "Select the new virtual machine in the left pane."
+#~ msgstr ""
+#~ "Wählen Sie die neue virtuelle Maschine im linken Fensterbereich aus."
+
+#, fuzzy
+#~| msgid "Select **Storage** in left pane."
+#~ msgid "Select **System** in the left pane."
+#~ msgstr "Wählen Sie **Massenspeicher** im linken Fensterbereich aus."
+
+#~ msgid ""
+#~ "In the **Extended Features** section of the **Motherboard** tab, make "
+#~ "sure that **Enable I/O APIC** is enabled."
+#~ msgstr ""
+#~ "Stellen Sie sicher, dass im Reiter **Motherboard** im Abschnitt "
+#~ "**Extended Features** die Option **Enable I/O APIC** ausgewählt ist."
+
+#~ msgid "Select **Storage** in the left pane."
+#~ msgstr "Wählen Sie **Massenspeicher** im linken Fensterbereich aus."
+
+#~ msgid ""
+#~ "Select **Empty** below **Contoller IDE** in the **Storage Tree** "
+#~ "selection list in the right pane."
+#~ msgstr ""
+#~ "Wählen Sie **Leer** unterhalb von **Controller: IDE** in der "
+#~ "**Speicherbaum**-Auswahl im rechten Fensterbereich aus."
+
+#~ msgid ""
+#~ "Click on the **CD** icon on the right of the window and select **Choose a "
+#~ "virtual CD/DVD disk file...** to browse for the ISO image you want to "
+#~ "start Tails from."
+#~ msgstr ""
+#~ "Klicken Sie auf das **CD**-Symbol rechts im Fenster und wählen Sie "
+#~ "**Datei für virtuelle CD/DVD auswählen...** um nach dem ISO-Abbild zu "
+#~ "suchen, von dem Sie Tails starten möchten."
+
+#, fuzzy
+#~| msgid "Click **Start**."
+#~ msgid "Click **OK**."
+#~ msgstr "Klicken Sie auf **Starten**."
 
 #, fuzzy
 #~| msgid ""

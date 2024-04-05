@@ -1,3 +1,9 @@
+When /^GNOME offers me various screenshot options$/ do
+  assert_not_nil(
+    Dogtail::Application.new('gnome-shell').child('Screen')
+  )
+end
+
 Then /^there is no screenshot in the live user's Pictures directory$/ do
   pictures_directory = "/home/#{LIVE_USER}/Pictures"
   assert(
@@ -9,7 +15,7 @@ Then /^there is no screenshot in the live user's Pictures directory$/ do
 end
 
 Then /^a screenshot is saved to the live user's Pictures directory$/ do
-  pictures_directory = "/home/#{LIVE_USER}/Pictures"
+  pictures_directory = "/home/#{LIVE_USER}/Pictures/Screenshots"
   try_for(10, msg: "No screenshot was created in #{pictures_directory}") do
     !$vm.execute(
       "find '#{pictures_directory}' -name 'Screenshot*.png' -maxdepth 1"

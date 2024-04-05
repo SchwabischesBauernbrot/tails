@@ -86,8 +86,7 @@ dosfstools
 electrum
 eog
 evince
-exfat-fuse
-exfat-utils
+exfatprogs
 exiv2
 file-roller
 fonts-cantarell
@@ -95,24 +94,23 @@ fonts-dejavu
 fonts-liberation
 fonts-linuxlibertine
 gdm3
-gedit
 gimp
 git
 gkbd-capplet
 gnome-calculator
 gnome-control-center
 gnome-disk-utility
+gnome-keyring
 gnome-menus
 gnome-power-manager
-gnome-screenshot
 gnome-session
 gnome-shell
-gnome-shell-extension-desktop-icons
 gnome-shell-extensions
 gnome-sound-recorder
 gnome-system-monitor
 gnome-terminal
-gnome-themes-standard
+gnome-text-editor
+gnome-themes-extra
 gnome-user-docs
 gnupg-agent
 gnupg2
@@ -125,7 +123,7 @@ grub-efi-ia32
 shim-signed
 #endif
 gstreamer1.0-libav
-# Needed for audio in DVD playback
+gstreamer1.0-plugins-bad
 gstreamer1.0-plugins-ugly
 gtk2-engines-pixbuf
 gvfs-backends
@@ -157,8 +155,6 @@ mesa-utils
 metadata-cleaner
 nautilus
 nautilus-extension-gnome-terminal
-nautilus-wipe
-nautilus-gtkhash
 network-manager
 network-manager-gnome
 ntfs-3g
@@ -192,8 +188,7 @@ pinentry-gtk2
 powermgmt-base
 ppp
 pppoe
-pulseaudio
-pulseaudio-utils
+pipewire-audio
 p7zip-full
 rng-tools
 rfkill
@@ -235,6 +230,7 @@ usbutils
 user-setup
 vim-tiny
 wireless-tools
+wpasupplicant
 xdg-user-dirs-gtk
 xsel
 xz-utils
@@ -245,6 +241,7 @@ open-vm-tools
 #endif
 
 ### Firmwares
+alsa-topology-conf
 firmware-amd-graphics
 firmware-ath9k-htc
 firmware-atheros
@@ -352,7 +349,6 @@ pcscd
 spice-vdagent
 
 ### Wireless regulation
-crda
 wireless-regdb
 
 ### Automated test suite
@@ -370,6 +366,9 @@ python3-hid
 
 # Enable Electrum's Ledger hardware wallet support
 python3-btchip
+
+# Enable Electrum's Jade Blockstream wallet support
+python3-cbor
 
 # onion-grater
 python3-psutil
@@ -412,6 +411,18 @@ libu2f-udev
 # Allow running Qt applications as native Wayland
 qtwayland5
 
+# Needed by our curl wrapper
+xxd
+
+# Needed by root-terminal.desktop
+dbus-x11
+
+# Needed by the GNOME USB protection feature
+usbguard
+
 # Useful to fix PGP keys with a SHA-1 signature in airgapped/offline setups.
 # See https://sequoia-pgp.org/blog/2023/02/01/202302-happy-sha1-day/
 sq-keyring-linter
+
+# Needed by Electrum
+python3-pyqt5

@@ -1,12 +1,15 @@
 [[!meta title="Accessing resources on the local network"]]
 
-The term "local network" here refers to the set of computers and devices
+The term "local network" refers to the set of computers and devices
 that can be reached directly from your computer without going through
-the Internet. For example, your home router, your network printer, or
-the intranet of your company are most likely on your
+the Internet.
+
+For example, your home router, your network printer, or
+the intranet of your company are usually on your
 local network, also called LAN for Local Area Network. In technical
 terms, this refers to the set of IP addresses defined in
-[RFC1918](https://tools.ietf.org/html/rfc1918).
+[RFC1918](https://tools.ietf.org/html/rfc1918), like IP addresses that start
+with `192.168`.
 
 [[!toc]]
 
@@ -19,11 +22,7 @@ network without going through the Internet.
 
 But an application that can connect to both resources on the
 Internet (going through Tor) and resources on the local network (without going
-through Tor) can break your anonymity. For example, if a website that
-you visit anonymously using <span class="application">Tor Browser</span> could also connect to other
-web pages that are specific to your local network, then this information
-could reveal where you are. This is why <span class="application">Tor Browser</span> is prevented from
-accessing the local network in Tails.
+through Tor) can deanonymize you.
 
 This page describes some of the security measures built in Tails to
 protect from such attacks and explains how to access some types of
@@ -42,9 +41,9 @@ Browsing web pages on the local network
 =======================================
 
 It is impossible to access web pages on the local network using <span class="application">Tor
-Browser</span>. This prevents websites on the Internet from deducing your
-location from the content of other web pages that might be specific to your local
-network.
+Browser</span>. This prevents websites on the Internet from deanonymizing you
+using the content of other web pages that might be specific to your local
+network and reveal where you are.
 
 To access web pages on the local network, use the [[<span class="application">Unsafe
 Browser</span>|anonymous_internet/unsafe_browser]] instead.

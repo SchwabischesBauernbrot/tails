@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Italian translation\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-21 23:11+0000\n"
-"PO-Revision-Date: 2023-11-11 10:11+0000\n"
-"Last-Translator: xin <xin@riseup.net>\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"PO-Revision-Date: 2024-02-28 22:06+0000\n"
+"Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -30,53 +30,68 @@ msgstr "Sommario"
 
 #. type: Plain text
 #, fuzzy
+#| msgid "Tails might not work on:"
+msgid "- Tails works on:"
+msgstr "Tails potrebbe non funzionare su:"
+
+#. type: Bullet: '  * '
+#, fuzzy
 #| msgid "Tails works on most PC computers that are less than 10 years old."
-msgid "- Tails works on most PC computers that are less than 10 years old."
+msgid "Most PC computers that are less than 10 years old"
 msgstr "Tails funziona sulla maggior parte dei PC che abbiano meno di 10 anni."
 
-#. type: Plain text
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "Tails works on some older Mac computers with an Intel processor."
-msgid "- Tails works on some older Mac computers with an Intel processor."
+msgid "Some older Mac computers with an Intel processor"
 msgstr "Tails funziona su alcuni vecchi computer Mac con processore Intel."
 
 #. type: Plain text
 #, fuzzy
+#| msgid "Tails might not work on:"
+msgid "- Tails does not work:"
+msgstr "Tails potrebbe non funzionare su:"
+
+#. type: Bullet: '  * '
+#, fuzzy
 #| msgid ""
 #| "Tails does not work on newer Mac computers with an Apple processor (M1 or "
 #| "M2)."
-msgid ""
-"- Tails does not work on newer Mac computers with an Apple processor (M1 or "
-"M2)."
+msgid "Newer Mac computers with an Apple processor (M1 or M2)"
 msgstr ""
 "Tails non funziona sui computer Mac più recenti con processore Apple (M1 or "
 "M2)."
 
-#. type: Plain text
-#, fuzzy
-#| msgid "Tails might not work on:"
-msgid "- Tails might not work on:"
-msgstr "Tails potrebbe non funzionare su:"
+#. type: Bullet: '  * '
+msgid "Smartphones or tablets"
+msgstr ""
 
 #. type: Bullet: '  * '
-msgid "Some older computers, for example, if they don't have enough RAM."
+msgid "Raspberry Pi"
+msgstr ""
+
+#. type: Plain text
+msgid "- Tails might not work on:"
+msgstr "- Tails potrebbe non funzionare su:"
+
+#. type: Bullet: '  * '
+#, fuzzy
+#| msgid "Some older computers, for example, if they don't have enough RAM."
+msgid "Some older computers, for example, if they don't have 2 GB of RAM."
 msgstr "Alcuni computer più vecchi, ad esempio, se non hanno abbastanza RAM."
 
 #. type: Bullet: '  * '
+#, fuzzy
+#| msgid ""
+#| "Some newer computers, for example, if their [[graphics card is "
+#| "incompatible with Linux|support/known_issues/graphics]]."
 msgid ""
 "Some newer computers, for example, if their [[graphics card is incompatible "
-"with Linux|support/known_issues/graphics]]."
+"with Linux|support/known_issues/graphics]].  Nvidia or AMD Radeon cards "
+"often do not work in Tails."
 msgstr ""
 "Alcuni computer più recenti, ad esempio, se la [[scheda grafica non è\n"
 "compatibile con Linux|support/known_issues/graphics]]."
-
-#. type: Bullet: '  * '
-msgid ""
-"\"Gaming\" graphics cards like Nvidia or AMD Radeon, which are often "
-"incompatible."
-msgstr ""
-"Schede grafiche \"Gaming\" come Nvidia o AMD Radeon, sono spesso "
-"incompatibili."
 
 #. type: Plain text
 #, no-wrap
@@ -93,8 +108,9 @@ msgid "</div>\n"
 msgstr "</div>\n"
 
 #. type: Title =
-#, no-wrap
-msgid "Hardware requirements"
+#, fuzzy, no-wrap
+#| msgid "Hardware requirements"
+msgid "Detailed hardware requirements"
 msgstr "Requisiti hardware"
 
 #. type: Plain text
@@ -102,8 +118,9 @@ msgid "- A USB stick of 8 GB minimum or a recordable DVD."
 msgstr "- Una chiavetta USB da almeno 8 GB o un DVD riscrivibile."
 
 #. type: Plain text
-#, no-wrap
-msgid "  All the data on this USB stick or DVD will be lost when installing Tails.\n"
+#, fuzzy, no-wrap
+#| msgid "  All the data on this USB stick or DVD will be lost when installing Tails.\n"
+msgid "  All the data on this USB stick or DVD is lost when installing Tails.\n"
 msgstr "  Tutti i dati presenti sulla chiavetta USB o sul DVD verranno persi quando si installerà Tails.\n"
 
 #. type: Plain text
@@ -111,34 +128,21 @@ msgid "- The ability to start from a USB stick or a DVD reader."
 msgstr "- La capacità di avviare da chiavetta USB o da lettore DVD."
 
 #. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "A 64-bit <span class=\"definition\">[[!wikipedia x86-64]]</span> "
+#| "compatible processor:"
 msgid ""
-"A 64-bit <span class=\"definition\">[[!wikipedia x86-64]]</span> compatible "
-"processor:"
+"A 64-bit [[!wikipedia x86-64]] [[!wikipedia IBM_PC_compatible]] processor."
 msgstr ""
 "Un processore a 64 bit compatibile con <span class=\"definition\">[[!"
 "wikipedia x86-64]]</span>:"
 
 #. type: Bullet: '  * '
 msgid ""
-"<span class=\"definition\">[[!wikipedia IBM_PC_compatible]]</span> but not "
-"<span class=\"definition\">[[!wikipedia PowerPC]]</span> nor <span "
-"class=\"definition\">[[!wikipedia ARM_architecture desc=\"ARM\"]]</span>."
+"Tails does not works on [[!wikipedia ARM_architecture desc=\"ARM\"]] or [[!"
+"wikipedia PowerPC]] processors."
 msgstr ""
-"<span class=\"definition\">[[!wikipedia IBM_compatibile]]</span> ma non "
-"<span class=\"definition\">[[!wikipedia PowerPC]]</span> né <span "
-"class=\"definition\">[[!wikipedia ARM_architecture desc=\"ARM\"]]</span>."
-
-#. type: Bullet: '  * '
-msgid "Tails works on some older Mac computers with an Intel processor."
-msgstr "Tails funziona su alcuni vecchi computer Mac con processore Intel."
-
-#. type: Bullet: '  * '
-msgid ""
-"Tails does not work on newer Mac computers with an [[!wikipedia "
-"Apple_silicon#M_series desc=\"Apple processor\"]] (M1 or M2)."
-msgstr ""
-"Tails non funziona sui computer Mac più recenti con [[!wikipedia "
-"Apple_silicon#M_series desc=\"processore Apple\"]] (M1 o M2)."
 
 #. type: Bullet: '  * '
 msgid ""
@@ -147,10 +151,6 @@ msgid ""
 msgstr ""
 "Tails non funziona su computer a 32 bit a partire da [[Tails 3.0|news/"
 "Tails_3.0_will_require_a_64-bit_processor]] (June 2017)."
-
-#. type: Bullet: '  * '
-msgid "Tails does not work on phone or tablets."
-msgstr "Tails non funziona su telefoni o tablet."
 
 #. type: Plain text
 msgid "- 2 GB of RAM to work smoothly."
@@ -183,10 +183,8 @@ msgid "For PC"
 msgstr "Per PC"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "Avoid \"gaming\" models with Nvidia or AMD Radeon graphics cards."
 msgid "- Avoid \"gaming\" models with Nvidia or AMD Radeon graphics cards."
-msgstr "Evitare i modelli \"gaming\" con schede grafiche Nvidia o AMD Radeon."
+msgstr "- Evitare i modelli \"gaming\" con schede grafiche Nvidia o AMD Radeon."
 
 #. type: Bullet: '- '
 msgid ""
@@ -333,6 +331,37 @@ msgstr "- Chiedere a tails-assembly@ per i modelli."
 #, no-wrap
 msgid "-->\n"
 msgstr "-->\n"
+
+#, fuzzy
+#~| msgid "Tails works on some older Mac computers with an Intel processor."
+#~ msgid "- Tails works on some older Mac computers with an Intel processor."
+#~ msgstr "Tails funziona su alcuni vecchi computer Mac con processore Intel."
+
+#~ msgid ""
+#~ "\"Gaming\" graphics cards like Nvidia or AMD Radeon, which are often "
+#~ "incompatible."
+#~ msgstr ""
+#~ "Schede grafiche \"Gaming\" come Nvidia o AMD Radeon, sono spesso "
+#~ "incompatibili."
+
+#~ msgid ""
+#~ "<span class=\"definition\">[[!wikipedia IBM_PC_compatible]]</span> but "
+#~ "not <span class=\"definition\">[[!wikipedia PowerPC]]</span> nor <span "
+#~ "class=\"definition\">[[!wikipedia ARM_architecture desc=\"ARM\"]]</span>."
+#~ msgstr ""
+#~ "<span class=\"definition\">[[!wikipedia IBM_compatibile]]</span> ma non "
+#~ "<span class=\"definition\">[[!wikipedia PowerPC]]</span> né <span "
+#~ "class=\"definition\">[[!wikipedia ARM_architecture desc=\"ARM\"]]</span>."
+
+#~ msgid ""
+#~ "Tails does not work on newer Mac computers with an [[!wikipedia "
+#~ "Apple_silicon#M_series desc=\"Apple processor\"]] (M1 or M2)."
+#~ msgstr ""
+#~ "Tails non funziona sui computer Mac più recenti con [[!wikipedia "
+#~ "Apple_silicon#M_series desc=\"processore Apple\"]] (M1 o M2)."
+
+#~ msgid "Tails does not work on phone or tablets."
+#~ msgstr "Tails non funziona su telefoni o tablet."
 
 #, no-wrap
 #~ msgid "<div class=\"note\">\n"

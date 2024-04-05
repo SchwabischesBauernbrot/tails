@@ -9,9 +9,10 @@ import stat
 from typing import Optional, Callable
 
 import psutil
-from gi.repository import GLib, UDisks
+from gi.repository import GLib, UDisks, Gio
 
 from tailslib import LIVE_USER_UID, LIVE_USERNAME
+import tailslib.utils
 import tps.logging
 from tps import executil, LUKS_HEADER_BACKUP_PATH
 from tps import _, TPS_MOUNT_POINT, udisks
@@ -25,9 +26,9 @@ from tps.job import Job
 
 logger = tps.logging.get_logger(__name__)
 
-TAILS_MOUNTPOINT = "/lib/live/mount/medium"
 PARTITION_GUID = "8DA63339-0007-60C0-C436-083AC8230908"  # Linux reserved
 TPS_PARTITION_LABEL = "TailsData"
+UDISKS_BLOCK_DEVICES_PATH = "/org/freedesktop/UDisks2/block_devices"
 
 # Leave at least 200 MiB of memory to the system to avoid triggering the
 # OOM killer.
@@ -67,20 +68,6 @@ class InvalidPartitionTableTypeError(InvalidBootDeviceError):
         super().__init__(f"Partition table type: {partition_table_type}")
 
 
-class NoUdisksBlockObjectError(InvalidBootDeviceError):
-    def __init__(self, device: str):
-        super().__init__(f"Could not get udisks object of boot device {device}")
-
-
-class NoUdisksPartitionObjectError(InvalidBootDeviceError):
-    def __init__(self, device: str):
-        super().__init__(f"Boot device {device} is not a partition")
-
-
-class UnsupportedInstallationMethodError(InvalidBootDeviceError):
-    pass
-
-
 class InvalidCleartextDeviceError(Exception):
     pass
 
@@ -95,6 +82,9 @@ class BootDevice:
         self.partition_table = (
             udisks_object.get_partition_table()
         )  # type: UDisks.PartitionTable
+        if not self.partition_table:
+            # Note: This error is expected when the boot device is a DVD
+            raise InvalidBootDeviceError("Device has no partition table")
         partition_table_type = self.partition_table.props.type
         if partition_table_type != "gpt":
             raise InvalidPartitionTableTypeError(partition_table_type)
@@ -105,39 +95,24 @@ class BootDevice:
 
     @classmethod
     def get_tails_boot_device(cls) -> "BootDevice":
-        """Get the device which Tails was booted from. Raise a
-        InvalidBootDeviceError (or instance of a child exception class)
-        if it can't be found."""
-        # Get the underlying block device of the Tails system partition
-        try:
-            dev_num = os.stat(TAILS_MOUNTPOINT).st_dev
-        except FileNotFoundError as e:
-            raise InvalidBootDeviceError(e) from e
-
-        block = udisks.get_block_for_dev(dev_num)
-        if not block or not block.get_object():
-            raise NoUdisksBlockObjectError(
-                f"{os.major(dev_num)}:{os.minor(dev_num)}",
+        """Get the device which Tails was booted from.
+        Raises an InvalidBootDeviceError if it can't be found."""
+        device_path = tailslib.utils.get_boot_device()
+        logger.info(f"Boot device: {device_path}")
+        device_basename = os.path.basename(device_path)
+        udisks_obj_path = os.path.join(UDISKS_BLOCK_DEVICES_PATH, device_basename)
+        device_object = udisks().get_object(udisks_obj_path)
+        if not device_object:
+            raise InvalidBootDeviceError(
+                f"Could not get udisks object {udisks_obj_path} of boot device {device_path}"
             )
-        device_object = block.get_object()
-
-        # Get the udisks partition object
-        partition = device_object.get_partition()
-        if not partition:
-            raise NoUdisksPartitionObjectError(block.props.device)
-        partition_name = partition.props.name
-        if partition_name != "Tails":
-            raise UnsupportedInstallationMethodError(
-                f"Partition name: {partition_name}"
-            )
-
-        return BootDevice(udisks.get_object(partition.props.table))
+        return BootDevice(device_object)
 
     def get_beginning_of_free_space(self) -> int:
         """Get the beginning of the free space on the device, in bytes"""
         # Get the partitions
         partitions = [
-            udisks.get_object(p).get_partition()
+            udisks().get_object(p).get_partition()
             for p in self.partition_table.props.partitions
         ]
         # Get the ends of the partitions, in bytes
@@ -169,7 +144,7 @@ class TPSPartition:
             raise PartitionNotUnlockedError(
                 f"Device {self.device_path} is not unlocked"
             )
-        return CleartextDevice(udisks.get_object(cleartext_device_path))
+        return CleartextDevice(udisks().get_object(cleartext_device_path))
 
     def try_get_cleartext_device(self) -> Optional["CleartextDevice"]:
         """Get the cleartext device of Persistent Storage encrypted
@@ -278,25 +253,33 @@ class TPSPartition:
     def exists(cls) -> bool:
         """Return true if the Persistent Storage partition exists and
         false otherwise."""
-        return bool(cls.find())
+        try:
+            cls.find()
+            return True
+        except (InvalidPartitionError, InvalidBootDeviceError):
+            return False
 
     @classmethod
-    def find(cls) -> Optional["TPSPartition"]:
-        """Return the Persistent Storage encrypted partition or None
-        if it couldn't be found."""
-        try:
-            parent_device = BootDevice.get_tails_boot_device()
-        except InvalidBootDeviceError:
-            return None
+    def find(cls) -> "TPSPartition":
+        """Return the Persistent Storage encrypted partition.
+
+        Raises:
+            InvalidBootDeviceError: if the boot device is not found
+            InvalidPartitionError: if the partition is not found
+        """
+
+        # This raises a InvalidBootDeviceError if no valid boot device
+        # is be found
+        parent_device = BootDevice.get_tails_boot_device()
 
         partitions = parent_device.partition_table.props.partitions
         for partition_name in sorted(partitions):
-            partition = udisks.get_object(partition_name)
+            partition = udisks().get_object(partition_name)
             if not partition:
                 continue
             if partition.get_partition().props.name == TPS_PARTITION_LABEL:
                 return TPSPartition(partition)
-        return None
+        raise InvalidPartitionError(f"Partition {TPS_PARTITION_LABEL} not found")
 
     @classmethod
     def pbkdf_parameters(cls, memory_cost=None):
@@ -383,10 +366,10 @@ class TPSPartition:
             arg_name=TPS_PARTITION_LABEL,
             arg_options=GLib.Variant("a{sv}", {}),
         )
-        udisks.settle()
+        udisks().settle()
 
         # Get the UDisks partition object
-        partition = TPSPartition(udisks.get_object(object_path))
+        partition = TPSPartition(udisks().get_object(object_path))
 
         # Initialize the LUKS partition via cryptsetup. We can't use
         # udisks for this because it doesn't support setting the key
@@ -440,7 +423,7 @@ class TPSPartition:
                 },
             ),
         )
-        udisks.settle()
+        udisks().settle()
 
         if is_backup:
             # We let the caller mount the backup partition
@@ -626,7 +609,7 @@ class TPSPartition:
                     raise IncorrectPassphraseError(err) from err
                 raise
 
-        udisks.settle()
+        udisks().settle()
 
         if rename_dm_device:
             # Wait for the cleartext device to become available to udisks
@@ -730,6 +713,18 @@ class TPSPartition:
                 and "No keyslot with given passphrase found" in err.message
             ):
                 raise IncorrectPassphraseError(err) from err
+            if (
+                err.matches(Gio.DBusError.quark(), Gio.DBusError.NO_REPLY)
+                and udisks_oom_killed()
+            ):
+                raise NotEnoughMemoryError(
+                    _(
+                        "Not enough memory to change the passphrase of the"
+                        " Persistent Storage. Try again after closing some"
+                        " applications or rebooting."
+                    )
+                ) from err
+
             raise
 
 
@@ -870,3 +865,29 @@ def wait_for_udisks_object(
         time.sleep(1)
         continue
     raise TimeoutError("Timeout while waiting for udisks object")
+
+
+def udisks_oom_killed() -> bool:
+    """Check if udisks2.service was oom-killed.
+    Returns: True if udisks2.service was oom-killed, False otherwise.
+    """
+
+    # Check the Result property of udisks2.service
+    output = executil.check_output(
+        ["systemctl", "show", "--property=Result", "udisks2.service"]
+    ).strip()
+    match output:
+        case "Result=oom-kill":
+            return True
+        case "Result=signal":
+            # Sometimes systemd doesn't detect that the service was
+            # oom-killed and shows "Result=signal" instead. To also
+            # handle that case, we check if the service was killed
+            # via SIGKILL, in which case we assume that it was a
+            # result of the OOM killer.
+            output = executil.check_output(
+                ["systemctl", "show", "--value", "--property=ExecMainStatus", "udisks2"]
+            ).strip()
+            if output == "9":  # SIGKILL
+                logger.warning("udisks2.service was killed via SIGKILL")
+                return True

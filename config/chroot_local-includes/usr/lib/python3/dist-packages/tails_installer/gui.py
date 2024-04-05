@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-#
 # Copyright © 2008-2013  Red Hat, Inc. All rights reserved.
 # Copyright © 2008-2013  Luke Macken <lmacken@redhat.com>
 # Copyright © 2008  Kushal Das <kushal@fedoraproject.org>
@@ -32,14 +30,14 @@ import subprocess
 import threading
 import traceback
 import time
+import psutil
 
 from time import sleep
 from datetime import datetime
 
-from gi.repository import Gdk, GLib, Gtk, Gio, GObject
+from gi.repository import Gdk, GLib, Gtk
 
 from tails_installer.passphrase_dialog import PassphraseDialog
-from tps.dbus.errors import DBusError
 
 from tails_installer import TailsInstallerCreator, TailsInstallerError, _
 from tails_installer.config import CONFIG
@@ -69,6 +67,7 @@ class ProgressThread(threading.Thread):
     """
 
     totalsize = 0
+    tps_totalsize = 0
     orig_free = 0
     drive = None
     get_free_bytes = None
@@ -83,17 +82,23 @@ class ProgressThread(threading.Thread):
         self.drive = drive
         self.get_free_bytes = freebytes
         self.orig_free = self.get_free_bytes()
+        if self.parent.opts.clone_persistent_storage_requested:
+            self.tps_totalsize = get_persistent_storage_backup_size() / 1024
 
     def run(self):
+        value = 0
+        tps_value = 0
         while not self.terminate:
-            free = self.get_free_bytes()
-            if free is None:
-                break
-            value = (self.orig_free - free) / 1024
-            GLib.idle_add(self.parent.progress, float(value) / self.totalsize)
-            if value >= self.totalsize:
-                break
-            sleep(3)
+            if os.path.ismount("/media/amnesia/Tails/"):
+                free = self.get_free_bytes()
+                value = (self.orig_free - free) / 1024
+            if os.path.ismount("/media/amnesia/TailsData"):
+                tps_value = psutil.disk_usage("/media/amnesia/TailsData").used / 1024
+            GLib.idle_add(
+                self.parent.progress,
+                float(value + tps_value) / (self.totalsize + self.tps_totalsize),
+            )
+            sleep(0.1)
 
     def stop(self):
         self.terminate = True
@@ -184,6 +189,10 @@ class TailsInstallerThread(threading.Thread):
             if self.parent.opts.clone_persistent_storage_requested:
                 self.live.clone_persistent_storage()
 
+            # Set progress to 100% after cloning persistent storage
+            self.set_max_progress(float(1))
+            self.update_progress(1)
+
             self.progress.stop()
 
             # Flush all filesystem buffers and unmount
@@ -243,7 +252,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self.source_available = False
         self.target_available = False
         self.target_selected = False
-        self.devices_with_persistence = []
         self.force_reinstall = False
         self.force_reinstall_button_available = False
         try:
@@ -264,7 +272,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self._build_ui()
 
         self.opts.clone = True
-        self.opts.clone_persistent_storage_requested = False
         self.live = TailsInstallerCreator(opts=opts)
 
         # Intercept all tails_installer.INFO log messages, and display them
@@ -280,6 +287,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         if self.opts.clone:
             self.__radio_button_source_device.set_active(True)
             self.__filechooserbutton_source_file.set_sensitive(False)
+            if self.opts.clone_persistent_storage_requested:
+                self.__check_button_clone_persistent_storage.set_active(True)
         # - outside of Tails
         else:
             self.__radio_button_source_device.set_visible(False)
@@ -360,7 +369,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
 
     def on_radio_button_source_iso_toggled(self, radio_button):
         self.live.log.debug("Entering on_radio_button_source_iso_toggled")
-        active_radio = [r for r in radio_button.get_group() if r.get_active()][0]
+        active_radio = next(r for r in radio_button.get_group() if r.get_active())
         if active_radio.get_label() == _("Clone the current Tails"):
             self.live.log.debug("Mode: clone")
             self.opts.clone = True
@@ -380,7 +389,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         # some previously rejected devices may now be valid candidates
         # and vice-versa
         self.live.log.debug(
-            "Calling populate_devices()" " from on_radio_button_source_iso_toggled"
+            "Calling populate_devices() from on_radio_button_source_iso_toggled"
         )
         self.populate_devices()
         self.update_clone_persistent_storage_check_button()
@@ -396,7 +405,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
     def on_activate_link_button(self, link_button: Gtk.LinkButton):
         uri = link_button.get_uri()
         self.live.log.debug("Opening Documentation: %s", uri)
-        subprocess.run(["tails-documentation", uri])
+        subprocess.run(["/usr/local/bin/tails-documentation", uri], check=False)
         return True
 
     def on_force_reinstall_clicked(self, button):
@@ -555,8 +564,11 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             # and vice-versa
             self.live.log.debug("drives: %s" % self.live.drives)
             target_list = []
+<<<<<<< HEAD
             message = None
             self.devices_with_persistence = []
+=======
+>>>>>>> 0715147a92ccecfa06ba22ebc3fa0902c4bd9f66
             for device, info in list(self.live.drives.items()):
                 # Skip the device that is the source of the copy
                 if (
@@ -572,13 +584,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 # Skip the running device
                 if self.live.running_device() in [info["udi"], info["parent_udi"]]:
                     self.live.log.debug("Skipping running device: %s" % info["device"])
-                    continue
-                # Skip LUKS-encrypted partitions
-                if info["fstype"] and info["fstype"] == "crypto_LUKS":
-                    self.live.log.debug(
-                        "Skipping LUKS-encrypted partition: %s" % info["device"]
-                    )
-                    self.devices_with_persistence.append(info["parent"])
                     continue
                 if message:
                     self.status("\n")
@@ -730,9 +735,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             self.append_to_log(text)
         except Exception as ex:
             self.live.log.exception(
-                'Failed to set status to object of type "{type}"'.format(
-                    type=type(obj).__name__
-                )
+                "Failed to set status to object of type %s",
+                type(obj).__name__,
             )
             raise ex
 
@@ -772,8 +776,14 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self.close()
 
     def show_confirmation_dialog(
-        self, title, message, warning, label_string=_("Install")
+        self,
+        title,
+        message,
+        warning,
+        label_string=None,
     ):
+        if label_string is None:
+            label_string = _("Install")
         if warning:
             buttons = Gtk.ButtonsType.OK
         else:
@@ -814,11 +824,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         for signal_match in self.signals_connected:
             signal_match.remove()
 
-        # Unmount the device if needed
-        if self.live.drive["mount"]:
-            self.live.dest = self.live.drive["mount"]
-            self.live.unmount_device()
-
         if not self.opts.partition:
             try:
                 self.live.mount_device()
@@ -826,7 +831,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.status(e.args[0])
                 self.enable_widgets(True)
                 return
-            except OSError as e:
+            except OSError:
                 self.status(_("Unable to mount device"))
                 self.enable_widgets(True)
                 return
@@ -845,7 +850,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                         else self.live.drive["size"]
                     ),
                 }
-                if self.live.drive["parent"] in self.devices_with_persistence:
+                if self.live.has_persistent_storage():
                     delete_message = _(
                         "\n\nThe Persistent Storage on this USB stick will be lost."
                     )
@@ -924,7 +929,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             % {"filename": str(os.path.basename(self.live.source.path))}
         )
         self.source_available = True
-        self.live.log.debug("Calling populate_devices()" " from select_source_iso")
+        self.live.log.debug("Calling populate_devices() from select_source_iso")
         self.populate_devices()
 
     def terminate(self):

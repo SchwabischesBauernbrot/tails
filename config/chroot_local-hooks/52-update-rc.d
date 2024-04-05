@@ -16,6 +16,7 @@ systemctl enable tails-autotest-broken-gnome-shell.service
 systemctl enable tails-autotest-remote-shell.service
 systemctl enable tails-create-netns.service
 systemctl enable tails-detect-disk-errors.service
+systemctl enable tails-detect-squashfs-errors.service
 systemctl enable tails-persistent-storage.service
 systemctl enable tails-remove-overlayfs-dirs.service
 systemctl enable tails-set-wireless-devices-state.service
@@ -32,6 +33,7 @@ systemctl --global enable tails-add-GNOME-bookmarks.service
 systemctl --global enable tails-additional-software-install.service
 systemctl --global enable tails-configure-keyboard.service
 systemctl --global enable tails-report-disk-errors.service
+systemctl --global enable tails-report-squashfs-errors.path
 systemctl --global enable tails-security-check.service
 systemctl --global enable tails-upgrade-frontend.service
 systemctl --global enable tails-virt-notify-user.service
@@ -55,6 +57,15 @@ systemctl enable  cups.socket
 # We're starting NetworkManager and Tor ourselves.
 systemctl disable NetworkManager.service
 systemctl disable NetworkManager-wait-online.service
+
+# tracker-extract-3.service is a helper service that is controlled by
+# tracker-miner-fs-3.service. It should not be started automatically
+# by systemd. In Bookworm, it has a WantedBy=default.target dependency,
+# which causes it to fail after a 30s timeout because it's started
+# before tracker-miner-fs-3.service, see #20243.
+# TODO:Trixie: The version of tracker-extract in Trixie does not have
+# dependency on default.target anymore, so we can remove this line.
+systemctl --global disable tracker-extract-3.service
 
 # systemd-networkd fallbacks to Google's nameservers when no other nameserver
 # is provided by the network configuration. As of Debian Buster,

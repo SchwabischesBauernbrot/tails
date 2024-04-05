@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-02-08 03:39+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2022-12-21 11:07+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -70,23 +70,18 @@ msgstr ""
 msgid "Make sure that your USB stick is unplugged."
 msgstr ""
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '1. '
 msgid ""
-"1. Open <span class=\"application\">Terminal</span> from\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
+"Open the **Terminal** utility from **Applications**&nbsp;▸ **Utilities**."
 msgstr ""
 
 #. type: Bullet: '1. '
-msgid "Execute the following command:"
+msgid "Execute the following command."
 msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"pre command\">diskutil list</p>\n"
+msgid "   <p class=\"command\">diskutil list</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -111,7 +106,7 @@ msgid "Plug your USB stick into the computer."
 msgstr ""
 
 #. type: Bullet: '1. '
-msgid "Execute again the same command:"
+msgid "Execute again the same command."
 msgstr ""
 
 #. type: Plain text
@@ -124,24 +119,21 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"       /dev/disk0\n"
-"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
-"        1:                      EFI              209.7 MB  disk0s1\n"
-"        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"        3:                      EFI              134.1 GB  disk0s3\n"
-"        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-"      /dev/disk1\n"
+"       /dev/disk1\n"
 "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
 "        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
 "        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 msgstr ""
 
 #. type: Bullet: '1. '
+msgid "Take note of the device name of your USB stick."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
 msgid ""
-"Take note of the *device name* of your USB stick.  In this example, the USB "
-"stick is 8.0 GB and its device name is <code>/dev/disk1</code>.  Yours might "
-"be different."
+"   In this example, the USB stick is 8.0 GB and its device name is <span class=\"command-placeholder\">/dev/disk1</span>.\n"
+"   Yours might be different.\n"
 msgstr ""
 
 #. type: Plain text
@@ -151,6 +143,18 @@ msgid ""
 "   <p>If you are unsure about the device name, you should stop proceeding or\n"
 "   <strong>you risk overwriting any hard disk on the system</strong>.</p>\n"
 "   </div>\n"
+msgstr ""
+
+#. type: Bullet: '1. '
+msgid ""
+"Execute the following command to safely eject the USB stick. Replace <span "
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
 msgstr ""
 
 #. type: Bullet: '1. '
@@ -193,11 +197,6 @@ msgid ""
 "     <div class=\"tip\">\n"
 "     <p>You can try adding <code>r</code> before <code>disk</code> to make the installation faster.</p>\n"
 "     </div>\n"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -254,7 +253,7 @@ msgstr "   </div>\n"
 
 #. type: Plain text
 #, no-wrap
-msgid "   The installation is complete once the command prompt reappeared.\n"
+msgid "   The installation is complete when the command prompt reappears.\n"
 msgstr ""
 
 #. type: Bullet: '1. '

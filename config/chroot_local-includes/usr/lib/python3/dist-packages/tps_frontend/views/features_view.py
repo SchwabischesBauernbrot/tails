@@ -4,16 +4,17 @@ from gi.repository import Gdk, Gio, Gtk
 import inspect
 from logging import getLogger
 import subprocess
-from typing import TYPE_CHECKING, List
+from typing import TYPE_CHECKING
 
 from tps_frontend import (
     FEATURES_VIEW_UI_FILE,
     DBUS_FEATURES_PATH,
     DBUS_SERVICE_NAME,
     DBUS_FEATURE_INTERFACE,
+    CUSTOM_FEATURE_UI_FILE,
 )
 from tps_frontend.view import View
-from tps_frontend.feature import Feature
+from tps_frontend.feature import Feature, CustomFeatureRow
 
 if TYPE_CHECKING:
     from gi.repository import Handy
@@ -31,7 +32,7 @@ class PersistentDirectory(Feature):
         self.open_button.set_visible(self.switch.get_state())
 
     @property
-    def widgets_to_show_while_active(self) -> List[Gtk.Widget]:
+    def widgets_to_show_while_active(self) -> list[Gtk.Widget]:
         return [self.open_button]
 
 
@@ -120,6 +121,7 @@ class FeaturesView(View):
             "network_list_box",
             "applications_list_box",
             "advanced_settings_list_box",
+            "custom_features_list_box",
         ]:
             listbox = self.builder.get_object(listbox_name)  # type: Gtk.ListBox
             listbox.set_header_func(self.add_separator)
@@ -133,7 +135,7 @@ class FeaturesView(View):
         )  # type: Gtk.ListBox
         dbus_objects = (
             self.object_manager.get_objects()
-        )  # type: List[Gio.DBusObjectProxy]
+        )  # type: list[Gio.DBusObjectProxy]
         for obj in dbus_objects:
             path = obj.get_object_path()
             if os.path.basename(path).startswith("CustomFeature"):
@@ -193,18 +195,20 @@ class FeaturesView(View):
 
     def on_activate_link(self, label: Gtk.Label, uri: str):
         logger.debug("Opening documentation: %s", uri)
-        subprocess.run(["tails-documentation", uri])
+        subprocess.run(["/usr/local/bin/tails-documentation", uri])  # noqa: PLW1510
         return True
 
     def on_activate_link_button(self, link_button: Gtk.LinkButton):
         uri = link_button.get_uri()
         page, anchor = uri.split("#")
         logger.debug("Opening documentation: %s", uri)
-        subprocess.run(["tails-documentation", page, anchor])
+        subprocess.run(
+            ["/usr/local/bin/tails-documentation", page, anchor]
+        )  # noqa: PLW1510
         return True
 
     def add_custom_feature(self, proxy: Gio.DBusObject):
-        row = self.builder.get_object("custom_feature_row")  # type: Handy.ActionRow
-        row.set_title(proxy.get_cached_property("Description").get_string())
+        description = proxy.get_cached_property("Description").get_string()
+        row = CustomFeatureRow(title=description)
         self.custom_features_list_box.add(row)
         self.custom_features_box.show_all()

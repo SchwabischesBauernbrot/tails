@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-01-23 00:41+0000\n"
-"PO-Revision-Date: 2024-01-11 01:43+0000\n"
-"Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
+"PO-Revision-Date: 2024-02-28 23:45+0000\n"
+"Last-Translator: v41bis <boum.vvduv@passmail.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -26,7 +26,7 @@ msgstr "[[!meta date=\"Tue, 14 Jun 2023 12:34:56 -0000\"]]\n"
 #. type: Plain text
 #, no-wrap
 msgid "[[!meta title=\"Weak cryptographic parameters in LUKS1\"]]\n"
-msgstr ""
+msgstr "[[!meta title=\"Parametri crittografici deboli in LUKS1\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -54,21 +54,28 @@ msgid ""
 "LUKS encrypted volumes unless you use a long passphrase of 5 random words or\n"
 "more.**\n"
 msgstr ""
+"**Ti consigliamo di modificare la frase d'accesso dell'Archivio Persistente "
+"e di altri volumi cifrati LUKS, a meno che tu non utilizzi una frase "
+"d'accesso lunga, composta da 5 parole casuali o più.**\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "[[!toc levels=2]]\n"
-msgstr ""
+msgstr "[[!toc levels=2]]\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<h1 id=\"understanding\">Understanding the weakness and its solution</h1>\n"
 msgstr ""
+"<h1 id=\"understanding\">Comprendendo la vulnerabilità e la sua "
+"soluzione</h1>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"race\">The arms race to protect from brute-force attacks</h2>\n"
 msgstr ""
+"<h2 id=\"race\">La corsa alle armi per proteggersi dagli attacchi di forza "
+"bruta</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -77,12 +84,19 @@ msgid ""
 "until they guess your passphrase and unlock the encryption. This type of "
 "attack is called a *[[!wikipedia brute-force attack]]*."
 msgstr ""
+"In tutti i metodi di criptazione che proteggono i dati su un disco o una USB "
+"con una password o una frase d'accesso, un attaccante può provare tutte le "
+"possibili combinazioni finché non indovina la tua frase d'accesso e sblocca "
+"la criptazione. Questo tipo di attacco è definito *[[!wikipedia brute-force "
+"attack]]*."
 
 #. type: Plain text
 msgid ""
 "A strong password makes brute-force attacks slower and more expensive. The "
 "longer the passphrase, the more expensive the brute-force attack becomes."
 msgstr ""
+"Una password forte rende gli attacchi di forza bruta più lenti e costosi. "
+"Più è lunga la frase d'accesso, più costoso diventa l'attacco di forza bruta."
 
 #. type: Plain text
 msgid ""
@@ -91,6 +105,10 @@ msgid ""
 "complicated calculations on each passphrase before being able to try to "
 "unlock the encryption with the result of this calculation."
 msgstr ""
+"Alcuni parametri crittografici posso anche rendere ogni calcolo dell'attacco "
+"di forza bruta più lento e costoso, per esempio costringendolo ad eseguire "
+"alcuni calcoli complicati su ogni frase di accesso prima di poter provare a "
+"sbloccare la criptazione con il risultato di questi calcoli."
 
 #. type: Plain text
 msgid ""
@@ -99,6 +117,11 @@ msgid ""
 "encryption fast and usable by users while making brute-force attacks as "
 "expensive as possible for attackers."
 msgstr ""
+"Con gli anni che passano, i computers diventano più veloci ed economici. Le "
+"tecnologie di criptazione migliorano regolarmente i loro parametri per "
+"trovare un equilibrio tra il rendere la criptazione veloce e utilizzabile "
+"dagli utenti e il rendere gli attacchi di forza bruta il più costosi "
+"possibile per gli attaccanti."
 
 #. type: Plain text
 msgid ""
@@ -108,11 +131,16 @@ msgid ""
 "if it would take thousands of years even with the most powerful "
 "supercomputers."
 msgstr ""
+"Parametri di criptazione forti *combinati* con una frase d'accesso sicura "
+"rende gli attacchi di forza bruta così lenti e costosi che diventano "
+"impossibili da attuare nella pratica. Per esempio, un attacco di forza bruta "
+"è impossibile da attuare nella pratica se dovesse richiedere migliaia di "
+"anni anche per i supercomputers più potenti."
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"comparison\">Strength of Argon2id compared to PBKDF2</h2>\n"
-msgstr ""
+msgstr "<h2 id=\"comparison\">La forza di Argon2id paragonata a PBKDF2</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -120,11 +148,17 @@ msgid ""
 "(LUKS1)  with PBKDF2 as *key derivation function*, a calculation run on the "
 "passphrase before trying to unlock the encryption with the result."
 msgstr ""
+"Fino a Tails 5.12 (19 Aprile 2023) Tails creava dispositivi LUKS di versione "
+"1 (LUKS1)  usando PBKDF2 come *funzione di derivazione della chiave*, un "
+"calcolo eseguito sulla frase d'accesso prima di provare a sbloccare la "
+"criptazione con il risultato di quest'ultimo"
 
 #. type: Plain text
 msgid ""
 "PBKDF2 is now considered too weak compared to available computing power."
 msgstr ""
+"PBKDF2 è ora considerato troppo debole rispetto alla potenza di calcolo "
+"disponibile."
 
 #. type: Plain text
 msgid ""
@@ -132,12 +166,18 @@ msgid ""
 "against an activist in France](https://mjg59.dreamwidth.org/66429.html) but "
 "the actual operations by the French police are kept secret."
 msgstr ""
+"Alcuni crittografici pensano che questa debolezza possa essere stata già ["
+"usata contro un attivista in Francia] (https://mjg59.dreamwidth.org/66429."
+"html) ma le operazioni attuali della polizia francese sono tenute segrete."
 
 #. type: Plain text
 msgid ""
 "Since Tails 5.13 (16 May 2023), Tails creates LUKS devices version 2 "
 "(LUKS2)  with Argon2id as *key derivation function*."
 msgstr ""
+"A partire da Tails 5.13 (16 Maggio 2023), Tails crea dispositivi LUKS di "
+"versione 2 (LUKS2)  usando Argon2id come *funzione di derivazione della "
+"chiave*"
 
 #. type: Plain text
 #, no-wrap
@@ -148,6 +188,15 @@ msgid ""
 "<tr><td>5.13 or later</td><td>16 May 2023</td><td>LUKS2</td><td>Argon2id</td><td>Strong</td></tr>\n"
 "</table>\n"
 msgstr ""
+"<table>\n"
+"<tr><th>Versione di Tails<br/>quando è stata creata la criptazione</"
+"th><th>Data di rilascio</th><th>Versione di LUKS</th><th>Funzione di "
+"derivazione della chiave</th><th>Sicurezza</th></tr>\n"
+"<tr><td>5.12 o precedenti</td><td>19 April "
+"2023</td><td>LUKS1</td><td>PBKDF2</td><td>Debole</td></tr>\n"
+"<tr><td>5.13 o successive</td><td>16 May "
+"2023</td><td>LUKS2</td><td>Argon2id</td><td>Forte</td></tr>\n"
+"</table>\n"
 
 #. type: Plain text
 msgid ""
@@ -155,6 +204,10 @@ msgid ""
 "different strengths. As we recommend for the Persistent Storage, we "
 "evaluated passphrases made of several random words."
 msgstr ""
+"Abbiamo stimato il costo dell'energia elettrica necessaria ad indovinare "
+"delle frasi d'accesso di lunghezze diverse. Come consigliamo per l'Archivio "
+"Persistente, abbiamo utilizzato frasi d'accesso composte da diverse parole "
+"casuali."
 
 #. type: Plain text
 #, no-wrap
@@ -168,6 +221,20 @@ msgid ""
 "<tr><td>7 random words</td><td>$1&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000</td><td>$1&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000</td></tr>\n"
 "</table>\n"
 msgstr ""
+"<table>\n"
+"<tr><th>Lunghezza della frase "
+"d'accesso</th><th>PBKDF2</th><th>Argon2id</th></tr>\n"
+"<tr><td>3 parole casuali</td><td>$0.1</td><td>$100</td></tr>\n"
+"<tr><td>4 parole "
+"casuali</td><td>$1&#8239;000</td><td>$1&#8239;000&#8239;000</td></tr>\n"
+"<tr><td>5 parole casuali</td><td>$10&#8239;000&#8239;000</td><td>$10&#8239;00"
+"0&#8239;000&#8239;000</td></tr>\n"
+"<tr><td>6 parole casuali</td><td>$100&#8239;000&#8239;000&#8239;000</td><td>$"
+"100&#8239;000&#8239;000&#8239;000&#8239;000</td></tr>\n"
+"<tr><td>7 parole casuali</td><td>$1&#8239;000&#8239;000&#8239;000&#8239;000&#"
+"8239;000</td><td>$1&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000&#8239;0"
+"00</td></tr>\n"
+"</table>\n"
 
 #. type: Plain text
 msgid ""
