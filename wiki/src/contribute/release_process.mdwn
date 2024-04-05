@@ -1833,9 +1833,7 @@ prepare the announcement for the release, write it yourself:
    - Mention major user-visible improvements.
 
    - Document important config changes that users of the Persistent Storage have to do
-     themselves (e.g. the Pidgin proxy settings change in
-     [[!tails_gitweb_commit 9925321]] breaks all existing persistent
-     profiles).
+     themselves.
 
    - Document known issues.
 
@@ -1844,7 +1842,7 @@ prepare the announcement for the release, write it yourself:
 In `wiki/src/home/testing.html`, in the "Current calls for testing" section,
 add a bullet point with a pointer to
 the call for testing for this release candidate
-(<https://tails.net/news/test_$TAG/>, that you just wrote).
+(`https://tails.net/news/test_$TAG/`, that you just wrote).
 
 In any case
 -----------
@@ -1918,7 +1916,7 @@ To disable mirrors that are lagging behind:
 
 2. Push to the [[!tails_gitlab tails/mirror-pool]] `master` branch.
 
-3. Verify that the CI pipeline passed on [[!tails_gitlab tails/mirror-pool/-/pipelines]].
+3. Verify that the CI pipeline passed on `https://gitlab.tails.boum.org/tails/mirror-pool/-/pipelines`.
 
 4. Notify <tails-mirrors@boum.org>, so they communicate with the operators of the
    outdated mirrors.
