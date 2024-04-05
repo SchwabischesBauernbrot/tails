@@ -564,11 +564,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             # and vice-versa
             self.live.log.debug("drives: %s" % self.live.drives)
             target_list = []
-<<<<<<< HEAD
             message = None
-            self.devices_with_persistence = []
-=======
->>>>>>> 0715147a92ccecfa06ba22ebc3fa0902c4bd9f66
             for device, info in list(self.live.drives.items()):
                 # Skip the device that is the source of the copy
                 if (
