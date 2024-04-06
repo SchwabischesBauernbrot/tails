@@ -375,4 +375,3 @@ pref("mail.identity.default.attachPgpKey", false);
 // Issue: #20062 - Thunderbird leaks locale via reply quote header
 // Only include "<author> wrote:" in the reply quote header to avoid locale leak
 pref("mailnews.reply_header_type", 1);
-pref("mailnews.reply_header_authorwrotesingle", "#1 wrote:");
