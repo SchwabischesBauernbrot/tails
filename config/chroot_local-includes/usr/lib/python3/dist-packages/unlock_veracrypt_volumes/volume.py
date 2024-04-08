@@ -103,7 +103,7 @@ class Volume:
     @property
     def drive_name(self) -> str:
         if self.is_file_container:
-            return str()
+            return ""
 
         if self.is_unlocked:
             drive_object = self.udisks_client.get_object(
@@ -118,12 +118,12 @@ class Volume:
                 drive_object.get_drive().props.model,
             )
         else:
-            return str()
+            return ""
 
     @property
     def backing_file_name(self) -> str:
         if not self.is_file_container:
-            return str()
+            return ""
         if self.is_unlocked:
             return self.backing_udisks_object.get_loop().props.backing_file
         elif self.is_loop_device:
