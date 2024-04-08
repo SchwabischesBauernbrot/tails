@@ -58,10 +58,6 @@ class IOErrorPatterns:
 
 def process_entries(journal: systemd.journal.Reader, ioerror_patterns: IOErrorPatterns):
     """Process all journald messages and search for SQUASHFS and other I/O errors."""
-
-    # journal.wait will trigger process_entries for every message including all
-    # messages, that do not match our filters.
-
     for e in journal:
         msg = e["MESSAGE"]
         matched = ioerror_patterns.match_message(msg)
@@ -97,6 +93,8 @@ def main():
     print("start loop")
     # Wait for new messages to be appended to journald
     while True:
+        # journal.wait will trigger process_entries for every message including all
+        # messages, that do not match our filters.
         state_change = j.wait()
         if state_change == systemd.journal.APPEND:
             process_entries(j, ioerror_patterns)
