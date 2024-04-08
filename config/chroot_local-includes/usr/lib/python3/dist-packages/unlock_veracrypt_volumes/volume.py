@@ -113,7 +113,7 @@ class Volume:
             drive_object = self.drive_object
 
         if drive_object:
-            return "%s %s" % (
+            return "{} {}".format(
                 drive_object.get_drive().props.vendor,
                 drive_object.get_drive().props.model,
             )
