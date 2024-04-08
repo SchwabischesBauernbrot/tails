@@ -38,10 +38,16 @@ class App(Gtk.Application):
         self.activate()
 
         for file in files:
-            try:
-                self.manager.unlock_file_container(file.get_path(), open_after_unlock=True)
-            except AlreadyUnlockedError:
-                self.manager.open_file_container(file.get_path())
+            if not self.manager.file_container_is_attached(file.get_path()):
+                logger.debug("attaching file container %s", file.get_path())
+                self.manager.attach_file_container(file.get_path())
+            else:
+                try:
+                    logger.debug("unlocking file container %s", file.get_path())
+                    self.manager.unlock_file_container(file.get_path(), open_after_unlock=True)
+                except AlreadyUnlockedError:
+                    logger.debug("file container %s is already unlocked", file.get_path())
+                    self.manager.open_file_container(file.get_path())
 
 
 def parse_args():

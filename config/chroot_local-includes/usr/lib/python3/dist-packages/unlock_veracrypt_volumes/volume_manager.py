@@ -229,6 +229,13 @@ class VolumeManager:
         except VolumeNotFoundError:
             return self.attach_file_container(path)
 
+    def file_container_is_attached(self, path: str) -> bool:
+        try:
+            self.container_list.find_by_backing_file(path)
+            return True
+        except VolumeNotFoundError:
+            return False
+
     def choose_container_path(self):
         dialog = Gtk.FileChooserDialog(
             _("Choose File Container"),
