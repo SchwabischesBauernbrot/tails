@@ -327,21 +327,22 @@ class Volume(object):
             GLib.Variant("a{sv}", {}), None  # options
         )  # cancellable
 
-    def unmount(self):
+    def ensure_not_mounted(self):
+        filesystem = self.udisks_object.get_filesystem()
+        if not filesystem:
+            logger.info("Volume %s is not mounted", self.device_file)
+            return
+
         logger.info("Unmounting volume %s", self.device_file)
-        unmounted_at_least_once = False
-        while self.udisks_object.get_filesystem().props.mount_points:
+        while filesystem.props.mount_points:
             try:
-                self.udisks_object.get_filesystem().call_unmount_sync(
+                filesystem.call_unmount_sync(
                     GLib.Variant("a{sv}", {}), None  # options
                 )  # cancellable
-                unmounted_at_least_once = True
             except GLib.Error as e:
-                # Ignore "not mounted" error if the volume was already unmounted
                 if (
                     e.domain == "udisks-error-quark"
                     and e.code == UDisks.Error.NOT_MOUNTED
-                    and unmounted_at_least_once
                 ):
                     return
                 raise
@@ -396,7 +397,7 @@ class Volume(object):
                 True, GLib.Variant("a{sv}", {}), None  # options
             )  # cancellable
         try:
-            self.unmount()
+            self.ensure_not_mounted()
             self.backing_volume.lock()
         except GLib.Error as e:
             # Show a more helpful message for the known error cases
