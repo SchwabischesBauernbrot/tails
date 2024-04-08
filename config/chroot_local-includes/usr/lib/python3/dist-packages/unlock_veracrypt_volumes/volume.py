@@ -296,7 +296,7 @@ class Volume:
                 # crypto backing loop device to the unlocked device-mapper device,
                 # which we can then open
                 self.udisks_object = self._find_udisks_object()
-                self.open()
+                self.open_()
 
         if self.is_unlocked:
             raise AlreadyUnlockedError(
@@ -356,12 +356,12 @@ class Volume:
                 GLib.Variant("a{sv}", {}), None  # options
             )  # cancellable
 
-    def open(self):
+    def open_(self):
         logger.info("Opening volume %s", self.device_file)
         mount_points = self.udisks_object.get_filesystem().props.mount_points
         if not mount_points:
             self.mount()
-            self.open()
+            self.open_()
         else:
             self.manager.open_uri(GLib.filename_to_uri(mount_points[0]))
 
@@ -425,7 +425,7 @@ class Volume:
 
     def on_open_button_clicked(self, button):
         logger.debug("in on_open_button_clicked")
-        self.open()
+        self.open_()
 
     def update_list_box_row(self):
         logger.debug("in update_list_box_row. is_unlocked: %s", self.is_unlocked)
