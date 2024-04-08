@@ -61,34 +61,17 @@ def boot_device() -> Optional[str]:
 class IOErrorPatterns:
     def __init__(self):
         self.patterns = ["SQUASHFS error:"]
-        self.update_patterns = ["I/O error", "critical target error"]
-        self.update_patterns_finished = False
 
-        # None: is not checked
-        # False: checked, but the system will never have such a device
-        #        (e.g. started from a DVD will not have a TPS device)
-        # type(str): name of the device
-        self.boot_device: Optional[str] = None
+        self._add_pattern_boot_device(boot_device())
 
     def _add_pattern_boot_device(self, device: str):
+        print(f"use boot device {device}")
         self.patterns.extend(
                 [
                     f"I/O error, dev {device}, sector",
                     f"critical target error, dev {device}, sector",
                 ]
             )
-        self.boot_device = device
-        print(f"set boot device to {device}")
-
-    def _update_patterns(self):
-        """Check and update the pattern list."""
-
-        print("_update_pattern.")
-
-        if not self.boot_device:
-            self._add_pattern_boot_device(boot_device())
-            self.update_patterns_finished = True
-            print ("update_patterns_finished = True")
 
     def match_message(self, msg: str) -> bool:
         """Do the msg match any of the patterns."""
@@ -97,37 +80,16 @@ class IOErrorPatterns:
                 return True
         return False
 
-    def update_patterns_if_match(self, msg: str) -> bool:
-        """Check if the error msg triggers update_pattern."""
-        if self.update_patterns_finished:
-            return False
-
-        for pattern in self.update_patterns:
-            if pattern in msg:
-                self._update_patterns()
-                return True
-        return False
-
 
 def process_entries(journal: systemd.journal.Reader, ioerror_patterns: IOErrorPatterns):
     """Process all journald messages and search for SQUASHFS and other I/O errors."""
 
     # journal.wait will trigger process_entries for every message including all
-    # messages, that do not match our filters. ioerror_pattern.update_patterns is
-    # expensive to call. In the end we check for an interessting message,
-    # before triggering update_patterns.
-
-    # call update_pattern only once per call.
-    updated_patterns_try = False
+    # messages, that do not match our filters.
 
     for e in journal:
         msg = e["MESSAGE"]
         matched = ioerror_patterns.match_message(msg)
-
-        if not matched and not updated_patterns_try:
-            if ioerror_pattern.update_patterns_if_match(msg):
-                matched = ioerror_pattern.match_message(msg)
-            updated_patterns_try = True
 
         if matched:
             print(msg)  # Add detected logs to own log
