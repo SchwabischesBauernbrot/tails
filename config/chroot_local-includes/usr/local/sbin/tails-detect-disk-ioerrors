@@ -58,7 +58,7 @@ def boot_device() -> Optional[str]:
     return device_path.split("/")[-1]
 
 
-class IOErrorPattern:
+class IOErrorPatterns:
     def __init__(self):
         self.patterns = ["SQUASHFS error:"]
         self.update_patterns = ["I/O error", "critical target error"]
@@ -109,7 +109,7 @@ class IOErrorPattern:
         return False
 
 
-def process_entries(journal: systemd.journal.Reader, ioerror_pattern: IOErrorPattern):
+def process_entries(journal: systemd.journal.Reader, ioerror_patterns: IOErrorPatterns):
     """Process all journald messages and search for SQUASHFS and other I/O errors."""
 
     # journal.wait will trigger process_entries for every message including all
@@ -122,7 +122,7 @@ def process_entries(journal: systemd.journal.Reader, ioerror_pattern: IOErrorPat
 
     for e in journal:
         msg = e["MESSAGE"]
-        matched = ioerror_pattern.match_message(msg)
+        matched = ioerror_patterns.match_message(msg)
 
         if not matched and not updated_patterns_try:
             if ioerror_pattern.update_patterns_if_match(msg):
@@ -135,7 +135,7 @@ def process_entries(journal: systemd.journal.Reader, ioerror_pattern: IOErrorPat
 
 
 def main():
-    ioerror_pattern = IOErrorPattern()
+    ioerror_patterns = IOErrorPatterns()
 
     flags = systemd.journal.SYSTEM_ONLY | systemd.journal.LOCAL_ONLY
     j = systemd.journal.Reader(flags)
@@ -151,7 +151,7 @@ def main():
 
     print("process first batch...")
     # Process all existing log entries since boot
-    process_entries(j, ioerror_pattern)
+    process_entries(j, ioerror_patterns)
 
     # Notify systemd that we're ready
     systemd.daemon.notify("READY=1")
@@ -162,7 +162,7 @@ def main():
     while True:
         state_change = j.wait()
         if state_change == systemd.journal.APPEND:
-            process_entries(j, ioerror_pattern)
+            process_entries(j, ioerror_patterns)
 
 
 if __name__ == "__main__":
