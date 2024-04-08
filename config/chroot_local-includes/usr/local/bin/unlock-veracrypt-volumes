@@ -2,7 +2,6 @@
 
 import argparse
 import logging
-from typing import List
 import sys
 import signal
 
@@ -31,7 +30,7 @@ class App(Gtk.Application):
         else:
             self.manager = VolumeManager(self)
 
-    def do_open(self, files: List[Gio.File], n_files, hint: str):
+    def do_open(self, files: list[Gio.File], n_files, hint: str):
         logger.debug("in do_open. files: %s", files)
 
         # Show the window before unlocking the files
