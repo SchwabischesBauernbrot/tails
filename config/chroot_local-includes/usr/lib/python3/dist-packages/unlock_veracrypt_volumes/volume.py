@@ -19,7 +19,7 @@ from gi.repository import Gtk, GLib, Gio, UDisks  # noqa: E402
 logger = getLogger(__name__)
 
 
-class Volume(object):
+class Volume:
     def __init__(
         self,
         manager,
