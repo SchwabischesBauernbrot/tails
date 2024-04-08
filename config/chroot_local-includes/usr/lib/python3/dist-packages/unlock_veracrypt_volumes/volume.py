@@ -154,7 +154,7 @@ class Volume:
             # Translators: Don't translate {volume_name} and {path_to_file_container},
             # they are placeholders and will be replaced. You should only have to translate
             # this string if it makes sense to reverse the order of the placeholders.
-            return _("{volume_name} – {path_to_file_container}").format(
+            return _("{volume_name} – {path_to_file_container}").format(  # noqa: RUF001
                 volume_name=desc, path_to_file_container=self.backing_file_name
             )
         elif self.is_partition and self.drive_object:
@@ -170,7 +170,7 @@ class Volume:
             # Translators: Don't translate {volume_name} and {drive_name},
             # they are placeholders and will be replaced. You should only have to translate
             # this string if it makes sense to reverse the order of the placeholders.
-            return _("{volume_name} – {drive_name}").format(
+            return _("{volume_name} – {drive_name}").format(  # noqa: RUF001
                 volume_name=desc, drive_name=self.drive_name
             )
         else:
