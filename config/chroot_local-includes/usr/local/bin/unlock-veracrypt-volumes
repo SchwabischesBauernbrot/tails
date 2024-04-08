@@ -9,10 +9,10 @@ import gi
 gi.require_version('Gtk', '3.0')
 gi.require_version('UDisks', '2.0')
 gi.require_version('GUdev', '1.0')
-from gi.repository import Gtk, Gio
+from gi.repository import Gtk, Gio  # noqa: E402
 
-from unlock_veracrypt_volumes.volume_manager import VolumeManager
-from unlock_veracrypt_volumes.exceptions import AlreadyUnlockedError
+from unlock_veracrypt_volumes.volume_manager import VolumeManager  # noqa: E402
+from unlock_veracrypt_volumes.exceptions import AlreadyUnlockedError  # noqa: E402
 
 
 logger = logging.getLogger(__name__)
