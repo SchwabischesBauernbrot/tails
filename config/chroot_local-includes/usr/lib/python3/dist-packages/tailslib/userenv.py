@@ -1,10 +1,9 @@
-#!/usr/bin/python3
 import sys
 from functools import lru_cache
 import os
 from pathlib import Path
 import pwd
-from typing import Mapping
+from collections.abc import Mapping
 
 from tailslib import LIVE_USER_UID
 
@@ -18,10 +17,12 @@ ENV_VARS_TO_DUMP = [
     "XDG_CURRENT_DESKTOP",
 ]
 
-ALLOWED_ENV_VARS = ENV_VARS_TO_DUMP + [
+ALLOWED_ENV_VARS = [
+    *ENV_VARS_TO_DUMP,
     "DEBUG",
     "DESKTOP_STARTUP_ID",
-    "INHERIT_FD",
+    "NOTIFY_SOCKET",
+    "TOR_BROWSER_SKIP_OFFLINE_WARNING",
 ]
 
 USER_ENV_FILE_TEMPLATE = "/run/user/{uid}/user-env"

@@ -13,6 +13,8 @@ esac
 
 set -eu
 
+ESP_GUID="C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
+
 # We will run this after each action that alters the device/partition
 # in any way in an attempt to avoid various races that has caused this
 # script to fail at various points. Examples:
@@ -92,7 +94,6 @@ first_boot_repartition() {
 	# * Delete the old system partition
 	# * Create a new system partition of size ${SYSTEM_PARTITION_SIZE}
 	# * Set the partition label to "Tails"
-	ESP_GUID="C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
 	log_begin_msg "Updating partition table"
 	sgdisk \
 		--move-second-header \
@@ -135,9 +136,11 @@ first_boot_repartition() {
 	MTOOLS_SKIP_CHECK=1 mlabel -i "${SYSTEM_PARTITION}" -n ::Tails
 	settle
 
-	# Recompute CHS values for the hybrid MBR (see #16389) and set the
-	# following attributes on the system partition (we have to set them
-	# after running fatresize, because fatresize resets them):
+	# Recompute CHS values for the hybrid MBR (see #16389),
+	# set the partition type again (something has reset it to "Basic data"),
+	# and set the following attributes on the system partition
+	# (we have to set them after running fatresize, because fatresize
+	# resets them):
 	#   0: system partition
 	#   2: legacy BIOS bootable
 	#   60: read-only
@@ -149,6 +152,7 @@ first_boot_repartition() {
 		--attributes=1:set:60 \
 		--attributes=1:set:62 \
 		--attributes=1:set:63 \
+		--typecode="1:${ESP_GUID}" \
 		--recompute-chs \
 		"${PARENT_DEVICE}"
 	settle

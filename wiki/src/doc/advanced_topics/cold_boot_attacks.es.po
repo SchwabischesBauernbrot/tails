@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2018-01-17 16:52+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2024-01-03 10:22+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: Spanish <http://translate.tails.boum.org/projects/tails/"
@@ -21,9 +21,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "[[!meta title=\"Protection against cold boot attacks\"]]\n"
-msgstr ""
-"[[!meta title=\"Protección contra los ataques de arranque en frío ('cold "
-"boot')\"]]\n"
+msgstr "[[!meta title=\"Protección contra los ataques de arranque en frío ('cold boot')\"]]\n"
 
 #. type: Plain text
 msgid ""
@@ -33,17 +31,23 @@ msgid ""
 "likely it is for the data to still be in RAM."
 msgstr ""
 "Mientras usas un ordenador, toda la información que se manipula se escribe "
-"temporalmente en la memoria [[!wikipedia_es Memoria_de_acceso_aleatorio desc="
-"\"RAM\"]]: textos, archivos guardados, pero también contraseñas y llaves de "
-"cifrado. Cuanto más reciente sea la actividad, más probable será que su "
-"contenido esté todavía en RAM."
+"temporalmente en la memoria [[!wikipedia_es Memoria_de_acceso_aleatorio "
+"desc=\"RAM\"]]: textos, archivos guardados, pero también contraseñas y "
+"llaves de cifrado. Cuanto más reciente sea la actividad, más probable será "
+"que su contenido esté todavía en RAM."
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "After a computer is powered off, the data in RAM disappears rapidly, but "
+#| "it can remain in RAM up to several minutes after shutdown. An attacker "
+#| "having access to a computer before it disappears completely could recover "
+#| "important data from your session."
 msgid ""
 "After a computer is powered off, the data in RAM disappears rapidly, but it "
 "can remain in RAM up to several minutes after shutdown. An attacker having "
-"access to a computer before it disappears completely could recover important "
-"data from your session."
+"access to a computer before the data in RAM disappears completely could "
+"recover important data from your session."
 msgstr ""
 "Cuando se apaga un ordenador, los datos en RAM desaparecen rápidamente, pero "
 "pueden quedar en RAM hasta varios minutos después de apagar. Un atacante que "
@@ -59,10 +63,8 @@ msgid ""
 "overwritten by random data when shutting down Tails. This erases all\n"
 "traces from your session on that computer.\n"
 msgstr ""
-"Esto se puede conseguir gracias a una técnica llamada <span class="
-"\"definition\">[[!wikipedia_es Ataque_de_arranque_en_frío desc=\"Ataque\n"
-"de arranque en frío\"]]</span>. Para prevenir este ataque los datos en RAM "
-"se sobrescriben\n"
+"Esto se puede conseguir gracias a una técnica llamada <span class=\"definition\">[[!wikipedia_es Ataque_de_arranque_en_frío desc=\"Ataque\n"
+"de arranque en frío\"]]</span>. Para prevenir este ataque los datos en RAM se sobrescriben\n"
 "con datos aleatorios cuando se apaga Tails. Esto borra toda traza de tu\n"
 "sesión en la computadora.\n"
 
@@ -78,20 +80,57 @@ msgstr ""
 "first_steps/shutdown]] rápidamente."
 
 #. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<div class=\"bug\">\n"
+msgid "<div class=\"attack\">\n"
+msgstr "<div class=\"bug\">\n"
+
+#. type: Plain text
+#, no-wrap
 msgid ""
-"As far as we know, cold boot attacks are not a common procedure for data "
-"recovery, but it might still be good to be prepared. If no cold boot attack "
-"happens directly after shutdown, the RAM empties itself in minutes, and all "
-"data disappears."
+"<p>As far as we know, cold boot attacks are not a common procedure for\n"
+"data recovery.</p>\n"
 msgstr ""
-"Según nuestro entender los ataques de memoria en frío no son una técnica "
-"usada habitualmente para recuperar datos, pero igualmente puede ser "
-"interesante estar preparado. Si no se produce un ataque de memoria en frío "
-"justamente después de apagar, la memoria RAM se vacía en unos minutos y "
-"todos los datos desaparecen."
 
-#~ msgid "<div class=\"bug\">\n"
-#~ msgstr "<div class=\"bug\">\n"
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>In a <a\n"
+"href=\"https://www.forensicfocus.com/stable/wp-content/uploads/2011/08/cold_boot_attack_for_forensiscs1.pdf\">research\n"
+"report from 2011</a>, Defense Research and Development Canada concluded that\n"
+"cold boot attacks can be useful in some cases to acquire data in memory but are\n"
+"not a panacea and have many drawbacks dictated by the laws of physics, which\n"
+"cannot be overcome by the technique. The authors recommend to only use cold\n"
+"boot attacks as a last resort when all other avenues have been exhausted.</p>\n"
+msgstr ""
 
-#~ msgid "</div>\n"
-#~ msgstr "</div>\n"
+#. type: Plain text
+#, no-wrap
+msgid "</div>\n"
+msgstr "</div>\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<div class=\"bug\">\n"
+msgid "<div class=\"next\">\n"
+msgstr "<div class=\"bug\">\n"
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>See how we implement this [[memory\n"
+"erasure|contribute/design/memory_erasure]], for example, if you want to\n"
+"implement this feature outside of Tails.</p>\n"
+msgstr ""
+
+#~ msgid ""
+#~ "As far as we know, cold boot attacks are not a common procedure for data "
+#~ "recovery, but it might still be good to be prepared. If no cold boot "
+#~ "attack happens directly after shutdown, the RAM empties itself in "
+#~ "minutes, and all data disappears."
+#~ msgstr ""
+#~ "Según nuestro entender los ataques de memoria en frío no son una técnica "
+#~ "usada habitualmente para recuperar datos, pero igualmente puede ser "
+#~ "interesante estar preparado. Si no se produce un ataque de memoria en "
+#~ "frío justamente después de apagar, la memoria RAM se vacía en unos "
+#~ "minutos y todos los datos desaparecen."

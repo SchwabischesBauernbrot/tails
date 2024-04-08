@@ -145,6 +145,7 @@ Feature: Tails persistence
     When I try to enable persistence
     Then the Welcome Screen tells me that the Persistent Folder feature couldn't be activated
     When I log in to a new session after having activated the Persistent Storage
+    And all notifications have disappeared
     Then the Persistent Storage settings tell me that the Persistent Folder feature couldn't be activated
     And all tps features are enabled
     And all tps features but the first one are active

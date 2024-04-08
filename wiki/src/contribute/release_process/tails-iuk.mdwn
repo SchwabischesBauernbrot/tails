@@ -26,7 +26,6 @@ Install dependencies needed to generate IUKs, UDFs, and to run the test suite
     cd "$(git rev-parse --show-toplevel)/config/chroot_local-includes/usr/src/iuk" && \
     dzil authordebs --install && \
     sudo apt install \
-       attr \
        libarchive-tools \
        libdevice-cdio-perl \
        dosfstools \
@@ -39,6 +38,7 @@ Install dependencies needed to generate IUKs, UDFs, and to run the test suite
        libdatetime-perl \
        libfile-copy-recursive-perl \
        nginx \
+       python3-xattr \
        squashfs-tools-ng=1.2.0-1 \
        syslinux
 
@@ -95,7 +95,7 @@ To do so:
 
 5. Modify `/tmp/os-release`
 
-   Typically, you would set `TAILS_VERSION_ID` to the version of the
+   Typically, you would set `VERSION` to the version of the
    last-but-one Tails release.
 
 6. Mask the 2 real `os-release` files with your own:

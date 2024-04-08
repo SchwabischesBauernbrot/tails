@@ -96,10 +96,9 @@ Then /^I install "(.+)" using apt$/ do |package|
   end
   retry_tor(recovery_proc) do
     Timeout.timeout(3 * 60) do
-      $vm.execute("echo #{@sudo_password} | " \
-                  "sudo -S DEBIAN_PRIORITY=critical apt -y install #{package}",
-                  user:  LIVE_USER,
-                  spawn: true)
+      $vm.spawn("echo #{@sudo_password} | " \
+                "sudo -S DEBIAN_PRIORITY=critical apt -y install #{package}",
+                user: LIVE_USER)
       wait_for_package_installation(package)
     end
   end
@@ -114,10 +113,7 @@ def wait_for_package_removal(package)
 end
 
 Then /^I uninstall "(.+)" using apt$/ do |package|
-  $vm.execute_successfully("echo #{@sudo_password} | " \
-                               "sudo -S apt -y purge #{package}",
-                           user:  LIVE_USER,
-                           spawn: true)
+  $vm.spawn("echo #{@sudo_password} | sudo -S apt -y purge #{package}", user: LIVE_USER)
   wait_for_package_removal(package)
 end
 
@@ -198,8 +194,10 @@ Then /^I install "(.+)" using Synaptic$/ do |package_name|
     step 'I start Synaptic'
   end
   retry_tor(recovery_proc) do
-    # Clicking this button using Dogtail works, but afterwards
-    # synaptic becomes inaccessible.
+    # We can't use the click action here because this button causes a
+    # modal dialog to be run via gtk_dialog_run() which causes the
+    # application to hang when triggered via a ATSPI action. See
+    # https://gitlab.gnome.org/GNOME/gtk/-/issues/1281
     @synaptic.button('Search').grabFocus
     @screen.press('Return')
     find_dialog = @synaptic.dialog('Find')

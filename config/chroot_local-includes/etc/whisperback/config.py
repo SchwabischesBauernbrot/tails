@@ -7,22 +7,7 @@
 # IMPORTS
 
 # Custom imports
-import gettext
 import random
-import subprocess
-
-# DOCUMENTATION
-
-
-def _(string):
-    try:
-        encoded = gettext.translation("tails", "/usr/share/locale").lgettext(string)
-        string = encoded.decode("utf-8")
-    except IOError:
-        pass
-    finally:
-        return string
-
 
 # ENCRYPTION
 #
@@ -73,7 +58,7 @@ socks_port = 9062
 
 # The subject of the email to be sent
 # Please take into account that this will not be encrypted
-mail_subject = "Bug report: %x" % random.randrange(16**32)
+mail_subject = "Bug report: %x" % random.randrange(16**32)  # noqa: S311
 
 
 def mail_prepended_info():
@@ -86,18 +71,13 @@ def mail_prepended_info():
     It should not take any parameter, and should return a string to be
     preprended to the email
 
-    @return The output of tails-version, if any, or an English string
+    @return The tails version, if possible, or an English string
             explaining the error
     """
     try:
-        tails_version_process = subprocess.Popen(
-            "tails-version", stdout=subprocess.PIPE
-        )
-        tails_version_process.wait()
-        tails_version = tails_version_process.stdout.read().decode("utf-8")
-    except OSError:
-        tails_version = "tails-version command not found"
-    except subprocess.CalledProcessError:
-        tails_version = "tails-version returned an error"
+        with open("/etc/os-release") as f:
+            tails_version = f.read()
+    except FileNotFoundError:
+        tails_version = "/etc/os-release file not found"
 
     return "Tails-Version: %s\n" % tails_version

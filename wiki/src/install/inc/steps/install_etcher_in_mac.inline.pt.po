@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:43+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2023-08-22 20:11+0000\n"
 "Last-Translator: drebs <drebs@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,8 +29,11 @@ msgid "<h1 id=\"etcher\" class=\"step\">Install <em>balenaEtcher</em></h1>\n"
 msgstr "<h1 id=\"etcher\" class=\"step\">Instalar <em>balenaEtcher</em></h1>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "<div class=\"step-image\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+#, fuzzy, no-wrap
+#| msgid "<div class=\"step-image\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+msgid ""
+"<div class=\"step-image usb\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
+"<div class=\"step-image upgrade\">[[!img inc/infography/install-etcher-with-intermediary.png link=\"no\" alt=\"\"]]</div>\n"
 msgstr "<div class=\"step-image\">[[!img inc/infography/install-etcher.png link=\"no\" alt=\"\"]]</div>\n"
 
 #. type: Plain text
@@ -42,64 +45,19 @@ msgstr ""
 "<p class=\"upgrade\">Nessas próximas etapas você irá instalar um Tails intermediário usando a imagem \n"
 "Tails USB que você baixou anteriormente.</p>\n"
 
-#. type: Bullet: '1. '
-msgid "Click on the following button to download <em>balenaEtcher</em>:"
-msgstr "Clique no botão abaixo para baixar <em>balenaEtcher</em>:"
-
 #. type: Plain text
 #, no-wrap
-msgid "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Download balenaEtcher for macOS</a>\n"
-msgstr "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Baixar balenaEtcher para macOS</a>\n"
-
-#. type: Bullet: '1. '
-msgid ""
-"Open the <span class=\"application\">balenaEtcher</span> download (DMG disk "
-"image)."
+msgid "<p><a href=\"https://etcher.balena.io/\"><i>balenaEtcher</i></a> is the Free Software tool that we recommend to install Tails on USB sticks.</p>\n"
 msgstr ""
-"Abra o <span class=\"application\">balenaEtcher</span> baixado (no formato "
-"DMG disk image)."
 
 #. type: Plain text
-#, no-wrap
-msgid "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
-
-#. type: Bullet: '1. '
+#, fuzzy, no-wrap
+#| msgid ""
+#| "Instead of installing <span class=\"application\">balenaEtcher</span>, you can\n"
+#| "also [[!toggle id=\"dd\" text=\"install Tails using `dd` on the command\n"
+#| "line\"]].\n"
 msgid ""
-"To install <span class=\"application\">balenaEtcher</span>, drag the <span "
-"class=\"application\">balenaEtcher</span> icon onto the <span "
-"class=\"guilabel\">Applications</span> icon."
-msgstr ""
-"Para instalar <span class=\"application\">balenaEtcher</span>, arraste o "
-"ícone do <span class=\"application\">balenaEtcher</span> até o ícone de "
-"<span class=\"guilabel\">Aplicativos</span>."
-
-#. type: Bullet: '1. '
-msgid ""
-"Close the installation window of <span class=\"application\">balenaEtcher</"
-"span>."
-msgstr ""
-"Feche a janela de instalação do <span class=\"application\">balenaEtcher</"
-"span>."
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"   Optionally, eject the <span class=\"application\">balenaEtcher</span> disk image\n"
-"   from the desktop.\n"
-msgstr ""
-"   Opcionalmente, ejete a imagem de disco do <span class=\"application\">balenaEtcher</span> \n"
-"   da área de trabalho.\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
-msgstr "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"Instead of installing <span class=\"application\">balenaEtcher</span>, you can\n"
+"Instead of using <span class=\"application\">balenaEtcher</span>, you can\n"
 "also [[!toggle id=\"dd\" text=\"install Tails using `dd` on the command\n"
 "line\"]].\n"
 msgstr ""
@@ -121,28 +79,21 @@ msgstr ""
 msgid "Make sure that your USB stick is unplugged."
 msgstr "Certifique-se de que o seu pendrive USB esteja desconectado."
 
-#. type: Plain text
-#, no-wrap
+#. type: Bullet: '1. '
 msgid ""
-"1. Open <span class=\"application\">Terminal</span> from\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
+"Open the **Terminal** utility from **Applications**&nbsp;▸ **Utilities**."
 msgstr ""
-"1. Abra o <span class=\"application\">Terminal</span> a partir de\n"
-"   <span class=\"menuchoice\">\n"
-"     <span class=\"guimenu\">Aplicativos</span>&nbsp;▸\n"
-"     <span class=\"guisubmenu\">Utilitários</span>&nbsp;▸\n"
-"     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
 
 #. type: Bullet: '1. '
-msgid "Execute the following command:"
+#, fuzzy
+#| msgid "Execute the following command:"
+msgid "Execute the following command."
 msgstr "Execute o seguinte comando:"
 
 #. type: Plain text
-#, no-wrap
-msgid "   <p class=\"pre command\">diskutil list</p>\n"
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command\">diskutil list</p>\n"
+msgid "   <p class=\"command\">diskutil list</p>\n"
 msgstr "   <p class=\"pre command\">diskutil list</p>\n"
 
 #. type: Plain text
@@ -182,7 +133,9 @@ msgid "Plug your USB stick into the computer."
 msgstr "Conecte o seu pendrive USB ao computador."
 
 #. type: Bullet: '1. '
-msgid "Execute again the same command:"
+#, fuzzy
+#| msgid "Execute again the same command:"
+msgid "Execute again the same command."
 msgstr "Execute novamente o mesmo comando:"
 
 #. type: Plain text
@@ -199,54 +152,36 @@ msgstr ""
 #| msgid ""
 #| "   <p class=\"pre command-output\">/dev/disk0\n"
 #| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-#| "    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#| "    0:    GUID_partition_scheme             *500.1 GB  disk0\n"
 #| "    1:                      EFI              209.7 MB  disk0s1\n"
 #| "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
 #| "    3:                      EFI              134.1 GB  disk0s3\n"
-#| "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-#| "  /dev/disk1\n"
-#| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-#| "    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
-#| "    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
+#| "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>\n"
 msgid ""
-"       /dev/disk0\n"
-"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
-"        1:                      EFI              209.7 MB  disk0s1\n"
-"        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"        3:                      EFI              134.1 GB  disk0s3\n"
-"        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-"      /dev/disk1\n"
+"       /dev/disk1\n"
 "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
 "        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
 "        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 msgstr ""
 "   <p class=\"pre command-output\">/dev/disk0\n"
 "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+"    0:    GUID_partition_scheme             *500.1 GB  disk0\n"
 "    1:                      EFI              209.7 MB  disk0s1\n"
 "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
 "    3:                      EFI              134.1 GB  disk0s3\n"
-"    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
-"  /dev/disk1\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
-"    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
+"    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Take note of the *device name* of your USB stick.  In this example, the "
-#| "USB stick is 8.0 GB and its device name is <span class=\"code\">/dev/"
-#| "disk1</span>.  Yours might be different."
-msgid ""
-"Take note of the *device name* of your USB stick.  In this example, the USB "
-"stick is 8.0 GB and its device name is <code>/dev/disk1</code>.  Yours might "
-"be different."
+msgid "Take note of the device name of your USB stick."
 msgstr ""
-"Anote o *nome do dispositivo* do seu pendrive USB. Neste exemplo, o pendrive "
-"USB tem 8.0 GB e o seu nome de dispositivo é <span class=\"code\">/dev/"
-"disk1</span>. Pode ser que o seu seja diferente."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "Take note of the *device name* of your USB stick.  In this example, the USB stick is 8.0 GB and its device name is <span class=\"code\">/dev/disk1</span>.  Yours might be different."
+msgid ""
+"   In this example, the USB stick is 8.0 GB and its device name is <span class=\"command-placeholder\">/dev/disk1</span>.\n"
+"   Yours might be different.\n"
+msgstr "Anote o *nome do dispositivo* do seu pendrive USB. Neste exemplo, o pendrive USB tem 8.0 GB e o seu nome de dispositivo é <span class=\"code\">/dev/disk1</span>. Pode ser que o seu seja diferente."
 
 #. type: Plain text
 #, no-wrap
@@ -260,6 +195,25 @@ msgstr ""
 "   <p>Se você não tiver certeza sobre o nome do seu dispositivo, você deverá parar o procedimento ou\n"
 "   <strong>estará correndo o risco de sobrescrever algum disco rígido do sistema</strong>.</p>\n"
 "   </div>\n"
+
+#. type: Bullet: '1. '
+#, fuzzy
+#| msgid ""
+#| "<span class=\"command-placeholder\">device</span> with the device name "
+#| "found in step 6"
+msgid ""
+"Execute the following command to safely eject the USB stick. Replace <span "
+"class=\"command-placeholder\">device</span> with the device name found in "
+"step 6."
+msgstr ""
+"<span class=\"command-placeholder\">device</span> com o nome do dispositivo "
+"encontrado na etapa 6"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
+msgstr "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -321,12 +275,6 @@ msgstr ""
 "     <div class=\"tip\">\n"
 "     <p>Você pode tentar adicionar <span class=\"code\">r</span> antes de <span class=\"code\">disk</span> para fazer a instalação ser mais rápida.</p>\n"
 "     </div>\n"
-
-#. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
-msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
-msgstr "   <p class=\"pre command\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -399,9 +347,125 @@ msgid "   </div>\n"
 msgstr "   </div>\n"
 
 #. type: Plain text
-#, no-wrap
-msgid "   The installation is complete once the command prompt reappeared.\n"
+#, fuzzy, no-wrap
+#| msgid "   The installation is complete once the command prompt reappeared.\n"
+msgid "   The installation is complete when the command prompt reappears.\n"
 msgstr "   A instalação estará completa quando o prompt de comando reaparecer.\n"
+
+#. type: Bullet: '1. '
+msgid "Click on the following button to download <em>balenaEtcher</em>:"
+msgstr "Clique no botão abaixo para baixar <em>balenaEtcher</em>:"
+
+#. type: Plain text
+#, no-wrap
+msgid "   <p class=\"button\">[[Download <i>balenaEtcher</i> for macOS|https://tails.net/etcher/balenaEtcher.dmg]]</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "   Save your download to your usual *Downloads* folder and not to the USB stick.\n"
+msgstr ""
+
+#. type: Bullet: '1. '
+msgid ""
+"Open the <span class=\"application\">balenaEtcher</span> download (DMG disk "
+"image)."
+msgstr ""
+"Abra o <span class=\"application\">balenaEtcher</span> baixado (no formato "
+"DMG disk image)."
+
+#. type: Plain text
+#, no-wrap
+msgid "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
+msgstr "   [[!img install/inc/screenshots/install_etcher_in_mac.png link=\"no\" alt=\"\"]]\n"
+
+#. type: Bullet: '1. '
+msgid ""
+"To install <span class=\"application\">balenaEtcher</span>, drag the <span "
+"class=\"application\">balenaEtcher</span> icon onto the <span "
+"class=\"guilabel\">Applications</span> icon."
+msgstr ""
+"Para instalar <span class=\"application\">balenaEtcher</span>, arraste o "
+"ícone do <span class=\"application\">balenaEtcher</span> até o ícone de "
+"<span class=\"guilabel\">Aplicativos</span>."
+
+#. type: Bullet: '1. '
+msgid ""
+"Close the installation window of <span class=\"application\">balenaEtcher</"
+"span>."
+msgstr ""
+"Feche a janela de instalação do <span class=\"application\">balenaEtcher</"
+"span>."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   Optionally, eject the <span class=\"application\">balenaEtcher</span> disk image\n"
+#| "   from the desktop.\n"
+msgid "   Optionally, eject the disk image of *balenaEtcher* from the sidebar of *Finder*.\n"
+msgstr ""
+"   Opcionalmente, ejete a imagem de disco do <span class=\"application\">balenaEtcher</span> \n"
+"   da área de trabalho.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "1. Open <span class=\"application\">Terminal</span> from\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilities</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
+#~ msgstr ""
+#~ "1. Abra o <span class=\"application\">Terminal</span> a partir de\n"
+#~ "   <span class=\"menuchoice\">\n"
+#~ "     <span class=\"guimenu\">Aplicativos</span>&nbsp;▸\n"
+#~ "     <span class=\"guisubmenu\">Utilitários</span>&nbsp;▸\n"
+#~ "     <span class=\"guimenuitem\">Terminal.app</span></span>.\n"
+
+#, fuzzy, no-wrap
+#~| msgid ""
+#~| "   <p class=\"pre command-output\">/dev/disk0\n"
+#~| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~| "    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#~| "    1:                      EFI              209.7 MB  disk0s1\n"
+#~| "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#~| "    3:                      EFI              134.1 GB  disk0s3\n"
+#~| "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+#~| "  /dev/disk1\n"
+#~| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~| "    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+#~| "    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
+#~ msgid ""
+#~ "       /dev/disk0\n"
+#~ "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "        0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#~ "        1:                      EFI              209.7 MB  disk0s1\n"
+#~ "        2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#~ "        3:                      EFI              134.1 GB  disk0s3\n"
+#~ "        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+#~ "      /dev/disk1\n"
+#~ "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+#~ "        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
+#~ msgstr ""
+#~ "   <p class=\"pre command-output\">/dev/disk0\n"
+#~ "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "    0:    GUID_partition_scheme             &lowast;500.1 GB  disk0\n"
+#~ "    1:                      EFI              209.7 MB  disk0s1\n"
+#~ "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
+#~ "    3:                      EFI              134.1 GB  disk0s3\n"
+#~ "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
+#~ "  /dev/disk1\n"
+#~ "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+#~ "    0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+#~ "    1:                Apple_HFS Untitled 1   8.0 GB    disk1s1</p>\n"
+
+#, no-wrap
+#~ msgid "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Download balenaEtcher for macOS</a>\n"
+#~ msgstr "   <a href=\"https://tails.net/etcher/balenaEtcher.dmg\" class=\"button\">Baixar balenaEtcher para macOS</a>\n"
+
+#, no-wrap
+#~ msgid "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
+#~ msgstr "   [[!img install/inc/screenshots/eject_etcher_dmg.png link=\"no\" alt=\"\"]]\n"
 
 #, no-wrap
 #~ msgid "<div class=\"hidden-step-1\"></div>\n"

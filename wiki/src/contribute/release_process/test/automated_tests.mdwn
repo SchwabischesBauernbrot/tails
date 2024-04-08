@@ -126,6 +126,44 @@ Scripts:
 * [[!tails_gitweb config/chroot_local-includes/usr/local/lib/tails-autotest-remote-shell]]
 * [[!tails_gitweb config/chroot_local-includes/lib/systemd/system/tails-autotest-remote-shell.service]]
 
+### Using the remote shell with non-test suite Tails VMs
+
+The remote shell could potentially be useful for debugging a Tails VM
+that was not started as part of the automated test suite. To do that,
+add a virtio channel device to the libvirt config of the VM:
+
+```xml
+<channel type='unix'>
+  <source mode="bind" path='/path/to/remote-shell.socket'/>
+  <target type='virtio' name='org.tails.remote_shell.0'/>
+</channel>
+```
+
+When the VM has started you can connect to the socket and execute
+commands via the remote shell. Here is an example how to do that in
+Python:
+
+```py
+import json
+import socket
+
+
+client = socket.socket( socket.AF_UNIX, socket.SOCK_STREAM )
+client.connect("/path/to/remote-shell.socket")
+
+id = 1
+_type = "sh_call"
+env = {}
+user = "root"
+cmd = "echo 'huhu?"
+data = [id, _type, user, env, cmd]
+client.send(json.dumps(data).encode()+b"\n")
+
+answer = json.loads(client.recv(1024).decode())
+print(answer)
+>>> '[1, "success", 1, "huhu?", ""]\n'
+```
+
 ## Chutney
 
 Chutney is an orchestration tool for quickly setting up a complete Tor
@@ -313,6 +351,264 @@ Each such new scenario should sniff network traffic, and check that
 all Internet traffic has only flowed through Tor. See the `apt`
 feature for a simple example of how to do it.
 
+### The interactive debugging REPL
+
+Running the test suite with the `--interactive-debugging` option can
+be really useful when investigating problems in the test suite (or
+developing new steps/scenarios, which usually means encountering a lot
+of problems) since it allows invoking a debugging REPL in the context
+a failure occurred at, where you can rapidly iterate on code and find
+solutions.
+
+The debugging REPL is not only accessible when failures occur, you can
+also manually put a "breakpoint" either directly in the code using
+`pause()`, or by adding the step "I pause" at a suitable place in a
+scenario.
+
+While it is quite nice to copy-paste code between your editor and the
+debugging REPL, we can do better: you can edit the code in the usual
+files in your editor, and then hot-reload them in the debugging REPL
+with `reload_step_definitions()`. That reloads all `.rb` files in
+`features/step_definitions/` (so it actually doesn't only affect step
+definitions but function definitions, constants etc. too) so any
+changes outside of these are _not_ reloaded. You can modify any `.rb`
+file and load it with `reload_code('path/to/file.rb')` or even reload
+all code with `reload_all_code()`, but this requires knowing what you
+are doing (see the "Limitations of code reloading" section
+below). Avoid using the built-in `load()` since it does not support
+redefining steps, which our `reload_code()` does.
+
+#### Example: interactive debugging
+
+Let's say we have a scenario:
+
+```gherkin
+Scenario: test
+  Given some context
+  When I do foo
+  Then foo was successful
+  And maybe more stuff
+```
+
+Let's say there is a bug in the `I do foo` step that makes it raise
+some exception. So we insert a breakpoint before `I do foo`:
+
+```gherkin
+Scenario: test
+  Given some context
+  And I pause
+  When I do foo
+  Then foo was successful
+  And maybe more stuff
+```
+
+(Instead of injecting a breakpoint we could also rely on
+`--interactive-debugging`, but this way we can fix the bug and let the
+full scenario run with the fix when we quit the REPL.)
+
+We start the test suite for the problematic scenario, and it stops at
+the breakpoint we injected:
+
+```
+Paused
+
+Return/q: Continue; d: Debugging REPL
+```
+
+We press `d` to enter the debugging REPL, which is a normal `pry`
+session (very similar to `irb` if you are familiar with it):
+
+```
+[1] pry(#<Object>)>
+```
+
+We test the `I do foo` step and observe the failure:
+
+```
+[1] pry(#<Object>)> step 'I do foo'
+RuntimeError: something went wrong
+from features/step_definitions/test.rb:36:in `/^I do foo$/'
+```
+
+Then I start fixing `I do foo` where it was originally defined, in
+`features/step_definitions/test.rb`, using my editor, and if I want to
+try my modification I can reload the code by calling
+`reload_step_definitions()`.
+
+So we reload the code and test it:
+
+```
+[2] pry(#<Object>)> reload_step_definitions
+[... warnings about modifying constants ...]
+=> nil
+[3] pry(#<Object>)> step 'I do foo'
+RuntimeError: something else went wrong this time
+from features/step_definitions/test.rb:36:in `/^I do foo$/'
+```
+
+We're not quite there yet! Also, something to keep in mind is that if
+`I do foo` changes some state, that state might have to be manually
+reverted in the REPL before calling the modified `I do foo` again (so the
+easiest situation is if `I do foo` is idempotent).
+
+So we hack, hack, hack and eventually:
+
+```
+[...]
+[9] pry(#<Object>)> reload_step_definitions
+[... warnings about modifying constants ...]
+=> nil
+[10] pry(#<Object>)> step 'I do foo'
+We at least didn't raise an exception!
+=> nil
+```
+
+Wohoo! We are done!? Not necessarily, let's say that while the
+modifications we did indeed made `I do foo` not raise an exception there
+still is an issue that won't be detected until we run the `foo was
+successful` step. So we might want to incorporate that into our test
+loop (and again, if `foo was successful` changes state it might have
+to be manually reverted afterwards):
+
+```
+[11] pry(#<Object>)> step 'foo was successful'
+RuntimeError: Step "I do foo" did something wrong earlier
+from features/step_definitions/test.rb:40:in `/^foo was successful$/'
+```
+
+Again we hack, hack, hack and eventually:
+
+```
+[...]
+[21] pry(#<Object>)> reload_step_definitions
+[... warnings about modifying constants ...]
+=> nil
+[22] pry(#<Object>)> step 'I do foo'
+We did the correct thing!
+=> nil
+[23] pry(#<Object>)> step 'foo was successful'
+Step "I do foo" did the correct thing earlier!
+=> nil
+```
+
+Now we can just quit the REPL (`exit` or Ctrl+D) and cucumber will
+continue the run, invoking the redefined version of `I do foo` which
+also makes `foo was successful` happy, and the scenario should pass
+(unless there is an issue in the `maybe more stuff` step, then we
+rinse and repeat)!
+
+#### Example: writing a new scenario
+
+Let's say we want to implement the silly scenario from the previous
+example, so we first create `features/test.feature`:
+
+```gherkin
+@source
+Feature: test
+
+Scenario: test
+  Given some context
+  When I do foo
+  Then foo was successful
+  And maybe more stuff
+```
+
+We run this feature, and cucumber will actually output the step
+definition stubs we need:
+
+```
+[...]
+1 scenario (1 undefined)
+4 steps (4 undefined)
+0m0.004s
+
+You can implement step definitions for undefined steps with these snippets:
+
+Given(/^some context$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+When(/^I do foo$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^foo was successful$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^maybe more stuff$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+```
+
+which we put into `features/step_definitions/test.rb`, but we replace
+`pending` with `pause` to get a breakpoint in each of these step
+definition stubs:
+
+```rb
+Given(/^some context$/) do
+  pause
+end
+
+When(/^I do foo$/) do
+  pause
+end
+
+Then(/^foo was successful$/) do
+  pause
+end
+
+Then(/^maybe more stuff$/) do
+  pause
+end
+```
+
+Then we run the feature again. and we work similarly to how we did in
+the previous example, now implementing the new steps by doing the
+following as we encounter each of their breakpoints:
+
+1. we interactively test code snippets in the debugging REPL and
+   explore solutions,
+2. we take the good bits and write them into the step definition in
+   `features/step_definitions/test.rb`,
+3. we run `reload_step_definitions` + `step ...` to test it,
+4. we iterate until the step passes and does what we want it to,
+5. and then we finally escape the breakpoint and see cucumber run the
+   step successfully.
+
+After the last step we have implemented the whole scenario and all its
+steps in a single run, avoiding the costs of having to re-run the
+scenario multiple times just to test some change we did to some step.
+
+Like we mentioned in the previous example, some steps alter state and
+have to be manually reverted so you have the required state to test
+the step with again. If the revert is awkward or time consuming, and
+this is mostly about the Tails VM's state, do not hesitate to manually
+save a snapshot in the debugging REPL with `$vm.save_snapshot('foo')`,
+and then restore it with `$vm.restore_snapshot('foo')` before `step
+...` each time you want to test it. Note that this will not revert any
+Ruby state, like `@class_variables` and `@global_variables` used by
+some steps.
+
+#### Limitations of code reloading
+
+Reloading some support code in `features/support` can have weird
+consequences, and this area has not been explored much. For instance,
+after calling `reload_all_code()` odd errors have occurred _after_ the
+run completes:
+
+```
+1 scenario (1 passed)
+12 steps (12 passed)
+0m2.799s
+features/support/helpers/vm_helper.rb:817:in `lookup_domain_by_name': Connect has been freed (ArgumentError)
+        from features/support/helpers/vm_helper.rb:817:in `remove_all_snapshots'
+        from /home/anonym/src/tails/tails/features/support/hooks.rb:89:in `block in <top (required)>'
+```
+
+Who knows what else is broken? So use `reload_code()` and
+`reload_all_code()` at your own risk!
+
 ## Writing new steps
 
 ### The tools and some guidelines for their usage
@@ -386,6 +682,31 @@ through it do what you want them to do.
 Although very rare, the remote shell can get into a state where it
 stops responding, resulting in the test suite waiting for a response
 forever.
+
+### Remote shell interact with other services to start
+
+As it may be needed to interact with the system before a service gets started.
+In systemd the remote shell is defined as notify type, that means the remote
+shell can tell systemd, when it is ready. So we just need to make sure that the
+remote shell is needed to be started before another service.
+
+How to achieve that?
+
+In the service file of the remote shell we define the service, we want to hook
+on in Before.
+Than you need to add `autotest_wait_for_remote_shell` to the boot line; in
+cucumber you can set `@wait_for_remote_shell=true` before the step `the computer
+boots`. After that step you can interact with the remote shell. If you are done
+modifying the state, you need to trigger the READY signal (in Cucumber by
+executing`RemoteShell::SignalReady.new($vm)`). Now the system with further
+boot.
+
+As an example, you can look how the `Tails detects disk read failures` step hooks into the system
+before `gdm.service` is started.
+
+
+* [[!tails_gitweb features/hardware_failure.feature]]
+* [[!tails_gitweb features/step_definitions/hardware.rb]]
 
 ## Plugging SATA drives
 

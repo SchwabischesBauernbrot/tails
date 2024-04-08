@@ -32,7 +32,7 @@ func init() {
 }
 
 // This function is a modified version of verifyServerCertificate, which can be found at
-// https://github.com/golang/go/blob/go1.15/src/crypto/tls/handshake_client.go#L824
+// https://github.com/golang/go/blob/go1.19/src/crypto/tls/handshake_client.go#L849
 // (from here on, this will be called "upstream")
 func verifyButAcceptExpired(rawCerts [][]byte, verifiedChains [][]*x509.Certificate) error {
 	// Just like upstream, parse and collect certificates

@@ -53,3 +53,13 @@ Then /^I can watch a WebM video over HTTPs$/ do
     @screen.wait('SampleRemoteWebMVideoFrame.png', 120)
   end
 end
+
+Then /^Totem tells me it is not allowed to open this file$/ do
+  assert(
+    Dogtail::Application.new('totem')
+                        .child?(
+                          'You are not allowed to open this file.',
+                          roleName: 'label'
+                        )
+  )
+end

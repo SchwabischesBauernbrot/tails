@@ -130,8 +130,13 @@ class DBusObject(object, metaclass=ABCMeta):
         )
 
     def handle_method_call_async(self, *args, **kwargs) -> None:
+        method_name = args[4]
         thread = Thread(
-            target=self.handle_method_call, args=args, kwargs=kwargs, daemon=True
+            target=self.handle_method_call,
+            args=args,
+            kwargs=kwargs,
+            daemon=True,
+            name=method_name,
         )
         thread.start()
 

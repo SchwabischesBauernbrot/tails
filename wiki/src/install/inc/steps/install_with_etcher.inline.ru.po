@@ -6,7 +6,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2022-08-30 21:51+0000\n"
+"POT-Creation-Date: 2024-02-26 12:26+0100\n"
 "PO-Revision-Date: 2022-12-21 11:07+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -14,8 +14,8 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
-"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
+"Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
+"n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
 "X-Generator: Weblate 4.9.1\n"
 
 #. type: Plain text
@@ -23,20 +23,34 @@ msgstr ""
 msgid "[[!meta robots=\"noindex\"]]\n"
 msgstr "[[!meta robots=\"noindex\"]]\n"
 
+#. type: Plain text
+#, no-wrap
+msgid "<h1 id=\"install\" class=\"step\">Install <span class=\"upgrade\">an intermediary</span> Tails using <em>balenaEtcher</em></h1>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<div class=\"step-image usb\">[[!img install/inc/infography/install-tails.png link=\"no\" alt=\"\"]]</div>\n"
+"<div class=\"step-image upgrade\">[[!img install/inc/infography/install-upgrade-usb-only.png link=\"no\" alt=\"\"]]</div>\n"
+msgstr ""
+"<div class=\"step-image usb\">[[!img install/inc/infography/install-tails.png link=\"no\" alt=\"\"]]</div>\n"
+"<div class=\"step-image upgrade\">[[!img install/inc/infography/install-upgrade-usb-only.png link=\"no\" alt=\"\"]]</div>\n"
+
 #. type: Bullet: '1. '
 #, fuzzy
 #| msgid ""
 #| "<p class=\"mac upgrade-mac\"> Open <span class=\"application\">Finder</"
-#| "span> and choose <span class=\"application\">Etcher</span> in <span class="
-#| "\"guilabel\">Applications</span>.  </p>"
+#| "span> and choose <span class=\"application\">Etcher</span> in <span "
+#| "class=\"guilabel\">Applications</span>.  </p>"
 msgid ""
 "<p class=\"mac upgrade-mac\"> Open <span class=\"application\">Finder</span> "
-"and choose <span class=\"application\">balenaEtcher</span> in <span class="
-"\"guilabel\">Applications</span>.  </p>"
+"and choose <span class=\"application\">balenaEtcher</span> in <span "
+"class=\"guilabel\">Applications</span>.  </p>"
 msgstr ""
 "<p class=\"mac upgrade-mac\"> Откройте <span class=\"application\">Finder</"
-"span> и выберите <span class=\"application\">Etcher</span> в <span class="
-"\"guilabel\">Программах</span>.  </p>"
+"span> и выберите <span class=\"application\">Etcher</span> в <span "
+"class=\"guilabel\">Программах</span>.  </p>"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -94,33 +108,19 @@ msgstr "   [[!img install/inc/screenshots/etcher_in_mac.png class=\"mac upgrade-
 msgid "   [[!img install/inc/screenshots/etcher_in_windows.png class=\"windows upgrade-windows\" link=\"no\" alt=\"\"]]\n"
 msgstr "   [[!img install/inc/screenshots/etcher_in_windows.png class=\"windows upgrade-windows\" link=\"no\" alt=\"\"]]\n"
 
-#. type: Plain text
-#, no-wrap
-msgid "<h1 id=\"install\" class=\"step\">Install <span class=\"upgrade\">an intermediary</span> Tails using <em>balenaEtcher</em></h1>\n"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"<div class=\"step-image usb\">[[!img install/inc/infography/install-tails.png link=\"no\" alt=\"\"]]</div>\n"
-"<div class=\"step-image upgrade\">[[!img install/inc/infography/install-upgrade-usb-only.png link=\"no\" alt=\"\"]]</div>\n"
-msgstr ""
-"<div class=\"step-image usb\">[[!img install/inc/infography/install-"
-"tails.png link=\"no\" alt=\"\"]]</div>\n"
-"<div class=\"step-image upgrade\">[[!img install/inc/infography/install-"
-"upgrade-usb-only.png link=\"no\" alt=\"\"]]</div>\n"
-
 #. type: Bullet: '1. '
 #, fuzzy
 #| msgid ""
-#| "Plug in the USB stick on which you want to install <span class=\"usb"
-#| "\">Tails</span> <span class=\"upgrade\">the intermediary Tails</span>."
+#| "Plug in the USB stick on which you want to install <span "
+#| "class=\"usb\">Tails</span> <span class=\"upgrade\">the intermediary "
+#| "Tails</span>."
 msgid ""
 "Plug in the USB stick on which you want to install <span class=\"usb\">Tails."
 "</span> <span class=\"upgrade\">the intermediary Tails.</span>"
 msgstr ""
-"Подключите флешку, на которую вы хотите установить <span class=\"usb"
-"\">Tails</span> <span class=\"upgrade\">промежуточную копию Tails</span>."
+"Подключите флешку, на которую вы хотите установить <span "
+"class=\"usb\">Tails</span> <span class=\"upgrade\">промежуточную копию "
+"Tails</span>."
 
 #. type: Plain text
 #, no-wrap
@@ -139,11 +139,15 @@ msgid "   Choose the USB image that you downloaded earlier.\n"
 msgstr "   Выберите скачанный ранее USB-образ.\n"
 
 #. type: Plain text
-#, no-wrap
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <div class=\"note\">\n"
+#| "   <p>Make sure that the USB image has an\n"
+#| "   <span class=\"filename\">.img</span> file extension.</p>\n"
 msgid ""
 "   <div class=\"note\">\n"
-"   <p>Make sure that the USB image has an\n"
-"   <span class=\"filename\">.img</span> file extension.</p>\n"
+"   <p>Make sure that the USB image is called <i>[[!inline pages=\"inc/stable_amd64_img_filename\" raw=\"yes\" sort=\"age\"]]</i> and has an\n"
+"   <i>.img</i> file extension.</p>\n"
 msgstr ""
 "   <div class=\"note\">\n"
 "   <p>Убедитесь, что USB-образ имеет файловое расширение <span class=\"filename\">.img</span>.</p>\n"
@@ -160,7 +164,7 @@ msgstr ""
 #| "   </div>\n"
 msgid ""
 "   <p>If the image has an <i>.iso</i> file\n"
-"   extension, it is not the correct image. Please go back to the\n"
+"   extension, it is the wrong image. Please go back to the\n"
 "   <span class=\"windows\">[[download step|windows#download]].</span>\n"
 "   <span class=\"mac\">[[download step|mac#download]].</span>\n"
 "   <span class=\"upgrade-windows\">[[download step|upgrade/windows#download]].</span>\n"

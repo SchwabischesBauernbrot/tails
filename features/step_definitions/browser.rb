@@ -64,10 +64,8 @@ def set_browser_url(url)
   end
 end
 
-When /^I (?:try to )?start the Unsafe Browser$/ do
-  # XXX:Bookworm: switch to "gio launch" and drop the whole
-  # language_has_non_latin_input_source / switch_input_source system.
-  step 'I start "Unsafe Browser" via GNOME Activities Overview'
+When /^I (try to )?start the Unsafe Browser$/ do |try_to|
+  launch_unsafe_browser(check_started: !try_to)
 end
 
 When /^I successfully start the Unsafe Browser(?: in "([^"]+)")?$/ do |lang_code|
@@ -220,8 +218,6 @@ def page_has_loaded_in_the_tor_browser(page_titles)
   end
 end
 
-# This step is limited to the Tor Browser due to #7502 since dogtail
-# uses the same interface.
 Then /^"([^"]+)" has loaded in the Tor Browser$/ do |title|
   page_has_loaded_in_the_tor_browser(title)
 end
@@ -324,29 +320,29 @@ Then /^the Tails homepage loads in the Unsafe Browser$/ do
   @screen.wait('TailsHomepage.png', 60)
 end
 
-def headings_in_page(page_title)
-  @torbrowser.child(page_title, roleName: 'frame').children(roleName: 'heading')
+def headings_in_page(browser, page_title)
+  browser.child(page_title, roleName: 'frame').children(roleName: 'heading')
 end
 
-def page_has_heading(page_title, heading)
-  headings_in_page(page_title).any? { |h| h.text == heading }
+def page_has_heading(browser, page_title, heading)
+  headings_in_page(browser, page_title).any? { |h| h.text == heading }
 end
 
 Then /^the Tor Browser shows the "([^"]+)" error$/ do |error|
   try_for(60, delay: 3) do
-    page_has_heading('Problem loading page — Tor Browser', error)
+    page_has_heading(@torbrowser, 'Problem loading page — Tor Browser', error)
   end
 end
 
 Then /^Tor Browser displays a "([^"]+)" heading on the "([^"]+)" page$/ do |heading, page_title|
   try_for(60, delay: 3) do
-    page_has_heading("#{page_title} — Tor Browser", heading)
+    page_has_heading(@torbrowser, "#{page_title} — Tor Browser", heading)
   end
 end
 
 Then /^Tor Browser displays a '([^']+)' heading on the "([^"]+)" page$/ do |heading, page_title|
   try_for(60, delay: 3) do
-    page_has_heading("#{page_title} — Tor Browser", heading)
+    page_has_heading(@torbrowser, "#{page_title} — Tor Browser", heading)
   end
 end
 
@@ -361,11 +357,11 @@ Then /^I can listen to an Ogg audio track in Tor Browser$/ do
     @screen.wait_vanish(info[:browser_stop_button_image], 3)
     open_test_url.call
   end
-  try_for(20) { pulseaudio_sink_inputs.zero? }
+  try_for(20) { pipewire_input_ports.zero? }
   open_test_url.call
   retry_tor(recovery_on_failure) do
     sleep 30
-    assert_equal(1, pulseaudio_sink_inputs)
+    assert(pipewire_input_ports.positive?)
   end
 end
 
@@ -444,7 +440,7 @@ Then /^Tor Browser's circuit view is working$/ do
 end
 
 When /^I start the Tor Browser( in offline mode)?$/ do |offline|
-  step 'I start "Tor Browser" via GNOME Activities Overview'
+  launch_tor_browser(check_started: !offline)
   if offline
     start_button = Dogtail::Application
                    .new('zenity')
@@ -553,6 +549,9 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
     # sidebar. It doesn't expose an action via the accessibility API, so we
     # have to grab focus and use the keyboard to activate it.
     file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
+    # Give the UI some time to update the selection. This is workaround
+    # for #20159.
+    sleep 3
     @screen.press('Space')
   when 'default downloads'
     output_dir = "/home/#{LIVE_USER}/Tor Browser"
@@ -560,6 +559,9 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
     if is_gnome_bookmark
       output_dir = "/home/#{LIVE_USER}/#{output_dir}"
       file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
+      # Give the UI some time to update the selection. This is workaround
+      # for #20159.
+      sleep 3
       @screen.press('Space')
     else
       # Enter the output directory in the text entry

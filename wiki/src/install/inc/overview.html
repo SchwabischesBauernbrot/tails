@@ -19,10 +19,10 @@
   </div>
 
   <div class="upgrade-tails upgrade-os">
-    [[!img install/inc/icons/usb.png link="no" alt=""]]
+    [[!img install/inc/icons/intermediary.png link="no" alt=""]]
     <p>1 USB stick</p>
-    <p class="small">8 GB minimum</p>
     <p class="small">All data will be lost!</p>
+    <p class="small">8 GB minimum</p>
     <p class="small">[[!toggle id="why_extra" text="Why?"]]</p>
     <div class="floating-toggleable">
     [[!toggleable id="why_extra" text="""
@@ -63,8 +63,8 @@
   </div>
 
   <div class="pc-clone mac-clone upgrade-clone">
-    [[!img install/inc/icons/tails.png link="no" alt=""]]
-    <p>another Tails</p>
+    [[!img install/inc/icons/intermediary.png link="no" alt=""]]
+    <p>Another Tails</p>
     <p class="small">USB stick or DVD</p>
   </div>
 
@@ -88,8 +88,8 @@
 
   <div>
     [[!img install/inc/icons/phone.png link="no" alt=""]]
-    <p>a smartphone</p>
-    <p class="small">or a printer<br />
+    <p>Smartphone</p>
+    <p class="small">or printer<br />
     to follow the instructions</p>
   </div>
 
@@ -119,8 +119,13 @@
 
 <div id="steps">
 
-  <a href="#download" class="windows linux mac expert upgrade-os">
+  <a href="#download" class="windows linux mac expert">
     [[!img install/inc/infography/download.png link="no" alt=""]]
+    <p>Download Tails</p>
+  </a>
+
+  <a href="#download" class="upgrade-os">
+    [[!img install/inc/infography/download-with-intermediary.png link="no" alt=""]]
     <p>Download Tails</p>
   </a>
 
@@ -129,8 +134,13 @@
     <p>Download the upgrade</p>
   </a>
 
-  <a href="#verify" class="windows linux mac expert upgrade-os">
+  <a href="#verify" class="windows linux mac expert">
     [[!img install/inc/infography/verify.png link="no" alt=""]]
+    <p>Verify your download</p>
+  </a>
+
+  <a href="#verify" class="upgrade-os">
+    [[!img install/inc/infography/verify-with-intermediary.png link="no" alt=""]]
     <p>Verify your download</p>
   </a>
 
@@ -144,8 +154,14 @@
     <p>Restart on the other Tails</p>
   </a>
 
-  <a href="#etcher" class="windows mac upgrade-windows upgrade-mac">
+  <a href="#etcher" class="windows mac">
     [[!img install/inc/infography/install-etcher.png link="no" alt=""]]
+    <p class="windows upgrade-windows">Download <i>balenaEtcher</i></p>
+    <p class="mac upgrade-mac">Install <i>balenaEtcher</i></p>
+  </a>
+
+  <a href="#etcher" class="upgrade-windows upgrade-mac">
+    [[!img install/inc/infography/install-etcher-with-intermediary.png link="no" alt=""]]
     <p class="windows upgrade-windows">Download <i>balenaEtcher</i></p>
     <p class="mac upgrade-mac">Install <i>balenaEtcher</i></p>
   </a>
@@ -178,7 +194,7 @@
   </a>
 
   <a href="#intermediary" class="upgrade-os">
-    [[!img install/inc/infography/restart-intermediary.png link="no" alt=""]]
+    [[!img install/inc/infography/restart-on-other-tails.png link="no" alt=""]]
     <p>Restart on intermediary</p>
   </a>
 
@@ -205,11 +221,6 @@
   <a href="#tails" class="windows linux mac expert">
     [[!img install/inc/infography/tails.png link="no" alt=""]]
     <p>Welcome to Tails!</p>
-  </a>
-
-  <a href="#new" class="pc-clone mac-clone">
-    [[!img install/inc/infography/tails.png link="no" alt=""]]
-    <p>Welcome to your new Tails!</p>
   </a>
 
 </div>

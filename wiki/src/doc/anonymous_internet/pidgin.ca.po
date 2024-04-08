@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
-"PO-Revision-Date: 2024-01-30 14:38+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
+"PO-Revision-Date: 2024-03-12 21:06+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -64,58 +64,50 @@ msgstr "</div>\n"
 
 #. type: Plain text
 msgid ""
-"You can use it to connect to [[!wikipedia Internet_Relay_Chat]] or [[!"
-"wikipedia XMPP]] (also known as Jabber) servers, and have several accounts "
-"connected at the same time."
+"You can use *Pidgin* to connect to [[!wikipedia Internet_Relay_Chat]] or [[!"
+"wikipedia XMPP]] (also known as Jabber) servers. You can have several "
+"accounts connected at the same time."
 msgstr ""
-"Podeu utilitzar-lo per connectar-vos als servidors [[!wikipedia "
-"Internet_Relay_Chat]] o [[!wikipedia XMPP]] (també coneguts com a Jabber), i "
-"tenir diversos comptes connectats alhora."
+"Podeu utilitzar *Pidgin* per connectar-vos als servidors [[!wikipedia "
+"Internet_Relay_Chat]] o [[!wikipedia XMPP]] (també coneguts com a Jabber). "
+"Podeu tenir diversos comptes connectats alhora."
+
+#. type: Plain text
+msgid ""
+"Even though *Pidgin* supports other protocols, it is only possible to use "
+"IRC and XMPP with *Pidgin* in Tails for security reasons."
+msgstr ""
+"Tot i que *Pidgin* admet altres protocols, només és possible utilitzar IRC i "
+"XMPP amb *Pidgin* a Tails per motius de seguretat."
+
+#. type: Plain text
+msgid ""
+"To start *Pidgin* choose **Applications**&nbsp;▸ **Internet**&nbsp;▸ "
+"**Pidgin**."
+msgstr ""
+"Per iniciar *Pidgin*, trieu **Aplicacions**&nbsp;▸ **Internet**&nbsp;▸ "
+"**Pidgin**."
+
+#. type: Plain text
+msgid ""
+"For more documentation, visit the official [*Pidgin* FAQ](https://developer."
+"pidgin.im/wiki/Using%20Pidgin)."
+msgstr ""
+"Per obtenir més documentació, visiteu les [preguntes més freqüents de "
+"*Pidgin*](https://developer.pidgin.im/wiki/Using%20Pidgin)."
 
 #. type: Plain text
 #, no-wrap
-msgid ""
-"To start <span class=\"application\">Pidgin</span> choose\n"
-"<span class=\"menuchoice\">\n"
-"  <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
-"  <span class=\"guisubmenu\">Internet</span>&nbsp;▸\n"
-"  <span class=\"guimenuitem\">Pidgin Instant Messenger</span>\n"
-"</span> or click on the <span class=\"application\">Pidgin</span> icon in\n"
-"the [[<span class=\"guilabel\">Favorites</span> submenu|doc/first_steps/desktop#favorites]].\n"
-msgstr ""
-"Per iniciar <span class=\"application\">Pidgin</span> trieu\n"
-"<span class=\"menuchoice\">\n"
-"   <span class=\"guimenu\">Aplicacions</span>&nbsp;▸\n"
-"   <span class=\"guisubmenu\">Internet</span>&nbsp;▸\n"
-"   <span class=\"guimenuitem\">Pidgin Instant Messenger</span>\n"
-"</span> o feu clic a la icona <span class=\"application\">Pidgin</span> al\n"
-"submenú de [[<span class=\"guilabel\">Preferits</span>|doc/first_steps/desktop#favorites]].\n"
+msgid "<h1 id=\"otr\">OTR encryption</h1>\n"
+msgstr "<h1 id=\"otr\">Encriptatge OTR</h1>\n"
 
 #. type: Plain text
-#, no-wrap
 msgid ""
-"For more detailed documentation refer to the [official <span\n"
-"class=\"application\">Pidgin</span> user\n"
-"guide](https://developer.pidgin.im/wiki/Using%20Pidgin).\n"
+"[OTR (Off-the-Record)](https://otr.cypherpunks.ca/) encryption allows you to "
+"have private conversations over instant messaging by providing:"
 msgstr ""
-"Per obtenir una documentació més detallada, consulteu la [guia oficial\n"
-"d'usuari de <span class=\"application\">Pidgin</span>](https://developer.pidgin.im/wiki/Using%20Pidgin).\n"
-
-#. type: Title =
-#, no-wrap
-msgid "<span class=\"application\">Off-the-record</span> (<span class=\"application\">OTR</span>) encryption"
-msgstr "Encriptatge <span class=\"application\">Off-the-record</span> (<span class=\"application\">OTR</span>)"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"As explained on its [official page](https://otr.cypherpunks.ca/),\n"
-"<span class=\"application\">Off-the-Record</span> messaging allows you to\n"
-"have private conversations over instant messaging by providing:\n"
-msgstr ""
-"Com s'explica a la seva [pàgina oficial](https://otr.cypherpunks.ca/),\n"
-"els missatges <span class=\"application\">Off-the-Record</span> us permeten\n"
-"mantenir converses privades mitjançant missatgeria instantània proporcionant:\n"
+"L'encriptatge [OTR (Off-the-Record)](https://otr.cypherpunks.ca/) us permet "
+"mantenir converses privades mitjançant missatgeria instantània proporcionant:"
 
 #. type: Plain text
 msgid "- **Encryption**"
@@ -149,8 +141,7 @@ msgid ""
 "  the messages are authentic and unmodified.\n"
 msgstr ""
 "  Els missatges que envieu no tenen signatura digital\n"
-"  que sigui verificable per un tercer. Tothom pot falsificar missatges "
-"després\n"
+"  que sigui verificable per un tercer. Tothom pot falsificar missatges després\n"
 "  d'una conversa per fer-los semblar vostres.\n"
 "  Tanmateix, durant una conversa, el vostre corresponsal està segur\n"
 "  que els missatges són autèntics i sense modificar.\n"
@@ -162,9 +153,7 @@ msgstr "- **Secret directe perfecte**"
 #. type: Plain text
 #, no-wrap
 msgid "  If you lose control of your private keys, no previous conversation is compromised.\n"
-msgstr ""
-"  Si perdeu el control de les vostres claus privades, cap conversa anterior "
-"es veurà compromesa.\n"
+msgstr "  Si perdeu el control de les vostres claus privades, cap conversa anterior es veurà compromesa.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -183,9 +172,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<p>File transfers are not encrypted by OTR. OTR only encrypts conversations.</p>\n"
-msgstr ""
-"<p>OTR no encripta les transferències de fitxers. OTR només encripta les "
-"converses.</p>\n"
+msgstr "<p>OTR no encripta les transferències de fitxers. OTR només encripta les converses.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -195,12 +182,12 @@ msgstr "<div class=\"tip\">\n"
 #. type: Plain text
 #, no-wrap
 msgid ""
-"<p>To store your OTR keys and preferences across separate working sessions,\n"
+"<p>To store your OTR keys and <i>Pidgin</i> settings across different Tails sessions,\n"
 "you can turn on the [[Pidgin Internet Messenger|persistent_storage/configure#pidgin]]\n"
 "feature of the Persistent Storage.</p>\n"
 msgstr ""
-"<p>Per emmagatzemar les vostres claus i preferències OTR en sessions de "
-"treball separades,\n"
+"<p>Per emmagatzemar les vostres claus OTR i les preferències de <i>Pidgin</"
+"i> en sessions de Tails separades,\n"
 "podeu activar la funció [[Pidgin Internet Messenger|persistent_storage/"
 "configure#pidgin]]\n"
 "de l'Emmagatzematge Persistent.</p>\n"
@@ -212,8 +199,7 @@ msgid ""
 "<code>/me</code> command is not encrypted. The person receiving\n"
 "the message is notified by a warning.</p>\n"
 msgstr ""
-"<p>En una conversa privada OTR a través d'IRC, un missatge enviat "
-"mitjançant\n"
+"<p>En una conversa privada OTR a través d'IRC, un missatge enviat mitjançant\n"
 "l'ordre <code>/me</code> no està encriptat. La persona que rep\n"
 "el missatge és notificada mitjançant un avís.</p>\n"
 
@@ -242,53 +228,70 @@ msgstr ""
 "- [Llistat de xarxes IRC/xat que bloquegen o admeten Tor](https://gitlab."
 "torproject.org/legacy/trac/-/wikis/doc/BlockingIrc)"
 
-#. type: Title =
 #, no-wrap
-msgid "Adding support for another protocol"
-msgstr "Afegir suport per a un altre protocol"
+#~ msgid ""
+#~ "To start <span class=\"application\">Pidgin</span> choose\n"
+#~ "<span class=\"menuchoice\">\n"
+#~ "  <span class=\"guimenu\">Applications</span>&nbsp;▸\n"
+#~ "  <span class=\"guisubmenu\">Internet</span>&nbsp;▸\n"
+#~ "  <span class=\"guimenuitem\">Pidgin Instant Messenger</span>\n"
+#~ "</span> or click on the <span class=\"application\">Pidgin</span> icon in\n"
+#~ "the [[<span class=\"guilabel\">Favorites</span> submenu|doc/first_steps/desktop#favorites]].\n"
+#~ msgstr ""
+#~ "Per iniciar <span class=\"application\">Pidgin</span> trieu\n"
+#~ "<span class=\"menuchoice\">\n"
+#~ "   <span class=\"guimenu\">Aplicacions</span>&nbsp;▸\n"
+#~ "   <span class=\"guisubmenu\">Internet</span>&nbsp;▸\n"
+#~ "   <span class=\"guimenuitem\">Pidgin Instant Messenger</span>\n"
+#~ "</span> o feu clic a la icona <span class=\"application\">Pidgin</span> al\n"
+#~ "submenú de [[<span class=\"guilabel\">Preferits</span>|doc/first_steps/desktop#favorites]].\n"
 
-#. type: Plain text
 #, no-wrap
-msgid ""
-"For security reasons, it is only possible to use IRC and XMPP with\n"
-"<span class=\"application\">Pidgin</span> in Tails. Here are the\n"
-"prerequisites to enable another protocol that is supported by <span\n"
-"class=\"application\">Pidgin</span> otherwise:\n"
-msgstr ""
-"Per motius de seguretat, només és possible utilitzar IRC i XMPP amb\n"
-"<span class=\"application\">Pidgin</span> a Tails. Aquí estan els\n"
-"requisits previs per habilitar un altre protocol compatible amb <span class=\"application\">Pidgin</span> en cas contrari:\n"
+#~ msgid "<span class=\"application\">Off-the-record</span> (<span class=\"application\">OTR</span>) encryption"
+#~ msgstr "Encriptatge <span class=\"application\">Off-the-record</span> (<span class=\"application\">OTR</span>)"
 
-#. type: Bullet: '- '
-msgid ""
-"The support in <span class=\"application\">Pidgin</span> for this protocol "
-"has been successfully tested in Tails."
-msgstr ""
-"El suport a <span class=\"application\">Pidgin</span> per a aquest protocol "
-"s'ha provat amb èxit a Tails."
+#, no-wrap
+#~ msgid "Adding support for another protocol"
+#~ msgstr "Afegir suport per a un altre protocol"
 
-#. type: Bullet: '- '
-msgid ""
-"Someone volunteers to maintain the corresponding support in Tails on the "
-"long term."
-msgstr ""
-"Algú s'ofereix per mantenir el suport corresponent a Tails a llarg termini."
+#, no-wrap
+#~ msgid ""
+#~ "For security reasons, it is only possible to use IRC and XMPP with\n"
+#~ "<span class=\"application\">Pidgin</span> in Tails. Here are the\n"
+#~ "prerequisites to enable another protocol that is supported by <span\n"
+#~ "class=\"application\">Pidgin</span> otherwise:\n"
+#~ msgstr ""
+#~ "Per motius de seguretat, només és possible utilitzar IRC i XMPP amb\n"
+#~ "<span class=\"application\">Pidgin</span> a Tails. Aquí estan els\n"
+#~ "requisits previs per habilitar un altre protocol compatible amb <span class=\"application\">Pidgin</span> en cas contrari:\n"
 
-#. type: Bullet: '- '
-msgid ""
-"Someone has verified that the security record of the desired plugin "
-"(including open bugs) is good enough."
-msgstr ""
-"Algú ha verificat que el registre de seguretat del connector desitjat "
-"(inclosos els errors oberts) és prou bo."
+#~ msgid ""
+#~ "The support in <span class=\"application\">Pidgin</span> for this "
+#~ "protocol has been successfully tested in Tails."
+#~ msgstr ""
+#~ "El suport a <span class=\"application\">Pidgin</span> per a aquest "
+#~ "protocol s'ha provat amb èxit a Tails."
 
-#. type: Plain text
-msgid ""
-"If you want to work on this issue, see [[our contribute page|contribute/how/"
-"code]]."
-msgstr ""
-"Si voleu treballar en aquest tema, consulteu [[la nostra pàgina de "
-"contribucions|contribute/how/code]]."
+#~ msgid ""
+#~ "Someone volunteers to maintain the corresponding support in Tails on the "
+#~ "long term."
+#~ msgstr ""
+#~ "Algú s'ofereix per mantenir el suport corresponent a Tails a llarg "
+#~ "termini."
+
+#~ msgid ""
+#~ "Someone has verified that the security record of the desired plugin "
+#~ "(including open bugs) is good enough."
+#~ msgstr ""
+#~ "Algú ha verificat que el registre de seguretat del connector desitjat "
+#~ "(inclosos els errors oberts) és prou bo."
+
+#~ msgid ""
+#~ "If you want to work on this issue, see [[our contribute page|contribute/"
+#~ "how/code]]."
+#~ msgstr ""
+#~ "Si voleu treballar en aquest tema, consulteu [[la nostra pàgina de "
+#~ "contribucions|contribute/how/code]]."
 
 #, no-wrap
 #~ msgid "<div class=\"bug\">\n"

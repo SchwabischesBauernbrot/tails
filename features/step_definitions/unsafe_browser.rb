@@ -53,17 +53,32 @@ Then /^the Unsafe Browser has a red theme$/ do
   @screen.wait('UnsafeBrowserRedTheme.png', 10)
 end
 
+Then /^the Unsafe Browser displays the LAN web server hello message$/ do
+  msg = LAN_WEB_SERVER_HELLO_MSG.dup
+  try_for(60, delay: 3) do
+    page_has_heading(@unsafe_browser, "#{msg} — Unsafe Browser", msg)
+  end
+end
+
 Then /^the Unsafe Browser shows a warning as its start page$/ do
   start_page_image = 'UnsafeBrowserStartPage.png'
   @screen.wait(start_page_image, 60)
 end
 
 Then /^the Unsafe Browser has started$/ do
+  try_for(60) do
+    @unsafe_browser = Dogtail::Application.new('Firefox')
+    @unsafe_browser.child?(roleName: 'frame', recursive: false)
+  end
   step 'the Unsafe Browser shows a warning as its start page'
 end
 
 Then /^I see a warning about another instance already running$/ do
-  @screen.wait('UnsafeBrowserWarnAlreadyRunning.png', 10)
+  assert_not_nil(
+    Dogtail::Application.new('zenity')
+    .child(roleName: 'label')
+    .text['Another Unsafe Browser is currently running']
+  )
 end
 
 Then /^I can start the Unsafe Browser again$/ do

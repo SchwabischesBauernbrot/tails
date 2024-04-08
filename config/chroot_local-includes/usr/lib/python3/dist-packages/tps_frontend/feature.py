@@ -4,7 +4,6 @@ import os
 import re
 from typing import TYPE_CHECKING
 
-from gi.repository import Gio, GLib, GObject, Gtk, Handy
 from tps.dbus.errors import DBusError, SymlinkSourceDirectoryError, TargetIsBusyError
 
 from tps_frontend import (
@@ -13,7 +12,13 @@ from tps_frontend import (
     DBUS_JOB_INTERFACE,
     DBUS_SERVICE_NAME,
     _,
+    CUSTOM_FEATURE_UI_FILE,
 )
+
+import gi
+
+gi.require_version("Handy", "1")
+from gi.repository import Gio, GLib, GObject, Gtk, Handy  # noqa: E402
 
 if TYPE_CHECKING:
     from gi.repository import Atk
@@ -460,6 +465,8 @@ class Feature:
                 self.on_job_properties_changed,
             )
 
+            self.handle_conflicting_apps()
+
     def on_job_properties_changed(
         self,
         proxy: Gio.DBusProxy,
@@ -468,18 +475,27 @@ class Feature:
     ):
         logger.debug("changed job properties: %s", changed_properties)
         if "ConflictingApps" in changed_properties.keys():  # noqa: SIM118
-            apps = changed_properties["ConflictingApps"]
-            self.show_conflicting_apps_message(apps)
+            self.handle_conflicting_apps()
 
-    def show_conflicting_apps_message(self, apps: dict[str, list[int]]):
-        msg = self.get_conflicting_apps_message(apps)
+    def handle_conflicting_apps(self):
+        apps_variant: GLib.Variant = self.backend_job.get_cached_property(
+            "ConflictingApps"
+        )
+        if apps_variant is None:
+            return
 
+        # Unpack the GLib.Variant
+        apps: dict[str, list[int]] = apps_variant.unpack()
+        if not apps:
+            return
+
+        # Show the conflicting apps message dialog
         self.dialog = Gtk.MessageDialog(
             self.window,
             Gtk.DialogFlags.MODAL | Gtk.DialogFlags.DESTROY_WITH_PARENT,
             Gtk.MessageType.INFO,
             Gtk.ButtonsType.CANCEL,
-            msg,
+            self.get_conflicting_apps_message(apps),
         )
         result = self.dialog.run()  # type: Gtk.ResponseType
         if result == Gtk.ResponseType.CANCEL:
@@ -515,6 +531,15 @@ class Feature:
             yield
         finally:
             self._ignore_switch_state_change = False
+
+
+@Gtk.Template.from_file(CUSTOM_FEATURE_UI_FILE)
+class CustomFeatureRow(Handy.ActionRow):
+    __gtype_name__ = "CustomFeatureRow"
+
+    def __init__(self, title: str):
+        super().__init__()
+        self.set_title(title)
 
 
 def camel_to_snake(name):

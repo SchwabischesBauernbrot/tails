@@ -43,42 +43,31 @@ Upgrade Tor Browser in Tails
 Wait
 ------------
 
-Have a look at
+To check if the desired version is available:
 
-* <https://archive.torproject.org/tor-package-archive/torbrowser/?C=M;O=D>
-* <https://tb-build-05.torproject.org/~richard/builds/release/unsigned/?C=M;O=D>
-* <https://tb-build-05.torproject.org/~ma1/builds/release/unsigned/?C=M;O=D>
-* <https://www.torproject.org/dist/torbrowser/?C=M;O=D>
-* <https://people.torproject.org/~gk/builds/?C=M;O=D>
-* <https://people.torproject.org/~boklm/builds/?C=M;O=D>
-* <https://people.torproject.org/~pierov/builds/?C=M;O=D>
-* <https://people.torproject.org/~richard/builds/tor-browser/?C=M;O=D>
+1. Set `TBB_VERSION` to the version of Tor Browser you are waiting for, e.g. 42.0.12.
 
-and see if the desired version is available. If it's not, and you want to
-"poll", you can use this:
+2. Run this script:
 
-  - copy the URLs above in `/tmp/tbb-urls.txt`
-  - `export TBB_VERSION=1.2.3.4`
-  - run this snippet (bash only!)
-
-    ```sh
-    (
-        set -eu
-        typeset -a tbbUrls
-        mapfile -t tbbUrls < <(grep -F --no-filename https: /tmp/tbb-urls.txt |sed -e 's+^ *++;s+ *$++')
-        while true
-        do
-            if (for u in "${tbbUrls[@]}"; do
-                elinks -no-numbering -no-references -dump "$u" | sed -e "s+^+[${u//+/ }]+" ; done
-                )| grep -F -e "${TBB_VERSION?}" -e "$(date +%F)"  -e "$(date +%F -d yesterday)" --color=always
-            then
-                echo FOUND
-                notify-send "Release dir" 'found'
-            fi
-            sleep 10m
-        done
-    )
-    ```
+        ```sh
+        (
+            set -eu
+            typeset -a tbbUrls
+            tbbUrls=( 'https://archive.torproject.org/tor-package-archive/torbrowser/?C=M;O=D' 'https://www.torproject.org/dist/torbrowser/?C=M;O=D' 'https://people.torproject.org/~gk/builds/?C=M;O=D' 'https://people.torproject.org/~boklm/builds/?C=M;O=D' 'https://people.torproject.org/~pierov/builds/?C=M;O=D' 'https://people.torproject.org/~richard/builds/tor-browser/?C=M;O=D' 'https://tb-build-02.torproject.org/~ma1/builds/torbrowser/release/unsigned/' 'https://tb-build-02.torproject.org/~richard/builds/torbrowser/release/unsigned/' )
+            while true
+            do
+                if (for u in "${tbbUrls[@]}"; do
+                        echo "query ${u}" >&2
+                    elinks -no-numbering  -dump "$u" | sed -e "s+^+[${u//+/ }]+" ; done
+                    ) | grep -F -e "${TBB_VERSION?}" -e "$(date +%F)"  -e "$(date +%F -d yesterday)" --color=always
+                then
+                    echo FOUND
+                    notify-send "Release dir" 'found'
+                fi
+                sleep 10m
+            done
+        )
+        ```
 
 Verify
 ------------
@@ -159,9 +148,9 @@ we verify the checksum file.
 
 ### Else
 
-Nowadays (since 2022) it is common that tarballs are put on a webserver that doesn't support http: it will
+Nowadays, tarballs are usually put on a web server, such as
+`https://tb-build-*.torproject.org/`, that doesn't support http: it will
 redirect to https.
- `https://tb-build-05.torproject.org/` is one of those.
 
 If this is the case, you must put those tarballs on a server that allows us to use plain HTTP.
 

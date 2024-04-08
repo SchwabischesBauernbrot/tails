@@ -7,16 +7,16 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
-"PO-Revision-Date: 2023-11-28 09:42+0000\n"
-"Last-Translator: xin <xin@riseup.net>\n"
+"POT-Creation-Date: 2024-02-08 22:45+0000\n"
+"PO-Revision-Date: 2024-02-29 22:45+0000\n"
+"Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -181,6 +181,10 @@ msgid ""
 "\t        [...]\n"
 "\t        0046  Core Processor Integrated Graphics Controller\n"
 msgstr ""
+"\t8086  Intel Corporation\n"
+"\t        0007  82379AB\n"
+"\t        [...]\n"
+"\t        0046  Core Processor Integrated Graphics Controller\n"
 
 #. type: Plain text
 msgid "Corresponds to:"
@@ -190,6 +194,8 @@ msgstr ""
 #, no-wrap
 msgid "\tIntel Corporation Core Processor Integrated Graphics Controller [8086:0046]\n"
 msgstr ""
+"\tIntel Corporation Core Processor Integrated Graphics Controller [8086:0046]"
+"\n"
 
 #. type: Title =
 #, no-wrap
@@ -204,7 +210,7 @@ msgstr "<a id=\"$ANCHOR\"></a>\n"
 #. type: Title -
 #, no-wrap
 msgid "$FAMILY_NAME"
-msgstr ""
+msgstr "$FAMILY_NAME"
 
 #. type: Plain text
 msgid "$LT!-- Issues: #XXXXX #XXXXX --$GT"
@@ -279,24 +285,19 @@ msgid "- `modprobe.blacklist=radeon`"
 msgstr ""
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<a id=\"radeon-r5\"></a>\n"
+#, no-wrap
 msgid "<h2 id=\"radeon-r9\">AMD Radeon R9</h2>\n"
-msgstr "<a id=\"radeon-r5\"></a>\n"
+msgstr "<h2 id=\"radeon-r9\">AMD Radeon R9</h2>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<!--\n"
-#| "Tickets: #11095 #12482\n"
-#| "-->\n"
+#, no-wrap
 msgid ""
 "<!--\n"
 "Issues: #12218 #11850\n"
 "-->\n"
 msgstr ""
 "<!--\n"
-"Tickets: #11095 #12482\n"
+"Issues: #12218 #11850\n"
 "-->\n"
 
 #. type: Plain text
@@ -365,13 +366,12 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "    iommu=soft\n"
-msgstr ""
+msgstr "    iommu=soft\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<a id=\"intel\"></a>\n"
+#, no-wrap
 msgid "<h2 id=\"intel\">Intel</h2>\n"
-msgstr "<a id=\"intel\"></a>\n"
+msgstr "<h2 id=\"intel\">Intel</h2>\n"
 
 #. type: Plain text
 msgid "Various Intel graphics card, including but not limited to:"
@@ -391,7 +391,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "        i915.force_probe=MODEL\n"
-msgstr ""
+msgstr "        i915.force_probe=MODEL\n"
 
 #. type: Plain text
 msgid ""
@@ -403,6 +403,35 @@ msgstr ""
 msgid ""
 "For example, if you see an error about `8086:4c8a`, use this boot option: "
 "`i915.force_probe=4c8a`."
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<a id=\"intel\"></a>\n"
+msgid "<h2 id=\"intel-hdu\">Intel UHD Graphics 620 GPU</h2>\n"
+msgstr "<a id=\"intel\"></a>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<!--\n"
+"Last updated: 2024-02-08\n"
+"-->\n"
+msgstr ""
+
+#. type: Plain text
+msgid "For example, in the Dell Latitude 7490."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Try adding the following [[boot option|doc/advanced_topics/boot_options]] "
+"when starting Tails:"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "        i915.enable_psr=0\n"
 msgstr ""
 
 #. type: Plain text
@@ -436,7 +465,7 @@ msgstr ""
 
 #. type: Bullet: '  - '
 msgid "`modprobe.blacklist=nouveau`"
-msgstr ""
+msgstr "`modprobe.blacklist=nouveau`"
 
 #. type: Bullet: '  - '
 msgid "`nouveau.modeset=0`"
@@ -511,7 +540,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "        Probing EDD (edd=off to disable)...\n"
-msgstr ""
+msgstr "        Probing EDD (edd=off to disable)...\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -575,11 +604,6 @@ msgstr ""
 #~ "<!--\n"
 #~ "Tickets: #11095 #12482\n"
 #~ "-->\n"
-
-#, fuzzy, no-wrap
-#~| msgid "<a id=\"intel\"></a>\n"
-#~ msgid "<h2 id=\"intel-uhd-750\">Intel UHD 750</h2>\n"
-#~ msgstr "<a id=\"intel\"></a>\n"
 
 #, no-wrap
 #~ msgid ""

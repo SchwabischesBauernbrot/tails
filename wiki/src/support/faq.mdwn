@@ -10,6 +10,8 @@
 
 <h1 id="project">Tails project</h1>
 
+<!-- This entire section would be better placed in an "About Us" section. See #17700. -->
+
 <h2 id="tor">What is the relationship between Tor and Tails?</h2>
 
 See our explanation about [[why does Tails use Tor|doc/anonymous_internet/tor/why#relationship]].
@@ -82,38 +84,6 @@ process again.
 We are not proposing several desktop environments to choose from because
 we want to [[limit the amount of software included in Tails|faq#new-software]].
 
-<h1 id="hardware">Hardware compatibility</h1>
-
-See also:
-
-- [[System requirements and recommended hardware|doc/about/requirements]]
-
-- [[Known issues|support/known_issues]]
-
-<h2 id="32-bit">Does Tails work on 32-bit computers?</h2>
-
-No. Tails stopped working on 32-bit computer in [[Tails
-3.0|news/Tails_3.0_will_require_a_64-bit_processor]] (June 2017). Software
-built for 64-bit processors can benefit from several improvements that make it
-harder for attackers to exploit security vulnerabilities.
-
-Before Tails 3.0, we estimated that [[only 4% of our
-users|news/Tails_3.0_will_require_a_64-bit_processor]] still had a 32-bit
-computer. We decided that the increased security for everybody else was more
-important than the compatibility with 32-bit computers.
-
-<h2 id="arm">Does Tails work on ARM architecture, Raspberry Pi, tablets, smartphones (mobile phones), or Apple M1?</h2>
-
-For the moment, Tails is only available on the x86_64 architecture.
-The Raspberry Pi, most tablets, and most smartphones (mobile phones) are based on the ARM architecture. Tails does
-not work on the ARM architecture so far.
-
-For this reason, Tails does not work on Mac models that use the Apple M1 chip.
-
-Look for a tablet with an AMD or Intel processor. Try to verify its
-compatibility with Debian beforehand, for example make sure that the Wi-Fi
-interface is supported.
-
 <h1 id="installation">Installation</h1>
 
 <h2 id="dedicated-stick">Do I need a USB stick dedicated to Tails?</h2>
@@ -172,7 +142,26 @@ Selling preinstalled devices would in fact be a pretty bad idea:
   cryptographic verification techniques anymore. Being able to trust
   your Tails USB stick is something that we really care about.
 
-<h1 id="browser">Web browser</h1>
+<h2 id="integrity">Can I verify the integrity of a Tails USB stick or DVD?</h2>
+
+It is impossible to verify the integrity of a Tails USB stick or DVD while running Tails
+from it. It would be like asking to someone whether they are
+lying: a true liar would always pretend to tell the truth.
+
+If you worry that your Tails might be corrupted, do a [[manual
+upgrade|upgrade]] from a trusted operating system to
+upgrade it to a trusted version of Tails.
+
+<div class="note">
+
+<p>In the future, we might make it possible to verify the integrity of a Tails
+USB stick from another trusted OS. ([[!tails_ticket 7496]])</p>
+
+</div>
+
+<h1 id="browser">Tor Browser</h1>
+
+<!-- We might move some of this content to the Tor Browser documentation. See #19122. -->
 
 <h2 id="javascript">Why is JavaScript enabled by default in <span class="application">Tor Browser</span>?</h2>
 
@@ -261,10 +250,6 @@ consequence, weakens your anonymity.
 Furthermore, we verify the result of those websites before each release, see our
 [[test suite|contribute/release_process/test]].
 
-<h2 id="java">Is Java installed in the <span class="application">Tor Browser</span>?</h2>
-
-Tails does not include a Java plugin in its browser because it could break your anonymity.
-
 <h1 id="networking">Networking</h1>
 
 <h2 id="vpn">Can I use Tails with a VPN?</h2>
@@ -311,11 +296,7 @@ the [[New Circuit for this Site|doc/anonymous_internet/Tor_Browser]] button of
 *Tor Browser* or the [[*Onion Circuits*|doc/anonymous_internet/tor/circuits]]
 utility.
 
-<h2 id="dns">How does the DNS resolution work in Tails?</h2>
-
-See our [[design document|contribute/design/Tor_enforcement/DNS]] on this topic.
-
-<h2 id="htp">Why does Tails automatically connect to several websites when starting?</h2>
+<h2 id="htp">Why does Tails automatically connect to websites when starting?</h2>
 
 The clock of the computer needs to be set at the correct time to both:
 
@@ -341,9 +322,12 @@ See also our [[design document on time synchronization|contribute/design/Time_sy
 
 It is currently impossible to run a Tor relay or bridge in Tails.
 
-<h2 id="onion-service">Can I run a Tor onion service on Tails?</h2>
+<h2 id="onion-service">Can I run a Tor onion service from Tails?</h2>
 
-It is technically possible to use Tails to provide an onion service
+You can use [[*OnionShare*|doc/anonymous_internet/onionshare]] to share files,
+websites, and chat rooms from Tails using onion services.
+
+It is technically possible to use Tails to create other onion services,
 but it is complicated and not documented yet.
 
 <h2 id="ping">Can I use <code>ping</code> in Tails?</h2>
@@ -352,9 +336,18 @@ It is impossible to use `ping` in Tails,
 because `ping` uses the ICMP protocol while Tor
 can only transport TCP connections.
 
-<h1 id="software">Software not included in Tails</h1>
+<h1 id="software">Included software</h1>
 
 <h2 id="new-software">Can my favorite software be included in Tails?</h2>
+
+<div class="tip">
+
+<p>If a software is not included in Tails, but is included in Debian, you can use
+the [[Additional
+Software|doc/persistent_storage/configure#additional_software]] feature of
+the Persistent Storage to install it automatically every time you start Tails.</p>
+
+</div>
 
 First of all, make sure that this software is already available in Debian, as
 this is a requirement to be included in Tails. Adding to Tails software which is
@@ -391,27 +384,44 @@ new software with a very good reason to do so:
 
 After considering all this, if you still think that this software is a good
 candidate to be included in Tails, please explain us your
-proposal on [[tails-dev@boum.org|about/contact#tails-dev]].
-
-<div class="tip">
-
-<p>If a software is not included in Tails, but is included in Debian, you can use
-the [[Additional
-Software|doc/persistent_storage/configure#additional_software]] feature of
-the Persistent Storage to install it automatically every time you start Tails.</p>
-
-</div>
+proposal on [[!tails_ticket desc="GitLab"]].
 
 Here is some of the software we are often asked to include in Tails:
 
-- **monero**: not in Debian, but see [[!tails_ticket 17823]]
+- **monero**: not in Debian ([[!tails_ticket 17823]])
 
 - **bitmessage**: not in Debian
 
 - **retroshare**: not in Debian
 
-- **rar/unrar**: is not [[free software|doc/about/license]], but you can use the
-  [[Additional Software|doc/persistent_storage/additional_software]] feature to install it
+- **rar/unrar**: not [[Free Software|doc/about/license]]
+
+<h2 id="voip">Can I do voice or video calls from Tails?</h2>
+
+Not yet.
+
+- Videoconferencing tools that work in web browsers, like *Jitsi* or *Zoom*,
+  don't work in *Tor Browser* yet.
+
+  They rely on the [[!wikipedia WebRTC]] technology, which uses
+  [[!wikipedia User_Datagram_Protocol desc="UDP"]] connections. But, the Tor network only
+  supports TCP connections, like the ones used for HTTP and email.
+
+  The Tor Project is working on [supporting UDP traffic over
+  Tor](https://gitlab.torproject.org/tpo/core/torspec/-/issues/73), which
+  should remove this limitation.
+
+- Proprietary applications like *Skype* or *Zoom* will never be available in
+  Tails because they are not Free Software.
+
+- [*Mumble*](https://www.mumble.info/) is the only voice chat application that
+  we know works from Tails. You can use the [[Additional
+  Software|doc/persistent_storage/additional_software]] feature to add
+  *Mumble* to your Tails.
+
+  [*Wahay*](https://wahay.org/) is a decentralized voice chat application based
+  on *Mumble*. If you are a Debian developer, please help us
+  [[!tails_ticket 17617 desc="get *Wahay* in Debian"]].
 
 <h2 id="bittorrent">Can I download using BitTorrent with Tails?</h2>
 
@@ -441,123 +451,14 @@ in a terminal:
 For more information, refer to the official
 [<span class="application">youtube-dl</span> website](https://ytdl-org.github.io/youtube-dl/index.html).
 
-<h2 id="monero">How can I use Monero in Tails?</h2>
+<h2 id="monero">Can I use Monero in Tails?</h2>
 
-You can install the [[*Feather*|doc/advanced_topics/feather]] Monero wallet as
+Yes. You can install the [[*Feather*|doc/advanced_topics/feather]] Monero wallet as
 an AppImage.
 
 Tails currently does not include a Monero wallet. However, we are interested
 in making it easier to use Monero in Tails in the future. See [[!tails_ticket
 17823]] for a list of unofficial guides on how to use Monero in Tails.
-
-<h2 id="voip">Can I do voice or video calls from Tails?</h2>
-
-Not yet.
-
-- Videoconferencing tools that work in web browsers, like *Jitsi* or *Zoom*,
-  don't work in *Tor Browser* yet.
-
-  They rely on the [[!wikipedia WebRTC]] technology, which uses
-  [[!wikipedia User_Datagram_Protocol desc="UDP"]] connections. But, the Tor network only
-  supports TCP connections, like the ones used for HTTP and email.
-
-  The Tor Project is working on [supporting UDP traffic over
-  Tor](https://gitlab.torproject.org/tpo/core/torspec/-/issues/73), which
-  should remove this limitation.
-
-- Proprietary applications like *Skype* or *Zoom* will never be available in
-  Tails because they are not Free Software.
-
-- [*Mumble*](https://www.mumble.info/) is the only voice chat application that
-  we know works from Tails. You can use the [[Additional
-  Software|doc/persistent_storage/additional_software]] feature to add
-  *Mumble* to your Tails.
-
-  [*Wahay*](https://wahay.org/) is a decentralized voice chat application based
-  on *Mumble*. If you are a Debian developer, please help us
-  [[!tails_ticket 17617 desc="get *Wahay* in Debian"]].
-
-<h1 id="misc">Other security issues</h1>
-
-<h2 id="older-version">Is it safe to use an older version of Tails?</h2>
-
-It is not safe to use an older version of Tails. Only the latest version of
-Tails should be used.
-
-Because it is not safe to use an older version of Tails, we distribute only
-the latest version of Tails.
-
-Older versions of Tails have security vulnerabilities and other issues that
-are fixed in the latest version of Tails.
-
-We understand why you might want to use an older version of Tails. For
-example, the latest version of Tails might not be compatible with your
-hardware.
-
-If you are experiencing an issue with the latest version of Tails, you can
-check our [[list of known issues|support/known_issues]] to find out if there
-is a workaround for the issue you are experiencing.
-
-If there is no known workaround for the issue you are experiencing, you might
-want to [[make a bug report|doc/first_steps/bug_reporting]] to let us know
-about the issue.
-
-<h2 id="old-software">Why does Tails include old versions of software?</h2>
-
-The Tails 5 series is based on Debian 11 (Bullseye).
-
-The version of each application included in Tails corresponds to the version
-available in this version of Debian. Even though some versions might be old,
-the [Debian Security Team](https://wiki.debian.org/Teams/Security) provides
-security updates.
-
-Newer versions of all applications will be available starting from Tails 6.0,
-which will be based on Debian 12 (Bookworm). Until then, you cannot update any
-of the applications included in Tails to a newer version.
-
-You can see which version of a software package is available in each version of
-Debian on <https://packages.debian.org/>.
-
-<h2 id="integrity">Can I verify the integrity of a Tails USB stick or DVD?</h2>
-
-It is impossible to verify the integrity of a Tails USB stick or DVD while running Tails
-from it. It would be like asking to someone whether they are
-lying: a true liar would always pretend to tell the truth.
-
-If you worry that your Tails might be corrupted, do a [[manual
-upgrade|upgrade]] from a trusted operating system to
-upgrade it to a trusted version of Tails.
-
-<div class="note">
-
-<p>In the future, we might make it possible to verify the integrity of a Tails
-USB stick from another trusted OS. ([[!tails_ticket 7496]])</p>
-
-</div>
-
-<h2 id="reuse-memory-wipe">Can I use the memory wipe feature of Tails on another operating system?</h2>
-
-The memory wipe mechanism that Tails uses on shutdown to [[protect against cold
-boot attacks|doc/advanced_topics/cold_boot_attacks]] should be reusable in
-other Linux distributions.
-
-If you want to implement this feature outside of Tails, have a look at the
-corresponding [[design documentation|contribute/design/memory_erasure]].
-
-<h2 id="new-identity">Where is the <span class="guilabel">New Identity</span> button?</h2>
-
-There is no <span class="guilabel">New Identity</span> button for Tails as a
-whole.
-
-The [[<span class="guilabel">New Identity</span> feature of
-<span class="application">Tor Browser</span>|doc/anonymous_internet/Tor_Browser#new-identity]]
-is limited to the browser.
-
-In the same way as the <span class="guilabel">New Identity</span> button of
-<span class="application">Tor Browser</span> restarts the browser, you have to
-restart Tails before using a different identity.
-
-See also our warning about [[using Tails sessions for only one purpose at a time|doc/about/warnings/identity#contextual]].
 
 <h2 id="antivirus">Does Tails need an antivirus?</h2>
 
@@ -568,3 +469,19 @@ the permission design of Linux systems.
 
 See the [[!wikipedia Linux_malware desc="Wikipedia page on Linux malware"]]
 for further details.
+
+<h2 id="old-software">Why does Tails include old versions of software?</h2>
+
+The Tails 5 series is based on Debian 12 (Bookworm).
+
+The version of each application included in Tails corresponds to the version
+available in this version of Debian. Even though some versions might be old,
+the [Debian Security Team](https://wiki.debian.org/Teams/Security) provides
+security updates.
+
+Newer versions of all applications will be available starting from Tails 7.0,
+which will be based on Debian 13 (Trixie). Until then, you cannot update any
+of the applications included in Tails to a newer version.
+
+You can see which version of a software package is available in each version of
+Debian on <https://packages.debian.org/>.

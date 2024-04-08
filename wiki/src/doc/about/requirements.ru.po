@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-21 23:11+0000\n"
+"POT-Creation-Date: 2024-01-31 15:45+0100\n"
 "PO-Revision-Date: 2021-07-16 19:05+0000\n"
 "Last-Translator: Ed Medvedev <edward.medvedev@gmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -32,23 +32,41 @@ msgstr ""
 
 #. type: Plain text
 #, fuzzy
+#| msgid "<p>Tails might not work on:</p>\n"
+msgid "- Tails works on:"
+msgstr "<p>Tails может не работать на:</p>\n"
+
+#. type: Bullet: '  * '
+#, fuzzy
 #| msgid "Tails works on most computers less than 10 years old."
-msgid "- Tails works on most PC computers that are less than 10 years old."
+msgid "Most PC computers that are less than 10 years old"
+msgstr "Tails работает на большинстве компьютеров, которым меньше 10 лет."
+
+#. type: Bullet: '  * '
+#, fuzzy
+#| msgid "Tails works on most computers less than 10 years old."
+msgid "Some older Mac computers with an Intel processor"
 msgstr "Tails работает на большинстве компьютеров, которым меньше 10 лет."
 
 #. type: Plain text
 #, fuzzy
-#| msgid "Tails works on most computers less than 10 years old."
-msgid "- Tails works on some older Mac computers with an Intel processor."
-msgstr "Tails работает на большинстве компьютеров, которым меньше 10 лет."
+#| msgid "<p>Tails might not work on:</p>\n"
+msgid "- Tails does not work:"
+msgstr "<p>Tails может не работать на:</p>\n"
 
-#. type: Plain text
+#. type: Bullet: '  * '
 #, fuzzy
 #| msgid "Tails works on most computers less than 10 years old."
-msgid ""
-"- Tails does not work on newer Mac computers with an Apple processor (M1 or "
-"M2)."
+msgid "Newer Mac computers with an Apple processor (M1 or M2)"
 msgstr "Tails работает на большинстве компьютеров, которым меньше 10 лет."
+
+#. type: Bullet: '  * '
+msgid "Smartphones or tablets"
+msgstr ""
+
+#. type: Bullet: '  * '
+msgid "Raspberry Pi"
+msgstr ""
 
 #. type: Plain text
 #, fuzzy
@@ -57,7 +75,7 @@ msgid "- Tails might not work on:"
 msgstr "<p>Tails может не работать на:</p>\n"
 
 #. type: Bullet: '  * '
-msgid "Some older computers, for example, if they don't have enough RAM."
+msgid "Some older computers, for example, if they don't have 2 GB of RAM."
 msgstr ""
 
 #. type: Bullet: '  * '
@@ -71,7 +89,8 @@ msgstr ""
 #| "</ul>\n"
 msgid ""
 "Some newer computers, for example, if their [[graphics card is incompatible "
-"with Linux|support/known_issues/graphics]]."
+"with Linux|support/known_issues/graphics]].  Nvidia or AMD Radeon cards "
+"often do not work in Tails."
 msgstr ""
 "<ul>\n"
 "<li>некоторых старых компьютерах, которым, например, не хватает оперативной "
@@ -79,12 +98,6 @@ msgstr ""
 "<li>некоторых сравнительно новых компьютерах, например, если их [[видеокарта "
 "несовместима с Linux|support/known_issues/graphics]].</li>\n"
 "</ul>\n"
-
-#. type: Bullet: '  * '
-msgid ""
-"\"Gaming\" graphics cards like Nvidia or AMD Radeon, which are often "
-"incompatible."
-msgstr ""
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -104,7 +117,7 @@ msgstr "</div>\n"
 #. type: Title =
 #, fuzzy, no-wrap
 #| msgid "Hardware requirements:"
-msgid "Hardware requirements"
+msgid "Detailed hardware requirements"
 msgstr "Аппаратные требования:"
 
 #. type: Plain text
@@ -112,8 +125,9 @@ msgid "- A USB stick of 8 GB minimum or a recordable DVD."
 msgstr "- USB-флешка (минимум 8 Гб) или записываемый DVD."
 
 #. type: Plain text
-#, no-wrap
-msgid "  All the data on this USB stick or DVD will be lost when installing Tails.\n"
+#, fuzzy, no-wrap
+#| msgid "  All the data on this USB stick or DVD will be lost when installing Tails.\n"
+msgid "  All the data on this USB stick or DVD is lost when installing Tails.\n"
 msgstr "  При установке Tails все данные на USB-флешке или DVD будут утеряны.\n"
 
 #. type: Plain text
@@ -122,27 +136,13 @@ msgstr "- Возможность загрузки компьютера с USB-ф
 
 #. type: Bullet: '- '
 msgid ""
-"A 64-bit <span class=\"definition\">[[!wikipedia x86-64]]</span> compatible "
-"processor:"
+"A 64-bit [[!wikipedia x86-64]] [[!wikipedia IBM_PC_compatible]] processor."
 msgstr ""
 
 #. type: Bullet: '  * '
 msgid ""
-"<span class=\"definition\">[[!wikipedia IBM_PC_compatible]]</span> but not "
-"<span class=\"definition\">[[!wikipedia PowerPC]]</span> nor <span "
-"class=\"definition\">[[!wikipedia ARM_architecture desc=\"ARM\"]]</span>."
-msgstr ""
-
-#. type: Bullet: '  * '
-#, fuzzy
-#| msgid "Tails works on most computers less than 10 years old."
-msgid "Tails works on some older Mac computers with an Intel processor."
-msgstr "Tails работает на большинстве компьютеров, которым меньше 10 лет."
-
-#. type: Bullet: '  * '
-msgid ""
-"Tails does not work on newer Mac computers with an [[!wikipedia "
-"Apple_silicon#M_series desc=\"Apple processor\"]] (M1 or M2)."
+"Tails does not works on [[!wikipedia ARM_architecture desc=\"ARM\"]] or [[!"
+"wikipedia PowerPC]] processors."
 msgstr ""
 
 #. type: Bullet: '  * '
@@ -150,12 +150,6 @@ msgid ""
 "Tails does not work on 32-bit computers since [[Tails 3.0|news/"
 "Tails_3.0_will_require_a_64-bit_processor]] (June 2017)."
 msgstr ""
-
-#. type: Bullet: '  * '
-#, fuzzy
-#| msgid "Tails works on most computers less than 10 years old."
-msgid "Tails does not work on phone or tablets."
-msgstr "Tails работает на большинстве компьютеров, которым меньше 10 лет."
 
 #. type: Plain text
 msgid "- 2 GB of RAM to work smoothly."
@@ -309,6 +303,16 @@ msgstr ""
 #, no-wrap
 msgid "-->\n"
 msgstr ""
+
+#, fuzzy
+#~| msgid "Tails works on most computers less than 10 years old."
+#~ msgid "- Tails works on some older Mac computers with an Intel processor."
+#~ msgstr "Tails работает на большинстве компьютеров, которым меньше 10 лет."
+
+#, fuzzy
+#~| msgid "Tails works on most computers less than 10 years old."
+#~ msgid "Tails does not work on phone or tablets."
+#~ msgstr "Tails работает на большинстве компьютеров, которым меньше 10 лет."
 
 #, no-wrap
 #~ msgid "<div class=\"note\">\n"

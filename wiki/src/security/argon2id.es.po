@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-01-23 00:41+0000\n"
-"PO-Revision-Date: 2024-01-30 14:58+0000\n"
+"PO-Revision-Date: 2024-03-26 10:25+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
@@ -336,9 +336,8 @@ msgid ""
 "Depending on the strength of your passphrase, we might also recommend "
 "choosing a different passphrase and migrating to another Tails USB stick:"
 msgstr ""
-"Dependiendo de la solidez de tu frase de contraseña, también podríamos "
-"recomendar elegir una frase de contraseña diferente y migrar a otra memoria "
-"USB de Tails:"
+"Dependiendo de la solidez de tu contraseña, también podríamos recomendar "
+"elegir una contraseña diferente y migrar a otra memoria USB de Tails:"
 
 #. type: Plain text
 msgid ""
@@ -346,11 +345,17 @@ msgid ""
 "passphrase has 5 random words|argon2id#5]] - [[If your passphrase has 6 "
 "random words or more|argon2id#6]]"
 msgstr ""
+"- [[Si tu frase de contraseña tiene 4 palabras aleatorias o "
+"menos|argon2id#4]]\n"
+"- [[Si tu frase de contraseña tiene 5 palabras aleatorias|argon2id#5]]\n"
+"- [[Si tu frase de contraseña tiene 6 palabras aleatorias o más|argon2id#6]]"
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"4\">If your passphrase has 4 random words or fewer</h2>\n"
-msgstr "<h2 id=\"4\">Si tu frase de contraseña tiene 4 palabras aleatorias o menos</h2>\n"
+msgstr ""
+"<h2 id=\"4\">Si tu frase de contraseña tiene 4 palabras aleatorias o "
+"menos</h2>\n"
 
 #. type: Plain text
 msgid "If your current passphrase has 4 random words or fewer:"
@@ -372,7 +377,9 @@ msgstr "- Tu cifrado es más seguro con LUKS2."
 #. type: Plain text
 #, no-wrap
 msgid "  We still recommend changing your passphrase to be 5 random words or more.\n"
-msgstr "  Aún recomendamos cambiar tu frase de contraseña para que tenga 5 palabras aleatorias o más.\n"
+msgstr ""
+"  Aún recomendamos cambiar tu frase de contraseña para que tenga 5 palabras "
+"aleatorias o más.\n"
 
 #. type: Title ###
 #, no-wrap
@@ -393,6 +400,8 @@ msgid ""
 "   When starting Tails 5.14 for the first time, Tails will automatically\n"
 "   convert your Persistent Storage to LUKS2.\n"
 msgstr ""
+"   Al iniciar Tails 5.14 por primera vez, Tails automáticamente\n"
+"   convierte tu Almacenamiento Persistente a LUKS2.\n"
 
 #. type: Bullet: '1. '
 msgid "Choose a new passphrase of 5 to 7 random words."
@@ -402,6 +411,8 @@ msgstr "Elige una nueva frase de contraseña de 5 a 7 palabras aleatorias."
 #, no-wrap
 msgid "   [[!toggle id=\"4_ps_keepassxc\" text=\"Display the instructions to generate a passphrase using *KeePassXC*.\"]]\n"
 msgstr ""
+"   [[!toggle id=\"4_ps_keepassxc\" text=\"Muestra las instrucciones para "
+"generar una frase de contraseña usando *KeePassXC*.\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -411,7 +422,9 @@ msgstr "   [[!toggleable id=\"4_ps_keepassxc\" text=\"\"\"\n"
 #. type: Plain text
 #, no-wrap
 msgid "   [[!inline pages=\"security/argon2id/keepassxc.inline\" raw=\"yes\" sort=\"age\"]]\n"
-msgstr "   [[!inline pages=\"security/argon2id/keepassxc.inline.es\" raw=\"yes\" sort=\"age\"]]\n"
+msgstr ""
+"   [[!inline pages=\"security/argon2id/keepassxc.inline.es\" raw=\"yes\" "
+"sort=\"age\"]]\n"
 
 #. type: Bullet: '1. '
 msgid "Change your passphrase."
@@ -421,6 +434,8 @@ msgstr "Cambia tu frase de contraseña."
 #, no-wrap
 msgid "   [[!toggle id=\"4_ps_passphrase\" text=\"Display the instructions to change the passphrase of your Persistent Storage.\"]]\n"
 msgstr ""
+"   [[!toggle id=\"4_ps_passphrase\" text=\"Muestra las instrucciones para "
+"cambiar la contraseña de tu Almacenamiento Persistente.\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -430,7 +445,9 @@ msgstr "   [[!toggleable id=\"4_ps_passphrase\" text=\"\"\"\n"
 #. type: Plain text
 #, no-wrap
 msgid "   [[!inline pages=\"security/argon2id/ps_passphrase.inline\" raw=\"yes\" sort=\"age\"]]\n"
-msgstr "   [[!inline pages=\"security/argon2id/ps_passphrase.inline.es\" raw=\"yes\" sort=\"age\"]]\n"
+msgstr ""
+"   [[!inline pages=\"security/argon2id/ps_passphrase.inline.es\" raw=\"yes\" "
+"sort=\"age\"]]\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -439,6 +456,11 @@ msgid ""
 "your old Tails USB stick (or at least [[securely delete the entire device|"
 "doc/encryption_and_privacy/secure_deletion#device]])."
 msgstr ""
+"Si creaste tu Almacenamiento Persistente con Tails 5.12 o una versión "
+"anterior, te recomendamos migrar todo tu Tails a una memoria USB diferente y "
+"destruir tu antigua memoria USB de Tails (o al menos [[eliminar de forma "
+"segura todo el dispositivo|doc/encryption_and_privacy/"
+"secure_deletion#device]])."
 
 #. type: Plain text
 #, no-wrap
@@ -452,6 +474,8 @@ msgstr ""
 #, no-wrap
 msgid "   [[!toggle id=\"4_ps_tails_installer\" text=\"Display the instructions to migrate your Tails to a new USB stick.\"]]\n"
 msgstr ""
+"   [[!toggle id=\"4_ps_tails_installer\" text=\"Muestra las instrucciones "
+"para migrar tu Tails a una nueva memoria USB.\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -461,7 +485,9 @@ msgstr "   [[!toggleable id=\"4_ps_tails_installer\" text=\"\"\"\n"
 #. type: Plain text
 #, no-wrap
 msgid "   [[!inline pages=\"security/argon2id/tails_installer.inline\" raw=\"yes\" sort=\"age\"]]\n"
-msgstr "   [[!inline pages=\"security/argon2id/tails_installer.inline.es\" raw=\"yes\" sort=\"age\"]]\n"
+msgstr ""
+"   [[!inline pages=\"security/argon2id/tails_installer.inline.es\" raw=\"yes"
+"\" sort=\"age\"]]\n"
 
 #. type: Title ###
 #, no-wrap
@@ -473,8 +499,8 @@ msgid ""
 "To secure your [[backup Tails|doc/persistent_storage/backup]], if you have "
 "one:"
 msgstr ""
-"Para asegurar tu [[respaldo de Tails|doc/persistent_storage/backup]], si "
-"tienes alguno:"
+"Para asegurar tu [[copia de seguridad de Tails|doc/persistent_storage/"
+"backup]], si tienes alguna:"
 
 #. type: Bullet: '1. '
 msgid "Start on your main Tails USB stick."
@@ -486,7 +512,7 @@ msgstr "Actualiza tu memoria USB principal de Tails a Tails 5.14."
 
 #. type: Bullet: '1. '
 msgid "Create a new backup Tails using *Tails Cloner*"
-msgstr ""
+msgstr "Crea una nueva copia de seguridad de Tails usando *Tails Cloner*"
 
 #. type: Plain text
 #, no-wrap
@@ -510,11 +536,11 @@ msgstr "   [[!toggleable id=\"4_backup_tails_installer\" text=\"\"\"\n"
 #. type: Title ###
 #, no-wrap
 msgid "Other encrypted volumes (4 words or fewer)"
-msgstr ""
+msgstr "Otros volúmenes cifrados (4 palabras o menos)"
 
 #. type: Plain text
 msgid "To secure your other encrypted volumes, if you have any:"
-msgstr ""
+msgstr "Para proteger tus otros volúmenes cifrados, si tienes alguno:"
 
 #. type: Plain text
 #, no-wrap
@@ -733,7 +759,7 @@ msgstr ""
 #. type: Title ###
 #, no-wrap
 msgid "Other encrypted volumes (5 words)"
-msgstr ""
+msgstr "Otros volúmenes cifrados (5 palabras)"
 
 #. type: Plain text
 msgid ""
@@ -862,17 +888,19 @@ msgstr ""
 #. type: Title ###
 #, no-wrap
 msgid "Other encrypted volumes (6 words or more)"
-msgstr ""
+msgstr "Otros volúmenes cifrados (6 palabras o más)"
 
 #. type: Plain text
 msgid "Your other encrypted volumes are already secure, even with LUKS1."
-msgstr ""
+msgstr "Tus otros volúmenes cifrados ya están seguros, incluso con LUKS1."
 
 #. type: Plain text
 msgid ""
 "If you want to upgrade your other encrypted volumes to LUKS2 anyway and you "
 "know how to use the command line:"
 msgstr ""
+"Si deseas actualizar tus otros volúmenes cifrados a LUKS2 de todos modos y "
+"sabes cómo usar la línea de órdenes:"
 
 #. type: Plain text
 #, no-wrap
@@ -1001,11 +1029,11 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "      In the output:\n"
-msgstr ""
+msgstr "      En la salida:\n"
 
 #. type: Bullet: '      - '
 msgid "`Version` indicates the version of LUKS, either `1` or `2`."
-msgstr ""
+msgstr "`Versión` indica la versión de LUKS, ya sea `1` o `2`."
 
 #. type: Bullet: '      - '
 msgid ""
@@ -1015,7 +1043,7 @@ msgstr ""
 #. type: Title ###
 #, no-wrap
 msgid "Other encrypted volumes"
-msgstr ""
+msgstr "Otros volúmenes cifrados"
 
 #. type: Plain text
 #, no-wrap
@@ -1028,6 +1056,8 @@ msgstr ""
 msgid ""
 "`PBKDF` indicates the key derivation function, either `pbkdf2` or `argon2id`."
 msgstr ""
+"`PBKDF` indica la función de derivación de clave, ya sea `pbkdf2` o "
+"`argon2id`."
 
 #~ msgid ""
 #~ "<span class=\"command\">Version</span> indicates the version of LUKS, "

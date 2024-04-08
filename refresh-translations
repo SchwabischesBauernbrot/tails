@@ -51,13 +51,13 @@ PYTHON_PROGS="\
     /usr/lib/python3/dist-packages/whisperBack/exceptions.py \
     /usr/lib/python3/dist-packages/whisperBack/gui.py \
     /usr/lib/python3/dist-packages/whisperBack/whisperback.py \
-    /usr/local/bin/tca \
     /usr/local/lib/additional-software/asp-handle-package-changes \
     /usr/local/lib/additional-software/asp-install \
     /usr/local/lib/tails-additional-software-notify \
     /usr/local/lib/tails-virt-notify-user"
 SHELL_PROGS=" \
     /usr/local/bin/keepassxc \
+    /usr/local/bin/tca \
     /usr/local/lib/tails-spoof-mac \
     /usr/local/lib/tails-report-disk-errors \
     /usr/local/bin/thunderbird \
@@ -298,4 +298,3 @@ intltool_update_po $(po_languages)
 refresh_mo $(po_languages)
 intltool_merge_desktop
 intltool_merge_xml
-chmod +x config/chroot_local-includes/etc/skel/Desktop/*.desktop
