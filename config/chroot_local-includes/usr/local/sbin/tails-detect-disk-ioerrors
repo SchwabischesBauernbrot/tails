@@ -22,13 +22,7 @@
 
 from typing import Optional
 
-import os
-import gi
-
-gi.require_version("UDisks", "2.0")
-from gi.repository import UDisks
-
-import tps.device
+from tailslib.utils import get_boot_device
 
 import pathlib
 
@@ -39,30 +33,11 @@ import systemd.journal
 DISK_IOERRORS = pathlib.Path("/var/lib/live/tails.disk.ioerrors")
 
 
-def boot_device() -> Optional[str]:
-    """get the boot device name"""
-    udisks = tps.device.udisks
-
-    dev_num = os.stat(tps.device.TAILS_MOUNTPOINT).st_dev
-    block = udisks.get_block_for_dev(dev_num)
-    device_path = block.props.device
-
-    device_object = block.get_object()
-    partition = device_object.get_partition()
-    if not partition:
-        return device_path.split("/")[-1]
-
-    partition_object = udisks.get_object(partition.props.table)
-    device_path = partition_object.get_block().props.device
-
-    return device_path.split("/")[-1]
-
-
 class IOErrorPatterns:
     def __init__(self):
         self.patterns = ["SQUASHFS error:"]
 
-        self._add_pattern_boot_device(boot_device())
+        self._add_pattern_boot_device(get_boot_device())
 
     def _add_pattern_boot_device(self, device: str):
         print(f"use boot device {device}")
