@@ -408,10 +408,8 @@ class Volume:
                 # they are placeholder and will be replaced. They need
                 # to be present in the translated string.
                 body = _(
-                    "Couldn't lock volume {volume_name}:\n{error_message}".format(
-                        volume_name=self.name, error_message=e.message
-                    )
-                )
+                    "Couldn't lock volume {volume_name}:\n{error_message}",
+                ).format(volume_name=self.name, error_message=e.message)
             self.manager.show_warning(_("Locking the volume failed"), body)
             return
 
