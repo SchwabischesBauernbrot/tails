@@ -254,7 +254,11 @@ class Window(Gtk.ApplicationWindow):
                 )
             else:
                 DBusError.strip_remote_error(e)
-                self.display_error(_("Failed to create Persistent Storage"), e.message)
+                self.display_error(
+                    _("Failed to create Persistent Storage"),
+                    _("An error occurred while creating the Persistent Storage."),
+                    details=(_("Details"), e.message),
+                )
 
             if self.active_view == self.creation_view:
                 self.close()
@@ -278,7 +282,11 @@ class Window(Gtk.ApplicationWindow):
                 )
             else:
                 DBusError.strip_remote_error(e)
-                self.display_error(_("Error deleting Persistent Storage"), e.message)
+                self.display_error(
+                    _("Error deleting Persistent Storage"),
+                    _("An error occurred while deleting the Persistent Storage."),
+                    details=(_("Details"), e.message),
+                )
         self.refresh_view()
 
     def display_error(
