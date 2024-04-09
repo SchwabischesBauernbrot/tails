@@ -427,7 +427,8 @@ After('@product') do |scenario|
     if config_bool('INTERACTIVE_DEBUGGING')
       pause(
         "Scenario failed: #{scenario.name}. " \
-        "The error was: #{scenario.exception.class.name}: #{scenario.exception}"
+        "The error was: #{scenario.exception.class.name}: #{scenario.exception}",
+        exception: scenario.exception
       )
     end
   elsif @video_path && File.exist?(@video_path) && !config_bool('CAPTURE_ALL')
@@ -492,7 +493,8 @@ After('@source') do |scenario|
   if scenario.failed? && config_bool('INTERACTIVE_DEBUGGING')
     pause(
       "Scenario failed: #{scenario.name}. " \
-      "The error was: #{scenario.exception.class.name}: #{scenario.exception}"
+      "The error was: #{scenario.exception.class.name}: #{scenario.exception}",
+      exception: scenario.exception
     )
   end
 end

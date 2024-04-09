@@ -383,7 +383,7 @@ def notify_user(message)
   cmd_helper(alarm_script.gsub('%m', message))
 end
 
-def pause(message = 'Paused', quiet: false)
+def pause(message = 'Paused', exception: nil, quiet: false)
   notify_user(message)
   $stderr.puts
   warn message
@@ -398,10 +398,26 @@ def pause(message = 'Paused', quiet: false)
     when 'q', "\r", 3.chr # Ctrl+C => 3
       return
     when 'd'
-      RubyVM::DebugInspector.open do |inspector|
-        # The 4th frame is the caller in this context
-        inspector.frame_binding(4).pry(quiet:)
+      breakpoint_binding = nil
+      unless exception.nil?
+        assert(config_bool('INTERACTIVE_DEBUGGING'))
+        # Exceptions that were created/raise()ed with "magic" that
+        # avoided our monkeypatches for the exception machinery might
+        # not have @raise_binding and @initialize_binding defined.
+        if defined?(exception.raise_binding) && \
+           !exception.raise_binding.nil?
+          breakpoint_binding = exception.raise_binding
+        elsif defined?(exception.initialize_binding) && \
+              !exception.initialize_binding.nil?
+          breakpoint_binding = exception.initialize_binding
+        else
+          warn "Warning: could not restore the failure's context"
+          $stderr.puts
+          quiet = true
+        end
       end
+      breakpoint_binding ||= RubyVM::DebugInspector.find_our_caller_binding
+      breakpoint_binding.pry(quiet:)
     end
   end
 end
