@@ -49,7 +49,7 @@ echo "systemd-udevd has reloaded its databases." >&2
 # possible on the device, like MAC spoofing. Hence, if NM wins, the
 # udev-triggered run of tails-spoof-mac will fail.
 echo "Replaying udev events..." >&2
-udevadm trigger --settle --type=all --action=add \
+udevadm trigger --verbose --settle --type=all --action=add \
         --attr-nomatch=class=0x030000 \
         --subsystem-nomatch=backlight \
         --subsystem-nomatch='drm*' \
