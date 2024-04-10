@@ -19,7 +19,7 @@ if tails_network_enabled ; then
    /bin/rm -f /etc/modprobe.d/all-net-blocklist.conf
    /bin/touch /etc/modprobe.d
    # Make sure that the blocklist has disappeared from the filesystem
-   /bin/sync
+   /bin/sync --file-system /etc/modprobe.d
 fi
 
 # XXX: add debugging information for #9012 to the Journal
