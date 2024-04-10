@@ -7,6 +7,7 @@ set -x
 NET_MODULES_BLOCKLIST=/etc/modprobe.d/all-net-blocklist.conf
 
 # Import tails_network_enabled()
+# shellcheck source=tails-shell-library/tails-greeter.sh
 . /usr/local/lib/tails-shell-library/tails-greeter.sh
 
 systemctl start tails-unblock-network.service
