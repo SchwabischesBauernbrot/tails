@@ -2,9 +2,9 @@
 # this differently.
 
 unless defined? SCENARIO_INDENT
-  SCENARIO_INDENT = ' ' * 4
-  STEP_INDENT = ' ' * 6
-  SUBSTEP_INDENT = ' ' * 8
+  SCENARIO_INDENT = (' ' * 4).freeze
+  STEP_INDENT = (' ' * 6).freeze
+  SUBSTEP_INDENT = (' ' * 8).freeze
 
   begin
     unless Cucumber::Core::Ast::Feature.instance_methods.include?(:accept_hook?)
