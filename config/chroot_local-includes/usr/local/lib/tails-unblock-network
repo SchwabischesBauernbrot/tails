@@ -1,29 +1,25 @@
 #!/bin/sh
 
+# Unblock the network by removing the blocklist of all network drivers,
+# triggering udev events to load the drivers, and starting NetworkManager.
+#
+# See the "Network blocking" section in the "MAC address anonymization"
+# design document for details:
+# https://tails.net/contribute/design/MAC_address/
+
 set -e
 set -u
 set -x
-
-NET_MODULES_BLOCKLIST=/etc/modprobe.d/all-net-blocklist.conf
 
 # Import tails_network_enabled()
 # shellcheck source=tails-shell-library/tails-greeter.sh
 . /usr/local/lib/tails-shell-library/tails-greeter.sh
 
-systemctl start tails-unblock-network.service
-
-# Without this, network is sometimes not unblocked, probably due to some
-# race condition between tails-unblock-network.service (that deletes the
-# blocklist file) and udevadm trigger.
-# This might have been caused by an aufs weirdness (#9012),
-# but this code is rather simple and it does not hurt to ensure
-# our assumptions are verified.
-if tails_network_enabled; then
-   echo "Waiting for ${NET_MODULES_BLOCKLIST} to be gone..." >&2
-   while [ -e "${NET_MODULES_BLOCKLIST}" ]; do
-      sleep 0.5
-   done
-   echo "${NET_MODULES_BLOCKLIST} is gone." >&2
+if tails_network_enabled ; then
+   /bin/rm -f /etc/modprobe.d/all-net-blocklist.conf
+   /bin/touch /etc/modprobe.d
+   # Make sure that the blocklist has disappeared from the filesystem
+   /bin/sync
 fi
 
 # XXX: add debugging information for #9012 to the Journal
