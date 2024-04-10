@@ -41,26 +41,24 @@ echo "systemd-udevd has reloaded its databases." >&2
 # Now we'll load any present network device previously blocked by
 # the blocklist. In particular, the MAC spoofing udev rule should trigger
 # for each network device added.
+#
+# We use --settle to block until the triggered events have finished.
+# NetworkManager is started immediately after, and without the blocking
+# behaviour there's a race between NM and the MAC spoof udev triggers.
+# When NM takes control of some network device, some operations are not
+# possible on the device, like MAC spoofing. Hence, if NM wins, the
+# udev-triggered run of tails-spoof-mac will fail.
 echo "Replaying udev events..." >&2
-udevadm trigger --type=subsystems --action=add \
+udevadm trigger --settle --type=subsystems --action=add \
         --subsystem-nomatch=backlight \
         --subsystem-nomatch='drm*' \
         --subsystem-nomatch=graphics
-udevadm trigger --type=devices --action=add \
+udevadm trigger --settle --type=devices --action=add \
         --attr-nomatch=class=0x030000 \
         --subsystem-nomatch=backlight \
         --subsystem-nomatch='drm*' \
         --subsystem-nomatch=graphics
 echo "replayed udev events." >&2
-
-# Block until all triggers have been run. NetworkManager is started immediately
-# after, and without the blocking behaviour there's a race between NM
-# and the MAC spoof udev triggers. When NM takes control of some network device,
-# some operations are not possible on the device, like MAC spoofing. Hence,
-# if NM wins, the udev-triggered run of tails-spoof-mac will fail.
-echo "Restarting systemd-udev-settle.service..." >&2
-systemctl restart systemd-udev-settle.service
-echo "systemd-udev-settle.service restarted." >&2
 
 # XXX: add debugging information for #9012 to the Journal
 /sbin/lsmod
