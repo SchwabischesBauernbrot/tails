@@ -535,3 +535,24 @@ def translate(str, translation_domain: nil, drop_accelerator: true, drop_markup:
   end
   rv
 end
+
+def info_log(message = '', **options)
+  options[:color] = :clear
+  # This trick allows us to use a module's (~private) method on a
+  # one-off basis.
+  cucumber_console = Class.new.extend(Cucumber::Formatter::Console)
+  puts cucumber_console.format_string(message, options[:color])
+end
+
+def debug_log(message, **options)
+  options[:timestamp] = true unless options.key?(:timestamp)
+  return unless $debug_log_fns
+
+  if options[:timestamp]
+    # Force UTC so the local timezone difference vs UTC won't be
+    # added to the result.
+    elapsed = (Time.now - TIME_AT_START.to_f).utc.strftime('%H:%M:%S.%9N')
+    message = "#{elapsed}: #{message}"
+  end
+  $debug_log_fns.each { |fn| fn.call(message, **options) }
+end

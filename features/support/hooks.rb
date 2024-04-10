@@ -2,6 +2,7 @@ require 'fileutils'
 require 'rb-inotify'
 require 'time'
 require 'tmpdir'
+require "#{GIT_DIR}/features/support/monkeypatches/extra_hooks.rb"
 
 # Run once, before any feature
 AfterConfiguration do |config|
