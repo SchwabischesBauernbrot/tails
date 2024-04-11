@@ -33,7 +33,10 @@ exec_firefox_helper() {
     # fontconfig above.
     cd "${TBB_INSTALL}"
 
-    # Environment stuff from the upstream start-browser script:
+    # Environment stuff from the upstream start-browser script. Please
+    # see the "Sync with the upstream wrapper scripts" section in
+    # wiki/src/contribute/release_process/tor-browser.mdwn for more
+    # context about this.
 
     # Do not (try to) connect to the session manager.  Otherwise it
     # does (and fails) but if it succeeded it would be "very bad",
