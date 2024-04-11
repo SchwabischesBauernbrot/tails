@@ -774,16 +774,25 @@ Style and usage
 
 - **SVG images**
 
-  SVG are easier to maintain and look great on all screen size, but they are
+  SVG are easier to maintain and look great on all screen sizes, but they are
   not displayed in the *Safest* security level of *Tor Browser*.
   ([[!tails_ticket 17805]])
 
-  Because of that, avoid using SVG images:
+  Because of that, we don't use SVG images by default. Instead, do the following:
 
-  - Export SVG images to PNG and [[compress them|style_guide#compress-image]].
+  1. Export SVG images to PNG at the same size as they would be displayed on a large screen.
 
-  - Store the SVG source side-by-side with its PNG version, to ease future
-    modifications.
+  1. [[Compress the PNG image.|style_guide#compress-image]]
+
+  1. Store the SVG source side-by-side with its PNG version, to ease future
+     modifications.
+
+  1. For the bigger and more significant images that could benefit from the
+     additional quality of SVG on bigger screens, you can add `class="svg"` to
+     the image so that [[!tails_gitweb wiki/src/lib/js/local.js]]
+     replaces it with the SVG version whenever JavaScript is available.
+
+         \[[!img city.png link="no" class="svg" alt=""]]
 
 <a id="tails"></a>
 
