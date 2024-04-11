@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", function() {
-  /* Toggle warnings
-   */
+
+  /* Toggle warnings */
+
   let warnings = ["identity", "tor", "computer"];
 
   function hideAllWarnings(evt) {
@@ -25,6 +26,22 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  warnings.forEach(warning => document.getElementById("toggle-" + warning).onclick = function(e) { toggleWarnings(warning, e); });
-  warnings.forEach(warning => document.getElementById("hide-" + warning).onclick = function(e) { hideAllWarnings(e); });
+  warnings.forEach(warning => {
+    let toggle = document.getElementById("toggle-" + warning);
+    if(toggle) {
+      toggle.onclick = function(e) { toggleWarnings(warning, e); }
+    }
+    let hide = document.getElementById("hide-" + warning);
+    if(hide) {
+      hide.onclick = function(e) { hideAllWarnings(e); }
+    }
+  });
+
+  /* Change PNG images of class 'svg' to SVG images (#17805) */
+
+  var svgs = document.getElementsByClassName("svg");
+  for (let i = 0; i < svgs.length; i++) {
+    svgs[i].src = svgs[i].src.replace(/\.png$/, '.svg');
+  }
+
 });

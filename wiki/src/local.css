@@ -324,12 +324,23 @@ header.title { /* Override style.css */
 }
 
 #tails-logo a, #tails-logo .selflink {
-  background: url(lib/logo.svg) no-repeat center 10px;
   display: block;
+  width: 330px;
   height: 110px;
+  margin: 0 auto;
+}
+
+#tails-logo a span, #tails-logo .selflink span {
+  display: block;
+  width: 0;
+  height: 0;
   font-size: 0;
   color: transparent;
   text-indent: -9999px;
+}
+
+#tails-logo a img, #tails-logo .selflink img {
+  margin: 10px 30px;
 }
 
 /* Search box and Donate button */
@@ -425,8 +436,7 @@ label[for="searchbox"]{
 @media (min-width: 600px) {
   #tails-logo a, #tails-logo .selflink {
     height: 120px;
-    background-position: 30px 10px;
-    max-width: 330px;
+    margin: 0;
   }
   #search-and-donate {
     flex-direction: column;
