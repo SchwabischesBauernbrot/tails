@@ -1,0 +1,5 @@
+#!/bin/sh
+
+set -eu
+
+sed -i -e 's@^SystemGroup lpadmin$@SystemGroup root lpadmin@' /etc/cups/cups-files.conf
