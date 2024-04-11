@@ -25,6 +25,14 @@ document.addEventListener("DOMContentLoaded", function() {
     }
   }
 
-  warnings.forEach(warning => document.getElementById("toggle-" + warning).onclick = function(e) { toggleWarnings(warning, e); });
-  warnings.forEach(warning => document.getElementById("hide-" + warning).onclick = function(e) { hideAllWarnings(e); });
+  warnings.forEach(warning => {
+    let toggle = document.getElementById("toggle-" + warning);
+    if(toggle) {
+      toggle.onclick = function(e) { toggleWarnings(warning, e); }
+    }
+    let hide = document.getElementById("hide-" + warning);
+    if(hide) {
+      hide.onclick = function(e) { hideAllWarnings(e); }
+    }
+  });
 });
