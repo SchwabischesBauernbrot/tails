@@ -25,7 +25,7 @@ umount_option="$(echo "$option" | grep -w umount || true)"
 
 . /scripts/functions
 
-MOUNTPOINT=/root/mnt
+MOUNTPOINT=/root/mnt/tails.git
 
 run() {
   for mod in fscache 9pnet 9pnet_virtio 9p; do
@@ -33,7 +33,7 @@ run() {
   done
 
   mkdir -p "$MOUNTPOINT"
-  mount -t 9p src "$MOUNTPOINT"
+  mount -t 9p tails.git "$MOUNTPOINT"
 
   # Mount /proc and /dev into the chroot unless umount was requested.
   # This is needed for the bind mount hooks to work.

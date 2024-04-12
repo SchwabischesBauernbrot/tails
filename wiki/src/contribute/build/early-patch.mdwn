@@ -9,7 +9,7 @@ Rebuilding an image is unfortunately very slow and resource-intensive, which mak
 unpleasant.
 
 The idea of early-patch is very simple: at boot time, if a specific boot option is added, a directory is shared
-between the host and the Tails VM, and mounted at `/mnt/`. Since mounting in itself is not very useful,
+between the host and the Tails VM, and mounted at `/mnt/tails.git/`. Since mounting in itself is not very useful,
 you can configure a program to run at initramfs-time.
 
 [[!toc levels=2]]
@@ -23,12 +23,12 @@ Please add this to your domain definition, inside the `<devices>` tag:
 ```
 <filesystem type='mount' accessmode='passthrough'>
   <source dir='/path/to/your/tails/checkout/'/>
-  <target dir='src'/>
+  <target dir='tails.git'/>
   <readonly/>
 </filesystem>
 ```
 
-The word `src` is a magic constant. Do *not* change it.
+The word `tails.git` is a magic constant. Do *not* change it.
 
 ## Create an install script
 
