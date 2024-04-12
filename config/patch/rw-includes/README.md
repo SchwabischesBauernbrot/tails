@@ -2,9 +2,9 @@
 
 This directory is used to share files between the host and the Tails VM.
 
-When you add `early_patch` to the boot options of the Tails VM, any
-files in this directory will be bind mounted (or copied, if you use
-`early_patch=umount`) to the root filesystem of the Tails VM in the
+When you add `early_patch` (or `patch`) to the boot options of the Tails
+VM, any files in this directory will be bind mounted (or copied, if you
+use `early_patch=umount`) to the root filesystem of the Tails VM in the
 initramfs phase of the boot process.
 
 If the files are bind mounted, they will be read-write in the Tails VM,
