@@ -33,7 +33,28 @@ run() {
   done
 
   mkdir -p "$MOUNTPOINT"
-  mount -t 9p tails.git "$MOUNTPOINT"
+
+  set +x
+  if ! err=$(mount -t 9p tails.git "$MOUNTPOINT" 2>&1); then
+    echo >&2 "$err"
+    # If the error is that the device does not exist, print a more
+    # helpful error message.
+    if echo "$err" | grep -q "special device tails.git does not exist"; then
+      echo >&2 "
+Make sure that the libvirt domain definition file contains a passthrough
+filesystem mount like this:
+
+  <filesystem type='mount' accessmode='passthrough'>
+    <source dir='/path/to/your/tails/checkout/'/>
+    <target dir='tails.git'/>
+    <readonly/>
+  </filesystem>
+
+See https://tails.net/contribute/build/early-patch/ for more information."
+    fi
+    exit 1
+  fi
+  set -x
 
   # Mount /proc and /dev into the chroot unless umount was requested.
   # This is needed for the bind mount hooks to work.
