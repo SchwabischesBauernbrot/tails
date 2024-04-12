@@ -1,3 +1,5 @@
+# rubocop:disable Style/Documentation
+
 # Now that we stopped supporting Cucumber<2.0, we could probably do
 # this differently.
 
@@ -14,7 +16,7 @@ unless defined? SCENARIO_INDENT
         # cucumber-ruby-core 1.1.3, lib/cucumber/core/test/case.rb:~59.
         def accept_hook?(hook)
           tag_expr = Cucumber::Core::Gherkin::TagExpression
-                       .new(hook.tag_expressions.flatten)
+                     .new(hook.tag_expressions.flatten)
           tag_expr.evaluate(@tags)
         end
       end
@@ -207,3 +209,5 @@ unless defined? SCENARIO_INDENT
     end
   end
 end
+
+# rubocop:enable Style/Documentation
