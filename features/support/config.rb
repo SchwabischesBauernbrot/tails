@@ -101,6 +101,8 @@ LIBVIRT_DOMAIN_NAME = 'TailsToaster'.freeze
 LIBVIRT_DOMAIN_UUID = '203552d5-819c-41f3-800e-2c8ef2545404'.freeze
 LIBVIRT_NETWORK_NAME = 'TailsToasterNet'.freeze
 LIBVIRT_NETWORK_UUID = 'f2305af3-2a64-4f16-afe6-b9dbf02a597e'.freeze
+ARTIFACTS_DISK_NAME = 'test-artifacts'.freeze
+GUEST_ARTIFACTS_DIR = '/tmp/test-artifacts'.freeze
 MISC_FILES_DIR = "#{Dir.pwd}/features/misc_files".freeze
 SERVICES_EXPECTED_ON_ALL_IFACES =
   [

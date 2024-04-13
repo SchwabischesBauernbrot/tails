@@ -381,6 +381,15 @@ After('@product') do |scenario|
         save_failure_artifact('Htpdate logs', "#{$config['TMPDIR']}/log.htpdate")
       end
     end
+
+    # Collect the remote shell log. It's stored on the test-artifacts
+    # disk, so we use libguestfs to fetch it.
+    $vm.storage.guestfs_disk_helper(ARTIFACTS_DISK_NAME) do |guestfs|
+      guestfs.download("#{GUEST_ARTIFACTS_DIR}/remote_shell.log",
+                       "#{ARTIFACTS_DIR}/remote_shell.log")
+    end
+
+
     # Note that the remote shell isn't necessarily running at all
     # times a scenario can fail (and a scenario failure could very
     # well cause the remote shell to not respond any more, e.g. when
