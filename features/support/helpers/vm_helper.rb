@@ -88,6 +88,19 @@ class VM
     rexml.elements['domain'].add_element('uuid')
     rexml.elements['domain/uuid'].text = LIBVIRT_DOMAIN_UUID
 
+
+    # <filesystem type="mount" accessmode="mapped">
+    #   <source dir=/tmp/TailsToaster/artifacts>
+    #   <target dir="test-artifacts"/>
+    # </filesystem>
+    artifacts_filesystem = REXML::Document.new <<-EOS
+      <filesystem type="mount" accessmode="mapped">
+        <source dir="#{ARTIFACTS_DIR}"/>
+        <target dir="test-artifacts"/>
+      </filesystem>
+    EOS
+    rexml.elements['domain/devices'].add_element(artifacts_filesystem.root)
+
     if $config['LIBVIRT_CPUMODEL']
       rexml.elements['domain/cpu'].add_attribute('mode', 'custom')
       rexml.elements['domain/cpu'].add_attribute('match', 'exact')
@@ -98,15 +111,14 @@ class VM
     end
 
     if config_bool('EARLY_PATCH')
-      rexml.elements['domain/devices'].add_element('filesystem')
-      rexml.elements['domain/devices/filesystem'].add_attribute('type', 'mount')
-      rexml.elements['domain/devices/filesystem'].add_attribute('accessmode',
-                                                                'passthrough')
-      rexml.elements['domain/devices/filesystem'].add_element('source')
-      rexml.elements['domain/devices/filesystem'].add_element('target')
-      rexml.elements['domain/devices/filesystem'].add_element('readonly')
-      rexml.elements['domain/devices/filesystem/source'].add_attribute('dir', Dir.pwd)
-      rexml.elements['domain/devices/filesystem/target'].add_attribute('dir', 'src')
+      early_patch_filesystem = REXML::Document.new <<-EOS
+        <filesystem type="mount" accessmode="passthrough">
+          <source dir="#{Dir.pwd}"/>
+          <target dir="src"/>
+          <readonly/>
+        </filesystem>
+      EOS
+      rexml.elements['domain/devices'].add_element(early_patch_filesystem.root)
     end
 
     update(xml: rexml.to_s)

@@ -51,6 +51,7 @@ from tailslib.userenv import read_user_env
 from typing import Dict, Tuple
 
 REMOTE_SHELL_DEV = '/dev/virtio-ports/org.tails.remote_shell.0'
+TEST_ARTIFACTS_DIR = pathlib.Path('/tmp/test-artifacts')
 
 
 def mk_switch_user_fn(user):
@@ -213,7 +214,21 @@ def execute_cmd_as_user(cmd, env: Dict, user, **kwargs):
 
 
 def main():
-    logging.basicConfig(level=logging.DEBUG)
+    # Mount the test artifacts directory
+    TEST_ARTIFACTS_DIR.mkdir(exist_ok=True)
+    subprocess.check_call([
+        "/bin/mount", "-t", "9p", "test-artifacts", TEST_ARTIFACTS_DIR,
+    ])
+
+    # Log to stderr and the test artifacts directory
+    logging.basicConfig(
+        level=logging.DEBUG,
+        handlers=[
+            logging.FileHandler(TEST_ARTIFACTS_DIR / "remote-shell.log"),
+            logging.StreamHandler(sys.stderr),
+        ],
+    )
+
     python_sessions = dict()
     fd = os.open(REMOTE_SHELL_DEV, os.O_RDWR)
     port = open(fd, 'wb+', buffering=0)

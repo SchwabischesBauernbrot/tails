@@ -88,6 +88,11 @@ loop do
                   random_alnum_string(6)
   unless File.exist?(ARTIFACTS_DIR)
     FileUtils.mkdir_p(ARTIFACTS_DIR)
+    # The libvirt-qemu user needs to be able to write to this directory,
+    # because it's used as a shared directory between the test suite and
+    # the VM.
+    FileUtils.chown(Process.uid.to_s, 'libvirt-qemu', ARTIFACTS_DIR)
+    FileUtils.chmod('g+rwx', ARTIFACTS_DIR)
     break
   end
 end
