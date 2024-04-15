@@ -117,19 +117,24 @@ class VM
 
     # Create a temporary disk which will be used to store test suite
     # artifacts.
+    if storage.volume_exists?(ARTIFACTS_DISK_NAME)
+      storage.delete_volume(ARTIFACTS_DISK_NAME)
+    end
     begin
-      @storage.create_new_disk(ARTIFACTS_DISK_NAME, size: 100, unit: 'MiB',
-                               type: 'raw')
+      storage.create_new_disk(
+        ARTIFACTS_DISK_NAME, size: 100, unit: 'MiB', type: 'raw',
+        )
     rescue NoSpaceLeftError => e
       cmd = "du -ah \"#{$config['TMPDIR']}\" | sort -hr | head -n20"
       info_log("#{cmd}\n" + `#{cmd}`)
       raise e
     end
-    add_after_scenario_hook { @storage.delete_volume(name) }
+    # add_after_scenario_hook { @storage.delete_volume(name) }
     disk_path = @storage.disk_path(ARTIFACTS_DISK_NAME)
     # Create an ext4 filesystem on the disk.
     fatal_system "mkfs.ext4 -L #{ARTIFACTS_DISK_NAME} #{disk_path}"
-    # Attach the disk to the VM.
+
+    # Attach the artifacts disk to the VM.
     plug_drive(ARTIFACTS_DISK_NAME, 'usb')
 
   rescue StandardError => e

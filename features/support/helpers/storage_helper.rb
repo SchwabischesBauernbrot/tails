@@ -85,6 +85,19 @@ class VMStorage
     @pool.lookup_volume_by_name(name).delete
   end
 
+  def volume_exists?(name)
+    begin
+      @pool.lookup_volume_by_name(name)
+      true
+    rescue Libvirt::RetrieveError
+      false
+    end
+  end
+
+  def lookup_volume_by_name(name)
+    @pool.lookup_volume_by_name(name)
+  end
+
   # XXX: giving up on a few worst offenders for now
   # rubocop:disable Metrics/AbcSize
   def create_new_disk(name, **options)

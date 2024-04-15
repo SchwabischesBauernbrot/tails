@@ -306,6 +306,32 @@ After('@product') do |scenario|
   # we want this to always exist, even if it's empty
   FileUtils.touch("#{ARTIFACTS_DIR}/skipped.txt")
 
+  # # Collect the remote shell log. It's stored on the test-artifacts
+  # # disk, so we use libguestfs to fetch it.
+  # debug_log("Downloading remote shell log to '#{ARTIFACTS_DIR}/remote_shell.log'")
+  # $vm.storage.guestfs_disk_helper(ARTIFACTS_DISK_NAME) do |guestfs|
+  #   guestfs.download("#{GUEST_ARTIFACTS_DIR}/remote_shell.log",
+  #                    "#{ARTIFACTS_DIR}/remote_shell.log")
+  # end
+
+  # # Collect the remote shell log. It's stored on the test-artifacts
+  # # so we mount the disk on the host and fetch it.
+  # debug_log("Downloading remote shell log to '#{ARTIFACTS_DIR}/remote_shell.log'")
+  # disk_path = $vm.storage.lookup_volume_by_name(ARTIFACTS_DISK_NAME).path
+  # # Attach disk to loop device on host by running "losetup --find --show"
+  # # and capturing the output
+  # loop_device = `losetup --find --show #{disk_path}`.strip
+  # # Mount the loop device
+  # mount_point = Dir.mktmpdir
+  # debug_log("Mounting #{loop_device} at #{mount_point}")
+  # fatal_system("mount #{loop_device} #{mount_point}")
+  # # Copy the remote shell log
+  # FileUtils.cp("#{mount_point}/remote_shell.log", "#{ARTIFACTS_DIR}/remote_shell.log")
+  # # Unmount the loop device
+  # fatal_system("umount #{loop_device}")
+  # # Detach the loop device
+  # fatal_system("losetup --detach #{loop_device}")
+
   if @video_capture_pid
     # We can be incredibly fast at detecting errors sometimes, so the
     # screen barely "settles" when we end up here and kill the video
@@ -381,14 +407,6 @@ After('@product') do |scenario|
         save_failure_artifact('Htpdate logs', "#{$config['TMPDIR']}/log.htpdate")
       end
     end
-
-    # Collect the remote shell log. It's stored on the test-artifacts
-    # disk, so we use libguestfs to fetch it.
-    $vm.storage.guestfs_disk_helper(ARTIFACTS_DISK_NAME) do |guestfs|
-      guestfs.download("#{GUEST_ARTIFACTS_DIR}/remote_shell.log",
-                       "#{ARTIFACTS_DIR}/remote_shell.log")
-    end
-
 
     # Note that the remote shell isn't necessarily running at all
     # times a scenario can fail (and a scenario failure could very
