@@ -67,7 +67,7 @@ ruff-changed-files:
   image: debian:sid
 
   script:
-    - apt-get -qy install ruff findutils git file
+    - apt-get -qy install ruff findutils git python3
     - ruff --version
     - git fetch origin "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
     - ./bin/test-utils/ruff "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}" --output-format=junit --output-file=ruff.xml
