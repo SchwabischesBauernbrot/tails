@@ -18,7 +18,7 @@ class TailsError(Exception):
     messages encoded in unicode"""
 
     def __init__(self, message):
-        super(TailsError, self).__init__(message)
+        super().__init__(message)
 
 
 def _to_unicode(obj, encoding="utf-8"):
