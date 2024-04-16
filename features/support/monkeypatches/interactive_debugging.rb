@@ -44,19 +44,11 @@ class RubyVM::DebugInspector
     # (e.g. in some class). Therefore we also guard by which file they
     # are defined in.
     case source_location
-    when __FILE__ # this file
-      # It's not this class method (or the methods in this module that
-      # are implemented using this method) since we are interested in
-      # the callers beyond those bindings.
-      method != __method__.inspect && \
-        method != :find_our_caller_binding && \
-        # It's not in our monkeypatched raise() (below), otherwise
-        # @raise_binding would always be the binding inside raise().
-        method != :raise && \
-        # It's not in our monkeypatched Exception constructor (below),
-        # otherwise and @initialize_binding would always be the
-        # binding inside that constructor.
-        method != :initialize
+    when __FILE__
+      # Everything in this file is ignored, otherwise we would always
+      # return the binding in this method, find_our_caller_binding(),
+      # raise() or Exception#initialize().
+      false
     when "#{GIT_DIR}/features/support/helpers/misc_helpers.rb"
       # It's not in helpers like try_for(). When interactively
       # debugging we rarely are trying to debug those methods, but
