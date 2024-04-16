@@ -159,6 +159,6 @@ def _set_liberal_perms_recursive(path):
     if os.path.isfile(path):
         os.chmod(path, 0o644)
     elif os.path.isdir(path):
-        os.chmod(path, 0o755)  # nosec set_bad_file_permissions
+        os.chmod(path, 0o755)  # nosec set_bad_file_permissions  # noqa: S103
         for f in os.listdir(path):
             _set_liberal_perms_recursive(os.path.join(path, f))
