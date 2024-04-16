@@ -1,2 +1,4 @@
 #!/bin/sh
-/usr/bin/gnome-terminal -- pkexec bash
+UNIT="root-terminal-$(cat /proc/sys/kernel/random/uuid)"
+systemd-run --user --quiet --scope --unit="${UNIT}" \
+  -- pkexec /usr/bin/gnome-terminal "${@}"
