@@ -43,6 +43,9 @@ class RubyVM::DebugInspector
     # ever define methods with the same name in other contexts
     # (e.g. in some class). Therefore we also guard by which file they
     # are defined in.
+    # When interactively debugging we rarely are trying to debug
+    # various helper methods but rather the context they are called
+    # from, so we exempt them below.
     case source_location
     when __FILE__
       # Everything in this file is ignored, otherwise we would always
@@ -50,15 +53,10 @@ class RubyVM::DebugInspector
       # raise() or Exception#initialize().
       false
     when "#{GIT_DIR}/features/support/helpers/dogtail.rb"
-      # We are interested in the caller's context.
       false
     when "#{GIT_DIR}/features/support/helpers/firewall_helper.rb"
-      # We are interested in the caller's context.
       false
     when "#{GIT_DIR}/features/support/helpers/misc_helpers.rb"
-      # It's not in helpers like try_for(). When interactively
-      # debugging we rarely are trying to debug those methods, but
-      # rather the context they are called from, so we exempt them.
       method != :assert_vmcommand_success && \
         method != :cmd_helper && \
         method != :pause && \
@@ -66,10 +64,8 @@ class RubyVM::DebugInspector
         method != :retry_tor && \
         method != :try_for
     when "#{GIT_DIR}/features/support/helpers/screen.rb"
-      # We are interested in the caller's context.
       false
     when "#{GIT_DIR}/features/support/helpers/vm_helper.rb"
-      # We are interested in the caller's context.
       method != :execute_successfully
     when "#{GIT_DIR}/features/step_definitions/snapshots.rb"
       # It's not in the snapshot machinery, otherwise when an error
