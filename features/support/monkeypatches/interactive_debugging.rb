@@ -52,6 +52,12 @@ class RubyVM::DebugInspector
       # return the binding in this method, find_our_caller_binding(),
       # raise() or Exception#initialize().
       false
+    when "#{GIT_DIR}/features/step_definitions/snapshots.rb"
+      # It's not in the snapshot machinery, otherwise when an error
+      # occurs during reach_checkpoint() or one of the generated
+      # snapshot steps we end up with those not very interesting
+      # contexts.
+      false
     when "#{GIT_DIR}/features/support/helpers/dogtail.rb"
       false
     when "#{GIT_DIR}/features/support/helpers/firewall_helper.rb"
@@ -67,12 +73,6 @@ class RubyVM::DebugInspector
       false
     when "#{GIT_DIR}/features/support/helpers/vm_helper.rb"
       method != :execute_successfully
-    when "#{GIT_DIR}/features/step_definitions/snapshots.rb"
-      # It's not in the snapshot machinery, otherwise when an error
-      # occurs during reach_checkpoint() or one of the generated
-      # snapshot steps we end up with those not very interesting
-      # contexts.
-      false
     else
       true
     end
