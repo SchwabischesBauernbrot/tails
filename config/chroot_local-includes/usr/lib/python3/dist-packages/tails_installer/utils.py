@@ -60,7 +60,7 @@ def extract_file_content_from_iso(iso_path, path):
     err = bytes_to_unicode(err)
     if proc.returncode:
         raise Exception(
-            _("There was a problem executing `%(cmd)s`." "%(out)s\n%(err)s")
+            _("There was a problem executing `%(cmd)s`.%(out)s\n%(err)s")
             % {"cmd": cmd, "out": out, "err": err}
         )
     return out
