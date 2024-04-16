@@ -1,7 +1,6 @@
 [Unit]
 Description=Detect Squashfs and I/O errors
-After=systemd-journald.service udisks2.service
-Requires=systemd-journald.service udisks2.service
+After=systemd-journald.target
 Before=gdm.service
 
 [Service]
