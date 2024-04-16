@@ -32,8 +32,12 @@ Feature: Additional software
     When I create a persistent storage and activate the Additional Software feature
     Then Additional Software is correctly configured for package "popularity-contest"
     When I shutdown Tails and wait for the computer to power off
-    And I start Tails from USB drive "__internal" with network unplugged and I login with persistence enabled
-    Then Additional Software is correctly configured for package "popularity-contest"
+    And I start Tails from USB drive "__internal" with network unplugged
+    And I enable persistence
+    And I log in to a new session
+    And the Additional Software installation service has started
+    Then I am notified that the installation succeeded
+    And Additional Software is correctly configured for package "popularity-contest"
     And the package "popularity-contest" is installed after Additional Software has been started
 
   # Depends on scenario: I set up Additional Software when installing a package without persistent partition and the package is installed next time I start Tails

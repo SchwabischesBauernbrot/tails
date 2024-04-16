@@ -35,8 +35,8 @@ msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-03-26 11:11+0100\n"
-"PO-Revision-Date: 2024-02-28 19:02+0000\n"
-"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"PO-Revision-Date: 2024-04-02 05:01+0000\n"
+"Last-Translator: Kaya Zeren <kayazeren@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tor/tails-gui/tr/"
 ">\n"
 "Language: tr\n"
@@ -106,7 +106,7 @@ msgid ""
 "Storage and activate the <b>Additional Software</b> feature."
 msgstr ""
 "Tails başlatılırken otomatik kurulum yapılması için bir kalıcı depolama "
-"birimi oluşturarak <b>Ek Uygulamalar</b> özelliğini etkinleştirebilirsiniz."
+"birimi oluşturarak <b>Ek uygulamalar</b> özelliğini etkinleştirebilirsiniz."
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:81
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
@@ -844,7 +844,7 @@ msgid ""
 "only."
 msgstr ""
 "USB bellek salt okunur olduğu için kalıcı depolama biriminin kilidi "
-"açılamıyor."
+"açılamadı."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:104
 msgid "Unlocking…"
@@ -915,7 +915,7 @@ msgstr "%(device)s aygıtına yazılamadı, atlanıyor."
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:358
 #, python-format
 msgid "Wrote to device at %(speed)d MB/s"
-msgstr "Aygıta %(speed)d MB/saniye hızında yazılıyor"
+msgstr "Aygıta %(speed)d MB/s hızında yazılıyor"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:370
 msgid "Extracting live image to the target device..."
@@ -1024,9 +1024,9 @@ msgid "Verifying filesystem..."
 msgstr "Dosya sistemi doğrulanıyor..."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1026
-#, fuzzy, python-format
+#, python-format
 msgid "Unable to change volume label: %s"
-msgstr "Birim etiketi değiştirişemedi: %(message)s"
+msgstr "Birim etiketi değiştirilemedi: %s"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1032
 msgid "Installing bootloader..."
@@ -1207,7 +1207,7 @@ msgstr "Tails kurucusuna uygun bir aygıt bulunamadı"
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:623
 #, python-format
 msgid "Plug in a USB stick of at least %0.1f GB."
-msgstr "En az %0.1f GB kapasiteli bir USB bellek takın."
+msgstr "En az %0.1f GB boyutunda bir USB bellek takın."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:636
 msgid "An error happened while installing Tails"
@@ -1460,12 +1460,12 @@ msgstr "Tails hakkında"
 
 #: config/chroot_local-includes/usr/local/bin/tails-about:40
 msgid "UNRELEASED"
-msgstr "YAYINLANMADI"
+msgstr "YAYINLANMAMIŞ"
 
 #: config/chroot_local-includes/usr/local/bin/tails-about:47
 #, python-format
 msgid "Built from %s"
-msgstr "%s'den oluşturuldu"
+msgstr "%s kullanılarak oluşturuldu"
 
 #: config/chroot_local-includes/usr/local/lib/tails-additional-software-notify:36
 msgid "Documentation"
@@ -1890,15 +1890,12 @@ msgstr ""
 "birimini silmeyi deneyin."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:717
-#, fuzzy
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
 msgstr ""
-"Kullanılabilecek yalnızca {available_memory} KiB bellek var. En az "
-"{required_memory} KiB gerekli.\n"
-"\n"
-"Bazı uygulamaları kapattıktan ya da yeniden başlattıkran sonra yeniden "
+"Kalıcı depolama biriminin parola ifadesini değiştirmek için yeterli bellek "
+"yok. Bazı uygulamaları kapattıktan ya da yeniden başlattıktan sonra yeniden "
 "deneyin."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/configuration/binding.py:425
@@ -2055,11 +2052,11 @@ msgid ""
 "To delete the Persistent Storage, restart Tails without unlocking the "
 "Persistent Storage and open the Persistent Storage settings again."
 msgstr ""
-"Kilidi açıkken kalıcı depolama birimi silinemiyor.\n"
+"Kilidi açıkken kalıcı depolama birimi silinemez.\n"
 "\n"
 "Kalıcı depolama birimini silmek için, kalıcı depolama biriminin kilidini "
-"açmadan Tails sistemini yeniden başlatın ve kalıcı depolama birimi "
-"ayarlarını yeniden açın."
+"açmadan Tails sistemini yeniden başlatın ve yeniden kalıcı depolama birimi "
+"ayarlarını açın."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:157
 msgid ""
@@ -2070,15 +2067,15 @@ msgid ""
 "USB stick, restart Tails without unlocking the Persistent Storage and open "
 "the Persistent Storage settings again."
 msgstr ""
-"USB bellek salt okunur olduğu için kalıcı depolama birimi silinemiyor.\n"
+"USB bellek salt okunur olduğu için kalıcı depolama birimi silinemez.\n"
 "\n"
 "Kalıcı depolama birimini silmek için USB belleğin salt okunur korumasını "
 "kapatın, kalıcı depolama biriminin kilidini açmadan Tails sistemini yeniden "
-"başlatın ve kalıcı depolama birimi ayarlarını yeniden açın."
+"başlatın ve yeniden kalıcı depolama birimi ayarlarını açın."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:165
 msgid "Impossible to delete the Persistent Storage"
-msgstr "Kalıcı depolama birimi silinemiyor"
+msgstr "Kalıcı depolama birimi silinemez"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:173
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:208
@@ -2513,10 +2510,10 @@ msgid ""
 "It is impossible to connect to Tor in Offline Mode.\n"
 "To connect to Tor and the Internet, restart Tails without Offline Mode."
 msgstr ""
-"Hoş geldiniz ekranında çevrim dışı kipi açtınız.\n"
-"Çevrim dışı kipinde Tor ağına bağlanılamaz.\n"
-"Tor ağına ve internete bağlanmak için Tails'i çevrim dışı kipi olmadan "
-"yeniden başlatın."
+"Karşılama ekranında çevrim dışı kipi açtınız.\n"
+"Çevrim dışı kipinde Tor ağı ile bağlantı kurulamaz.\n"
+"Tor ağı ve İnternet bağlantısı kurmak için çevrim dışı kipi olmadan yeniden "
+"Tails başlatın."
 
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:2
 msgid ""
@@ -2536,7 +2533,7 @@ msgstr "Uçbirimi root kullanıcı ile açar. Parola sormak için gksu kullanır
 
 #: ../config/chroot_local-includes/usr/share/applications/tails-documentation.desktop.in.h:1
 msgid "Tails Documentation"
-msgstr "Tails Belgeleri"
+msgstr "Tails belgeleri"
 
 #: ../config/chroot_local-includes/usr/share/applications/tails-documentation.desktop.in.h:2
 msgid "Learn how to use Tails"
@@ -2710,8 +2707,8 @@ msgid ""
 "If you want to work completely offline, you can disable all networking for "
 "increased security."
 msgstr ""
-"Tamamen çevrim dışı çalışmak istiyorsanız, güvenliği arttırmak için tüm ağı "
-"devre dışı bırakabilirsiniz."
+"Tam olarak çevrim dışı çalışmak istiyorsanız, güvenliği arttırmak için tüm "
+"ağı devre dışı bırakabilirsiniz."
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:560
 msgid ""
@@ -2802,7 +2799,7 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:581
 msgid "Impossible to unlock the Persistent Storage."
-msgstr "Kalıcı depolama biriminin kilidi açılamıyor."
+msgstr "Kalıcı depolama biriminin kilidi açılamadı."
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:640
 msgid "_Additional Settings"
@@ -3315,11 +3312,11 @@ msgstr "Açıklama"
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:510
 msgid "Technical Details"
-msgstr "Teknik Ayrıntılar"
+msgstr "Teknik bilgiler"
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:549
 msgid "Headers"
-msgstr "Üst Bilgiler"
+msgstr "Üst bilgiler"
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:594
 msgid "information about the error being reported"
@@ -3327,7 +3324,7 @@ msgstr "bildirilen hata ile ilgili bilgiler"
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:642
 msgid "Debugging Information"
-msgstr "Hata Ayıklama Bilgileri"
+msgstr "Hata ayıklama bilgileri"
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:667
 msgid "Technical details to include"
