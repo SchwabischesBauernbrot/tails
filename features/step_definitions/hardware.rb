@@ -10,7 +10,7 @@ Given /^I start the computer from DVD with network unplugged( and an unsupported
   the_computer_boots
 end
 
-When /^Tails detects disk read failures on (.+)$/ do |device|
+When /^Tails detects disk read failures on the (.+)$/ do |device|
   disk_ioerrors = '/var/lib/live/tails.disk.ioerrors'
   fake_ioerror_script_path = '/tmp/fake_ioerror.py'
 
