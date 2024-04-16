@@ -30,9 +30,9 @@ When /^Tails detects disk read failures on the (.+)$/ do |device|
     journal.send("#{fake_error}", SYSLOG_IDENTIFIER="kernel", PRIORITY=3)
   FAKEIOERROR
   $vm.file_overwrite(fake_ioerror_script_path, fake_ioerror_script)
-  $vm.execute(
+  $vm.execute_successfully(
     'systemctl --quiet is-active tails-detect-disk-ioerrors'
-  ).success?
+  )
   $vm.execute_successfully("python3 #{fake_ioerror_script_path}")
   try_for(60) { $vm.file_exist?(disk_ioerrors) }
   RemoteShell::SignalReady.new($vm)
