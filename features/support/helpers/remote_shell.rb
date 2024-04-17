@@ -174,7 +174,7 @@ module RemoteShell
       ret = RemoteShell.communicate(
         vm, 'python_execute', opts[:user], opts[:env], code, **opts
       )
-      debug_log('execution complete') if opts[:debug_log]
+      debug_log("python_execute returned: #{ret}") if opts[:debug_log]
       ret
     end
 
