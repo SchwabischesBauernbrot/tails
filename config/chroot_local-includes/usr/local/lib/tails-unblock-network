@@ -38,6 +38,11 @@ echo "Asking systemd-udevd to reload databases..." >&2
 udevadm control --reload
 echo "systemd-udevd has reloaded its databases." >&2
 
+# For debugging purposes, specifically to make it easier for us to
+# append subsystems of devices which cause trouble to the list of
+# excluded subsystems, we log all devices and their subsystems.
+udevadm info --export-db | grep "P:\|E: SUBSYSTEM"
+
 # Now we'll load any present network device previously blocked by
 # the blocklist. In particular, the MAC spoofing udev rule should trigger
 # for each network device added.
