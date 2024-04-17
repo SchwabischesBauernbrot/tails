@@ -485,6 +485,16 @@ def check_disk_integrity(name, dev, scheme)
   part_table_info = info_split[1]
   assert_match(/^    Type: +#{scheme}/, part_table_info,
                "Unexpected partition scheme on USB drive '#{name}', '#{dev}'")
+
+  # Also verify the partition table if the scheme is gpt
+  return unless scheme == 'gpt'
+
+  c = $vm.execute("sgdisk --verify #{dev}")
+  assert(c.success? &&
+         c.to_s.include?('No problems found.') && \
+         !c.to_s.include?('ERROR') &&
+         !c.to_s.include?('corrupt'),
+         "sgdisk --verify #{dev} failed. #{c}")
 end
 
 def check_part_integrity(name, dev, usage, fs_type,
@@ -903,6 +913,11 @@ Then /^the boot device has safe access rights$/ do
   assert_match(/^    HintSystem: +true$/, info,
                "Boot device '#{super_boot_dev}' is not system internal " \
                'for udisks')
+end
+
+Then /^the USB drive "([^"]+)" has a valid partition table$/ do |name|
+  disk_dev = $vm.disk_dev(name)
+  check_disk_integrity(name, disk_dev, 'gpt')
 end
 
 Then /^all persistent filesystems have safe access rights$/ do
