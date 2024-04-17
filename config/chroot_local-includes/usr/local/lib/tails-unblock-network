@@ -70,6 +70,7 @@ echo "Replaying udev events..." >&2
 # - scsi, scsi_device, scsi_generic, scsi_host (maybe some network cards use SCSI?)
 # - wmi, wmi_bus (might be used by some network controllers?)
 # - misc (might be used for some (virtual) network devices?)
+# - rfkill (might be used for some network devices?)
 udevadm trigger --verbose --settle --type=all --action=add \
   --subsystem-nomatch=acpi \
   --subsystem-nomatch=ata_device \
@@ -115,7 +116,6 @@ udevadm trigger --verbose --settle --type=all --action=add \
   --subsystem-nomatch=powercap \
   --subsystem-nomatch=power_supply \
   --subsystem-nomatch=regulator \
-  --subsystem-nomatch=rfkill \
   --subsystem-nomatch=rtc \
   --subsystem-nomatch=serial-base \
   --subsystem-nomatch=serio \
