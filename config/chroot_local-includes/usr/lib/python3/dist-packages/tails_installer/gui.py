@@ -565,6 +565,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             self.live.log.debug("drives: %s" % self.live.drives)
             target_list = []
             message = None
+            official_size = CONFIG["official_min_installation_device_size"]
             for device, info in list(self.live.drives.items()):
                 # Skip the device that is the source of the copy
                 if (
@@ -596,7 +597,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     self.status(message)
                     continue
                 # Skip too small devices, but inform the user
-                official_size = CONFIG["official_min_installation_device_size"]
                 if self.get_device_size(info) < mebibytes_to_bytes(
                     CONFIG["min_installation_device_size"]
                 ):
