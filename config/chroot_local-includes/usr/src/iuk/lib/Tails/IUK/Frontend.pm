@@ -247,12 +247,15 @@ method init_zenity_progress_dialog_text ((InstanceOf['Tails::IUK::DownloadProgre
 }
 
 method dialog (Str $question, Str :$type = 'question', Str :$title,
-               Maybe[Str] :$ok_label = undef, Maybe[Str] :$cancel_label = undef) {
+               Maybe[Str] :$ok_label = undef, Maybe[Str] :$cancel_label = undef,
+               Maybe[Bool] :$default_cancel = undef,
+           ) {
     if ($type ne 'question' && $type ne 'info') {
         assert_undefined($ok_label);
     }
     if ($type ne 'question') {
         assert_undefined($cancel_label);
+        assert_undefined($default_cancel);
     }
     my @cmd  = ('zenity', "--$type", '--ellipsize', '--text', $question);
     my $info = $question;
@@ -268,6 +271,7 @@ method dialog (Str $question, Str :$type = 'question', Str :$title,
         $info = "$info / $cancel_label";
         push @cmd, ('--cancel-label', $cancel_label);
     }
+    push @cmd, '--default-cancel' if $default_cancel;
     $self->info($info);
     return 1 if $self->batch;
     system(@cmd);
@@ -506,9 +510,10 @@ method run () {
                     $upgrade_path->{'total-size'}
                 ),
             ),
-            title        => __(q{Upgrade available}),
-            ok_label     => __(q{Upgrade now}),
-            cancel_label => __(q{Upgrade later}),
+            title          => __(q{Upgrade available}),
+            ok_label       => __(q{Upgrade now}),
+            cancel_label   => __(q{Upgrade later}),
+            default_cancel => 1,
             ));
         $self->do_incremental_upgrade($upgrade_path);
     }

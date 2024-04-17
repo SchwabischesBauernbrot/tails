@@ -765,11 +765,11 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             parent=self,
             flags=Gtk.DialogFlags.DESTROY_WITH_PARENT,
             message_type=Gtk.MessageType.INFO,
-            buttons=Gtk.ButtonsType.CLOSE,
+            buttons=Gtk.ButtonsType.OK,
             message_format=message_format,
         )
         dialog.run()
-        self.close()
+        dialog.destroy()
 
     def show_confirmation_dialog(
         self,
