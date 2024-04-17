@@ -225,7 +225,8 @@ When /^I (back up|install|reinstall|upgrade) Tails (?:to|on) USB drive "([^"]+)"
 
   if action == 'back up'
     assert(sensitive,
-           "Can't clone with Persistent Storage: Clone button is not sensitive")
+           'Cannot back up Tails: "Clone the current Persistent Storage" ' \
+           'button is not sensitive')
     clone_persistence_button.click
   end
 
