@@ -36,6 +36,9 @@ all_files="${all_files%$'\n'}"
 
 files_to_check=""
 while IFS= read -r file; do
+    if [ -z "${file}" ]; then
+        continue
+    fi
     if "$(dirname "$0")/is-file-type" check python "${file}"; then
         files_to_check="${files_to_check}${file}"$'\n'
     fi
