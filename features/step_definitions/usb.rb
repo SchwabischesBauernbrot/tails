@@ -480,7 +480,9 @@ Given /^I change the passphrase of the Persistent Storage( back to the original)
 end
 
 def check_disk_integrity(name, dev, scheme)
-  info = $vm.execute("udisksctl info --block-device '#{dev}'").stdout
+  info = $vm.execute_successfully(
+    "udisksctl info --block-device '#{dev}'"
+  ).stdout
   info_split = info.split("\n  org\.freedesktop\.UDisks2\.PartitionTable:\n")
   part_table_info = info_split[1]
   assert_match(/^    Type: +#{scheme}/, part_table_info,
@@ -499,7 +501,9 @@ end
 
 def check_part_integrity(name, dev, usage, fs_type,
                          part_label: nil, part_type: nil)
-  info = $vm.execute("udisksctl info --block-device '#{dev}'").stdout
+  info = $vm.execute_successfully(
+    "udisksctl info --block-device '#{dev}'"
+  ).stdout
   info_split = info.split("\n  org\.freedesktop\.UDisks2\.Partition:\n")
   dev_info = info_split[0]
   part_info = info_split[1]
@@ -627,7 +631,9 @@ Then /^a Tails persistence partition exists( with LUKS version 1)? on USB drive 
   end
 
   # Adapting check_part_integrity() seems like a bad idea so here goes
-  info = $vm.execute("udisksctl info --block-device '#{luks_dev}'").stdout
+  info = $vm.execute_successfully(
+    "udisksctl info --block-device '#{luks_dev}'"
+  ).stdout
   assert_match(%r{^    CryptoBackingDevice: +'/[a-zA-Z0-9_/]+'$}, info)
   assert_match(/^    IdUsage: +filesystem$/, info)
   assert_match(/^    IdType: +ext[34]$/, info)
@@ -909,7 +915,9 @@ Then /^the boot device has safe access rights$/ do
     end
   end
 
-  info = $vm.execute("udisksctl info --block-device '#{super_boot_dev}'").stdout
+  info = $vm.execute_successfully(
+    "udisksctl info --block-device '#{super_boot_dev}'"
+  ).stdout
   assert_match(/^    HintSystem: +true$/, info,
                "Boot device '#{super_boot_dev}' is not system internal " \
                'for udisks')
