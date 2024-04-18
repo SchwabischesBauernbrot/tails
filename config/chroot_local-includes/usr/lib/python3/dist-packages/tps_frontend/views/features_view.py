@@ -195,29 +195,26 @@ class FeaturesView(View):
         app.launch(context=launch_context)
 
     def on_activate_link(self, label: Gtk.Label, uri: str):
-        logger.debug("Opening documentation: %s", uri)
-        cmd = ["/usr/local/bin/tails-documentation", uri]
-        try:
-            subprocess.run(cmd, stderr=subprocess.PIPE, text=True, check=True)
-        except subprocess.CalledProcessError as e:
-            logger.error("Failed to open documentation: %s", e)
-            title = _("Failed to open the documentation")
-            self.window.display_command_failed_error(title, cmd, e)
+        self.open_documentation(uri)
         return True
 
     def on_activate_link_button(self, link_button: Gtk.LinkButton):
-        uri = link_button.get_uri()
-        page, anchor = uri.split("#")
+        self.open_documentation(link_button.get_uri())
+        return True
+
+    def open_documentation(self, uri: str):
         logger.debug("Opening documentation: %s", uri)
-        cmd = ["/usr/local/bin/tails-documentation", page, anchor]
+        if "#" in uri:
+            page, anchor = uri.split("#")
+            cmd = ["/usr/local/bin/tails-documentation", page, anchor]
+        else:
+            cmd = ["/usr/local/bin/tails-documentation", uri]
         try:
             subprocess.run(cmd, stderr=subprocess.PIPE, text=True, check=True)
         except subprocess.CalledProcessError as e:
             logger.error("Failed to open documentation: %s", e)
             title = _("Failed to open the documentation")
             self.window.display_command_failed_error(title, cmd, e)
-
-        return True
 
     def add_custom_feature(self, proxy: Gio.DBusObject):
         description = proxy.get_cached_property("Description").get_string()
