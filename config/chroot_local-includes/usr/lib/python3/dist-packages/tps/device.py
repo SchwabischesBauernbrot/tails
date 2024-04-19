@@ -353,7 +353,7 @@ class TPSPartition:
         mem_cost_kib = min(mem_cost_kib, DESIRED_PBKDF_MEMORY_KIB)
 
         # Create the partition
-        logger.info("Creating partition")
+        logger.info(f"Creating partition on {parent_device.device_path}")
         next_step(_("Creating a partition for the Persistent Storage..."))
         partition_table = parent_device.partition_table
         object_path = partition_table.call_create_partition_sync(
