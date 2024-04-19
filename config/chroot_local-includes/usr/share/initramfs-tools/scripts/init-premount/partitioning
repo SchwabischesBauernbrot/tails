@@ -102,6 +102,33 @@ first_boot_repartition() {
 	settle
 	log_end_msg
 
+  if grep -qw "test_gpt_repair" /proc/cmdline; then
+    # Corrupt the MBR and GPT to test the repair mechanism
+    SECTORS=$(blockdev --getsz "${PARENT_DEVICE}")
+
+    corrupt_options=$(sed -n 's/.*test_gpt_repair=\([^ ]*\).*/\1/p' /proc/cmdline)
+    if echo "${corrupt_options}" | grep -qw mbr; then
+      # Corrupt the MBR partition table
+      dd if=/dev/zero of="${PARENT_DEVICE}" bs=1 count=64 seek=446
+    fi
+    if echo "${corrupt_options}" | grep -qw gpt; then
+      # Corrupt the GPT main header
+      dd if=/dev/zero of="${PARENT_DEVICE}" bs=512 count=1 seek=1
+    fi
+    if echo "${corrupt_options}" | grep -qw gpt_table; then
+      # Corrupt the GPT main partition table
+      dd if=/dev/zero of="${PARENT_DEVICE}" bs=512 count=32 seek=2
+    fi
+    if echo "${corrupt_options}" | grep -qw gpt_backup; then
+      # Corrupt the GPT backup header
+      dd if=/dev/zero of="${PARENT_DEVICE}" bs=512 count=1 seek=$((SECTORS - 1))
+    fi
+    if echo "${corrupt_options}" | grep -qw gpt_backup_table; then
+      # Corrupt the GPT backup partition table
+      dd if=/dev/zero of="${PARENT_DEVICE}" bs=512 count=32 seek=$((SECTORS - 33))
+    fi
+  fi
+
   GPT_IS_VALID=
   for i in 1 2 3; do
     # Verify the GPT headers and partition tables. We've seen cases where

@@ -1747,3 +1747,9 @@ end
 Given /^I reload tails-persistent-storage.service$/ do
   $vm.execute_successfully('systemctl reload tails-persistent-storage.service')
 end
+
+And(/^the boot log shows that the GPT header was repaired$/) do
+  boot_log = $vm.execute_successfully('cat /var/log/boot.log').stdout
+  assert_match(/The GPT is corrupt. Attempting to repair it./, boot_log)
+  assert_match(/The GPT is valid/, boot_log)
+end

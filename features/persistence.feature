@@ -27,6 +27,34 @@ Feature: Tails persistence
     Then persistence for "Persistent" is active
     And the file I created in the Persistent directory exists
 
+  Scenario: Creating a Persistent Storage when the GPT header was repaired
+    Given a computer
+    And I set Tails to boot with options "test_gpt_repair=mbr,gpt,gpt_table"
+    And I create a 7200 MiB disk named "temp"
+    And I plug USB drive "temp"
+    And I write the Tails USB image to disk "temp"
+    And I start Tails from USB drive "temp" with network unplugged
+    Then Tails is running from USB drive "temp"
+    And the boot log shows that the GPT header was repaired
+    When I log in to a new session
+    And all notifications have disappeared
+    And I create a persistent partition with the default settings
+    Then persistence for "Persistent" is active
+
+  Scenario: Creating a Persistent Storage when the GPT backup header was repaired
+    Given a computer
+    And I set Tails to boot with options "test_gpt_repair=mbr,gpt_backup,gpt_backup_table"
+    And I create a 7200 MiB disk named "temp"
+    And I plug USB drive "temp"
+    And I write the Tails USB image to disk "temp"
+    And I start Tails from USB drive "temp" with network unplugged
+    Then Tails is running from USB drive "temp"
+    And the boot log shows that the GPT header was repaired
+    When I log in to a new session
+    And all notifications have disappeared
+    And I create a persistent partition with the default settings
+    Then persistence for "Persistent" is active
+
   Scenario: Creating a Persistent Storage when system is low on memory
     Given I have started Tails without network from a USB drive without a persistent partition and logged in
     And the system is very low on memory
