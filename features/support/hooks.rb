@@ -82,6 +82,16 @@ AfterConfiguration do |config|
       raise "Cannot create temporary directory: #{e}"
     end
   end
+
+  if config_bool('INTERACTIVE_DEBUGGING')
+    # This module extends exceptions so they contain the stack of
+    # bindings for all callers from the point that it was raised,
+    # which we use to restore the context of the failure when
+    # --interactive-debugging is enabled.
+    # BTW, upstream renamed the module to skiptrace five years ago but
+    # hasn't done any release since then.
+    require 'bindex'
+  end
 end
 
 # Common
