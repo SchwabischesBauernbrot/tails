@@ -102,6 +102,52 @@ first_boot_repartition() {
 	settle
 	log_end_msg
 
+  GPT_IS_VALID=
+  for i in 1 2 3; do
+    # Verify the GPT headers and partition tables. We've seen cases where
+    # both the MBR and the GPT backup tables were corrupted, which caused
+    # the Persistent Storage partition to fail to be created.
+    verify_output=$(sgdisk --verify "${PARENT_DEVICE}" 2>&1 || true)
+    # Print the output of sgdisk --verify for debugging purposes
+    echo "${verify_output}"
+
+    # Check if sgdisk --verify detected any corruption. This verifies the
+    # following:
+    # * The protective MBR
+    # * The GPT header
+    # * The GPT partition table
+    # * The GPT backup header
+    # * The GPT backup partition table
+    if ! echo "${verify_output}" | grep -q 'corrupt\|ERROR'; then
+      _log_msg "The GPT is valid"
+      GPT_IS_VALID=1
+      break
+    fi
+
+    _log_msg "The GPT is corrupt. Attempting to repair it."
+    # Wipe the GPT. sgdisk will exit with exit code 2 because the GPT is
+    # corrupt, so we ignore the exit code.
+    # Note that we can't use sgdisk --zap-all because it would also wipe
+    # the MBR, which would remove the hybrid MBR that we need to boot on
+    # legacy BIOS systems.
+    sgdisk --zap "${PARENT_DEVICE}" || true
+    settle
+    # Recreate the GPT and the system partition
+    sgdisk --new=1:0:+"${SYSTEM_PARTITION_SIZE}" \
+      --typecode=1:"${ESP_GUID}" \
+      --change-name=1:Tails \
+      --mbrtogpt \
+      "${PARENT_DEVICE}"
+    settle
+  done
+
+  if [ -z "${GPT_IS_VALID}" ]; then
+    MSG="Resizing the system partition has failed. The hardware of your USB stick is probably failing. Please install Tails on a different USB stick. Press ENTER to shut down."
+    plymouth message --text="${MSG}"
+    plymouth watch-keystroke > /dev/null
+		poweroff -f
+  fi
+
 	# Tell the kernel to reload the partition table
 	partprobe "${PARENT_DEVICE}"
 	settle
