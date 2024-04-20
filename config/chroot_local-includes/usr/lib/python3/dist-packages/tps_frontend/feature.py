@@ -292,7 +292,8 @@ class Feature:
                 DBusError.strip_remote_error(e)
                 self.window.display_error(
                     _("Error activating feature {}").format(self.translated_name),
-                    e.message,
+                    _("An error occurred while activating the feature."),
+                    details=(_("Details"), e.message),
                 )
 
             # Ensure that the switch displays the correct state
@@ -340,7 +341,8 @@ class Feature:
                 DBusError.strip_remote_error(e)
                 self.window.display_error(
                     _("Error deactivating feature {}").format(self.translated_name),
-                    e.message,
+                    _("An error occurred while deactivating the feature."),
+                    details=(_("Details"), e.message),
                 )
 
             # Ensure that the switch displays the correct state
@@ -401,7 +403,10 @@ class Feature:
             logger.error(f"Error deleting data of feature {self.name}: {e.message}")
             self.window.display_error(
                 _("Error deleting data of feature {}").format(self.translated_name),
-                e.message,
+                _("An error occurred while deleting the data of feature {}.").format(
+                    self.translated_name,
+                ),
+                details=(_("Details"), e.message),
             )
             return
         finally:
