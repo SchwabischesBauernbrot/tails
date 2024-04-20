@@ -244,6 +244,23 @@ Check the Release Manager role
 Check the [[contribute/working_together/roles/release_manager]] role
 documentation: it has more tasks that should be done early enough.
 
+Sometimes some of these are forgotten, and for emergency releases they
+will always be last minute, so let's make sure that the release will
+not be blocked later.
+
+### Make sure there are enough manual testers
+
+Check your if you have enough manual testers registered. If not, ping
+the usual testers (tails-manual-testers@boum.org) and warn the
+Foundations Team that you may need their help.
+
+### Make sure there is a Trusted Reproducer
+
+Check that the <https://tails.net/contribute/calendar/> has a _Trusted
+Reproducer_ assigned for this release, otherwise try to find one among
+the manual testers (tails-manual-testers@boum.org) or FT (XMPP,
+tails-foundations@boum.org).
+
 Coordinate with Debian security updates
 ---------------------------------------
 
@@ -1436,7 +1453,7 @@ back semi-mechanically later on.
 
 **Beware!** If your have to plug your OpenPGP smart card or reassemble the
 key again after this point it invalidates *everything* done for
-the [[reproduction of this release|test#reproducibility-final-check]]
+the [[reproduction of this release|#reproducibility-final-check]]
 so it has to be started from the beginning:
 
 * the original text is restored on the pad, and
@@ -1691,11 +1708,6 @@ EOF
 Lead the internal manual testing to conclusion
 ==============================================
 
-1. Manual testers can now do the "Reproducibility" part of the manual test suite.
-
-   To communicate this to them, delete "⚠ Wait until the Release Manager […]" in
-   the "Reproducibility" section on the pad.
-
 1. Make sure that enough people are here to run the tests, that they
    report their results in due time, and that they make it clear when
    they're leaving for good.
@@ -1726,9 +1738,22 @@ Lead the internal manual testing to conclusion
 1. If you were the one running the [automated test suite](#run-automated-tests),
    check its results.
 
-1. Triage test results, reproduce bugs as needed, decide what the next
-   step is and make sure it happens: add to known issues? file an issue?
-   release blocker? improve the test description (steps, expected outcome)?
+1. Triage test results (except for the reproducibility test), reproduce bugs as
+   needed, decide what the next step is and make sure it happens: add to known
+   issues? file an issue? release blocker? improve the test description (steps,
+   expected outcome)?
+
+<a id="reproducibility-final-check"></a>
+
+Notify the Trusted Reproducer
+=============================
+
+Send an email to the TR telling them they can now start the
+Reproducibility test.
+
+Note that the Trusted Reproducer has 72 hours to complete this check,
+you do not have to wait for this to be completed, just make sure they
+are informed that the Reproducibility check can be started.
 
 Prepare announcements and blog posts
 ====================================
@@ -1836,9 +1861,7 @@ prepare the announcement for the release, write it yourself:
    - Mention major user-visible improvements.
 
    - Document important config changes that users of the Persistent Storage have to do
-     themselves (e.g. the Pidgin proxy settings change in
-     [[!tails_gitweb_commit 9925321]] breaks all existing persistent
-     profiles).
+     themselves.
 
    - Document known issues.
 
@@ -1847,7 +1870,7 @@ prepare the announcement for the release, write it yourself:
 In `wiki/src/home/testing.html`, in the "Current calls for testing" section,
 add a bullet point with a pointer to
 the call for testing for this release candidate
-(<https://tails.net/news/test_$TAG/>, that you just wrote).
+(`https://tails.net/news/test_$TAG/`, that you just wrote).
 
 In any case
 -----------
@@ -1921,7 +1944,7 @@ To disable mirrors that are lagging behind:
 
 2. Push to the [[!tails_gitlab tails/mirror-pool]] `master` branch.
 
-3. Verify that the CI pipeline passed on [[!tails_gitlab tails/mirror-pool/-/pipelines]].
+3. Verify that the CI pipeline passed on `https://gitlab.tails.boum.org/tails/mirror-pool/-/pipelines`.
 
 4. Notify <tails-mirrors@boum.org>, so they communicate with the operators of the
    outdated mirrors.
@@ -1991,7 +2014,7 @@ Check:
 
     [ "${DIST:?}" = alpha ]
 
-wait until <https://tails.net/news/test_$TAG/> is live.
+wait until `https://tails.net/news/test_$TAG/` is live.
 
 Bug tracker [if preparing a final release]
 --------------------------------------------

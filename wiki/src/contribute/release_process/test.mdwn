@@ -47,23 +47,6 @@ In a directory with many Tails ISO and USB images
            -type f -ls | sort -k 7
     )
 
-
-<a id="reproducibility-final-check"></a>
-
-Reproducibility
-===============
-
-⚠ Wait until the Release Manager removes this warning.
-
-
-0. Check that the <https://tails.net/contribute/calendar/>
-   documents who is the _Trusted Reproducer_ for this release.
-   If this is not the case, ask the RM (this is the only exception
-   to "do not trust anything said by the RM about this process").
-   If you are the RM, try to find a TR
-
-1. Send an email to the TR telling them they can now start the Reproducibility test
-
 Automated test suite
 ====================
 
@@ -173,15 +156,6 @@ WhisperBack
 
 * When we receive this bug report on the tails-bugs mailing list,
   Schleuder tells us that it was sent encrypted.
-
-Virtualization support
-======================
-
-* Test that Tails starts and the browser launches in VirtualBox.
-
-  Hint: VirtualBox works inside a KVM virtual machine.
-        So if you can't easily setup VirtualBox on your host,
-        you can run it inside a guest VM.
 
 <a id="incremental-upgrades"></a>
 
