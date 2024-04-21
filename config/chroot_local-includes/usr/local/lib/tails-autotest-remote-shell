@@ -52,8 +52,9 @@ from typing import Dict, Tuple
 
 REMOTE_SHELL_DEV = '/dev/virtio-ports/org.tails.remote_shell.0'
 TEST_ARTIFACTS_DISK_LABEL = 'test-artifacts'
-TEST_ARTIFACTS_MOUNTPOINT = Path("/tmp", TEST_ARTIFACTS_DISK_LABEL)
+TEST_ARTIFACTS_MOUNTPOINT = Path("/tmp/test-artifacts")
 LOG_FILE = Path(TEST_ARTIFACTS_MOUNTPOINT, "remote_shell.log")
+LOG_FORMAT = "%(asctime)-15s %(levelname)s %(message)s"
 
 
 def mk_switch_user_fn(user):
@@ -229,12 +230,13 @@ def ensure_test_artifacts_disk_mounted():
 
 def main():
     ensure_test_artifacts_disk_mounted()
+    if LOG_FILE.exists():
+        LOG_FILE.unlink()
+    logFileHandler = logging.FileHandler(str(LOG_FILE))
+    logFileHandler.setFormatter(logging.Formatter(LOG_FORMAT))
     logging.basicConfig(
         level=logging.DEBUG,
-        handlers=[
-            logging.FileHandler(str(LOG_FILE)),
-            logging.StreamHandler(sys.stderr)
-        ]
+        handlers=[logFileHandler, logging.StreamHandler(sys.stderr)]
     )
     python_sessions = dict()
     fd = os.open(REMOTE_SHELL_DEV, os.O_RDWR)
@@ -349,6 +351,10 @@ def main():
                 json.dumps([id, 'error', exc_str]).encode('utf-8') + b"\n")
             port.flush()
             continue
+        finally:
+            # Ensure that the log is flushed and synced to disk after each command
+            logFileHandler.flush()
+            os.sync()
 
 
 if __name__ == "__main__":

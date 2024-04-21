@@ -6,6 +6,7 @@ Feature: Tails has a sane default configuration
     Then the live user has been setup by live-boot
     And the live user is a member of only its own group and "cdrom dialout floppy video plugdev netdev scanner lp lpadmin users"
     And the live user owns its home directory which has strict permissions
+#    And I pause
 
   @not_release_blocker
   Scenario: No unexpected network services

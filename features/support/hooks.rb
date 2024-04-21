@@ -250,6 +250,7 @@ AfterFeature('@product') do
   $vmstorage
     .list_volumes
     .reject { |vol_name| vol_name == '__internal' }
+    .reject { |vol_name| vol_name == ARTIFACTS_DISK_NAME }
     .each   { |vol_name| $vmstorage.delete_volume(vol_name) }
 end
 
@@ -305,14 +306,6 @@ end
 After('@product') do |scenario|
   # we want this to always exist, even if it's empty
   FileUtils.touch("#{ARTIFACTS_DIR}/skipped.txt")
-
-  # # Collect the remote shell log. It's stored on the test-artifacts
-  # # disk, so we use libguestfs to fetch it.
-  # debug_log("Downloading remote shell log to '#{ARTIFACTS_DIR}/remote_shell.log'")
-  # $vm.storage.guestfs_disk_helper(ARTIFACTS_DISK_NAME) do |guestfs|
-  #   guestfs.download("#{GUEST_ARTIFACTS_DIR}/remote_shell.log",
-  #                    "#{ARTIFACTS_DIR}/remote_shell.log")
-  # end
 
   # # Collect the remote shell log. It's stored on the test-artifacts
   # # so we mount the disk on the host and fetch it.
@@ -477,6 +470,24 @@ After('@product') do |scenario|
   # causing trouble (for instance, packets from the previous scenario
   # have failed scenarios tagged @check_tor_leaks).
   $vm&.power_off
+
+  # Collect the remote shell log. It's stored on the test-artifacts
+  # disk, so we use libguestfs to fetch it.
+  debug_log("Downloading remote shell log to '#{ARTIFACTS_DIR}/remote_shell.log'")
+  $vm.storage.guestfs_disk_helper(ARTIFACTS_DISK_NAME) do |guestfs, _|
+    device = guestfs.list_devices.first
+    guestfs.mount_ro(device, '/')
+    begin
+      guestfs.download("/remote_shell.log",
+                       "#{ARTIFACTS_DIR}/remote_shell.log")
+    rescue Guestfs::Error => e
+      if e.to_s.include?('No such file or directory')
+        debug_log("No remote_shell.log found: #{e}")
+      else
+        raise
+      end
+    end
+  end
 end
 # rubocop:enable Metrics/BlockNesting
 
