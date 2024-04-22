@@ -139,7 +139,8 @@ class LocaleDescriptions:
     def __init__(self):
         self.n_errors = 0
         self.languages_not_found = set()
-        self.po_to_mozilla = toml.load(open(MAPFILE))
+        with open(MAPFILE) as buf:
+            self.po_to_mozilla = toml.load(buf)
 
     def get_all_available_locales(self) -> set[tuple[str, str, str]]:
         moz_locales = set()
