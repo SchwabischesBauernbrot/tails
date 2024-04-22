@@ -694,92 +694,8 @@ Build the almost-final images
 
         . $(./bin/rm-config generate-environment --stage built-almost-final)
 
-Tag the release in Git
-======================
-
-	git tag -u "${TAILS_SIGNATURE_KEY:?}" \
-	  -m "tagging version ${VERSION:?}" "${TAG:?}" && \
-	git push origin "${TAG:?}" "${RELEASE_BRANCH:?}"
-
-Known limitations:
-
-- Pushing the tag is needed so that the APT repository is updated, and the Tails
-  APT configuration works at build and boot time. It might be premature, as
-  testing might reveal critical issues, but this is a signed tag, so it can be
-  overridden later.
-
-- From this push of a tag, the release branch will fail to build because the
-  last changelog entry is unreleased but corresponds to an existing tag.
-  Don't worry about it, this will be fixed shortly.
-
-Prepare the versioned APT suites
-================================
-
-Expected time: 15 minutes
-
-Versioned APT suite in our custom APT repository
-------------------------------------------------
-
-Within a few minutes after pushing the new release's Git tag, a cronjob
-creates a new APT suite in our custom APT repository. This new APT suite is
-called `$TAG` and is initially empty.
-
-Wait for this APT suite to be created and initialize it with the packages
-currently found in the APT suite corresponding to the branch used to prepare
-the release:
-
-      while ! ssh reprepro@incoming.deb.tails.boum.org reprepro list "${TAG:?}" >/dev/null 2>&1; do
-         sleep 5
-      done && \
-      ssh reprepro@incoming.deb.tails.boum.org \
-         tails-merge-suite "${RELEASE_BRANCH:?}" "${TAG:?}"
-
-Tagged snapshots of upstream APT repositories
----------------------------------------------
-
-Create tagged snapshots of upstream APT repositories:
-
-      ./bin/tag-apt-snapshots "${ALMOST_FINAL_BUILD_MANIFEST:?}" "${TAG:?}"
-
-Note:
-
-  - This command takes a while (about a dozen minutes).
-    While it's running, if you don't feel the need to take a break,
-    you can proceed with the "SquashFS file order" section below.
-
-  - It's expected that the packages that were pulled from our
-    [[custom APT repository|APT_repository/custom]] are
-    listed under "some packages were not found anywhere" (because we
-    are currently not using time-based snapshots for our custom APT
-    repository). However, _no other package should be on that list_.
-    Now, we have a "safety" net, in case you don't notice such a problem: if
-    other packages are missing, the next build (that will use the
-    newly created partial, tagged APT repository) will fail.
-
-Build images
-============
-
-Expected time: 50-95 minutes depending on your computer and the available
-Jenkins workers.
-
-Sanity check
-------------
-
-Verify that the Tor Browser release used in Tails still is the most
-recent. Also look if there's a new `-buildX` tag (e.g.
-`tor-browser-60.3.0esr-8.0-1-build1`) for the Firefox version the Tor
-Browser we want to ship is based on in these Git repositories:
-
-* [tor-browser-build activity](https://gitlab.torproject.org/tpo/applications/tor-browser-build/activity)
-  (`maint-X.Y` branch)
-* [tor-browser activity](https://gitlab.torproject.org/tpo/applications/tor-browser/activity)
-
-A new tag may indicate that a new Tor Browser release or rebuild is imminent.
-
-Better catch this before people spend time doing manual tests.
-
 SquashFS file order
--------------------
+===================
 
 Expected time: 20 minutes
 
@@ -840,14 +756,30 @@ Feel free to skip this section when preparing an emergency release.
             config/binary_rootfs/squashfs.sort && \
         rm -f config/binary_rootfs/squashfs.sort.old
 
-Build the final images
-----------------------
+Build images
+============
 
-Expected time: 30-75 minutes depending on your computer and the available
+Expected time: 50-95 minutes depending on your computer and the available
 Jenkins workers.
 
-Then all included files should be up-to-date and the versioned APT
-suite should be ready, so it is time to:
+Sanity check
+------------
+
+Verify that the Tor Browser release used in Tails still is the most
+recent. Also look if there's a new `-buildX` tag (e.g.
+`tor-browser-60.3.0esr-8.0-1-build1`) for the Firefox version the Tor
+Browser we want to ship is based on in these Git repositories:
+
+* [tor-browser-build activity](https://gitlab.torproject.org/tpo/applications/tor-browser-build/activity)
+  (`maint-X.Y` branch)
+* [tor-browser activity](https://gitlab.torproject.org/tpo/applications/tor-browser/activity)
+
+A new tag may indicate that a new Tor Browser release or rebuild is imminent.
+
+Better catch this before people spend time doing manual tests.
+
+Finalize and tag the release
+----------------------------
 
 1. Mark the version as "released" in the changelog:
 
@@ -869,12 +801,59 @@ suite should be ready, so it is time to:
 
         . $(./bin/rm-config generate-environment --stage finalized-changelog)
 
-1. Tag the release *again*, with all included files in:
+1. Tag the release:
 
-        git tag -f -u "${TAILS_SIGNATURE_KEY:?}" \
+        git tag -u "${TAILS_SIGNATURE_KEY:?}" \
                 -m "tagging version ${VERSION:?}" "${TAG:?}" && \
-        git push --force origin "${TAG:?}" && \
-        git push origin "${RELEASE_BRANCH:?}"
+        git push origin "${TAG:?}" "${RELEASE_BRANCH:?}"
+
+Prepare the versioned APT suites
+--------------------------------
+
+Expected time: 15 minutes
+
+### Versioned APT suite in our custom APT repository
+
+Within a few minutes after pushing the new release's Git tag, a cronjob
+creates a new APT suite in our custom APT repository. This new APT suite is
+called `$TAG` and is initially empty.
+
+Wait for this APT suite to be created and initialize it with the packages
+currently found in the APT suite corresponding to the branch used to prepare
+the release:
+
+      while ! ssh reprepro@incoming.deb.tails.boum.org reprepro list "${TAG:?}" >/dev/null 2>&1; do
+         sleep 5
+      done && \
+      ssh reprepro@incoming.deb.tails.boum.org \
+         tails-merge-suite "${RELEASE_BRANCH:?}" "${TAG:?}"
+
+### Tagged snapshots of upstream APT repositories
+
+Create tagged snapshots of upstream APT repositories:
+
+      ./bin/tag-apt-snapshots "${ALMOST_FINAL_BUILD_MANIFEST:?}" "${TAG:?}"
+
+Note:
+
+  - This command takes a while (about a dozen minutes).
+    While it's running, if you don't feel the need to take a break,
+    you can proceed with the "SquashFS file order" section below.
+
+  - It's expected that the packages that were pulled from our
+    [[custom APT repository|APT_repository/custom]] are
+    listed under "some packages were not found anywhere" (because we
+    are currently not using time-based snapshots for our custom APT
+    repository). However, _no other package should be on that list_.
+    Now, we have a "safety" net, in case you don't notice such a problem: if
+    other packages are missing, the next build (that will use the
+    newly created partial, tagged APT repository) will fail.
+
+Build the final images
+----------------------
+
+Expected time: 30-75 minutes depending on your computer and the available
+Jenkins workers.
 
 1. Build the final images:
 
