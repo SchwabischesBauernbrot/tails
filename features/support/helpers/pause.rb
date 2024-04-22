@@ -1,26 +1,28 @@
 require 'binding_of_caller'
 require 'pry'
 
-def binding_display(b)
-  method = b.eval('__method__')
-  instance = b.eval('self')
+def binding_display(binding)
+  method = binding.eval('__method__')
+  instance = binding.eval('self')
   if instance.instance_of?(Object)
     # The top-level Object instance is a mess when displayed,
     # "#<Object+RSpec::Matchers+Cucumber::RbSupport::RbWorld+...>"
     # or similar, so we strip all that.
     instance = '#<Object>'
   end
-  if method.nil? || method.empty?
-    what = '<top-level>'
-  else
-    what = "#{method}()"
-  end
-  where = "#{b.source_location.join(':')}"
+  what = if method.nil? || method.empty?
+           '<top-level>'
+         else
+           "#{method}()"
+         end
+  where = binding.source_location.join(':').to_s
   "#{Pry::Helpers::Text.bold(what)} (#{instance}) at #{where}"
 end
 
+# rubocop:disable Metrics/CyclomaticComplexity
+# rubocop:disable Metrics/PerceivedComplexity
 def find_our_caller_binding(bindings, log_skipped: false)
-  skipped_bindings = Array.new
+  skipped_bindings = []
   our_caller_binding = bindings.find do |b|
     next if b.nil?
 
@@ -74,18 +76,20 @@ def find_our_caller_binding(bindings, log_skipped: false)
   end
   if log_skipped && skipped_bindings.size.positive?
     $stderr.puts
-    $stderr.puts Pry::Helpers::Text.bold(
-                   '  Helpers were skipped in the stack (above the arrow):'
-                 )
+    warn Pry::Helpers::Text.bold(
+      '  Helpers were skipped in the stack (above the arrow):'
+    )
     $stderr.puts
     skipped_bindings.each do |binding_display|
-      $stderr.puts("     #{binding_display}")
+      warn("     #{binding_display}")
     end
-    $stderr.puts " =>  #{binding_display(our_caller_binding)}"
-    $stderr.puts '     [...]'
+    warn " =>  #{binding_display(our_caller_binding)}"
+    warn '     [...]'
   end
   our_caller_binding
 end
+# rubocop:enable Metrics/CyclomaticComplexity
+# rubocop:enable Metrics/PerceivedComplexity
 
 def pause(message = 'Paused', exception: nil, quiet: false)
   notify_user(message)
@@ -130,7 +134,7 @@ def pause(message = 'Paused', exception: nil, quiet: false)
         our_caller_binding = binding
       end
       $stderr.puts
-      $stderr.puts <<-MESSAGE
+      warn <<-MESSAGE
   Use the 'stack' command to see where you are in the stack, and the 'down'
   and 'up' commands to navigate the stack.
       MESSAGE
@@ -143,35 +147,35 @@ alias breakpoint pause
 
 def pry_navigate_caller_stack(offset)
   new_index = $caller_bindings_index + offset
-  if new_index < 0
-    raise(Pry::CommandError, 'Top of stack reached!')
-  elsif new_index >= $caller_bindings.size
-    raise(Pry::CommandError, 'Bottom of stack reached!')
-  end
+  raise(Pry::CommandError, 'Top of stack reached!') if new_index.negative?
+
+  raise(Pry::CommandError, 'Bottom of stack reached!') \
+       if new_index >= $caller_bindings.size
+
   $caller_bindings_index = new_index
   new_binding = $caller_bindings[$caller_bindings_index]
   if pry_instance.binding_stack.empty?
-    pry_instance.binding_stack.replace [new_binding]
+    pry_instance.binding_stack.replace([new_binding])
   else
     pry_instance.binding_stack[-1] = new_binding
   end
-  pry_instance.run_command("whereami")
+  pry_instance.run_command('whereami')
 end
 
 StackCommands = Pry::CommandSet.new do
-  create_command 'up', "Move up in the call stack" do
+  create_command('up', 'Move up in the call stack') do
     def process
       pry_navigate_caller_stack(-1)
     end
   end
 
-  create_command "down", "Move down in the call stack" do
+  create_command('down', 'Move down in the call stack') do
     def process
       pry_navigate_caller_stack(1)
     end
   end
 
-  create_command "stack", "Print the stack" do
+  create_command('stack', 'Print the stack') do
     def process
       current = $caller_bindings[$caller_bindings_index]
       stack = $caller_bindings.map do |b|
