@@ -115,6 +115,10 @@ class VM
     set_cdrom_boot(TAILS_ISO)
     add_remote_shell_channel
 
+    # if storage.volume_exists?(ARTIFACTS_DISK_NAME)
+    #   storage.delete_volume(ARTIFACTS_DISK_NAME)
+    # end
+
     unless storage.volume_exists?(ARTIFACTS_DISK_NAME)
       # Create a temporary disk which will be used to store test suite
       # artifacts.
@@ -127,12 +131,21 @@ class VM
         info_log("#{cmd}\n" + `#{cmd}`)
         raise e
       end
+
+      # storage.guestfs_disk_helper(ARTIFACTS_DISK_NAME) do |guestfs, _|
+      #   device = guestfs.list_devices.first
+      #   # Format the disk with ext4 and label 'test-artifacts'
+      #   guestfs.mkfs_opts('ext4', device, 'label' => ARTIFACTS_DISK_NAME )
+      # end
+
+      disk_path = @storage.disk_path(ARTIFACTS_DISK_NAME)
+      fatal_system "mkfs.ext4 -F -L #{ARTIFACTS_DISK_NAME} #{disk_path}"
     end
 
     # Create an ext4 filesystem on the disk, overwriting any existing
     # filesystem.
     disk_path = @storage.disk_path(ARTIFACTS_DISK_NAME)
-    fatal_system "mkfs.ext4 -F -L #{ARTIFACTS_DISK_NAME} #{disk_path}"
+    # fatal_system "mkfs.ext4 -F -L #{ARTIFACTS_DISK_NAME} #{disk_path}"
     debug_log("Test suite artifacts disk: #{disk_path}")
 
     # Attach the artifacts disk to the VM.
@@ -709,7 +722,11 @@ class VM
     disk_devs = list_disk_devs
     disks_xml = "    <disks>\n"
     disk_devs.each do |dev|
-      snapshot_type = disk_type(dev) == 'qcow2' ? 'internal' : 'no'
+      if disk_type(dev) == 'qcow2' || disk_type(dev) == 'raw'
+        snapshot_type = 'internal'
+      else
+        snapshot_type = 'no'
+      end
       disks_xml +=
         "      <disk name='#{dev}' snapshot='#{snapshot_type}'></disk>\n"
     end

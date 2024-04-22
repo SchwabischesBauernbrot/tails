@@ -51,11 +51,21 @@ def work_around_issue20054(confirm: false)
   end
 end
 
+def pre_snapshot_save_hook
+  # If the remote shell is up, tell it to prepare for the snapshot
+  # if $vm.remote_shell_is_up?
+  #   RemoteShell::BeforeSnapshot.new($vm)
+  # end
+end
+
 def post_snapshot_restore_hook(snapshot_name, num_try)
   # Press escape to wake up the display
   @screen.press('Escape')
 
   $vm.wait_until_remote_shell_is_up
+
+  # Tell the remote shell that a snapshot has been restored
+  # RemoteShell::AfterSnapshot.new($vm)
 
   if snapshot_name.end_with?('tails-greeter')
     pattern = 'TailsGreeter.png'

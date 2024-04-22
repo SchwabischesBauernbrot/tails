@@ -228,6 +228,11 @@ def ensure_test_artifacts_disk_mounted():
     raise FileNotFoundError(f"No disk with label '{TEST_ARTIFACTS_DISK_LABEL}' found.")
 
 
+def unmount_test_artifacts_disk():
+    if subprocess.call(["/bin/mountpoint", "-q", TEST_ARTIFACTS_MOUNTPOINT]) == 0:
+        subprocess.check_call(["/bin/umount", TEST_ARTIFACTS_MOUNTPOINT])
+
+
 def main():
     ensure_test_artifacts_disk_mounted()
     if LOG_FILE.exists():
@@ -327,6 +332,21 @@ def main():
                 # Notify systemd that we"re ready
                 systemd.daemon.notify("READY=1")
                 systemd.daemon.notify("STATUS=Processing requests...\n")
+                ret = json.dumps([id, "success"])
+            elif cmd_type in ["before_snapshot"]:
+                # Prepare for a snapshot being saved by closing the log
+                # file and unmounting the test artifacts disk.
+                logging.getLogger().removeHandler(logFileHandler)
+                logFileHandler.close()
+                unmount_test_artifacts_disk()
+                ret = json.dumps([id, "success"])
+            elif cmd_type in ["after_snapshot"]:
+                # Ensure that the test artifacts disk is mounted and
+                # re-open the log file.
+                ensure_test_artifacts_disk_mounted()
+                logFileHandler = logging.FileHandler(str(LOG_FILE))
+                logFileHandler.setFormatter(logging.Formatter(LOG_FORMAT))
+                logging.getLogger().addHandler(logFileHandler)
                 ret = json.dumps([id, "success"])
             else:
                 raise ValueError("unknown command type")

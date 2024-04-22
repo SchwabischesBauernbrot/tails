@@ -157,6 +157,7 @@ unless defined? CHECKPOINTS
         log_step_succeeded(step_name)
         step_action = 'And'
       end
+      pre_snapshot_save_hook
       $vm.save_snapshot(name)
     end
     # VM#save_snapshot restores the RAM-only snapshot immediately

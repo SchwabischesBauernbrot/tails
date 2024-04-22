@@ -3,6 +3,7 @@ Feature: Tails has a sane default configuration
 
   Scenario: The live user is setup correctly
     Given I have started Tails from DVD without network and logged in
+    And I pause
     Then the live user has been setup by live-boot
     And the live user is a member of only its own group and "cdrom dialout floppy video plugdev netdev scanner lp lpadmin users"
     And the live user owns its home directory which has strict permissions
