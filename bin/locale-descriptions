@@ -141,11 +141,25 @@ class LocaleDescriptions:
         self.languages_not_found = set()
         self.po_to_mozilla = toml.load(open(MAPFILE))
 
-    def get_all_mozlocales(self, warnings=True):
-        yield from self.po_to_mozilla.get("extra", {}).get("extra_languages", [])
+    def get_all_available_locales(self) -> set[tuple[str, str, str]]:
+        moz_locales = set()
+        ret = set()
         for po in sorted(Path("po/").glob("*.po")):
             moz_locale = get_language(po)
+            moz_locales.add(moz_locale)
+            ret.add((str(po), moz_locale, 'po/'))
 
+        for loc in get_torbrowser_languages():
+            moz_locale = loc.replace('-', '_')
+            if moz_locale not in moz_locales:
+                moz_locales.add(moz_locale)
+                ret.add((moz_locale, moz_locale, 'tbb'))
+
+        return ret
+
+    def get_all_mozlocales(self, warnings=True):
+        yield from self.po_to_mozilla.get("extra", {}).get("extra_languages", [])
+        for po, moz_locale, source in self.get_all_available_locales():
             if "_" in moz_locale:
                 # See contribute/release_process/update_locale_descriptions#with-underscore
                 lang, sub = moz_locale.split("_", maxsplit=1)
@@ -160,7 +174,7 @@ class LocaleDescriptions:
                 # It's probably a new language
                 if warnings:
                     print(
-                        f"Could not find {moz_locale} (from {po}), "
+                        f"Could not find {moz_locale} (from {po}({source})), "
                         f"please add it to {MAPFILE}",
                         file=sys.stderr,
                     )
@@ -223,7 +237,7 @@ def main():
     if args.mode == "":
         print(parser.error("You need to specify a subcommand"))
 
-    mozlocales = sorted(helper.get_all_mozlocales(warnings=(args.mode == "generate")))
+    mozlocales = sorted(set(helper.get_all_mozlocales(warnings=(args.mode == "generate"))))
     if args.mode == "generate":
         for out in mozlocales:
             print(out)
