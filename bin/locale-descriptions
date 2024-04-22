@@ -54,7 +54,7 @@ def get_torbrowser_tarball() -> Path:
         if not prefix.startswith(('https://', 'http://')):
             raise Exception("not a valid url: %s" % prefix)
         url = urljoin(prefix, get_torbrowser_filename())
-        urlretrieve(url, filename=filepath)
+        urlretrieve(url, filename=filepath) # noqa: S310
 
     with contextlib.chdir(TEMPDIR):
         subprocess.check_output(['/usr/bin/sha256sum', '-c', str(TBB_SHASUMS)])
@@ -118,7 +118,7 @@ class ValidLocales:
     """
     def __init__(self):
         self.locales = self.parse_table(
-            requests.get("https://lh.2xlibre.net/locales/").text,
+            requests.get("https://lh.2xlibre.net/locales/", timeout=10).text,
         )
         self.languages = defaultdict(list)
         for locale in self.locales:
@@ -167,7 +167,7 @@ class LocaleDescriptions:
             elif moz_locale in self.po_to_mozilla["map"]:
                 # We've already met this, and encoded it in po-to-mozilla.toml
                 value = self.po_to_mozilla["map"][moz_locale]
-                values = [value] if type(value) is str else value
+                values = [value] if isinstance(value, str) else value
                 for locale in values:
                     yield locale_to_mozilla(locale)
             else:
