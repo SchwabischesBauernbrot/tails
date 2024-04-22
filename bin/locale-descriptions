@@ -9,22 +9,21 @@ It does so in two ways:
    to po/po-to-mozilla.toml
 """
 
-import sys
-from pathlib import Path
-import re
-from collections import defaultdict
-from argparse import ArgumentParser
-from urllib.parse import urljoin
-from urllib.request import urlretrieve
+import contextlib
 import functools
+import re
 import subprocess
+import sys
 import tarfile
 import zipfile
-import contextlib
-import io
+from argparse import ArgumentParser
+from collections import defaultdict
+from pathlib import Path
+from urllib.parse import urljoin
+from urllib.request import urlretrieve
 
-import toml
 import requests
+import toml
 
 try:
     from BeautifulSoup import BeautifulSoup
@@ -104,7 +103,7 @@ def locale_to_mozilla(locale: str) -> str:
     if ":" in locale:
         if "_" in locale:
             raise ValueError(
-                "The input format is invalid; you can't both have underscores and colons"
+                "The input format is invalid; you can't both have underscores and colons",
             )
         return locale
     if "_" not in locale:
@@ -119,7 +118,7 @@ class ValidLocales:
     """
     def __init__(self):
         self.locales = self.parse_table(
-            requests.get("https://lh.2xlibre.net/locales/").text
+            requests.get("https://lh.2xlibre.net/locales/").text,
         )
         self.languages = defaultdict(list)
         for locale in self.locales:
@@ -173,7 +172,7 @@ class LocaleDescriptions:
         This encodes contribute/release_process/update_locale_descriptions#no-underscore
         """
         if not self.languages_not_found:
-            return
+            return None
         valid_locales = ValidLocales()
         suggested_add = ""
         others = ""
@@ -185,7 +184,7 @@ class LocaleDescriptions:
                 details = ", ".join(valid_locales.locales[locale])
                 suggested_add += f'{lang}="{locale_to_mozilla(locale)}"   # {details}\n'
             else:
-                # Otherwise, the RM must manually follow the process detailed in 
+                # Otherwise, the RM must manually follow the process detailed in
                 # in contribute/release_process/update_locale_descriptions.mdwn
                 others += f"{lang}: pick between\n"
                 for locale in locales:
@@ -224,9 +223,7 @@ def main():
     if args.mode == "":
         print(parser.error("You need to specify a subcommand"))
 
-    mozlocales = list(
-        sorted(helper.get_all_mozlocales(warnings=(args.mode == "generate")))
-    )
+    mozlocales = sorted(helper.get_all_mozlocales(warnings=(args.mode == "generate")))
     if args.mode == "generate":
         for out in mozlocales:
             print(out)
