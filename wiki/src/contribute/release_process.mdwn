@@ -866,8 +866,15 @@ Jenkins workers.
    If the build fails and you commit some last-minute fix, then you must
    redo the previous step where you re-tag and force-push to origin!
 
-1. Make sure the Jenkins build starts as soon as possible. If needed, remove
-   other builds from the _Build Queue_.
+1. Manually start a build of the release branch on Jenkins, removing
+   other builds from the _Build Queue_ if needed so it can start
+   immediately. Take note of which job number was used for later (see
+   `matching_jenkins_images_build_id` below).
+
+   Note that jenkins automatically started a build earlier when you
+   pushed the tag, but since the versioned APT suite wasn't finished
+   by then we avoid using that build and rely on the manually started
+   one to be safe.
 
 1. Make sure the Jenkins build is right: you can recognize this is the case,
    when you see Jenkins starts building the website. Jenkins will take
