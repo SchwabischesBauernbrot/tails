@@ -501,10 +501,8 @@ Given /^I add a bookmark to eff.org in the Tor Browser$/ do
   step "I open the address \"#{url}\" in the Tor Browser"
   step 'the Tor Browser shows the ' \
        '"The proxy server is refusing connections" error'
-  @screen.press('ctrl', 'd')
+  @torbrowser.child('Bookmark this page (Ctrl+D)', roleName: 'push button').click
   prompt = @torbrowser.child('Add bookmark', roleName: 'panel')
-  prompt.click
-  @screen.paste(url)
   prompt.child('Location', roleName: 'combo box').open
   prompt.child('Bookmarks Menu', roleName: 'menu item').click
   prompt.button('Save').press
