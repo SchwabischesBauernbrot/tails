@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-03-27 00:53+0000\n"
+"POT-Creation-Date: 2024-03-28 02:08+0000\n"
 "PO-Revision-Date: 2024-01-17 22:37+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: Spanish <http://translate.tails.boum.org/projects/tails/"
@@ -143,6 +143,84 @@ msgstr "   [[!img install/inc/screenshots/tails_installer.png link=\"no\" class=
 msgid "   [[!img install/inc/screenshots/tails_cloner_upgrade.png link=\"no\" class=\"upgrade screenshot\" alt=\"Tails Cloner: 'Clone the current Tails'\"]]\n"
 msgstr "   [[!img install/inc/screenshots/tails_installer_upgrade.png link=\"no\" class=\"upgrade\" alt=\"Tails Installer: 'Clonar el actual Tails'\"]]\n"
 
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<div class=\"trophy upgrade\">\n"
+msgid "   <div class=\"upgrade\">\n"
+msgstr "<div class=\"trophy upgrade\">\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "   </div>\n"
+msgid "   <p></p>\n"
+msgstr "   </div>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"   <p>If the other Tails has a Persistent Storage, another option <b>Clone the\n"
+"   current Persistent Storage</b> is available.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "   [[!img install/inc/screenshots/tails_installer_upgrade.png link=\"no\" class=\"upgrade\" alt=\"Tails Installer: 'Clone the current Tails'\"]]\n"
+msgid "   [[!img install/inc/screenshots/tails_cloner_persistent_storage.png link=\"no\" class=\"upgrade screenshot\" alt=\"Option: **Clone the current Persistent Storage** below **Clone the current Tails**\"]]\n"
+msgstr "   [[!img install/inc/screenshots/tails_installer_upgrade.png link=\"no\" class=\"upgrade\" alt=\"Tails Installer: 'Clonar el actual Tails'\"]]\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "   </div>\n"
+msgid "   <ul>\n"
+msgstr "   </div>\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <div class=\"note upgrade\">\n"
+#| "   <p>The Persistent Storage of your Tails USB stick will be preserved.</p>\n"
+#| "   <p class=\"upgrade-clone\">The Persistent Storage of the other Tails will not be copied.</p>\n"
+#| "   </div>\n"
+msgid ""
+"   <li><p>If you leave the option <b>Clone the current Persistent Storage</b>\n"
+"   deselected, the Persistent Storage of your Tails USB stick will be preserved\n"
+"   when upgrading and the Persistent Storage of the other Tails will not be\n"
+"   copied.</p></li>\n"
+msgstr ""
+"   <div class=\"note upgrade\">\n"
+"   <p>El Almacenamiento Persistente de tu USB de Tails se mantendrá como está.</p>\n"
+"   <p class=\"upgrade-clone\">El Almacenamiento Persistente del otro Tails no se copiará.</p>\n"
+"   </div>\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid ""
+#| "   <div class=\"note upgrade\">\n"
+#| "   <p>The Persistent Storage of your Tails USB stick will be preserved.</p>\n"
+#| "   <p class=\"upgrade-clone\">The Persistent Storage of the other Tails will not be copied.</p>\n"
+#| "   </div>\n"
+msgid ""
+"   <li><p>If you select the option <b>Clone the current Persistent Storage</b>,\n"
+"   the Persistent Storage of the other Tails will also be copied when\n"
+"   upgrading. You will lose all the data in your Persistent Storage, if you\n"
+"   have one.</p></li>\n"
+msgstr ""
+"   <div class=\"note upgrade\">\n"
+"   <p>El Almacenamiento Persistente de tu USB de Tails se mantendrá como está.</p>\n"
+"   <p class=\"upgrade-clone\">El Almacenamiento Persistente del otro Tails no se copiará.</p>\n"
+"   </div>\n"
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "   </div>\n"
+msgid "   </ul>\n"
+msgstr "   </div>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "   </div>\n"
+msgstr "   </div>\n"
+
 #. type: Bullet: '1. '
 #, fuzzy
 #| msgid ""
@@ -175,22 +253,20 @@ msgstr ""
 "class=\"upgrade\">actualización, haz click en el botón <span "
 "class=\"bold\">Actualización</span>.</span>"
 
-#. type: Plain text
-#, no-wrap
-msgid ""
-"   <div class=\"note upgrade\">\n"
-"   <p>The Persistent Storage of your Tails USB stick will be preserved.</p>\n"
-"   <p class=\"upgrade-clone\">The Persistent Storage of the other Tails will not be copied.</p>\n"
-"   </div>\n"
-msgstr ""
-"   <div class=\"note upgrade\">\n"
-"   <p>El Almacenamiento Persistente de tu USB de Tails se mantendrá como está.</p>\n"
-"   <p class=\"upgrade-clone\">El Almacenamiento Persistente del otro Tails no se copiará.</p>\n"
-"   </div>\n"
-
 #. type: Bullet: '1. '
 msgid "Read the warning message in the confirmation dialog."
 msgstr "Lee el mensaje de advertencia en el diálogo de confirmación."
+
+#. type: Plain text
+#, fuzzy, no-wrap
+#| msgid "<div class=\"trophy upgrade\">\n"
+msgid "   <div class=\"bug\">\n"
+msgstr "<div class=\"trophy upgrade\">\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "   <p>There is currently no confirmation dialog when upgrading. ([[!tails_ticket 20247]])</p>\n"
+msgstr ""
 
 #. type: Bullet: '1. '
 msgid "Click **Delete All Data and Install** to confirm."
@@ -296,7 +372,3 @@ msgstr ""
 #, no-wrap
 #~ msgid "   <div class=\"step-image\">\n"
 #~ msgstr "   <div class=\"step-image\">\n"
-
-#, no-wrap
-#~ msgid "   </div>\n"
-#~ msgstr "   </div>\n"

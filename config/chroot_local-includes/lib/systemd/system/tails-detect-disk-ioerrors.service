@@ -5,7 +5,7 @@ Before=gdm.service
 
 [Service]
 Type=notify
-ExecStart=/usr/local/sbin/tails-detect-squashfs-errors
+ExecStart=/usr/local/sbin/tails-detect-disk-ioerrors
 Environment=PYTHONUNBUFFERED=1
 
 [Install]

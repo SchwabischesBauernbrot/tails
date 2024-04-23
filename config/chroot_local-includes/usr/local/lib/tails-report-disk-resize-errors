@@ -3,7 +3,7 @@
 set -eu
 set -o pipefail
 
-grep --line-regexp partition-resize-failed /var/lib/live/config/tails.disk-errors || exit 0
+grep --line-regexp partition-resize-failed /var/lib/live/config/tails.disk-resize-errors || exit 0
 
 export TEXTDOMAIN='tails'
 

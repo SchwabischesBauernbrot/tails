@@ -220,7 +220,7 @@ class Window(Gtk.ApplicationWindow):
                 "Sorry, you can't close this app until the "
                 "ongoing operation has completed.",
             )
-            self.display_error(_("Please wait"), msg, False)
+            self.display_error(_("Please wait"), msg, with_send_report_button=False)
             return True
         return False
 
@@ -254,7 +254,11 @@ class Window(Gtk.ApplicationWindow):
                 )
             else:
                 DBusError.strip_remote_error(e)
-                self.display_error(_("Failed to create Persistent Storage"), e.message)
+                self.display_error(
+                    _("Failed to create Persistent Storage"),
+                    _("An error occurred while creating the Persistent Storage."),
+                    details=(_("Details"), e.message),
+                )
 
             if self.active_view == self.creation_view:
                 self.close()
@@ -278,13 +282,18 @@ class Window(Gtk.ApplicationWindow):
                 )
             else:
                 DBusError.strip_remote_error(e)
-                self.display_error(_("Error deleting Persistent Storage"), e.message)
+                self.display_error(
+                    _("Error deleting Persistent Storage"),
+                    _("An error occurred while deleting the Persistent Storage."),
+                    details=(_("Details"), e.message),
+                )
         self.refresh_view()
 
     def display_error(
         self,
         title: str,
         msg: str,
+        details: (str, str) = None,
         with_send_report_button: Optional[bool] = None,
     ):
         if with_send_report_button is None:
@@ -292,4 +301,16 @@ class Window(Gtk.ApplicationWindow):
             # active view, because we already show a send report button
             # there.
             with_send_report_button = self.active_view != self.fail_view
-        self.app.display_error(title, msg, with_send_report_button)
+        self.app.display_error(title, msg, details, with_send_report_button)
+
+    def display_command_failed_error(
+        self, title: str, cmd: list[str], e: subprocess.CalledProcessError
+    ):
+        path = GLib.markup_escape_text(cmd[0])
+        msg = f"Command <tt>{path}</tt> failed with exit code {e.returncode}."
+        details = None
+        if e.stderr:
+            text = f"$ {' '.join(cmd)}\n{e.stderr.strip()}"
+            details = (_("Details (command output)"), text)
+
+        self.display_error(title, msg, details=details)
