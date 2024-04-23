@@ -205,7 +205,7 @@ class TailsInstallerThread(threading.Thread):
             self.live.flush_buffers()
 
             duration = str(datetime.now() - self.now).split(".")[0]
-            self.status(_("Installation complete! (%s)") % duration)
+            self.status(_("Cloning complete! (%s)") % duration)
             self.installation_complete()
 
         except Exception as ex:
@@ -689,11 +689,11 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             parent=self,
             flags=Gtk.DialogFlags.DESTROY_WITH_PARENT,
             message_type=Gtk.MessageType.INFO,
-            buttons=Gtk.ButtonsType.CLOSE,
+            buttons=Gtk.ButtonsType.OK,
             message_format=_("Installation complete!"),
         )
         dialog.run()
-        self.close()
+        dialog.destroy()
 
     def show_confirmation_dialog(
         self,

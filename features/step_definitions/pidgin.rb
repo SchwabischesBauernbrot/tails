@@ -203,7 +203,7 @@ Then /^I receive a response from my friend( in the multi-user chat)?$/ do |multi
     focus_window(@friend_name)
   end
   try_for(60) do
-    if @screen.exists('PidginServerMessage.png')
+    if @screen.exists?('PidginServerMessage.png')
       @screen.click('PidginDialogCloseButton.png')
     end
     @screen.find('PidginFriendExpectedAnswer.png')
@@ -358,7 +358,7 @@ Then /^Pidgin successfully connects to the "([^"]+)" account$/ do |account|
   expected_channel_entry = chan_image(account, default_chan(account), 'roster')
   reconnect_button = 'PidginReconnect.png'
   recovery_on_failure = proc do
-    if @screen.exists('PidginReconnect.png')
+    if @screen.exists?('PidginReconnect.png')
       @screen.click('PidginReconnect.png')
     else
       deactivate_and_activate_pidgin_account(account)
@@ -479,7 +479,7 @@ end
 
 When /^I see the Tails GitLab URL$/ do
   try_for(60) do
-    if @screen.exists('PidginServerMessage.png')
+    if @screen.exists?('PidginServerMessage.png')
       @screen.click('PidginDialogCloseButton.png')
     end
     begin

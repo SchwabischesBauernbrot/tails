@@ -42,11 +42,11 @@ if [ -n "${GIT_BRANCH}" ]; then
 else
     if git_on_a_tag; then
         CLEAN_GIT_TAG=$(git_current_tag | tr '/-' '_~')
-	BUILD_BASENAME="tails-amd64-${CLEAN_GIT_TAG}"
+        BUILD_BASENAME="tails-amd64-${CLEAN_GIT_TAG}"
     else
-	# this shouldn't reasonably happen (e.g. only if you checkout a
+        # this shouldn't reasonably happen (e.g. only if you checkout a
         # tag, remove the tag and then build)
-	fatal "Neither a Git branch nor a tag, exiting."
+        fatal "Neither a Git branch nor a tag, exiting."
     fi
 fi
 
@@ -60,7 +60,7 @@ if grep -qs -E '^Pin:\s+release\s+.*a=' config/chroot_apt/preferences ; then
           "use n= instead. Exiting."
 fi
 if grep -qs -E '^Pin:\s+release\s+.*o=Debian Backports' \
-	config/chroot_apt/preferences ; then
+        config/chroot_apt/preferences ; then
     fatal "Found unsupported 'o=Debian Backports' syntax," \
           "in config/chroot_apt/preferences. Use o=Debian instead. Exiting."
 fi
@@ -180,20 +180,18 @@ TAILS_GIT_COMMIT="$GIT_COMMIT"
 EOF
 
 if [ -n "${GIT_BRANCH}" ]; then
-	cat >> config/chroot_local-includes/etc/os-release <<EOF
+    cat >> config/chroot_local-includes/etc/os-release <<EOF
 TAILS_GIT_BRANCH="$GIT_BRANCH"
 EOF
-else
-	cat >> config/chroot_local-includes/etc/os-release <<EOF
-TAILS_GIT_TAG="$(git_current_tag)"
-EOF
-fi
-
-if  [ "$GIT_BRANCH" != "$(base_branch)" ] ; then
-
-	cat >> config/chroot_local-includes/etc/os-release <<EOF
+    if [ "$GIT_BRANCH" != "$(base_branch)" ]; then
+        cat >> config/chroot_local-includes/etc/os-release <<EOF
 TAILS_GIT_BASE_BRANCH="$(base_branch)"
 TAILS_GIT_BASE_COMMIT="$GIT_BASE_BRANCH_COMMIT"
+EOF
+    fi
+else
+    cat >> config/chroot_local-includes/etc/os-release <<EOF
+TAILS_GIT_TAG="$(git_current_tag)"
 EOF
 fi
 

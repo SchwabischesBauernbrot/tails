@@ -12,6 +12,7 @@ import psutil
 from gi.repository import GLib, UDisks, Gio
 
 from tailslib import LIVE_USER_UID, LIVE_USERNAME
+import tailslib.utils
 import tps.logging
 from tps import executil, LUKS_HEADER_BACKUP_PATH
 from tps import _, TPS_MOUNT_POINT, udisks
@@ -81,6 +82,9 @@ class BootDevice:
         self.partition_table = (
             udisks_object.get_partition_table()
         )  # type: UDisks.PartitionTable
+        if not self.partition_table:
+            # Note: This error is expected when the boot device is a DVD
+            raise InvalidBootDeviceError("Device has no partition table")
         partition_table_type = self.partition_table.props.type
         if partition_table_type != "gpt":
             raise InvalidPartitionTableTypeError(partition_table_type)
@@ -93,7 +97,8 @@ class BootDevice:
     def get_tails_boot_device(cls) -> "BootDevice":
         """Get the device which Tails was booted from.
         Raises an InvalidBootDeviceError if it can't be found."""
-        device_path = os.path.realpath("/dev/bilibop")
+        device_path = tailslib.utils.get_boot_device()
+        logger.info(f"Boot device: {device_path}")
         device_basename = os.path.basename(device_path)
         udisks_obj_path = os.path.join(UDISKS_BLOCK_DEVICES_PATH, device_basename)
         device_object = udisks().get_object(udisks_obj_path)

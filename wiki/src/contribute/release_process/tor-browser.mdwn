@@ -161,7 +161,7 @@ We cannot use such a server directly, so we need to (at least temporarily) self-
     echo "${TBB_DIST_URL:?}" > \
          config/chroot_local-includes/usr/share/tails/tbb-dist-url.txt
     git commit config/chroot_local-includes/usr/share/tails/tbb-*.txt \
-        -m "Upgrade Tor Browser to ${TBB_VERSION:?}" && \
+        -m "Upgrade Tor Browser to ${TBB_VERSION:?} (refs: tails#${TBB_TAILS_TICKET})" && \
     git show
 
 Please refer to [[Self-hosted Tor Browser tarballs archive|tor-browser#self-host]] section.
@@ -189,7 +189,7 @@ Commit
 Lastly, commit:
 
     git commit config/chroot_local-includes/usr/share/tails/tbb-*.txt \
-        -m "Upgrade Tor Browser to ${TBB_VERSION:?}" && \
+        -m "Upgrade Tor Browser to ${TBB_VERSION:?} (refs: tails#${TBB_TAILS_TICKET})" && \
     git show
 
 <div class="caution">
@@ -224,6 +224,12 @@ Then apply any relevant change, e.g. to:
  - required libstdc++6 version bumps; if there's been any change upstream,
    look for `abicheck` in `config/chroot_local-hooks/10-tbb` and adjust
    that hook as needed.
+
+We also document (as code comments that includes the analysis, in
+`config/chroot_local-includes/usr/local/lib/tails-shell-library/tor-browser.sh`)
+each such environment variable (and similar) that we consider
+irrelevant and skip, both to avoid others duplicating the analysis and
+to make it explicit during the review so it can be validated.
 
 <a id="self-host">
 
