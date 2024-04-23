@@ -71,16 +71,14 @@ def post_snapshot_restore_hook(snapshot_name, num_try)
 
   begin
     try_for(10, delay: 0) do
-      # We use @screen.real_find here instead of @screen.wait because we
-      # don't want check_and_raise_display_output_not_active() to be called.
-      @screen.real_find(pattern)
+      @screen.find(pattern)
       # Sometimes the display becomes inactive 1 to 2 seconds after the
       # snapshot was restored. To catch those cases, we wait a short time
       # and make sure that we can still find the pattern.
       # We don't want this to be longer than necessary, because this will
       # slow down all tests which restore snapshots.
       sleep 3
-      @screen.real_find(pattern)
+      @screen.find(pattern)
     rescue FindFailed
       # Press escape to wake up the display
       @screen.press('Escape')
@@ -938,7 +936,23 @@ When /^I run "([^"]+)" in GNOME Terminal$/ do |command|
     terminal.grabFocus
     terminal.focused
   end
-  @screen.paste(command, app: :terminal)
+
+  try_for(20) do
+    @screen.paste(command, app: :terminal)
+    if terminal.text[command]
+      # The command was pasted successfully
+      true
+    else
+      debug_log('Error while pasting; trying again...')
+      # The command was not pasted successfully. Close the terminal and
+      # open a new one.
+      app.child('Close', roleName: 'push button').click
+      app = launch_gnome_terminal
+      terminal = app.child('Terminal', roleName: 'terminal')
+      false
+    end
+  end
+
   @screen.press('Return')
 end
 
@@ -1158,20 +1172,24 @@ When /^I close the "([^"]+)" window$/ do |app_name|
     raise 'Close button has no click or press action'
   end
 
-  # Wait for the app to close
-  try_for(10) do
-    !app.showing
+  # Wait for the app to terminate (some apps take a while to actually
+  # terminate after the window is closed, for example GNOME Files).
+  try_for(60) do
+    assert_raises(Dogtail::Failure) do
+      Dogtail::Application.new(app_name, retry: false)
+    end
   end
 end
 
 When /^I close the "([^"]+)" window via Alt\+F4$/ do |app_name|
-  app = Dogtail::Application.new(app_name)
+  # Check that the app is running
+  Dogtail::Application.new(app_name)
 
-  @screen.press('alt', 'F4')
-
-  # Wait for the app to close
-  try_for(10) do
-    !app.showing
+  try_for(60) do
+    @screen.press('alt', 'F4')
+    assert_raises(Dogtail::Failure) do
+      Dogtail::Application.new(app_name, retry: false)
+    end
   end
 end
 
@@ -1312,7 +1330,7 @@ When /^AppArmor has (not )?denied "([^"]+)" from opening "([^"]+)"$/ do |anti_te
          "It seems the profile '#{profile}' isn't being monitored by the " \
          "'I monitor the AppArmor log of ...' step")
   audit_line_regex = format(
-    'apparmor="DENIED" operation="open" profile="%<profile>s" name="%<file>s"',
+    'apparmor="DENIED".*operation="open".*profile="%<profile>s".*name="%<file>s"',
     profile:,
     file:
   )
@@ -1495,10 +1513,46 @@ When /^Tails system time is magically synchronized$/ do
   $vm.host_to_guest_time_sync
 end
 
+def reload_code(path_glob)
+  # When reloading step definitions all of them will become
+  # ambiguous since there is an existing one with matching an
+  # identical pattern. So we enable cucumber's --guess option which
+  # we have monkeypatched to use the last (loaded) definition.
+  $cucumber_options[:guess] = true
+  # This will enable the monkeypatch handling step redifinitions
+  $cucumber_options[:redefine_steps] = true
+  # Some tests (e.g. those tagged @source) change the current working
+  # directory so the glob below finds nothing unless we restore it to
+  # the usual GIT_DIR. Also, we want the glob to result in relative
+  # paths from GIT_DIR to match how they are loaded by cucumber at the
+  # test suite initialization.
+  Dir.chdir(GIT_DIR) do
+    Dir.glob(path_glob).each { |file| load(file) }
+  end
+  nil
+end
+
+def reload_step_definitions
+  reload_code('features/step_definitions/**/*.rb')
+end
+
+def reload_all_code
+  reload_code('features/**/*.rb')
+end
+
+When /^I reload step definitions$/ do
+  reload_step_definitions
+end
+
+When /^I reload all code$/ do
+  reload_all_code
+end
+
 # Useful for debugging scenarios: e.g. inject this step in a scenario
 # at some point when you want to investigate the state.
-When /^I pause$/ do
-  pause
+When /^I pause( and then reload step definitions)?$/ do |reload|
+  pause(quiet: true)
+  step 'I reload step definitions' if reload
 end
 
 # Useful for debugging Tails features: let's say you want to fix a bug

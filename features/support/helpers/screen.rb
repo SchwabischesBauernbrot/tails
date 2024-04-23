@@ -127,14 +127,12 @@ class Screen
 
   def match_screen(image, sensitivity, show_image, show_old)
     screenshot = "#{$config['TMPDIR']}/screenshot.png"
-    debug_log('Screen[match_screen]: taking screenshot')
     $vm.display.screenshot(screenshot)
-    debug_log('Screen[match_screen]: matching template to screenshot')
     OpenCV.matchTemplate("#{OPENCV_IMAGE_PATH}/#{image}",
                          screenshot, sensitivity, show_image, show_old)
   end
 
-  def real_find(pattern, **opts)
+  def find(pattern, **opts)
     opts[:log] = true if opts[:log].nil?
     opts[:sensitivity] ||= OPENCV_MIN_SIMILARITY
     if pattern.instance_of?(String)
@@ -152,26 +150,30 @@ class Screen
     end
 
     m = Match.new(image, self, *p)
-    debug_log("Screen: found #{image} at (#{m.middle.join(', ')})")
+    debug_log("Screen: found #{image} at (#{m.middle.join(', ')})") if opts[:log]
     m
   end
 
   def wait(pattern, timeout, **opts)
     opts[:log] = true if opts[:log].nil?
     debug_log("Screen: waiting for #{pattern}") if opts[:log]
-    try_for(timeout, delay: 0) do
-      return real_find(pattern, **opts)
+    start_time = Time.now
+    try_for(timeout, delay: 0, log: false) do
+      m = find(pattern, **opts.clone.update(log: false))
+      if opts[:log]
+        elapsed = time_delta(start_time, Time.now)
+        debug_log(
+          "Screen: found #{m.image} at (#{m.middle.join(', ')}) after " \
+          "#{elapsed} seconds"
+        )
+      end
+      return m
     end
   rescue Timeout::Error
     raise FindFailed, "cannot find #{pattern} on the screen"
   end
 
-  def find(pattern, **opts)
-    debug_log("Screen: trying to find #{pattern}") if opts[:log]
-    wait(pattern, 10, **opts.clone.update(log: false))
-  end
-
-  def exists(pattern, **opts)
+  def exists?(pattern, **opts)
     opts[:log] = true if opts[:log].nil?
     !find(pattern, **opts).nil?
   rescue FindFailed
@@ -182,16 +184,16 @@ class Screen
   def wait_vanish(pattern, timeout, **opts)
     opts[:log] = true if opts[:log].nil?
     debug_log("Screen: waiting for #{pattern} to vanish") if opts[:log]
+    start_time = Time.now
     try_for(timeout, delay: 0, log: false) do
-      # Call Screen#wait directly to bypass the timeout passed by
-      # Screen#find to Screen#wait, which would mess with our own
-      # timeout: it can prevent our try_for loop from iterating
-      # enough times, effectively bypassing our retrying logic.
-      wait(pattern, 0.5, **opts.clone.update(log: false)).nil?
+      find(pattern, **opts.clone.update(log: false))
     rescue FindFailed
       true
+    else
+      false
     end
-    debug_log("Screen: #{pattern} has vanished") if opts[:log]
+    elapsed = time_delta(start_time, Time.now)
+    debug_log("Screen: #{pattern} vanished after #{elapsed} seconds") if opts[:log]
     nil
   rescue Timeout::Error
     raise FindFailed, "can still find #{pattern} on the screen"
@@ -199,11 +201,11 @@ class Screen
 
   def find_any(patterns, **opts)
     opts[:log] = true if opts[:log].nil?
-    if opts[:log]
-      debug_log("Screen: trying to find any of #{patterns.join(', ')}")
-    end
+    debug_log("Screen: trying to find any of #{patterns.join(', ')}") if opts[:log]
     patterns.each do |pattern|
-      return real_find(pattern, **opts.clone.update(log: false))
+      m = find(pattern, **opts.clone.update(log: false))
+      debug_log("Screen: found #{m.image} at (#{m.middle.join(', ')})") if opts[:log]
+      return m
     rescue FindFailed
       # Ignore. We'll throw an appropriate exception after having
       # looped through all patterns and found none of them.
@@ -213,7 +215,7 @@ class Screen
           "can not find any of the patterns #{patterns} on the screen"
   end
 
-  def exists_any(*args, **opts)
+  def exists_any?(*args, **opts)
     !find_any(*args, **opts).nil?
   rescue FindFailed
     false
@@ -222,8 +224,17 @@ class Screen
   def wait_any(patterns, time, **opts)
     opts[:log] = true if opts[:log].nil?
     debug_log("Screen: waiting for any of #{patterns.join(', ')}") if opts[:log]
+    start_time = Time.now
     try_for(time, delay: 0, log: false) do
-      return find_any(patterns, **opts.clone.update(log: false))
+      m = find_any(patterns, **opts.clone.update(log: false))
+      if opts[:log]
+        elapsed = time_delta(start_time, Time.now)
+        debug_log(
+          "Screen: found #{m.image} at (#{m.middle.join(', ')}) after " \
+          "#{elapsed} seconds"
+        )
+      end
+      return m
     end
   rescue Timeout::Error
     raise FindFailed, "can not find any of the patterns #{patterns} " \

@@ -1,4 +1,5 @@
 require 'date'
+require 'debug_inspector'
 require 'English'
 require 'io/console'
 require 'pry'
@@ -382,7 +383,7 @@ def notify_user(message)
   cmd_helper(alarm_script.gsub('%m', message))
 end
 
-def pause(message = 'Paused')
+def pause(message = 'Paused', quiet: false)
   notify_user(message)
   $stderr.puts
   warn message
@@ -397,10 +398,15 @@ def pause(message = 'Paused')
     when 'q', "\r", 3.chr # Ctrl+C => 3
       return
     when 'd'
-      binding.pry(quiet: true) # rubocop:disable Lint/Debugger
+      RubyVM::DebugInspector.open do |inspector|
+        # The 4th frame is the caller in this context
+        inspector.frame_binding(4).pry(quiet:)
+      end
     end
   end
 end
+
+alias breakpoint pause
 
 # Converts dbus-send replies into a suitable Ruby value
 def dbus_send_ret_conv(ret)

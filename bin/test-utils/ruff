@@ -5,12 +5,12 @@ set -x
 
 usage() {
     echo "Usage:"
-    echo "  Check all the codebase:"
+    echo "  Check the entire codebase:"
     echo "   $0"
-    echo "  Check Python files changed from BASE_COMMIT to LAST_COMMIT"
-    echo "   $0 LAST_COMMIT BASE_COMMIT"
+    echo "  Check Python files changed since REF"
+    echo "   $0 REF"
     echo "  Pass additional options to ruff:"
-    echo "   $0 LAST_COMMIT BASE_COMMIT --output-format=junit"
+    echo "   $0 REF --output-format=junit"
 }
 
 conf="$(dirname "$0")/ruff.toml"
@@ -18,20 +18,37 @@ conf="$(dirname "$0")/ruff.toml"
 if [ "$#" -eq 0 ]; then
     ruff "--config=$conf" check .
     exit $?
-elif [ "$#" -lt 2 ]; then
-    echo "Unsuported usage" >&2
+elif [ "$#" -lt 1 ]; then
+    echo "Unsupported usage" >&2
     usage >&2
     exit 2
 fi
 
-newCommit="$(git rev-parse "$1")"
-baseCommit="$(git rev-parse "$2")"
-shift 2
+REF="$(git rev-parse "$1")"
+shift 1
 
-git diff -z --name-only "${baseCommit}...${newCommit}" -- | \
-    xargs -0 --no-run-if-empty stat --printf '%n\0' | \
-    "$(dirname "$0")/is-file-type" filter --zero python | \
-    xargs -0 --verbose --no-run-if-empty \
-    ruff "--config=$conf" "$@"
+changed_files=$(git diff --name-only "${REF}")
+untracked_files=$(git ls-files --others --exclude-standard)
+all_files="${changed_files}"$'\n'"${untracked_files}"
 
-exit $?
+# Remove the trailing newline (if any)
+all_files="${all_files%$'\n'}"
+
+files_to_check=""
+while IFS= read -r file; do
+    if [ -z "${file}" ]; then
+        continue
+    fi
+    if "$(dirname "$0")/is-file-type" check python "${file}"; then
+        files_to_check="${files_to_check}${file}"$'\n'
+    fi
+done <<< "${all_files}"
+
+# Remove the trailing newline (if any)
+files_to_check="${files_to_check%$'\n'}"
+
+if [ -z "${files_to_check}" ]; then
+    exit 0
+fi
+
+echo "${files_to_check}" | xargs -d '\n' ruff "--config=$conf" "$@"

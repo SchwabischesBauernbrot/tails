@@ -367,17 +367,18 @@ scenario.
 
 While it is quite nice to copy-paste code between your editor and the
 debugging REPL, we can do better: you can edit the code in the usual
-files in your editor, and then hot-reload it in the debugging REPL
-using something like `load
-'features/step_definitions/common_steps.rb'` (see the "Limitations of
-code reloading" section below for some expectations on what is
-possible to do with this).
+files in your editor, and then hot-reload them in the debugging REPL
+with `reload_step_definitions()`. That reloads all `.rb` files in
+`features/step_definitions/` (so it actually doesn't only affect step
+definitions but function definitions, constants etc. too) so any
+changes outside of these are _not_ reloaded. You can modify any `.rb`
+file and load it with `reload_code('path/to/file.rb')` or even reload
+all code with `reload_all_code()`, but this requires knowing what you
+are doing (see the "Limitations of code reloading" section
+below). Avoid using the built-in `load()` since it does not support
+redefining steps, which our `reload_code()` does.
 
-#### Interactive debugging example
-
-Note: if the code you need to modify is located directly in a step
-definition, please see the "Limitations of code reloading" section
-below!
+#### Example: interactive debugging
 
 Let's say we have a scenario:
 
@@ -389,10 +390,8 @@ Scenario: test
   And maybe more stuff
 ```
 
-where the core of the `I do foo` step is in a top-level function
-`foo()` that it calls, and let's say there is a bug in `foo()` that
-makes it raise some exception. So we insert a breakpoint before `I do
-foo`:
+Let's say there is a bug in the `I do foo` step that makes it raise
+some exception. So we insert a breakpoint before `I do foo`:
 
 ```gherkin
 Scenario: test
@@ -423,45 +422,49 @@ session (very similar to `irb` if you are familiar with it):
 [1] pry(#<Object>)>
 ```
 
-We test `foo()` and see that it indeed fails just as when Cucumber
-runs the `I do foo` step:
+We test the `I do foo` step and observe the failure:
 
 ```
-[1] pry(#<Object>)> foo()
+[1] pry(#<Object>)> step 'I do foo'
 RuntimeError: something went wrong
-from features/step_definitions/test.rb:36:in `foo'
+from features/step_definitions/test.rb:36:in `/^I do foo$/'
 ```
 
-Then I start fixing `foo()` in `features/step_definitions/test.rb`
-using my editor, and if I want to try my modification I reload the
-code and call `foo()` again:
+Then I start fixing `I do foo` where it was originally defined, in
+`features/step_definitions/test.rb`, using my editor, and if I want to
+try my modification I can reload the code by calling
+`reload_step_definitions()`.
+
+So we reload the code and test it:
 
 ```
-[2] pry(#<Object>)> load 'features/step_definitions/test.rb'
-=> true
-[3] pry(#<Object>)> foo()
+[2] pry(#<Object>)> reload_step_definitions
+[... warnings about modifying constants ...]
+=> nil
+[3] pry(#<Object>)> step 'I do foo'
 RuntimeError: something else went wrong this time
-from features/step_definitions/test.rb:36:in `foo'
+from features/step_definitions/test.rb:36:in `/^I do foo$/'
 ```
 
 We're not quite there yet! Also, something to keep in mind is that if
-`foo()` changes some state, that state might have to be manually
-reverted in the REPL before calling the modified `foo()` again (so the
-easiest situation is if `foo()` is idempotent).
+`I do foo` changes some state, that state might have to be manually
+reverted in the REPL before calling the modified `I do foo` again (so the
+easiest situation is if `I do foo` is idempotent).
 
 So we hack, hack, hack and eventually:
 
 ```
 [...]
-[9] pry(#<Object>)> load 'features/step_definitions/test.rb'
-=> true
-[10] pry(#<Object>)> foo()
-foo() didn't fail!
+[9] pry(#<Object>)> reload_step_definitions
+[... warnings about modifying constants ...]
+=> nil
+[10] pry(#<Object>)> step 'I do foo'
+We at least didn't raise an exception!
 => nil
 ```
 
 Wohoo! We are done!? Not necessarily, let's say that while the
-modifications we did indeed made `foo()` not raise an exception there
+modifications we did indeed made `I do foo` not raise an exception there
 still is an issue that won't be detected until we run the `foo was
 successful` step. So we might want to incorporate that into our test
 loop (and again, if `foo was successful` changes state it might have
@@ -469,7 +472,7 @@ to be manually reverted afterwards):
 
 ```
 [11] pry(#<Object>)> step 'foo was successful'
-RuntimeError: foo() did something wrong earlier
+RuntimeError: Step "I do foo" did something wrong earlier
 from features/step_definitions/test.rb:40:in `/^foo was successful$/'
 ```
 
@@ -477,77 +480,134 @@ Again we hack, hack, hack and eventually:
 
 ```
 [...]
-[21] pry(#<Object>)> load 'features/step_definitions/test.rb'
-=> true
-[22] pry(#<Object>)> foo()
-foo() did exactly what it should!
+[21] pry(#<Object>)> reload_step_definitions
+[... warnings about modifying constants ...]
+=> nil
+[22] pry(#<Object>)> step 'I do foo'
+We did the correct thing!
 => nil
 [23] pry(#<Object>)> step 'foo was successful'
-foo() did exactly what it should earlier!
+Step "I do foo" did the correct thing earlier!
 => nil
 ```
 
-Now we can just quit the REPL (`exit` or Ctrl+D) and `I do foo` will
-call the redefined `foo()` and the scenario should pass (unless there
-is an issue in the `maybe more stuff` step, then we rinse and repeat)!
+Now we can just quit the REPL (`exit` or Ctrl+D) and cucumber will
+continue the run, invoking the redefined version of `I do foo` which
+also makes `foo was successful` happy, and the scenario should pass
+(unless there is an issue in the `maybe more stuff` step, then we
+rinse and repeat)!
 
-#### Limitations of code reloading
+#### Example: writing a new scenario
 
-One issue while reloading some code with `load` (like in the example
-above) is if there are step definitions in that file. Cucumber doesn't
-replace existing step definitions even when defining a step again with
-the exact same pattern, it just happily keeps all of them and fails
-when it notices that they are ambiguous when the step is run next time
-and all of them match.
+Let's say we want to implement the silly scenario from the previous
+example, so we first create `features/test.feature`:
 
-Cucumber has the `--guess` argument which makes it able to pick the
-"best match" among several ambiguous steps, but it doesn't work for
-completely identical patterns as in our case. So what I do is that I
-paste in this monkeypatch into the debugging REPL which simply makes
-it pick the most recent definition (so the most recent `load`):
+```gherkin
+@source
+Feature: test
 
-```rb
-module Cucumber
-  module StepMatchSearch
-    class AttemptToGuessAmbiguousMatch
-      def best_matches(step_name, step_matches)
-        [step_matches.last]
-      end
-    end
-  end
+Scenario: test
+  Given some context
+  When I do foo
+  Then foo was successful
+  And maybe more stuff
+```
+
+We run this feature, and cucumber will actually output the step
+definition stubs we need:
+
+```
+[...]
+1 scenario (1 undefined)
+4 steps (4 undefined)
+0m0.004s
+
+You can implement step definitions for undefined steps with these snippets:
+
+Given(/^some context$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+When(/^I do foo$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^foo was successful$/) do
+  pending # Write code here that turns the phrase above into concrete actions
+end
+
+Then(/^maybe more stuff$/) do
+  pending # Write code here that turns the phrase above into concrete actions
 end
 ```
 
-So, with the above patch, and `--guess` passed as an argument to
-`cucumber`, i.e. something like:
+which we put into `features/step_definitions/test.rb`, but we replace
+`pending` with `pause` to get a breakpoint in each of these step
+definition stubs:
 
-```sh
-./run_test_suite --iso tails-amd64-6.0.iso -- --guess features/test.feature
+```rb
+Given(/^some context$/) do
+  pause
+end
+
+When(/^I do foo$/) do
+  pause
+end
+
+Then(/^foo was successful$/) do
+  pause
+end
+
+Then(/^maybe more stuff$/) do
+  pause
+end
 ```
 
-then we can `load` a redefined step and run it manually in the
-debuggin REPL:
+Then we run the feature again. and we work similarly to how we did in
+the previous example, now implementing the new steps by doing the
+following as we encounter each of their breakpoints:
+
+1. we interactively test code snippets in the debugging REPL and
+   explore solutions,
+2. we take the good bits and write them into the step definition in
+   `features/step_definitions/test.rb`,
+3. we run `reload_step_definitions` + `step ...` to test it,
+4. we iterate until the step passes and does what we want it to,
+5. and then we finally escape the breakpoint and see cucumber run the
+   step successfully.
+
+After the last step we have implemented the whole scenario and all its
+steps in a single run, avoiding the costs of having to re-run the
+scenario multiple times just to test some change we did to some step.
+
+Like we mentioned in the previous example, some steps alter state and
+have to be manually reverted so you have the required state to test
+the step with again. If the revert is awkward or time consuming, and
+this is mostly about the Tails VM's state, do not hesitate to manually
+save a snapshot in the debugging REPL with `$vm.save_snapshot('foo')`,
+and then restore it with `$vm.restore_snapshot('foo')` before `step
+...` each time you want to test it. Note that this will not revert any
+Ruby state, like `@class_variables` and `@global_variables` used by
+some steps.
+
+#### Limitations of code reloading
+
+Reloading some support code in `features/support` can have weird
+consequences, and this area has not been explored much. For instance,
+after calling `reload_all_code()` odd errors have occurred _after_ the
+run completes:
 
 ```
-[24] pry(#<Object>)> load 'features/step_definitions/test.rb'
-=> true
-[25] pry(#<Object>)> step 'foo was successful'
-now this step does something different
-=> nil
+1 scenario (1 passed)
+12 steps (12 passed)
+0m2.799s
+features/support/helpers/vm_helper.rb:817:in `lookup_domain_by_name': Connect has been freed (ArgumentError)
+        from features/support/helpers/vm_helper.rb:817:in `remove_all_snapshots'
+        from /home/anonym/src/tails/tails/features/support/hooks.rb:89:in `block in <top (required)>'
 ```
 
-However, due to how Cucumber is implemented, only manually calling
-`step` will invoke the redefined step; if you quit the debugging REPL
-and let Cucumber continue running the scenario, then it will still run
-the original code for any redefined steps. Note that the difference vs
-the example above is where the code lives: in the _step definition_
-(then Cucumber won't run the modified code) vs a modified _function_
-called by the step (then Cucumber will run the modified code, like in
-the example).
-
-This might be fixable by monkeypatching Cucumber further, but until
-that is figured out you are limited to calling the relevant steps
-manually using `step` in the debugging REPL, which isn't too bad.
+Who knows what else is broken? So use `reload_code()` and
+`reload_all_code()` at your own risk!
 
 ## Writing new steps
 

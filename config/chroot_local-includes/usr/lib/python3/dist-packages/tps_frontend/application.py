@@ -67,10 +67,18 @@ class Application(Gtk.Application):
         self.window.present()
 
     def display_error(
-        self, title: str, msg: str = "", with_send_report_button: bool = True
+        self,
+        title: str,
+        msg: str = "",
+        details: (str, str) = None,
+        with_send_report_button: bool = True,
     ):
         dialog = ErrorDialog(
-            self, title, msg, with_send_report_button=with_send_report_button
+            self,
+            title,
+            msg,
+            details=details,
+            with_send_report_button=with_send_report_button,
         )
         dialog.run()
         return
