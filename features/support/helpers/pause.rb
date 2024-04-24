@@ -162,6 +162,18 @@ def pry_navigate_caller_stack(offset)
   pry_instance.run_command('whereami')
 end
 
+def pry_caller_stack
+  current = $caller_bindings[$caller_bindings_index]
+  stack = $caller_bindings.map do |b|
+    indicator = b == current ? '=>' : '  '
+    "#{indicator} #{binding_display(b)}"
+  end
+  message = bold('Stack: <method> (<instance>) at <source location>')
+  message += "\n"
+  message += "\n  "
+  message += stack.join("\n  ")
+end
+
 StackCommands = Pry::CommandSet.new do
   create_command('up', 'Move up in the call stack') do
     def process
@@ -177,16 +189,7 @@ StackCommands = Pry::CommandSet.new do
 
   create_command('stack', 'Print the stack') do
     def process
-      current = $caller_bindings[$caller_bindings_index]
-      stack = $caller_bindings.map do |b|
-        indicator = b == current ? '=>' : '  '
-        "#{indicator} #{binding_display(b)}"
-      end
-      message = bold('Stack: <method> (<instance>) at <source location>')
-      message += "\n"
-      message += "\n  "
-      message += stack.join("\n  ")
-      stagger_output(message)
+      stagger_output(pry_caller_stack)
     end
   end
 end
