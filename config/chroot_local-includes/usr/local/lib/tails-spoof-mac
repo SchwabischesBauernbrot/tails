@@ -38,9 +38,11 @@ stop_and_disable_NM() {
 notify_panic_success() {
     local nic nic_name title text
     nic="${1}"
-    nic_name="${2}"
+    # Print the NIC name with quotes
+    nic_name="\"${2}\""
     title=$(eval_gettext "Network card \${nic} disabled")
     text=$(eval_gettext "MAC address anonymization failed for network card \${nic_name} (\${nic}) so it is temporarily disabled.
+
 You might prefer to restart Tails and disable MAC address anonymization.")
     printf "%s\n%s" "${title}" "${text}" > "${MAC_SPOOFING_FAILED_STATE_FILE}"
 }
@@ -48,9 +50,11 @@ You might prefer to restart Tails and disable MAC address anonymization.")
 notify_panic_failure() {
     local nic nic_name title text
     nic="${1}"
-    nic_name="${2}"
+    # Print the NIC name with quotes
+    nic_name="\"${2}\""
     title=$(gettext "All networking disabled")
-    text=$(eval_gettext "MAC address anonymization failed for network card \${nic_name} (\${nic}). The error recovery also failed so all networking is disabled.
+    text=$(eval_gettext "MAC address anonymization failed for network card \${nic_name} (\${nic}). The error recovery also failed, so all networking is disabled.
+
 You might prefer to restart Tails and disable MAC address anonymization.")
     printf "%s\n%s" "${title}" "${text}" > "${MAC_SPOOFING_FAILED_STATE_FILE}"
 }
