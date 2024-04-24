@@ -209,4 +209,6 @@ StackCommands = Pry::CommandSet.new do
   end
 end
 
+StackCommands.each { |_, command| command.group('Stack navigation') }
+
 Pry.config.commands.import(StackCommands)
