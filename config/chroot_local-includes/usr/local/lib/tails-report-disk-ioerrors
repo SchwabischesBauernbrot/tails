@@ -30,7 +30,7 @@ EOTEXT
 fi
 
 action="$(notify-send --action=dismiss="$dismiss" --action=doc="$learnmore" --wait \
-         -u critical -c device.error "$title" "$msg")"
+         -u critical -c device.error -- "$title" "$msg")"
 
 if [ "$action" = "doc" ]
 then
