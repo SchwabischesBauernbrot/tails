@@ -160,7 +160,7 @@ def pry_navigate_caller_stack(offset, context: 2)
     pry_instance.binding_stack[-1] = new_binding
   end
   pry_instance.run_command('whereami')
-  $stderr.puts pry_caller_stack(context:)
+  warn pry_caller_stack(context:)
 end
 
 def pry_caller_stack(context: nil)
@@ -174,19 +174,19 @@ def pry_caller_stack(context: nil)
     orig_stack_size = stack.size
     stack = stack[
       [0, current_stack_index - context].max,
-      2*context + 1
+      2 * context + 1
     ]
     if context < current_stack_index
       stack = ['   [...]'] + stack
     end
     if current_stack_index + context + 1 < orig_stack_size
-      stack = stack + ['   [...]']
+      stack += ['   [...]']
     end
   end
   message = bold('Stack: <method> (<instance>) at <source location>')
   message += "\n"
   message += "\n  "
-  message += stack.join("\n  ")
+  message + stack.join("\n  ")
 end
 
 StackCommands = Pry::CommandSet.new do
