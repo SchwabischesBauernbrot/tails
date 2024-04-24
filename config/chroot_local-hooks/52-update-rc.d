@@ -34,6 +34,7 @@ systemctl --global enable tails-additional-software-install.service
 systemctl --global enable tails-configure-keyboard.service
 systemctl --global enable tails-report-disk-resize-errors.service
 systemctl --global enable tails-report-disk-ioerrors.path
+systemctl --global enable tails-report-mac-spoofing-failed.service
 systemctl --global enable tails-security-check.service
 systemctl --global enable tails-upgrade-frontend.service
 systemctl --global enable tails-virt-notify-user.service

@@ -1,0 +1,11 @@
+#!/bin/sh
+
+set -eu
+
+STATE_FILE=/var/lib/live/config/tails.mac-spoofing-failed
+# The title is the first line in the state file
+TITLE="$(head -n 1 "$STATE_FILE")"
+# The text is the rest of the file
+TEXT="$(tail -n +2 "$STATE_FILE")"
+
+notify-send --icon=error --urgency=critical -- "$TITLE" "$TEXT"
