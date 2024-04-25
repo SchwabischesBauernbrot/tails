@@ -11,6 +11,7 @@ from tps.dbus.errors import DBusError, NotEnoughMemoryError, TargetIsBusyError
 
 from tps_frontend import WINDOW_UI_FILE, _
 from tps_frontend.change_passphrase_dialog import ChangePassphraseDialog
+from tps_frontend.error_dialog import ErrorDetails
 from tps_frontend.views.creation_view import CreationView
 from tps_frontend.views.deleted_view import DeletedView
 from tps_frontend.views.fail_view import FailView
@@ -257,7 +258,7 @@ class Window(Gtk.ApplicationWindow):
                 self.display_error(
                     _("Failed to create Persistent Storage"),
                     _("An error occurred while creating the Persistent Storage."),
-                    details=(_("Details"), e.message),
+                    details=ErrorDetails(_("Details"), e.message),
                 )
 
             if self.active_view == self.creation_view:
@@ -285,7 +286,7 @@ class Window(Gtk.ApplicationWindow):
                 self.display_error(
                     _("Error deleting Persistent Storage"),
                     _("An error occurred while deleting the Persistent Storage."),
-                    details=(_("Details"), e.message),
+                    details=ErrorDetails(_("Details"), e.message),
                 )
         self.refresh_view()
 
@@ -293,7 +294,7 @@ class Window(Gtk.ApplicationWindow):
         self,
         title: str,
         msg: str,
-        details: (str, str) = None,
+        details: ErrorDetails = None,
         with_send_report_button: Optional[bool] = None,
     ):
         if with_send_report_button is None:
@@ -311,6 +312,6 @@ class Window(Gtk.ApplicationWindow):
         details = None
         if e.stderr:
             text = f"$ {' '.join(cmd)}\n{e.stderr.strip()}"
-            details = (_("Details (command output)"), text)
+            details = ErrorDetails(_("Details (command output)"), text)
 
         self.display_error(title, msg, details=details)
