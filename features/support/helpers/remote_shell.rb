@@ -228,7 +228,7 @@ module RemoteShell
 
   class BeforeSnapshot
     def self.execute(vm)
-      debug_log("Remote shell: calling before_snapshot")
+      debug_log('Remote shell: calling before_snapshot')
       RemoteShell.communicate(vm, 'before_snapshot')
     end
 
@@ -255,7 +255,7 @@ module RemoteShell
 
   class AfterSnapshot
     def self.execute(vm)
-      debug_log("Remote shell: calling after_snapshot")
+      debug_log('Remote shell: calling after_snapshot')
       RemoteShell.communicate(vm, 'after_snapshot')
     end
 

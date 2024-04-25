@@ -86,12 +86,10 @@ class VMStorage
   end
 
   def volume_exists?(name)
-    begin
-      @pool.lookup_volume_by_name(name)
-      true
-    rescue Libvirt::RetrieveError
-      false
-    end
+    @pool.lookup_volume_by_name(name)
+    true
+  rescue Libvirt::RetrieveError
+    false
   end
 
   def lookup_volume_by_name(name)

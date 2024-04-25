@@ -478,14 +478,12 @@ After('@product') do |scenario|
     device = guestfs.list_devices.first
     guestfs.mount_ro(device, '/')
     begin
-      guestfs.download("/remote_shell.log",
+      guestfs.download('/remote_shell.log',
                        "#{ARTIFACTS_DIR}/remote_shell.log")
     rescue Guestfs::Error => e
-      if e.to_s.include?('No such file or directory')
-        debug_log("No remote_shell.log found: #{e}")
-      else
-        raise
-      end
+      raise unless e.to_s.include?('No such file or directory')
+
+      debug_log("No remote_shell.log found: #{e}")
     end
   end
 end

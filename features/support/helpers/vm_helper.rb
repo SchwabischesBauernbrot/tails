@@ -124,8 +124,8 @@ class VM
       # artifacts.
       begin
         storage.create_new_disk(
-          ARTIFACTS_DISK_NAME, size: 100, unit: 'MiB', type: 'raw',
-          )
+          ARTIFACTS_DISK_NAME, size: 100, unit: 'MiB', type: 'raw'
+        )
       rescue NoSpaceLeftError => e
         cmd = "du -ah \"#{$config['TMPDIR']}\" | sort -hr | head -n20"
         info_log("#{cmd}\n" + `#{cmd}`)
@@ -150,7 +150,6 @@ class VM
 
     # Attach the artifacts disk to the VM.
     plug_drive(ARTIFACTS_DISK_NAME, 'usb')
-
   rescue StandardError => e
     destroy_and_undefine
     raise e
@@ -722,11 +721,11 @@ class VM
     disk_devs = list_disk_devs
     disks_xml = "    <disks>\n"
     disk_devs.each do |dev|
-      if disk_type(dev) == 'qcow2' || disk_type(dev) == 'raw'
-        snapshot_type = 'internal'
-      else
-        snapshot_type = 'no'
-      end
+      snapshot_type = if disk_type(dev) == 'qcow2' || disk_type(dev) == 'raw'
+                        'internal'
+                      else
+                        'no'
+                      end
       disks_xml +=
         "      <disk name='#{dev}' snapshot='#{snapshot_type}'></disk>\n"
     end
