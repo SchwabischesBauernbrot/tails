@@ -184,7 +184,6 @@ def pry_caller_stack(context: nil)
     end
   end
   message = bold('Stack: <method> (<instance>) at <source location>')
-  message += "\n"
   message += "\n  "
   message + stack.join("\n  ")
 end
