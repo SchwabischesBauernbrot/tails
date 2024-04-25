@@ -75,6 +75,9 @@ class TailsInstallerError(TailsError):
 class UDisksObjectNotFound(TailsInstallerError):
     """Thrown when referring to a Udisks object that does not exist"""
 
+class TargetDeviceBusy(TailsInstallerError):
+    """Thrown when target device could not be unmounted due to being busy"""
+
 
 class TailsInstallerCreator:
     """An OS-independent parent class for Tails Installer Creators"""
@@ -788,7 +791,9 @@ class TailsInstallerCreator:
                     )
                     self.log.debug('Unmounted filesystem "%s"', udi)
                 except GLib.Error as e:
-                    if "is not mounted" not in e.message:
+                    if "target is busy" in e.message:
+                        raise TargetDeviceBusy from e
+                    elif "is not mounted" not in e.message:
                         raise e
             if encrypted:
                 try:

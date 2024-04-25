@@ -38,6 +38,7 @@ def utf8_gettext(*args, **kwargs):
 _ = utf8_gettext
 
 from tails_installer.creator import TailsInstallerError  # NOQA E402
+from tails_installer.creator import TargetDeviceBusy  # NOQA E402
 from tails_installer.creator import TailsInstallerCreator  # NOQA E402
 from tails_installer.config import CONFIG  # NOQA E402
 
@@ -49,6 +50,7 @@ branding = {
 __all__ = (
     "TailsInstallerCreator",
     "TailsInstallerError",
+    "TargetDeviceBusy",
     "TailsInstallerDialog",
     "_",
     "utf8_gettext",
