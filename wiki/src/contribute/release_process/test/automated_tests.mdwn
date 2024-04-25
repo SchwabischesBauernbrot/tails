@@ -603,7 +603,7 @@ run completes:
 0m2.799s
 features/support/helpers/vm_helper.rb:817:in `lookup_domain_by_name': Connect has been freed (ArgumentError)
         from features/support/helpers/vm_helper.rb:817:in `remove_all_snapshots'
-        from /home/anonym/src/tails/tails/features/support/hooks.rb:89:in `block in <top (required)>'
+        from features/support/hooks.rb:89:in `block in <top (required)>'
 ```
 
 Who knows what else is broken? So use `reload_code()` and
