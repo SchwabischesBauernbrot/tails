@@ -13,8 +13,7 @@ def run_lspci(lspci_args: list) -> str:
     """
     get lspci output
     """
-    s = check_output(["lspci", "-vmm"] + lspci_args, encoding="utf8")
-    return s
+    return check_output(["/usr/bin/lspci", "-vmm", *lspci_args], encoding="utf8")
 
 
 def parse_lspci(text: str) -> list:
