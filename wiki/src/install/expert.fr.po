@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-04-05 11:23+0000\n"
-"PO-Revision-Date: 2024-04-26 20:41+0000\n"
+"PO-Revision-Date: 2024-04-29 14:45+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: fr\n"
@@ -141,12 +141,12 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">wget https://tails.net/tails-signing.key</p>\n"
-msgstr ""
+msgstr "   <p class=\"command\">wget https://tails.net/tails-signing.key</p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">gpg --import < tails-signing.key</p>\n"
-msgstr ""
+msgstr "   <p class=\"command\">gpg --import < tails-signing.key</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -158,10 +158,11 @@ msgstr ""
 "personnes qui développent Debian :"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "       sudo apt update && sudo apt install debian-keyring\n"
+#, no-wrap
 msgid "   <p class=\"command\">sudo apt update && sudo apt install debian-keyring</p>\n"
-msgstr "       sudo apt update && sudo apt install debian-keyring\n"
+msgstr ""
+"   <p class=\"command\">sudo apt update && sudo apt install debian-"
+"keyring</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -175,10 +176,11 @@ msgstr ""
 "trousseau Debian vers votre trousseau :"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "       gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export chris@chris-lamb.co.uk | gpg --import\n"
+#, no-wrap
 msgid "   <p class=\"command\">gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export chris@chris-lamb.co.uk | gpg --import</p>\n"
-msgstr "       gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export chris@chris-lamb.co.uk | gpg --import\n"
+msgstr ""
+"   <p class=\"command\">gpg --keyring=/usr/share/keyrings/debian-keyring.gpg "
+"--export chris@chris-lamb.co.uk | gpg --import</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -186,10 +188,11 @@ msgid "Verify the certifications made on the Tails signing key:"
 msgstr "Vérifier la certification faite sur la clé de signature Tails :"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "       gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F\n"
+#, no-wrap
 msgid "   <p class=\"command\">gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
-msgstr "       gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F\n"
+msgstr ""
+"   <p class=\"command\">gpg --keyid-format 0xlong --check-sigs "
+"A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -269,10 +272,11 @@ msgid "Certify the Tails signing key with your own key:"
 msgstr "Certifier la clé de signature Tails avec votre propre clé :"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "       gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F\n"
+#, no-wrap
 msgid "   <p class=\"command\">gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
-msgstr "       gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F\n"
+msgstr ""
+"   <p class=\"command\">gpg --lsign-key "
+"A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -394,10 +398,9 @@ msgid "Execute the following command:"
 msgstr "Exécuter la commande suivante :"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   <p class=\"pre command\">ls -1 /dev/sd?</p>\n"
+#, no-wrap
 msgid "   <p class=\"command\">ls -1 /dev/sd?</p>\n"
-msgstr "   <p class=\"pre command\">ls -1 /dev/sd?</p>\n"
+msgstr "   <p class=\"command\">ls -1 /dev/sd?</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -510,10 +513,11 @@ msgid "   You should get something like this:\n"
 msgstr "   Vous devriez obtenir quelque chose comme :\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   <p class=\"pre command-example\">dd if=/home/user/tails-amd64-3.12.img of=/dev/sdb bs=16M oflag=direct status=progress</p>\n"
+#, no-wrap
 msgid "   <p class=\"command-template\">dd if=/home/user/tails-amd64-3.12.img of=/dev/sdb bs=16M oflag=direct status=progress</p>\n"
-msgstr "   <p class=\"pre command-example\">dd if=/home/user/tails-amd64-3.12.img of=/dev/sdb bs=16M oflag=direct status=progress</p>\n"
+msgstr ""
+"   <p class=\"command-template\">dd if=/home/user/tails-amd64-3.12.img of=/"
+"dev/sdb bs=16M oflag=direct status=progress</p>\n"
 
 #. type: Plain text
 #, no-wrap
