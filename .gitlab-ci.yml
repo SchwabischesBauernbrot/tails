@@ -66,10 +66,6 @@ ruff-format-changed-files:
     - ruff --version
     - git fetch origin "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
     - ./bin/test-utils/ruff "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}" format --check
-  artifacts:
-    when: always
-    reports:
-      junit: ruff.xml
 
 check-website-core-pages:
   script:
