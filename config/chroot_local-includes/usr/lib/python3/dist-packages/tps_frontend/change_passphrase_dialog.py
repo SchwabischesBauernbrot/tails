@@ -5,6 +5,7 @@ from typing import TYPE_CHECKING
 from tps.dbus.errors import IncorrectPassphraseError, NotEnoughMemoryError, DBusError
 
 from tps_frontend import _, CHANGE_PASSPHRASE_DIALOG_UI_FILE
+from tps_frontend.error_dialog import ErrorDetails
 from tps_frontend.passphrase_strength_hint import set_passphrase_strength_hint
 
 if TYPE_CHECKING:
@@ -111,7 +112,7 @@ class ChangePassphraseDialog(Gtk.Dialog):
                 self.parent.display_error(
                     _("Changing the passphrase failed"),
                     _("An error occurred while changing the passphrase."),
-                    details=(_("Details"), e.message),
+                    details=ErrorDetails(_("Details"), e.message),
                 )
                 self.response(Gtk.ResponseType.NONE)
                 return
