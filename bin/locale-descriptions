@@ -237,6 +237,10 @@ def main():
 
     if args.mode == "":
         print(parser.error("You need to specify a subcommand"))
+    elif args.mode == "doctest":
+        import doctest
+
+        doctest.testmod(verbose=args.verbose)
 
     mozlocales = sorted(set(helper.get_all_mozlocales(warnings=(args.mode == "generate"))))
     if args.mode == "generate":
@@ -250,12 +254,6 @@ def main():
         suggestion = helper.get_suggestions()
         print(suggestion, file=sys.stderr)
         sys.exit(1)
-
-    elif args.mode == "doctest":
-        import doctest
-
-        doctest.testmod(verbose=args.verbose)
-
 
 if __name__ == "__main__":
     main()
