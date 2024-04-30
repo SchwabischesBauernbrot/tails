@@ -113,7 +113,7 @@ class VM
     set_vcpu($config['VCPUS']) if $config['VCPUS']
     @display = Display.new(@domain_name, x_display)
     set_cdrom_boot(TAILS_ISO)
-    @virtio_channel_sockets = Hash.new
+    @virtio_channel_sockets = {}
     add_virtio_channel(VIRTIO_JOURNAL_DUMPER)
     add_virtio_channel(VIRTIO_REMOTE_SHELL)
   rescue StandardError => e

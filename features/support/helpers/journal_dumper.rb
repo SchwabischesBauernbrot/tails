@@ -16,7 +16,6 @@ require 'socket'
 # are lost during the current scenario. So it has to be restarted
 # after restoring from a snapshot, and on the guest end it has to
 # re-send the full journal (detected by the socket is closing).
-
 class JournalDumper
   include Singleton
 
@@ -30,7 +29,7 @@ class JournalDumper
       UNIXSocket.open(socket_path) do |socket|
         File.open(@path, 'w') do |journal|
           until socket.closed?
-            journal.write(socket.readline.force_encoding("UTF-8"))
+            journal.write(socket.readline.force_encoding('UTF-8'))
             journal.flush
           end
         end
