@@ -13,6 +13,7 @@ systemctl enable initramfs-shutdown.service
 systemctl enable onion-grater.service
 systemctl enable tails-allow-external-TailsData-access.service
 systemctl enable tails-autotest-broken-gnome-shell.service
+systemctl enable tails-autotest-journal-dumper.service
 systemctl enable tails-autotest-remote-shell.service
 systemctl enable tails-create-netns.service
 systemctl enable tails-detect-disk-resize-errors.service

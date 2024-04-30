@@ -114,6 +114,7 @@ class VM
     @display = Display.new(@domain_name, x_display)
     set_cdrom_boot(TAILS_ISO)
     @virtio_channel_sockets = Hash.new
+    add_virtio_channel(VIRTIO_JOURNAL_DUMPER)
     add_virtio_channel(VIRTIO_REMOTE_SHELL)
   rescue StandardError => e
     destroy_and_undefine
@@ -729,6 +730,7 @@ class VM
 
   def save_snapshot(name)
     debug_log("Saving snapshot '#{name}'...")
+    JournalDumper.instance.stop
     # If we have no qcow2 disk device, we'll use "memory state"
     # snapshots, and if we have at least one qcow2 disk device, we'll
     # use internal "system checkpoint" (memory + disks) snapshots. We
@@ -785,6 +787,7 @@ class VM
               "To clean up old dangling snapshots, use 'virsh snapshot-delete'."
       end
     end
+    JournalDumper.instance.restart
     @display.start
   end
 

@@ -246,6 +246,7 @@ When /^I start the computer$/ do
   assert(!$vm.running?,
          'Trying to start a VM that is already running')
   $vm.start
+  JournalDumper.instance.restart
   $language = ''
   $lang_code = ''
 end

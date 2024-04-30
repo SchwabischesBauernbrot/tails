@@ -148,12 +148,7 @@ def save_vm_command_output(command:, id:, basename: nil, desc: nil) # rubocop:di
 end
 
 def save_journal
-  save_vm_command_output(
-    command:  'journalctl -a --no-pager',
-    id:       'journal',
-    basename: 'artifact.journal',
-    desc:     'systemd Journal'
-  )
+  save_failure_artifact('systemd Journal', JournalDumper.instance.path)
 end
 
 def save_boot_log
@@ -317,6 +312,7 @@ After('@product') do |scenario|
     Process.wait(@video_capture_pid)
     save_failure_artifact('Video', @video_path)
   end
+  JournalDumper.instance.stop
   if scenario.failed?
     time_of_fail = Time.now - TIME_AT_START
     secs = format('%<secs>02d', secs: time_of_fail % 60)
@@ -324,6 +320,7 @@ After('@product') do |scenario|
     hrs  = format('%<hrs>02d',  hrs: time_of_fail / (60 * 60))
     elapsed = "#{hrs}:#{mins}:#{secs}"
     info_log("SCENARIO FAILED: '#{scenario.name}' (at time #{elapsed})")
+    save_journal
     unless $vm.display.nil?
       screenshot_path = sanitize_filename("#{scenario.name}.png")
       $vm.display.screenshot(screenshot_path)
@@ -387,7 +384,6 @@ After('@product') do |scenario|
     # we cause a system crash), so let's collect everything depending
     # on the remote shell here:
     if $vm&.remote_shell_is_up?
-      save_journal
       save_boot_log
       if scenario.feature.file \
          == 'features/additional_software_packages.feature'
