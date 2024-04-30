@@ -50,6 +50,7 @@ def get_torbrowser_filename() -> str:
 def get_torbrowser_tarball() -> Path:
     filepath = TEMPDIR / get_torbrowser_filename()
     if not filepath.exists():
+        TEMPDIR.mkdir(exist_ok=True)
         prefix = TBB_PREFIX.open().read().strip()
         if not prefix.startswith(('https://', 'http://')):
             raise Exception("not a valid url: %s" % prefix)
