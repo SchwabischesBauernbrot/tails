@@ -27,6 +27,17 @@ build-website:
   script:
     - apt-get -qy install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
     - ./build-website
+    - apt-get install -y openssh-client rsync
+    - test -e .ssh || mkdir .ssh
+    - cp "$WEBSITE_DEPLOY_SSH_PRIVATE_KEY" .ssh/private_key
+    - cp "$WEBSITE_DEPLOY_SSH_KNOWN_HOSTS" .ssh/known_hosts
+    - chmod 400 .ssh/known_hosts .ssh/private_key
+    - echo "variables often lack a trailing newline, which breaks SSH, detect and fix"
+    - ssh-keygen -y -f .ssh/private_key || echo >> .ssh/private_key
+    - echo "here is the SSH key we will deploy with"
+    - ssh-keygen -y -f .ssh/private_key
+    - echo -n "Begin rsync, time is " && date '+%Y-%m-%d %H-%M-%S%z'
+    - rsync --rsh="ssh -p 3004 -o UserKnownHostsFile=.ssh/known_hosts -i .ssh/private_key" --checksum --archive --no-times --verbose --mkpath --delete "config/chroot_local-includes/usr/share/doc/tails/website/" www-data@chameleon.tails.net:/
 
 lint-po:
   image: debian:testing
