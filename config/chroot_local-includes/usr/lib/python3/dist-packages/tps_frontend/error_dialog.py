@@ -7,13 +7,19 @@ if TYPE_CHECKING:
     from tps_frontend.application import Application
 
 
+class ErrorDetails:
+    def __init__(self, title: str, text: str):
+        self.title = title
+        self.text = text
+
+
 class ErrorDialog(Gtk.MessageDialog):
     def __init__(
         self,
         app: "Application",
         title: str,
         msg: str,
-        details: (str, str) = None,
+        details: ErrorDetails = None,
         with_send_report_button: bool = True,
     ):
         super().__init__(
@@ -61,14 +67,11 @@ class ErrorDialog(Gtk.MessageDialog):
         self.format_secondary_markup(msg)
         self.set_default_response(Gtk.ResponseType.CLOSE)
 
-    def add_details(self, details: (str, str)):
-        description = details[0]
-        text = details[1]
-
+    def add_details(self, details: ErrorDetails):
         # Add a details expander
         expander = Gtk.Expander()
         expander.set_use_markup(True)
-        expander.set_label(description)
+        expander.set_label(details.title)
         expander.set_expanded(False)
         expander.set_margin_start(12)
         expander.set_margin_end(12)
@@ -88,7 +91,7 @@ class ErrorDialog(Gtk.MessageDialog):
         text_view.set_cursor_visible(False)
         text_view.set_wrap_mode(Gtk.WrapMode.CHAR)
         text_view.set_monospace(True)
-        text_view.get_buffer().set_text(text)
+        text_view.get_buffer().set_text(details.text)
         scrolled_window.add(text_view)
         scrolled_window.set_vexpand(True)
 
