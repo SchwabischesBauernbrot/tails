@@ -113,7 +113,8 @@ class VM
     set_vcpu($config['VCPUS']) if $config['VCPUS']
     @display = Display.new(@domain_name, x_display)
     set_cdrom_boot(TAILS_ISO)
-    add_remote_shell_channel
+    @virtio_channel_sockets = Hash.new
+    add_virtio_channel(VIRTIO_REMOTE_SHELL)
   rescue StandardError => e
     destroy_and_undefine
     raise e
@@ -462,31 +463,29 @@ class VM
     execute(cmd, **options)
   end
 
-  def remote_shell_socket_path
+  def virtio_channel_socket_path(channel)
     domain_rexml = REXML::Document.new(@domain.xml_desc)
     domain_rexml.elements.each('domain/devices/channel') do |e|
       target = e.elements['target']
-      if target.attribute('name').to_s == 'org.tails.remote_shell.0'
+      if target.attribute('name').to_s == channel
         return e.elements['source'].attribute('path').to_s
       end
     end
-    nil
+    raise "There is no #{channel} virtio channel"
   end
 
-  def add_remote_shell_channel
+  def add_virtio_channel(channel)
     if running?
-      raise 'The remote shell channel can only be added for inactive vms'
+      raise 'Virtio channels can only be added to inactive vms'
     end
 
-    if @remote_shell_socket_path.nil?
-      @remote_shell_socket_path =
-        "/tmp/remote-shell_#{random_alnum_string(8)}.socket"
-    end
+    @virtio_channel_sockets[channel] ||=
+      "/tmp/virtio-channel_#{random_alnum_string(8)}.socket"
     update do |xml|
       channel_xml = <<-XML
         <channel type='unix'>
-          <source mode="bind" path='#{@remote_shell_socket_path}'/>
-          <target type='virtio' name='org.tails.remote_shell.0'/>
+          <source mode="bind" path='#{@virtio_channel_sockets[channel]}'/>
+          <target type='virtio' name='#{channel}'/>
         </channel>
       XML
       xml.elements['domain/devices'].add_element(

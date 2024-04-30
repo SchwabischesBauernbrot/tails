@@ -12,6 +12,8 @@ rescue LoadError
 end
 $config = {}
 
+VIRTIO_REMOTE_SHELL = 'org.tails.remote_shell.0'.freeze
+
 def debug_log(*args); end
 
 # Implements the subset of the VM class that we need here
@@ -29,11 +31,11 @@ class FakeVM
     end
   end
 
-  def remote_shell_socket_path
+  def virtio_channel_socket(channel)
     rexml = REXML::Document.new(@domain_xml)
     rexml.elements.each('domain/devices/channel') do |e|
       target = e.elements['target']
-      if target.attribute('name').to_s == 'org.tails.remote_shell.0'
+      if target.attribute('name').to_s == channel
         return e.elements['source'].attribute('path').to_s
       end
     end
