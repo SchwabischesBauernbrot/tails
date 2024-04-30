@@ -84,7 +84,7 @@ class Shell(Language):
     NAME = "shell"
     EXTENSIONS = (".sh",)
     SHEBANGS = (re.compile(r"/bin/(ba|da|)sh\b"), re.compile(r"/usr/bin/env bash\b"))
-    SHEBANGS_ONLY_EXECUTABLE = False   # we have shell scripts which aren't executable
+    SHEBANGS_ONLY_EXECUTABLE = False  # we have shell scripts which aren't executable
 
 
 class Ruby(Language):
