@@ -24,9 +24,25 @@ build-website:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
     - changes:
         - .gitlab-ci.yml
+  cache:
+    key: website-$CI_COMMIT_BRANCH
+    paths:
+      - config/chroot_local-includes/usr/share/doc/tails/website
+      - wiki/src/.ikiwiki
   script:
     - apt-get -qy install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
     - ./build-website
+
+deploy-website:
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  cache:
+    key: website-$CI_COMMIT_BRANCH
+    paths:
+      - config/chroot_local-includes/usr/share/doc/tails/website
+      - wiki/src/.ikiwiki
+  script:
     - apt-get install -y openssh-client rsync
     - test -e .ssh || mkdir .ssh
     - cp "$WEBSITE_DEPLOY_SSH_PRIVATE_KEY" .ssh/private_key
