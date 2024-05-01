@@ -30,7 +30,16 @@ build-website:
       - config/chroot_local-includes/usr/share/doc/tails/website
       - wiki/src/.ikiwiki
   script:
-    - apt-get -qy install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
+    - apt-get update && apt-get -y install wget
+    - wget -q https://gitlab.tails.boum.org/tails/puppet-tails/-/raw/master/files/D68F87149EBA77541573C1C12453AA9CE4123A9A.asc -O /etc/apt/trusted.gpg.d/tails.asc
+    - |
+      echo -e 'Explanation: tails: po4a
+      Package: po4a
+      Pin: release n=bullseye, o=Debian
+      Pin-Priority: 1000' > /etc/apt/preferences.d/po4a.pref
+    - echo 'deb https://deb.tails.boum.org/ ikiwiki main' > /etc/apt/sources.list.d/tails.list
+    - echo 'deb https://deb.debian.org/debian bullseye main' > /etc/apt/sources.list.d/bullseye.list
+    - apt-get update && apt-get -y install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
     - ./build-website
 
 deploy-website:
