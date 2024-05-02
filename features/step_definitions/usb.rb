@@ -233,21 +233,6 @@ When /^I (install|reinstall|upgrade) Tails( with Persistent Storage)? (?:to|on) 
     @installer.button(label).grabFocus
     @screen.press('Enter')
 
-    if with_persistence
-      # Enter the passphrase in the passphrase dialog
-      passphrase_entry = @installer.child('Choose Passphrase',
-                                          roleName: 'dialog')
-                                   .child('Passphrase:', roleName: 'label')
-                                   .labelee
-      confirm_entry = @installer.child('Choose Passphrase',
-                                       roleName: 'dialog')
-                                .child('Confirm:', roleName: 'label')
-                                .labelee
-      passphrase_entry.text = @persistence_password
-      confirm_entry.text = @persistence_password
-      confirm_entry.activate
-    end
-
     unless action == 'upgrade'
       confirmation_label = if persistence_exists?(name)
                              'Delete Persistent Storage and Reinstall'
@@ -256,7 +241,23 @@ When /^I (install|reinstall|upgrade) Tails( with Persistent Storage)? (?:to|on) 
                            end
       @installer.child('Question',
                        roleName: 'alert').button(confirmation_label).click
+
+      if with_persistence
+        # Enter the passphrase in the passphrase dialog
+        passphrase_entry = @installer.child('Choose Passphrase',
+                                            roleName: 'dialog')
+                                     .child('Passphrase:', roleName: 'label')
+                                     .labelee
+        confirm_entry = @installer.child('Choose Passphrase',
+                                         roleName: 'dialog')
+                                  .child('Confirm:', roleName: 'label')
+                                  .labelee
+        passphrase_entry.text = @persistence_password
+        confirm_entry.text = @persistence_password
+        confirm_entry.activate
+      end
     end
+
     try_for(15 * 60, delay: 10) do
       @installer
         .child('Information', roleName: 'alert')

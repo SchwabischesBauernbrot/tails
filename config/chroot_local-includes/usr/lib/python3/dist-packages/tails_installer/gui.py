@@ -477,13 +477,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             self.warn_ISO_not_selected()
             return
 
-        if self.opts.clone_persistent_storage_requested:
-            passphrase_dialog = PassphraseDialog(self, self.live)
-            passphrase_dialog.run()
-            if not passphrase_dialog.passphrase:
-                return
-            self.live.passphrase = passphrase_dialog.passphrase
-
         self.begin()
 
     def on_infobar_response(self, infobar, response):
@@ -785,6 +778,12 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 if self.show_confirmation_dialog(
                     _("Confirm the target USB stick"), msg, False, confirmation_label
                 ):
+                    if self.opts.clone_persistent_storage_requested:
+                        passphrase_dialog = PassphraseDialog(self, self.live)
+                        passphrase_dialog.run()
+                        if not passphrase_dialog.passphrase:
+                            return
+                        self.live.passphrase = passphrase_dialog.passphrase
                     self.confirmed = True
                 else:
                     if self.force_reinstall_button_available:
