@@ -348,8 +348,6 @@ After('@product') do |scenario|
     elsif [TorBootstrapFailure, TimeSyncingError].any? do |c|
             scenario.exception.is_a?(c)
           end
-      save_tor_journal
-      save_failure_artifact('Tor logs', "#{$config['TMPDIR']}/log.tor")
       if File.exist?("#{$config['TMPDIR']}/chutney-data")
         chutney_logs = sanitize_filename(
           "#{elapsed}_#{scenario.name}_chutney-data"
@@ -373,21 +371,26 @@ After('@product') do |scenario|
         info_log('Found no Chutney data')
       end
 
-      if $vm.file_exist?('/var/lib/tor/pt_state/obfs4proxy.log')
-        File.open("#{$config['TMPDIR']}/log.obfs4proxy", 'w') do |f|
-          f.write($vm.file_content('/var/lib/tor/pt_state/obfs4proxy.log'))
+      if $vm&.remote_shell_is_up?
+        save_tor_journal
+        save_failure_artifact('Tor logs', "#{$config['TMPDIR']}/log.tor")
+        if $vm.file_exist?('/var/lib/tor/pt_state/obfs4proxy.log')
+          File.open("#{$config['TMPDIR']}/log.obfs4proxy", 'w') do |f|
+            f.write($vm.file_content('/var/lib/tor/pt_state/obfs4proxy.log'))
+          end
+          save_failure_artifact('obfs4proxy logs',
+                                "#{$config['TMPDIR']}/log.obfs4proxy")
         end
-        save_failure_artifact('obfs4proxy logs', "#{$config['TMPDIR']}/log.obfs4proxy")
-      end
 
-      if scenario.exception.instance_of?(HtpdateError)
-        content = if $vm.file_exist?('/var/log/htpdate.log')
-                    $vm.file_content('/var/log/htpdate.log')
-                  else
-                    "The htpdate logs did not exist\n"
-                  end
-        File.write("#{$config['TMPDIR']}/log.htpdate", content)
-        save_failure_artifact('Htpdate logs', "#{$config['TMPDIR']}/log.htpdate")
+        if scenario.exception.instance_of?(HtpdateError)
+          content = if $vm.file_exist?('/var/log/htpdate.log')
+                      $vm.file_content('/var/log/htpdate.log')
+                    else
+                      "The htpdate logs did not exist\n"
+                    end
+          File.write("#{$config['TMPDIR']}/log.htpdate", content)
+          save_failure_artifact('Htpdate logs', "#{$config['TMPDIR']}/log.htpdate")
+        end
       end
     end
     # Note that the remote shell isn't necessarily running at all
