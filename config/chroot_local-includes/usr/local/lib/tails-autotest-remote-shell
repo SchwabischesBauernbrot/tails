@@ -48,8 +48,6 @@ import logging
 
 from tailslib.userenv import read_user_env
 
-from typing import Dict, Tuple
-
 REMOTE_SHELL_DEV = '/dev/virtio-ports/org.tails.remote_shell.0'
 
 
@@ -70,17 +68,17 @@ def get_user_env(user):
         # the userenv module here because we need to dump and restore
         # environment variables which are not allowed in the userenv
         # module (for example GTK_MODULES).
-        with open(f"/tmp/gdm-env") as f:
+        with open("/tmp/gdm-env") as f:  # noqa: S108
             env_data = f.read()
-            return dict((line.split('=', 1) for line in env_data.splitlines()))
+            return dict(line.split('=', 1) for line in env_data.splitlines())
 
     # Get the default environment that's set up when logging in via `su`
-    wrapped_env_cmd = "su -c env {}".format(user)
+    wrapped_env_cmd = f"su -c env {user}"
     pipe = subprocess.Popen(wrapped_env_cmd,
                             stdout=subprocess.PIPE,
-                            shell=True)  # nosec subprocess_popen_with_shell_equals_true
+                            shell=True)  # noqa: S602
     env_data = pipe.communicate()[0].decode('utf-8')
-    env_dict = dict((line.split('=', 1) for line in env_data.splitlines()))
+    env_dict = dict(line.split('=', 1) for line in env_data.splitlines())
 
     if user == "amnesia":
         # Get the stored user environment
@@ -110,13 +108,7 @@ def get_user_env(user):
 class PythonSession:
     def __init__(self, user=None):
         logging.info("Starting new Python session")
-        interactive_shell_code = '; '.join([
-            "import sys",
-            "import code",
-            "sys.ps1 = ''",
-            "sys.ps2 = ''",
-            "code.interact(banner='')",
-        ])
+        interactive_shell_code = "import sys; import code; sys.ps1 = ''; sys.ps2 = ''; code.interact(banner='')"
         if not user:
             user = pwd.getpwuid(os.getuid()).pw_name
         env = get_user_env(user)
@@ -128,7 +120,7 @@ class PythonSession:
             del(env['WAYLAND_DISPLAY'])
         cwd = env.get('HOME', '/')
         self.process = subprocess.Popen(
-            ["python3", "-u", "-c", interactive_shell_code],
+            ["python3", "-u", "-c", interactive_shell_code],  # noqa: S607
             bufsize=0,
             shell=False,
             stdin=subprocess.PIPE,
@@ -137,7 +129,7 @@ class PythonSession:
             text=True,
             env=env,
             cwd=cwd,
-            preexec_fn=mk_switch_user_fn(user))
+            preexec_fn=mk_switch_user_fn(user))  # noqa: PLW1509
         init_code = """
             import io
             import json
@@ -148,7 +140,7 @@ class PythonSession:
         self.process.stdin.write(init_code)
         self.process.stdin.flush()
 
-    def execute(self, code) -> Tuple[str, str, str]:
+    def execute(self, code) -> tuple[str, str, str]:
         # This wrapping ensures that we can run almost any reasonable
         # code and capture what it does.
         wrapper = """
@@ -194,21 +186,21 @@ class PythonSession:
                 err_str = self.process.stderr.read()
                 return exc_str, out_str, err_str
 
-            exc_str = '%s: %s' % (type(e).__name__, str(e))
+            exc_str = f'{type(e).__name__}: {e!s}'
             return exc_str, "", ""
 
 
-def execute_cmd_as_user(cmd, env: Dict, user, **kwargs):
+def execute_cmd_as_user(cmd, env: dict, user, **kwargs):
     switch_user_fn = mk_switch_user_fn(user)
     user_env = get_user_env(user)
     user_env.update(env)
     cwd = user_env.get('HOME', '/')
     return subprocess.Popen(cmd,
-                            shell=True,  # nosec subprocess_popen_with_shell_equals_true
+                            shell=True,  # noqa: S602
                             text=True,
                             env=user_env,
                             cwd=cwd,
-                            preexec_fn=switch_user_fn,
+                            preexec_fn=switch_user_fn,  # noqa: PLW1509
                             **kwargs)
 
 
@@ -256,7 +248,7 @@ def main():
                 pass
             continue
         try:
-            id, cmd_type, *rest = json.loads(line)
+            tx_id, cmd_type, *rest = json.loads(line)
             ret = ""
             if cmd_type in ['sh_call', 'sh_spawn']:
                 user, env, cmd = rest
@@ -271,7 +263,7 @@ def main():
                                             stdout=subprocess.PIPE)
                     stdout, stderr = p.communicate()
                     returncode = p.returncode
-                    ret = json.dumps([id, 'success', returncode, stdout, stderr])
+                    ret = json.dumps([tx_id, 'success', returncode, stdout, stderr])
                     logging.info(f"Result: {ret}")
             elif cmd_type == 'python_execute':
                 user, env, code = rest
@@ -281,7 +273,7 @@ def main():
                 session = python_sessions[user]
                 logging.info(f"Executing Python as {user}:\n{code}")
                 exc, out_str, err_str = session.execute(code)
-                ret = json.dumps([id, 'success', exc, out_str, err_str])
+                ret = json.dumps([tx_id, 'success', exc, out_str, err_str])
                 logging.info(f"Result: {ret}")
             elif cmd_type in ['file_read', 'file_write', 'file_append']:
                 path, *rest = rest
@@ -296,15 +288,15 @@ def main():
                         data = base64.b64decode(rest[0])
                         ret = f.write(data)
                         if ret != len(data):
-                            raise IOError("we only wrote {} bytes out of {}"
+                            raise OSError("we only wrote {} bytes out of {}"
                                           .format(ret, len(data)))
-                ret = json.dumps([id, 'success'] + [ret])
+                ret = json.dumps([tx_id, 'success', ret])
             elif cmd_type in ["signal_ready"]:
-                logging.info(f"Mark systemd service as ready.")
+                logging.info("Mark systemd service as ready.")
                 # Notify systemd that we"re ready
                 systemd.daemon.notify("READY=1")
                 systemd.daemon.notify("STATUS=Processing requests...\n")
-                ret = json.dumps([id, "success"])
+                ret = json.dumps([tx_id, "success"])
             else:
                 raise ValueError("unknown command type")
             response = (ret + "\n").encode('utf-8')
@@ -323,9 +315,9 @@ def main():
             traceback.print_exc(file=sys.stderr)
             logging.info("-----")
             sys.stderr.flush()
-            exc_str = '{}: {}'.format(type(e).__name__, str(e))
+            exc_str = f'{type(e).__name__}: {e!s}'
             port.write(
-                json.dumps([id, 'error', exc_str]).encode('utf-8') + b"\n")
+                json.dumps([tx_id, 'error', exc_str]).encode('utf-8') + b"\n")
             port.flush()
             continue
 
