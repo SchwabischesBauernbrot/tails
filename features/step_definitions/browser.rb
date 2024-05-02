@@ -48,19 +48,12 @@ def set_browser_url(url)
   # https://bugzilla.mozilla.org/show_bug.cgi?id=1861026
   retry_action(10) do
     @screen.press('ctrl', 'a')
-    try_for(3) do
-      _, selection_length = browser_url_entry.get_text_selection_range
-      get_current_browser_url.length == selection_length
-    end
+    _, selection_length = browser_url_entry.get_text_selection_range
+    assert_equal(get_current_browser_url.length, selection_length)
     @screen.press('backspace')
-    try_for(3) do
-      get_current_browser_url.empty?
-    end
+    assert_true(get_current_browser_url.empty?)
     @screen.paste(url)
-    try_for(3) do
-      get_current_browser_url == url
-    end
-    true
+    assert_equal(get_current_browser_url, url)
   end
 end
 
@@ -501,10 +494,8 @@ Given /^I add a bookmark to eff.org in the Tor Browser$/ do
   step "I open the address \"#{url}\" in the Tor Browser"
   step 'the Tor Browser shows the ' \
        '"The proxy server is refusing connections" error'
-  @screen.press('ctrl', 'd')
+  @torbrowser.child('Bookmark this page (Ctrl+D)', roleName: 'push button').click
   prompt = @torbrowser.child('Add bookmark', roleName: 'panel')
-  prompt.click
-  @screen.paste(url)
   prompt.child('Location', roleName: 'combo box').open
   prompt.child('Bookmarks Menu', roleName: 'menu item').click
   prompt.button('Save').press
@@ -581,6 +572,8 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
   if should_work
     try_for(20,
             msg: "The page was not saved to #{output_dir}/#{output_file}") do
+      # List the content of the output directory for debugging #20356
+      $vm.execute("ls -l '#{output_dir}'")
       $vm.file_exist?("#{output_dir}/#{output_file}")
     end
   else
