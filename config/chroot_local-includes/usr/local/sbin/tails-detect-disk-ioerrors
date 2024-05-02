@@ -66,7 +66,7 @@ def main():
     j.log_level(systemd.journal.LOG_ERR)
     j.add_match(SYSLOG_IDENTIFIER="kernel")
 
-    # On start we havn't detected any error
+    # On start we haven't detected any error
     DISK_IOERRORS.unlink(missing_ok=True)
 
     systemd.daemon.notify("STATUS=Processing existing messages...\n")
