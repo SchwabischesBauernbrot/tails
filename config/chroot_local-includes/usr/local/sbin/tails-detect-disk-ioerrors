@@ -18,9 +18,11 @@ import systemd.journal
 # File that indicates SquashFS and other I/O errors
 DISK_IOERRORS = pathlib.Path("/var/lib/live/tails.disk.ioerrors")
 
+
 def boot_device_name():
     device_path = get_boot_device()
     return device_path.split("/")[-1]
+
 
 class IOErrorPatterns:
     def __init__(self):
