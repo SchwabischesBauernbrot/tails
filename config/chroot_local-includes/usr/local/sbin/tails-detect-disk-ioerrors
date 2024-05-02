@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 
 """
-Detect SquashFS and other I/O error and if detected create
-/var/lib/live/tails.disk.ioerrors. That file will be used to show the
-user an error.
+Detect SquashFS and other I/O errors in the journal and create the file
+"/var/lib/live/tails.disk.ioerrors" if any error is detected. Creating
+that file automatically activates the tails-report-disk-ioerrors.service
+user service, which will display a notification to the user.
 """
 
 from typing import Optional
@@ -40,7 +41,7 @@ class IOErrorPatterns:
             )
 
     def match_message(self, msg: str) -> bool:
-        """Do the msg match any of the patterns."""
+        """Check if the message matches any of the patterns."""
         for start in self.patterns:
             if msg.startswith(start):
                 return True
@@ -54,7 +55,8 @@ def process_entries(journal: systemd.journal.Reader, ioerror_patterns: IOErrorPa
         matched = ioerror_patterns.match_message(msg)
 
         if matched:
-            print(msg)  # Add detected logs to own log
+            # Log which message matched the error patterns
+            print(msg)
             DISK_IOERRORS.touch(exist_ok=True)
 
 
@@ -82,10 +84,10 @@ def main():
     systemd.daemon.notify("STATUS=Waiting for new messages to process...\n")
 
     print("start loop")
-    # Wait for new messages to be appended to journald
+    # Wait for new messages to be appended to the journal
     while True:
-        # journal.wait will trigger process_entries for every message including all
-        # messages, that do not match our filters.
+        # Note that journal.wait returns each time the journal is changed,
+        # even if no messages that match our filters are added.
         state_change = j.wait()
         if state_change == systemd.journal.APPEND:
             process_entries(j, ioerror_patterns)
