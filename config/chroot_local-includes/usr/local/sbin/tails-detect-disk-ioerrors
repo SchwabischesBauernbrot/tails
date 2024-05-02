@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 
 """
-Detect SQUASHFS and other I/O error and if detected create
+Detect SquashFS and other I/O error and if detected create
 /var/lib/live/tails.disk.ioerrors. That file will be used to show the
 user an error.
 """
@@ -15,7 +15,7 @@ import pathlib
 import systemd.daemon
 import systemd.journal
 
-# File that indicates SQUASHFS and other I/O errors
+# File that indicates SquashFS and other I/O errors
 DISK_IOERRORS = pathlib.Path("/var/lib/live/tails.disk.ioerrors")
 
 def boot_device_name():
@@ -46,7 +46,7 @@ class IOErrorPatterns:
 
 
 def process_entries(journal: systemd.journal.Reader, ioerror_patterns: IOErrorPatterns):
-    """Process all journald messages and search for SQUASHFS and other I/O errors."""
+    """Process all journald messages and search for SquashFS and other I/O errors."""
     for e in journal:
         msg = e["MESSAGE"]
         matched = ioerror_patterns.match_message(msg)
