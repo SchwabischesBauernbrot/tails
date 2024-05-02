@@ -286,6 +286,7 @@ def main():
             elif cmd_type in ['file_read', 'file_write', 'file_append']:
                 path, *rest = rest
                 open_mode = cmd_type[5] + 'b'
+                logging.info(f"Opening ({open_mode}) file: {path}")
                 with open(path, open_mode) as f:
                     if cmd_type == 'file_read':
                         assert (rest == [])
