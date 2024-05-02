@@ -34,40 +34,46 @@ ERRORS = 0
 LANGUAGE_RE = re.compile(r'^"Language:\s+(.*)\\n"$')
 MAPFILE = "po/po-to-mozilla.toml"
 TEMPDIR = Path("tmp/")
-TBB_SHASUMS = Path("config/chroot_local-includes/usr/share/tails/tbb-sha256sums.txt").absolute()
-TBB_PREFIX = Path("config/chroot_local-includes/usr/share/tails/tbb-dist-url.txt").absolute()
+TBB_SHASUMS = Path(
+    "config/chroot_local-includes/usr/share/tails/tbb-sha256sums.txt"
+).absolute()
+TBB_PREFIX = Path(
+    "config/chroot_local-includes/usr/share/tails/tbb-dist-url.txt"
+).absolute()
 
 
 @functools.cache
 def get_torbrowser_filename() -> str:
     with TBB_SHASUMS.open() as buf:
         for line in buf:
-            if line.split('.')[-2] == 'tar':
-                match = re.match(r'^\w+\s+(.*)$', line.strip())
+            if line.split(".")[-2] == "tar":
+                match = re.match(r"^\w+\s+(.*)$", line.strip())
                 return match.group(1)
     raise Exception("tor browser tarball not found in tbb-sha256sums.txt")
+
 
 def get_torbrowser_tarball() -> Path:
     filepath = TEMPDIR / get_torbrowser_filename()
     if not filepath.exists():
         TEMPDIR.mkdir(exist_ok=True)
         prefix = TBB_PREFIX.open().read().strip()
-        if not prefix.startswith(('https://', 'http://')):
+        if not prefix.startswith(("https://", "http://")):
             raise Exception("not a valid url: %s" % prefix)
         url = urljoin(prefix, get_torbrowser_filename())
-        urlretrieve(url, filename=filepath) # noqa: S310
+        urlretrieve(url, filename=filepath)  # noqa: S310
 
     with contextlib.chdir(TEMPDIR):
-        subprocess.check_output(['/usr/bin/sha256sum', '-c', str(TBB_SHASUMS)])
+        subprocess.check_output(["/usr/bin/sha256sum", "-c", str(TBB_SHASUMS)])
     return filepath
+
 
 def get_torbrowser_languages() -> list[str]:
     tarball = get_torbrowser_tarball()
     tar = tarfile.open(tarball)
-    omnija_raw = tar.extractfile('tor-browser/Browser/omni.ja')
+    omnija_raw = tar.extractfile("tor-browser/Browser/omni.ja")
     omnija = zipfile.ZipFile(omnija_raw)
-    contents = omnija.read('res/multilocale.txt').decode('ascii')
-    locales = [locale.strip() for locale in contents.split(',') if locale]
+    contents = omnija.read("res/multilocale.txt").decode("ascii")
+    locales = [locale.strip() for locale in contents.split(",") if locale]
     locales.sort()
     return locales
 
@@ -117,6 +123,7 @@ class ValidLocales:
     """
     This class fetches a list of all possible locale.
     """
+
     def __init__(self):
         self.locales = self.parse_table(
             requests.get("https://lh.2xlibre.net/locales/", timeout=10).text,
@@ -149,13 +156,13 @@ class LocaleDescriptions:
         for po in sorted(Path("po/").glob("*.po")):
             moz_locale = get_language(po)
             moz_locales.add(moz_locale)
-            ret.add((str(po), moz_locale, 'po/'))
+            ret.add((str(po), moz_locale, "po/"))
 
         for loc in get_torbrowser_languages():
-            moz_locale = loc.replace('-', '_')
+            moz_locale = loc.replace("-", "_")
             if moz_locale not in moz_locales:
                 moz_locales.add(moz_locale)
-                ret.add((moz_locale, moz_locale, 'tbb'))
+                ret.add((moz_locale, moz_locale, "tbb"))
 
         return ret
 
@@ -243,7 +250,9 @@ def main():
 
         doctest.testmod(verbose=args.verbose)
 
-    mozlocales = sorted(set(helper.get_all_mozlocales(warnings=(args.mode == "generate"))))
+    mozlocales = sorted(
+        set(helper.get_all_mozlocales(warnings=(args.mode == "generate")))
+    )
     if args.mode == "generate":
         for out in mozlocales:
             print(out)
@@ -255,6 +264,7 @@ def main():
         suggestion = helper.get_suggestions()
         print(suggestion, file=sys.stderr)
         sys.exit(1)
+
 
 if __name__ == "__main__":
     main()
