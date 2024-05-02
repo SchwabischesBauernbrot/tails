@@ -27,18 +27,13 @@ def boot_device_name():
 
 class IOErrorPatterns:
     def __init__(self):
-        self.patterns = ["SQUASHFS error:"]
-
-        self._add_pattern_boot_device(boot_device_name())
-
-    def _add_pattern_boot_device(self, device: str):
-        print(f"use boot device {device}")
-        self.patterns.extend(
-                [
-                    f"I/O error, dev {device}, sector",
-                    f"critical target error, dev {device}, sector",
-                ]
-            )
+        device = boot_device_name()
+        print(f"boot device: {device}")
+        self.patterns = [
+            "SQUASHFS error:",
+            f"I/O error, dev {device}, sector",
+            f"critical target error, dev {device}, sector",
+        ]
 
     def match_message(self, msg: str) -> bool:
         """Check if the message matches any of the patterns."""
