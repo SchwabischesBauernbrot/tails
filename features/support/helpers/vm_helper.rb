@@ -754,6 +754,10 @@ class VM
     # state"(-only) snapshots.
     if internal_snapshot
       save_internal_snapshot(name)
+      # In the non-internal snapshot case we also restore the
+      # snapshot, which also restarts JournalDumper, so we don't have
+      # to start it again in the other case like we do here.
+      JournalDumper.instance.restart
     else
       save_ram_only_snapshot(name)
       # For consistency with the internal snapshot case (which is
