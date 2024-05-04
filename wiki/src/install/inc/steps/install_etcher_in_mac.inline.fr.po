@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-02-26 12:26+0100\n"
-"PO-Revision-Date: 2024-05-03 17:39+0000\n"
+"PO-Revision-Date: 2024-05-04 09:51+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
 "Language: fr\n"
@@ -77,6 +77,7 @@ msgstr "[[!toggleable id=\"dd\" text=\"\"\"\n"
 #, no-wrap
 msgid "[[!toggle id=\"dd\" text=\"\"\"<span class=\"hide-button\"></span>\"\"\"]]\n"
 msgstr ""
+"[[!toggle id=\"dd\" text=\"\"\"<span class=\"hide-button\"></span>\"\"\"]]\n"
 
 #. type: Bullet: '1. '
 msgid "Make sure that your USB stick is unplugged."
@@ -140,40 +141,31 @@ msgstr ""
 "   si sa taille correspond à la taille de votre clé USB.\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "   <p class=\"pre command-output\">/dev/disk0\n"
-#| "    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-#| "    0:    GUID_partition_scheme             *500.1 GB  disk0\n"
-#| "    1:                      EFI              209.7 MB  disk0s1\n"
-#| "    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-#| "    3:                      EFI              134.1 GB  disk0s3\n"
-#| "    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>\n"
+#, no-wrap
 msgid ""
 "       /dev/disk1\n"
 "        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
 "        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
 "        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 msgstr ""
-"   <p class=\"pre command-output\">/dev/disk0\n"
-"    #:                     TYPE NAME         SIZE      IDENTIFIER\n"
-"    0:    GUID_partition_scheme             *500.1 GB  disk0\n"
-"    1:                      EFI              209.7 MB  disk0s1\n"
-"    2:                Apple_HFS MacDrive     250.0 GB  disk0s2\n"
-"    3:                      EFI              134.1 GB  disk0s3\n"
-"    4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4</p>\n"
+"       /dev/disk1\n"
+"        #:                     TYPE NAME         SIZE      IDENTIFIER\n"
+"        0:   FDisk_partition_scheme             *8.0 GB    disk1\n"
+"        1:                Apple_HFS Untitled 1   8.0 GB    disk1s1\n"
 
 #. type: Bullet: '1. '
 msgid "Take note of the device name of your USB stick."
 msgstr ""
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "Take note of the *device name* of your USB stick.  In this example, the USB stick is 8.0 GB and its device name is <span class=\"code\">/dev/disk1</span>.  Yours might be different."
+#, no-wrap
 msgid ""
 "   In this example, the USB stick is 8.0 GB and its device name is <span class=\"command-placeholder\">/dev/disk1</span>.\n"
 "   Yours might be different.\n"
-msgstr "Notez le *nom de périphérique* de votre clé USB. Dans cet exemple, la clé USB a 8.0 GB et son nom de périphérique est <span class=\"code\">/dev/disk1</span>. Le nom de la votre peut être différent."
+msgstr ""
+"   Dans cet exemple, la clé USB a 8.0 GB et son nom de périphérique est "
+"<span class=\"command-placeholder\">/dev/disk1</span>.\n"
+"   Le nom de la votre peut être différent.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -252,25 +244,24 @@ msgstr ""
 "périphérique trouvé à l'étape 6"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "     <div class=\"tip\">\n"
-#| "     <p>You can try adding <span class=\"code\">r</span> before <span class=\"code\">disk</span> to make the installation faster.</p>\n"
-#| "     </div>\n"
+#, no-wrap
 msgid ""
 "     <div class=\"tip\">\n"
 "     <p>You can try adding <code>r</code> before <code>disk</code> to make the installation faster.</p>\n"
 "     </div>\n"
 msgstr ""
 "     <div class=\"tip\">\n"
-"     <p>Vous pouvez essayer d'ajouter <span class=\"code\">r</span> avant <span class=\"code\">disk</span> pour rendre l'installation plus rapide.</p>\n"
+"     <p>Vous pouvez essayer d'ajouter <code>r</code> avant <code>disk</code> "
+"pour rendre l'installation plus rapide.</p>\n"
 "     </div>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+#, no-wrap
 msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
-msgstr "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">périphérique</span> bs=16m && sync</p>\n"
+msgstr ""
+"   <p class=\"command-template\">dd if=<span class=\"command-placeholder\""
+">tails.img</span> of=<span class=\"command-placeholder\">device</span> "
+"bs=16m && sync</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -308,10 +299,12 @@ msgstr ""
 "   d'ajouter <code>sudo</code> au début de la ligne de commande :</p>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   <p class=\"pre command\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
+#, no-wrap
 msgid "   <p class=\"command-template\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
-msgstr "   <p class=\"pre command\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">périphérique</span> bs=16m && sync</p>\n"
+msgstr ""
+"   <p class=\"command-template\">sudo dd if=<span class=\"command-"
+"placeholder\">tails.img</span> of=<span class=\"command-placeholder\""
+">périphérique</span> bs=16m && sync</p>\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -326,10 +319,12 @@ msgstr ""
 "   d'utiliser <code>16M</code> à la place :</p>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
+#, no-wrap
 msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
-msgstr "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">périphérique</span> bs=16M && sync</p>\n"
+msgstr ""
+"   <p class=\"command-template\">dd if=<span class=\"command-placeholder\""
+">tails.img</span> of=<span class=\"command-placeholder\">périphérique</span> "
+"bs=16M && sync</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -337,8 +332,7 @@ msgid "   </div>\n"
 msgstr "   </div>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   The installation is complete once the command prompt reappeared.\n"
+#, no-wrap
 msgid "   The installation is complete when the command prompt reappears.\n"
 msgstr "   L'installation est terminée quand l'invite de commande réapparaît.\n"
 
