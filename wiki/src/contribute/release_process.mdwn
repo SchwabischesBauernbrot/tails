@@ -251,14 +251,14 @@ not be blocked later.
 ### Make sure there are enough manual testers
 
 Check your if you have enough manual testers registered. If not, ping
-the usual testers (tails-manual-testers@boum.org) and warn the
+the usual testers (manual-testers@tails.net) and warn the
 Foundations Team that you may need their help.
 
 ### Make sure there is a Trusted Reproducer
 
 Check that the <https://tails.net/contribute/calendar/> has a _Trusted
 Reproducer_ assigned for this release, otherwise try to find one among
-the manual testers (tails-manual-testers@boum.org) or FT (XMPP,
+the manual testers (manual-testers@tails.net) or FT (XMPP,
 tails-foundations@boum.org).
 
 Coordinate with Debian security updates
@@ -1012,11 +1012,11 @@ files metadata:
 Get the internal manual testing started
 =======================================
 
-Email <tails-board@boum.org> and <tails-manual-testers@boum.org> that tests
+Email <tails-board@boum.org> and <manual-testers@tails.net> that tests
 may start. Remember to encrypt and sign your email!
 
     ./bin/automailer.py <<EOF
-    To: tails-board@boum.org, tails-manual-testers@boum.org
+    To: tails-board@boum.org, manual-testers@tails.net
     Subject: Testing Tails ${VERSION:?}
     X-Attach: $(/bin/ls -1 "$ISOS/tails-amd64-${VERSION:?}/tails-amd64-${VERSION:?}.packages" "$ISOS/tails-amd64-${VERSION:?}/"tails-amd64-${VERSION:?}.{iso,img}.sig "$ISOS/tails-amd64-${VERSION:?}".{iso,img}.torrent | tr '\n' ,)
 
@@ -2315,7 +2315,7 @@ Check that you are indeed preparing a final release:
 
          ./bin/automailer.py <<EOF
          To: tails-dev@boum.org,tails-l10n@boum.org
-         Cc: tails-manual-testers@boum.org
+         Cc: manual-testers@tails.net
          Subject: Release schedule for Tails ${NEXT_PLANNED_VERSION:?}
 
          Hi,
