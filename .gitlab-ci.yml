@@ -24,9 +24,45 @@ build-website:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
     - changes:
         - .gitlab-ci.yml
+  cache:
+    key: website-$CI_COMMIT_BRANCH
+    paths:
+      - config/chroot_local-includes/usr/share/doc/tails/website
+      - wiki/src/.ikiwiki
   script:
-    - apt-get -qy install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
+    - apt-get update && apt-get -y install wget
+    - wget -q https://gitlab.tails.boum.org/tails/puppet-tails/-/raw/master/files/D68F87149EBA77541573C1C12453AA9CE4123A9A.asc -O /etc/apt/trusted.gpg.d/tails.asc
+    - |
+      echo -e 'Explanation: tails: po4a
+      Package: po4a
+      Pin: release n=bullseye, o=Debian
+      Pin-Priority: 1000' > /etc/apt/preferences.d/po4a.pref
+    - echo 'deb https://deb.tails.boum.org/ ikiwiki main' > /etc/apt/sources.list.d/tails.list
+    - echo 'deb https://deb.debian.org/debian bullseye main' > /etc/apt/sources.list.d/bullseye.list
+    - apt-get update && apt-get -y install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
     - ./build-website
+
+deploy-website:
+  stage: deploy
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  cache:
+    key: website-$CI_COMMIT_BRANCH
+    paths:
+      - config/chroot_local-includes/usr/share/doc/tails/website
+      - wiki/src/.ikiwiki
+  script:
+    - apt-get install -y openssh-client rsync
+    - test -e .ssh || mkdir .ssh
+    - cp "$WEBSITE_DEPLOY_SSH_PRIVATE_KEY" .ssh/private_key
+    - cp "$WEBSITE_DEPLOY_SSH_KNOWN_HOSTS" .ssh/known_hosts
+    - chmod 400 .ssh/known_hosts .ssh/private_key
+    - echo "variables often lack a trailing newline, which breaks SSH, detect and fix"
+    - ssh-keygen -y -f .ssh/private_key || echo >> .ssh/private_key
+    - echo "here is the SSH key we will deploy with"
+    - ssh-keygen -y -f .ssh/private_key
+    - echo -n "Begin rsync, time is " && date '+%Y-%m-%d %H-%M-%S%z'
+    - rsync --rsh="ssh -p 3004 -o UserKnownHostsFile=.ssh/known_hosts -i .ssh/private_key" --checksum --archive --no-times --verbose --mkpath --delete "config/chroot_local-includes/usr/share/doc/tails/website/" www-data@chameleon.tails.net:/
 
 lint-po:
   image: debian:testing
