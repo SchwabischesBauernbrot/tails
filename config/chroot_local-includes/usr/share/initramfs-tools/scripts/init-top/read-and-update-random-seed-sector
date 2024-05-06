@@ -39,8 +39,6 @@ if [ -z "${FSUUID:-}" ]; then
 fi
 
 # Wait for system partition
-PLYMOUTH_WAIT_MSG="Waiting for the Tails system partition..."
-plymouth display-message --text="${PLYMOUTH_WAIT_MSG}"
 log_begin_msg "Waiting for system partition to become available"
 i=0
 while true; do
@@ -64,7 +62,6 @@ while true; do
   i="$((i + 1))"
 done
 log_end_msg
-plymouth hide-message --text="${PLYMOUTH_WAIT_MSG}"
 
 # Check if this is first boot
 GUID=$(sgdisk --print "${PARENT_DEVICE}" | \
