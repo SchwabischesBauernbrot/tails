@@ -39,7 +39,7 @@ if [ -z "${FSUUID:-}" ]; then
 fi
 
 # Wait for system partition
-PLYMOUTH_WAIT_MSG="Waiting for system partition"
+PLYMOUTH_WAIT_MSG="Waiting for the Tails system partition..."
 plymouth display-message --text="${PLYMOUTH_WAIT_MSG}"
 log_begin_msg "Waiting for system partition to become available"
 i=0
@@ -83,7 +83,7 @@ log_end_msg
 if [ -n "${FIRST_BOOT:-}" ]; then
   ITERATIONS=$((1 + $(od -An -N2 -t uI /dev/urandom) % 2000))
   echo "First boot, writing random seed $ITERATIONS times..."
-  PLYMOUTH_INIT_MSG="First boot: Initializing random seed"
+  PLYMOUTH_INIT_MSG="Preparing Tails for first use..."
   plymouth display-message --text="${PLYMOUTH_INIT_MSG}"
 
   # Debug output for the following loop would be too verbose
