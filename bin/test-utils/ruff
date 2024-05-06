@@ -34,7 +34,7 @@ else
     RUFF_CMD="check"
 fi
 
-changed_files=$(git diff --name-only "${REF}")
+changed_files=$(git diff --name-only "${REF}"...)
 untracked_files=$(git ls-files --others --exclude-standard)
 all_files="${changed_files}"$'\n'"${untracked_files}"
 
