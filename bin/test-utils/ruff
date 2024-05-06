@@ -35,8 +35,9 @@ else
 fi
 
 changed_files=$(git diff --name-only "${REF}"...)
+uncommitted_files=$(git diff HEAD --name-only)
 untracked_files=$(git ls-files --others --exclude-standard)
-all_files="${changed_files}"$'\n'"${untracked_files}"
+all_files="${changed_files}"$'\n'"${uncommitted_files}"$'\n'"${untracked_files}"
 
 # Remove the trailing newline (if any)
 all_files="${all_files%$'\n'}"
