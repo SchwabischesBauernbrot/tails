@@ -57,6 +57,7 @@ deploy-website:
     paths:
       - config/chroot_local-includes/usr/share/doc/tails/website
       - wiki/src/.ikiwiki
+    policy: pull
   script:
     - apt-get install -y openssh-client rsync
     - test -e .ssh || mkdir .ssh
