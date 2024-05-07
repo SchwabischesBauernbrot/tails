@@ -867,6 +867,7 @@ def wait_for_udisks_object(
             [
                 "udevadm",
                 "trigger",
+                "--verbose",
                 "--settle",
                 device_path,
             ]
