@@ -5,7 +5,7 @@ from os import PathLike
 import sys
 from pathlib import Path
 import subprocess
-from typing import List, Union
+from typing import Union
 
 import tps
 import tps.logging
@@ -13,7 +13,7 @@ import tps.logging
 logger = tps.logging.get_logger(__name__)
 
 
-def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
+def _run(cmd: list, *args, **kwargs) -> subprocess.CompletedProcess:
     """Run a command and print it's stderr continuously but also return
     stderr in the return CompletedProcess and any raised CalledProcessError.
 
@@ -42,15 +42,15 @@ def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
         logger.debug(f"Done executing command", stacklevel=3)
 
 
-def run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
+def run(cmd: list, *args, **kwargs) -> subprocess.CompletedProcess:
     return _run(cmd, *args, **kwargs)
 
 
-def check_call(cmd: List, *args, **kwargs):
+def check_call(cmd: list, *args, **kwargs):
     return _run(cmd, *args, **kwargs, check=True)
 
 
-def check_output(cmd: List, *args, **kwargs) -> str:
+def check_output(cmd: list, *args, **kwargs) -> str:
     p = _run(cmd, *args, **kwargs, check=True, stdout=subprocess.PIPE)
     return p.stdout
 
@@ -75,7 +75,7 @@ def execute_hooks(hooks_dir: Union[str, PathLike]):
             logger.debug(f"Done executing hook")
 
 
-def prepare_for_profiling(cmd: List) -> List:
+def prepare_for_profiling(cmd: list) -> list:
     uptime = Path("/proc/uptime").read_text().split()[0]
     profile_file = tempfile.NamedTemporaryFile(
         prefix=f"{uptime}-{os.path.basename(cmd[0])}.",
