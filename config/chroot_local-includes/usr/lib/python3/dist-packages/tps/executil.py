@@ -93,4 +93,5 @@ def prepare_for_profiling(cmd: list) -> list:
         "--summary",
         "--trace=file,process,network,signal,ipc,desc,memory",
         f"--output={profile_file.name}",
-    ] + cmd
+        *cmd,
+    ]
