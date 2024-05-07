@@ -23,7 +23,7 @@ def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
     # This method will be called from executil.run() (or check_call, or check_output),
     # and we want to attribute the log message to its caller
     # we should use logger.debug, but #19871 pushes us towards higher log level
-    logger.info(f"Executing command {' '.join(cmd)}", stacklevel=5)
+    logger.info(f"Executing command {' '.join(cmd)}", stacklevel=3)
 
     if tps.PROFILING:
         cmd = prepare_for_profiling(cmd)
@@ -39,7 +39,7 @@ def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
         print(p.stderr, file=sys.stderr)
         return p
     finally:
-        logger.debug(f"Done executing command", stacklevel=5)
+        logger.debug(f"Done executing command", stacklevel=3)
 
 
 def run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
