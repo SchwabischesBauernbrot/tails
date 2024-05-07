@@ -831,10 +831,6 @@ class Service(DBusObject, ServiceUsingJobs):
         executil.execute_hooks(ON_ACTIVATED_HOOKS_DIR)
 
     @staticmethod
-    def run_on_deactivated_hooks():
-        executil.execute_hooks(ON_DEACTIVATED_HOOKS_DIR)
-
-    @staticmethod
     def erase_luks_header_backup():
         luks_header_backup = Path(LUKS_HEADER_BACKUP_PATH)
         executil.check_call(
