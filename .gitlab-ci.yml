@@ -19,6 +19,7 @@ before_script:
   - git clone https://gitlab.tails.boum.org/tails/jenkins-tools.git /tmp/jenkins-tools
 
 build-website:
+  stage: build
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
