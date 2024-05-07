@@ -1,3 +1,8 @@
+stages:
+  - test
+  - build-website
+  - deploy-website
+
 workflow:
   rules:
     - if: $CI_FORCE_RUN
@@ -19,7 +24,7 @@ before_script:
   - git clone https://gitlab.tails.boum.org/tails/jenkins-tools.git /tmp/jenkins-tools
 
 build-website:
-  stage: build
+  stage: build-website
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
@@ -44,7 +49,7 @@ build-website:
     - ./build-website
 
 deploy-website:
-  stage: deploy
+  stage: deploy-website
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
   cache:
