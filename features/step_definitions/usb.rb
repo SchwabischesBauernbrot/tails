@@ -492,11 +492,23 @@ def check_disk_integrity(name, dev, scheme)
   return unless scheme == 'gpt'
 
   c = $vm.execute("sgdisk --verify #{dev}")
-  assert(c.success? &&
-         c.to_s.include?('No problems found.') && \
-         !c.to_s.include?('ERROR') &&
-         !c.to_s.include?('corrupt'),
-         "sgdisk --verify #{dev} failed.\n#{c}")
+  assert(
+    # Note that sgdisk --verify exits with 0 even if it finds problems,
+    # so we also need to check the output.
+    c.success? &&
+    c.to_s.include?('No problems found.') && \
+    # The output of sgdisk --verify includes "ERROR" if any of the
+    # following are corrupt:
+    # * The GPT header
+    # * The GPT partition table
+    # * The GPT backup header
+    # * The GPT backup partition table
+    !c.to_s.include?('ERROR') &&
+    # The output of sgdisk --verify includes "corrupt" if the protective
+    # MBR is corrupt.
+    !c.to_s.include?('corrupt'),
+    "sgdisk --verify #{dev} failed.\n#{c}"
+  )
   $vm.execute_successfully("partprobe #{dev}")
   $vm.execute_successfully('udevadm settle')
 end
