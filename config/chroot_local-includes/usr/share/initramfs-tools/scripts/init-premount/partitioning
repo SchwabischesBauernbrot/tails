@@ -131,9 +131,11 @@ first_boot_repartition() {
 
   GPT_IS_VALID=
   for i in 1 2 3; do
-    # Verify the GPT headers and partition tables. We've seen cases where
-    # both the MBR and the GPT backup tables were corrupted, which caused
-    # the Persistent Storage partition to fail to be created.
+    # Verify the GPT headers and partition tables. We've seen cases
+    # where both the MBR and the GPT backup tables were corrupted, which
+    # caused the Persistent Storage partition to fail to be created. It
+    # can also break fatresize, leaving the system partition too small
+    # for automatic upgrades (and at some point manual upgrades too).
     verify_output=$(sgdisk --verify "${PARENT_DEVICE}" 2>&1 || true)
     # Print the output of sgdisk --verify for debugging purposes
     echo "${verify_output}"
