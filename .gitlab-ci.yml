@@ -36,7 +36,7 @@ build-website:
       - config/chroot_local-includes/usr/share/doc/tails/website
       - wiki/src/.ikiwiki
   script:
-    - apt-get update && apt-get -y install wget
+    - apt-get -y install wget git
     - wget -q https://gitlab.tails.boum.org/tails/puppet-tails/-/raw/master/files/D68F87149EBA77541573C1C12453AA9CE4123A9A.asc -O /etc/apt/trusted.gpg.d/tails.asc
     - |
       echo -e 'Explanation: tails: po4a
@@ -46,7 +46,20 @@ build-website:
     - echo 'deb https://deb.tails.boum.org/ ikiwiki main' > /etc/apt/sources.list.d/tails.list
     - echo 'deb https://deb.debian.org/debian bullseye main' > /etc/apt/sources.list.d/bullseye.list
     - apt-get update && apt-get -y install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
-    - ./build-website
+    - mkdir /underlays
+    - git clone --depth=1 https://gitlab.tails.boum.org/tails/etcher-binary.git /underlays/etcher-binary
+    - git clone --depth=1 https://gitlab.tails.boum.org/tails/promotion-material.git /underlays/promotion-material
+    - |
+      ./build-website \
+        --url "https://tails.net" \
+        --usedirs \
+        --sslcookie \
+        --historyurl "https://gitlab.tails.boum.org/tails/tails/-/commits/master/wiki/src/[[file]]" \
+        --diffurl "https://gitlab.tails.boum.org/tails/tails/-/commit/[[sha1_commit]]" \
+        --rss \
+        --atom \
+        --set allow_symlinks_before_srcdir=0 \
+        --set-yaml add_underlays="['/underlays/etcher-binary', '/underlays/promotion-material']"
 
 deploy-website:
   stage: deploy-website
