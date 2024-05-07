@@ -68,11 +68,11 @@ def execute_hooks(hooks_dir: Union[str, PathLike]):
     for file in sorted(hooks_dir.iterdir()):
         if file.is_dir():
             continue
-        logger.info(f"Executing hook {file}", stacklevel=4)
+        logger.info(f"Executing hook {file}")
         try:
             check_call([str(file)])
         finally:
-            logger.debug(f"Done executing hook", stacklevel=4)
+            logger.debug(f"Done executing hook")
 
 
 def prepare_for_profiling(cmd: List) -> List:
