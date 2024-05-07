@@ -399,7 +399,9 @@ class TPSPartition:
 
         # Wait for the encrypted partition to become available to udisks
         next_step()
-        wait_for_udisks_object(partition.udisks_object.get_encrypted)
+        wait_for_udisks_object(
+            partition.device_path, partition.udisks_object.get_encrypted
+        )
 
         # Unlock the partition
         logger.info("Unlocking partition")
@@ -612,7 +614,10 @@ class TPSPartition:
         if rename_dm_device:
             # Wait for the cleartext device to become available to udisks
             try:
-                cleartext_device = wait_for_udisks_object(self.try_get_cleartext_device)
+                cleartext_device = wait_for_udisks_object(
+                    self.device_path,
+                    self.try_get_cleartext_device,
+                )
                 assert isinstance(cleartext_device, CleartextDevice)
             except TimeoutError:
                 # Log the output of `udisksctl dump` to help debug spurious
@@ -659,7 +664,9 @@ class TPSPartition:
 
         # Try to get the encrypted device. We use wait_for_udisks_object()
         # because udisks might need some time to detect the new device.
-        encrypted = wait_for_udisks_object(self.udisks_object.get_encrypted)
+        encrypted = wait_for_udisks_object(
+            self.device_path, self.udisks_object.get_encrypted
+        )
         assert isinstance(encrypted, UDisks.Encrypted)
 
         # Unlock the partition
@@ -850,13 +857,13 @@ class CleartextDevice:
 
 
 def wait_for_udisks_object(
-    func: Callable[..., Optional[object]], *args, timeout: int = 20
+    device_path: str, func: Callable[..., Optional[object]], *args, timeout: int = 20
 ) -> object:
     """Repeatedly call `udevadm trigger` and then func() until func()
     returns a udisks object or timeout is reached."""
     start = time.time()
     while time.time() - start < timeout:
-        executil.check_call(["udevadm", "trigger"])
+        executil.check_call(["udevadm", "trigger", device_path])
         obj = func(*args)
         if obj:
             return obj
