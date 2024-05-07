@@ -852,7 +852,7 @@ class CleartextDevice:
 
 
 def wait_for_udisks_object(
-    func: Callable[[...], Optional[object]], *args, timeout: int = 20
+    func: Callable[..., Optional[object]], *args, timeout: int = 20
 ) -> object:
     """Repeatedly call `udevadm trigger` and then func() until func()
     returns a udisks object or timeout is reached."""
