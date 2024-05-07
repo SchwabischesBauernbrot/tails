@@ -39,7 +39,7 @@ def _run(cmd: list, *args, **kwargs) -> subprocess.CompletedProcess:
         print(p.stderr, file=sys.stderr)
         return p
     finally:
-        logger.debug(f"Done executing command", stacklevel=3)
+        logger.debug("Done executing command", stacklevel=3)
 
 
 def run(cmd: list, *args, **kwargs) -> subprocess.CompletedProcess:
@@ -72,7 +72,7 @@ def execute_hooks(hooks_dir: Union[str, PathLike]):
         try:
             check_call([str(file)])
         finally:
-            logger.debug(f"Done executing hook")
+            logger.debug("Done executing hook")
 
 
 def prepare_for_profiling(cmd: list) -> list:
