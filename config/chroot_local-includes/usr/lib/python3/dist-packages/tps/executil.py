@@ -31,7 +31,7 @@ def _run(cmd: list, *args, **kwargs) -> subprocess.CompletedProcess:
     kwargs["stderr"] = subprocess.PIPE
     kwargs["text"] = True
     try:
-        p = subprocess.run(cmd, *args, **kwargs)
+        p = subprocess.run(cmd, *args, **kwargs)  # noqa: PLW1510
     except subprocess.CalledProcessError as e:
         print(e.stderr, file=sys.stderr)
         raise
