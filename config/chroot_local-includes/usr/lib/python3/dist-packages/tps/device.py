@@ -863,7 +863,14 @@ def wait_for_udisks_object(
     returns a udisks object or timeout is reached."""
     start = time.time()
     while time.time() - start < timeout:
-        executil.check_call(["udevadm", "trigger", device_path])
+        executil.check_call(
+            [
+                "udevadm",
+                "trigger",
+                "--settle",
+                device_path,
+            ]
+        )
         obj = func(*args)
         if obj:
             return obj
