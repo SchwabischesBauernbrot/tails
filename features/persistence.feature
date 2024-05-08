@@ -40,6 +40,9 @@ Feature: Tails persistence
     And all notifications have disappeared
     And I create a persistent partition with the default settings
     Then persistence for "Persistent" is active
+    When I power off the computer
+    And I start the computer
+    Then the computer boots Tails
 
   Scenario: Creating a Persistent Storage when the GPT backup header was repaired
     Given a computer
@@ -54,6 +57,9 @@ Feature: Tails persistence
     And all notifications have disappeared
     And I create a persistent partition with the default settings
     Then persistence for "Persistent" is active
+    When I power off the computer
+    And I start the computer
+    Then the computer boots Tails
 
   Scenario: Creating a Persistent Storage when system is low on memory
     Given I have started Tails without network from a USB drive without a persistent partition and logged in
