@@ -165,6 +165,30 @@ def save_boot_log
   )
 end
 
+def save_core_dumps
+  output = $vm.execute('coredumpctl list --json=pretty').stdout
+  return if output.empty?
+
+  coredumps = JSON.parse(output)
+  coredumps.each do |coredump|
+    pid = coredump['pid']
+    exe = coredump['exe']
+    id = "#{File.basename(exe)}-#{pid}"
+    save_vm_command_output(
+      command:  "coredumpctl info COREDUMP_EXE=#{exe} COREDUMP_PID=#{pid}",
+      id:       "coredump-#{id}.info",
+      basename: "artifact.coredump-#{id}.info",
+      desc:     "coredump info for #{exe} (PID #{pid})"
+    )
+    save_vm_command_output(
+      command:  "coredumpctl dump COREDUMP_EXE=#{exe} COREDUMP_PID=#{pid}",
+      id:       "coredump-#{id}.dump",
+      basename: "artifact.coredump-#{id}.dump",
+      desc:     "coredump for #{exe} (PID #{pid})"
+    )
+  end
+end
+
 def save_vm_file_content(file, desc: nil)
   _save_vm_file_content(
     file:,
@@ -389,6 +413,7 @@ After('@product') do |scenario|
     if $vm&.remote_shell_is_up?
       save_journal
       save_boot_log
+      save_core_dumps
       if scenario.feature.file \
          == 'features/additional_software_packages.feature'
         save_vm_command_output(
