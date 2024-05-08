@@ -158,14 +158,18 @@ first_boot_repartition() {
     fi
 
     _log_msg "The GPT is corrupt. Attempting to repair it."
-    # Wipe the GPT and MBR. sgdisk will exit with exit code 2 because
-    # the GPT is corrupt, so we ignore the exit code.
-    sgdisk --zap-all "${PARENT_DEVICE}" || true
+    # Wipe the GPT. sgdisk will exit with exit code 2 because the GPT is
+    # corrupt, so we ignore the exit code.
+    # Note that we can't use sgdisk --zap-all because it would also wipe
+    # the MBR, which would remove the hybrid MBR that we need to boot on
+    # legacy BIOS systems.
+    sgdisk --zap "${PARENT_DEVICE}" || true
     settle
     # Recreate the GPT and the system partition
     sgdisk --new=1:0:+"${SYSTEM_PARTITION_SIZE}" \
       --typecode=1:"${ESP_GUID}" \
       --change-name=1:Tails \
+      --mbrtogpt \
       "${PARENT_DEVICE}"
     settle
   done
