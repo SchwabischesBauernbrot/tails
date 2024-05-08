@@ -112,8 +112,8 @@ first_boot_repartition() {
 
     corrupt_options=$(sed -n 's/.*test_gpt_repair=\([^ ]*\).*/\1/p' /proc/cmdline)
     if echo "${corrupt_options}" | grep -qw mbr; then
-      # Corrupt the MBR
-      dd if=/dev/zero of="${PARENT_DEVICE}" bs=512 count=1
+      # Corrupt the MBR partition table
+      dd if=/dev/zero of="${PARENT_DEVICE}" bs=1 count=64 seek=446
     fi
     if echo "${corrupt_options}" | grep -qw gpt; then
       # Corrupt the GPT main header
