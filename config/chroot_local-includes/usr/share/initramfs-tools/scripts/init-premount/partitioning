@@ -272,6 +272,16 @@ if [ "${GUID}" = "17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3" ]; then
   # `plymouth hide-message` doesn't work (#20401)
   plymouth display-message --text=""
 else
+  # The "test_gpt_repair" option is only effective on the first boot. To
+  # avoid confusion, we don't allow booting with this option when it's
+  # not the first boot.
+  if grep -qw "test_gpt_repair" /proc/cmdline; then
+    MSG="The 'test_gpt_repair' option is only effective on the first boot, and it's not the first boot. Please remove the 'test_gpt_repair' option from the boot command line. Press ENTER to shut down."
+    plymouth message --text="${MSG}"
+    plymouth watch-keystroke > /dev/null
+    poweroff -f
+  fi
+
   _log_msg "This is not the first boot, so repairing filesystem"
   PLYMOUTH_MSG="Checking the Tails system partition for errors..."
   plymouth display-message --text="${PLYMOUTH_MSG}"
