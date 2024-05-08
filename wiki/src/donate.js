@@ -45,8 +45,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('t3').value = 'Y';
   }
 
-  // Toggle button groups
-  var element = document.getElementsByClassName('btn');
+  // Toggle amount buttons
+  var element = document.getElementsByClassName('js-amount');
   for (let i = 0; i < element.length; i++) {
     element[i].addEventListener('click', function() {
       var siblings = element[i].parentNode.querySelectorAll('label');
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   // Change donation values on change and on click
   var defaultvalue = 5;
-  var belement = document.getElementsByClassName('btn-amount');
+  var belement = document.getElementsByClassName('js-amount');
   for (let i = 0; i < belement.length; i++) {
     belement[i].addEventListener('click', function() {
       let newvalue = parseInt(belement[i].querySelector('input').value);
