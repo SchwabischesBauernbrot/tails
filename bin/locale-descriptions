@@ -9,14 +9,21 @@ It does so in two ways:
    to po/po-to-mozilla.toml
 """
 
-import sys
-from pathlib import Path
+import contextlib
+import functools
 import re
-from collections import defaultdict
+import subprocess
+import sys
+import tarfile
+import zipfile
 from argparse import ArgumentParser
+from collections import defaultdict
+from pathlib import Path
+from urllib.parse import urljoin
+from urllib.request import urlretrieve
 
-import toml
 import requests
+import toml
 
 try:
     from BeautifulSoup import BeautifulSoup
@@ -26,6 +33,49 @@ except ImportError:
 ERRORS = 0
 LANGUAGE_RE = re.compile(r'^"Language:\s+(.*)\\n"$')
 MAPFILE = "po/po-to-mozilla.toml"
+TEMPDIR = Path("tmp/")
+TBB_SHASUMS = Path(
+    "config/chroot_local-includes/usr/share/tails/tbb-sha256sums.txt"
+).absolute()
+TBB_PREFIX = Path(
+    "config/chroot_local-includes/usr/share/tails/tbb-dist-url.txt"
+).absolute()
+
+
+@functools.cache
+def get_torbrowser_filename() -> str:
+    with TBB_SHASUMS.open() as buf:
+        for line in buf:
+            if line.split(".")[-2] == "tar":
+                match = re.match(r"^\w+\s+(.*)$", line.strip())
+                return match.group(1)
+    raise Exception("tor browser tarball not found in tbb-sha256sums.txt")
+
+
+def get_torbrowser_tarball() -> Path:
+    filepath = TEMPDIR / get_torbrowser_filename()
+    if not filepath.exists():
+        TEMPDIR.mkdir(exist_ok=True)
+        prefix = TBB_PREFIX.open().read().strip()
+        if not prefix.startswith(("https://", "http://")):
+            raise Exception("not a valid url: %s" % prefix)
+        url = urljoin(prefix, get_torbrowser_filename())
+        urlretrieve(url, filename=filepath)  # noqa: S310
+
+    with contextlib.chdir(TEMPDIR):
+        subprocess.check_output(["/usr/bin/sha256sum", "-c", str(TBB_SHASUMS)])
+    return filepath
+
+
+def get_torbrowser_languages() -> list[str]:
+    tarball = get_torbrowser_tarball()
+    tar = tarfile.open(tarball)
+    omnija_raw = tar.extractfile("tor-browser/Browser/omni.ja")
+    omnija = zipfile.ZipFile(omnija_raw)
+    contents = omnija.read("res/multilocale.txt").decode("ascii")
+    locales = [locale.strip() for locale in contents.split(",") if locale]
+    locales.sort()
+    return locales
 
 
 def get_language(pofile: Path) -> str:
@@ -60,7 +110,7 @@ def locale_to_mozilla(locale: str) -> str:
     if ":" in locale:
         if "_" in locale:
             raise ValueError(
-                "The input format is invalid; you can't both have underscores and colons"
+                "The input format is invalid; you can't both have underscores and colons",
             )
         return locale
     if "_" not in locale:
@@ -73,9 +123,10 @@ class ValidLocales:
     """
     This class fetches a list of all possible locale.
     """
+
     def __init__(self):
         self.locales = self.parse_table(
-            requests.get("https://lh.2xlibre.net/locales/").text
+            requests.get("https://lh.2xlibre.net/locales/", timeout=10).text,
         )
         self.languages = defaultdict(list)
         for locale in self.locales:
@@ -96,13 +147,28 @@ class LocaleDescriptions:
     def __init__(self):
         self.n_errors = 0
         self.languages_not_found = set()
-        self.po_to_mozilla = toml.load(open(MAPFILE))
+        with open(MAPFILE) as buf:
+            self.po_to_mozilla = toml.load(buf)
+
+    def get_all_available_locales(self) -> set[tuple[str, str, str]]:
+        moz_locales = set()
+        ret = set()
+        for po in sorted(Path("po/").glob("*.po")):
+            moz_locale = get_language(po)
+            moz_locales.add(moz_locale)
+            ret.add((str(po), moz_locale, "po/"))
+
+        for loc in get_torbrowser_languages():
+            moz_locale = loc.replace("-", "_")
+            if moz_locale not in moz_locales:
+                moz_locales.add(moz_locale)
+                ret.add((moz_locale, moz_locale, "tbb"))
+
+        return ret
 
     def get_all_mozlocales(self, warnings=True):
         yield from self.po_to_mozilla.get("extra", {}).get("extra_languages", [])
-        for po in sorted(Path("po/").glob("*.po")):
-            moz_locale = get_language(po)
-
+        for po, moz_locale, source in self.get_all_available_locales():
             if "_" in moz_locale:
                 # See contribute/release_process/update_locale_descriptions#with-underscore
                 lang, sub = moz_locale.split("_", maxsplit=1)
@@ -110,14 +176,14 @@ class LocaleDescriptions:
             elif moz_locale in self.po_to_mozilla["map"]:
                 # We've already met this, and encoded it in po-to-mozilla.toml
                 value = self.po_to_mozilla["map"][moz_locale]
-                values = [value] if type(value) is str else value
+                values = [value] if isinstance(value, str) else value
                 for locale in values:
                     yield locale_to_mozilla(locale)
             else:
                 # It's probably a new language
                 if warnings:
                     print(
-                        f"Could not find {moz_locale} (from {po}), "
+                        f"Could not find {moz_locale} (from {po}({source})), "
                         f"please add it to {MAPFILE}",
                         file=sys.stderr,
                     )
@@ -129,7 +195,7 @@ class LocaleDescriptions:
         This encodes contribute/release_process/update_locale_descriptions#no-underscore
         """
         if not self.languages_not_found:
-            return
+            return None
         valid_locales = ValidLocales()
         suggested_add = ""
         others = ""
@@ -141,7 +207,7 @@ class LocaleDescriptions:
                 details = ", ".join(valid_locales.locales[locale])
                 suggested_add += f'{lang}="{locale_to_mozilla(locale)}"   # {details}\n'
             else:
-                # Otherwise, the RM must manually follow the process detailed in 
+                # Otherwise, the RM must manually follow the process detailed in
                 # in contribute/release_process/update_locale_descriptions.mdwn
                 others += f"{lang}: pick between\n"
                 for locale in locales:
@@ -179,9 +245,13 @@ def main():
 
     if args.mode == "":
         print(parser.error("You need to specify a subcommand"))
+    elif args.mode == "doctest":
+        import doctest
 
-    mozlocales = list(
-        sorted(helper.get_all_mozlocales(warnings=(args.mode == "generate")))
+        doctest.testmod(verbose=args.verbose)
+
+    mozlocales = sorted(
+        set(helper.get_all_mozlocales(warnings=(args.mode == "generate")))
     )
     if args.mode == "generate":
         for out in mozlocales:
@@ -194,11 +264,6 @@ def main():
         suggestion = helper.get_suggestions()
         print(suggestion, file=sys.stderr)
         sys.exit(1)
-
-    elif args.mode == "doctest":
-        import doctest
-
-        doctest.testmod(verbose=args.verbose)
 
 
 if __name__ == "__main__":
