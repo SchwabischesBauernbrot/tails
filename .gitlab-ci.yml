@@ -102,7 +102,7 @@ check-black:
   - black --version
   - black -t py311 --check .
 
-ruff-changed-files:
+ruff-lint-changed-files:
   only:
     - merge_requests
 
@@ -112,7 +112,23 @@ ruff-changed-files:
     - apt-get -qy install ruff findutils git python3
     - ruff --version
     - git fetch origin "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
-    - ./bin/test-utils/ruff "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}" --output-format=junit --output-file=ruff.xml
+    - ./bin/test-utils/ruff "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}" check --output-format=junit --output-file=ruff.xml
+  artifacts:
+    when: always
+    reports:
+      junit: ruff.xml
+
+ruff-format-changed-files:
+  only:
+    - merge_requests
+
+  image: debian:sid
+
+  script:
+    - apt-get -qy install ruff findutils git python3
+    - ruff --version
+    - git fetch origin "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
+    - ./bin/test-utils/ruff "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}" format --check
   artifacts:
     when: always
     reports:
