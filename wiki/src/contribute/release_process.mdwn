@@ -251,15 +251,15 @@ not be blocked later.
 ### Make sure there are enough manual testers
 
 Check your if you have enough manual testers registered. If not, ping
-the usual testers (tails-manual-testers@boum.org) and warn the
+the usual testers (manual-testers@tails.net) and warn the
 Foundations Team that you may need their help.
 
 ### Make sure there is a Trusted Reproducer
 
 Check that the <https://tails.net/contribute/calendar/> has a _Trusted
 Reproducer_ assigned for this release, otherwise try to find one among
-the manual testers (tails-manual-testers@boum.org) or FT (XMPP,
-tails-foundations@boum.org).
+the manual testers (manual-testers@tails.net) or FT (XMPP,
+foundations@tails.net).
 
 Coordinate with Debian security updates
 ---------------------------------------
@@ -1012,11 +1012,11 @@ files metadata:
 Get the internal manual testing started
 =======================================
 
-Email <tails-board@boum.org> and <tails-manual-testers@boum.org> that tests
+Email <board@tails.net> and <manual-testers@tails.net> that tests
 may start. Remember to encrypt and sign your email!
 
     ./bin/automailer.py <<EOF
-    To: tails-board@boum.org, tails-manual-testers@boum.org
+    To: board@tails.net, manual-testers@tails.net
     Subject: Testing Tails ${VERSION:?}
     X-Attach: $(/bin/ls -1 "$ISOS/tails-amd64-${VERSION:?}/tails-amd64-${VERSION:?}.packages" "$ISOS/tails-amd64-${VERSION:?}/"tails-amd64-${VERSION:?}.{iso,img}.sig "$ISOS/tails-amd64-${VERSION:?}".{iso,img}.torrent | tr '\n' ,)
 
@@ -1932,7 +1932,7 @@ To disable mirrors that are lagging behind:
 
 3. Verify that the CI pipeline passed on `https://gitlab.tails.boum.org/tails/mirror-pool/-/pipelines`.
 
-4. Notify <tails-mirrors@boum.org>, so they communicate with the operators of the
+4. Notify <sysadmins@tails.net>, so they communicate with the operators of the
    outdated mirrors.
 
 Sanity checks
@@ -2307,7 +2307,7 @@ Check that you are indeed preparing a final release:
 
    If the upcoming release dates in the Mozilla calendar does not match
    what we have in our release calendar, then alert
-   <tails-dev@boum.org>, <tails-rm@boum.org>, and explicitly Cc the
+   <tails-dev@boum.org>, <rm@tails.net>, and explicitly Cc the
    designated RM for that upcoming release.
 
 1. Announce the date of the next release on <tails-dev@boum.org> and
@@ -2315,7 +2315,7 @@ Check that you are indeed preparing a final release:
 
          ./bin/automailer.py <<EOF
          To: tails-dev@boum.org,tails-l10n@boum.org
-         Cc: tails-manual-testers@boum.org
+         Cc: manual-testers@tails.net
          Subject: Release schedule for Tails ${NEXT_PLANNED_VERSION:?}
 
          Hi,
