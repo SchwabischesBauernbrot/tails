@@ -58,7 +58,6 @@ build-website:
         --diffurl "https://gitlab.tails.boum.org/tails/tails/-/commit/[[sha1_commit]]" \
         --rss \
         --atom \
-        --set allow_symlinks_before_srcdir=0 \
         --set-yaml add_underlays="['/underlays/etcher-binary', '/underlays/promotion-material']"
 
 deploy-website:
