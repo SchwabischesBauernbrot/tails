@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-05-02 00:25+0000\n"
-"PO-Revision-Date: 2024-05-01 18:27+0000\n"
+"POT-Creation-Date: 2024-05-06 23:46+0000\n"
+"PO-Revision-Date: 2024-05-07 10:06+0000\n"
 "Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
 "Language: fr\n"
@@ -75,7 +75,7 @@ msgid ""
 msgstr ""
 "<p>Pour stocker vos\n"
 "courriers électroniques, flux et paramètres entre différentes sessions de travail,\n"
-"activer la fonction [[Client de messagerie Thunderbird|persistent_storage/configure#thunderbird]]\n"
+"activer la fonctionnalité [[Client de messagerie Thunderbird|persistent_storage/configure#thunderbird]]\n"
 "du stockage persistant.</p>\n"
 
 #. type: Plain text
@@ -445,9 +445,9 @@ msgid ""
 "private key is encrypted twice: once by *Thunderbird* in your profile and a "
 "second time by the encryption of the Persistent Storage."
 msgstr ""
-"Avec un mot de passe principal, vos clés privées sont chiffrées dans votre "
-"profil *Thunderbird* et déverrouillées uniquement lorsque *Thunderbird* est "
-"en fonctionnement.  Si votre profil *Thunderbird* est stocké dans votre "
+"Avec un mot de passe principal, votre clé privée est chiffrée dans votre "
+"profil *Thunderbird* et est déverrouillée uniquement lorsque *Thunderbird* "
+"est en fonctionnement.  Si votre profil *Thunderbird* est stocké dans votre "
 "stockage persistant, alors votre clé privée est chiffrée deux fois : une "
 "fois par *Thunderbird* dans votre profil et une seconde fois par le "
 "chiffrement du stockage persistant."
@@ -457,12 +457,12 @@ msgid ""
 "Choose **[[!img lib/open-menu.png alt=\"Menu\" class=\"symbolic\" "
 "link=\"no\"]]&nbsp;▸ Settings**."
 msgstr ""
-"Choisir **[[!img lib/open-menu.png alt=\"Menu\" class=\"symbolic\" "
+"Choisissez **[[!img lib/open-menu.png alt=\"Menu\" class=\"symbolic\" "
 "link=\"no\"]]&nbsp;▸ Paramètres**."
 
 #. type: Bullet: '1. '
 msgid "Choose **Privacy & Security**."
-msgstr "Choisir **Vie privée et sécurité**."
+msgstr "Choisissez **Vie privée et sécurité**."
 
 #. type: Bullet: '1. '
 msgid ""
@@ -502,7 +502,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h3>Export your private key using <em>Kleopatra</em></h3>\n"
-msgstr "<h3>Exportez votre clé privée avec <em>Kleopatra</em></h3>\n"
+msgstr "<h3>Exporter votre clé privée avec <em>Kleopatra</em></h3>\n"
 
 #. type: Plain text
 msgid "From the desktop:"
@@ -510,21 +510,23 @@ msgstr "Depuis le bureau :"
 
 #. type: Bullet: '1. '
 msgid "Choose **Applications&nbsp;▸ Accessories&nbsp;▸ Kleopatra**."
-msgstr "Choisir **Applications&nbsp;▸ Accessoires&nbsp;▸ Kleopatra**."
+msgstr "Choisissez **Applications&nbsp;▸ Accessoires&nbsp;▸ Kleopatra**."
 
 #. type: Bullet: '1. '
 msgid "Select the private key that you want to migrate to *Thunderbird*."
-msgstr "Sélectionner la clé privée que vous voulez migrer vers *Thunderbird*."
+msgstr "Sélectionnez la clé privée que vous voulez migrer vers *Thunderbird*."
 
 #. type: Bullet: '1. '
 msgid ""
 "Choose **File&nbsp;▸ Backup Secret Keys…** and save this private key to your "
 "*Home* directory."
 msgstr ""
+"Choisissez **Fichier&nbsp;▸ Enregistrer les clés privées...** et enregistrez "
+"cette clé privée dans votre *Dossier personnel*."
 
 #. type: Bullet: '1. '
 msgid "Close *Kleopatra*."
-msgstr "Fermer *Kleopatra*."
+msgstr "Fermez *Kleopatra*."
 
 #. type: Plain text
 #, no-wrap
@@ -533,53 +535,44 @@ msgstr "<h3>Importer votre clé privée dans <em>Thunderbird</em></h3>\n"
 
 #. type: Plain text
 msgid "In *Thunderbird*:"
-msgstr "Dans *Thunderbird* :"
+msgstr "Dans *Thunderbird* :"
 
 #. type: Bullet: '1. '
 msgid ""
 "Choose **[[!img lib/open-menu.png alt=\"Menu\" class=\"symbolic\" "
 "link=\"no\"]]&nbsp;▸ Account Settings**."
 msgstr ""
-"Choisir **[[!img lib/open-menu.png alt=\"Menu\" class=\"symbolic\" "
-"link=\"no\"]]&nbsp;▸ Paramètres de comptes**."
+"Choisissez **[[!img lib/open-menu.png alt=\"Menu\" class=\"symbolic\" "
+"link=\"no\"]]&nbsp;▸ Paramètres des comptes**."
 
 #. type: Bullet: '1. '
 msgid ""
 "In the left pane, identify the account that corresponds to the private key "
 "that you want to import and choose **End-to-End Encryption**."
 msgstr ""
-"Dans le panneau de gauche, identifier le compte pour lequel vous voulez "
-"importer la clé privée et choisir **Chiffrement de bout en bout**."
+"Dans le panneau de gauche, identifiez le compte pour lequel vous voulez "
+"importer la clé privée et choisissez **Chiffrement de bout en bout**."
 
 #. type: Bullet: '1. '
 msgid "In the right pane, click the **Add Key…** button."
 msgstr ""
-"Dans le panneau de droite, cliquer sur le bouton **Ajouter une clé...**."
+"Dans le panneau de droite, cliquez sur le bouton **Ajouter une clé...**."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "In the **Add a Personal OpenPGP Key** dialog, choose **Import an existing "
-#| "OpenPGP Key** and click **Continue**."
 msgid ""
-"In the **Create a Personal OpenPGP Key** dialog, choose **Import an existing "
+"In the **Add a Personal OpenPGP Key** dialog, choose **Import an existing "
 "OpenPGP Key** and click **Continue**."
 msgstr ""
-"Dans la boîte de dialogue **Ajouter une clé OpenPGP personnelle** choisir "
-"**Importer une clé OpenPGP existante** et cliquer sur **Continuer**."
+"Dans la boîte de dialogue **Ajouter une clé OpenPGP personnelle** choisir **"
+"Importer une clé OpenPGP existante** et cliquer sur **Continuer**."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Click the **Select File to Import…** button and choose the private key "
-#| "that your exported from the *Passwords and Keys* utility."
 msgid ""
 "Click the **Select File to Import…** button and choose the private key that "
-"your exported from *Kleopatra* utility."
+"your exported from *Kleopatra*."
 msgstr ""
-"Cliquer sur le bouton **Sélectionner le fichier à importer...** et choisir "
-"la clé privée que vous avez exportée depuis l'utilitaire *Mots de passe et "
-"clés*."
+"Cliquez sur le bouton **Sélectionner le fichier à importer...** et "
+"choisissez la clé privée que vous avez exportée depuis *Kleopatra*."
 
 #. type: Bullet: '1. '
 msgid ""
@@ -595,8 +588,8 @@ msgid ""
 "Click **Continue**, enter the passphrase for your private key (if any), and "
 "click **Continue** again."
 msgstr ""
-"Cliquer **Continuer**, entrez la phrase de passe pour votre clé privée (s'il "
-"y en a une) et cliquez sur **Continuer** à nouveau."
+"Cliquez sur **Continuer**, entrez la phrase de passe pour votre clé privée ("
+"s'il y en a une) et cliquez sur **Continuer** à nouveau."
 
 #. type: Plain text
 #, no-wrap
@@ -610,7 +603,7 @@ msgstr ""
 #. type: Bullet: '1. '
 msgid "Select your private key to enable OpenPGP encryption for this account."
 msgstr ""
-"Sélectionner votre clé privée pour activer le chiffrement OpenPGP pour ce "
+"Sélectionnez votre clé privée pour activer le chiffrement OpenPGP pour ce "
 "compte."
 
 #. type: Plain text
@@ -628,16 +621,12 @@ msgstr ""
 "bout**."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "In the **Add a Personal OpenPGP Key** dialog, choose **Create a new "
-#| "OpenPGP Key**."
 msgid ""
-"In the **Create a Personal OpenPGP Key** dialog, choose **Create a new "
-"OpenPGP Key**."
+"In the **Add a Personal OpenPGP Key** dialog, choose **Create a new OpenPGP "
+"Key**."
 msgstr ""
-"Dans la boîte de dialogue **Ajouter une clé OpenPGP personnelle**, choisir "
-"**Créer une nouvelle clé OpenPGP**."
+"Dans la boîte de dialogue **Ajouter une clé OpenPGP personnelle**, choisir **"
+"Créer une nouvelle clé OpenPGP**."
 
 #. type: Bullet: '1. '
 msgid ""
@@ -672,16 +661,12 @@ msgid "When composing an email:"
 msgstr "Lors de la rédaction d'un courrier électronique :"
 
 #. type: Bullet: '- '
-#, fuzzy
-#| msgid ""
-#| "With the option **Require Encryption**, *Thunderbird* tries to encrypt "
-#| "every email before sending it."
 msgid ""
 "If the **Encrypt** toggle button is on, *Thunderbird* will encrypt the email "
 "before sending."
 msgstr ""
-"Avec l'option **Exiger le chiffrement**, *Thunderbird* essaie de chiffrer "
-"tous les messages avant de les envoyer."
+"Si le bouton **Chiffrer** est actif, *Thunderbird* chiffrera le message "
+"avant de l'envoyer."
 
 #. type: Plain text
 #, no-wrap
@@ -689,6 +674,8 @@ msgid ""
 "  *Thunderbird* warns you if you miss the key of some of the recipients\n"
 "  or if you still have to accept some of their keys.\n"
 msgstr ""
+"  *Thunderbird* vous avertit s'il vous manque les clés de certains destinataires\n"
+"  ou si vous devez encore accepter certaines de ces clés.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -696,10 +683,14 @@ msgid ""
 "  Choose **Security**&nbsp;▸ **Key Assistant** to see the keys of the\n"
 "  receipts and solve any issue.\n"
 msgstr ""
+"  Choisissez **Securité**&nbsp;▸ **Assistant de clés** pour voir les clés des\n"
+"  destinataires et résoudre tout problème.\n"
 
 #. type: Plain text
 msgid "- To send an unencrypted email, turn off the **Encrypt** toggle button."
 msgstr ""
+"- Pour envoyer un courrier électronique non chiffré, désactivez le bouton "
+"**Chiffrer**."
 
 #, no-wrap
 #~ msgid "   <h2>Configuring a Gmail account</h2>\n"

@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
-"PO-Revision-Date: 2024-04-29 19:44+0000\n"
-"Last-Translator: xin <xin@riseup.net>\n"
+"POT-Creation-Date: 2024-05-08 15:19+0000\n"
+"PO-Revision-Date: 2024-05-09 09:09+0000\n"
+"Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -66,7 +66,7 @@ msgid ""
 "attackers-wield-firefox-exploit-to-uncloak-anonymous-tor-users/)."
 msgstr ""
 "Des failles de sécurité dans JavaScript ont été exploitées pour "
-"[déanonymiser le navigateur Tor par le passé](https://arstechnica.com/"
+"[désanonymiser le Navigateur Tor par le passé](https://arstechnica.com/"
 "information-technology/2013/08/attackers-wield-firefox-exploit-to-uncloak-"
 "anonymous-tor-users/)."
 
@@ -126,12 +126,36 @@ msgstr "<h1 id=\"confinement\">Isolement AppArmor, téléchargement de fichiers<
 #, no-wrap
 msgid "*Tor Browser* can only read and write to the following folders:\n"
 msgstr ""
+"Le *Navigateur Tor* peut seulement lire et écrire dans les dossiers suivants "
+":\n"
 
 #. type: Plain text
-msgid ""
-"- *Documents* - *Downloads* - *Music* - *Pictures* - *Videos* - *Tor "
-"Browser* - *Persistent/Tor Browser*, if you have a Persistent Storage"
-msgstr ""
+msgid "- *Documents*"
+msgstr "- *Documents*"
+
+#. type: Plain text
+msgid "- *Downloads*"
+msgstr "- *Downloads*"
+
+#. type: Plain text
+msgid "- *Music*"
+msgstr "- *Music*"
+
+#. type: Plain text
+msgid "- *Pictures*"
+msgstr "- *Pictures*"
+
+#. type: Plain text
+msgid "- *Videos*"
+msgstr "- *Videos*"
+
+#. type: Plain text
+msgid "- *Tor Browser*"
+msgstr "- *Tor Browser*"
+
+#. type: Plain text
+msgid "- *Persistent/Tor Browser*, if you have a Persistent Storage"
+msgstr "- *Persistent/Tor Browser*, si vous avez un stockage persistant"
 
 #. type: Plain text
 msgid ""
@@ -139,6 +163,9 @@ msgid ""
 "AppArmor]]* to protect your files from some types of attacks against *Tor "
 "Browser*."
 msgstr ""
+"C'est parce que, dans Tails, le *Navigateur Tor* est confiné avec *[["
+"!debwiki AppArmor]]* pour protéger vos fichiers de certains types d'attaques "
+"contre le *Navigateur Tor*."
 
 #. type: Plain text
 msgid ""
@@ -146,6 +173,9 @@ msgid ""
 "exploit a security vulnerability in *Tor Browser*, they wouldn't be able to "
 "access all the content of your Persistent Storage."
 msgstr ""
+"Par exemple, grâce à ce confinement, même si un attaquant parvient à "
+"exploiter une faille de sécurité dans le *Navigateur Tor*, iel ne pourra pas "
+"accéder à l'ensemble du contenu de votre stockage persistant."
 
 #. type: Plain text
 #, no-wrap
@@ -153,18 +183,14 @@ msgid "<div class=\"note\">\n"
 msgstr "<div class=\"note\">\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<p>This is why, for example, you might face <em>Permission\n"
-#| "denied</em> errors if you try to download files to the\n"
-#| "<em>Home</em> folder.</p>\n"
+#, no-wrap
 msgid ""
 "<p>This is why you get the following error if you try to download files to\n"
 "another folder:</p>\n"
 msgstr ""
-"<p>C'est pourquoi, par exemple, vous pourriez faire face à des erreurs <em>Permission\n"
-"denied</em> si vous tentez de télécharger des fichiers dans \n"
-"le dossier <em>Dossier personnel</em>.</p>\n"
+"<p>C'est pourquoi vous obtenez l'erreur suivante si vous tentez de "
+"télécharger des fichiers dans\n"
+"un autre dossier :</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -186,19 +212,16 @@ msgid ""
 "If you want to download a file from *Tor Browser*, save it to one of these "
 "folders."
 msgstr ""
+"Si vous voulez télécharger un fichier depuis le *Navigateur Tor*, "
+"enregistrez-le dans un de ces dossiers."
 
 #. type: Bullet: '- '
-#, fuzzy
-#| msgid ""
-#| "- If you want to upload files with <span class=\"application\">Tor\n"
-#| "Browser</span>, copy them to that folder first.\n"
 msgid ""
 "If you want to upload a file from *Tor Browser*, copy it first to one of "
 "these folders."
 msgstr ""
-"- Si vous voulez uploader des fichiers avec le <span "
-"class=\"application\">Navigateur\n"
-"Tor</span>, copiez-les d'abord dans ce dossier.\n"
+"Si vous voulez envoyer un fichier depuis le *Navigateur Tor, copiez-le "
+"d'abord dans un de ces dossiers."
 
 #. type: Plain text
 #, no-wrap
@@ -215,8 +238,7 @@ msgid ""
 msgstr ""
 "<p>Pour éviter que Tails se retrouve sans mémoire et plante, télécharger\n"
 "les très gros fichiers dans le dossier <em>Persistent/Tor Browser</em>.\n"
-"Tous les fichiers que vous téléchargez en dehors du stockage persistant "
-"sont\n"
+"Tous les fichiers que vous téléchargez en dehors du stockage persistant sont\n"
 "stockés dans la mémoire vive (RAM), qui est plus limitée.</p>\n"
 
 #. type: Plain text
@@ -498,12 +520,7 @@ msgstr ""
 "l'expérience la plus accessible."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "To change the security level, click on the [[!img security-level.png\n"
-#| "class=\"symbolic\" link=\"no\"]] icon on the right of the address bar\n"
-#| "and choose\n"
-#| "<span class=\"guilabel\">Advanced Security Settings&hellip;</span>.\n"
+#, no-wrap
 msgid ""
 "To change the security level, click on the [[!img security-level.png\n"
 "class=\"symbolic\" link=\"no\"]] icon on the right of the address bar\n"
@@ -511,8 +528,7 @@ msgid ""
 msgstr ""
 "Pour changer le niveau de sécurité, cliquez sur l'icône [[!img security-level.png\n"
 "class=\"symbolic\" link=\"no\"]] à droite de la barre d'adresse\n"
-"et choisissez\n"
-"<span class=\"guilabel\">Paramètres de sécurité avancés&hellip;</span>.\n"
+"et choisissez **Paramètres&hellip;**.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -579,11 +595,11 @@ msgstr ""
 #, no-wrap
 msgid ""
 "Click on the\n"
-"<span class=\"guilabel\">[[New Circuit for this Site|Tor_Browser#circuit-view]]</span> button\n"
+"<span class=\"guilabel\">[[New Tor circuit for this site|Tor_Browser#circuit-view]]</span> button\n"
 "to use a different circuit.\n"
 msgstr ""
 "Cliquez sur le bouton\n"
-"<span class=\"guilabel\">[[Nouveau circuit pour ce site|Tor_Browser#circuit-view]]</span>\n"
+"<span class=\"guilabel\">[[Nouveau circuit Tor pour ce site|Tor_Browser#circuit-view]]</span>\n"
 "pour utiliser un circuit différent.\n"
 
 #. type: Plain text
@@ -603,20 +619,14 @@ msgid "<h1 id=\"new-identity\"><span class=\"guilabel\">New Identity</span> feat
 msgstr "<h1 id=\"new-identity\">Fonctionnalité <span class=\"guilabel\">Nouvelle identité</span></h1>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "To switch to a new identity, choose\n"
-#| "<span class=\"menuchoice\">\n"
-#| "  <span class=\"guimenu\">[[!img lib/open-menu.png alt=\"\" class=symbolic link=no]]</span>&nbsp;▸\n"
-#| "  <span class=\"guimenuitem\">New Identity</span></span>.\n"
+#, no-wrap
 msgid ""
-"To switch to a new identity, choose [[!img lib/open-menu.png alt=\"\"\n"
+"To switch to a new identity, choose [[!img lib/open-menu.png alt=\"Open Application Menu\"\n"
 "class=\"symbolic\" link=\"no\"]]&nbsp;▸ **New identity**.\n"
 msgstr ""
-"Pour passer à une nouvelle identité, choisir\n"
-"<span class=\"menuchoice\">\n"
-"  <span class=\"guimenu\">[[!img lib/open-menu.png alt=\"\" class=symbolic link=no]]</span>&nbsp;▸\n"
-"  <span class=\"guimenuitem\">Nouvelle identité</span></span>.\n"
+"Pour passer à une nouvelle identité, choisissez [[!img lib/open-menu.png alt="
+"\"Ouvrir le menu de l’application\"\n"
+"class=\"symbolic\" link=\"no\"]]&nbsp;▸ **Nouvelle identité**.\n"
 
 #. type: Plain text
 #, no-wrap
