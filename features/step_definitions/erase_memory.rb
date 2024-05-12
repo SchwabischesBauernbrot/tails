@@ -213,7 +213,7 @@ end
 
 Then /^I find very few patterns in the guest's memory$/ do
   # Give the Linux kernel's memory poisoning feature time to do its job
-  sleep 1
+  sleep 3
   coverage = pattern_coverage_in_guest_ram(@free_mem_before_fill_b)
   max_coverage = 0.008
   assert(
