@@ -422,7 +422,7 @@ After('@product') do |scenario|
         save_vm_file_content('/run/live-additional-software/log')
       end
     end
-    # We give JournalDumper a little time to recieve the journal
+    # We give JournalDumper a little time to receive the journal
     # entries for any remote shell interactions above before stopping
     # it and saving the journal.
     sleep 1
