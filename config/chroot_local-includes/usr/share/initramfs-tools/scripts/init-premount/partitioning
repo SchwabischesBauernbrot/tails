@@ -102,11 +102,12 @@ first_boot_repartition() {
   settle
   log_end_msg
 
-  if grep -qw "test_gpt_repair" /proc/cmdline; then
-    # Corrupt the MBR and GPT to test the repair mechanism
+  if grep -qw "test_gpt_corruption" /proc/cmdline; then
+    # Corrupt the MBR and GPT to test that it is correctly detected and
+    # reported to the user.
     SECTORS=$(blockdev --getsz "${PARENT_DEVICE}")
 
-    corrupt_options=$(sed -n 's/.*test_gpt_repair=\([^ ]*\).*/\1/p' /proc/cmdline)
+    corrupt_options=$(sed -n 's/.*test_gpt_corruption=\([^ ]*\).*/\1/p' /proc/cmdline)
     if echo "${corrupt_options}" | grep -qw mbr; then
       # Corrupt the MBR partition table
       dd if=/dev/zero of="${PARENT_DEVICE}" bs=1 count=64 seek=446
@@ -129,53 +130,29 @@ first_boot_repartition() {
     fi
   fi
 
-  GPT_IS_VALID=
-  for i in 1 2 3; do
-    # Verify the GPT headers and partition tables. We've seen cases
-    # where both the MBR and the GPT backup tables were corrupted, which
-    # caused the Persistent Storage partition to fail to be created. It
-    # can also break fatresize, leaving the system partition too small
-    # for automatic upgrades (and at some point manual upgrades too).
-    verify_output=$(sgdisk --verify "${PARENT_DEVICE}" 2>&1 || true)
-    # Print the output of sgdisk --verify for debugging purposes
-    echo "${verify_output}"
+  # Verify the GPT headers and partition tables. We've seen cases
+  # where both the MBR and the GPT backup tables were corrupted, which
+  # caused the Persistent Storage partition to fail to be created. It
+  # can also break fatresize, leaving the system partition too small
+  # for automatic upgrades (and at some point manual upgrades too).
+  verify_output=$(sgdisk --verify "${PARENT_DEVICE}" 2>&1 || true)
+  # Print the output of sgdisk --verify for debugging purposes
+  echo "${verify_output}"
 
-    # Check if sgdisk --verify detected any corruption. This verifies the
-    # following:
-    # * The protective MBR
-    # * The GPT header
-    # * The GPT partition table
-    # * The GPT backup header
-    # * The GPT backup partition table
-    if ! echo "${verify_output}" | grep -q 'corrupt\|ERROR'; then
-      _log_msg "The GPT is valid"
-      GPT_IS_VALID=1
-      break
-    fi
-
-    _log_msg "The GPT is corrupt. Attempting to repair it."
-    # Wipe the GPT. sgdisk will exit with exit code 2 because the GPT is
-    # corrupt, so we ignore the exit code.
-    # Note that we can't use sgdisk --zap-all because it would also wipe
-    # the MBR, which would remove the hybrid MBR that we need to boot on
-    # legacy BIOS systems.
-    sgdisk --zap "${PARENT_DEVICE}" || true
-    settle
-    # Recreate the GPT and the system partition
-    sgdisk --new=1:0:+"${SYSTEM_PARTITION_SIZE}" \
-      --typecode=1:"${ESP_GUID}" \
-      --change-name=1:Tails \
-      --mbrtogpt \
-      "${PARENT_DEVICE}"
-    settle
-  done
-
-  if [ -z "${GPT_IS_VALID}" ]; then
+  # Check if sgdisk --verify detected any corruption. This verifies the
+  # following:
+  # * The protective MBR
+  # * The GPT header
+  # * The GPT partition table
+  # * The GPT backup header
+  # * The GPT backup partition table
+  if echo "${verify_output}" | grep -q 'corrupt\|ERROR'; then
     MSG="Resizing the system partition has failed. The hardware of your USB stick is probably failing. Please install Tails on a different USB stick. Press ENTER to shut down."
     plymouth message --text="${MSG}"
     plymouth watch-keystroke > /dev/null
     poweroff -f
   fi
+  _log_msg "The GPT is valid"
 
   # Tell the kernel to reload the partition table
   partprobe "${PARENT_DEVICE}"
@@ -272,11 +249,11 @@ if [ "${GUID}" = "17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3" ]; then
   # `plymouth hide-message` doesn't work (#20401)
   plymouth display-message --text=""
 else
-  # The "test_gpt_repair" option is only effective on the first boot. To
+  # The "test_gpt_corruption" option is only effective on the first boot. To
   # avoid confusion, we don't allow booting with this option when it's
   # not the first boot.
-  if grep -qw "test_gpt_repair" /proc/cmdline; then
-    MSG="The 'test_gpt_repair' option is only effective on the first boot, and it's not the first boot. Please remove the 'test_gpt_repair' option from the boot command line. Press ENTER to shut down."
+  if grep -qw "test_gpt_corruption" /proc/cmdline; then
+    MSG="The 'test_gpt_corruption' option is only effective on the first boot, and it's not the first boot. Please remove the 'test_gpt_corruption' option from the boot command line. Press ENTER to shut down."
     plymouth message --text="${MSG}"
     plymouth watch-keystroke > /dev/null
     poweroff -f
