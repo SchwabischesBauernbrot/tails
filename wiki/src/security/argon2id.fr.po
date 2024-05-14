@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-23 00:41+0000\n"
+"POT-Creation-Date: 2024-05-14 22:38+0000\n"
 "PO-Revision-Date: 2024-05-06 09:51+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -184,13 +184,9 @@ msgid ""
 "</table>\n"
 msgstr ""
 "<table>\n"
-"<tr><th>Version Tails quand<br/>le chiffrement a été initialisé</th><th>Date "
-"de sortie</th><th>Version LUKS</th><th>Fonction de dérivation de "
-"clé</th><th>Robustesse</th></tr>\n"
-"<tr><td>5.12 ou antérieur</td><td>19 avril "
-"2023</td><td>LUKS1</td><td>PBKDF2</td><td>Faible</td></tr>\n"
-"<tr><td>5.13 ou ultérieur</td><td>16 mai "
-"2023</td><td>LUKS2</td><td>Argon2id</td><td>Fort</td></tr>\n"
+"<tr><th>Version Tails quand<br/>le chiffrement a été initialisé</th><th>Date de sortie</th><th>Version LUKS</th><th>Fonction de dérivation de clé</th><th>Robustesse</th></tr>\n"
+"<tr><td>5.12 ou antérieur</td><td>19 avril 2023</td><td>LUKS1</td><td>PBKDF2</td><td>Faible</td></tr>\n"
+"<tr><td>5.13 ou ultérieur</td><td>16 mai 2023</td><td>LUKS2</td><td>Argon2id</td><td>Fort</td></tr>\n"
 "</table>\n"
 
 #. type: Plain text
@@ -217,18 +213,12 @@ msgid ""
 "</table>\n"
 msgstr ""
 "<table>\n"
-"<tr><th>Longueur de la phrase de "
-"passe</th><th>PBKDF2</th><th>Argon2id</th></tr>\n"
+"<tr><th>Longueur de la phrase de passe</th><th>PBKDF2</th><th>Argon2id</th></tr>\n"
 "<tr><td>3 mots aléatoires</td><td>0,1$</td><td>100$</td></tr>\n"
-"<tr><td>4 mots "
-"aléatoires</td><td>1&#8239;000$</td><td>1&#8239;000&#8239;000$</td></tr>\n"
-"<tr><td>5 mots aléatoires</td><td>10&#8239;000&#8239;000$</td><td>10&#8239;00"
-"0&#8239;000&#8239;000$</td></tr>\n"
-"<tr><td>6 mots aléatoires</td><td>100&#8239;000&#8239;000&#8239;000$</td><td>"
-"100&#8239;000&#8239;000&#8239;000&#8239;000$</td></tr>\n"
-"<tr><td>7 mots aléatoires</td><td>1&#8239;000&#8239;000&#8239;000&#8239;000&#"
-"8239;000$</td><td>1&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000&#8239;0"
-"00$</td></tr>\n"
+"<tr><td>4 mots aléatoires</td><td>1&#8239;000$</td><td>1&#8239;000&#8239;000$</td></tr>\n"
+"<tr><td>5 mots aléatoires</td><td>10&#8239;000&#8239;000$</td><td>10&#8239;000&#8239;000&#8239;000$</td></tr>\n"
+"<tr><td>6 mots aléatoires</td><td>100&#8239;000&#8239;000&#8239;000$</td><td>100&#8239;000&#8239;000&#8239;000&#8239;000$</td></tr>\n"
+"<tr><td>7 mots aléatoires</td><td>1&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000$</td><td>1&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000$</td></tr>\n"
 "</table>\n"
 
 #. type: Plain text
@@ -271,9 +261,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"schemes\">Other password schemes give too little guarantee</h2>\n"
-msgstr ""
-"<h2 id=\"schemes\">D'autres schémas de mots de passe donnent trop peu de "
-"garantie</h2>\n"
+msgstr "<h2 id=\"schemes\">D'autres schémas de mots de passe donnent trop peu de garantie</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -307,8 +295,8 @@ msgstr ""
 "Donald Trump *deux fois*](https://www.washingtonpost.com/world/2020/12/17/"
 "dutch-trump-twitter-password-hack/)  en devinant ses mots de passe composés "
 "de plusieurs mots, faisant plus de 8 caractères et contenant même des "
-"caractères spéciaux. Ils n'étaient définitivement pas assez aléatoires : \""
-"*maga2020!*\" et \"*yourefired*\"."
+"caractères spéciaux. Ils n'étaient définitivement pas assez aléatoires : "
+"\"*maga2020!*\" et \"*yourefired*\"."
 
 #. type: Plain text
 msgid ""
@@ -320,12 +308,12 @@ msgid ""
 "terms."
 msgstr ""
 "Pour comprendre les mathématiques derrière la robustesse d'un mot de passe, "
-"regardez [An information theoretic model of privacy and security "
-"metrics](https://media.libreplanet.org/u/libreplanet/m/"
-"an-information-theoretic-model-of-privacy-and-security-metrics/) (en anglais)"
-". Bill Budington de l'EFF explique le concept d'entropie et son implication "
-"sur la prise d'empreinte du navigateur et la sécurité des mots de passe en "
-"termes accessibles."
+"regardez [An information theoretic model of privacy and security metrics]"
+"(https://media.libreplanet.org/u/libreplanet/m/an-information-theoretic-"
+"model-of-privacy-and-security-metrics/) (en anglais). Bill Budington de "
+"l'EFF explique le concept d'entropie et son implication sur la prise "
+"d'empreinte du navigateur et la sécurité des mots de passe en termes "
+"accessibles."
 
 #. type: Plain text
 #, no-wrap
@@ -364,9 +352,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"4\">If your passphrase has 4 random words or fewer</h2>\n"
-msgstr ""
-"<h2 id=\"4\">Si votre phrase de passe a quatre mots aléatoires ou moins</h2>"
-"\n"
+msgstr "<h2 id=\"4\">Si votre phrase de passe a quatre mots aléatoires ou moins</h2>\n"
 
 #. type: Plain text
 msgid "If your current passphrase has 4 random words or fewer:"
@@ -388,9 +374,7 @@ msgstr "- Votre chiffrement est plus sûr avec LUKS2."
 #. type: Plain text
 #, no-wrap
 msgid "  We still recommend changing your passphrase to be 5 random words or more.\n"
-msgstr ""
-"  Nous recommandons tout de même de changer votre phrase de passe pour "
-"qu'elle comprenne cinq mots aléatoires ou plus.\n"
+msgstr "  Nous recommandons tout de même de changer votre phrase de passe pour qu'elle comprenne cinq mots aléatoires ou plus.\n"
 
 #. type: Title ###
 #, no-wrap
@@ -411,8 +395,7 @@ msgid ""
 "   When starting Tails 5.14 for the first time, Tails will automatically\n"
 "   convert your Persistent Storage to LUKS2.\n"
 msgstr ""
-"   En démarrant Tails 5.14 pour la première fois, Tails convertira "
-"automatiquement\n"
+"   En démarrant Tails 5.14 pour la première fois, Tails convertira automatiquement\n"
 "   votre stockage persistant vers LUKS2.\n"
 
 #. type: Bullet: '1. '
@@ -422,9 +405,7 @@ msgstr "Choisissez une nouvelle phrase de passe de 5 à 7 mots aléatoires."
 #. type: Plain text
 #, no-wrap
 msgid "   [[!toggle id=\"4_ps_keepassxc\" text=\"Display the instructions to generate a passphrase using *KeePassXC*.\"]]\n"
-msgstr ""
-"   [[!toggle id=\"4_ps_keepassxc\" text=\"Afficher les instructions pour "
-"générer une phrase de passe avec *KeePassXC*.\"]]\n"
+msgstr "   [[!toggle id=\"4_ps_keepassxc\" text=\"Afficher les instructions pour générer une phrase de passe avec *KeePassXC*.\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -443,9 +424,7 @@ msgstr "Changez votre phrase de passe."
 #. type: Plain text
 #, no-wrap
 msgid "   [[!toggle id=\"4_ps_passphrase\" text=\"Display the instructions to change the passphrase of your Persistent Storage.\"]]\n"
-msgstr ""
-"   [[!toggle id=\"4_ps_passphrase\" text=\"Afficher les instructions pour "
-"changer la phrase de passe de votre stockage persistant.\"]]\n"
+msgstr "   [[!toggle id=\"4_ps_passphrase\" text=\"Afficher les instructions pour changer la phrase de passe de votre stockage persistant.\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -477,18 +456,14 @@ msgid ""
 "   data on the USB stick and could be recovered using advanced data forensics\n"
 "   techniques.\n"
 msgstr ""
-"   Si vous ne le faites pas, des données LUKS1 pourraient encore être "
-"écrites dans\n"
-"   certaines portions de la clé USB et pourraient être retrouvées en "
-"utilisant des\n"
+"   Si vous ne le faites pas, des données LUKS1 pourraient encore être écrites dans\n"
+"   certaines portions de la clé USB et pourraient être retrouvées en utilisant des\n"
 "   techniques avancées de récupération de données.\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   [[!toggle id=\"4_ps_tails_installer\" text=\"Display the instructions to migrate your Tails to a new USB stick.\"]]\n"
-msgstr ""
-"   [[!toggle id=\"4_ps_tails_installer\" text=\"Afficher les instructions "
-"pour migrer votre Tails sur une nouvelle clé USB.\"]]\n"
+msgstr "   [[!toggle id=\"4_ps_tails_installer\" text=\"Afficher les instructions pour migrer votre Tails sur une nouvelle clé USB.\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -995,8 +970,7 @@ msgid ""
 "      The output is a list of the storage devices and partitions on the system.\n"
 "      For example:\n"
 msgstr ""
-"      La sortie est une liste de périphériques de stockage et de partitions "
-"du système.\n"
+"      La sortie est une liste de périphériques de stockage et de partitions du système.\n"
 "      Par exemple :\n"
 
 #. type: Plain text
@@ -1011,14 +985,11 @@ msgid ""
 "          zram0                  254:0    0  2.8G  0 disk  [SWAP]\n"
 msgstr ""
 "          NAME                   MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT\n"
-"          loop0                    7:0    0  1.2G  1 loop  /lib/live/mount/"
-"rootfs/filesystem.squashfs\n"
+"          loop0                    7:0    0  1.2G  1 loop  /lib/live/mount/rootfs/filesystem.squashfs\n"
 "          sda                      8:0    1    7G  0 disk\n"
-"          ├─sda1                   8:1    1    4G  0 part  /lib/live/mount/"
-"medium\n"
+"          ├─sda1                   8:1    1    4G  0 part  /lib/live/mount/medium\n"
 "          └─sda2                   8:2    1    3G  0 part\n"
-"            └─TailsData_unlocked 253:0    0    3G  0 crypt /run/nosymfollow/"
-"live/persistence/TailsData_un...\n"
+"            └─TailsData_unlocked 253:0    0    3G  0 crypt /run/nosymfollow/live/persistence/TailsData_un...\n"
 "          zram0                  254:0    0  2.8G  0 disk  [SWAP]\n"
 
 #. type: Plain text
@@ -1064,8 +1035,10 @@ msgstr ""
 
 #. type: Bullet: '      - '
 msgid ""
-"`PBKDF` indicates the key derivation function, either `pbkdf2` or `rgon2id`."
+"`PBKDF` indicates the key derivation function, either `pbkdf2` or `argon2id`."
 msgstr ""
+"`PBKDF` indique la fonction de dérivation de clé, soit `pbkdf2` ou "
+"`argon2id`."
 
 #. type: Title ###
 #, no-wrap
@@ -1078,13 +1051,6 @@ msgid ""
 "      Replace <span class=\"command-placeholder\">[partition]</span> with the\n"
 "      partition name found in step 6.\n"
 msgstr ""
-
-#. type: Bullet: '      - '
-msgid ""
-"`PBKDF` indicates the key derivation function, either `pbkdf2` or `argon2id`."
-msgstr ""
-"`PBKDF` indique la fonction de dérivation de clé, soit `pbkdf2` ou "
-"`argon2id`."
 
 #~ msgid ""
 #~ "<span class=\"command\">Version</span> indicates the version of LUKS, "
