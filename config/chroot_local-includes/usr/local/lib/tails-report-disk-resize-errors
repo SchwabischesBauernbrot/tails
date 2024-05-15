@@ -3,8 +3,6 @@
 set -eu
 set -o pipefail
 
-grep --line-regexp partition-resize-failed /var/lib/live/config/tails.disk-resize-errors || exit 0
-
 export TEXTDOMAIN='tails'
 
 # If we're here, it means something strange happened. Let's inform the user and tell them to give us some

@@ -13,19 +13,7 @@ esac
 
 set -eu
 
-ESP_GUID="C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
-
-# We will run this after each action that alters the device/partition
-# in any way in an attempt to avoid various races that has caused this
-# script to fail at various points. Examples:
-#  * `partprobe /dev/sda` exiting before /dev/sda1 exists, causing
-#    errors in subsequent commands attempting to use /dev/sda1
-#  * `mlabel` complaining that it "could not read boot sector"
-settle() {
-    sync
-    udevadm settle
-    sync
-}
+REPARTITIONING_ERROR_FLAG_FILE=/run/repartitioning-failed
 
 . /scripts/functions
 
@@ -61,7 +49,6 @@ while true; do
 done
 log_end_msg
 
-DEVICE_NAME="$(basename "${PARENT_DEVICE}")"
 
 first_boot_repartition() {
 	# Compute the new system partition size
@@ -224,17 +211,34 @@ GUID=$(sgdisk --print "${PARENT_DEVICE}" \
 	| sed -n '/^Disk identifier (GUID)/ s/^Disk identifier (GUID): // p')
 
 if [ "${GUID}" = "17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3" ]; then
-	_log_msg "This is the first boot, so repartitioning"
-	PLYMOUTH_MSG="Preparing Tails for first use..."
-	plymouth display-message --text="${PLYMOUTH_MSG}"
-	first_boot_repartition
-	# `plymouth hide-message` doesn't work (#20401)
-	plymouth display-message --text=""
+  _log_msg "This is the first boot, so repartitioning"
+  PLYMOUTH_MSG="Preparing Tails for first use..."
+  plymouth display-message --text="${PLYMOUTH_MSG}"
+  if ! /scripts/lib/first_boot_repartition "${PARENT_DEVICE}" "${SYSTEM_PARTITION}"; then
+    _log_msg "Repartitioning failed"
+    touch "${REPARTITIONING_ERROR_FLAG_FILE}"
+  fi
+  plymouth hide-message --text="${PLYMOUTH_MSG}"
 else
-	_log_msg "This is not the first boot, so repairing filesystem"
-	PLYMOUTH_MSG="Checking the Tails system partition for errors..."
-	plymouth display-message --text="${PLYMOUTH_MSG}"
-	repair_system_partition
-	# `plymouth hide-message` doesn't work (#20401)
-	plymouth display-message --text=""
+  # The "test_gpt_corruption" option is only effective on the first boot. To
+  # avoid confusion, we don't allow booting with this option when it's
+  # not the first boot.
+  if grep -qw "test_gpt_corruption" /proc/cmdline; then
+    MSG="The 'test_gpt_corruption' option is only effective on the first boot, and it's not the first boot. Please remove the 'test_gpt_corruption' option from the boot command line. Press ENTER to shut down."
+    plymouth message --text="${MSG}"
+    plymouth watch-keystroke > /dev/null
+    poweroff -f
+  fi
+
+  # Verify the partition table
+  if ! /scripts/lib/verify_partition_table "${PARENT_DEVICE}"; then
+    _log_msg "The partition table is invalid"
+    touch "${REPARTITIONING_ERROR_FLAG_FILE}"
+  fi
+
+  _log_msg "This is not the first boot, so repairing filesystem"
+  PLYMOUTH_MSG="Checking the Tails system partition for errors..."
+  plymouth display-message --text="${PLYMOUTH_MSG}"
+  repair_system_partition
+  plymouth hide-message --text="${PLYMOUTH_MSG}"
 fi
