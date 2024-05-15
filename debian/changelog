@@ -1,5 +1,14 @@
 tails (6.3) UNRELEASED; urgency=medium
 
+  * Thunderbird: temporarily disable pdf.js in Tails 6.3 to fix CVE-2024-4367
+    (tails/tails!1528)
+
+    Closes issues:
+      - Fix CVE-2024-4367 for Thunderbird in Tails 6.3 (tails/tails#20384)
+
+    Commits:
+      - Thunderbird: temporarily disable pdf.js in Tails 6.3 to fix CVE-2024-4367
+
   * Resolve "Upgrade to Tor Browser 13.0.15 based on 115.11" (tails/tails!1525)
 
     Closes issues:
@@ -157,7 +166,7 @@ tails (6.3) UNRELEASED; urgency=medium
       - GitLab CI: Don't run Black and Bandit in addition to Ruff
       - GitLab CI: Run Ruff Formatter
 
- -- Tails developers <tails@boum.org>  Wed, 15 May 2024 08:57:12 +0000
+ -- Tails developers <tails@boum.org>  Wed, 15 May 2024 10:17:23 +0000
 
 tails (6.2) unstable; urgency=medium
 
