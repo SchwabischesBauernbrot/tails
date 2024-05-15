@@ -15,22 +15,11 @@ PARENT_DEVICE="$1"
 # the Persistent Storage partition to fail to be created. It can also
 # break fatresize, leaving the system partition too small for automatic
 # upgrades (and at some point manual upgrades too). Note that as long as
-# either the MBR or the GPT is intact, sgdisk --verify exits with 0 even
-# if it detects corruption, so we parse its output below to check for
-# errors.
+# the MBR is intact, sgdisk --verify exits with 0 even if it detects a
+# corrupt GPT. This is fine, because in that case the Persistent Storage
+# can also be created successfully (because libblockdev uses sgdisk
+# internally to create partitions, so the same checks are done there).
 sgdisk --verify "${PARENT_DEVICE}"
-
-# Check if sgdisk --verify detects any corruption. This verifies the
-# following:
-# * The protective MBR
-# * The GPT header
-# * The GPT partition table
-# * The GPT backup header
-# * The GPT backup partition table
-if sgdisk --verify "${PARENT_DEVICE}" 2>&1 | grep -q 'corrupt\|ERROR'; then
-  echo "Detected GPT corruption"
-  exit 1
-fi
 
 # Check if the disk GUID was randomized
 GUID=$(sgdisk --print "${PARENT_DEVICE}" \
