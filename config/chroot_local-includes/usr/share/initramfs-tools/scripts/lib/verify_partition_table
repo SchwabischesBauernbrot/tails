@@ -1,0 +1,51 @@
+#!/bin/sh
+
+set -eu
+set -x
+
+ORIG_DISK_GUID="17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3"
+
+# The minimum size of the system partition in bytes
+MIN_SYSTEM_PARTITION_SIZE=$((4096 * 1024 * 1024))
+
+PARENT_DEVICE="$1"
+
+# Verify the GPT headers and partition tables. We've seen cases where
+# both the MBR and the GPT backup tables were corrupted, which caused
+# the Persistent Storage partition to fail to be created. It can also
+# break fatresize, leaving the system partition too small for automatic
+# upgrades (and at some point manual upgrades too). Note that as long as
+# either the MBR or the GPT is intact, sgdisk --verify exits with 0 even
+# if it detects corruption, so we parse its output below to check for
+# errors.
+sgdisk --verify "${PARENT_DEVICE}"
+
+# Check if sgdisk --verify detects any corruption. This verifies the
+# following:
+# * The protective MBR
+# * The GPT header
+# * The GPT partition table
+# * The GPT backup header
+# * The GPT backup partition table
+if sgdisk --verify "${PARENT_DEVICE}" 2>&1 | grep -q 'corrupt\|ERROR'; then
+  echo "Detected GPT corruption"
+  exit 1
+fi
+
+# Check if the disk GUID was randomized
+GUID=$(sgdisk --print "${PARENT_DEVICE}" \
+  | sed -n '/^Disk identifier (GUID)/ s/^Disk identifier (GUID): // p')
+if [ "${GUID}" = "${ORIG_DISK_GUID}" ]; then
+  echo "The disk GUID was not randomized."
+  exit 1
+fi
+
+# Check if the system partition was resized
+SECTORS=$(sgdisk --info=1 "${PARENT_DEVICE}" \
+  | sed -n '/^Partition size:/ s/^Partition size: \([0-9]\+\) sectors.*/\1/p')
+SIZE=$((SECTORS * 512))
+if [ "${SIZE}" -lt "${MIN_SYSTEM_PARTITION_SIZE}" ]; then
+  echo "The system partition was not correctly resized " \
+       "(expected at least ${MIN_SYSTEM_PARTITION_SIZE}, got ${SIZE})."
+  exit 1
+fi
