@@ -13,6 +13,7 @@ from tps import (
     TPSErrorType,
     SYSTEM_PARTITION_MOUNT_POINT,
     LUKS_HEADER_BACKUP_PATH,
+    REPARTITIONING_ERROR_FLAG_FILE,
 )
 from tps.configuration import features
 from tps.configuration.config_file import ConfigFile, InvalidStatError
@@ -149,6 +150,19 @@ class Service(DBusObject, ServiceUsingJobs):
             return
 
         self.refresh_state()
+
+        if self.state == State.NOT_CREATED:
+            # Check if first boot repartitioning failed. If so, we don't
+            # allow creating a Persistent Storage, because it indicates that
+            # something is wrong with the boot device and we don't want the
+            # user to lose their data or be stuck with a Persistent Storage
+            # on a USB drive which can't be upgraded.
+            if not Path(REPARTITIONING_ERROR_FLAG_FILE).exists():
+                return
+            logger.error(
+                f"First boot repartitioning failed (file {REPARTITIONING_ERROR_FLAG_FILE} exists)"
+            )
+            self.Error = TPSErrorType.FIRST_BOOT_REPARTITIONING_FAILED
 
     # ----- Exported methods ----- #
 

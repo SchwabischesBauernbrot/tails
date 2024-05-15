@@ -40,6 +40,8 @@ LUKS_HEADER_BACKUP_PATH = SYSTEM_PARTITION_MOUNT_POINT + "/luks-header-backup"
 ON_ACTIVATED_HOOKS_DIR = "/usr/local/lib/persistent-storage/on-activated-hooks"
 ON_DEACTIVATED_HOOKS_DIR = "/usr/local/lib/persistent-storage/on-deactivated-hooks"
 
+REPARTITIONING_ERROR_FLAG_FILE = "/var/lib/live/config/tails.disk-resize-errors"
+
 
 class State(Enum):
     UNKNOWN = 0
@@ -68,6 +70,8 @@ class TPSErrorType(IntEnum):
     TOO_MANY_PARTITIONS = 2
     # The boot device is read-only.
     READ_ONLY_BOOT_DEVICE = 3
+    # The repartitioning of the boot device during first boot failed.
+    FIRST_BOOT_REPARTITIONING_FAILED = 4
 
 
 PROFILING = False

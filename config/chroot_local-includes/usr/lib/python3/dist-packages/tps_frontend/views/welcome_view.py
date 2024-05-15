@@ -23,39 +23,60 @@ class WelcomeView(View):
     def show(self) -> None:
         super().show()
 
-        # Check if the boot device is supported
-        variant = self.window.service_proxy.get_cached_property("BootDeviceIsSupported")
-        device_is_supported = bool(variant and variant.get_boolean())
+        error: GLib.Variant = self.window.service_proxy.get_cached_property("Error")
+        device_is_supported = not error
 
-        if not device_is_supported:
-            error: GLib.Variant = self.window.service_proxy.get_cached_property("Error")
-            if error:
-                error_type = TPSErrorType(error.get_uint32())
-                logger.warning("Error: %s", error_type)
-                if error_type == TPSErrorType.TOO_MANY_PARTITIONS:
-                    self.device_not_supported_label.set_label(
-                        _(
-                            "Sorry, it is impossible to create a Persistent Storage "
-                            "because there is already a second partition "
-                            "on the USB stick.\n\n"
-                            "To be able to use Tails with a Persistent Storage, "
-                            "please try to follow our instructions on "
-                            '<a href="install">installing Tails on a USB stick</a> '
-                            "again.",
-                        ),
-                    )
-                elif error_type == TPSErrorType.INVALID_BOOT_DEVICE:
-                    logger.warning(
-                        "You can only create a Persistent Storage on a USB stick "
-                        "installed with a USB image or Tails Cloner.",
-                    )
-
-        if device_is_supported:
-            self.continue_button.grab_focus()
+        if error:
+            self.handle_error(error.get_uint32())
 
         self.device_not_supported_label.set_visible(not device_is_supported)
         self.warning_icon.set_visible(not device_is_supported)
         self.continue_button.set_visible(device_is_supported)
+
+        if device_is_supported:
+            self.continue_button.grab_focus()
+
+    def handle_error(self, error: int) -> None:
+        error_type = TPSErrorType(error)
+        logger.warning("Error: %s", error_type)
+        if error_type == TPSErrorType.TOO_MANY_PARTITIONS:
+            self.device_not_supported_label.set_label(
+                _(
+                    "Sorry, it is impossible to create a Persistent Storage "
+                    "because there is already a second partition "
+                    "on the USB stick.\n\n"
+                    "To be able to use Tails with a Persistent Storage, "
+                    "please try to follow our instructions on "
+                    '<a href="install">installing Tails on a USB stick</a> '
+                    "again.",
+                ),
+            )
+        elif error_type == TPSErrorType.FIRST_BOOT_REPARTITIONING_FAILED:
+            self.device_not_supported_label.set_label(
+                _(
+                    "Sorry, it is impossible to create a Persistent Storage "
+                    "because resizing the Tails system partition failed when "
+                    "your Tails USB stick was started for the first time.\n\n"
+                    "To be able to use Tails with a Persistent Storage, "
+                    "please try to follow our instructions on "
+                    '<a href="install">installing Tails on a USB stick</a> '
+                    "again.",
+                ),
+            )
+        elif error_type == TPSErrorType.INVALID_BOOT_DEVICE:
+            logger.warning(
+                "You can only create a Persistent Storage on a USB stick "
+                "installed with a USB image or Tails Cloner.",
+            )
+        else:
+            self.device_not_supported_label.set_label(
+                _("An unexpected error occurred."),
+            )
+            self.window.display_error(
+                _("An unexpected error occurred"),
+                _("Error code: %s", error_type),
+                with_send_report_button=True,
+            )
 
     def on_cancel_button_clicked(self, button: Gtk.Button):
         self.window.destroy()
