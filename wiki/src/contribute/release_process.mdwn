@@ -455,7 +455,8 @@ Manually inspect the diffs:
  - The only lines added or removed should reflect the addition or removal of a file with a matching name in `po/`.
 
    For example, if you see `zz-YY:YY` added in `config/chroot_local-includes/usr/share/tails/browser-localization/descriptions`
-   it must be because of a `po/zz_YY.po` which includes a line `"Language: zz_YY\n"`
+   it must be because of a `po/zz_YY.po` which includes a line `"Language: zz_YY\n"`, or `po/zz.po` and
+   `"Language: zz\n"` if a `zz="zz_YY"` mapping exists in `po/po-to-mozilla.toml`.
 
 Commit the changes (if any):
 
