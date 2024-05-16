@@ -1,3 +1,173 @@
+tails (6.3) unstable; urgency=medium
+
+  * Thunderbird: temporarily disable pdf.js in Tails 6.3 to fix CVE-2024-4367
+    (tails/tails!1528)
+
+    Closes issues:
+      - Fix CVE-2024-4367 for Thunderbird in Tails 6.3 (tails/tails#20384)
+
+    Commits:
+      - Thunderbird: temporarily disable pdf.js in Tails 6.3 to fix CVE-2024-4367
+
+  * Resolve "Upgrade to Tor Browser 13.0.15 based on 115.11" (tails/tails!1525)
+
+    Closes issues:
+      - Upgrade to Tor Browser 13.0.15 based on 115.11 (tails/tails#20375)
+
+    Commits:
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 13.0.15 (refs: tails#20375)
+
+  * Upgrade to Linux 6.1.90-1 (tails/tails!1521)
+
+    Closes issues:
+      - stable branch FTBFS: Unable to locate package linux-headers-6.1.0-20-amd64
+        (tails/tails#20382)
+      - Upgrade Linux to 6.1.90-1 (DSA 5680-1) (tails/tails#20378)
+
+    Commits:
+      - fixing linenumbers of ublock autoupdate patch
+      - Upgrade to Linux 6.1.0-21 (currently at version 6.1.90-1)
+      - Bump snapshot of the "debian" APT archive to 2024050801
+
+  * Revert "Install systemd-oomd" (tails/tails!1517)
+
+    Commits:
+      - Revert "Install systemd-oomd"
+
+  * GitLab CI: Fix Ruff also checking files changed on stable (tails/tails!1514)
+
+    Commits:
+      - bin/test-utils/ruff: Also check uncommitted files
+      - GitLab CI: Fix Ruff also checking files changed on stable
+      - GitLab CI: Run Ruff Formatter
+
+  * Update URLs: gitweb.torproject.org is deprecated (tails/tails!1509)
+
+    Commits:
+      - Update URLs: gitweb.torproject.org is deprecated
+
+  * Stop listing deleted pages (tails/tails!1508)
+
+    Commits:
+      - Stop translating deleted pages
+
+  * Upgrader: make "Restart later" the default option, instead of "Restart now"
+    (tails/tails!1507)
+
+    Closes issues:
+      - Make "Restart later" the default option when the Upgrader currently defaults to
+        "Restart now" (tails/tails#20346)
+
+    Commits:
+      - Make indentation consistent
+      - Make comment markers reflect current reality
+      - Update alignment
+      - Upgrader: make "Restart later" the default option, instead of "Restart now"
+
+  * Fix tails-spoof-mac blocking udev (tails/tails!1503)
+
+    Closes issues:
+      - Long delay during login when MAC spoofing has failed (tails/tails#17813)
+      - Scenario "MAC address spoofing fails and the module is not removed" is fragile
+        (tails/tails#20349)
+
+    Commits:
+      - Fix race between tails-spoof-mac and tails-unblock-network
+      - Ensure positional arguments to notify-send are not interpreted as options
+      - Improve MAC spoofing failed error message
+      - Test suite: Add step "this test fails" for debugging purposes
+      - Fix tails-spoof-mac blocking udev
+
+  * Test suite: Fix set_browser_url (tails/tails!1502)
+
+    Closes issues:
+      - Scenario "Tails is localized for every tier-1 language" is fragile
+        (tails/tails#20357)
+
+    Commits:
+      - Test suite: Fix set_browser_url
+
+  * Test suite: Add debug output for #20356 (tails/tails!1501)
+
+    Commits:
+      - Test suite: Add debug output for #20356
+
+  * Test suite: Add bookmark via Dogtail (tails/tails!1500)
+
+    Closes issues:
+      - Scenario "Persistent browser bookmarks" is fragile (tails/tails#20353)
+
+    Commits:
+      - Test suite: Add bookmark via Dogtail
+
+  * Adapt kernel module matching for Linux 6.6+ (tails/tails!1499)
+
+    Closes issues:
+      - Linux v6.6 breaking change: module compression (tails/tails#20347)
+
+    Commits:
+      - Adapt kernel module matching for Linux 6.6+
+
+  * locale-description always includes languages from TBB tarball
+    (tails/tails!1498)
+
+    Commits:
+      - ruff: reformat
+      - create tmpdir if it doesnt exist
+      - only run doctests when running doctests
+      - more ruff linting
+      - fix ruff most severe complaints
+      - clarify which functions are imported
+      - handle ms just like other languages
+      - integrate with TBB's contents
+      - make ruff happy
+      - add functions to get locales from TBB tarball
+
+  * tps-frontend: Add ErrorDetails class (tails/tails!1497)
+
+    Commits:
+      - tps-frontend: Add ErrorDetails class
+
+  * Rotate Whisperback onion address (tails/tails!1496)
+
+    Commits:
+      - Rotate Whisperback onion address
+
+  * workaround printers configured in Tails 5 (tails/tails!1484)
+
+    Closes issues:
+      - Cannot add printer on 6.0 if CUPS configuration persisted from 5.x
+        (tails/tails#20271)
+
+    Commits:
+      - Fix log call
+      - fix permissions
+      - only update configuration when really needed
+      - workaround printers configured in Tails 5
+
+  * Install systemd-oomd (tails/tails!1479)
+
+    Closes issues:
+      - Consider using systemd-oomd (tails/tails#19454)
+
+    Commits:
+      - Start root terminal in its own systemd scope
+      - Start root terminal as part of app-org.gnome.Terminal.slice
+      - Install systemd-oomd
+
+  * GitLab CI: Don't run Black and Bandit in addition to Ruff (tails/tails!1448)
+
+    Commits:
+      - ruff: reformat
+      - handles directories correctly
+      - ruff: specify executable path
+      - ruff format creates no junit report
+      - GitLab CI: Don't run Black and Bandit in addition to Ruff
+      - GitLab CI: Run Ruff Formatter
+
+ -- Tails developers <tails@boum.org>  Wed, 15 May 2024 14:24:24 +0200
+
 tails (6.2) unstable; urgency=medium
 
   * Upgrade to Tor Browser 13.0.14 based on 115.10 (tails/tails!1489)

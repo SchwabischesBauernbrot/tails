@@ -17,6 +17,8 @@ from tps_frontend import (
 
 import gi
 
+from tps_frontend.error_dialog import ErrorDetails
+
 gi.require_version("Handy", "1")
 from gi.repository import Gio, GLib, GObject, Gtk, Handy  # noqa: E402
 
@@ -293,7 +295,7 @@ class Feature:
                 self.window.display_error(
                     _("Error activating feature {}").format(self.translated_name),
                     _("An error occurred while activating the feature."),
-                    details=(_("Details"), e.message),
+                    details=(ErrorDetails(_("Details"), e.message)),
                 )
 
             # Ensure that the switch displays the correct state
@@ -342,7 +344,7 @@ class Feature:
                 self.window.display_error(
                     _("Error deactivating feature {}").format(self.translated_name),
                     _("An error occurred while deactivating the feature."),
-                    details=(_("Details"), e.message),
+                    details=(ErrorDetails(_("Details"), e.message)),
                 )
 
             # Ensure that the switch displays the correct state
@@ -406,7 +408,7 @@ class Feature:
                 _("An error occurred while deleting the data of feature {}.").format(
                     self.translated_name,
                 ),
-                details=(_("Details"), e.message),
+                details=(ErrorDetails(_("Details"), e.message)),
             )
             return
         finally:
