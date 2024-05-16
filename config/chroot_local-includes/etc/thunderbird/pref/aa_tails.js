@@ -337,7 +337,7 @@ pref("geo.enabled", false);
 // JavaScript is enabled, but not inside email messages.
 pref("javascript.enabled", true);
 
-// JavaScript hardening. Source https://gitweb.torproject.org/torbutton.git/tree/src/modules/security-prefs.js
+// JavaScript hardening. Source https://gitlab.torproject.org/tpo/applications/tor-browser/-/blob/tor-browser-115.10.0esr-13.5-1/browser/components/securitylevel/content/securityLevel.js?ref_type=heads
 // (we are applying the "high" profile)
 pref("javascript.options.ion", false);
 pref("javascript.options.baselinejit", false);
@@ -371,3 +371,6 @@ pref("mail.identity.default.encryptionpolicy", 2);
 // email. Attaching the key bloats the email (especially keys that
 // have many signatures) but also leaks who sent email when using Schleuder's remailing functionality.
 pref("mail.identity.default.attachPgpKey", false);
+
+// Temporarily fix CVE-2024-4367 in Tails 6.3 (tails#20384)
+pref("pdfjs.disabled", true);
