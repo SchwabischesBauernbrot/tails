@@ -12,7 +12,7 @@ from tps_frontend import (
     APPLICATION_ID,
     CSS_FILE,
 )
-from tps_frontend.error_dialog import ErrorDialog
+from tps_frontend.error_dialog import ErrorDialog, ErrorDetails
 from tps_frontend.window import Window
 
 logger = getLogger(__name__)
@@ -70,7 +70,7 @@ class Application(Gtk.Application):
         self,
         title: str,
         msg: str = "",
-        details: (str, str) = None,
+        details: ErrorDetails = None,
         with_send_report_button: bool = True,
     ):
         dialog = ErrorDialog(

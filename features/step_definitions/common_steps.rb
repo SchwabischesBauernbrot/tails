@@ -1583,6 +1583,13 @@ When /^I upload "([^"]*)" to "([^"]*)"$/ do |source, destination|
   end
 end
 
+# Useful for debugging Tails features, because it causes the journal
+# etc. to be downloaded to the host and then, if run with
+# --interactive-debugging, allows to manually debug the VM.
+When /^this test fails$/ do
+  raise 'This step is supposed to fail'
+end
+
 When /^I disable the (.*) (system|user) unit$/ do |unit, scope|
   options = scope == 'system' ? '' : '--global'
   $vm.execute_successfully("systemctl #{options} disable '#{unit}'")

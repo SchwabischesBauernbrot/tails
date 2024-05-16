@@ -138,6 +138,17 @@ timeout --verbose 120 udevadm trigger --verbose --settle --type=all --action=add
 
 echo "replayed udev events." >&2
 
+# It's not clear why, but the `udevadm trigger` command above returns
+# before all the triggered events finished, even though we pass `--settle`.
+# We call `udevadm settle` here to ensure that the events for the network
+# devices have finished. That's important because the NetworkManager
+# service is masked by the MAC spoofing udev rule if MAC spoofing fails,
+# so we need to make sure the udev rule has finished before we start
+# NetworkManager below.
+echo "Waiting for udev events to settle..." >&2
+udevadm settle
+echo "udev events settled." >&2
+
 # XXX: add debugging information for #9012 to the Journal
 /sbin/lsmod
 ls -l /sys/class/net
