@@ -464,14 +464,9 @@ Given /^I set the language to (.*) \((.*)\)$/ do |lang, lang_code|
   # and activate it via the keyboard instead.
   greeter.child(description: 'Configure Language').grabFocus
   @screen.press('Return')
-  try_for(10) do
-    greeter
-      .child('Search', roleName: 'text')
-      .focused
-  end
-  @screen.type($language)
+  greeter.child('Search', roleName: 'text').text = lang
   sleep(2) # Gtk needs some time to filter the results
-  @screen.press('Return')
+  greeter.child('Search', roleName: 'text').activate
 end
 
 Given /^I log in to a new session(?: in ([^ ]*) \(([^ ]*)\))?( without activating the Persistent Storage)?( after having activated the Persistent Storage| expecting no warning about the Persistent Storage not being activated)?$/ do |lang, lang_code, expect_warning, expect_no_warning|
