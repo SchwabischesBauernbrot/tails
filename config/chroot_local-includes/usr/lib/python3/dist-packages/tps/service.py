@@ -10,7 +10,7 @@ from typing import TYPE_CHECKING, Optional
 
 from tps import (
     executil,
-    InvalidBootDeviceErrorType,
+    TPSErrorType,
     SYSTEM_PARTITION_MOUNT_POINT,
     LUKS_HEADER_BACKUP_PATH,
 )
@@ -801,7 +801,7 @@ class Service(DBusObject, ServiceUsingJobs):
             if num_partitions > 1:
                 logger.error("Too many partitions: %i", num_partitions)
                 self._boot_device = None
-                self.Error = InvalidBootDeviceErrorType.TOO_MANY_PARTITIONS
+                self.Error = TPSErrorType.TOO_MANY_PARTITIONS
 
             return
 
@@ -817,7 +817,7 @@ class Service(DBusObject, ServiceUsingJobs):
                 logger.error("Boot device is read-only")
                 self.CanDelete = False
                 self.CanUnlock = False
-                self.Error = InvalidBootDeviceErrorType.READ_ONLY
+                self.Error = TPSErrorType.READ_ONLY_BOOT_DEVICE
             else:
                 self.CanDelete = True
                 self.CanUnlock = True

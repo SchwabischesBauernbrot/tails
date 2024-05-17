@@ -2,7 +2,7 @@ from logging import getLogger
 from gi.repository import GLib, Gtk
 import subprocess
 
-from tps import InvalidBootDeviceErrorType
+from tps import TPSErrorType
 from tps_frontend import _, WELCOME_VIEW_UI_FILE
 from tps_frontend.view import View
 
@@ -32,9 +32,9 @@ class WelcomeView(View):
         if not device_is_supported:
             error: GLib.Variant = self.window.service_proxy.get_cached_property("Error")
             if error:
-                error_type = InvalidBootDeviceErrorType(error.get_uint32())
+                error_type = TPSErrorType(error.get_uint32())
                 logger.warning("Error: %s", error_type)
-                if error_type == InvalidBootDeviceErrorType.TOO_MANY_PARTITIONS:
+                if error_type == TPSErrorType.TOO_MANY_PARTITIONS:
                     self.device_not_supported_label.set_label(
                         _(
                             "Sorry, it is impossible to create a Persistent Storage "
@@ -47,8 +47,8 @@ class WelcomeView(View):
                         ),
                     )
                 elif (
-                    error_type
-                    == InvalidBootDeviceErrorType.UNSUPPORTED_INSTALLATION_METHOD
+                        error_type
+                        == TPSErrorType.UNSUPPORTED_INSTALLATION_METHOD
                 ):
                     logger.warning(
                         "You can only create a Persistent Storage on a USB stick "

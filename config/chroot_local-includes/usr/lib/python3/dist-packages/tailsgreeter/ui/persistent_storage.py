@@ -11,7 +11,7 @@ from tailsgreeter.errors import (
     FeatureActivationFailedError,
     WrongPassphraseError,
 )
-from tps import InvalidBootDeviceErrorType
+from tps import TPSErrorType
 
 gi.require_version("GLib", "2.0")
 gi.require_version("Gtk", "3.0")
@@ -81,8 +81,8 @@ class PersistentStorage:
             self.spinner_storage_unlock.set_visible(False)
             self.linkbutton_storage_readonly_help.set_visible(False)
             if not can_unlock and (
-                self.persistence_setting.error_type
-                == InvalidBootDeviceErrorType.READ_ONLY
+                    self.persistence_setting.error_type
+                    == TPSErrorType.READ_ONLY_BOOT_DEVICE
             ):
                 self.label_storage_error.set_label(
                     _(

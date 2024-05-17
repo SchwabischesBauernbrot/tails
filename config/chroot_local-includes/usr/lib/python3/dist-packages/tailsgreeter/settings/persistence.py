@@ -26,7 +26,7 @@ from gi.repository import Gio, GLib
 import tailsgreeter.errors
 import tps.dbus.errors as tps_errors
 from tailsgreeter import config  # NOQA: E402
-from tps import InvalidBootDeviceErrorType
+from tps import TPSErrorType
 
 
 _ = gettext.gettext
@@ -61,9 +61,9 @@ class PersistentStorageSettings:
         self.can_unlock = self.service_proxy.get_cached_property("CanUnlock")
         self.is_upgraded = self.service_proxy.get_cached_property("IsUpgraded")
         self.error: GLib.Variant = self.service_proxy.get_cached_property("Error")
-        self.error_type: Optional[InvalidBootDeviceErrorType] = None
+        self.error_type: Optional[TPSErrorType] = None
         if self.error:
-            self.error_type = InvalidBootDeviceErrorType(self.error.get_uint32())
+            self.error_type = TPSErrorType(self.error.get_uint32())
         self.service_proxy.connect("g-properties-changed", self.on_properties_changed)
 
     def on_properties_changed(
@@ -81,7 +81,7 @@ class PersistentStorageSettings:
         if "Error" in keys:
             self.error = changed_properties["Error"]
             if self.error:
-                self.error_type = InvalidBootDeviceErrorType(self.error.get_uint32())
+                self.error_type = TPSErrorType(self.error.get_uint32())
         if "IsCreated" in keys:
             self.is_created = changed_properties["IsCreated"]
         if "IsUpgraded" in keys:

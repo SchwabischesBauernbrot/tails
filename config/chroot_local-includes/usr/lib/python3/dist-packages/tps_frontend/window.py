@@ -6,7 +6,7 @@ from typing import TYPE_CHECKING, Optional
 
 import gi
 from gi.repository import Gio, GLib, GObject, Gtk
-from tps import IN_PROGRESS_STATES, InvalidBootDeviceErrorType, State
+from tps import IN_PROGRESS_STATES, TPSErrorType, State
 from tps.dbus.errors import DBusError, NotEnoughMemoryError, TargetIsBusyError
 
 from tps_frontend import WINDOW_UI_FILE, _
@@ -151,8 +151,8 @@ class Window(Gtk.ApplicationWindow):
             error: GLib.Variant = self.service_proxy.get_cached_property("Error")
             if (
                 error
-                and InvalidBootDeviceErrorType(error.get_uint32())
-                == InvalidBootDeviceErrorType.READ_ONLY
+                and TPSErrorType(error.get_uint32())
+                == TPSErrorType.READ_ONLY_BOOT_DEVICE
             ):
                 explanation = _(
                     "Impossible to delete the Persistent Storage because "
