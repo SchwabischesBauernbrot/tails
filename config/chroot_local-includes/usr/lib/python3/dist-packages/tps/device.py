@@ -59,7 +59,7 @@ class InvalidBootDeviceError(Exception):
     # Assume that any problem that's not handled differently in specific subclasses
     # is the result of installing Tails in an unsupported manner.
     error_type: TPSErrorType = (
-        TPSErrorType.UNSUPPORTED_INSTALLATION_METHOD
+        TPSErrorType.INVALID_BOOT_DEVICE
     )
 
 

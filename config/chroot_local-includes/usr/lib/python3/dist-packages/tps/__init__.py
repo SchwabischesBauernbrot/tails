@@ -60,8 +60,13 @@ class TPSErrorType(IntEnum):
     # 0 is the value of the Error property when no error was raised yet,
     # so let's ensure we don't use it for anything else.
     NO_ERROR = 0
-    UNSUPPORTED_INSTALLATION_METHOD = 1
+    # Generic error which indicates that Tails was not installed in a
+    # supported way or is broken for unknown reasons.
+    INVALID_BOOT_DEVICE = 1
+    # The boot device has too many partitions to create a Persistent
+    # Storage (there should only be the system partition).
     TOO_MANY_PARTITIONS = 2
+    # The boot device is read-only.
     READ_ONLY_BOOT_DEVICE = 3
 
 

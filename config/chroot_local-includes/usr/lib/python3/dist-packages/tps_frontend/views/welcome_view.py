@@ -48,7 +48,7 @@ class WelcomeView(View):
                     )
                 elif (
                         error_type
-                        == TPSErrorType.UNSUPPORTED_INSTALLATION_METHOD
+                        == TPSErrorType.INVALID_BOOT_DEVICE
                 ):
                     logger.warning(
                         "You can only create a Persistent Storage on a USB stick "
