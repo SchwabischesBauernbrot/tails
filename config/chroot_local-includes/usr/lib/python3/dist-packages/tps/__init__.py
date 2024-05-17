@@ -59,7 +59,7 @@ IN_PROGRESS_STATES = (State.CREATING, State.DELETING, State.UNLOCKING)
 class InvalidBootDeviceErrorType(IntEnum):
     # 0 is the value of the Error property when no error was raised yet,
     # so let's ensure we don't use it for anything else.
-    UNKNOWN = 0
+    NO_ERROR = 0
     UNSUPPORTED_INSTALLATION_METHOD = 1
     TOO_MANY_PARTITIONS = 2
     READ_ONLY = 3
