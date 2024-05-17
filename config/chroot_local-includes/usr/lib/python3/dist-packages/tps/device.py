@@ -58,9 +58,7 @@ class PartitionNotUnlockedError(Exception):
 class InvalidBootDeviceError(Exception):
     # Assume that any problem that's not handled differently in specific subclasses
     # is the result of installing Tails in an unsupported manner.
-    error_type: TPSErrorType = (
-        TPSErrorType.INVALID_BOOT_DEVICE
-    )
+    error_type: TPSErrorType = TPSErrorType.INVALID_BOOT_DEVICE
 
 
 class InvalidCleartextDeviceError(Exception):
@@ -70,9 +68,7 @@ class InvalidCleartextDeviceError(Exception):
 class BootDevice:
     def __init__(self, udisks_object: UDisks.Object):
         self.udisks_object = udisks_object
-        self.partition_table = (
-            udisks_object.get_partition_table()
-        )  # type: UDisks.PartitionTable
+        self.partition_table = udisks_object.get_partition_table()  # type: UDisks.PartitionTable
         if not self.partition_table:
             # Note: This error is expected when the boot device is a DVD
             raise InvalidBootDeviceError("Device has no partition table")

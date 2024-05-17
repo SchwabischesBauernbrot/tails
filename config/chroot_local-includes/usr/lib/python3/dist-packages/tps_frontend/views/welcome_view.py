@@ -14,9 +14,7 @@ class WelcomeView(View):
 
     def __init__(self, window) -> None:
         super().__init__(window)
-        self.continue_button = self.builder.get_object(
-            "continue_button"
-        )  # type: Gtk.Button
+        self.continue_button = self.builder.get_object("continue_button")  # type: Gtk.Button
         self.device_not_supported_label = self.builder.get_object(
             "device_not_supported_label"
         )  # type: Gtk.Box
@@ -46,10 +44,7 @@ class WelcomeView(View):
                             "again.",
                         ),
                     )
-                elif (
-                        error_type
-                        == TPSErrorType.INVALID_BOOT_DEVICE
-                ):
+                elif error_type == TPSErrorType.INVALID_BOOT_DEVICE:
                     logger.warning(
                         "You can only create a Persistent Storage on a USB stick "
                         "installed with a USB image or Tails Cloner.",

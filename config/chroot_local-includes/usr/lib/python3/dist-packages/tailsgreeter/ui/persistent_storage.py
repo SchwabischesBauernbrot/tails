@@ -39,9 +39,7 @@ class PersistentStorage:
         self.box_storage_unlock = builder.get_object("box_storage_unlock")
         self.box_storage_unlocked = builder.get_object("box_storage_unlocked")
         self.box_storage_error = builder.get_object("box_storage_error")
-        self.button_storage_unlock = builder.get_object(
-            "button_storage_unlock"
-        )  # type: Gtk.Button
+        self.button_storage_unlock = builder.get_object("button_storage_unlock")  # type: Gtk.Button
         self.checkbutton_storage_show_passphrase = builder.get_object(
             "checkbutton_storage_show_passphrase"
         )
@@ -81,8 +79,8 @@ class PersistentStorage:
             self.spinner_storage_unlock.set_visible(False)
             self.linkbutton_storage_readonly_help.set_visible(False)
             if not can_unlock and (
-                    self.persistence_setting.error_type
-                    == TPSErrorType.READ_ONLY_BOOT_DEVICE
+                self.persistence_setting.error_type
+                == TPSErrorType.READ_ONLY_BOOT_DEVICE
             ):
                 self.label_storage_error.set_label(
                     _(
