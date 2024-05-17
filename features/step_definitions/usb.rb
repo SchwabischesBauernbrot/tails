@@ -342,6 +342,10 @@ Given /^I create a persistent partition( with the default settings)?( for Additi
   enable_all_tps_features unless default_settings
 end
 
+Given /^I open the Persistent Storage app$/ do
+  launch_persistent_storage
+end
+
 Given /^I try to create a persistent partition( for Additional Software)?( using the wizard that was already open)?$/ do |asp, dontrun|
   unless asp || dontrun
     launch_persistent_storage
@@ -432,8 +436,19 @@ Given /^I close the Persistent Storage app$/ do
   end
 end
 
-Then /^The Persistent Storage app shows the error message "([^"]*)"$/ do |message|
+Then /^the Persistent Storage app shows the error message "([^"]*)"$/ do |message|
   persistent_storage_frontend.child(message, roleName: 'label')
+end
+
+Then /^the Persistent Storage app shows "([^"]*)"$/ do |message|
+  # This step matches the explanations for why the Persistent Storage
+  # can't be created. Those are shown in the welcome view of the
+  # Persistent Storage app, in a label which includes two newlines
+  # and a pointer to our documentation after the message.
+  # Dogtail (or pyatspi) has a weird regex matching behavior, where .*
+  # doesn't include newlines.
+  regex = ".*#{message}.*\\s+.*"
+  persistent_storage_frontend.child(regex, roleName: 'label')
 end
 
 Given /^I change the passphrase of the Persistent Storage( back to the original)?$/ do |change_back|

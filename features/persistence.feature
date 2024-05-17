@@ -27,12 +27,24 @@ Feature: Tails persistence
     Then persistence for "Persistent" is active
     And the file I created in the Persistent directory exists
 
+  Scenario: Persistent Storage error when the MBR and the GPT backup header is corrupt
+    Given a computer
+    And I set Tails to boot with options "test_gpt_corruption=mbr,gpt_backup,gpt_backup_table"
+    And I create a 7200 MiB disk named "temp"
+    And I plug USB drive "temp"
+    And I write the Tails USB image to disk "temp"
+    And I start Tails from USB drive "temp" with network unplugged
+    And I log in to a new session
+    And all notifications have disappeared
+    And I open the Persistent Storage app
+    Then the Persistent Storage app shows "resizing the Tails system partition failed when your Tails USB stick was started for the first time"
+
   Scenario: Creating a Persistent Storage when system is low on memory
     Given I have started Tails without network from a USB drive without a persistent partition and logged in
     And the system is very low on memory
     When I create a file in the Persistent directory
     When I try to create a persistent partition
-    Then The Persistent Storage app shows the error message "Not enough memory to create Persistent Storage"
+    Then the Persistent Storage app shows the error message "Not enough memory to create Persistent Storage"
     When I close the Persistent Storage app
     And I free up some memory
     And I create a persistent partition with the default settings
