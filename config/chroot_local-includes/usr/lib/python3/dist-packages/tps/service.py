@@ -145,7 +145,7 @@ class Service(DBusObject, ServiceUsingJobs):
             self.State = State.NOT_CREATED
 
             # This will allow the UI to give the user more specific guidance.
-            self.Error = e.error_type
+            self.Error = TPSErrorType.INVALID_BOOT_DEVICE
             return
 
         self.refresh_state()
