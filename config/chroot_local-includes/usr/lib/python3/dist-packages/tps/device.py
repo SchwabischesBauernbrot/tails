@@ -72,10 +72,6 @@ class InvalidCleartextDeviceError(Exception):
     pass
 
 
-class InvalidStatError(Exception):
-    pass
-
-
 class BootDevice:
     def __init__(self, udisks_object: UDisks.Object):
         self.udisks_object = udisks_object
