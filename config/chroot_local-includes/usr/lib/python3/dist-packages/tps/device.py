@@ -63,11 +63,6 @@ class InvalidBootDeviceError(Exception):
     ) = InvalidBootDeviceErrorType.UNSUPPORTED_INSTALLATION_METHOD
 
 
-class InvalidPartitionTableTypeError(InvalidBootDeviceError):
-    def __init__(self, partition_table_type: str):
-        super().__init__(f"Partition table type: {partition_table_type}")
-
-
 class InvalidCleartextDeviceError(Exception):
     pass
 
@@ -81,7 +76,9 @@ class BootDevice:
             raise InvalidBootDeviceError("Device has no partition table")
         partition_table_type = self.partition_table.props.type
         if partition_table_type != "gpt":
-            raise InvalidPartitionTableTypeError(partition_table_type)
+            raise InvalidBootDeviceError(
+                f"Unsupported partition table type: {partition_table_type}"
+            )
         self.block = self.udisks_object.get_block()
         if not self.block:
             raise InvalidBootDeviceError("Device is not a block device")
