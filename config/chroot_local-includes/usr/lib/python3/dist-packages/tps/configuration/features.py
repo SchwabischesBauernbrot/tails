@@ -86,9 +86,7 @@ class GnuPG(Feature):
     Id = "GnuPG"
     translatable_name = "GnuPG"
     Bindings = (Binding("gnupg", "/home/amnesia/.gnupg"),)
-    conflicting_apps = (
-        ConflictingApp(name="gpg", process_names=["gpg"]),
-    )
+    conflicting_apps = (ConflictingApp(name="gpg", process_names=["gpg"]),)
 
 
 class Electrum(Feature):
@@ -117,9 +115,7 @@ class SSHClient(Feature):
     Id = "SSHClient"
     translatable_name = "SSH Client"
     Bindings = (Binding("openssh-client", "/home/amnesia/.ssh"),)
-    conflicting_apps = (
-        ConflictingApp(name="SSH", process_names=["ssh"]),
-    )
+    conflicting_apps = (ConflictingApp(name="SSH", process_names=["ssh"]),)
 
 
 class Dotfiles(Feature):
