@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-05-06 23:46+0000\n"
-"PO-Revision-Date: 2024-05-20 10:04+0000\n"
+"PO-Revision-Date: 2024-05-20 13:53+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
 "Language: it\n"
@@ -74,6 +74,8 @@ msgstr ""
 #, no-wrap
 msgid "<h2 id=\"debian\">Why is Tails based on Debian and not on another distribution?</h2>\n"
 msgstr ""
+"<h2 id=\"debian\">Perché Tails è basato su Debian e non su un'altra "
+"distribuzione?</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -104,7 +106,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"ubuntu\">Why isn't Tails based on Ubuntu?</h2>\n"
-msgstr ""
+msgstr "<h2 id=\"ubuntu\">Perché Tails non è basato su Ubuntu?</h2>\n"
 
 #. type: Plain text
 msgid "First, see the answer to the [[previous question|faq#debian]]."
@@ -185,7 +187,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"gnome\">Why does Tails ship the GNOME Desktop?</h2>\n"
-msgstr ""
+msgstr "<h2 id=\"gnome\">Perché Tails fornisce il desktop GNOME?</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -245,7 +247,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h1 id=\"installation\">Installation</h1>\n"
-msgstr ""
+msgstr "<h1 id=\"installation\">Installazione</h1>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -255,6 +257,7 @@ msgstr "<h2 id=\"dedicated-stick\">Ho bisogno di una chiavetta USB da usare solo
 #. type: Plain text
 msgid "Yes. Tails requires a USB stick dedicated to only running Tails."
 msgstr ""
+"Sì. Tails richiede una chiavetta USB utilizzata solo per eseguire Tails."
 
 #. type: Plain text
 msgid ""
@@ -262,12 +265,18 @@ msgid ""
 "for example to store files to use on Windows, a virus in the other operating "
 "system could corrupt your Tails."
 msgstr ""
+"Se fosse possibile utilizzare la stessa chiavetta USB con un altro sistema "
+"operativo, ad esempio per memorizzare i file da utilizzare su Windows, un "
+"virus nell'altro sistema operativo potrebbe danneggiare Tails."
 
 #. type: Plain text
 msgid ""
 "That's why your Tails USB stick is not recognized in Windows and why we "
 "discourage installing other live operating systems on the same USB stick."
 msgstr ""
+"Ecco perché la tua chiavetta USB Tails non viene riconosciuta in Windows e "
+"perché sconsigliamo di installare altri sistemi operativi live sulla stessa "
+"chiavetta USB."
 
 #. type: Plain text
 msgid ""
@@ -280,6 +289,8 @@ msgstr ""
 #, no-wrap
 msgid "<h2 id=\"permanent-install\">Can I install Tails permanently onto my hard disk?</h2>\n"
 msgstr ""
+"<h2 id=\"permanent-install\">Posso installare Tails in modo permanente sul "
+"mio disco rigido?</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -430,10 +441,9 @@ msgid "</div>\n"
 msgstr "</div>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<a id=\"browser\"></a>\n"
+#, no-wrap
 msgid "<h1 id=\"browser\">Tor Browser</h1>\n"
-msgstr "<h1 id=\"browser\">Web browser</h1>\n"
+msgstr "<h1 id=\"browser\">Tor Browser</h1>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -452,6 +462,11 @@ msgid ""
 "*Tor Browser* takes care of [[blocking dangerous JavaScript functionalities|"
 "doc/anonymous_internet/Tor_Browser#javascript]]."
 msgstr ""
+"Molti siti web oggi richiedono JavaScript per funzionare correttamente. Di "
+"conseguenza, per evitare di confondere molti utenti, in Tails JavaScript è "
+"abilitato per impostazione predefinita. Ma *Tor Browser* si occupa di [["
+"bloccare le funzionalità pericolose di JavaScript|doc/anonymous_internet/"
+"Tor_Browser#javascript]]."
 
 #. type: Plain text
 msgid ""
@@ -462,6 +477,13 @@ msgid ""
 "then the [[fingerprint|doc/anonymous_internet/Tor_Browser#fingerprint]] of "
 "your *Tor Browser* differs from most users. This reduces your anonymity."
 msgstr ""
+"Tor Browser include anche un [[livello di sicurezza|doc/anonymous_internet/"
+"Tor_browser#security-level]] e l’estensione [[NoScript|doc/"
+"anonymous_internet/Tor_browser#noscript]] per disabilitare facoltativamente "
+"ulteriori JavaScript. Questo potrebbe migliorare la sicurezza in alcuni "
+"casi. Tuttavia, se disabiliti JavaScript, allora l’[[impronta digitale|doc/"
+"anonymous_internet/Tor_Browser#fingerprint]] del tuo *Tor Browser* "
+"differisce dalla maggior parte degli utenti. Questo riduce il tuo anonimato."
 
 #. type: Plain text
 msgid ""
@@ -476,6 +498,8 @@ msgstr ""
 #, no-wrap
 msgid "<p>We have plans to allow storing the security level in the Persistent Storage. ([[!tails_ticket 9700]])</p>\n"
 msgstr ""
+"<p>Abbiamo in programma di consentire la memorizzazione del livello di "
+"sicurezza nell'Archivio Persistente. ([[!tails_ticket 9700]])</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -508,40 +532,32 @@ msgstr ""
 "di navigazione, o informazioni di sistema, sia per errore sia di proposito.\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "2. They can have bugs and security holes that can be remotely exploited by an\n"
-#| "attacker.\n"
+#, no-wrap
 msgid ""
 "2. They can have bugs and security vulnerabilities that can be remotely exploited by an\n"
 "attacker.\n"
 msgstr ""
-"2. Possono avere bugs e falle di sicurezza possibile da sfruttare per un utente malintenzionato\n"
-"da remoto.\n"
+"2. Possono avere bug e vulnerabilità di sicurezza che possono essere "
+"sfruttati da remoto da un aggressore.\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "4. They can have bugs breaking the security offered by other add-ons, for example\n"
-#| "Torbutton, and break your anonymity.\n"
+#, no-wrap
 msgid ""
 "3. They can have bugs breaking the security offered by other add-ons\n"
 "and break your anonymity.\n"
 msgstr ""
-"3. Possono avere bug che infrangono la sicurezza offerta da altre estensioni, ad esempio\n"
-"Torbutton, e rompere il tuo l'anonimato.\n"
+"3. Possono avere bug che violano la sicurezza offerta da altri componenti "
+"aggiuntivi e violare il tuo anonimato.\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "5. They can break your anonymity by making your browsing behaviour\n"
-#| "distinguishable amongst other Tails users.\n"
+#, no-wrap
 msgid ""
 "4. They can break your anonymity by making your browsing behaviour\n"
 "distinguishable amongst other Tails users.\n"
 msgstr ""
-"4. Possono rompere l'anonimato riconoscendo il tuo comportamento di navigazione,\n"
-"distinguibile tra gli altri utenti Tails.\n"
+"4. Possono violare l'anonimato riconoscendo il tuo comportamento di "
+"navigazione,\n"
+"distinguibile tra le altre persone che usano Tails.\n"
 
 #. type: Plain text
 msgid ""
@@ -570,12 +586,7 @@ msgstr ""
 "</div>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<!--\n"
-#| "XXX: Push that information to the browser documentation?\n"
-#| "XXX: Check https://www.torproject.org/torbutton/torbutton-faq.html.en#recommendedextensions\n"
-#| "-->\n"
+#, no-wrap
 msgid ""
 "<!--\n"
 "XXX: Push that information to the browser documentation?\n"
@@ -584,7 +595,8 @@ msgid ""
 msgstr ""
 "<!--\n"
 "XXX: Push that information to the browser documentation?\n"
-"XXX: Check https://www.torproject.org/torbutton/torbutton-faq.html.en#recommendedextensions\n"
+"XXX: Check https://2019.www.torproject.org/docs/torbutton/torbutton-faq.html."
+"en#recommendedextensions\n"
 "-->\n"
 
 #. type: Plain text
@@ -683,8 +695,7 @@ msgid "<h1 id=\"networking\">Networking</h1>\n"
 msgstr "<h1 id=\"networking\">Networking</h1>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "Can I use Tails with a VPN?\n"
+#, no-wrap
 msgid "<h2 id=\"vpn\">Can I use Tails with a VPN?</h2>\n"
 msgstr "<h2 id=\"vpn\">Posso utilizzare Tails con una VPN?</h2>\n"
 
@@ -755,16 +766,12 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "For more information, see our [[blueprint on VPN support|blueprint/"
-#| "vpn_support/]]."
 msgid ""
 "For more information, see our [[!tails_blueprint desc=\"blueprint on VPN "
 "support\" VPN-support]]."
 msgstr ""
-"Per maggiorni informazioni, consulta il nostro [[progetto sul supporto di "
-"una VPN|blueprint/vpn_support/]]."
+"Per maggiorni informazioni, consulta il nostro [[!tails_blueprint desc="
+"\"progetto sul supporto di una VPN\" VPN-support]]."
 
 #. type: Plain text
 #, no-wrap
@@ -857,20 +864,15 @@ msgstr ""
 "Time_syncing]] su questo topic."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "Can I help the Tor network by running a relay or a bridge in Tails?\n"
+#, no-wrap
 msgid "<h2 id=\"relay\">Can I help the Tor network by running a relay or a bridge in Tails?</h2>\n"
-msgstr "<h2 id=\"relay\">Posso aiutare la rete Tor eseguendo un relè o un ponte in Tails?</h2>\n"
+msgstr ""
+"<h2 id=\"relay\">Posso aiutare la rete Tor eseguendo un relè o un ponte in "
+"Tails?</h2>\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "It is currently impossible to run a Tor relay or bridge in Tails. See [[!"
-#| "tails_ticket 5418]]."
 msgid "It is currently impossible to run a Tor relay or bridge in Tails."
-msgstr ""
-"Attualmente è impossibile eseguire un relay o un bridge Tor da Tails. Vedi "
-"[[!tails_ticket 5418]]."
+msgstr "Attualmente è impossibile eseguire un relay o un bridge Tor da Tails."
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -902,20 +904,12 @@ msgid "<h2 id=\"ping\">Can I use <code>ping</code> in Tails?</h2>\n"
 msgstr "<h2 id=\"ping\">Posso usare <code>ping</code> in Tails?</h2>\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "It is impossible to use <span class=\"command\">ping</span> in Tails,\n"
-#| "because <span class=\"command\">ping</span> uses the ICMP protocol while "
-#| "Tor\n"
-#| "can only transport TCP connections.\n"
 msgid ""
 "It is impossible to use `ping` in Tails, because `ping` uses the ICMP "
 "protocol while Tor can only transport TCP connections."
 msgstr ""
-"È impossibile usare <span class=\"command\">ping</span>  in Tails,\n"
-"perché <span class=\"command\">ping</span>  utilizza il protocollo ICMP "
-"mentre Tor\n"
-"può solo trasportare connessioni TCP.\n"
+"È impossibile usare `ping` in Tails, perché `ping` utilizza il protocollo "
+"ICMP mentre Tor può solo trasportare connessioni TCP."
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -935,20 +929,17 @@ msgid "<div class=\"tip\">\n"
 msgstr "<div class=\"tip\">\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<p>If a software is not included in Tails, but is included in Debian, you can use\n"
-#| "the [[Additional\n"
-#| "Software|doc/first_steps/persistence#additional_software]] feature of\n"
-#| "the Persistent Storage to install it automatically every time you start Tails.</p>\n"
+#, no-wrap
 msgid ""
 "<p>If a software is not included in Tails, but is included in Debian, you can use\n"
 "the [[Additional\n"
 "Software|doc/persistent_storage/configure#additional_software]] feature of\n"
 "the Persistent Storage to install it automatically every time you start Tails.</p>\n"
 msgstr ""
-"<p>Se un software non è incluso in Tails, ma è incluso in Debian, è possibile utilizzare la funzionalità [[software aggiuntivo|doc/first_steps/persistence/configure#additional_software]] del volume persistente\n"
-" per installarlo automaticamente all'inizio di ogni sessione di lavoro.</p>\n"
+"<p>Se un software non è incluso in Tails, ma è incluso in Debian, è "
+"possibile utilizzare la funzionalità [[software aggiuntivo|doc/"
+"persistent_storage/configure#additional_software]] del volume persistente\n"
+"per installarlo automaticamente all'inizio di ogni sessione di lavoro.</p>\n"
 
 #. type: Plain text
 msgid ""
@@ -965,21 +956,15 @@ msgstr ""
 "Oltre a questo, essere già incluso in Debian porta molti vantaggi:"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "It is included in the Debian process for security updates and new "
-#| "versions."
 msgid ""
 "- It is included in the Debian process for security updates and new versions."
 msgstr ""
-"È incluso nel processo Debian per gli aggiornamenti della protezione e le "
+"- È incluso nel processo Debian per gli aggiornamenti della protezione e le "
 "nuove versioni."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "It is authenticated using OpenPGP signatures."
 msgid "- It is authenticated using OpenPGP signatures."
-msgstr "Viene autenticato utilizzando le firme OpenPGP."
+msgstr "- Viene autenticato utilizzando le firme OpenPGP."
 
 #. type: Bullet: '- '
 msgid ""
@@ -1027,16 +1012,12 @@ msgstr ""
 "automatici."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "More software implies more security issues."
 msgid "- More software implies more security issues."
-msgstr "Più software implica ulteriori problemi di sicurezza."
+msgstr "- Più software implica ulteriori problemi di sicurezza."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "We avoid proposing several options to accomplish the same task."
 msgid "- We avoid proposing several options to accomplish the same task."
-msgstr "Evitiamo di proporre diverse opzioni per eseguire lo stesso compito."
+msgstr "- Evitiamo di proporre diverse opzioni per eseguire lo stesso compito."
 
 #. type: Bullet: '- '
 msgid ""
@@ -1074,16 +1055,12 @@ msgid "- **monero**: not in Debian ([[!tails_ticket 17823]])"
 msgstr "**torchat**: vedi [[!tails_ticket 5554]]"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "**bitmessage**: not in Debian"
 msgid "- **bitmessage**: not in Debian"
-msgstr "**bitmessage**: non disponibile su Debian"
+msgstr "- **bitmessage**: non disponibile su Debian"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "**retroshare**: not in Debian"
 msgid "- **retroshare**: not in Debian"
-msgstr "**retroshare**: non disponibile su Debian"
+msgstr "- **retroshare**: non disponibile su Debian"
 
 #. type: Plain text
 msgid "- **rar/unrar**: not [[Free Software|doc/about/license]]"
@@ -1156,10 +1133,11 @@ msgid ""
 msgstr "  [*Wahay*](https://wahay.org/) è un'applicazione di chat vocale decentralizzata basata su *Mumble*. Se sei uno sviluppatore Debian, per favore aiutaci ad  [[!tails_ticket 17617 desc=\"aggiungere *Wahay* a Debian\"]].\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "Can I download using BitTorrent with Tails?\n"
+#, no-wrap
 msgid "<h2 id=\"bittorrent\">Can I download using BitTorrent with Tails?</h2>\n"
-msgstr "<h2 id=\"bittorrent\">Posso effettuare download utilizzando BitTorrent con Tails?</h2>\n"
+msgstr ""
+"<h2 id=\"bittorrent\">Posso effettuare download utilizzando BitTorrent con "
+"Tails?</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -1174,28 +1152,20 @@ msgid "The problem with using BitTorrent over Tor is double:"
 msgstr "Il problema con l'utilizzo di BitTorrent su Tor è doppio:"
 
 #. type: Bullet: '- '
-#, fuzzy
-#| msgid ""
-#| "It is technically hard to do it properly, see: <https://blog.torproject."
-#| "org/blog/bittorrent-over-tor-isnt-good-idea>."
 msgid ""
 "It is technically hard to do it properly, see: <https://blog.torproject.org/"
 "bittorrent-over-tor-isnt-good-idea>."
 msgstr ""
 "È tecnicamente difficile configurarlo correttamente, vedi: <https://blog."
-"torproject.org/blog/bittorrent-over-tor-isnt-good-idea>."
+"torproject.org/bittorrent-over-tor-isnt-good-idea>."
 
 #. type: Bullet: '- '
-#, fuzzy
-#| msgid ""
-#| "It harms the network, see: <https://blog.torproject.org/blog/why-tor-is-"
-#| "slow>."
 msgid ""
 "It harms the network, see: <https://blog.torproject.org/why-tor-slow-and-"
 "what-were-going-do-about-it>."
 msgstr ""
-"Danneggia la rete, vedere: <https://blog.torproject.org/blog/why-tor-is-"
-"slow>."
+"Danneggia la rete, vedere: <https://blog.torproject.org/why-tor-slow-and-"
+"what-were-going-do-about-it>."
 
 #. type: Plain text
 #, no-wrap
@@ -1268,8 +1238,7 @@ msgstr ""
 "17823]] per un elenco di guide non ufficiali su come usare Monero in Tails.\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "Does Tails need an antivirus?\n"
+#, no-wrap
 msgid "<h2 id=\"antivirus\">Does Tails need an antivirus?</h2>\n"
 msgstr "<h2 id=\"antivirus\">Tails ha bisogno di un antivirus?</h2>\n"
 
