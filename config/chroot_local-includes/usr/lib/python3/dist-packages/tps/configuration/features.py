@@ -51,6 +51,7 @@ class AdditionalSoftware(Feature):
     Bindings = [
         Binding("apt/cache", "/var/cache/apt/archives"),
         Binding("apt/lists", "/var/lib/apt/lists"),
+        Binding("apt/sources", "/etc/apt/sources.list.d", uses_symlinks=True),
     ]
     enabled_by_default = True
     conflicting_apps = [
