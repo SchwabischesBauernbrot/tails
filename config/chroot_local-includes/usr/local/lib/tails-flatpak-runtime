@@ -9,7 +9,7 @@ set -x
 NEW_INCLUDES_DIR=/mnt/config/chroot_local-includes
 MERGEBASE=/var/lib/flatpak/runtime/org.boum.tails.Platform/x86_64/stable/active/files
 RUNDIR=/run/tails-flatpak-runtime-overlay
-DIRS="/bin /etc /lib /lib64 /sbin /var /include /libexec /local /share"
+DIRS="/usr/bin /etc /usr/lib /usr/lib64 /usr/sbin /var /usr/include /usr/libexec /usr/local /usr/share"
 
 usage() {
   cat <<EOF
@@ -35,21 +35,12 @@ create() {
     workdir="${RUNDIR}/work${dir}"
     lowerdirs=
 
-    # Add the top-level rootfs dirs to the lowerdirs
+    # Add the rootfs dirs to the lowerdirs
     if [ -d "${dir}" ]; then
       if [ -n "${lowerdirs:-}" ]; then
         lowerdirs="${lowerdirs}:${dir}"
       else
         lowerdirs="${dir}"
-      fi
-    fi
-
-    # Same for the /usr subdirs
-    if [ -d "/usr${dir}" ]; then
-      if [ -n "${lowerdirs:-}" ]; then
-        lowerdirs="${lowerdirs}:/usr${dir}"
-      else
-        lowerdirs="/usr${dir}"
       fi
     fi
 
@@ -60,9 +51,6 @@ create() {
     if grep -qw early_patch /proc/cmdline; then
       if [ -d "${NEW_INCLUDES_DIR}${dir}" ]; then
         lowerdirs="${NEW_INCLUDES_DIR}${dir}:${lowerdirs}"
-      fi
-      if [ -d "${NEW_INCLUDES_DIR}/usr${dir}" ]; then
-        lowerdirs="${NEW_INCLUDES_DIR}/usr${dir}:${lowerdirs}"
       fi
     fi
 
