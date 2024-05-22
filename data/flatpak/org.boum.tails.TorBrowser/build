@@ -113,5 +113,6 @@ mv "${APP_DIR}" "${TARGET_DIR}"
 
 # Commit the changes to the git repo
 git add "${TARGET_DIR}"
+git add "${METADATA_FILE}"
 git commit -m "Rebuild org.boum.tails.TorBrowser flatpak app"
 git show
