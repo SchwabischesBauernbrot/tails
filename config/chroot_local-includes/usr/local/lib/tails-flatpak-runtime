@@ -4,7 +4,7 @@ set -eu
 set -x
 
 # This script is used to create a pseudo flatpak runtime from the Tails
-# squashfs filesystem.
+# root filesystem.
 
 NEW_INCLUDES_DIR=/mnt/config/chroot_local-includes
 MERGEBASE=/var/lib/flatpak/runtime/org.boum.tails.Platform/x86_64/stable/active/files
@@ -22,12 +22,8 @@ EOF
 }
 
 create() {
-  # Bind-mount the squashfs filesystem to our pseudo flatpak runtime.
-  # Flatpak runtimes are mounted to /usr in the sandbox, so we can't just
-  # bind-mount the whole squashfs filesystem to the runtime root, because
-  # that would cause /bin to be mounted over /usr/bin, /lib over /usr/lib
-  # etc. Instead, we create overlayfs to merge /bin and /usr/bin in /bin
-  # in the runtime, /lib and /usr/lib in /lib etc.
+  # Create an overlay filesystem for each directory in DIRS and mount
+  # it into the flatpak runtime directory.
   local lowerdirs upperdir workdir mergeddir
 
   for dir in ${DIRS}; do
@@ -35,22 +31,20 @@ create() {
     workdir="${RUNDIR}/work${dir}"
     lowerdirs=
 
-    # Add the rootfs dirs to the lowerdirs
+    # Add the directory to the lowerdirs if it exists
     if [ -d "${dir}" ]; then
-      if [ -n "${lowerdirs:-}" ]; then
-        lowerdirs="${lowerdirs}:${dir}"
-      else
-        lowerdirs="${dir}"
-      fi
+      lowerdirs="${dir}"
     fi
 
     # If the early_patch boot parameter is used, we also overlay the
     # /mnt/config/chroot_local-includes directory over the runtime, so
     # we can easily test changes to the runtime without having to rebuild
     # the squashfs filesystem. This is only used for development.
-    if grep -qw early_patch /proc/cmdline; then
-      if [ -d "${NEW_INCLUDES_DIR}${dir}" ]; then
+    if grep -qw early_patch /proc/cmdline && [ -d "${NEW_INCLUDES_DIR}${dir}" ]; then
+      if [ -n "${lowerdirs:-}" ]; then
         lowerdirs="${NEW_INCLUDES_DIR}${dir}:${lowerdirs}"
+      else
+        lowerdirs="${NEW_INCLUDES_DIR}${dir}"
       fi
     fi
 
@@ -59,7 +53,10 @@ create() {
       continue
     fi
 
-    mergeddir="${MERGEBASE}/${dir#/usr}"
+    # The files/ directory of the flatpak runtime is mounted to /usr in
+    # the flatpak sandbox, so we need to remove the leading "/usr" from
+    # the directory name to avoid it being mounted below "/usr/usr".
+    mergeddir="${MERGEBASE}${dir#/usr}"
     install -d "${upperdir}" "${workdir}" "${mergeddir}"
     mount -t overlay overlay \
       -o lowerdir="${lowerdirs}",upperdir="${upperdir}",workdir="${workdir}" \
@@ -71,7 +68,7 @@ create() {
 }
 
 destroy() {
-  # Unmount the overlayfs filesystems
+  # Unmount the overlay filesystems
   for dir in ${DIRS}; do
     mergeddir="${MERGEBASE}${dir#/usr}"
     if mountpoint -q "${mergeddir}"; then
