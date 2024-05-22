@@ -13,6 +13,11 @@ for arg in "$@"; do
   esac
 done
 
+# Avoid that Flatpak prints a warning about its exports directories not
+# being set in the XDG_DATA_DIRS environment variable.
+# Comment this out for more verbose output from Flatpak.
+export FLATPAK_FANCY_OUTPUT=0
+
 # If this script is run as amnesia, re-run it as root, so that we have
 # the privileges required to run Tor Browser in a separate network
 # namespace.
