@@ -74,12 +74,12 @@ fi
 # Setup flatpak
 flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
 
-# Install the com.github.micahflee.torbrowser-launcher flatpak app to
+# Install the org.torproject.torbrowser-launcher flatpak app to
 # get the updated metadata file
 if [ -z "${NO_DOWNLOAD:-}" ]; then
-  flatpak install --user --assumeyes --reinstall flathub com.github.micahflee.torbrowser-launcher
+  flatpak install --user --assumeyes --reinstall flathub org.torproject.torbrowser-launcher
 fi
-METADATA=$(flatpak info --show-metadata com.github.micahflee.torbrowser-launcher)
+METADATA=$(flatpak info --show-metadata org.torproject.torbrowser-launcher)
 
 # Rename the old metadata file
 mv "${METADATA_FILE}" "${METADATA_FILE}.old"
