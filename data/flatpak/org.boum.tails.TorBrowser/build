@@ -20,25 +20,24 @@ EOF
 # Support the --no-download and --help options
 NAME=$(basename "${0}")
 LONGOPTS="no-download,help"
-if ! getopt -Qq -o "" --longoptions $LONGOPTS -n "${NAME}" -- "$@"
-then
-    usage >&2
-    exit 2
+if ! getopt -Qq -o "" --longoptions $LONGOPTS -n "${NAME}" -- "$@"; then
+  usage >&2
+  exit 2
 fi
 OPTS=$(getopt -o "" --longoptions $LONGOPTS -n "${NAME}" -- "$@")
 eval set -- "$OPTS"
 while [ $# -gt 0 ]; do
-    case $1 in
-        --no-download)
-            NO_DOWNLOAD=1
-            shift
-            ;;
-        --help)
-            usage
-            exit 0
-            ;;
-    esac
+  case $1 in
+  --no-download)
+    NO_DOWNLOAD=1
     shift
+    ;;
+  --help)
+    usage
+    exit 0
+    ;;
+  esac
+  shift
 done
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -55,9 +54,9 @@ FILES_DIR=${APP_DIR}/x86_64/stable/active/files/
 
 # Check that the dependencies are installed
 if ! which flatpak-builder >/dev/null; then
-    echo >&2 "Error: flatpak-builder is not installed. Please install it
+  echo >&2 "Error: flatpak-builder is not installed. Please install it
  via 'apt install flatpak-builder'".
-    exit 1
+  exit 1
 fi
 
 # Check that the working tree is clean, because we automatically commit
@@ -67,8 +66,8 @@ fi
 # the changes to the flatpak app to the git repo and we don't want to
 # commit other uncommitted changes.
 if [ -n "$(git status --porcelain "${TARGET_DIR}")" ]; then
-    echo >&2 "Error: The working tree has uncommitted changes."
-    exit 1
+  echo >&2 "Error: The working tree has uncommitted changes."
+  exit 1
 fi
 
 # Setup flatpak
@@ -85,14 +84,14 @@ METADATA=$(flatpak info --show-metadata org.torproject.torbrowser-launcher)
 mv "${METADATA_FILE}" "${METADATA_FILE}.old"
 
 # Copy the [Application] section of the old metadata file
-sed -n '/^\[Application\]/,/^\[/p' "${METADATA_FILE}.old" >> "${METADATA_FILE}"
+sed -n '/^\[Application\]/,/^\[/p' "${METADATA_FILE}.old" >>"${METADATA_FILE}"
 
 # Delete the old metadata file
 rm "${METADATA_FILE}.old"
 
 # Copy everything except for the [Application] section of the new
 # metadata
-echo "${METADATA}" | sed '/^\[Application\]/,/^\[/d' >> "${METADATA_FILE}"
+echo "${METADATA}" | sed '/^\[Application\]/,/^\[/d' >>"${METADATA_FILE}"
 
 # Build the app
 cd "${DIR}"

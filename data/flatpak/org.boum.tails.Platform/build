@@ -25,8 +25,8 @@ REPO_DIR="${DIR}/repo"
 # the changes to the flatpak app to the git repo and we don't want to
 # commit other uncommitted changes.
 if [ -n "$(git status --porcelain "${TARGET_DIR}")" ]; then
-    echo >&2 "Error: The working tree has uncommitted changes."
-    exit 1
+  echo >&2 "Error: The working tree has uncommitted changes."
+  exit 1
 fi
 
 # Create a new OSTree repository
@@ -40,8 +40,8 @@ cp "${DIR}/metadata" "${BUILD_DIR}"
 flatpak build-export "${REPO_DIR}" "${BUILD_DIR}" stable
 
 # Install the runtime from the OSTree repository
-if flatpak --user remote-ls --runtime platform-origin > /dev/null 2>&1; then
-    flatpak --user remote-delete --force platform-origin
+if flatpak --user remote-ls --runtime platform-origin >/dev/null 2>&1; then
+  flatpak --user remote-delete --force platform-origin
 fi
 flatpak remote-add --user --no-gpg-verify platform-origin "${REPO_DIR}"
 flatpak install --reinstall -y platform-origin org.boum.tails.Platform
