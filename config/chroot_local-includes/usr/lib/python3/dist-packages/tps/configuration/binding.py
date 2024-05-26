@@ -102,7 +102,7 @@ class Binding:
         # source and target to be symlinks. To achieve that, we use the
         # bind-mount we created at NOSYMFOLLOW_MOUNTPOINT with the
         # nosymfollow option (see
-        # config/chroot_local-includes/lib/systemd/system/run-nosymfollow.mount)
+        # config/chroot_local-includes/usr/lib/systemd/system/run-nosymfollow.mount)
         self.tps_mount_point = Path(self.nosymfollow_mountpoint + str(tps_mount_point))
         self.dest = Path(self.nosymfollow_mountpoint + str(self.dest))
         self.src = Path(self.nosymfollow_mountpoint + str(self.src))

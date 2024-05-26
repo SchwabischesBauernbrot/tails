@@ -64,11 +64,10 @@ chown    0:0   config/chroot_local-includes/etc/resolv.conf
 chmod -R go+rX config/binary_local-includes/
 chmod -R go+rX config/chroot_local-includes/etc
 chmod    0440  config/chroot_local-includes/etc/sudoers.d/*
-chmod    go+rX config/chroot_local-includes/lib
-chmod    go+rX config/chroot_local-includes/lib/live
-chmod -R go+rx config/chroot_local-includes/lib/live/config
-chmod    go+rX config/chroot_local-includes/lib/live/mount
-chmod -R go+rX config/chroot_local-includes/lib/systemd
+chmod    go+rX config/chroot_local-includes/usr/lib/live
+chmod -R go+rx config/chroot_local-includes/usr/lib/live/config
+chmod    go+rX config/chroot_local-includes/usr/lib/live/mount
+chmod -R go+rX config/chroot_local-includes/usr/lib/systemd
 chmod    go+rX config/chroot_local-includes/live
 chmod -R go+rX config/chroot_local-includes/usr
 chmod -R go+rx config/chroot_local-includes/usr/local/bin

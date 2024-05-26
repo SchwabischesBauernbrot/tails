@@ -66,7 +66,7 @@ Software installation at startup
 The systemd user unit
 [[!tails_gitweb config/chroot_local-includes/usr/lib/systemd/user/tails-additional-software-install.service]]
 is triggered by `desktop.target`. It starts the system unit
-[[!tails_gitweb config/chroot_local-includes/lib/systemd/system/tails-additional-software-install.service]]
+[[!tails_gitweb config/chroot_local-includes/usr/lib/systemd/system/tails-additional-software-install.service]]
 with sudo (see
 [[!tails_gitweb config/chroot_local-includes/etc/sudoers.d/zzz_tails-additional-software]]).
 
@@ -98,7 +98,7 @@ Software upgrade on Internet connection
 ---------------------------------------
 
 A network-manager dispatcher hook starts the systemd unit
-[[!tails_gitweb config/chroot_local-includes/lib/systemd/system/tails-additional-software-upgrade.path]]
+[[!tails_gitweb config/chroot_local-includes/usr/lib/systemd/system/tails-additional-software-upgrade.path]]
 which waits for `/run/live-additional-software/installed` then starts the
 oneshot service `/usr/local/sbin/tails-additional-software upgrade` after
 `tails-wait-until-tor-has-bootstrapped.service` and `tails-additional-software-install.service`

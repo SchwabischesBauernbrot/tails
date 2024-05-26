@@ -193,7 +193,7 @@ def before_all(context):
 
     # Create a bind-mount of the root filesystem with the nosymfollow
     # option set. In production, the same is done by
-    # config/chroot_local-includes/lib/systemd/system/run-nosymfollow.mount.
+    # config/chroot_local-includes/usr/lib/systemd/system/run-nosymfollow.mount.
     # We also do it here to test that it does prevent symlink attacks.
     Path(NOSYMFOLLOW_MOUNTPOINT).mkdir(exist_ok=True)
     subprocess.run(

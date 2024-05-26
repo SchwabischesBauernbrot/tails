@@ -892,7 +892,7 @@ of these warnings were most of the time counterproductive as people had
 to click through needlessly scary security warnings.
 
 - [[!tails_gitweb_dir config/chroot_local-includes/etc/onion-grater.d/]]
-- [[!tails_gitweb config/chroot_local-includes/lib/systemd/system/onion-grater.service]]
+- [[!tails_gitweb config/chroot_local-includes/usr/lib/systemd/system/onion-grater.service]]
 - [[!tails_gitweb config/chroot_local-includes/usr/local/lib/onion-grater]]
 - [[!tails_gitweb config/chroot_local-includes/etc/tor/torrc]]
 
@@ -1049,10 +1049,10 @@ browser anyway:
 - [[!tails_gitweb config/chroot_local-includes/usr/local/bin/tor-browser]]
 - [[!tails_gitweb config/chroot_local-includes/usr/local/lib/tails-shell-library/tor-browser.sh]]
 - [[!tails_gitweb config/chroot_local-includes/usr/local/lib/generate-tor-browser-profile]]
-- [[!tails_gitweb config/chroot_local-includes/lib/systemd/system/tails-tor-has-bootstrapped.target]]
-- [[!tails_gitweb config/chroot_local-includes/lib/systemd/system/tails-wait-until-tor-has-bootstrapped.service]]
+- [[!tails_gitweb config/chroot_local-includes/usr/lib/systemd/system/tails-tor-has-bootstrapped.target]]
+- [[!tails_gitweb config/chroot_local-includes/usr/lib/systemd/system/tails-wait-until-tor-has-bootstrapped.service]]
 - [[!tails_gitweb config/chroot_local-includes/usr/lib/systemd/user/tails-wait-until-tor-has-bootstrapped.service]]
-- [[!tails_gitweb config/chroot_local-includes/lib/systemd/system/tails-tor-has-bootstrapped-flag-file.service]]
+- [[!tails_gitweb config/chroot_local-includes/usr/lib/systemd/system/tails-tor-has-bootstrapped-flag-file.service]]
 
 The remaining configuration differences can be found in:
 
@@ -1168,7 +1168,7 @@ At boot time, Tails unblocks Wi-Fi, WWAN and WiMAX radios
 and soft-blocks all other kinds of wireless devices (e.g. Bluetooth,
 UWB, GPS, FM).
 
-- [[!tails_gitweb config/chroot_local-includes/lib/systemd/system/tails-set-wireless-devices-state.service]]
+- [[!tails_gitweb config/chroot_local-includes/usr/lib/systemd/system/tails-set-wireless-devices-state.service]]
 - [[!tails_gitweb config/chroot_local-includes/usr/local/lib/tails-set-wireless-devices-state]]
 
 ### 3.6.20 OpenSSH
@@ -1223,7 +1223,7 @@ However, at boot time, a hook does (a more elaborate version of)
 `s,http://,tor+http://` in APT sources. Then, APT will use the
 `tor+http` method, that is provided by [[!debpkg apt-transport-tor]].
 
-- [[!tails_gitweb config/chroot_local-includes/lib/live/config/1500-reconfigure-APT]]
+- [[!tails_gitweb config/chroot_local-includes/usr/lib/live/config/1500-reconfigure-APT]]
 
 ### 3.6.28 Electrum
 
