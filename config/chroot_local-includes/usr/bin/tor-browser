@@ -10,23 +10,11 @@ export PATH='/usr/local/bin:/usr/bin:/bin'
 set -e
 set -u
 
-. gettext.sh
-TEXTDOMAIN="tails"
-export TEXTDOMAIN
-
 PROFILE="${HOME}/.tor-browser/profile.default"
 
-# Import exec_firefox() and configure_best_tor_browser_locale()
+# Import exec_firefox()
 # shellcheck source=../local/lib/tails-shell-library/tor-browser.sh
 . /usr/local/lib/tails-shell-library/tor-browser.sh
-
-# Get LIVE_USERNAME
-# shellcheck source=../../etc/live/config.d/username.conf
-. /etc/live/config.d/username.conf
-
-# Import tor_has_bootstrapped()
-# shellcheck source=../local/lib/tails-shell-library/systemd.sh
-. /usr/local/lib/tails-shell-library/systemd.sh
 
 # Allow Torbutton access to the control port filter (for new identity).
 # Setting a password is required, otherwise Torbutton attempts to
@@ -42,57 +30,17 @@ export TOR_NO_DISPLAY_NETWORK_SETTINGS='yes'
 # the GNOME on-screen keyboard work.
 export MOZ_ENABLE_WAYLAND=1
 
-ask_for_confirmation() {
-    if [ "${TOR_BROWSER_SKIP_OFFLINE_WARNING:-}" = 'yes' ] || \
-       pgrep -u "${LIVE_USERNAME}" -f "${TBB_INSTALL}/firefox.real"; then
-        return
-    fi
-
-    local dialog_title dialog_text dialog_start dialog_cancel
-    dialog_title=$(gettext "Tor is not ready")
-    dialog_text=$(gettext "Tor is not ready. Start Tor Browser anyway?")
-    dialog_start=$(gettext "Start Tor Browser Offline")
-    dialog_cancel=$(gettext "Open Tor Connection")
-    zenity --question --ellipsize --title "$dialog_title" --text="$dialog_text" \
-           --default-cancel --ok-label "$dialog_start" --cancel-label "$dialog_cancel"
-}
-
-start_browser() {
-    if [ ! -d "${PROFILE}" ]; then
-        /usr/local/lib/generate-tor-browser-profile
-    fi
-
-    TMPDIR="${PROFILE}/tmp"
-    if [ ! -d "$TMPDIR" ]; then
-        mkdir --mode=0700 "$TMPDIR"
-    fi
-    export TMPDIR
-
-    configure_tor_browser_memory_usage "${PROFILE}"
-
-    # We need to set general.useragent.locale properly to get
-    # localized search plugins (and perhaps other things too). It is
-    # not enough to simply set intl.locale.matchOS to true.
-    configure_best_tor_browser_locale "${PROFILE}"
-
-    exec_firefox -allow-remote \
-                 --class "Tor Browser" \
-                 --name "Tor Browser" \
-                 -profile "${PROFILE}" \
-                 "${@}"
-}
+# Torbutton 1.5.1+ uses those environment variables
+export TOR_SOCKS_HOST='127.0.0.1'
+export TOR_SOCKS_PORT='9050'
 
 if ! [ -f /.flatpak-info ]; then
   echo >&2 "Error: Must be run in flatpak"
   exit 1
 fi
 
-if tor_has_bootstrapped || ask_for_confirmation; then
-    # Torbutton 1.5.1+ uses those environment variables
-    export TOR_SOCKS_HOST='127.0.0.1'
-    export TOR_SOCKS_PORT='9050'
-
-    start_browser "${@}"
-else
-    gtk-launch tca.desktop
-fi
+exec_firefox -allow-remote \
+             --class "Tor Browser" \
+             --name "Tor Browser" \
+             -profile "${PROFILE}" \
+             "${@}"
