@@ -75,6 +75,13 @@ destroy() {
       umount --recursive "${mergeddir}"
     fi
   done
+
+  # Unmount all mountpoints below the run directory
+  mountpoints=$(find "${RUNDIR}" -exec mountpoint -q {} \; -print)
+  for m in ${mountpoints}; do
+    umount --recursive "${m}"
+  done
+
   # Remove the run directory
   rm -rf "${RUNDIR}"
 }
