@@ -3,9 +3,11 @@
 
 [Context]
 
-# Disallow access to any devices on the host, ignoring all devices
-# permissions inherited from the app's metadata file.
-devices=!all;
+# Explanations:
+# * !all: Disallow access to any devices on the host, ignoring all
+#         devices permissions inherited from the app's metadata file.
+# * dri: Allow access to OpenGL devices
+devices=!all;dri;
 
 # Explanations:
 # * !host:reset;!host: Disallow access to any files on the host,
