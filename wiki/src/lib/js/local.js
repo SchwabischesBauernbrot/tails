@@ -23,7 +23,6 @@ document.addEventListener("DOMContentLoaded", function() {
       btn.classList.add("button-revealed")
     } else {
       hideAllWarnings(evt);
-      return;
     }
   }
 
