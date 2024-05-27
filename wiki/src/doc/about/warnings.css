@@ -50,7 +50,14 @@
   cursor: pointer;
 }
 
-#detailed-identity, #detailed-computer, #detailed-tor {
+#pagebody div.toggleable.warning {
+  display: block;
+  transition: max-height 1s ease-out;
+  overflow: hidden;
+  max-height: 0;
+}
+
+#pagebody div.toggleable.warning.hidden {
   display: none;
 }
 
@@ -66,4 +73,6 @@
 
 .embedded {
   display: block;
+  color: var(--medium-purple);
+  margin-top: 10px;
 }
