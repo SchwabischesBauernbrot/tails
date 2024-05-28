@@ -141,8 +141,8 @@ class TailsInstallerThread(threading.Thread):
                     self.status(
                         _(
                             "Unable to clone because the target USB stick is being "
-                            "used. Close all open documents on the target USB stick "
-                            "and try to clone again."
+                            "used. Close all open files on the target USB stick, "
+                            "restart Tails Cloner, and try to clone again."
                         )
                     )
                     self.live.log.removeHandler(self.handler)
