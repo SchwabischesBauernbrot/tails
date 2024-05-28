@@ -7,6 +7,8 @@ set -u
 # arguments according to the setting in Tails Greeter. The default (i.e
 # before Tails Greeter has been run) is to enable MAC spoofing.
 
+MAC_SPOOFING_FAILED_STATE_FILE=/var/lib/live/config/tails.mac-spoofing-failed
+
 . /usr/local/lib/tails-shell-library/hardware.sh
 . /usr/local/lib/tails-shell-library/log.sh
 . /usr/local/lib/tails-shell-library/tails-greeter.sh
@@ -33,39 +35,28 @@ stop_and_disable_NM() {
    log "Networking disabled"
 }
 
-show_notification() {
-    # We must wait until all the facilities necessary for showing the
-    # notification to the Live user is available to prevent it from
-    # getting lost.
-    until pgrep -u "${LIVE_USERNAME}" '^ibus-daemon' >/dev/null ; do
-        sleep 1
-    done
-    # The above doesn't seem to be enough. The best we can do seems to
-    # be to statically wait a bit longer. The amount chosen is just
-    # arbitrarily picked, and may not work on slow hardware or even
-    # DVD boot, but should at least work in our automated test suite.
-    sleep 10
-    /usr/local/sbin/tails-notify-user "${1}" "${2}" 0
-}
-
 notify_panic_success() {
-    local nic
-    local nic_name
+    local nic nic_name title text
     nic="${1}"
-    nic_name="${2}"
-    show_notification "$(eval_gettext "Network card \${nic} disabled")" \
-"$(eval_gettext "MAC address anonymization failed for network card \${nic_name} (\${nic}) so it is temporarily disabled.
-You might prefer to restart Tails and disable MAC address anonymization.")"
+    # Print the NIC name with quotes
+    nic_name="\"${2}\""
+    title=$(eval_gettext "Network card \${nic} disabled")
+    text=$(eval_gettext "MAC address anonymization failed for network card \${nic_name} (\${nic}) so it is temporarily disabled.
+
+You might prefer to restart Tails and disable MAC address anonymization.")
+    printf "%s\n%s" "${title}" "${text}" > "${MAC_SPOOFING_FAILED_STATE_FILE}"
 }
 
 notify_panic_failure() {
-    local nic
-    local nic_name
+    local nic nic_name title text
     nic="${1}"
-    nic_name="${2}"
-    show_notification "$(gettext "All networking disabled")" \
-"$(eval_gettext "MAC address anonymization failed for network card \${nic_name} (\${nic}). The error recovery also failed so all networking is disabled.
-You might prefer to restart Tails and disable MAC address anonymization.")"
+    # Print the NIC name with quotes
+    nic_name="\"${2}\""
+    title=$(gettext "All networking disabled")
+    text=$(eval_gettext "MAC address anonymization failed for network card \${nic_name} (\${nic}). The error recovery also failed, so all networking is disabled.
+
+You might prefer to restart Tails and disable MAC address anonymization.")
+    printf "%s\n%s" "${title}" "${text}" > "${MAC_SPOOFING_FAILED_STATE_FILE}"
 }
 
 mac_spoof_panic() {
@@ -84,10 +75,10 @@ mac_spoof_panic() {
     if nic_exists "${nic}"; then
         log "Failed to unload module ${module} of NIC ${nic}."
         stop_and_disable_NM
-        notify_panic_failure "${nic}" "${nic_name}" &
+        notify_panic_failure "${nic}" "${nic_name}"
     else
         log "Successfully unloaded module ${module} of NIC ${nic}."
-        notify_panic_success "${nic}" "${nic_name}" &
+        notify_panic_success "${nic}" "${nic_name}"
     fi
 }
 
@@ -154,11 +145,6 @@ then
         log "Panic mode failed for NIC ${NIC}."
         stop_and_disable_NM
     fi
-    # Wait for the notification subprocesses to exit before quitting to
-    # prevent them being interrupted by underlying process manager (udev)
-    # once we quit. Note that it could make us wait indefinitely.
-    # However, udev will interrupt rules tasks after 120 seconds.
-    wait
     exit 1
 fi
 
