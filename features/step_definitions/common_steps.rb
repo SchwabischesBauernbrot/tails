@@ -462,8 +462,14 @@ Given /^I set the language to (.*) \((.*)\)$/ do |lang, lang_code|
   # The listboxrow does not expose any actions through AT-SPI,
   # so Dogtail is unable to click it directly. We let it grab focus
   # and activate it via the keyboard instead.
-  greeter.child(description: 'Configure Language').grabFocus
-  @screen.press('Return')
+  try_for(30) do
+    greeter.child(description: 'Configure Language').grabFocus
+    @screen.press('Return')
+    # Give Gtk some time to open the language popover
+    sleep(1)
+    # Check if the language popover is open
+    greeter.child?('Search', roleName: 'text', retry: false)
+  end
   greeter.child('Search', roleName: 'text').text = lang
   sleep(2) # Gtk needs some time to filter the results
   greeter.child('Search', roleName: 'text').activate
