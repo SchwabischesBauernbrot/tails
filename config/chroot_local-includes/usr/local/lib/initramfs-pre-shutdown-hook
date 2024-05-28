@@ -8,6 +8,9 @@
 
 set -x
 
+### Store random seed in LBA 34
+dd bs=512 seek=34 count=1 oflag=direct if=/dev/urandom of=/dev/bilibop
+
 ### Unmount relevant filesystems
 
 # Wait for lazy unmounts to finish

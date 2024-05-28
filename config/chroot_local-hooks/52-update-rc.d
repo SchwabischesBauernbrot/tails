@@ -22,6 +22,7 @@ systemctl enable tails-remove-overlayfs-dirs.service
 systemctl enable tails-set-wireless-devices-state.service
 systemctl enable tails-shutdown-on-media-removal.service
 systemctl enable tails-tor-has-bootstrapped.target
+systemctl enable tails-update-random-seed-sector.service
 systemctl enable tails-wait-until-tor-has-bootstrapped.service
 systemctl enable tails-tor-has-bootstrapped-flag-file.service
 systemctl enable tca-portal.socket
@@ -42,6 +43,7 @@ systemctl --global enable tails-wait-until-tor-has-bootstrapped.service
 systemctl --global enable tails-create-persistent-storage.service
 systemctl --global enable tails-htpdate-notify-user.service
 systemctl --global enable tails-dump-user-env.service
+systemctl --global enable tails-start-system-gnome-session-target.service
 
 # This causes the proxies to run during the whole session, instead of
 # being started and stopped when needed. The only app which needs
@@ -58,6 +60,10 @@ systemctl enable  cups.socket
 # We're starting NetworkManager and Tor ourselves.
 systemctl disable NetworkManager.service
 systemctl disable NetworkManager-wait-online.service
+
+# We seed the entropy pool ourselves in initramfs, so we don't need the
+# systemd-random-seed.service. We disable it to avoid confusion.
+systemctl disable systemd-random-seed.service
 
 # tracker-extract-3.service is a helper service that is controlled by
 # tracker-miner-fs-3.service. It should not be started automatically
@@ -95,3 +101,4 @@ systemctl mask man-db.timer
 # before we enable it
 systemctl mask avahi-daemon.socket
 systemctl mask avahi-daemon.service
+
