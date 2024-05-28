@@ -299,7 +299,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         )
         self.live.connect_drive_monitor(self.populate_devices)
         self.confirmed = False
-        self.delete_existing_liveos_confirmed = False
 
         # If an ISO was specified on the command line, use it.
         if args:
@@ -798,7 +797,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             # The user has confirmed that they wish to overwrite their
             # existing Live OS.  Here we delete it first, in order to
             # accurately calculate progress.
-            self.delete_existing_liveos_confirmed = False
             try:
                 self.live.delete_liveos()
             except TailsInstallerError as ex:
