@@ -312,19 +312,6 @@ After('@product') do |scenario|
     Process.wait(@video_capture_pid)
     save_failure_artifact('Video', @video_path)
   end
-  begin
-    if $vm&.remote_shell_is_up?
-      # We gracefully stop tor in order to make the bridges/guards not
-      # keep sending packets that has a potential to bleed into the
-      # next scenario. It has been observed that this can cause the
-      # system under testing to send a TCP RST to the bridge/guard,
-      # which then may break the check that we only contact the
-      # expected bridges/guards.
-      $vm.execute('systemctl stop tor@default')
-    end
-  rescue StandardError
-    # At least we tried!
-  end
   if scenario.failed?
     time_of_fail = Time.now - TIME_AT_START
     secs = format('%<secs>02d', secs: time_of_fail % 60)
@@ -453,6 +440,20 @@ After('@product') do |scenario|
   # causing trouble (for instance, packets from the previous scenario
   # have failed scenarios tagged @check_tor_leaks).
   $vm&.power_off
+ensure
+  begin
+    if $vm&.remote_shell_is_up?
+      # We gracefully stop tor in order to make the bridges/guards not
+      # keep sending packets that has a potential to bleed into the
+      # next scenario. It has been observed that this can cause the
+      # system under testing to send a TCP RST to the bridge/guard,
+      # which then may break the check that we only contact the
+      # expected bridges/guards.
+      $vm.execute('systemctl stop tor@default')
+    end
+  rescue StandardError
+    # At least we tried!
+  end
 end
 # rubocop:enable Metrics/BlockNesting
 
