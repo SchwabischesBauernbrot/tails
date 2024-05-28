@@ -434,13 +434,23 @@ After('@product') do |scenario|
   elsif @video_path && File.exist?(@video_path) && !config_bool('CAPTURE_ALL')
     FileUtils.rm(@video_path)
   end
-  JournalDumper.instance.stop
-  # If we don't shut down the system under testing it will continue to
-  # run during the next scenario's Before hooks, which we have seen
-  # causing trouble (for instance, packets from the previous scenario
-  # have failed scenarios tagged @check_tor_leaks).
-  $vm&.power_off
 ensure
+  # If there are uncaught exceptions during the After hook (which
+  # happens sometimes, e.g. if the remote shell crashes) we still want
+  # to ensure that we do the things necessary to prevent leftovers
+  # from this scenario to interfere with the next scenario. Here we
+  # take extra care to prevent uncaught exceptions so as many of these
+  # are run as possible.
+
+  begin
+    # We don't want a stray JournalDumper thread from a previous
+    # scenario interfering with a new thread it starts for a
+    # subsequent scenario.
+    JournalDumper.instance.stop
+  rescue StandardError
+    # At least we tried!
+  end
+
   begin
     if $vm&.remote_shell_is_up?
       # We gracefully stop tor in order to make the bridges/guards not
@@ -451,6 +461,16 @@ ensure
       # expected bridges/guards.
       $vm.execute('systemctl stop tor@default')
     end
+  rescue StandardError
+    # At least we tried!
+  end
+
+  begin
+    # If we don't shut down the system under testing it will continue to
+    # run during the next scenario's Before hooks, which we have seen
+    # causing trouble (for instance, packets from the previous scenario
+    # have failed scenarios tagged @check_tor_leaks).
+    $vm&.power_off
   rescue StandardError
     # At least we tried!
   end
