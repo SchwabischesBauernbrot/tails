@@ -47,9 +47,9 @@ def is_tor_ok(controller, args):
 
 def main():
     args = get_parser().parse_args()
-    stop_time = time.time() + args.timeout
+    stop_time = time.monotonic() + args.timeout
     controller = None
-    while args.timeout < 0.0 or time.time() < stop_time:
+    while args.timeout < 0.0 or time.monotonic() < stop_time:
         try:
             if controller is None:
                 controller = connect(args)
