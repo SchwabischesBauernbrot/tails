@@ -160,6 +160,8 @@ configure_chroot_browser_profile () {
     if [ -n "${home_page:-}" ]; then
         echo 'user_pref("browser.startup.homepage", "'"${home_page}"'");' >> \
             "${browser_prefs}"
+        echo 'user_pref("browser.startup.homepage.new_identity", "'"${home_page}"'");' >> \
+            "${browser_prefs}"
     fi
 
     # Customize the GUI.
