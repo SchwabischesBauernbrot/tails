@@ -30,6 +30,7 @@ quiet=
 # Print commands if the "debug=random-seed" boot parameter is set.
 if grep -qw "debug=random-seed" /proc/cmdline; then
   debug_random_seed=y
+  export PS4='$(date "+%H:%M:%S.%3N") '
   set -x
 fi
 

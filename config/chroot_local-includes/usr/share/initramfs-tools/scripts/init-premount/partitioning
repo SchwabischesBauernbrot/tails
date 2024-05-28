@@ -29,6 +29,8 @@ settle() {
 
 . /scripts/functions
 
+# Enable xtrace with timestamp
+export PS4='$(date "+%H:%M:%S.%3N") '
 set -x
 
 if [ -z "${FSUUID:-}" ]; then
