@@ -28,7 +28,10 @@ export SPLASH=false
 quiet=
 
 # Print commands if the "debug=random-seed" boot parameter is set.
-grep -qw "debug=random-seed" /proc/cmdline && set -x
+if grep -qw "debug=random-seed" /proc/cmdline; then
+  debug_random_seed=y
+  set -x
+fi
 
 . /scripts/functions
 
@@ -96,5 +99,5 @@ if [ -n "${FIRST_BOOT:-}" ]; then
   plymouth display-message --text=""
 
   # Restore debug output
-  [ "${debug:-}" = "random-seed" ] && set -x
+  [ "${debug_random_seed:-}" = "y" ] && set -x
 fi
