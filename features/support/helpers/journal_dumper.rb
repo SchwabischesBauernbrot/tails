@@ -22,6 +22,7 @@ class JournalDumper
   attr_reader :path
 
   def start
+    stop unless @thread.nil?
     socket_path = $vm.virtio_channel_socket_path(VIRTIO_JOURNAL_DUMPER)
     @path ||= "#{$config['TMPDIR']}/artifact.journal"
     @thread = Thread.new do
@@ -39,10 +40,5 @@ class JournalDumper
 
   def stop
     @thread.kill
-  end
-
-  def restart
-    stop unless @thread.nil?
-    start
   end
 end

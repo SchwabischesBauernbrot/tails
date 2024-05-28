@@ -757,7 +757,7 @@ class VM
       # In the non-internal snapshot case we also restore the
       # snapshot, which also restarts JournalDumper, so we don't have
       # to start it again in the other case like we do here.
-      JournalDumper.instance.restart
+      JournalDumper.instance.start
     else
       save_ram_only_snapshot(name)
       # For consistency with the internal snapshot case (which is
@@ -791,7 +791,7 @@ class VM
               "To clean up old dangling snapshots, use 'virsh snapshot-delete'."
       end
     end
-    JournalDumper.instance.restart
+    JournalDumper.instance.start
     @display.start
   end
 
