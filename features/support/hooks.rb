@@ -119,8 +119,9 @@ def add_after_scenario_hook(&block)
   @after_scenario_hooks << block
 end
 
-def save_failure_artifact(desc, path)
-  $failure_artifacts << [desc, path]
+def save_failure_artifact(desc, path, suffix: nil)
+  suffix ||= File.extname(path)
+  $failure_artifacts << [desc, path, suffix]
 end
 
 def record_scenario_skipped(scenario)
@@ -128,33 +129,41 @@ def record_scenario_skipped(scenario)
   File.open(destfile, 'a') { |f| f.write("#{scenario.location}\n") }
 end
 
-def _save_vm_file_content(file:, destfile:, desc:)
+def _save_vm_file_content(file:, destfile:, suffix:, desc:)
   destfile = "#{$config['TMPDIR']}/#{destfile}"
   File.open(destfile, 'w') { |f| f.write($vm.file_content(file)) }
-  save_failure_artifact(desc, destfile)
+  save_failure_artifact(desc, destfile, suffix:)
 rescue StandardError => e
   info_log("Exception thrown while trying to save #{destfile}: " \
            "#{e.class.name}: #{e}")
 end
 
-def save_vm_command_output(command:, id:, basename: nil, desc: nil) # rubocop:disable Naming/MethodParameterName
-  basename ||= "artifact.cmd_output_#{id}"
+def save_vm_command_output(command:, id:, suffix: nil, desc: nil) # rubocop:disable Naming/MethodParameterName
+  suffix ||= ".cmd_output_#{id}"
+  basename = "artifact#{suffix}"
   $vm.execute("#{command} > /tmp/#{basename} 2>&1")
   _save_vm_file_content(
     file:     "/tmp/#{basename}",
     destfile: basename,
+    suffix:,
     desc:     desc || "Output of #{command}"
   )
 end
 
 def save_journal
-  save_failure_artifact('systemd Journal', JournalDumper.instance.path)
+  save_failure_artifact(
+    'systemd Journal',
+    JournalDumper.instance.path,
+    suffix: '.journal'
+  )
 end
 
-def save_vm_file_content(file, desc: nil)
+def save_vm_file_content(file, desc: nil, suffix: nil)
+  suffix ||= ".file_content_#{file.gsub('/', '_').sub(/^_/, '')}"
   _save_vm_file_content(
     file:,
-    destfile: "artifact.file_content_#{file.gsub('/', '_').sub(/^_/, '')}",
+    destfile: "artifact#{suffix}",
+    suffix:,
     desc:     desc || "Content of #{file}"
   )
 end
@@ -410,9 +419,9 @@ After('@product') do |scenario|
     sleep 1
     JournalDumper.instance.stop
     $failure_artifacts.sort!
-    $failure_artifacts.each do |desc, file|
+    $failure_artifacts.each do |desc, file, suffix|
       artifact_name = sanitize_filename(
-        "#{elapsed}_#{scenario.name}#{File.extname(file)}"
+        "#{elapsed}_#{scenario.name}#{suffix}"
       )
       artifact_path = "#{ARTIFACTS_DIR}/#{artifact_name}"
       assert(File.exist?(file))
