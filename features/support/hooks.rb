@@ -151,21 +151,16 @@ def save_journal
   save_failure_artifact('systemd Journal', JournalDumper.instance.path)
 end
 
-def save_boot_log
-  save_vm_command_output(
-    command:  'cat /var/log/boot.log*',
-    id:       'boot-log',
-    basename: 'artifact.boot-log',
-    desc:     'boot log'
-  )
-end
-
 def save_vm_file_content(file, desc: nil)
   _save_vm_file_content(
     file:,
     destfile: "artifact.file_content_#{file.gsub('/', '_').sub(/^_/, '')}",
     desc:     desc || "Content of #{file}"
   )
+end
+
+def save_boot_log
+  save_vm_file_content('/var/log/boot.log', desc: 'Boot log')
 end
 
 # Due to Tails' Tor enforcement, we only allow contacting hosts that
