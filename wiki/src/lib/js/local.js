@@ -6,7 +6,8 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function hideAllWarnings(evt) {
     warnings.forEach(function(element) {
-      document.getElementById("detailed-" + element).style.display = "none";
+      document.getElementById("detailed-" + element).classList.add("hidden");
+      document.getElementById("detailed-" + element).style.maxHeight = null;
       document.getElementById("toggle-" + element).classList.remove("button-revealed");
     });
 
@@ -14,15 +15,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
   function toggleWarnings(warning, evt) {
     let elem = document.getElementById("detailed-" + warning);
-    let style = elem.style;
-    if (style.display == "block") {
+    if (elem.classList.contains("hidden")) {
       hideAllWarnings(evt);
-      return
-    } else {
-      hideAllWarnings(evt);
-      style.display = "block";
+      elem.classList.remove("hidden");
+      elem.style.maxHeight = elem.scrollHeight + "px";
       let btn = document.getElementById("toggle-" + warning);
       btn.classList.add("button-revealed")
+    } else {
+      hideAllWarnings(evt);
     }
   }
 
