@@ -40,6 +40,8 @@ import pathlib
 import signal
 import subprocess
 import sys
+import threading
+
 import systemd.daemon
 import textwrap
 import time
@@ -138,8 +140,9 @@ class PythonSession:
             """.replace("            ", "").lstrip()
         self.process.stdin.write(init_code)
         self.process.stdin.flush()
+        self.return_str = None
 
-    def execute(self, code) -> tuple[str, str, str]:
+    def execute(self, code, timeout: int | None = None) -> tuple[str, str, str]:
         # This wrapping ensures that we can run almost any reasonable
         # code and capture what it does.
         wrapper = """
@@ -175,9 +178,25 @@ class PythonSession:
             err_str = self.process.stderr.read()
             return exc_str, out_str, err_str
 
-        return_str = self.process.stdout.readline().strip()
+        # Use a thread to read the output so that we can time out if the
+        # code takes too long to execute.
+        t = threading.Thread(
+            target=lambda: setattr(
+                self, "return_str", self.process.stdout.readline().strip()
+            )
+        )
+        t.start()
+        t.join(timeout)
+        if t.is_alive():
+            self.process.terminate()
+            t.join()
+            exc_str = f"Python process timed out after {timeout} seconds"
+            out_str = self.process.stdout.read()
+            err_str = self.process.stderr.read()
+            return exc_str, out_str, err_str
+
         try:
-            exc_str, out_str, err_str = json.loads(return_str)
+            exc_str, out_str, err_str = json.loads(self.return_str)
             return exc_str, out_str, err_str
         except Exception as e:
             time.sleep(1)
@@ -275,7 +294,7 @@ def main():
                     ret = json.dumps([tx_id, "success", returncode, stdout, stderr])
                     logging.info(f"Result: {ret}")
             elif cmd_type == "python_execute":
-                user, env, code = rest
+                user, env, timeout, code = rest
                 if (
                     user not in python_sessions
                     or python_sessions[user].process.poll() is not None
@@ -283,7 +302,7 @@ def main():
                     python_sessions[user] = PythonSession(user)
                 session = python_sessions[user]
                 logging.info(f"Executing Python as {user}:\n{code}")
-                exc, out_str, err_str = session.execute(code)
+                exc, out_str, err_str = session.execute(code, timeout)
                 ret = json.dumps([tx_id, "success", exc, out_str, err_str])
                 logging.info(f"Result: {ret}")
             elif cmd_type in ["file_read", "file_write", "file_append"]:

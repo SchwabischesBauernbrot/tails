@@ -155,6 +155,7 @@ module RemoteShell
       opts[:user] ||= 'root'
       opts[:debug_log] = true unless opts.key?(:debug_log)
       opts[:env] ||= {}
+      opts[:timeout] ||= nil
       show_code = code.chomp
       if show_code["\n"]
         indented_lines = show_code.lines
@@ -172,7 +173,7 @@ module RemoteShell
         end
       end
       ret = RemoteShell.communicate(
-        vm, 'python_execute', opts[:user], opts[:env], code, **opts
+        vm, 'python_execute', opts[:user], opts[:env], opts[:timeout], code, **opts
       )
       debug_log('execution complete') if opts[:debug_log]
       ret
