@@ -39,7 +39,12 @@ from gi.repository import Gdk, GLib, Gtk
 
 from tails_installer.passphrase_dialog import PassphraseDialog
 
-from tails_installer import TailsInstallerCreator, TailsInstallerError, TargetDeviceBusy, _
+from tails_installer import (
+    TailsInstallerCreator,
+    TailsInstallerError,
+    TargetDeviceBusy,
+    _,
+)
 from tails_installer.config import CONFIG
 from tails_installer.source import LocalIsoSource
 from tails_installer.source import RunningLiveSystemSource

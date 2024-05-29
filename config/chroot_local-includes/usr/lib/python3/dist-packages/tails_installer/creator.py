@@ -75,6 +75,7 @@ class TailsInstallerError(TailsError):
 class UDisksObjectNotFound(TailsInstallerError):
     """Thrown when referring to a Udisks object that does not exist"""
 
+
 class TargetDeviceBusy(TailsInstallerError):
     """Thrown when target device could not be unmounted due to being busy"""
 
@@ -793,7 +794,7 @@ class TailsInstallerCreator:
                 except GLib.Error as e:
                     if "target is busy" in e.message:
                         raise TargetDeviceBusy(
-                            _('Target device has opened files')
+                            _("Target device has opened files")
                         ) from e
                     elif "is not mounted" in e.message:
                         pass
