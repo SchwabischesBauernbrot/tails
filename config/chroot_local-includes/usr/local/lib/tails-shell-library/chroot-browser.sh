@@ -278,8 +278,7 @@ configure_chroot_browser () {
     delete_chroot_browser_searchplugins "${chroot}"
     delete_chroot_browser_icons "${chroot}"
     delete_chroot_browser_embedded_extensions_in_omni_ja "${chroot}" \
-        'uBlock0@raymondhill.net' \
-        'https-everywhere'
+        'uBlock0@raymondhill.net'
     delete_chroot_browser_bookmarks "${chroot}"
     set_chroot_browser_permissions "${chroot}" "${browser_name}" \
         "${browser_user}"
