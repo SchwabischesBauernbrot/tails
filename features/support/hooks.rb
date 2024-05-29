@@ -280,6 +280,12 @@ Before('@product') do |scenario|
                         { err: ['/dev/null', 'w'] },])
     @video_capture_pid = capture.pid
   end
+
+  if config_bool('ALWAYS_SAVE_JOURNAL')
+    journal_path = sanitize_filename("#{scenario.name}.journal")
+    JournalDumper.instance.path = "#{ARTIFACTS_DIR}/#{journal_path}"
+  end
+
   @screen = if config_bool('IMAGE_BUMPING_MODE')
               ImageBumpingScreen.new
             else
