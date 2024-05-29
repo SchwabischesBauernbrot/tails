@@ -2,6 +2,7 @@ require 'fileutils'
 require 'rb-inotify'
 require 'time'
 require 'tmpdir'
+require "#{GIT_DIR}/features/support/monkeypatches/extra_hooks.rb"
 
 # Run once, before any feature
 AfterConfiguration do |config|
@@ -80,6 +81,16 @@ AfterConfiguration do |config|
     rescue Errno::EACCES => e
       raise "Cannot create temporary directory: #{e}"
     end
+  end
+
+  if config_bool('INTERACTIVE_DEBUGGING')
+    # This module extends exceptions so they contain the stack of
+    # bindings for all callers from the point that it was raised,
+    # which we use to restore the context of the failure when
+    # --interactive-debugging is enabled.
+    # BTW, upstream renamed the module to skiptrace five years ago but
+    # hasn't done any release since then.
+    require 'bindex'
   end
 end
 
@@ -428,7 +439,8 @@ After('@product') do |scenario|
     if config_bool('INTERACTIVE_DEBUGGING')
       pause(
         "Scenario failed: #{scenario.name}. " \
-        "The error was: #{scenario.exception.class.name}: #{scenario.exception}"
+        "The error was: #{scenario.exception.class.name}: #{scenario.exception}",
+        exception: scenario.exception
       )
     end
   elsif @video_path && File.exist?(@video_path) && !config_bool('CAPTURE_ALL')
@@ -515,7 +527,8 @@ After('@source') do |scenario|
   if scenario.failed? && config_bool('INTERACTIVE_DEBUGGING')
     pause(
       "Scenario failed: #{scenario.name}. " \
-      "The error was: #{scenario.exception.class.name}: #{scenario.exception}"
+      "The error was: #{scenario.exception.class.name}: #{scenario.exception}",
+      exception: scenario.exception
     )
   end
 end

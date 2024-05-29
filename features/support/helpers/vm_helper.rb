@@ -844,9 +844,10 @@ class VM
     # in which case the above statement is racy (TOCTOU). So we ignore
     # the resulting failures:
     rescue Guestfs::Error => e
-      raise e unless e.to_s == 'Call to virDomainDestroyFlags failed: ' \
-                               'Requested operation is not valid: ' \
-                               'domain is not running'
+      raise e unless Regexp.new('Call to virDomainDestroy(Flags)? failed: ' \
+                                'Requested operation is not valid: ' \
+                                'domain is not running')
+                           .match?(e.to_s)
 
       debug_log('Tried to destroy a domain that was already stopped, ignoring')
     end
