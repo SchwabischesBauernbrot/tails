@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-05-06 23:46+0000\n"
-"PO-Revision-Date: 2024-05-08 17:11+0000\n"
+"POT-Creation-Date: 2024-05-27 21:54+0000\n"
+"PO-Revision-Date: 2024-05-28 09:28+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
 "Language: fr\n"
@@ -339,19 +339,41 @@ msgid "<h2 id=\"upgrade\">Should I update Tails using <code>apt upgrade</code> o
 msgstr "<h2 id=\"upgrade\">Dois-je mettre à jour Tails en utilisant <code>apt upgrade</code> ou <i>Synaptic</i> ?</h2>\n"
 
 #. type: Plain text
-#, no-wrap
 msgid ""
-"No. Tails provides upgrades every six weeks, that are thoroughly tested\n"
-"to make sure that no security feature or configuration gets broken.\n"
-"If you upgrade the system yourself using `apt` or <span class=\"application\">Synaptic</span>,\n"
-"you might break things. Upgrading when you get a notification from\n"
-"<span class=\"application\">[[Tails Upgrader|doc/upgrade]]</span> is enough.\n"
+"No. Upgrading whenever you get a notification from *[[Tails Upgrader|doc/"
+"upgrade]]* is enough."
+msgstr ""
+
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "No. Tails provides upgrades every six weeks, that are thoroughly tested\n"
+#| "to make sure that no security feature or configuration gets broken.\n"
+#| "Updating add-ons in <span class=\"application\">Tor Browser</span> might\n"
+#| "break the security built in Tails.\n"
+msgid ""
+"Tails provides upgrades every 4 weeks, which are thoroughly tested to make "
+"sure that no security feature or configuration gets broken."
 msgstr ""
 "Non. Tails fournit des mises à jour toutes les six semaines, qui ont été\n"
-"convenablement testées pour être sûr qu'aucune fonctionnalité ou configuration de sécurité ne soit endommagée.\n"
-"Si vous mettez vous-même le système à jour en utilisant `apt` ou <span class=\"application\">Synaptic</span>,\n"
-"vous risquez d'endommager des choses. Il suffit de mettre à jour quand vous avez une\n"
-"notification du <span class=\"application\">[[Tails Upgrader|doc/upgrade]]</span>.\n"
+"convenablement testées pour être sûr qu'aucune fonctionnalité ou "
+"configuration\n"
+"de sécurité ne va être cassée. Mettre à jour les extensions du <span "
+"class=\"application\">Navigateur Tor</span> pourrait\n"
+"casser la sécurité mise en place dans Tails.\n"
+
+#. type: Plain text
+msgid ""
+"If you upgrade the system yourself using `apt` or *Synaptic*, you might "
+"break things."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Our team sometimes publishes emergency releases, whenever important security "
+"upgrades are available in Debian or *Tor Browser* before the next scheduled "
+"release."
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -601,17 +623,19 @@ msgid "<h2 id=\"update-add-ons\">Should I manually update add-ons included in <s
 msgstr "<h2 id=\"update-add-ons\">Puis-je mettre à jour manuellement les extensions dans le <span class=\"application\">Navigateur Tor</span> ?</h2>\n"
 
 #. type: Plain text
-#, no-wrap
+msgid "No."
+msgstr "Non."
+
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "Installing add-ons in <span class=\"application\">Tor Browser</span> "
+#| "might break the security built in Tails.\n"
 msgid ""
-"No. Tails provides upgrades every six weeks, that are thoroughly tested\n"
-"to make sure that no security feature or configuration gets broken.\n"
-"Updating add-ons in <span class=\"application\">Tor Browser</span> might\n"
-"break the security built in Tails.\n"
+"Updating add-ons in *Tor Browser* might break the security built in Tails."
 msgstr ""
-"Non. Tails fournit des mises à jour toutes les six semaines, qui ont été\n"
-"convenablement testées pour être sûr qu'aucune fonctionnalité ou configuration\n"
-"de sécurité ne va être cassée. Mettre à jour les extensions du <span class=\"application\">Navigateur Tor</span> pourrait\n"
-"casser la sécurité mise en place dans Tails.\n"
+"Installer des extensions dans le <span class=\"application\">Navigateur Tor</"
+"span> pourrait briser la sécurité de Tails.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -794,8 +818,8 @@ msgid ""
 msgstr ""
 "Néanmoins, vous pouvez fermer un circuit donné et déclencher la création par "
 "Tor d'un nouveau circuit avec le bouton du Navigateur Tor [[Nouveau circuit "
-"Tor pour ce site|doc/anonymous_internet/Tor_Browser]] ou l'utilitaire [[*"
-"Circuits onion*|doc/anonymous_internet/tor/circuits]]."
+"Tor pour ce site|doc/anonymous_internet/Tor_Browser]] ou l'utilitaire "
+"[[*Circuits onion*|doc/anonymous_internet/tor/circuits]]."
 
 #. type: Plain text
 #, no-wrap
@@ -1279,6 +1303,20 @@ msgid ""
 msgstr ""
 "Vous pouvez voir quelle version d'un paquet logiciel est disponible dans "
 "chaque version de Debian sur <https://packages.debian.org/>."
+
+#, no-wrap
+#~ msgid ""
+#~ "No. Tails provides upgrades every six weeks, that are thoroughly tested\n"
+#~ "to make sure that no security feature or configuration gets broken.\n"
+#~ "If you upgrade the system yourself using `apt` or <span class=\"application\">Synaptic</span>,\n"
+#~ "you might break things. Upgrading when you get a notification from\n"
+#~ "<span class=\"application\">[[Tails Upgrader|doc/upgrade]]</span> is enough.\n"
+#~ msgstr ""
+#~ "Non. Tails fournit des mises à jour toutes les six semaines, qui ont été\n"
+#~ "convenablement testées pour être sûr qu'aucune fonctionnalité ou configuration de sécurité ne soit endommagée.\n"
+#~ "Si vous mettez vous-même le système à jour en utilisant `apt` ou <span class=\"application\">Synaptic</span>,\n"
+#~ "vous risquez d'endommager des choses. Il suffit de mettre à jour quand vous avez une\n"
+#~ "notification du <span class=\"application\">[[Tails Upgrader|doc/upgrade]]</span>.\n"
 
 #, no-wrap
 #~ msgid "<h1 id=\"hardware\">Hardware compatibility</h1>\n"
