@@ -41,6 +41,7 @@ build-website:
     paths:
       - config/chroot_local-includes/usr/share/doc/tails/website
     when: on_success
+    expire_in: 1 day
   script:
     - apt-get -y install wget git
     - wget -q https://gitlab.tails.boum.org/tails/puppet-tails/-/raw/master/files/D68F87149EBA77541573C1C12453AA9CE4123A9A.asc -O /etc/apt/trusted.gpg.d/tails.asc
