@@ -861,8 +861,8 @@ def wait_for_udisks_object(
 ) -> object:
     """Repeatedly call `udevadm trigger` and then func() until func()
     returns a udisks object or timeout is reached."""
-    start = time.time()
-    while time.time() - start < timeout:
+    start = time.monotonic()
+    while time.monotonic() - start < timeout:
         try:
             executil.check_call(
                 [
@@ -872,7 +872,7 @@ def wait_for_udisks_object(
                     "--settle",
                     device_path,
                 ],
-                timeout=timeout - (time.time() - start),
+                timeout=timeout - (time.monotonic() - start),
             )
         except subprocess.TimeoutExpired as e:
             logger.warning(e)

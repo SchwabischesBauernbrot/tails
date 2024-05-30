@@ -28,7 +28,7 @@ module RemoteShell
 
   def communicate(vm, *args, **opts)
     opts[:timeout] ||= DEFAULT_TIMEOUT
-    socket = UNIXSocket.new(vm.remote_shell_socket_path)
+    socket = UNIXSocket.new(vm.virtio_channel_socket_path(VIRTIO_REMOTE_SHELL))
     id = (@@request_id += 1)
     # Since we already have defined our own Timeout in the current
     # scope, we have to be more careful when referring to the Timeout
