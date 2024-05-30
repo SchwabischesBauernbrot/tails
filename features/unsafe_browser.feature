@@ -27,7 +27,7 @@ Feature: Browsing the web using the Unsafe Browser
     Then the Unsafe Browser runs as the expected user
     And the Unsafe Browser has a red theme
     And the Unsafe Browser shows a warning as its start page
-    And the Unsafe Browser has no add-ons enabled
+    And the Unsafe Browser has no add-ons installed
     And the Unsafe Browser has no bookmarks
     And the Unsafe Browser uses all expected TBB shared libraries
 
