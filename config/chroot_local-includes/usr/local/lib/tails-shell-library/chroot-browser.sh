@@ -242,7 +242,7 @@ delete_chroot_browser_embedded_extensions_in_omni_ja () {
     local extension
     while [ -n "${*:-}" ]; do
         extension="${1}" ; shift
-        7z d -tzip "${pack}" "chrome/torbutton/content/extensions/${extension}"
+        7z d -tzip "${pack}" "chrome/tails/content/extensions/${extension}"
     done
     chmod a+r "${pack}"
 }
