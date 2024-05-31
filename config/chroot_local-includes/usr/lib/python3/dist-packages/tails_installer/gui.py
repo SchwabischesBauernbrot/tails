@@ -735,18 +735,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         for signal_match in self.signals_connected:
             signal_match.remove()
 
-        if not self.opts.partition:
-            try:
-                self.live.mount_device()
-            except TailsInstallerError as e:
-                self.status(e.args[0])
-                self.enable_widgets(True)
-                return
-            except OSError:
-                self.status(_("Unable to mount device"))
-                self.enable_widgets(True)
-                return
-
         if self.opts.partition:
             description = _(
                 "%(parent_size)s %(vendor)s %(model)s device (%(device)s)"
@@ -780,6 +768,16 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     self.opts.partition = False
                 return
         else:
+            try:
+                self.live.mount_device()
+            except TailsInstallerError as e:
+                self.status(e.args[0])
+                self.enable_widgets(True)
+                return
+            except OSError:
+                self.status(_("Unable to mount device"))
+                self.enable_widgets(True)
+                return
             # The user has confirmed that they wish to overwrite their
             # existing Live OS.  Here we delete it first, in order to
             # accurately calculate progress.
