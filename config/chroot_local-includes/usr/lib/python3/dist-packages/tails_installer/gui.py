@@ -768,6 +768,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     self.opts.partition = False
                 return
         else:
+            # We delete the Live OS in order to accurately calculate
+            # progress later.
             try:
                 self.live.mount_device()
             except TailsInstallerError as e:
@@ -778,9 +780,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.status(_("Unable to mount device"))
                 self.enable_widgets(True)
                 return
-            # The user has confirmed that they wish to overwrite their
-            # existing Live OS.  Here we delete it first, in order to
-            # accurately calculate progress.
             try:
                 self.live.delete_liveos()
             except TailsInstallerError as ex:
