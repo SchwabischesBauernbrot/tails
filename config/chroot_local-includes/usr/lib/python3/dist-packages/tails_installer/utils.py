@@ -145,9 +145,11 @@ def get_open_write_fd(block):
     return file_desc
 
 
-def write_to_block_device(block, string):
+def write_to_block_device(block, string, offset: int = 0):
     """Writes a string to a block"""
     file_desc = get_open_write_fd(block)
+    if offset:
+        os.lseek(file_desc, offset, os.SEEK_SET)
     os.write(file_desc, string)
     os.fsync(file_desc)
     os.close(file_desc)
@@ -157,6 +159,6 @@ def _set_liberal_perms_recursive(path):
     if os.path.isfile(path):
         os.chmod(path, 0o644)
     elif os.path.isdir(path):
-        os.chmod(path, 0o755)  # nosec set_bad_file_permissions # noqa: S103
+        os.chmod(path, 0o755)  # nosec set_bad_file_permissions  # noqa: S103
         for f in os.listdir(path):
             _set_liberal_perms_recursive(os.path.join(path, f))

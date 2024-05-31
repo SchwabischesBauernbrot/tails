@@ -58,9 +58,9 @@ class PartitionNotUnlockedError(Exception):
 class InvalidBootDeviceError(Exception):
     # Assume that any problem that's not handled differently in specific subclasses
     # is the result of installing Tails in an unsupported manner.
-    error_type: InvalidBootDeviceErrorType = (
-        InvalidBootDeviceErrorType.UNSUPPORTED_INSTALLATION_METHOD
-    )
+    error_type: (
+        InvalidBootDeviceErrorType
+    ) = InvalidBootDeviceErrorType.UNSUPPORTED_INSTALLATION_METHOD
 
 
 class InvalidPartitionTableTypeError(InvalidBootDeviceError):
@@ -79,9 +79,7 @@ class InvalidStatError(Exception):
 class BootDevice:
     def __init__(self, udisks_object: UDisks.Object):
         self.udisks_object = udisks_object
-        self.partition_table = (
-            udisks_object.get_partition_table()
-        )  # type: UDisks.PartitionTable
+        self.partition_table = udisks_object.get_partition_table()  # type: UDisks.PartitionTable
         if not self.partition_table:
             # Note: This error is expected when the boot device is a DVD
             raise InvalidBootDeviceError("Device has no partition table")
@@ -401,7 +399,9 @@ class TPSPartition:
 
         # Wait for the encrypted partition to become available to udisks
         next_step()
-        wait_for_udisks_object(partition.udisks_object.get_encrypted)
+        wait_for_udisks_object(
+            partition.device_path, partition.udisks_object.get_encrypted
+        )
 
         # Unlock the partition
         logger.info("Unlocking partition")
@@ -614,7 +614,10 @@ class TPSPartition:
         if rename_dm_device:
             # Wait for the cleartext device to become available to udisks
             try:
-                cleartext_device = wait_for_udisks_object(self.try_get_cleartext_device)
+                cleartext_device = wait_for_udisks_object(
+                    self.device_path,
+                    self.try_get_cleartext_device,
+                )
                 assert isinstance(cleartext_device, CleartextDevice)
             except TimeoutError:
                 # Log the output of `udisksctl dump` to help debug spurious
@@ -661,7 +664,9 @@ class TPSPartition:
 
         # Try to get the encrypted device. We use wait_for_udisks_object()
         # because udisks might need some time to detect the new device.
-        encrypted = wait_for_udisks_object(self.udisks_object.get_encrypted)
+        encrypted = wait_for_udisks_object(
+            self.device_path, self.udisks_object.get_encrypted
+        )
         assert isinstance(encrypted, UDisks.Encrypted)
 
         # Unlock the partition
@@ -852,13 +857,25 @@ class CleartextDevice:
 
 
 def wait_for_udisks_object(
-    func: Callable[[...], Optional[object]], *args, timeout: int = 20
+    device_path: str, func: Callable[..., Optional[object]], *args, timeout: int = 20
 ) -> object:
     """Repeatedly call `udevadm trigger` and then func() until func()
     returns a udisks object or timeout is reached."""
-    start = time.time()
-    while time.time() - start < timeout:
-        executil.check_call(["udevadm", "trigger"])
+    start = time.monotonic()
+    while time.monotonic() - start < timeout:
+        try:
+            executil.check_call(
+                [
+                    "udevadm",
+                    "trigger",
+                    "--verbose",
+                    "--settle",
+                    device_path,
+                ],
+                timeout=timeout - (time.monotonic() - start),
+            )
+        except subprocess.TimeoutExpired as e:
+            logger.warning(e)
         obj = func(*args)
         if obj:
             return obj

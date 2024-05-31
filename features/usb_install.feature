@@ -29,6 +29,7 @@ Feature: Installing Tails to a USB drive
     And I plug USB drive "install"
     And I install Tails to USB drive "install" by cloning
     Then the running Tails is installed on USB drive "install"
+    And there is a random seed on USB drive "install"
     But there is no persistence partition on USB drive "install"
 
   Scenario: Installing Tails with Tails Installer to a pristine USB drive
@@ -37,6 +38,7 @@ Feature: Installing Tails to a USB drive
     And I plug USB drive "install"
     And I install Tails to USB drive "install" by cloning
     Then the running Tails is installed on USB drive "install"
+    And there is a random seed on USB drive "install"
     But there is no persistence partition on USB drive "install"
 
   Scenario: Installing Tails with Tails Installer to a used USB drive, cloning the Persistent Storage
@@ -47,6 +49,7 @@ Feature: Installing Tails to a USB drive
     And I plug USB drive "install"
     And I install Tails with Persistent Storage to USB drive "install" by cloning
     Then the running Tails is installed on USB drive "install"
+    And there is a random seed on USB drive "install"
     And there is a persistence partition on USB drive "install"
     And the USB drive "install" contains the same files as my persistent storage
 
@@ -56,6 +59,7 @@ Feature: Installing Tails to a USB drive
     And I plug USB drive "install"
     And I install Tails to USB drive "install" by cloning
     Then the running Tails is installed on USB drive "install"
+    And there is a random seed on USB drive "install"
     And there is no persistence partition on USB drive "install"
 
   Scenario: Re-installing Tails over an existing USB installation with a persistent partition
@@ -70,6 +74,7 @@ Feature: Installing Tails to a USB drive
     # This second part is done with Tails Installer, that's what this scenario is about
     When I reinstall Tails to USB drive "install" by cloning
     Then the running Tails is installed on USB drive "install"
+    And there is a random seed on USB drive "install"
     And there is no persistence partition on USB drive "install"
 
   @uefi

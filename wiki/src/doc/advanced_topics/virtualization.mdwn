@@ -22,9 +22,9 @@ inside a Tails host.</p>
 
 </div>
 
-This is how Tails looks when run in a virtual machine on Debian:
+This is how Tails looks when run in a virtual machine on a Debian host.
 
-[[!img tails-in-vm.png class="screenshot" alt="Tails desktop in a window on a Debian desktop"]]
+[[!img tails-in-vm.png class="screenshot" alt=""]]
 
 <a id="security"></a>
 
@@ -98,6 +98,14 @@ condition to be trustworthy. Proprietary virtualization software exist, such as
 
 </div>
 
+<div class="bug">
+
+<p>We are not recommending <i>VirtualBox</i> anymore because only basic
+functionalities of Tails work in <i>VirtualBox</i>, for example, the display
+size is limited to 800×600 pixels.</p>
+
+</div>
+
   - ***GNOME Boxes*** is only available on
     Linux. It has a simpler user
     interface than *virt-manager* but does not allow to use a Persistent Storage.
@@ -114,11 +122,3 @@ condition to be trustworthy. Proprietary virtualization software exist, such as
       operating system.
 
     See [[running Tails in *virt-manager*|virt-manager]].
-
-  - ***VirtualBox*** is available on
-    Linux, Windows, and Mac. Its
-    Free Software version does not include support for USB devices and
-    does not allow to use a Persistent Storage.
-
-    Tails is reported to work on it, but the quality is pretty bad.
-

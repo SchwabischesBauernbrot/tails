@@ -1,23 +1,10 @@
 #!/usr/bin/env python3
 
 """
-  Detect SQUASHFS and other I/O error and if detected create
-  /var/lib/live/tails.disk.ioerrors. That file will be used to show
-  the user an error.
-
-  Copyright (C) 2023 Tails developers <tails@boum.org>
-
-  You can redistribute  it and/or modify it under the  terms of the GNU
-  General Public License as published by the Free Software Foundation;
-  either version 3 of the License, or (at your option) any later version.
-
-  This program  is distributed in the  hope that it will  be useful, but
-  WITHOUT   ANY  WARRANTY;   without  even   the  implied   warranty  of
-  MERCHANTABILITY  or FITNESS  FOR A  PARTICULAR PURPOSE.   See  the GNU
-  General Public License for more details.
-
-  You should have received a copy of the GNU General Public License
-  along with this program.  If not, see <http://www.gnu.org/licenses/>.
+Detect SquashFS and other I/O errors in the journal and create the file
+"/var/lib/live/tails.disk.ioerrors" if any error is detected. Creating
+that file automatically activates the tails-report-disk-ioerrors.service
+user service, which will display a notification to the user.
 """
 
 from typing import Optional
@@ -29,30 +16,27 @@ import pathlib
 import systemd.daemon
 import systemd.journal
 
-# File that indicates SQUASHFS and other I/O errors
+# File that indicates SquashFS and other I/O errors
 DISK_IOERRORS = pathlib.Path("/var/lib/live/tails.disk.ioerrors")
+
 
 def boot_device_name():
     device_path = get_boot_device()
     return device_path.split("/")[-1]
 
+
 class IOErrorPatterns:
     def __init__(self):
-        self.patterns = ["SQUASHFS error:"]
-
-        self._add_pattern_boot_device(boot_device_name())
-
-    def _add_pattern_boot_device(self, device: str):
-        print(f"use boot device {device}")
-        self.patterns.extend(
-                [
-                    f"I/O error, dev {device}, sector",
-                    f"critical target error, dev {device}, sector",
-                ]
-            )
+        device = boot_device_name()
+        print(f"boot device: {device}")
+        self.patterns = [
+            "SQUASHFS error:",
+            f"I/O error, dev {device}, sector",
+            f"critical target error, dev {device}, sector",
+        ]
 
     def match_message(self, msg: str) -> bool:
-        """Do the msg match any of the patterns."""
+        """Check if the message matches any of the patterns."""
         for start in self.patterns:
             if msg.startswith(start):
                 return True
@@ -60,13 +44,14 @@ class IOErrorPatterns:
 
 
 def process_entries(journal: systemd.journal.Reader, ioerror_patterns: IOErrorPatterns):
-    """Process all journald messages and search for SQUASHFS and other I/O errors."""
+    """Process all journald messages and search for SquashFS and other I/O errors."""
     for e in journal:
         msg = e["MESSAGE"]
         matched = ioerror_patterns.match_message(msg)
 
         if matched:
-            print(msg)  # Add detected logs to own log
+            # Log which message matched the error patterns
+            print(msg)
             DISK_IOERRORS.touch(exist_ok=True)
 
 
@@ -80,7 +65,7 @@ def main():
     j.log_level(systemd.journal.LOG_ERR)
     j.add_match(SYSLOG_IDENTIFIER="kernel")
 
-    # On start we havn't detected any error
+    # On start we haven't detected any error
     DISK_IOERRORS.unlink(missing_ok=True)
 
     systemd.daemon.notify("STATUS=Processing existing messages...\n")
@@ -94,10 +79,10 @@ def main():
     systemd.daemon.notify("STATUS=Waiting for new messages to process...\n")
 
     print("start loop")
-    # Wait for new messages to be appended to journald
+    # Wait for new messages to be appended to the journal
     while True:
-        # journal.wait will trigger process_entries for every message including all
-        # messages, that do not match our filters.
+        # Note that journal.wait returns each time the journal is changed,
+        # even if no messages that match our filters are added.
         state_change = j.wait()
         if state_change == systemd.journal.APPEND:
             process_entries(j, ioerror_patterns)

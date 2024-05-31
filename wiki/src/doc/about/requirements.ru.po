@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
-"PO-Revision-Date: 2021-07-16 19:05+0000\n"
-"Last-Translator: Ed Medvedev <edward.medvedev@gmail.com>\n"
+"POT-Creation-Date: 2024-05-27 21:53+0000\n"
+"PO-Revision-Date: 2024-05-06 09:51+0000\n"
+"Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11.3\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -136,7 +136,7 @@ msgstr "- Возможность загрузки компьютера с USB-ф
 
 #. type: Bullet: '- '
 msgid ""
-"A 64-bit [[!wikipedia x86-64]] [[!wikipedia IBM_PC_compatible]] processor."
+"A 64-bit [[!wikipedia x86-64]] [[!wikipedia IBM PC compatible]] processor."
 msgstr ""
 
 #. type: Bullet: '  * '
@@ -221,88 +221,92 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<!--\n"
-msgstr ""
+msgstr "<!--\n"
 
 #. type: Plain text
 msgid "To update the list of Mac computer:"
-msgstr ""
+msgstr "To update the list of Mac computer:"
 
 #. type: Bullet: '1. '
 msgid ""
 "Store an archive of WhisperBack reports from the last 6 months in a folder."
 msgstr ""
+"Store an archive of WhisperBack reports from the last 6 months in a folder."
 
 #. type: Bullet: '2. '
 msgid "Decrypt all the reports:"
-msgstr ""
+msgstr "Decrypt all the reports:"
 
 #. type: Plain text
 #, no-wrap
 msgid "   ~/Tails/blueprints/stats/whisperback_scripts/decrypt.rb\n"
-msgstr ""
+msgstr "   ~/Tails/blueprints/stats/whisperback_scripts/decrypt.rb\n"
 
 #. type: Bullet: '3. '
 msgid "Extract the list of computer models:"
-msgstr ""
+msgstr "Extract the list of computer models:"
 
 #. type: Plain text
 #, no-wrap
 msgid "   ~/Tails/blueprints/stats/whisperback_scripts/content_of.rb \"/usr/sbin/dmidecode -s system-product-name\" > machines\n"
-msgstr ""
+msgstr "   ~/Tails/blueprints/stats/whisperback_scripts/content_of.rb \"/usr/sbin/dmidecode -s system-product-name\" > machines\n"
 
 #. type: Bullet: '4. '
 msgid "Sort and count identical models:"
-msgstr ""
+msgstr "Sort and count identical models:"
 
 #. type: Plain text
 #, no-wrap
 msgid "   grep -v Bug_report machines | sort | uniq -c | sort -rhk 1 > top\n"
-msgstr ""
+msgstr "   grep -v Bug_report machines | sort | uniq -c | sort -rhk 1 > top\n"
 
 #. type: Bullet: '5. '
 msgid ""
 "Share WhisperBack reports number with the Foundations team and ask them to "
 "evaluate hardware compatibility hints in those reports."
 msgstr ""
+"Share WhisperBack reports number with the Foundations team and ask them to "
+"evaluate hardware compatibility hints in those reports."
 
 #. type: Plain text
 #, no-wrap
 msgid "   While analyzing the reports corresponding from each model, FT should:\n"
-msgstr ""
+msgstr "   While analyzing the reports corresponding from each model, FT should:\n"
 
 #. type: Bullet: '   - '
 msgid "Check whether they were sent from the same email address, if any"
-msgstr ""
+msgstr "Check whether they were sent from the same email address, if any"
 
 #. type: Bullet: '   - '
 msgid "Check whether the wlan0 interface was the same hardware device"
-msgstr ""
+msgstr "Check whether the wlan0 interface was the same hardware device"
 
 #. type: Bullet: '   - '
 msgid "Check whether the report was about hardware compatibility issues"
-msgstr ""
+msgstr "Check whether the report was about hardware compatibility issues"
 
 #. type: Bullet: '6. '
 msgid ""
 "Check whether these Mac models still support the latest version of macOS."
 msgstr ""
+"Check whether these Mac models still support the latest version of macOS."
 
 #. type: Plain text
 msgid "To update the list of PC computers:"
-msgstr ""
+msgstr "To update the list of PC computers:"
 
 #. type: Plain text
 msgid "- Check what's commonly available with refurbishing companies."
-msgstr ""
+msgstr "- Check what's commonly available with refurbishing companies."
 
 #. type: Plain text
-msgid "- Ask tails-assembly@ for models."
-msgstr ""
+msgid "- Ask assembly@ for models."
+msgstr "- Ask assembly@ for models."
 
 #. type: Plain text
 #, no-wrap
 msgid "-->\n"
-msgstr ""
+msgstr "-->\n"
 
 #, fuzzy
 #~| msgid "Tails works on most computers less than 10 years old."

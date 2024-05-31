@@ -67,6 +67,14 @@ SYSTEM_PARTITION_FLAGS = [
 # EFI System Partition
 ESP_GUID = "C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
 
+# Size of the random seed to write to new Tails devices, in bytes
+RANDOM_SEED_SIZE = 512
+# Assume a sector size of 512 bytes
+SECTOR_SIZE = 512
+# Disk sector where we store the random seed file. This is the first
+# sector after the GPT.
+RANDOM_SEED_SECTOR = 34
+
 
 class TailsInstallerError(TailsError):
     """A generic error message that is thrown by the Tails Installer"""
@@ -1288,7 +1296,7 @@ class TailsInstallerCreator:
             )
 
     @retry
-    def reset_mbr(self):
+    def reset_mbr_and_write_random_seed(self):
         parent = self.drive.get("parent", self._drive)
         if parent is None:
             parent = self._drive
@@ -1303,6 +1311,12 @@ class TailsInstallerCreator:
             obj = self._get_object(udi=parent_udi, prop="block")
             block = obj.props.block
             write_to_block_device(block, self.extracted_mbr_content)
+            self.log.info(_("Writing random seed to LBA 34 of %s") % parent)
+            write_to_block_device(
+                block,
+                os.urandom(RANDOM_SEED_SIZE),
+                offset=RANDOM_SEED_SECTOR * SECTOR_SIZE,
+            )
         else:
             self.log.info(_("Drive is a loopback, skipping MBR reset"))
 

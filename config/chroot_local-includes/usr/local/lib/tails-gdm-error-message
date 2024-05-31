@@ -9,12 +9,12 @@ from subprocess import check_call, check_output
 MAX_LENGTH = 254  # this depends on a limit of plymouth
 DISK_IOERRORS = pathlib.Path("/var/lib/live/tails.disk.ioerrors")
 
+
 def run_lspci(lspci_args: list) -> str:
     """
     get lspci output
     """
-    s = check_output(["lspci", "-vmm"] + lspci_args, encoding="utf8")
-    return s
+    return check_output(["/usr/bin/lspci", "-vmm", *lspci_args], encoding="utf8")
 
 
 def parse_lspci(text: str) -> list:

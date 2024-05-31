@@ -3,7 +3,7 @@
 <!-- Not linking to the handbook because it's so bad: https://docs.kde.org/stable5/en/kleopatra/kleopatra/ -->
 <!-- Not more heading because of layout. -->
 
-[*Kleopatra*](https://www.openpgp.org/software/kleopatra/) is a graphical
+[*Kleopatra*](https://apps.kde.org/kleopatra/) is a graphical
 interface to [*GnuPG*](https://www.gnupg.org/), a tool to encrypt and
 authenticate text and files using the OpenPGP standard.
 
@@ -24,9 +24,9 @@ With *Kleopatra* you can:
 
 - Manage your OpenPGP private keys and the public keys of others
 
-- Encrypt and sign text with a public key
+- Encrypt text with a public key or a passphrase
 
-- Encrypt text with a passphrase
+- Sign text with a private key
 
 - Decrypt and verify text
 
@@ -94,7 +94,10 @@ To encrypt text:
 
    - Choose **Encrypt with password**.
 
-1. Choose **Encrypt Notepad**.
+1. Click the **Encrypt Notepad** button.
+
+   This button is labeled **Sign / Encrypt Notepad** if the **Sign as** option
+   is selected in the **Recipient** tab.
 
 To decrypt text:
 
