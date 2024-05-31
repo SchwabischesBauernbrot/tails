@@ -777,12 +777,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 if self.show_confirmation_dialog(
                     _("Confirm the target USB stick"), msg, False, confirmation_label
                 ):
-                    if self.opts.clone_persistent_storage_requested:
-                        passphrase_dialog = PassphraseDialog(self, self.live)
-                        passphrase_dialog.run()
-                        if not passphrase_dialog.passphrase:
-                            return
-                        self.live.passphrase = passphrase_dialog.passphrase
                     self.confirmed = True
                 else:
                     if self.force_reinstall_button_available:
@@ -804,6 +798,13 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 # self.live.unmount_device()
                 self.enable_widgets(True)
                 return
+
+        if self.opts.clone_persistent_storage_requested:
+            passphrase_dialog = PassphraseDialog(self, self.live)
+            passphrase_dialog.run()
+            if not passphrase_dialog.passphrase:
+                return
+            self.live.passphrase = passphrase_dialog.passphrase
 
         # Remove the log handler, because our live thread will register its own
         self.live.log.removeHandler(self.handler)
