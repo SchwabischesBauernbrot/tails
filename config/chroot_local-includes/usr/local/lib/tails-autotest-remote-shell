@@ -219,12 +219,13 @@ def main():
     # by python-negotiator (https://github.com/xolox/python-negotiator):
     # We add O_ASYNC so a SIGIO signal is sent to us whenever data is
     # ready to be read from the device.
+    # But first we must override the signal handler for SIGIO to do
+    # nothing (below we'll wait for it with signal.sigtimedwait())
+    # since the default behavior is to terminate the process.
+    signal.signal(signal.SIGIO, lambda *args: None)
     flags = fcntl.fcntl(fd, fcntl.F_GETFL)
     fcntl.fcntl(fd, fcntl.F_SETFL, flags | os.O_ASYNC)
     fcntl.fcntl(fd, fcntl.F_SETOWN, os.getpid())
-    # By default receiving a SIGIO terminates the process so we override
-    # it to do nothing instead.
-    signal.signal(signal.SIGIO, lambda *args: None)
 
     if (
         "autotest_wait_for_remote_shell"
