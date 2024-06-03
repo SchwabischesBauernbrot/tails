@@ -522,7 +522,7 @@ When /^I can print the current page as "([^"]+[.]pdf)" to the (default downloads
                end
   @screen.press('ctrl', 'p')
   @torbrowser.child('Save', roleName: 'push button').press
-  file_dialog = @torbrowser.child('Save As', roleName: 'file chooser')
+  file_dialog = desktop_portal_save_as_dialog
   # Enter the output filename in the text entry
   text_entry = file_dialog.child('Name', roleName: 'label').labelee
   filename = "#{output_dir}/#{output_file}"
