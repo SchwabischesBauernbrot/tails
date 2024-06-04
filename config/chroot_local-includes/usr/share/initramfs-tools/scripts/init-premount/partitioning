@@ -194,11 +194,13 @@ if [ "${GUID}" = "17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3" ]; then
 	PLYMOUTH_MSG="Preparing Tails for first use..."
 	plymouth display-message --text="${PLYMOUTH_MSG}"
 	first_boot_repartition
-	plymouth hide-message --text="${PLYMOUTH_MSG}"
+	# `plymouth hide-message` doesn't work (#20401)
+	plymouth display-message --text=""
 else
 	_log_msg "This is not the first boot, so repairing filesystem"
 	PLYMOUTH_MSG="Checking the Tails system partition for errors..."
 	plymouth display-message --text="${PLYMOUTH_MSG}"
 	repair_system_partition
-	plymouth hide-message --text="${PLYMOUTH_MSG}"
+	# `plymouth hide-message` doesn't work (#20401)
+	plymouth display-message --text=""
 fi
