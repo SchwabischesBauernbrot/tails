@@ -35,28 +35,34 @@
    [[!img install/inc/screenshots/tails_cloner.png link="no" class="pc-clone mac-clone screenshot" alt="Tails Cloner: 'Clone the current Tails'"]]
    [[!img install/inc/screenshots/tails_cloner_upgrade.png link="no" class="upgrade screenshot" alt="Tails Cloner: 'Clone the current Tails'"]]
 
-   <div class="upgrade">
+   <p>If the Tails that you are cloning from has a Persistent Storage, another
+   option <b>Clone the current Persistent Storage</b> is available.</p>
+
+   <p>[[!img install/inc/screenshots/tails_cloner_persistent_storage.png link="no" class="screenshot" alt="Option: **Clone the current Persistent Storage** below **Clone the current Tails**"]]</p>
 
    <p></p>
 
-   <p>If the other Tails has a Persistent Storage, another option <b>Clone the
-   current Persistent Storage</b> is available.</p>
+   <div class="pc-clone mac-clone">
 
-   [[!img install/inc/screenshots/tails_cloner_persistent_storage.png link="no" class="upgrade screenshot" alt="Option: **Clone the current Persistent Storage** below **Clone the current Tails**"]]
+   <p>If you select the option <b>Clone the current Persistent Storage</b>, the
+   Persistent Storage of the Tails USB stick that you are cloning from will
+   also be copied.</p>
 
-   <ul>
+   </div>
 
-   <li><p>If you leave the option <b>Clone the current Persistent Storage</b>
-   deselected, the Persistent Storage of your Tails USB stick will be preserved
-   when upgrading and the Persistent Storage of the other Tails will not be
-   copied.</p></li>
+   <div class="upgrade">
 
-   <li><p>If you select the option <b>Clone the current Persistent Storage</b>,
-   the Persistent Storage of the other Tails will also be copied when
-   upgrading. You will lose all the data in your Persistent Storage, if you
-   have one.</p></li>
+   <p>If you select the option <b>Clone the current Persistent Storage</b>, the
+   <b>Upgrade</b> button becomes unavailable and you can only
+   [[reinstall|install/clone]] and delete all data on the target USB stick.</p>
 
-   </ul>
+   <div class="bug">
+
+   <p>In the future, we want to allow cloning the Persistent Storage when
+   upgrading as well, for example to make it quicker to update a [[backup Tails
+   USB stick|doc/persistent_storage/backup]]. ([[!tails_ticket 20362]])</p>
+
+   </div>
 
    </div>
 
@@ -69,17 +75,15 @@
    <span class="pc-clone mac-clone">installation, click on the <b>Install</b> button.</span>
    <span class="upgrade">upgrade, click on the <b>Upgrade</b> button.</span>
 
-1. Read the warning message in the confirmation dialog.
+   <div class="pc-clone mac-clone">
 
-   <div class="bug">
+   <p>Read the warning message in the confirmation dialog.</p>
 
-   <p>There is currently no confirmation dialog when upgrading. ([[!tails_ticket 20247]])</p>
+   <p>Click <b>Delete All Data and Install</b> to confirm.</p>
 
    </div>
 
-1. Click **Delete All Data and Install** to confirm.
-
-   The
+1. The
    <span class="pc-clone mac-clone">installation</span>
    <span class="upgrade">upgrade</span>
    takes a few minutes.
@@ -89,7 +93,10 @@
    while synchronizing data on disk.</p>
    </div>
 
-1. After the installation finishes, close <span class="application">Tails Cloner</span>.
+1. After the
+   <span class="pc-clone mac-clone">installation</span>
+   <span class="upgrade">upgrade</span>
+   finishes, close <i>Tails Cloner</i>
 
    [[!img install/inc/screenshots/installation_complete.png link="no" class="screenshot" alt=""]]
 
