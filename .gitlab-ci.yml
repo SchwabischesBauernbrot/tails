@@ -85,6 +85,9 @@ ruff-lint-changed-files:
   only:
     - merge_requests
 
+  variables:
+    GIT_DEPTH: 0
+
   image: debian:sid
 
   script:
@@ -100,6 +103,9 @@ ruff-lint-changed-files:
 ruff-format-changed-files:
   only:
     - merge_requests
+
+  variables:
+    GIT_DEPTH: 0
 
   image: debian:sid
 
