@@ -92,7 +92,8 @@ if [ -n "${FIRST_BOOT:-}" ]; then
   done
   end_time=$(date +%s)
   echo "Wrote random seed $ITERATIONS times in $((end_time - start_time)) seconds"
-  plymouth hide-message --text="${PLYMOUTH_INIT_MSG}"
+  # `plymouth hide-message` doesn't work (#20401)
+  plymouth display-message --text=""
 
   # Restore debug output
   [ "${debug:-}" = "random-seed" ] && set -x

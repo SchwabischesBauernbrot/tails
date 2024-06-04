@@ -2,6 +2,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
+  gap: 30px;
 }
 
 .testimonials .quote, .testimonials .logos {
@@ -24,11 +25,8 @@
 }
 
 @media (min-width: 768px) {
-  .testimonials {
-    justify-content: space-between;
-  }
   .testimonials .quote {
-    width: 30%;
+    width: calc((100% - 60px)/3);
   }
 }
 
