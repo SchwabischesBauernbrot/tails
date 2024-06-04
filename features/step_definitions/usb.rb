@@ -488,7 +488,8 @@ def check_disk_integrity(name, dev, scheme)
   assert_match(/^    Type: +#{scheme}/, part_table_info,
                "Unexpected partition scheme on USB drive '#{name}', '#{dev}'")
 
-  # Also verify the partition table if the scheme is gpt
+  # Now we will additionally verify the partition table if, and only if,
+  # the scheme is gpt.
   return unless scheme == 'gpt'
 
   c = $vm.execute("sgdisk --verify #{dev}")
