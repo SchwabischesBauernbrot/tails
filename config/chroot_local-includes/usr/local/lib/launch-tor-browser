@@ -49,12 +49,6 @@ start_browser() {
         /usr/local/lib/generate-tor-browser-profile
     fi
 
-    TMPDIR="${PROFILE}/tmp"
-    if [ ! -d "$TMPDIR" ]; then
-        mkdir --mode=0700 "$TMPDIR"
-    fi
-    export TMPDIR
-
     configure_tor_browser_memory_usage "${PROFILE}"
 
     # We need to set general.useragent.locale properly to get
