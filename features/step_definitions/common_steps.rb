@@ -246,6 +246,7 @@ When /^I start the computer$/ do
   assert(!$vm.running?,
          'Trying to start a VM that is already running')
   $vm.start
+  JournalDumper.instance.start
   $language = ''
   $lang_code = ''
 end
@@ -462,16 +463,17 @@ Given /^I set the language to (.*) \((.*)\)$/ do |lang, lang_code|
   # The listboxrow does not expose any actions through AT-SPI,
   # so Dogtail is unable to click it directly. We let it grab focus
   # and activate it via the keyboard instead.
-  greeter.child(description: 'Configure Language').grabFocus
-  @screen.press('Return')
-  try_for(10) do
-    greeter
-      .child('Search', roleName: 'text')
-      .focused
+  try_for(30) do
+    greeter.child(description: 'Configure Language').grabFocus
+    @screen.press('Return')
+    # Give Gtk some time to open the language popover
+    sleep(1)
+    # Check if the language popover is open
+    greeter.child?('Search', roleName: 'text', retry: false)
   end
-  @screen.type($language)
+  greeter.child('Search', roleName: 'text').text = lang
   sleep(2) # Gtk needs some time to filter the results
-  @screen.press('Return')
+  greeter.child('Search', roleName: 'text').activate
 end
 
 Given /^I log in to a new session(?: in ([^ ]*) \(([^ ]*)\))?( without activating the Persistent Storage)?( after having activated the Persistent Storage| expecting no warning about the Persistent Storage not being activated)?$/ do |lang, lang_code, expect_warning, expect_no_warning|

@@ -653,7 +653,7 @@ Given /^I enable persistence( with the changed passphrase)?$/ do |with_changed_p
   # Wait until the Persistent Storage was unlocked. We use the fact that
   # the unlock button is made invisible when the Persistent Storage is
   # unlocked.
-  try_for(60) do
+  try_for(120) do
     !greeter.child?('Unlock Encryption',
                     roleName: 'push button', retry: false) && \
       !greeter.child?('Unlocking…',

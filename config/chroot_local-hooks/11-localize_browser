@@ -5,7 +5,7 @@ set -e
 echo "Localize each supported browser locale"
 
 # Import the TBB_INSTALL variable and
-# supported_tor_browser_locales(), locale_is_supported_by_tor_browser()
+# supported_tor_browser_locales(), locale_is_supported_by_tor_browser(), set_mozilla_pref()
 . /usr/local/lib/tails-shell-library/tor-browser.sh
 
 # Import language_code_from_locale()
@@ -91,7 +91,10 @@ while IFS=: read -r MOZILLA_LOCALE LOCATION; do
         HOMEPAGE="${HOMEPAGE}index.${LANG_CODE}.html"
     fi
     set_mozilla_pref "${LOCALE_PROFILE_FILE}" \
-                          "browser.startup.homepage" "\"${HOMEPAGE}\"" "user_pref"
+                     "browser.startup.homepage" "\"${HOMEPAGE}\"" "user_pref"
+    set_mozilla_pref "${LOCALE_PROFILE_FILE}" \
+                     "browser.startup.homepage.new_identity" "\"${HOMEPAGE}\"" \
+                     "user_pref"
 done < "${DESCRIPTIONS_FILE}"
 
 # This directory is not needed after build time.

@@ -160,7 +160,7 @@ create_pot () {
                 ;;
             *)
                 xgettext_args=
-                        ;;
+                ;;
         esac
 	# shellcheck disable=SC2086
         xgettext --language="${proglang}" --from-code=UTF-8 \
@@ -233,7 +233,7 @@ intltool_update_pot () {
 
 intltool_merge_desktop () {
     extract_from_file_between_markers po/POTFILES.in \
-        '^# Files updated by intltool-update --desktop-style' '^$' \
+        '^# Files updated by intltool-merge --desktop-style' '^$' \
         | while read -r infile ; do
               intltool-merge --quiet --desktop-style --utf8 \
                              po "$infile" "${infile%.in}"
@@ -242,7 +242,7 @@ intltool_merge_desktop () {
 
 intltool_merge_xml () {
     extract_from_file_between_markers po/POTFILES.in \
-        '^# Files updated by intltool-update --xml-style' '^$' \
+        '^# Files updated by intltool-merge --xml-style' '^$' \
         | while read -r infile ; do
               intltool-merge --quiet --xml-style --utf8 \
                              po "$infile" "${infile%.in}"

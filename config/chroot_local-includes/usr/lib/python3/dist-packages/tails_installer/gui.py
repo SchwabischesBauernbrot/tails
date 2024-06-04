@@ -39,7 +39,12 @@ from gi.repository import Gdk, GLib, Gtk
 
 from tails_installer.passphrase_dialog import PassphraseDialog
 
-from tails_installer import TailsInstallerCreator, TailsInstallerError, _
+from tails_installer import (
+    TailsInstallerCreator,
+    TailsInstallerError,
+    TargetDeviceBusy,
+    _,
+)
 from tails_installer.config import CONFIG
 from tails_installer.source import LocalIsoSource
 from tails_installer.source import RunningLiveSystemSource
@@ -135,7 +140,19 @@ class TailsInstallerThread(threading.Thread):
         self.live.save_full_drive()
         try:
             if self.parent.opts.partition:
-                self.live.unmount_device()
+                try:
+                    self.live.unmount_device()
+                except TargetDeviceBusy:
+                    self.status(
+                        _(
+                            "Unable to clone because the target USB stick is being "
+                            "used. Close all open files on the target USB stick, "
+                            "restart Tails Cloner, and try to clone again."
+                        )
+                    )
+                    self.live.log.removeHandler(self.handler)
+                    return
+
                 if not self.live.can_read_partition_table():
                     self.live.log.info("Clearing unreadable partition table.")
                     self.live.clear_all_partition_tables()
@@ -201,7 +218,7 @@ class TailsInstallerThread(threading.Thread):
             if self.parent.opts.partition:
                 self.live.switch_back_to_full_drive()
 
-            self.live.reset_mbr()
+            self.live.reset_mbr_and_write_random_seed()
             self.live.flush_buffers()
 
             duration = str(datetime.now() - self.now).split(".")[0]

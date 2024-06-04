@@ -160,6 +160,8 @@ configure_chroot_browser_profile () {
     if [ -n "${home_page:-}" ]; then
         echo 'user_pref("browser.startup.homepage", "'"${home_page}"'");' >> \
             "${browser_prefs}"
+        echo 'user_pref("browser.startup.homepage.new_identity", "'"${home_page}"'");' >> \
+            "${browser_prefs}"
     fi
 
     # Customize the GUI.
@@ -242,7 +244,7 @@ delete_chroot_browser_embedded_extensions_in_omni_ja () {
     local extension
     while [ -n "${*:-}" ]; do
         extension="${1}" ; shift
-        7z d -tzip "${pack}" "chrome/torbutton/content/extensions/${extension}"
+        7z d -tzip "${pack}" "chrome/tails/content/extensions/${extension}"
     done
     chmod a+r "${pack}"
 }
@@ -278,8 +280,7 @@ configure_chroot_browser () {
     delete_chroot_browser_searchplugins "${chroot}"
     delete_chroot_browser_icons "${chroot}"
     delete_chroot_browser_embedded_extensions_in_omni_ja "${chroot}" \
-        'uBlock0@raymondhill.net' \
-        'https-everywhere'
+        'uBlock0@raymondhill.net'
     delete_chroot_browser_bookmarks "${chroot}"
     set_chroot_browser_permissions "${chroot}" "${browser_name}" \
         "${browser_user}"

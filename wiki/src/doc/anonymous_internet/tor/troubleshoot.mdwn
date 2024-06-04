@@ -16,7 +16,7 @@ set the clock and time zone of your computer.
 
 If you have problems fixing the clock, you can instead try to restart Tails and
 choose to [[connect to Tor automatically|tor#automatic]]. When connecting to
-Tails automatically, Tails fixes the clock automatically by connecting to the
+Tor automatically, Tails fixes the clock automatically by connecting to the
 captive portal detection service of [Fedora](https://getfedora.org/) before
 connecting to Tor.
 
@@ -43,7 +43,7 @@ To fix this, you can either:
 
 - Close and reopen *Tor Connection* to speed up the initial connection.
 
-- Try a different obfs4 bridge.
+- Try with [[another bridge|troubleshoot#bridge]].
 
 <div class="bug">
 
@@ -60,7 +60,11 @@ obfs4 bridges that run version 0.0.12 or later.</p>
 
 It is possible that the bridge that you entered is no longer working.
 
-Try entering another bridge or requesting other bridges.
+Try with [[another bridge|troubleshoot#bridge]].
+
+<h2 id="bridge">Learning about another bridge</h2>
+
+[[!inline pages="doc/anonymous_internet/tor/bridge.inline" raw="yes" sort="age"]]
 
 <h2 id="incorrect">You did not enter the bridge correctly</h2>
 
