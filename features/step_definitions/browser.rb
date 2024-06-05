@@ -295,10 +295,9 @@ When /^I download some file in the Tor Browser$/ do
            .button('Save File')
   try_for(10) { button.sensitive }
   button.press
-  @torbrowser
-    .child(roleName: 'file chooser')
-    .button('Save')
-    .click
+  file_dialog = desktop_portal_save_as_dialog
+  file_dialog.child('Save', roleName: 'push button').click
+
   @torbrowser
     .button('Downloads')
     .press
