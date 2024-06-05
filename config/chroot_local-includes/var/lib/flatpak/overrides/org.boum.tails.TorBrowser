@@ -15,7 +15,7 @@ devices=!all;dri;
 #   metadata file
 # * Remainder: Allow access to directories which should be accessible to
 #   Tor Browser.
-filesystems=!host:reset;!host;/run/tor-has-bootstrapped;~/Tor Browser:create;~/Persistent/Tor Browser;~/.mozilla:create;~/.tor-browser:create;
+filesystems=!host:reset;!host;xdg-documents;xdg-download;xdg-music;xdg-pictures;xdg-videos;/run/tor-has-bootstrapped;~/Tor Browser:create;~/Persistent/Tor Browser;~/.mozilla:create;~/.tor-browser:create;
 
 # Explanations:
 # * !x11;!fallback-x11: Disallow access to the X11 server, overriding
