@@ -784,7 +784,15 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                     self.force_reinstall = False
                     self.opts.partition = False
                 return
-        else:
+
+        if self.opts.clone_persistent_storage_requested:
+            passphrase_dialog = PassphraseDialog(self, self.live)
+            passphrase_dialog.run()
+            if not passphrase_dialog.passphrase:
+                return
+            self.live.passphrase = passphrase_dialog.passphrase
+
+        if not self.opts.partition:
             # We delete the Live OS in order to accurately calculate
             # progress later.
             try:
@@ -804,13 +812,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 # self.live.unmount_device()
                 self.enable_widgets(True)
                 return
-
-        if self.opts.clone_persistent_storage_requested:
-            passphrase_dialog = PassphraseDialog(self, self.live)
-            passphrase_dialog.run()
-            if not passphrase_dialog.passphrase:
-                return
-            self.live.passphrase = passphrase_dialog.passphrase
 
         # Remove the log handler, because our live thread will register its own
         self.live.log.removeHandler(self.handler)
