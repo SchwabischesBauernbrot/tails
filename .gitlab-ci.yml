@@ -36,6 +36,7 @@ build-website:
     paths:
       - config/chroot_local-includes/usr/share/doc/tails/website
       - wiki/src/.ikiwiki
+      - underlays
   artifacts:
     name: website
     untracked: true
@@ -43,10 +44,16 @@ build-website:
       - config/chroot_local-includes/usr/share/doc/tails/website
     when: on_success
     expire_in: 1 day
+  variables:
+    UNDERLAYS_DIR: ${CI_PROJECT_DIR}/underlays
   script:
-    - mkdir /underlays
-    - git clone --depth=1 https://gitlab.tails.boum.org/tails/etcher-binary.git /underlays/etcher-binary
-    - git clone --depth=1 https://gitlab.tails.boum.org/tails/promotion-material.git /underlays/promotion-material
+    - mkdir -p ${UNDERLAYS_DIR}
+    - |
+      for i in etcher-binary promotion-material; do
+        test -d ${UNDERLAYS_DIR}/${i} || git clone --depth=1 https://gitlab.tails.boum.org/tails/${i}.git ${UNDERLAYS_DIR}/${i}
+        git -C ${UNDERLAYS_DIR}/${i} switch master
+        git -C ${UNDERLAYS_DIR}/${i} pull
+      done
     - |
       ./build-website \
         --url "https://tails.net" \
@@ -56,7 +63,7 @@ build-website:
         --diffurl "https://gitlab.tails.boum.org/tails/tails/-/commit/[[sha1_commit]]" \
         --rss \
         --atom \
-        --set-yaml add_underlays="['/underlays/etcher-binary', '/underlays/promotion-material']"
+        --set-yaml add_underlays="['${UNDERLAYS_DIR}/etcher-binary','${UNDERLAYS_DIR}/promotion-material']"
 
 deploy-website:
   stage: deploy-website
