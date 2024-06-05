@@ -510,8 +510,6 @@ def check_disk_integrity(name, dev, scheme)
     !c.to_s.include?('corrupt'),
     "sgdisk --verify #{dev} failed.\n#{c}"
   )
-  $vm.execute_successfully("partprobe #{dev}")
-  $vm.execute_successfully('udevadm settle')
 end
 
 def check_part_integrity(name, dev, usage, fs_type,
