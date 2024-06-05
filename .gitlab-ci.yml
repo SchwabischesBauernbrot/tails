@@ -104,6 +104,7 @@ ruff-lint-changed-files:
     - merge_requests
 
   variables:
+    GIT_STRATEGY: clone
     GIT_DEPTH: 0
 
   image: debian:sid
@@ -123,6 +124,7 @@ ruff-format-changed-files:
     - merge_requests
 
   variables:
+    GIT_STRATEGY: clone
     GIT_DEPTH: 0
 
   image: debian:sid
