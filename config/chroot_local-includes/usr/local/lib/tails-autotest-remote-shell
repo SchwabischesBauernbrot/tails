@@ -40,13 +40,14 @@ import pathlib
 import signal
 import subprocess
 import sys
-import threading
 
 import systemd.daemon
 import textwrap
 import time
 import traceback
 import logging
+
+import timeout_decorator
 
 from tailslib.userenv import read_user_env
 
@@ -140,7 +141,6 @@ class PythonSession:
             """.replace("            ", "").lstrip()
         self.process.stdin.write(init_code)
         self.process.stdin.flush()
-        self.return_str = None
 
     def execute(self, code, timeout: int | None = None) -> tuple[str, str, str]:
         # This wrapping ensures that we can run almost any reasonable
@@ -178,25 +178,22 @@ class PythonSession:
             err_str = self.process.stderr.read()
             return exc_str, out_str, err_str
 
-        # Use a thread to read the output so that we can time out if the
-        # code takes too long to execute.
-        t = threading.Thread(
-            target=lambda: setattr(
-                self, "return_str", self.process.stdout.readline().strip()
-            )
-        )
-        t.start()
-        t.join(timeout)
-        if t.is_alive():
+        @timeout_decorator.timeout(timeout)
+        def _get_output():
+            return self.process.stdout.readline().strip()
+
+        try:
+            return_str = _get_output()
+        except timeout_decorator.TimeoutError:
             self.process.terminate()
-            t.join()
+            self.process.wait()
             exc_str = f"Python process timed out after {timeout} seconds"
             out_str = self.process.stdout.read()
             err_str = self.process.stderr.read()
             return exc_str, out_str, err_str
 
         try:
-            exc_str, out_str, err_str = json.loads(self.return_str)
+            exc_str, out_str, err_str = json.loads(return_str)
             return exc_str, out_str, err_str
         except Exception as e:
             time.sleep(1)
