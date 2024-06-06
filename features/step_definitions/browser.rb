@@ -7,7 +7,7 @@ def desktop_portal
 end
 
 def desktop_portal_save_as_dialog
-  desktop_portal.child('Save As', roleName: 'file chooser')
+  desktop_portal.child(roleName: 'file chooser')
 end
 
 def save_page_as
