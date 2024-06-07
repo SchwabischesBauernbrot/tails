@@ -30,7 +30,7 @@ build-website:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
     - changes:
         - .gitlab-ci.yml
-  image: registry.gitlab.tails.boum.org/tails/containers/website-builder:latest
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/website-builder:latest
   cache:
     key: website-$CI_COMMIT_REF_SLUG
     paths:
