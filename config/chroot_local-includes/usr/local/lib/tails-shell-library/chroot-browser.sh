@@ -63,16 +63,6 @@ setup_chroot_for_browser () {
     # Remove the trailing colon
     lowerdirs=${lowerdirs%?}
 
-    # If the early_patch boot parameter is used, we also overlay the
-    # /mnt/config/chroot_local-includes directory over the chroot, so
-    # we can easily test changes to the runtime without having to rebuild
-    # the squashfs filesystem. This is only used for development.
-    if grep -qw early_patch /proc/cmdline; then
-      if [ -d "${NEW_INCLUDES_DIR}" ]; then
-        lowerdirs="${NEW_INCLUDES_DIR}:${lowerdirs}"
-      fi
-    fi
-
     mkdir -p "${cow}" "${chroot}"
 
     # Ensure that the parent directory of the chroot and the cow dir
@@ -83,6 +73,34 @@ setup_chroot_for_browser () {
     mount -t tmpfs tmpfs "${cow}"
     mkdir "${cow}/rw" "${cow}/work"
     mount -t overlay -o "noatime,lowerdir=${lowerdirs},upperdir=${cow}/rw,workdir=${cow}/work" overlay "${chroot}"
+
+    # If the early_patch boot parameter is used, we also overlay the
+    # /mnt/config/chroot_local-includes directory over the chroot, so
+    # we can easily test changes to the runtime without having to rebuild
+    # the squashfs filesystem. This is only used for development.
+    if grep -qw early_patch /proc/cmdline; then
+      if [ -d "${NEW_INCLUDES_DIR}" ]; then
+        # We can't just overlay the whole chroot_local-includes
+        # directory because that contains lib/ and sbin/ directories
+        # which are symlinks in the Tails root filesystem and overlaying
+        # those break things.
+        dirs="$(find "${NEW_INCLUDES_DIR}" -mindepth 1 -maxdepth 1 -type d)"
+        for dir in ${dirs}; do
+          base=$(basename "${dir}")
+          # Skip the directory if the destination is a symlink
+          if [ -L "${chroot}/${base}" ]; then
+            continue
+          fi
+          # Create the upper and work directories
+          mkdir "${cow}/rw-${base}" "${cow}/work-${base}"
+          # Bind the existing directory to the upper directory
+          mount --bind "${dir}" "${cow}/rw-${base}"
+          # Create an overlay mount
+          mount -t overlay -o "noatime,lowerdir=${dir},upperdir=${cow}/rw-${base},workdir=${cow}/work-${base}" overlay "${chroot}/${base}"
+        done
+      fi
+    fi
+
     chmod 755 "${chroot}"
 }
 
