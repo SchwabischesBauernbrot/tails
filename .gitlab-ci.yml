@@ -30,32 +30,29 @@ build-website:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
     - changes:
         - .gitlab-ci.yml
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/website-builder:latest
   cache:
     key: website-$CI_COMMIT_REF_SLUG
     paths:
       - config/chroot_local-includes/usr/share/doc/tails/website
       - wiki/src/.ikiwiki
+      - underlays
   artifacts:
     name: website
-    untracked: true
     paths:
       - config/chroot_local-includes/usr/share/doc/tails/website
     when: on_success
     expire_in: 1 day
+  variables:
+    UNDERLAYS_DIR: ${CI_PROJECT_DIR}/underlays
   script:
-    - apt-get -y install wget git
-    - wget -q https://gitlab.tails.boum.org/tails/puppet-tails/-/raw/master/files/D68F87149EBA77541573C1C12453AA9CE4123A9A.asc -O /etc/apt/trusted.gpg.d/tails.asc
+    - mkdir -p ${UNDERLAYS_DIR}
     - |
-      echo -e 'Explanation: tails: po4a
-      Package: po4a
-      Pin: release n=bullseye, o=Debian
-      Pin-Priority: 1000' > /etc/apt/preferences.d/po4a.pref
-    - echo 'deb https://deb.tails.boum.org/ ikiwiki main' > /etc/apt/sources.list.d/tails.list
-    - echo 'deb https://deb.debian.org/debian bullseye main' > /etc/apt/sources.list.d/bullseye.list
-    - apt-get update && apt-get -y install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
-    - mkdir /underlays
-    - git clone --depth=1 https://gitlab.tails.boum.org/tails/etcher-binary.git /underlays/etcher-binary
-    - git clone --depth=1 https://gitlab.tails.boum.org/tails/promotion-material.git /underlays/promotion-material
+      for i in etcher-binary promotion-material; do
+        test -d ${UNDERLAYS_DIR}/${i} || git clone --depth=1 https://gitlab.tails.boum.org/tails/${i}.git ${UNDERLAYS_DIR}/${i}
+        git -C ${UNDERLAYS_DIR}/${i} switch master
+        git -C ${UNDERLAYS_DIR}/${i} pull
+      done
     - |
       ./build-website \
         --url "https://tails.net" \
@@ -65,7 +62,7 @@ build-website:
         --diffurl "https://gitlab.tails.boum.org/tails/tails/-/commit/[[sha1_commit]]" \
         --rss \
         --atom \
-        --set-yaml add_underlays="['/underlays/etcher-binary', '/underlays/promotion-material']"
+        --set-yaml add_underlays="['${UNDERLAYS_DIR}/etcher-binary','${UNDERLAYS_DIR}/promotion-material']"
 
 deploy-website:
   stage: deploy-website
