@@ -87,7 +87,7 @@ deploy-website:
     - rsync --rsh="ssh -p 3004 -o UserKnownHostsFile=.ssh/known_hosts -i .ssh/private_key" --checksum --archive --no-times --verbose --mkpath --delete "config/chroot_local-includes/usr/share/doc/tails/website/" www-data@chameleon.tails.net:/
 
 lint-po:
-  image: debian:testing
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:trixie
   rules:
     - if: '$CI_COMMIT_BRANCH =~ /^master|stable|testing|devel$/'
     - changes:
@@ -105,7 +105,7 @@ ruff-lint-changed-files:
     GIT_STRATEGY: clone
     GIT_DEPTH: 0
 
-  image: debian:sid
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:sid
 
   script:
     - apt-get -qy install ruff findutils git python3
@@ -125,7 +125,7 @@ ruff-format-changed-files:
     GIT_STRATEGY: clone
     GIT_DEPTH: 0
 
-  image: debian:sid
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:sid
 
   script:
     - apt-get -qy install ruff findutils git python3
@@ -208,7 +208,7 @@ test-perl5lib:
   - dzil test --all
 
 shellcheck:
-  image: debian:testing
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:trixie
   script:
   - apt-get -qy install python3 shellcheck xmlstarlet git
   - shellcheck --version
@@ -319,7 +319,7 @@ https-get-expired:
 
 https-get-expired-sid:
   # this job gives us results using a future version of Golang compared to the one we actually use
-  image: debian:sid
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:sid
   rules:
     - if: '$CI_COMMIT_BRANCH == "devel"'
     - changes:
