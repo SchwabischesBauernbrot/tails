@@ -206,10 +206,10 @@ module RemoteShell
       RemoteShell.communicate(vm, 'signal_ready')
     end
 
-    attr_reader :returncode, :stdout, :stderr
+    attr_reader :returncode
 
     def initialize(vm)
-      @returncode, @stdout, @stderr = self.class.execute(vm)
+      @returncode = self.class.execute(vm)
     end
 
     def success?
@@ -221,9 +221,7 @@ module RemoteShell
     end
 
     def to_s
-      "Exception: #{@exception}\n" \
-        "STDOUT:\n#{@stdout}" \
-        "STDERR:\n#{@stderr}"
+      "Exception: #{@exception}"
     end
   end
 
