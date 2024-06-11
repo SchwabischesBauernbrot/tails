@@ -327,7 +327,6 @@ class Handler(socketserver.StreamRequestHandler):
         "write-tca-config": WriteFileCommand(TCA_CONFIG_FILE),
         "start-arti": RootCommand(["/bin/systemctl", "start", "arti.service"]),
     }
-    valid_commands: ClassVar = set(spawn_commands.keys())
 
     protocol = JSONRPCProtocol()
 
@@ -370,10 +369,8 @@ class Handler(socketserver.StreamRequestHandler):
 
         After that, a process will be spawned; the outcome of it will be pushed to outgoing_q
         """
-        if req.method not in self.valid_commands:
-            return req.error_respond(error="Invalid method")
         if req.method not in self.spawn_commands:
-            return req.error_respond(error="Method not implemented")
+            return req.error_respond(error="Invalid method")
 
         cmd = self.spawn_commands[req.method]
         cmd.validate_request(req)
