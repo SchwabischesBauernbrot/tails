@@ -272,6 +272,7 @@ def main():
                 # Thrown if any other signal is received.
                 pass
             continue
+        tx_id = None
         try:
             req = json.loads(line)
             tx_id, cmd_type = req["tx_id"], req["cmd_type"]
