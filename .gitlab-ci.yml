@@ -10,7 +10,7 @@ workflow:
     - if: $CI_COMMIT_TAG
     - if: '$CI_COMMIT_BRANCH =~ /^master|stable|testing|devel$/'
 
-image: debian:bookworm
+image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:bookworm
 
 variables:
     GET_SOURCES_ATTEMPTS: 10
@@ -170,7 +170,7 @@ check-locale-descriptions:
     - ./bin/locale-descriptions suggest
 
 rubocop:
-  image: debian:bookworm
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:bookworm
   script:
   - apt-get -qy install rubocop
   - rubocop --version
