@@ -30,7 +30,7 @@ build-website:
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
     - changes:
         - .gitlab-ci.yml
-  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/website-builder:latest
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/ikiwiki:bookworm
   cache:
     key: website-$CI_COMMIT_REF_SLUG
     paths:
@@ -68,6 +68,7 @@ deploy-website:
   stage: deploy-website
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/rsync:bookworm
   dependencies:
     - build-website
   environment: production
