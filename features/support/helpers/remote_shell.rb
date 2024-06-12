@@ -20,21 +20,20 @@ module RemoteShell
   class Timeout < ServerFailure
   end
 
-  DEFAULT_TIMEOUT = 20 * 60
-  private_constant :DEFAULT_TIMEOUT
+  SOCKET_READ_TIMEOUT = 20 * 60
+  private_constant :SOCKET_READ_TIMEOUT
 
   # Counter providing unique id:s for each communicate() call.
   @@request_id ||= 0
 
   def communicate(vm, req, **opts)
-    opts[:timeout] ||= DEFAULT_TIMEOUT
     socket = UNIXSocket.new(vm.virtio_channel_socket_path(VIRTIO_REMOTE_SHELL))
     req['tx_id'] = (@@request_id += 1)
     # Since we already have defined our own Timeout in the current
     # scope, we have to be more careful when referring to the Timeout
     # class from the 'timeout' module. However, note that we want it
     # to throw our own Timeout exception.
-    Object::Timeout.timeout(opts[:timeout], Timeout) do
+    Object::Timeout.timeout(SOCKET_READ_TIMEOUT, Timeout) do
       socket.puts(JSON.dump(req))
       socket.flush
       return if opts[:spawn]
