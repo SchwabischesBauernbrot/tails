@@ -70,22 +70,16 @@ class ProgressThread(threading.Thread):
     progress bar.
     """
 
-    totalsize = 0
-    tps_totalsize = 0
-    orig_free = 0
-    get_free_bytes = None
-
     def __init__(self, parent):
         threading.Thread.__init__(self)
         self.parent = parent
         self.terminate = False
 
-    def set_data(self, size, freebytes, pre_progress, maximum):
+    def set_data(self, size, freebytes, pre_progress):
         self.totalsize = size
         self.get_free_bytes = freebytes
         self.orig_free = self.get_free_bytes()
         self.pre_progress = pre_progress
-        self.maximum = maximum
 
     def run(self):
         value = 0
@@ -98,7 +92,7 @@ class ProgressThread(threading.Thread):
                 tps_value = psutil.disk_usage("/media/amnesia/TailsData").used
             GLib.idle_add(
                 self.parent.progress,
-                float(self.pre_progress + value + tps_value) / self.maximum,
+                float(self.pre_progress + value + tps_value) / self.totalsize,
             )
             sleep(0.1)
 
@@ -186,10 +180,9 @@ class TailsInstallerThread(threading.Thread):
 
             # Setup the progress bar
             self.progress.set_data(
-                size=self.live.totalsize,
+                size=max_progress,
                 freebytes=self.live.get_free_bytes,
                 pre_progress=misc_progress,
-                maximum=max_progress
             )
             self.progress.start()
 
@@ -205,8 +198,7 @@ class TailsInstallerThread(threading.Thread):
                 self.live.clone_persistent_storage()
 
             # Set progress to 100% after cloning persistent storage
-            self.set_max_progress(float(1))
-            self.update_progress(1)
+            self.update_progress(max_progress)
 
             self.progress.stop()
 
