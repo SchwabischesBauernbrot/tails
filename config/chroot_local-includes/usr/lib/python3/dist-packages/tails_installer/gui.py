@@ -137,6 +137,19 @@ class TailsInstallerThread(threading.Thread):
         self.set_max_progress(max_progress)
         try:
             if self.parent.opts.partition:
+                try:
+                    self.live.unmount_device()
+                except TargetDeviceBusy:
+                    self.status(
+                        _(
+                            "Unable to clone because the target USB stick is being "
+                            "used. Close all open files on the target USB stick, "
+                            "restart Tails Cloner, and try to clone again."
+                        )
+                    )
+                    self.live.log.removeHandler(self.handler)
+                    return
+
                 misc_progress = 10 ** 9 # About 1/2 of the clone time
                 max_progress += misc_progress
                 self.set_max_progress(max_progress)
