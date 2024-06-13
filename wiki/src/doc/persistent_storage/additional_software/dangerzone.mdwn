@@ -47,6 +47,20 @@
    > So, [[!tails_gitweb_commit 33eeda92533]] will break the Additional
    > Software of everybody unless we integrate the new binding automatically.
 
+1. Persist additional software repositories and Podman containers.
+
+   Edit `persistence.conf`.
+
+       gnome-text-editor admin:///live/persistence/TailsData_unlocked/persistence.conf
+
+   Persist additional repositories.
+
+       /etc/apt/sources.list.d	source=apt-sources.list.d,link
+
+   Persist Podman containers, the containerization technology used by *Dangerzone*
+
+       /home/amnesia/.local/share/containers	source=podman
+
 1. Add *Dangerzone* repo.
 
        sudo cp /usr/share/doc/tails/website/doc/persistent_storage/additional_software/dangerzone/dangerzone.sources /live/persistence/TailsData_unlocked/apt/sources/
@@ -66,14 +80,6 @@
    </ul>
 
    </div>
-
-1. Edit `persistence.conf`.
-
-       gnome-text-editor admin:///live/persistence/TailsData_unlocked/persistence.conf
-
-   Persist Podman containers.
-
-       /home/amnesia/.local/share/containers	source=podman
 
 1. Restart Tails.
 
