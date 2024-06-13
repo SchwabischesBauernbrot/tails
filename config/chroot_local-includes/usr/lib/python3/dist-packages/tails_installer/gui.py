@@ -790,6 +790,11 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             passphrase_dialog = PassphraseDialog(self, self.live)
             passphrase_dialog.run()
             if not passphrase_dialog.passphrase:
+                self.force_reinstall = False
+                self.opts.partition = False
+                self.target_selected = None
+                self.enable_widgets(True)
+                self.update_start_button()
                 return
             self.live.passphrase = passphrase_dialog.passphrase
 
