@@ -6,7 +6,7 @@
 set -euo pipefail
 
 # Enable xtrace with timestamp
-export PS4='+ $(date "+%H:%M:%S.%3N") $(basename "${BASH_SOURCE[0]}"): '
+export PS4='+ $(date "+%H:%M:%S.%3N") '
 set -x
 
 if [ "${EUID}" -ne 0 ]; then
