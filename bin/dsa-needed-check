@@ -1,10 +1,11 @@
 #!/usr/bin/python3
 
+import argparse
 import requests
 import sys
 import yaml
 
-DEFAULT_BUILD_MANIFEST_URL = "https://nightly.tails.boum.org/build_Tails_ISO_stable/lastSuccessful/archive/latest.build-manifest"
+DEFAULT_BUILD_MANIFEST_URL_TEMPLATE = "https://nightly.tails.boum.org/build_Tails_ISO_{branch}/lastSuccessful/archive/latest.build-manifest"
 DSA_NEEDED_URL = "https://salsa.debian.org/security-tracker-team/security-tracker/-/raw/master/data/dsa-needed.txt"
 
 
@@ -50,20 +51,25 @@ def main():
     Prints an excerpt of dsa-needed.txt with only the entries for
     packages also in the Tails image .build-manifest
     """
-    if len(sys.argv) > 2:
-        print("error: too many arguments")
-        sys.exit(1)
+    parser = argparse.ArgumentParser(description="list all packages that ")
+    group = parser.add_mutually_exclusive_group()
+    group.add_argument("--branch",
+                       help="The Git branch to fetch the .build-manifest for",
+                       default="stable")
+    group.add_argument("--build-manifest",
+                       type=argparse.FileType("r"),
+                       help="A local .build-manifest")
+    args = parser.parse_args()
 
-    try:
-        with open(sys.argv[1], "r") as f:
-            manifest = f.read()
-    except IndexError:
+    manifest = args.build_manifest
+    if not manifest:
         print(
-            "No .build-manifest passed as argument, fetching .build-manifest "
-            "from jenkins' most recent build of the stable branch...",
+            "Fetching .build-manifest from jenkins' most recent build of "
+            f"the {args.branch} branch...",
             file=sys.stderr,
         )
-        manifest = fetch_url_content(DEFAULT_BUILD_MANIFEST_URL)
+        url = DEFAULT_BUILD_MANIFEST_URL_TEMPLATE.format(branch=args.branch)
+        manifest = fetch_url_content(url)
 
     tails_packages = package_list_from_build_manifest(manifest)
     dsa_needed = dsa_needed_packages()
