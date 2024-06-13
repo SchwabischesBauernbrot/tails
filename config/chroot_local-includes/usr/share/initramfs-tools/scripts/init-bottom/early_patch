@@ -29,6 +29,14 @@ umount_option="$(echo "$option" | grep -w umount || true)"
 MOUNTPOINT=/root/mnt/tails.git
 
 run() {
+  # Make plymouth print the boot messages from its ring buffer to
+  # /var/log/boot.log now, to avoid that the ring buffer is overwritten
+  # by the output of the early_patch hooks, causing the boot.log to be
+  # incomplete when it's eventually written.
+  if /bin/plymouth --ping; then
+    /bin/plymouth update-root-fs --new-root-dir=/root --read-write
+  fi
+
   for mod in fscache 9pnet 9pnet_virtio 9p; do
     modprobe -vvv -d /root/ $mod
   done
