@@ -4,6 +4,9 @@
 # filesystem. It is intended to be run by the early_patch hook.
 
 set -euo pipefail
+
+# Enable xtrace with timestamp
+export PS4='+ $(date "+%H:%M:%S.%3N") $(basename "${BASH_SOURCE[0]}"): '
 set -x
 
 if [ "${EUID}" -ne 0 ]; then

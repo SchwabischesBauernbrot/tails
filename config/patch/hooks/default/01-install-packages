@@ -4,6 +4,9 @@
 # See config/patch/packages/README.md for more information.
 
 set -euo pipefail
+
+# Enable xtrace with timestamp
+export PS4='+ $(date "+%H:%M:%S.%3N") $(basename "${BASH_SOURCE[0]}"): '
 set -x
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
