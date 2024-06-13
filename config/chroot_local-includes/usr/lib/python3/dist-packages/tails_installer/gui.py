@@ -783,6 +783,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 if self.force_reinstall_button_available:
                     self.force_reinstall = False
                     self.opts.partition = False
+                self.update_start_button()
                 return
 
         if self.opts.clone_persistent_storage_requested:
