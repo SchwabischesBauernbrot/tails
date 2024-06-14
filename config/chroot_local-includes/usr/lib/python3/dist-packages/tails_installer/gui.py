@@ -81,11 +81,11 @@ class ProgressThread(threading.Thread):
         self.terminate = False
 
     def set_data(self, size, freebytes):
-        self.totalsize = size / 1024
+        self.totalsize = size
         self.get_free_bytes = freebytes
         self.orig_free = self.get_free_bytes()
         if self.parent.opts.clone_persistent_storage_requested:
-            self.tps_totalsize = get_persistent_storage_backup_size() / 1024
+            self.tps_totalsize = get_persistent_storage_backup_size()
 
     def run(self):
         value = 0
@@ -93,9 +93,9 @@ class ProgressThread(threading.Thread):
         while not self.terminate:
             if os.path.ismount("/media/amnesia/Tails/"):
                 free = self.get_free_bytes()
-                value = (self.orig_free - free) / 1024
+                value = self.orig_free - free
             if os.path.ismount("/media/amnesia/TailsData"):
-                tps_value = psutil.disk_usage("/media/amnesia/TailsData").used / 1024
+                tps_value = psutil.disk_usage("/media/amnesia/TailsData").used
             GLib.idle_add(
                 self.parent.progress,
                 float(value + tps_value) / (self.totalsize + self.tps_totalsize),
