@@ -198,7 +198,8 @@ class TailsInstallerThread(threading.Thread):
 
             self.live.check_free_space()
 
-            # Setup the progress bar
+            # Set up the ProgressThread to monitor the progress of the
+            # copy operation.
             self.progress_thread.set_data(
                 size=max_progress,
                 freebytes=self.live.get_free_bytes,
