@@ -73,7 +73,6 @@ class ProgressThread(threading.Thread):
     totalsize = 0
     tps_totalsize = 0
     orig_free = 0
-    drive = None
     get_free_bytes = None
 
     def __init__(self, parent):
@@ -81,9 +80,8 @@ class ProgressThread(threading.Thread):
         self.parent = parent
         self.terminate = False
 
-    def set_data(self, size, drive, freebytes):
+    def set_data(self, size, freebytes):
         self.totalsize = size / 1024
-        self.drive = drive
         self.get_free_bytes = freebytes
         self.orig_free = self.get_free_bytes()
         if self.parent.opts.clone_persistent_storage_requested:
@@ -189,7 +187,6 @@ class TailsInstallerThread(threading.Thread):
             # Setup the progress bar
             self.progress.set_data(
                 size=self.live.totalsize,
-                drive=self.live.drive["device"],
                 freebytes=self.live.get_free_bytes,
             )
             self.progress.start()
