@@ -104,7 +104,7 @@ class ProgressThread(threading.Thread):
             total_progress = self.prior_progress + (
                 copy_progress * (1 - self.prior_progress)
             )
-            GLib.idle_add(self.parent.progress, total_progress)
+            GLib.idle_add(self.parent.set_progress, total_progress)
             sleep(0.1)
 
     def stop(self):
@@ -241,7 +241,7 @@ class TailsInstallerThread(threading.Thread):
 
     def update_progress(self, fraction):
         self.progress = fraction
-        GLib.idle_add(self.parent.progress, float(fraction))
+        GLib.idle_add(self.parent.set_progress, float(fraction))
 
 
 class TailsInstallerLogHandler(logging.Handler):
@@ -661,7 +661,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             self.target_available = False
             self.update_start_button()
 
-    def progress(self, value):
+    def set_progress(self, value):
         self.__progressbar.set_fraction(value)
 
     def status(self, obj):
