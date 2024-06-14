@@ -73,7 +73,6 @@ class ProgressThread(threading.Thread):
     totalsize = 0
     tps_totalsize = 0
     orig_free = 0
-    get_free_bytes = None
     prior_progress = 0
 
     def __init__(self, parent):
@@ -81,10 +80,9 @@ class ProgressThread(threading.Thread):
         self.parent = parent
         self.terminate = False
 
-    def set_data(self, size, freebytes, prior_progress):
-        self.totalsize = size
-        self.get_free_bytes = freebytes
-        self.orig_free = self.get_free_bytes()
+    def set_data(self, prior_progress):
+        self.totalsize = self.parent.live.source.size
+        self.orig_free = self.parent.live.get_free_bytes()
         self.prior_progress = prior_progress
         if self.parent.opts.clone_persistent_storage_requested:
             self.tps_totalsize = get_persistent_storage_backup_size()
@@ -94,7 +92,7 @@ class ProgressThread(threading.Thread):
         tps_value = 0
         while not self.terminate:
             if os.path.ismount("/media/amnesia/Tails/"):
-                free = self.get_free_bytes()
+                free = self.parent.live.get_free_bytes()
                 value = self.orig_free - free
             if os.path.ismount("/media/amnesia/TailsData"):
                 tps_value = psutil.disk_usage("/media/amnesia/TailsData").used
@@ -195,11 +193,7 @@ class TailsInstallerThread(threading.Thread):
 
             # Set up the ProgressThread to monitor the progress of the
             # copy operation.
-            self.progress_thread.set_data(
-                size=self.live.source.size,
-                freebytes=self.live.get_free_bytes,
-                prior_progress=self.progress,
-            )
+            self.progress_thread.set_data(prior_progress=self.progress)
             self.progress_thread.start()
 
             self.live.extract_iso()
