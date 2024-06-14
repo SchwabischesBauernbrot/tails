@@ -101,9 +101,9 @@ class ProgressThread(threading.Thread):
 
 
 class TailsInstallerThread(threading.Thread):
-    def __init__(self, live, progress, parent):
+    def __init__(self, live, progress_thread, parent):
         threading.Thread.__init__(self)
-        self.progress = progress
+        self.progress_thread = progress_thread
         self.live = live
         self.parent = parent
         self.maximum = 0
@@ -192,12 +192,12 @@ class TailsInstallerThread(threading.Thread):
             self.live.check_free_space()
 
             # Setup the progress bar
-            self.progress.set_data(
+            self.progress_thread.set_data(
                 size=max_progress,
                 freebytes=self.live.get_free_bytes,
                 pre_progress=misc_progress,
             )
-            self.progress.start()
+            self.progress_thread.start()
 
             self.live.extract_iso()
             self.live.read_extracted_mbr()
@@ -213,7 +213,7 @@ class TailsInstallerThread(threading.Thread):
             # Set progress to 100% after cloning persistent storage
             self.update_progress(max_progress)
 
-            self.progress.stop()
+            self.progress_thread.stop()
 
             # Flush all filesystem buffers and unmount
             self.live.flush_buffers()
@@ -236,7 +236,7 @@ class TailsInstallerThread(threading.Thread):
             self.live.log.debug(traceback.format_exc())
 
         self.live.log.removeHandler(self.handler)
-        self.progress.stop()
+        self.progress_thread.stop()
 
     def set_max_progress(self, maximum):
         self.maximum = maximum
@@ -316,7 +316,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self.downloader = None
         self.progress_thread = ProgressThread(parent=self)
         self.live_thread = TailsInstallerThread(
-            live=self.live, progress=self.progress_thread, parent=self
+            live=self.live, progress_thread=self.progress_thread, parent=self
         )
         self.live.connect_drive_monitor(self.populate_devices)
         self.confirmed = False
