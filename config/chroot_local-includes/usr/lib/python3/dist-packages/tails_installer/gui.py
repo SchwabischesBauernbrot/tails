@@ -74,18 +74,20 @@ class ProgressThread(threading.Thread):
     total_bytes_tps = 0
     orig_free_bytes_system_partition = 0
     prior_progress = 0
+    max_progress = 0
 
     def __init__(self, parent):
         threading.Thread.__init__(self)
         self.parent = parent
         self.terminate = False
 
-    def set_data(self, prior_progress):
+    def set_data(self, prior_progress: float, max_progress: float):
         self.total_bytes_system_partition = self.parent.live.source.size
         self.orig_free_bytes_system_partition = self.parent.live.get_free_bytes()
         self.prior_progress = prior_progress
         if self.parent.opts.clone_persistent_storage_requested:
             self.total_bytes_tps = get_persistent_storage_backup_size()
+        self.max_progress = max_progress
 
     def run(self):
         bytes_copied_system_partition = 0
@@ -102,7 +104,7 @@ class ProgressThread(threading.Thread):
                 self.total_bytes_system_partition + self.total_bytes_tps
             )
             total_progress = self.prior_progress + (
-                copy_progress * (1 - self.prior_progress)
+                copy_progress * (self.max_progress - self.prior_progress)
             )
             GLib.idle_add(self.parent.set_progress, total_progress)
             sleep(0.1)
@@ -197,7 +199,10 @@ class TailsInstallerThread(threading.Thread):
 
             # Set up the ProgressThread to monitor the progress of the
             # copy operation.
-            self.progress_thread.set_data(prior_progress=self.progress)
+            self.progress_thread.set_data(
+                prior_progress=self.progress,
+                max_progress=0.95,
+            )
             self.progress_thread.start()
 
             self.live.extract_iso()
@@ -211,20 +216,20 @@ class TailsInstallerThread(threading.Thread):
             if self.parent.opts.clone_persistent_storage_requested:
                 self.live.clone_persistent_storage()
 
-            # Set progress to 100% after cloning persistent storage
-            self.update_progress(1)
-
             self.progress_thread.stop()
+            self.update_progress(0.98)
 
             # Flush all filesystem buffers and unmount
             self.live.flush_buffers()
             self.live.unmount_device()
+            self.update_progress(0.99)
 
             if self.parent.opts.partition:
                 self.live.switch_back_to_full_drive()
 
             self.live.reset_mbr_and_write_random_seed()
             self.live.flush_buffers()
+            self.update_progress(1)
 
             duration = str(datetime.now() - self.now).split(".")[0]
             self.status(_("Cloning complete! (%s)") % duration)
