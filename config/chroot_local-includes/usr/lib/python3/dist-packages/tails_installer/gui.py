@@ -131,7 +131,7 @@ class TailsInstallerThread(threading.Thread):
         self.live.log.addHandler(self.handler)
         self.now = datetime.now()
         self.live.save_full_drive()
-        max_progress=self.live.source.size
+        max_progress = self.live.source.size
         if self.parent.opts.clone_persistent_storage_requested:
             max_progress += get_persistent_storage_backup_size()
         self.set_max_progress(max_progress)
@@ -150,7 +150,7 @@ class TailsInstallerThread(threading.Thread):
                     self.live.log.removeHandler(self.handler)
                     return
 
-                misc_progress = 10 ** 9 # About 1/2 of the clone time
+                misc_progress = 10**9  # About 1/2 of the clone time
                 max_progress += misc_progress
                 self.set_max_progress(max_progress)
                 self.update_progress(0.1 * misc_progress)
