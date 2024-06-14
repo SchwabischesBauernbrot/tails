@@ -1,34 +1,86 @@
 [[!meta title="Converting dangerous documents to safe PDFs using Dangerzone"]]
 
-# Differences with Metadata Cleaner
+When you receive untrusted documents, for example, email attachments,
+*[Dangerzone](https://dangerzone.rocks/)* allows you to convert them into safe
+PDFs before opening.
 
-- Metadata Cleaner to clean metadata from your files before sharing or publishing
-- Dangerzone to sanitize dangerous files from the Internet
-- Metadata Cleaner turns PDFs into images
-- Dangerzone does that too but integrates OCR to be able to copy the text from PDFs
+*Dangerzone* is particularly useful for journalists who might receive dangerous
+documents from anonymous sources or download them from the Internet.
 
-# Formats
+<div class="tip">
 
-- PDF (.pdf)
-- Microsoft Word (.docx, .doc)
-- Microsoft Excel (.xlsx, .xls)
-- Microsoft PowerPoint (.pptx, .ppt)
-- ODF Text (.odt)
-- ODF Spreadsheet (.ods)
-- ODF Presentation (.odp)
-- ODF Graphics (.odg)
-- EPUB (.epub)
-- Jpeg (.jpg, .jpeg)
-- GIF (.gif)
-- PNG (.png)
-- SVG (.svg)
-- TIFF (.tif, .tiff)
-- Other image formats (.bmp, .pnm, .pbm, ppm)
+<p><i>Dangerzone</i> is created by <a href="https://freedom.press/">Freedom of
+the Press Foundation</a>, a non-profit that protects public-interest
+journalism. Edward Snowden and Laura Poitras are in its Board of Directors.</p>
 
-# Requirements
+</div>
 
-- At least 8 GB of RAM
-- At least 12 GB available in the Persistent Storage
+You can install *Dangerzone* in Tails as [[additional
+software||additional_software]].
+
+We are not including *Dangerzone* in Tails only because it would be too big
+(over 1 GB), but we highly recommend it.
+
+Learn more about [how *Dangerzone* works](https://dangerzone.rocks/about.html).
+
+[[!toc levels=2]]
+
+Supported formats
+=================
+
+*Dangerzone* works on many file formats, including:
+
+- PDFs
+
+- *Microsoft Office* documents, such as .docx, .xlsx, and .pptx
+
+- *LibreOffice* documents, such as .odt and .ods
+
+- Images, such as .jpg, .gif, .svg, .tiff, and .png
+
+- EPUB ebooks
+
+Differences between *Dangerzone* and *Metadata Cleaner*
+=======================================================
+
+Tails also includes [[*Metadata Cleaner*|doc/sensitive_documents/metadata]] to
+clean files, but the use cases for *Dangerzone* and *Metadata Cleaner* are very
+different.
+
+We recommend that you use:
+
+- *Metadata Cleaner* to [[remove metadata from your files]] before you publish
+  or share them.
+
+- *Dangerzone* to sanitize untrusted documents shared with you by others.
+
+<table>
+<tr><th></th><th class="w30"><span class="application">Dangerzone</span></th><th class="w30"><span class="application">Metadata Cleaner</span></th></tr>
+<tr><td>Safe to use on</td><td>Other people's files</td><td>Your files only</td></tr>
+<tr><td>Clean audio and video files</td><td class="cross">No</td><td class="check">Yes</td></tr>
+<tr><td>Clean images embedded in office documents</td><td class="check"><span class="check">Yes</span></td><td class="cross">No</td></tr>
+<tr><td>Clean visual metadata and fingerprints ¹</td><td class="cross">No</td><td class="cross">No</td></tr>
+<tr><td>Allow selecting text in generated PDFs</td><td class="check">Yes</td><td class="cross">No</td></tr>
+<tr><td>Speed</td><td class="cross">Slower</td><td class="check">Faster</td></tr>
+<tr><td>Included in Tails by default</td><td class="cross">No</td><td class="check">Yes</td></tr>
+</table>
+
+1. For example [[!wikipedia Machine Identification Code desc="printer tracking
+dots"]], printing imperfections, or intentional misspellings
+
+System requirements
+===================
+
+*Dangerzone* requires a lot of memory in the computer and space in your
+Persistent Storage because it relies on [[!wikipedia Containerization
+(computing) desc="software containers"]] to manipulate dangerous files
+securely.
+
+To install *Dangerzone*, you need at least:
+
+- 8 GB of RAM
+
+- 12 GB available in the Persistent Storage
 
 # Procedure
 
