@@ -70,6 +70,12 @@ class ProgressThread(threading.Thread):
     progress bar.
     """
 
+    totalsize = 0
+    tps_totalsize = 0
+    orig_free = 0
+    get_free_bytes = None
+    prior_progress = 0
+
     def __init__(self, parent):
         threading.Thread.__init__(self)
         self.parent = parent
