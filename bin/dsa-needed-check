@@ -13,7 +13,7 @@ def fetch_url_content(url):
     """
     Fetches url and returns its content
     """
-    request = requests.get(url)
+    request = requests.get(url, timeout=60)
     if not request.ok:
         request.raise_for_status()
     return request.content.decode("utf-8")
@@ -62,12 +62,14 @@ def main():
     """
     parser = argparse.ArgumentParser(description="list all packages that ")
     group = parser.add_mutually_exclusive_group()
-    group.add_argument("--branch",
-                       help="The Git branch to fetch the .build-manifest for",
-                       default="stable")
-    group.add_argument("--build-manifest",
-                       type=argparse.FileType("r"),
-                       help="A local .build-manifest")
+    group.add_argument(
+        "--branch",
+        help="The Git branch to fetch the .build-manifest for",
+        default="stable",
+    )
+    group.add_argument(
+        "--build-manifest", type=argparse.FileType("r"), help="A local .build-manifest"
+    )
     args = parser.parse_args()
 
     manifest = args.build_manifest
