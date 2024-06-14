@@ -115,7 +115,7 @@ class TailsInstallerThread(threading.Thread):
         self.progress_thread = progress_thread
         self.live = live
         self.parent = parent
-        self.maximum = 0
+        self.progress = 0
 
     def status(self, text):
         GLib.idle_add(self.parent.status, text)
@@ -135,13 +135,11 @@ class TailsInstallerThread(threading.Thread):
         GLib.idle_add(self.parent.on_installation_complete, None)
 
     def run(self):
-        progress = 0
         self.handler = TailsInstallerLogHandler(self.status)
         self.live.log.addHandler(self.handler)
         self.now = datetime.now()
         self.live.save_full_drive()
-        max_progress = self.live.source.size
-        self.set_max_progress(max_progress)
+
         try:
             if self.parent.opts.partition:
                 try:
@@ -157,10 +155,7 @@ class TailsInstallerThread(threading.Thread):
                     self.live.log.removeHandler(self.handler)
                     return
 
-                progress = 10**9  # About 1/2 of the clone time
-                max_progress += progress
-                self.set_max_progress(max_progress)
-                self.update_progress(0.1 * progress)
+                self.update_progress(0.025)
                 self.live.unmount_device()
                 if not self.live.can_read_partition_table():
                     self.live.log.info("Clearing unreadable partition table.")
@@ -176,13 +171,13 @@ class TailsInstallerThread(threading.Thread):
                     self.live.drives[parent_data["device"]] = parent_data
                     self.live.drive = parent_data["device"]
                     self.live.save_full_drive()
-                self.update_progress(0.2 * progress)
+                self.update_progress(0.05)
                 partition_udi = self.live.partition_device()
-                self.update_progress(0.8 * progress)
+                self.update_progress(0.45)
                 self.rescan_partition(partition_udi)
                 self.live.switch_drive_to_system_partition()
                 self.live.format_device()
-                self.update_progress(progress)
+                self.update_progress(0.5)
                 self.live.mount_device()
 
             self.live.verify_filesystem()
@@ -201,9 +196,9 @@ class TailsInstallerThread(threading.Thread):
             # Set up the ProgressThread to monitor the progress of the
             # copy operation.
             self.progress_thread.set_data(
-                size=max_progress,
+                size=self.live.source.size,
                 freebytes=self.live.get_free_bytes,
-                prior_progress=progress,
+                prior_progress=self.progress,
             )
             self.progress_thread.start()
 
@@ -219,7 +214,7 @@ class TailsInstallerThread(threading.Thread):
                 self.live.clone_persistent_storage()
 
             # Set progress to 100% after cloning persistent storage
-            self.update_progress(max_progress)
+            self.update_progress(1)
 
             self.progress_thread.stop()
 
@@ -246,11 +241,9 @@ class TailsInstallerThread(threading.Thread):
         self.live.log.removeHandler(self.handler)
         self.progress_thread.stop()
 
-    def set_max_progress(self, maximum):
-        self.maximum = maximum
-
-    def update_progress(self, value):
-        GLib.idle_add(self.parent.progress, float(value) / self.maximum)
+    def update_progress(self, fraction):
+        self.progress = fraction
+        GLib.idle_add(self.parent.progress, float(fraction))
 
 
 class TailsInstallerLogHandler(logging.Handler):
