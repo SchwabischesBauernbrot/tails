@@ -22,11 +22,21 @@ option="$(tr ' ' '\n' < /proc/cmdline | grep -E '\b(early_)?patch\b')"
 
 [ -n "$option" ] || exit 0
 
+# We support setting the option to "umount" to unmount the git repo
+# after the hooks have been run, or to the name of a custom directory
+# below config/patch/hooks/ to run the hooks in that directory. Multiple
+# options can be passed, separated by commas.
 umount_option="$(echo "$option" | grep -w umount || true)"
+if echo "$option" | grep -q =; then
+  hook_dirs="$(echo "$option" | cut -d= -f2 | tr , ' ' || true)"
+else
+  hook_dirs="default"
+fi
 
 . /scripts/functions
 
 MOUNTPOINT=/root/mnt/tails.git
+HOOKS_DIR=${MOUNTPOINT}/config/patch/hooks
 
 run() {
   # Make plymouth print the boot messages from its ring buffer to
@@ -75,17 +85,19 @@ See https://tails.net/contribute/build/early-patch/ for more information."
   # Avoid that git fails because of dubious ownership
   chroot /root git config --global --add safe.directory "${MOUNTPOINT#/root}"
 
-  if [ -n "${umount_option}" ]; then
-    HOOK_DIR="${MOUNTPOINT}/config/patch/hooks/umount"
-  else
-    HOOK_DIR="${MOUNTPOINT}/config/patch/hooks/default"
-  fi
-  HOOKS=$(ls -1 "${HOOK_DIR}"/* 2>/dev/null || true)
+  for hook_dir_basename in $hook_dirs; do
+    hook_dir="${HOOKS_DIR}/${hook_dir_basename}"
+    if [ ! -d "${hook_dir}" ]; then
+      echo >&2 "Hook directory not found: ${hook_dir}"
+      exit 1
+    fi
+    hooks=$(ls -1 "${hook_dir}"/* 2>/dev/null || true)
 
-  for hook in $HOOKS; do
-    # The #/root part makes the path relative to the chroot
-    echo >&2 "Running hook: ${hook#/root}"
-    chroot /root "${hook#/root}"
+    for hook in $hooks; do
+      # The #/root part makes the path relative to the chroot
+      echo >&2 "Running hook: ${hook#/root}"
+      chroot /root "${hook#/root}"
+    done
   done
 
   # Unmount the git repo if umount was requested. This is needed when
