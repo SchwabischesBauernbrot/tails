@@ -82,40 +82,60 @@ To install *Dangerzone*, you need at least:
 
 - 12 GB available in the Persistent Storage
 
-# Procedure
+Installing *Dangerzone*
+=======================
+
+To install *Dangerzone* as additional software in Tails, you have to:
+
+1. [[Configure the *Dangerzone* APT repository|dangerzone#configure]]
+
+1. [[Install the *Dangerzone* package|dangerzone#install]]
+
+1. [[Convert a test document|dangerzone#test]]
+
+<h2 id="configure">Configure the <i>Dangerzone</i> APT repository</h2>
 
 1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
 
-1. Enable Additional Software feature.
+1. Choose **Applications&nbsp;▸ Persistent Storage** to open the
+   Persistent Storage settings.
 
-   > Additional Software is enabled by default since Tails 5.0. ([[!tails_mr 800]])
-   >
-   > When I restart a Tails 6.3 with [[!tails_gitweb_commit 33eeda92533]] on top:
-   >
-   >  - The Additional Software feature gets disabled with `The data of this feature is still saved`.
-   >  - The configuration in `persistence.conf` is not changed to include `sources.lists.d`.
-   >  - I get back on my feet and have persistent `sources.lists.d`, if I enable the feature again.
-   >
-   > So, [[!tails_gitweb_commit 33eeda92533]] will break the Additional
-   > Software of everybody unless we integrate the new binding automatically.
+   Create a Persistent Storage if you don't have one already.
 
-1. Persist additional software repositories and Podman containers.
+   Make sure that the **Additional Software** feature is enabled.
 
-   Edit `persistence.conf`.
+   Close the Persistent Storage settings.
+
+1. Choose **Applications&nbsp;▸ Utilities&nbsp;▸ Terminal** to open a
+   terminal without administration rights.
+
+1. Execute the following command to open the configuration of your Persistent
+   Storage in the *Text Editor* with administration rights.
 
        gnome-text-editor admin:///live/persistence/TailsData_unlocked/persistence.conf
 
-   Persist additional repositories.
+   Add the following line to store the configuration of third-party APT
+   repositories in your Persistent Storage.
 
-       /etc/apt/sources.list.d	source=apt-sources.list.d,link
+       /etc/apt/sources.list.d	source=apt/sources,link
 
-   Persist Podman containers, the containerization technology used by *Dangerzone*
+   Add the following line to store *Podman* containers in your Persistent
+   Storage. [*Podman*](https://podman.io/) is the containerization technology
+   used by *Dangerzone*.
 
        /home/amnesia/.local/share/containers	source=podman
 
-1. Add *Dangerzone* repo.
+   Save your changes and close the *Text Editor*.
 
-       sudo cp /usr/share/doc/tails/website/doc/persistent_storage/additional_software/dangerzone/dangerzone.sources /live/persistence/TailsData_unlocked/apt/sources/
+1. Choose **Applications&nbsp;▸ System Tools&nbsp;▸ Root Terminal** to open a
+   terminal with administration rights.
+
+1. Execute the following commands to configure the *Dangerzone* repository as
+   additional APT repository.
+
+   <p class="command-root">mkdir /live/persistence/TailsData_unlocked/apt/sources</p>
+
+   <p class="command-root">cp /usr/share/doc/tails/website/doc/persistent_storage/additional_software/dangerzone/dangerzone.sources /live/persistence/TailsData_unlocked/apt/sources/</p>
 
    <div class="caution">
 
@@ -135,18 +155,65 @@ To install *Dangerzone*, you need at least:
 
 1. Restart Tails.
 
+<h2 id="install">Install the <i>Dangerzone</i> package</h2>
+
 1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
 
-1. Install.
+1. [[Connect to the Tor network|doc/anonymous_internet/tor]].
 
-       sudo apt update
+1. Choose **Applications&nbsp;▸ System Tools&nbsp;▸ Root Terminal** to open a
+   terminal with administration rights.
 
-       sudo apt install dangerzone fuse-overlayfs
+1. Execute the following commands to install the `dangerzone` package and its dependencies.
 
-1. Add to Additional Software from notification.
+   <p class="command-root">apt update</p>
 
-1. Do a first run from the command line.
+   <p class="command-root">apt install dangerzone fuse-overlayfs rootlesskit</p>
 
-       dangerzone
+1. After the packages are installed, a notification appears to ask if you want
+   to install `dangerzone`, `fuse-overlayfs`, and `rootlesskit` every time you
+   start Tails in the future.
 
-1. Do the following runs from **Applications&nbsp;▸ Office&nbsp;▸ Dangerzone**.
+   Choose to **Install Every Time**.
+
+1. Close the *Root Terminal*.
+
+<h2 id="test">Convert a test document</h2>
+
+1. Choose **Applications&nbsp;▸ Office&nbsp;▸ Dangerzone** to start
+   *Dangerzone*.
+
+   When started for the first time, *Dangerzone* installs its container.
+
+   This operation can take several minutes.
+
+   After the setup finishes, a button appears to **Select suspicious
+   documents**.
+
+   [[!img dangerzone.png link="no" class="screenshot" alt=""]]
+
+1. Select a simple document to test the conversion process, like an empty
+   *LibreOffice* document or an image.
+
+   Converting this first document can also take several minutes. After this
+   first document, converting other documents will be faster.
+
+   <div class="bug">
+
+   <p>If converting fails with the error <span class="code">Unknown error code
+   '125'</span>, restart Tails and try again.</p>
+
+   <p><i>Dangerzone</i> needs a lot of available RAM when running for the first
+   time. Restarting Tails frees as much RAM as possible.</p>
+
+   <p><i>Dangerzone</i> requires at least 8 GB of RAM to install.</p>
+
+   </div>
+
+1. After the conversion finishes, the original document is moved to a new
+   *unsafe* folder and the name of the safe document that has been created
+   includes *safe*. For example:
+
+       ├── document-safe.odt
+       └── unsafe
+           └── document.odt
