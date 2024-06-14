@@ -126,7 +126,7 @@ class TailsInstallerThread(threading.Thread):
         GLib.idle_add(self.parent.on_installation_complete, None)
 
     def run(self):
-        misc_progress = 0
+        progress = 0
         self.handler = TailsInstallerLogHandler(self.status)
         self.live.log.addHandler(self.handler)
         self.now = datetime.now()
@@ -150,10 +150,10 @@ class TailsInstallerThread(threading.Thread):
                     self.live.log.removeHandler(self.handler)
                     return
 
-                misc_progress = 10**9  # About 1/2 of the clone time
-                max_progress += misc_progress
+                progress = 10**9  # About 1/2 of the clone time
+                max_progress += progress
                 self.set_max_progress(max_progress)
-                self.update_progress(0.1 * misc_progress)
+                self.update_progress(0.1 * progress)
                 self.live.unmount_device()
                 if not self.live.can_read_partition_table():
                     self.live.log.info("Clearing unreadable partition table.")
@@ -169,13 +169,13 @@ class TailsInstallerThread(threading.Thread):
                     self.live.drives[parent_data["device"]] = parent_data
                     self.live.drive = parent_data["device"]
                     self.live.save_full_drive()
-                self.update_progress(0.2 * misc_progress)
+                self.update_progress(0.2 * progress)
                 partition_udi = self.live.partition_device()
-                self.update_progress(0.8 * misc_progress)
+                self.update_progress(0.8 * progress)
                 self.rescan_partition(partition_udi)
                 self.live.switch_drive_to_system_partition()
                 self.live.format_device()
-                self.update_progress(misc_progress)
+                self.update_progress(progress)
                 self.live.mount_device()
 
             self.live.verify_filesystem()
@@ -195,7 +195,7 @@ class TailsInstallerThread(threading.Thread):
             self.progress_thread.set_data(
                 size=max_progress,
                 freebytes=self.live.get_free_bytes,
-                pre_progress=misc_progress,
+                pre_progress=progress,
             )
             self.progress_thread.start()
 
