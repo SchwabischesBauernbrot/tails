@@ -70,9 +70,9 @@ class ProgressThread(threading.Thread):
     progress bar.
     """
 
-    totalsize = 0
-    tps_totalsize = 0
-    orig_free = 0
+    total_bytes_system_partition = 0
+    total_bytes_tps = 0
+    orig_free_bytes_system_partition = 0
     prior_progress = 0
 
     def __init__(self, parent):
@@ -81,22 +81,26 @@ class ProgressThread(threading.Thread):
         self.terminate = False
 
     def set_data(self, prior_progress):
-        self.totalsize = self.parent.live.source.size
-        self.orig_free = self.parent.live.get_free_bytes()
+        self.total_bytes_system_partition = self.parent.live.source.size
+        self.orig_free_bytes_system_partition = self.parent.live.get_free_bytes()
         self.prior_progress = prior_progress
         if self.parent.opts.clone_persistent_storage_requested:
-            self.tps_totalsize = get_persistent_storage_backup_size()
+            self.total_bytes_tps = get_persistent_storage_backup_size()
 
     def run(self):
-        value = 0
-        tps_value = 0
+        bytes_copied_system_partition = 0
+        bytes_copied_tps = 0
         while not self.terminate:
             if os.path.ismount("/media/amnesia/Tails/"):
                 free = self.parent.live.get_free_bytes()
-                value = self.orig_free - free
+                bytes_copied_system_partition = (
+                    self.orig_free_bytes_system_partition - free
+                )
             if os.path.ismount("/media/amnesia/TailsData"):
-                tps_value = psutil.disk_usage("/media/amnesia/TailsData").used
-            copy_progress = (value + tps_value) / (self.totalsize + self.tps_totalsize)
+                bytes_copied_tps = psutil.disk_usage("/media/amnesia/TailsData").used
+            copy_progress = (bytes_copied_system_partition + bytes_copied_tps) / (
+                self.total_bytes_system_partition + self.total_bytes_tps
+            )
             total_progress = self.prior_progress + (
                 copy_progress * (1 - self.prior_progress)
             )
