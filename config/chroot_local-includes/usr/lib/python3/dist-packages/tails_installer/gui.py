@@ -86,6 +86,8 @@ class ProgressThread(threading.Thread):
         self.get_free_bytes = freebytes
         self.orig_free = self.get_free_bytes()
         self.prior_progress = prior_progress
+        if self.parent.opts.clone_persistent_storage_requested:
+            self.tps_totalsize = get_persistent_storage_backup_size()
 
     def run(self):
         value = 0
@@ -96,10 +98,11 @@ class ProgressThread(threading.Thread):
                 value = self.orig_free - free
             if os.path.ismount("/media/amnesia/TailsData"):
                 tps_value = psutil.disk_usage("/media/amnesia/TailsData").used
-            GLib.idle_add(
-                self.parent.progress,
-                float(self.prior_progress + value + tps_value) / self.totalsize,
+            copy_progress = (value + tps_value) / (self.totalsize + self.tps_totalsize)
+            total_progress = self.prior_progress + (
+                copy_progress * (1 - self.prior_progress)
             )
+            GLib.idle_add(self.parent.progress, total_progress)
             sleep(0.1)
 
     def stop(self):
@@ -138,8 +141,6 @@ class TailsInstallerThread(threading.Thread):
         self.now = datetime.now()
         self.live.save_full_drive()
         max_progress = self.live.source.size
-        if self.parent.opts.clone_persistent_storage_requested:
-            max_progress += get_persistent_storage_backup_size()
         self.set_max_progress(max_progress)
         try:
             if self.parent.opts.partition:
