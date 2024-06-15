@@ -114,7 +114,6 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.box_settings_values = builder.get_object("box_settings_values")
         self.box_storage = builder.get_object("box_storage")
         self.box_storage_unlock = builder.get_object("box_storage_unlock")
-        self.box_storage_unlocked = builder.get_object("box_storage_unlocked")
         self.entry_storage_passphrase = builder.get_object("entry_storage_passphrase")
         self.button_storagecreate_create = builder.get_object(
             "button_storagecreate_create"
@@ -185,7 +184,14 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.box_storage = builder.get_object("box_storage")
         self.box_storagecreate = builder.get_object("box_storagecreate")
         self.box_storage_unlock = builder.get_object("box_storage_unlock")
-        self.box_storage_unlocked = builder.get_object("box_storage_unlocked")
+        self.box_storage_unlock_status = builder.get_object("box_storage_unlock_status")
+        self.label_storage_unlock_status = builder.get_object(
+            "label_storage_unlock_status"
+        )
+        self.image_storage_unlock_failed = builder.get_object(
+            "image_storage_unlock_failed"
+        )
+
         self.box_storage_error = builder.get_object("box_storage_error")
         self.button_storage_unlock = builder.get_object("button_storage_unlock")  # type: Gtk.Button
         self.checkbutton_storage_show_passphrase = builder.get_object(
@@ -197,8 +203,6 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.linkbutton_storage_readonly_help = builder.get_object(
             "linkbutton_storage_readonly_help",
         )
-        self.infobar_persistence = builder.get_object("infobar_persistence")
-        self.label_infobar_persistence = builder.get_object("label_infobar_persistence")
         self.spinner_storage_unlock = builder.get_object("spinner_storage_unlock")
         self.button_start = builder.get_object("button_start")
 
@@ -209,7 +213,6 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.box_storage.set_focus_chain(
             [
                 self.box_storage_unlock,
-                self.box_storage_unlocked,
                 self.checkbutton_storage_show_passphrase,
             ]
         )
@@ -369,9 +372,11 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.get_root_window().set_cursor(Gdk.Cursor.new(Gdk.CursorType.ARROW))
 
     def unlock_tps(self):
-        self.entry_storage_passphrase.set_sensitive(False)
-        self.button_storage_unlock.set_sensitive(False)
-        self.button_storage_unlock.set_label(_("Unlocking…"))
+        self.box_storage_unlock.set_visible(False)
+        self.label_storage_unlock_status.set_label(_("Unlocking…"))
+        self.label_storage_unlock_status.set_visible(True)
+        self.image_storage_unlock_failed.set_visible(False)
+        self.box_storage_unlock_status.set_visible(True)
         self.checkbutton_storage_show_passphrase.set_visible(False)
         self.image_storage_state.set_visible(False)
         self.spinner_storage_unlock.set_visible(True)
@@ -495,9 +500,6 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         return False
 
     def cb_entry_storage_passphrase_changed(self, editable, user_data=None):
-        # Remove warning icon
-        editable.set_icon_from_icon_name(Gtk.EntryIconPosition.SECONDARY, None)
-
         # Only allow starting if the password entry is empty. We used to
         # attempt unlocking with the entered password when the "Start Tails"
         # button was clicked, but changed that behavior (see #17136), so
@@ -595,13 +597,9 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         else:
             if self.tps_upgrade_failed:
                 self.on_tps_upgrade_failed()
-            else:
-                self.infobar_persistence.set_visible(False)
 
         self.box_storage_unlock.set_visible(False)
         self.spinner_storage_unlock.set_visible(False)
-        self.entry_storage_passphrase.set_visible(False)
-        self.button_storage_unlock.set_visible(False)
         self.image_storage_state.set_from_icon_name(
             "tails-unlocked", Gtk.IconSize.BUTTON
         )
@@ -613,7 +611,12 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
 
         # We're done unlocking and activating the Persistent Storage
         self.image_storage_state.set_visible(True)
-        self.box_storage_unlocked.set_visible(True)
+        self.image_storage_unlock_failed.set_visible(False)
+        self.label_storage_unlock_status.set_label(
+            _(
+                "Your Persistent Storage is unlocked. Its content will be available until you shut down Tails."
+            ),
+        )
         self.button_start.set_sensitive(True)
 
     def cb_checkbutton_storage_show_passphrase_toggled(self, widget):
@@ -621,20 +624,15 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
 
     def cb_tps_unlock_failed_with_incorrect_passphrase(self):
         logging.debug("Storage unlock failed")
-        self.entry_storage_passphrase.set_sensitive(True)
-        self.button_storage_unlock.set_sensitive(True)
-        self.button_storage_unlock.set_label(_("Unlock Encryption"))
+        self.box_storage_unlock.set_visible(True)
         self.checkbutton_storage_show_passphrase.set_visible(True)
         self.image_storage_state.set_visible(True)
         self.spinner_storage_unlock.set_visible(False)
-        self.label_infobar_persistence.set_label(
-            _("Cannot unlock encrypted storage with this passphrase.")
+        self.label_storage_unlock_status.set_label(
+            _("Incorrect passphrase. Please try again."),
         )
-        self.infobar_persistence.set_visible(True)
+        self.image_storage_unlock_failed.set_visible(True)
         self.entry_storage_passphrase.select_region(0, -1)
-        self.entry_storage_passphrase.set_icon_from_icon_name(
-            Gtk.EntryIconPosition.SECONDARY, "dialog-warning-symbolic"
-        )
         self.entry_storage_passphrase.grab_focus()
 
     def on_tps_upgrade_failed(self):
@@ -657,17 +655,16 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                 "Failed to activate the Persistent Storage. "
                 "Please start Tails and send an error report."
             )
-        self.button_storage_unlock.set_label(_("Unlock Encryption"))
         self.image_storage_state.set_visible(True)
         self.spinner_storage_unlock.set_visible(False)
-        self.label_infobar_persistence.set_label(label)
-        self.infobar_persistence.set_visible(True)
+        self.label_storage_unlock_status.set_label(label)
+        self.image_storage_unlock_failed.set_visible(True)
         self.button_start.set_sensitive(True)
+        self.box_storage_unlock_status.set_visible(True)
 
     def on_tps_upgrading(self):
         label = _("Upgrading the Persistent Storage. This may take a while…")
-        self.label_infobar_persistence.set_label(label)
-        self.infobar_persistence.set_visible(True)
+        self.label_storage_unlock_status.set_label(label)
 
 
 class GreeterBackgroundWindow(Gtk.ApplicationWindow):

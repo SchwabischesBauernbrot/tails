@@ -679,14 +679,11 @@ end
 Given /^I enable persistence( with the changed passphrase)?$/ do |with_changed_passphrase|
   step "I try to enable persistence#{with_changed_passphrase}"
 
-  # Wait until the Persistent Storage was unlocked. We use the fact that
-  # the unlock button is made invisible when the Persistent Storage is
-  # unlocked.
+  # Wait until the Persistent Storage was unlocked.
   try_for(120) do
-    !greeter.child?('Unlock Encryption',
-                    roleName: 'push button', retry: false) && \
-      !greeter.child?('Unlocking…',
-                      roleName: 'push button', retry: false)
+    greeter.child?('Your Persistent Storage is unlocked. ' \
+                     'Its content will be available until you shut down Tails.',
+                   roleName: 'label')
   end
 
   # Figure out which language is set now that the Persistent Storage is
