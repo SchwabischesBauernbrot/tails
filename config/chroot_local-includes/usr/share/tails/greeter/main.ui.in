@@ -406,23 +406,6 @@
                 <property name="can-focus">False</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkLabel" id="label_passphrase">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">_Passphrase</property>
-                    <property name="use-underline">True</property>
-                    <property name="mnemonic-widget">entry_storage_passphrase</property>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -431,6 +414,7 @@
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="visibility">False</property>
+                        <property name="placeholder-text" translatable="yes">Enter your passphrase</property>
                         <signal name="activate" handler="cb_entry_storage_passphrase_activated" swapped="no"/>
                         <signal name="changed" handler="cb_entry_storage_passphrase_changed" swapped="no"/>
                         <style>
