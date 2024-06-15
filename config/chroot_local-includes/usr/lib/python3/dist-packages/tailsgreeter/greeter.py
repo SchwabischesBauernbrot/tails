@@ -145,8 +145,8 @@ class GreeterApplication:
         )
         if unlock_param:
             password = unlock_param[len("unlock=") :]
-            self.mainwindow.persistent_storage.persistence_setting.unlock(password)
-            self.mainwindow.persistent_storage.cb_unlocked()
+            self.mainwindow.persistence_setting.unlock(password)
+            self.mainwindow.cb_tps_unlocked()
 
         if "login" in kernel_params:
             self.login()
