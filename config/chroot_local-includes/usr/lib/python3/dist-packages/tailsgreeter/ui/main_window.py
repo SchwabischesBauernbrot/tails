@@ -27,6 +27,7 @@ from tailsgreeter.errors import (
     FeatureActivationFailedError,
     PersistentStorageError,
     WrongPassphraseError,
+    FilesystemErrorsLeftUncorrectedError,
 )
 from tailsgreeter.settings import SettingNotFoundError
 from tailsgreeter.translatable_window import TranslatableWindow
@@ -114,6 +115,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.box_settings_values = builder.get_object("box_settings_values")
         self.box_storage = builder.get_object("box_storage")
         self.box_storage_unlock = builder.get_object("box_storage_unlock")
+        self.box_storage_unlock_status = builder.get_object("box_storage_unlocked")
         self.entry_storage_passphrase = builder.get_object("entry_storage_passphrase")
         self.button_storagecreate_create = builder.get_object(
             "button_storagecreate_create"
@@ -371,9 +373,14 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.button_start.grab_focus()
         self.get_root_window().set_cursor(Gdk.Cursor.new(Gdk.CursorType.ARROW))
 
-    def unlock_tps(self):
+    def unlock_tps(self, forceful_fsck: bool = False):
         self.box_storage_unlock.set_visible(False)
-        self.label_storage_unlock_status.set_label(_("Unlocking…"))
+        if forceful_fsck:
+            self.label_storage_unlock_status.set_label(
+                _("Unlocking and repairing filesystem. This might take a long time…")
+            )
+        else:
+            self.label_storage_unlock_status.set_label(_("Unlocking…"))
         self.label_storage_unlock_status.set_visible(True)
         self.image_storage_unlock_failed.set_visible(False)
         self.box_storage_unlock_status.set_visible(True)
@@ -384,10 +391,12 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         passphrase = self.entry_storage_passphrase.get_text()
 
         # Let's execute the unlocking in a thread
-        def do_unlock_tps():
+        def do_unlock_tps(forceful_fsck: bool):
             try:
-                # First, upgrade the storage if needed
-                if not self.persistence_setting.is_upgraded:
+                # First, upgrade the storage if needed (skip if we're
+                # doing a forceful fsck, because then we already tried
+                # to upgrade)
+                if not self.persistence_setting.is_upgraded and not forceful_fsck:
                     try:
                         GLib.idle_add(self.on_tps_upgrading)
                         self.persistence_setting.upgrade_luks(passphrase)
@@ -398,16 +407,23 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                         self.tps_upgrade_failed = True
 
                 # Then, unlock the storage
-                self.persistence_setting.unlock(passphrase)
+                self.persistence_setting.unlock(passphrase, forceful_fsck)
                 GLib.idle_add(self.cb_tps_unlocked)
             except WrongPassphraseError:
                 GLib.idle_add(self.cb_tps_unlock_failed_with_incorrect_passphrase)
+            except FilesystemErrorsLeftUncorrectedError:
+                if forceful_fsck:
+                    # We already tried to unlock the storage with a forceful fsck
+                    # and it still failed, so we give up
+                    GLib.idle_add(self.on_tps_unlock_failed)
+                else:
+                    GLib.idle_add(self.cb_unlock_failed_with_filesystem_errors)
             except PersistentStorageError as e:
                 logging.error(e)
                 GLib.idle_add(self.on_tps_unlock_failed)
                 return
 
-        unlocking_thread = threading.Thread(target=do_unlock_tps)
+        unlocking_thread = threading.Thread(target=do_unlock_tps, args=(forceful_fsck,))
         unlocking_thread.start()
 
     # Callbacks
@@ -634,6 +650,37 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.image_storage_unlock_failed.set_visible(True)
         self.entry_storage_passphrase.select_region(0, -1)
         self.entry_storage_passphrase.grab_focus()
+
+    def cb_unlock_failed_with_filesystem_errors(self):
+        logging.debug("Persistent Storage unlock failed due to filesystem errors")
+        # Ask the user if they want to repair the filesystem
+        dialog = MessageDialog(
+            message_type=Gtk.MessageType.WARNING,
+            title=_("File System Errors"),
+            text=_(
+                """Errors were detected in the Persistent Storage file system.
+                
+Tails can try to fix these errors, but this may take a long time and might make it harder to recover your data if something goes wrong.
+                
+If you already have an up-to-date backup of your Persistent Storage, we recommend that you try to repair.
+                
+If you don't have a backup, we recommend that you create a backup first."""
+            ),
+            cancel_label=_("Cancel"),
+            ok_label=_("Repair File System"),
+            third_button_label=_("Create Backup"),
+            destructive=True,
+        )
+        dialog.set_transient_for(self)
+        response = dialog.run()
+        dialog.set_visible(False)
+        if response != Gtk.ResponseType.OK:
+            self.on_tps_unlock_failed()
+            return
+
+        # Try to unlock the Persistent Storage again with a forceful
+        # fsck
+        self.unlock_tps(forceful_fsck=True)
 
     def on_tps_upgrade_failed(self):
         label = _(

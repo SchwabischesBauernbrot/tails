@@ -77,3 +77,7 @@ class InvalidConfigFileError(DBusError):
 
 class FeatureActivationFailedError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.FeatureActivationFailedError"
+
+
+class FilesystemErrorsLeftUncorrectedError(DBusError):
+    name = "org.boum.tails.PersistentStorage.Error.FilesystemErrorsLeftUncorrectedError"

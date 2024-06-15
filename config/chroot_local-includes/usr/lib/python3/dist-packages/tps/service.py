@@ -31,6 +31,7 @@ from tps.device import (
     TPSPartition,
     InvalidBootDeviceError,
     InvalidPartitionError,
+    PartitionNotUnlockedError,
 )
 from tps.job import ServiceUsingJobs
 from tps import (
@@ -91,6 +92,7 @@ class Service(DBusObject, ServiceUsingJobs):
                 <method name='Activate'/>
                 <method name='Unlock'>
                     <arg name='passphrase' direction='in' type='s'/>
+                    <arg name='forceful_fsck' direction='in' type='b'/>
                 </method>
                 <method name='UpgradeLUKS'>
                     <arg name='passphrase' direction='in' type='s'/>
@@ -354,18 +356,21 @@ class Service(DBusObject, ServiceUsingJobs):
             msg = ":".join(failed_feature_names)
             raise FeatureActivationFailedError(msg)
 
-    def Unlock(self, passphrase: str):
+    def Unlock(self, passphrase: str, forceful_fsck: bool):
         """Unlock and mount the Persistent Storage"""
 
         logger.info("Unlocking Persistent Storage...")
 
-        # Check if we can unlock the Persistent Storage
-        if self.state != State.NOT_UNLOCKED:
+        # Check if we can unlock the Persistent Storage. We also support
+        # unlocking when the state is UNLOCKED to allow the caller to
+        # retry unlocking after an incomplete unlock attempt (e.g. when
+        # filesystem errors were left uncorrected).
+        if self.state not in (State.NOT_UNLOCKED, State.UNLOCKED):
             msg = "Can't unlock when state is '%s'" % self.state.name
             raise FailedPreconditionError(msg)
 
         try:
-            self.do_unlock(passphrase)
+            self.do_unlock(passphrase, forceful_fsck)
         finally:
             self.refresh_state(overwrite_in_progress=True)
             # We don't refresh the features here to avoid that any errors
@@ -378,7 +383,7 @@ class Service(DBusObject, ServiceUsingJobs):
 
         logger.info("Done unlocking Persistent Storage")
 
-    def do_unlock(self, passphrase: str):
+    def do_unlock(self, passphrase: str, forceful_fsck: bool):
         self.state = State.UNLOCKING
 
         # Unlock the Persistent Storage
@@ -388,8 +393,8 @@ class Service(DBusObject, ServiceUsingJobs):
         # Mount the Persistent Storage
         cleartext_device = self._tps_partition.get_cleartext_device()
         if not cleartext_device.is_mounted():
-            cleartext_device.fsck()
-            cleartext_device.mount()
+            cleartext_device.fsck(forceful_fsck)
+            cleartext_device.mount(forceful_fsck)
 
         # Remove the LUKS header backup if it exists. It's not needed
         # anymore and we don't want to keep it around to avoid that the

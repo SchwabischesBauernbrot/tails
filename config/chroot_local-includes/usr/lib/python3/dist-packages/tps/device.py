@@ -22,6 +22,7 @@ from tps.dbus.errors import (
     IncorrectPassphraseError,
     TargetIsBusyError,
     NotEnoughMemoryError,
+    FilesystemErrorsLeftUncorrectedError,
 )
 from tps.job import Job
 
@@ -759,7 +760,16 @@ class CleartextDevice:
         # happened, so we raise a CalledProcessException
         p.check_returncode()
 
-    def fsck(self):
+    def fsck(self, forceful: bool = False):
+        if forceful:
+            # Assume an answer of `yes' to all questions, i.e.
+            # tell e2fsck to try to fix all errors which it asks
+            # confirmation for.
+            mode = "-y"
+        else:
+            # Only fix problems that can be safely fixed.
+            mode = "-p"
+
         try:
             executil.check_call(
                 [
@@ -769,8 +779,7 @@ class CleartextDevice:
                     # won't spot it without this option, and then mount
                     # will fail.
                     "-f",
-                    # Fix any problems that can be safely fixed.
-                    "-p",
+                    mode,
                     self.device_path,
                 ]
             )
@@ -779,39 +788,20 @@ class CleartextDevice:
             # check the exit code.
             if e.returncode & 4:
                 # Exit code 4 means "File system errors left uncorrected".
-                # We run e2fsck again with `-y` instead of `-p` to try to
-                # also correct the errors which were left uncorrected in
-                # the previous run.
-                # Note that this is a potentially destructive action,
-                # which is why this is usually not done automatically,
-                # but we decided on #15451 that we want to do it anyway
-                # because we expect that most users wouldn't be able to
-                # do anything better.
-                self.forceful_fsck()
+                # We can try to fix them by running e2fsck again with `-y`
+                # instead of `-p`, but that is a potentially destructive
+                # action, so we raise an exception and let the caller
+                # ask the user for confirmation first.
+                # Note that it's also possible that the filesystem can
+                # be mounted successfully if we don't fix the errors. We
+                # decided on #15451 that we still want to try to fix the
+                # errors before trying to mount, because mounting a
+                # corrupted filesystem might cause further data loss.
+                raise FilesystemErrorsLeftUncorrectedError from e
             else:
                 logger.warning("e2fsck returned %i", e.returncode)
 
-    def forceful_fsck(self):
-        try:
-            executil.check_call(
-                [
-                    "e2fsck",
-                    # Force checking even if the file system seems clean:
-                    # some filesystems are corrupted in a way that fsck
-                    # won't spot it without this option, and then mount
-                    # will fail.
-                    "-f",
-                    # Assume an answer of `yes' to all questions, i.e.
-                    # tell e2fsck to try to fix all errors which it asks
-                    # confirmation for.
-                    "-y",
-                    self.device_path,
-                ]
-            )
-        except subprocess.CalledProcessError as e:
-            logger.warning("e2fsck returned %i", e.returncode)
-
-    def mount(self):
+    def mount(self, forceful_fsck: bool = False):
         # Ensure that the mount point exists
         self.mount_point.mkdir(mode=0o770, parents=True, exist_ok=True)
 
@@ -824,7 +814,7 @@ class CleartextDevice:
                 # Exit code 32 means "Mount failure". This happens when
                 # the file system is corrupted. We run e2fsck to try to
                 # fix the file system.
-                self.fsck()
+                self.fsck(forceful_fsck)
                 # Try to mount again
                 executil.check_call(mount_cmd)
             else:

@@ -87,22 +87,20 @@ class PersistentStorageSettings:
         if "Device" in keys:
             self.device = changed_properties["Device"]
 
-    def unlock(self, passphrase):
+    def unlock(self, passphrase: str, forceful_fsck: bool = False):
         """Unlock the Persistent Storage partition
 
         Raises:
-            WrongPassphraseError if the passphrase is incorrect.
-            PersistentStorageError if something else went wrong."""
+            * WrongPassphraseError if the passphrase is incorrect.
+            * FilesystemErrorsLeftUncorrectedError if `e2fsck -f -p`
+              found some errors that it could not correct.
+            * PersistentStorageError if something else went wrong."""
         logging.debug("Unlocking Persistent Storage")
-        if os.path.exists(self.cleartext_device):
-            logging.warning(f"Cleartext device {self.cleartext_device} already exists")
-            self.is_unlocked = True
-            return
 
         try:
             self.service_proxy.call_sync(
                 method_name="Unlock",
-                parameters=GLib.Variant("(s)", (passphrase,)),
+                parameters=GLib.Variant("(sb)", (passphrase, forceful_fsck)),
                 flags=Gio.DBusCallFlags.NONE,
                 # In some cases, the default timeout of 25 seconds was not
                 # enough, especially since we now run fsck as part of the unlock
@@ -112,6 +110,9 @@ class PersistentStorageSettings:
         except GLib.GError as err:
             if tps_errors.IncorrectPassphraseError.is_instance(err):
                 raise tailsgreeter.errors.WrongPassphraseError from err
+
+            if tps_errors.FilesystemErrorsLeftUncorrectedError.is_instance(err):
+                raise tailsgreeter.errors.FilesystemErrorsLeftUncorrectedError from err
 
             self.failed_with_unexpected_error = True
             raise tailsgreeter.errors.PersistentStorageError(
