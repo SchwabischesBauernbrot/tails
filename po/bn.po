@@ -11,7 +11,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-15 10:37+0200\n"
+"POT-Creation-Date: 2024-06-17 13:28+0200\n"
 "PO-Revision-Date: 2024-04-27 06:26+0000\n"
 "Last-Translator: emma peel <emma.peel@riseup.net>\n"
 "Language-Team: Bengali <https://hosted.weblate.org/projects/tor/tails-gui/bn/"
@@ -130,7 +130,7 @@ msgstr "অপসারণ"
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:720
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:737
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:28
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:376
@@ -838,174 +838,190 @@ msgstr "_Formats"
 msgid "_Keyboard Layout"
 msgstr "_Keyboard Layout"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:309
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:321
 #, python-format
 msgid "Unable to write on %(device)s, skipping."
 msgstr "লিখতে অক্ষম %(device)s, skipping।"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:358
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:370
 #, fuzzy, python-format
 msgid "Wrote to device at %(speed)d MB/s"
 msgstr "ডিভাইসে লিখিত %(speed)d MB/সেকেন্ডে"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:370
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:382
 msgid "Extracting live image to the target device..."
 msgstr "টার্গেট ডিভাইসে লাইভ ইমেজ এক্সট্র্যাক করা হচ্ছে ..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:465
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:477
 #, python-format
 msgid ""
 "There was a problem executing the following command: `%(command)s`.\n"
 "A more detailed error log has been written to \"%(filename)s\"."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:484
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:496
 #, python-format
 msgid ""
 "Not enough free space on device.\n"
 "%(iso_size)dMB ISO + %(overlay_size)dMB overlay > %(free_space)dMB free space"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:497
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:509
 #, python-format
 msgid "Creating %sMB persistent overlay"
 msgstr "%s মেগাবাইট স্থায়ী ওভারলে নির্মাণ"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:563
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:575
 #, python-format
 msgid "Unable to copy %(infile)s to %(outfile)s: %(message)s"
 msgstr "কপি করতে অক্ষম %(infile)s থেকে %(outfile)sঃ%(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:576
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:588
 msgid "Removing existing Tails system"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:587
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:599
 #, python-format
 msgid "Unable to remove file from previous Tails system: %(message)s"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:597
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:609
 #, python-format
 msgid "Unable to chmod %(file)s: %(message)s"
 msgstr "Chmod করতে অক্ষম %(file)sঃ%(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:605
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:617
 #, python-format
 msgid "Unable to remove directory from previous Tails system: %(message)s"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:656
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:668
 #, python-format
 msgid "Cannot find device %s"
 msgstr "ডিভাইস খুঁজে পাইনি %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:692
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1007
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:704
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1025
 msgid "Unknown filesystem.  Your device may need to be reformatted."
 msgstr "অজানা ফাইল সিস্টেম আপনার ডিভাইসের পুনরায় ফরম্যাট করা প্রয়োজন হতে পারে।"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:695
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1010
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:707
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1028
 #, python-format
 msgid "Unsupported filesystem: %s"
 msgstr "অসমর্থিত ফাইল সিস্টেম: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:711
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:723
 #, python-format
 msgid "Unknown GLib exception while trying to mount device: %(message)s"
 msgstr "ডিভাইস মাউন্ট করার চেষ্টা করার সময় অজানা GLib ব্যতিক্রম: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:718
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:730
 #, python-format
 msgid "Unable to mount device: %(message)s"
 msgstr "ডিভাইস মাউন্ট করতে অক্ষম: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:723
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:735
 msgid "No mount points found"
 msgstr "কোন মাউন্ট পয়েন্ট পাওয়া যায় নি"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:815
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:805
+#, fuzzy
+msgid "Target device has opened files"
+msgstr "ডিভাইসে লিখিত %(speed)d MB/সেকেন্ডে"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:833
 #, python-format
 msgid "Mount %s exists after unmounting"
 msgstr "মাউন্ট %s আনমাউন্টিং পরে বিদ্যমান"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:846
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:864
 #, python-format
 msgid "Partitioning device %(device)s"
 msgstr "বিভাজন ডিভাইস %(device)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:991
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1009
 #, python-format
 msgid "Unsupported device '%(device)s', please report a bug."
 msgstr "অসমর্থিত ডিভাইস '%(device)s', একটি বাগ রিপোর্ট করুন."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:994
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1012
 msgid "Trying to continue anyway."
 msgstr "যাইহোক চালিয়ে যেতে চেষ্টা।"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1003
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1021
 msgid "Verifying filesystem..."
 msgstr "ফাইল সিস্টেম যাচাই করা হচ্ছে ..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1026
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1044
 #, python-format
 msgid "Unable to change volume label: %s"
 msgstr "ভলিউম লেবেল পরিবর্তন করতে অক্ষম: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1032
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1050
 msgid "Installing bootloader..."
 msgstr "বুটলোডার ইনস্টল হচ্ছে ..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1040
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1058
 #, python-format
 msgid "Removing %(file)s"
 msgstr "সরানো হচ্ছে %(file)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1069
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1087
 #, fuzzy
 msgid "Cloning Persistent Storage..."
 msgstr "অবিরাম স্টোরেজ তৈরি করুন"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1152
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1170
 #, python-format
 msgid "%s already bootable"
 msgstr "%s ইতিমধ্যে বুটযোগ্য"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1191
 msgid "Unable to find partition"
 msgstr "পার্টিশন খুঁজে পাওয়া যায়নি"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1195
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1213
 #, python-format
 msgid "Formatting %(device)s as FAT32"
 msgstr "FAT32 হিসাবে %(device)s ফর্ম্যাটিং"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1272
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1290
 #, python-format
 msgid "Reading extracted MBR from %s"
 msgstr "এফএফ থেকে এমবিআর সরানো পড়া %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1277
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1295
 #, python-format
 msgid "Could not read the extracted MBR from %(path)s"
 msgstr "এক্সট্র্যাক্ট করা এমবিআর থেকে এক্সপিরিং করা যায়নি %(path)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1291
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1292
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1309
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1310
 #, python-format
 msgid "Resetting Master Boot Record of %s"
 msgstr "মাস্টার বুট রেকর্ড পুনরায় সেট %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1297
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1314
+#, python-format
+msgid "Writing random seed to LBA 34 of %s"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1321
 msgid "Drive is a loopback, skipping MBR reset"
 msgstr "ড্রাইভ একটি লুপব্যাক, MBR রিসেট স্কিপিং"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1301
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1325
 msgid "Synchronizing data on disk..."
 msgstr "ডিস্কের ডেটা সিঙ্ক্রোনাইজ করা হচ্ছে ..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:163
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:148
+msgid ""
+"Unable to clone because the target USB stick is being used. Close all open "
+"files on the target USB stick, restart Tails Cloner, and try to clone again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:180
 msgid ""
 "Error: Cannot set the label or obtain the UUID of your device.  Unable to "
 "continue."
@@ -1013,87 +1029,87 @@ msgstr ""
 "ত্রুটি: লেবেল সেট করা বা আপনার ডিভাইসের UUID প্রাপ্ত করতে পারে না। অবিরত করতে "
 "অক্ষম"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:208
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:225
 #, fuzzy, python-format
 msgid "Cloning complete! (%s)"
 msgstr "ইনস্টলেশন সম্পূর্ণ! (%s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:213
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:230
 msgid "Tails installation failed!"
 msgstr "Tails ইনস্টলেশন ব্যর্থ হয়েছে!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:317
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:334
 #: ../config/chroot_local-includes/usr/share/applications/tails-installer.desktop.in.h:1
 #, fuzzy
 msgid "Tails Cloner"
 msgstr "Tails ইনস্টলার"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:369
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:386
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:164
 msgid "Clone the current Tails"
 msgstr "বর্তমান Tails ক্লোন করুন"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:377
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:394
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:200
 msgid "Use a downloaded Tails ISO image"
 msgstr "একটি ডাউনলোড করা Tails ISO ইমেজ ব্যবহার করুন"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:429
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:446
 msgid "Upgrade"
 msgstr "আপগ্রেড"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:430
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:447
 msgid "Manual Upgrade Instructions"
 msgstr "ম্যানুয়াল উচ্চায়ন নির্দেশনা"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:441
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:706
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:458
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:723
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:374
 msgid "Install"
 msgstr "ইনস্টল করুন"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:444
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:461
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:131
 msgid "Installation Instructions"
 msgstr "সংস্থাপনের নির্দেশনা"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:447
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:464
 #, fuzzy
 msgid "Backup Instructions"
 msgstr "ম্যানুয়াল উচ্চায়ন নির্দেশনা"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:458
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:475
 #, python-format
 msgid "%(size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(size)s %(vendor)s %(model)s যন্ত্র (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:471
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:488
 msgid "No ISO image selected"
 msgstr "কোন ISO ইমেজ নির্বাচিত নেই"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:471
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:488
 msgid "Please select a Tails ISO image."
 msgstr "একটি Tails ISO ইমেজ নির্বাচন করুন"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:529
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:546
 msgid ""
 "Clone the current Persistent Storage\n"
 "Impossible to clone the Persistent Storage because it is locked."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:533
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:550
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:180
 #, fuzzy
 msgid "Clone the current Persistent Storage"
 msgstr "অবিরাম স্টোরেজ তৈরি করুন"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:536
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:553
 msgid ""
 "Clone the current Persistent Storage\n"
 "You can only choose to reinstall when cloning the Persistent Storage."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:574
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:591
 #, python-format
 msgid ""
 "The USB stick \"%(pretty_name)s\" is configured as non-removable by its "
@@ -1104,7 +1120,7 @@ msgstr ""
 "কনফিগার করা হয় এবং টালি এটি চালু করতে ব্যর্থ হবে। একটি ভিন্ন মডেল ইনস্টল করার "
 "চেষ্টা করুন।"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:584
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:601
 #, python-format
 msgid ""
 "The device \"%(pretty_name)s\" is too small to install Tails (at least "
@@ -1113,7 +1129,7 @@ msgstr ""
 "ডিভাইস \"%(pretty_name)s\" টিল ইনস্টল করার জন্য খুব ছোট হয় (কমপক্ষে %(size)s "
 "গিগাবাইট প্রয়োজন)।"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:599
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:616
 #, python-format
 msgid ""
 "To upgrade device \"%(pretty_name)s\" from this Tails, you need to use a "
@@ -1121,33 +1137,33 @@ msgid ""
 "%(dl_url)s"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:620
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:637
 msgid "No device suitable to install Tails could be found"
 msgstr "Tails ইনস্টল করার উপযুক্ত কোন ডিভাইস পাওয়া যায়নি"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:623
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:640
 #, fuzzy, python-format
 msgid "Plug in a USB stick of at least %0.1f GB."
 msgstr "কমপক্ষে %0.1f গিগাবাইটের একটি USB ফ্ল্যাশ ড্রাইভ অথবা SD কার্ড প্লাগ করুন।"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:636
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:653
 msgid "An error happened while installing Tails"
 msgstr "পুচ্ছ ইনস্টল করার সময় একটি ত্রুটি ঘটেছে"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:693
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:710
 msgid "Installation complete!"
 msgstr "ইনস্টলেশন সম্পূর্ণ!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:755
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:772
 msgid "Unable to mount device"
 msgstr "ডিভাইস মাউন্ট করতে অক্ষম"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:762
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:779
 #, fuzzy, python-format
 msgid "%(parent_size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(parent_size)s %(vendor)s %(model)s device (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:775
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:792
 #, fuzzy
 msgid ""
 "\n"
@@ -1155,31 +1171,31 @@ msgid ""
 "The Persistent Storage on this USB stick will be lost."
 msgstr "আপনার স্থায়ী তথ্য মুছে ফেলা হবে।"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:777
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:794
 msgid "Delete Persistent Storage and Reinstall"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:779
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:796
 msgid ""
 "\n"
 "\n"
 "All data on this USB stick will be lost."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:780
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:797
 msgid "Delete All Data and Install"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:781
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:798
 #, python-format
 msgid "%(description)s%(delete_message)s"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:786
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:803
 msgid "Confirm the target USB stick"
 msgstr "লক্ষ্য USB স্টিক নিশ্চিত করুন"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:829
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:846
 msgid ""
 "The selected file is unreadable. Please fix its permissions or select "
 "another file."
@@ -1187,7 +1203,7 @@ msgstr ""
 "নির্বাচিত ফাইল অপঠিত হয়। অনুগ্রহ করে তার অনুমতিগুলি 'permissions' ঠিক করুন বা অন্য "
 "ফাইলটি নির্বাচন করুন।"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:839
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:856
 msgid ""
 "Unable to use the selected file.  You may have better luck if you move your "
 "ISO to the root of your drive (ie: C:\\)"
@@ -1195,7 +1211,7 @@ msgstr ""
 "নির্বাচিত ফাইলটি ব্যবহার করতে অক্ষম। আপনি যদি আপনার আইএসওকে আপনার ড্রাইভের মূল "
 "রুটে স্থানান্তর করতে চান তবে আপনার ভাল ভাগ্য হতে পারে (অর্থাৎ: C:\\)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:848
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:865
 #, python-format
 msgid "%(filename)s selected"
 msgstr "%(filename)s নির্বাচিত"
@@ -1232,14 +1248,14 @@ msgstr ""
 msgid "Skipping \"%(filename)s\""
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:65
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:63
 #, python-format
 msgid ""
 "There was a problem executing `%(cmd)s`.%(out)s\n"
 "%(err)s"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:146
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:144
 msgid "Could not open device for writing."
 msgstr "লেখার জন্য ডিভাইস খুলতে পারিনি"
 
@@ -1722,7 +1738,7 @@ msgstr "টর অবস্থা"
 msgid "Open Onion Circuits"
 msgstr "Onion বর্তনী খোলুন"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:345
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:343
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1731,12 +1747,12 @@ msgid ""
 "Try again after closing some applications or rebooting."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:359
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:357
 #, fuzzy
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "স্থির ভলিউমের অনুমতিসমূহ সঠিককরণ।"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:381
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:379
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
@@ -1761,7 +1777,7 @@ msgstr "অবিরাম স্টোরেজ তৈরি করুন"
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "অবিরাম স্টোরেজ তৈরি করুন"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:689
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:694
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1769,7 +1785,7 @@ msgid ""
 "unlocking it."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:722
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:727
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -2131,11 +2147,11 @@ msgstr ""
 "ভলিউম আনলক করা যায়নি {volume_name}:\n"
 "{error_message}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:404
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:403
 msgid "One or more applications are keeping the volume busy."
 msgstr "এক বা একাধিক অ্যাপ্লিকেশন ভলিউমকে ব্যস্ত রাখছে।"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:412
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:411
 #, python-brace-format
 msgid ""
 "Couldn't lock volume {volume_name}:\n"
@@ -2144,7 +2160,7 @@ msgstr ""
 "ভলিউম আনলক করা যায়নি {volume_name}:\n"
 "{error_message}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:416
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:413
 msgid "Locking the volume failed"
 msgstr "ভলিউম লক করা ব্যর্থ"
 
@@ -2212,7 +2228,7 @@ msgstr ""
 "ফাইল ধারক যুক্ত করা যায়নি: %s লুপ সেটআপের জন্য অপেক্ষা করার সময়সীমা শেষ।\n"
 "পরিবর্তে <i>ডিস্ক</i> অ্যাপ্লিকেশন ব্যবহার করার চেষ্টা করুন।"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:234
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:241
 msgid "Choose File Container"
 msgstr "ফাইল ধারক চয়ন করুন"
 

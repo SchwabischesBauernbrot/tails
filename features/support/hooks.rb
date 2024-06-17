@@ -272,16 +272,21 @@ Before('@product') do |scenario|
     video_name = sanitize_filename("#{scenario.name}.mkv")
     @video_path = "#{ARTIFACTS_DIR}/#{video_name}"
     debug_log("Starting video capture of '#{@video_path}'")
-    capture = IO.popen(['ffmpeg',
-                        '-f', 'x11grab',
-                        '-s', '1024x768',
-                        '-r', '15',
-                        '-i', "#{$config['DISPLAY']}.0",
-                        '-an',
-                        '-c:v', 'libx264',
-                        '-y',
-                        @video_path,
-                        { err: ['/dev/null', 'w'] },])
+    capture = IO.popen(
+      [
+        'ffmpeg',
+        '-f', 'x11grab',
+        '-s', '1024x768',
+        '-r', '15',
+        '-i', "#{$config['DISPLAY']}.0",
+        '-an',
+        '-c:v', 'libx264',
+        '-y',
+        @video_path,
+      ],
+      in:  ['/dev/null', 'r'],
+      err: ['/dev/null', 'w']
+    )
     @video_capture_pid = capture.pid
   end
   @screen = if config_bool('IMAGE_BUMPING_MODE')
