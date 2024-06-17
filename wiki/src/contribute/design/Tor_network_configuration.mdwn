@@ -124,6 +124,7 @@ configure tor. Configuring tor is something that we consider to be a privileged
 operation, because it can lead to deanonymization quite easily.
 
 We want:
+
  - _Tor Connection_ to run as `amnesia`. This is required to nicely integrate
    with the desktop environment
  - the `amnesia` user not to be able to configure tor. ie: an attacker
@@ -137,6 +138,7 @@ We want:
    Those actions must not be permitted to the user outside of _Tor Connection_.
 
 So that's what we do:
+
  - _Tor Connection_ is started in a dedicated, privileged, network namespace;
    this is needed to be able to reach onion-grater properly; see
    [[!tails_ticket 18123]]
@@ -155,6 +157,7 @@ So that's what we do:
    `connect-drop` is responsible for this, too
 
 The code lives in:
+
  * [[!tails_gitweb_dir config/chroot_local-includes/usr/lib/python3/dist-packages/tca]]
  * [[!tails_gitweb config/chroot_local-includes/usr/local/bin/tca]]
  * [[!tails_gitweb config/chroot_local-includes/usr/share/applications/tca.desktop.in]]
