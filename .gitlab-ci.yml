@@ -30,6 +30,8 @@ build-website:
   stage: build-website
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
+      variables:
+        IKIWIKI_RCS_OPTION: --rcs git
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
     - changes:
         - .gitlab-ci.yml
@@ -57,7 +59,7 @@ build-website:
         git -C ${UNDERLAYS_DIR}/${i} pull
       done
     - |
-      ./build-website \
+      ./build-website ${IKIWIKI_RCS_OPTION} \
         --url "https://tails.net" \
         --usedirs \
         --sslcookie \
