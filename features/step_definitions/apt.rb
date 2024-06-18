@@ -21,9 +21,8 @@ Then /^no proposed-updates APT suite is enabled$/ do
 end
 
 Then /^no experimental APT suite is enabled for deb[.]torproject[.]org$/ do
-  # apow7mjfryruh65chtdydfmqfpj5btws7nbocgtaovhvezgccyjazpqd.onion == deb.torproject.org
   assert_no_match(
-    /apow7mjfryruh65chtdydfmqfpj5btws7nbocgtaovhvezgccyjazpqd[.]onion.*experimental/,
+    /deb[.]torproject[.]org.*experimental/,
     apt_sources
   )
 end
@@ -33,9 +32,9 @@ Then /^if releasing, the tagged Tails APT source is enabled$/ do
     puts 'Not on a tag ⇒ skipping this step'
     next
   end
-  custom_onion = 'umjqavufhoix3smyq6az2sx4istmuvsgmz4bq5u5x56rnayejoo6l2qd.onion'
+  custom_apt_repo = 'deb.tails.boum.org'
   assert_match(
-    %r{#{Regexp.quote(custom_onion)}/?\s+#{Regexp.quote(git_current_tag)}\s},
+    %r{#{Regexp.quote(custom_apt_repo)}/?\s+#{Regexp.quote(git_current_tag)}\s},
     apt_sources
   )
 end
@@ -45,25 +44,10 @@ Then /^if releasing, no unversioned Tails APT source is enabled$/ do
     puts 'Not on a tag ⇒ skipping this step'
     next
   end
-  custom_onion = 'umjqavufhoix3smyq6az2sx4istmuvsgmz4bq5u5x56rnayejoo6l2qd.onion'
+  custom_apt_repo = 'deb.tails.boum.org'
   assert_no_match(
-    %r{#{Regexp.quote(custom_onion)}/?\s+(stable|testing|devel)\s},
+    %r{#{Regexp.quote(custom_apt_repo)}/?\s+(stable|testing|devel)\s},
     apt_sources
-  )
-end
-
-When /^I configure APT to use non-onion sources$/ do
-  script = <<-SCRIPT
-  use strict;
-  use warnings FATAL => "all";
-  s{apow7mjfryruh65chtdydfmqfpj5btws7nbocgtaovhvezgccyjazpqd[.]onion}{deb.torproject.org};
-  s{umjqavufhoix3smyq6az2sx4istmuvsgmz4bq5u5x56rnayejoo6l2qd[.]onion}{deb.tails.boum.org};
-  SCRIPT
-  # RemoteShell::ShellCommand cannot handle newlines, and they're irrelevant in the
-  # above perl script any way
-  script.delete!("\n")
-  $vm.execute_successfully(
-    "perl -pi -E '#{script}' /etc/apt/sources.list /etc/apt/sources.list.d/*"
   )
 end
 

@@ -2,7 +2,7 @@ import subprocess
 import time
 import os
 from logging import getLogger
-from typing import List, Union
+from typing import Union
 from threading import Lock
 
 from gi.repository import Gtk, Gio, UDisks, GUdev, GLib
@@ -23,7 +23,7 @@ WAIT_FOR_LOOP_SETUP_TIMEOUT = 1
 logger = getLogger(__name__)
 
 
-class VolumeManager(object):
+class VolumeManager:
     def __init__(self, application: Gtk.Application):
         self.udisks_client = UDisks.Client.new_sync()
         self.udisks_manager = self.udisks_client.get_manager()
@@ -84,11 +84,11 @@ class VolumeManager(object):
             self.device_list.remove(volume)
             self.device_list.add(volume)
 
-    def get_tcrypt_volumes(self) -> List[Volume]:
+    def get_tcrypt_volumes(self) -> list[Volume]:
         """Returns all connected TCRYPT volumes"""
         return [volume for volume in self.get_all_volumes() if volume.is_tcrypt]
 
-    def get_all_volumes(self) -> List[Volume]:
+    def get_all_volumes(self) -> list[Volume]:
         """Returns all connected volumes"""
         volumes = list()
         gio_volumes = self.gio_volume_monitor.get_volumes()
@@ -123,7 +123,7 @@ class VolumeManager(object):
             return
 
         if path:
-            self.unlock_file_container(path)
+            self.attach_file_container(path)
 
     def attach_file_container(self, path: str) -> Union[Volume, None]:
         logger.debug(
@@ -216,7 +216,7 @@ class VolumeManager(object):
     def open_file_container(self, path: str):
         volume = self.ensure_file_container_is_attached(path)
         if volume:
-            volume.open()
+            volume.open_()
 
     def unlock_file_container(self, path: str, open_after_unlock=False):
         volume = self.ensure_file_container_is_attached(path)
@@ -228,6 +228,13 @@ class VolumeManager(object):
             return self.container_list.find_by_backing_file(path)
         except VolumeNotFoundError:
             return self.attach_file_container(path)
+
+    def file_container_is_attached(self, path: str) -> bool:
+        try:
+            self.container_list.find_by_backing_file(path)
+            return True
+        except VolumeNotFoundError:
+            return False
 
     def choose_container_path(self):
         dialog = Gtk.FileChooserDialog(
