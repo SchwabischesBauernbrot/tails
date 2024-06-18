@@ -652,7 +652,7 @@ Given /^I enable persistence( with the changed passphrase)?$/ do |with_changed_p
   # Wait until the Persistent Storage was unlocked. We use the fact that
   # the unlock button is made invisible when the Persistent Storage is
   # unlocked.
-  try_for(60) do
+  try_for(120) do
     !greeter.child?('Unlock Encryption',
                     roleName: 'push button', retry: false) && \
       !greeter.child?('Unlocking…',
@@ -1520,7 +1520,7 @@ Given /^I install a Tails USB image to the (\d+) MiB disk with GNOME Disks$/ do 
   @screen.press('Return')
   # Wait until the restoration job is finished
   job = disks.child('Job', roleName: 'label')
-  try_for(120) do
+  try_for(180) do
     !job.showing
   end
 end

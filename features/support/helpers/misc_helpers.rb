@@ -1,5 +1,4 @@
 require 'date'
-require 'debug_inspector'
 require 'English'
 require 'io/console'
 require 'pry'
@@ -383,31 +382,6 @@ def notify_user(message)
   cmd_helper(alarm_script.gsub('%m', message))
 end
 
-def pause(message = 'Paused', quiet: false)
-  notify_user(message)
-  $stderr.puts
-  warn message
-  # Ring the ASCII bell for a helpful notification in most terminal
-  # emulators.
-  $stdout.write "\a"
-  $stderr.puts
-  loop do
-    warn 'Return/q: Continue; d: Debugging REPL'
-    c = $stdin.getch
-    case c
-    when 'q', "\r", 3.chr # Ctrl+C => 3
-      return
-    when 'd'
-      RubyVM::DebugInspector.open do |inspector|
-        # The 4th frame is the caller in this context
-        inspector.frame_binding(4).pry(quiet:)
-      end
-    end
-  end
-end
-
-alias breakpoint pause
-
 # Converts dbus-send replies into a suitable Ruby value
 def dbus_send_ret_conv(ret)
   type, val = /^\s*(\S+)\s+(.+)$/m.match(ret)[1, 2]
@@ -534,4 +508,25 @@ def translate(str, translation_domain: nil, drop_accelerator: true, drop_markup:
     rv = drop_markup(rv)
   end
   rv
+end
+
+def info_log(message = '', **options)
+  options[:color] = :clear
+  # This trick allows us to use a module's (~private) method on a
+  # one-off basis.
+  cucumber_console = Class.new.extend(Cucumber::Formatter::Console)
+  puts cucumber_console.format_string(message, options[:color])
+end
+
+def debug_log(message, **options)
+  options[:timestamp] = true unless options.key?(:timestamp)
+  return unless $debug_log_fns
+
+  if options[:timestamp]
+    # Force UTC so the local timezone difference vs UTC won't be
+    # added to the result.
+    elapsed = (Time.now - TIME_AT_START.to_f).utc.strftime('%H:%M:%S.%9N')
+    message = "#{elapsed}: #{message}"
+  end
+  $debug_log_fns.each { |fn| fn.call(message, **options) }
 end

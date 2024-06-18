@@ -1,0 +1,11 @@
+#!/bin/sh
+
+channel="/dev/virtio-ports/org.tails.journal_dumper.0"
+
+until [ -e "${channel}" ]; do
+    sleep 0.1
+done
+
+while true; do
+    journalctl --all --no-pager --lines=all --follow > "${channel}"
+done

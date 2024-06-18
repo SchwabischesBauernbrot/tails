@@ -1,5 +1,3 @@
-# -*- coding: utf-8 -*-
-
 import os
 import re
 import subprocess
@@ -20,7 +18,7 @@ class TailsError(Exception):
     messages encoded in unicode"""
 
     def __init__(self, message):
-        super(TailsError, self).__init__(message)
+        super().__init__(message)
 
 
 def _to_unicode(obj, encoding="utf-8"):
@@ -62,7 +60,7 @@ def extract_file_content_from_iso(iso_path, path):
     err = bytes_to_unicode(err)
     if proc.returncode:
         raise Exception(
-            _("There was a problem executing `%(cmd)s`." "%(out)s\n%(err)s")
+            _("There was a problem executing `%(cmd)s`.%(out)s\n%(err)s")
             % {"cmd": cmd, "out": out, "err": err}
         )
     return out
@@ -147,9 +145,11 @@ def get_open_write_fd(block):
     return file_desc
 
 
-def write_to_block_device(block, string):
+def write_to_block_device(block, string, offset: int = 0):
     """Writes a string to a block"""
     file_desc = get_open_write_fd(block)
+    if offset:
+        os.lseek(file_desc, offset, os.SEEK_SET)
     os.write(file_desc, string)
     os.fsync(file_desc)
     os.close(file_desc)
@@ -159,6 +159,6 @@ def _set_liberal_perms_recursive(path):
     if os.path.isfile(path):
         os.chmod(path, 0o644)
     elif os.path.isdir(path):
-        os.chmod(path, 0o755)  # nosec set_bad_file_permissions
+        os.chmod(path, 0o755)  # nosec set_bad_file_permissions  # noqa: S103
         for f in os.listdir(path):
             _set_liberal_perms_recursive(os.path.join(path, f))
