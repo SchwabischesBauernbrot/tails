@@ -39,6 +39,7 @@ from tailsgreeter.ui.message_dialog import MessageDialog
 from tailsgreeter.ui.help_window import GreeterHelpWindow
 from tailsgreeter.ui.region_settings import LocalizationSettingUI
 from tailsgreeter import TRANSLATION_DOMAIN
+from tailsgreeter.ui.repair_filesystem_dialog import RepairFilesystemDialog
 from tps import InvalidBootDeviceErrorType
 
 gi.require_version("Gdk", "3.0")
@@ -375,12 +376,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
 
     def unlock_tps(self, forceful_fsck: bool = False):
         self.box_storage_unlock.set_visible(False)
-        if forceful_fsck:
-            self.label_storage_unlock_status.set_label(
-                _("Unlocking and repairing filesystem. This might take a long time…")
-            )
-        else:
-            self.label_storage_unlock_status.set_label(_("Unlocking…"))
+        self.label_storage_unlock_status.set_label(_("Unlocking…"))
         self.label_storage_unlock_status.set_visible(True)
         self.image_storage_unlock_failed.set_visible(False)
         self.box_storage_unlock_status.set_visible(True)
@@ -425,6 +421,53 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
 
         unlocking_thread = threading.Thread(target=do_unlock_tps, args=(forceful_fsck,))
         unlocking_thread.start()
+
+    def repair_tps_filesystem(self):
+        dialog = RepairFilesystemDialog()
+        dialog.set_transient_for(self)
+
+        def on_tps_repair_failed():
+            dialog.response(Gtk.ResponseType.CANCEL)
+            label = "{}\n\n{}".format(
+                _("Failed to repair the Persistent Storage file system."),
+                _(
+                    "Start Tails to send an error report and learn how to recover your data."
+                ),
+            )
+            # XXX: Actually open WhisperBack and some documentation on
+            #      how to recover data after Tails has started
+            self.on_tps_activation_failed(label)
+
+        def on_tps_repair_success():
+            dialog.set_title(_("File System Repaired Successfully"))
+            dialog.label.set_label(
+                _(
+                    "Still, we recommend that you create a backup of your Tails USB stick as soon as possible."
+                )
+            )
+            dialog.spinner.set_visible(False)
+            dialog.close_button.set_visible(True)
+
+        def do_repair_tps_filesystem():
+            try:
+                self.persistence_setting.repair_filesystem()
+                GLib.idle_add(on_tps_repair_success)
+            except PersistentStorageError as e:
+                logging.error(e)
+                GLib.idle_add(on_tps_repair_failed)
+
+        repair_thread = threading.Thread(target=do_repair_tps_filesystem)
+        repair_thread.start()
+
+        # The response is DELETE_EVENT if the dialog is closed via the
+        # Escape key, in which case we want to keep the dialog open.
+        response = Gtk.ResponseType.DELETE_EVENT
+        while response == Gtk.ResponseType.DELETE_EVENT:
+            response = dialog.run()
+        dialog.destroy()
+
+        if response == Gtk.ResponseType.OK:
+            self.unlock_tps(forceful_fsck=True)
 
     @staticmethod
     def open_help_window(page: str) -> GreeterHelpWindow:
@@ -657,7 +700,11 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.entry_storage_passphrase.grab_focus()
 
     def cb_unlock_failed_with_filesystem_errors(self):
-        logging.debug("Persistent Storage unlock failed due to filesystem errors")
+        logging.debug("Persistent Storage unlock failed due to file system errors")
+
+        label = _("Failed to unlock the Persistent Storage due to file system errors.")
+        self.on_tps_activation_failed(label)
+
         # Ask the user if they want to repair the filesystem
         dialog = MessageDialog(
             message_type=Gtk.MessageType.WARNING,
@@ -678,14 +725,21 @@ If you don't have a backup, we recommend that you create a backup first."""
         )
         dialog.set_transient_for(self)
         response = dialog.run()
-        dialog.set_visible(False)
-        if response != Gtk.ResponseType.OK:
-            self.on_tps_unlock_failed()
+        dialog.destroy()
+
+        # The REJECT response is not used by GTK by default, so we use
+        # it for the "Create Backup" button out of better options.
+        if response == Gtk.ResponseType.REJECT:
+            label = _(
+                "Start Tails to learn how to create a backup of your Persistent Storage."
+            )
+            self.on_tps_activation_failed(label)
+            # XXX: Actually open some documentation on how to create a backup
+            #      using ddrescue after Tails has started
             return
 
-        # Try to unlock the Persistent Storage again with a forceful
-        # fsck
-        self.unlock_tps(forceful_fsck=True)
+        if response == Gtk.ResponseType.OK:
+            self.repair_tps_filesystem()
 
     def on_tps_upgrade_failed(self):
         label = _(

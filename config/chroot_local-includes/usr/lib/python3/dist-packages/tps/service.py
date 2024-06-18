@@ -97,6 +97,7 @@ class Service(DBusObject, ServiceUsingJobs):
                 <method name='UpgradeLUKS'>
                     <arg name='passphrase' direction='in' type='s'/>
                 </method>
+                <method name='RepairFilesystem'/>
                 <property name="State" type="s" access="read" />
                 <property name="Error" type="u" access="read" />
                 <property name="IsCreated" type="b" access="read"/>
@@ -492,6 +493,25 @@ class Service(DBusObject, ServiceUsingJobs):
         partition.change_passphrase(passphrase, new_passphrase)
 
         logger.info("Done changing passphrase")
+
+    def RepairFilesystem(self):
+        """Do a forceful filesystem check (e2fsck -f -y). Requires the
+        Persistent Storage to be unlocked and not mounted."""
+        logger.info("Repairing filesystem")
+
+        try:
+            partition = TPSPartition.find()
+        except (InvalidBootDeviceError, InvalidPartitionError) as e:
+            raise NotCreatedError("No Persistent Storage found") from e
+
+        try:
+            cleartext_device = partition.get_cleartext_device()
+        except PartitionNotUnlockedError as e:
+            raise NotUnlockedError("Persistent Storage is not unlocked") from e
+
+        cleartext_device.fsck(forceful=True)
+
+        logger.info("Done repairing filesystem")
 
     # ----- Exported properties ----- #
 

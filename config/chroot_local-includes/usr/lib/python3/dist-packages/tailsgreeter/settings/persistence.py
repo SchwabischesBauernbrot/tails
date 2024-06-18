@@ -174,3 +174,23 @@ class PersistentStorageSettings:
             raise tailsgreeter.errors.PersistentStorageError(
                 _("Error activating Persistent Storage: {}").format(err)
             ) from err
+
+    def repair_filesystem(self):
+        """Do a forceful filesystem check (e2fsck -f -y) on the Persistent
+        Storage.
+
+        Raises PersistentStorageError if something went wrong."""
+
+        try:
+            self.service_proxy.call_sync(
+                method_name="RepairFilesystem",
+                parameters=None,
+                flags=Gio.DBusCallFlags.NONE,
+                # GLib.MAXINT (largest 32-bit signed integer) disables
+                # the timeout
+                timeout_msec=GLib.MAXINT,
+            )
+        except GLib.GError as err:
+            raise tailsgreeter.errors.PersistentStorageError(
+                _("Error repairing Persistent Storage filesystem: {}").format(err)
+            ) from err
