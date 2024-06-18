@@ -63,6 +63,7 @@ unless defined? CHECKPOINTS
           'I write the Tails USB image to disk "__internal"',
           'I start Tails from USB drive "__internal" with network unplugged',
           'the boot device has safe access rights',
+          'the USB drive "__internal" has a valid partition table',
           'Tails is running from USB drive "__internal"',
           'there is no persistence partition on USB drive "__internal"',
           'process "udev-watchdog" is running',
