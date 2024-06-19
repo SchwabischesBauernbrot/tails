@@ -1744,3 +1744,28 @@ end
 Given /^I reload tails-persistent-storage.service$/ do
   $vm.execute_successfully('systemctl reload tails-persistent-storage.service')
 end
+
+Given(/^I corrupt the Persistent Storage filesystem on USB drive "([^"]*)" in a way which can be automatically repaired$/) do |name|
+  # Unlock the Persistent Storage
+  $vm.execute_successfully(
+    "echo -n #{@persistence_password} | " \
+      'cryptsetup luksOpen --batch-mode --key-file=- ' \
+      "#{$vm.persistent_storage_dev_on_disk(name)} TailsData_unlocked"
+  )
+  # Mount the filesystem
+  $vm.execute_successfully('mkdir -p /tmp/persistence')
+  $vm.execute_successfully('mount /dev/mapper/TailsData_unlocked /tmp/persistence')
+  # Corrupt the filesystem
+  $vm.execute_successfully('rm -rf /tmp/persistence/lost+found')
+  # Unmount the filesystem
+  $vm.execute_successfully('umount /tmp/persistence')
+  # Lock the Persistent Storage
+  $vm.execute_successfully('cryptsetup luksClose TailsData_unlocked')
+end
+
+Then(/^the filesystem of the Persistent Storage is automatically repaired$/) do
+  $vm.execute_successfully(
+    'journalctl -u tails-persistent-storage.service | ' \
+      'grep -q "e2fsck corrected file system errors"'
+  )
+end

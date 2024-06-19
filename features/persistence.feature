@@ -161,3 +161,9 @@ Feature: Tails persistence
     Given I have started Tails without network from a USB drive with a LUKS 1 persistent partition and stopped at Tails Greeter's login screen
     And I enable persistence but something goes wrong during the LUKS header upgrade
     Then the Tails persistence partition on USB drive "__internal" still has LUKS version 1
+
+  Scenario: Automatic filesystem repair
+    Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
+    And I corrupt the Persistent Storage filesystem on USB drive "__internal" in a way which can be automatically repaired
+    When I enable persistence
+    Then the filesystem of the Persistent Storage is automatically repaired

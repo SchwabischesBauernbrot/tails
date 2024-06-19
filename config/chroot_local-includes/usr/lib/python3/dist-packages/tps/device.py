@@ -798,6 +798,9 @@ class CleartextDevice:
                 # errors before trying to mount, because mounting a
                 # corrupted filesystem might cause further data loss.
                 raise FilesystemErrorsLeftUncorrectedError from e
+            elif e.returncode == 1:
+                # Exit code 1 means "File system errors corrected".
+                logger.info("e2fsck corrected file system errors")
             else:
                 logger.warning("e2fsck returned %i", e.returncode)
 
