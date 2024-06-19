@@ -38,5 +38,9 @@ class FilesystemErrorsLeftUncorrectedError(PersistentStorageError):
     pass
 
 
+class IOErrorsDetectedError(PersistentStorageError):
+    pass
+
+
 class GdmServerError(TailsGreeterError):
     pass

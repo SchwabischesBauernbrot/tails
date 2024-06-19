@@ -81,3 +81,7 @@ class FeatureActivationFailedError(DBusError):
 
 class FilesystemErrorsLeftUncorrectedError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.FilesystemErrorsLeftUncorrectedError"
+
+
+class IOErrorsDetectedError(DBusError):
+    name = "org.boum.tails.PersistentStorage.Error.IOErrorsDetectedError"

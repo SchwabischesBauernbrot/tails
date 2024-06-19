@@ -111,6 +111,9 @@ class PersistentStorageSettings:
             if tps_errors.IncorrectPassphraseError.is_instance(err):
                 raise tailsgreeter.errors.WrongPassphraseError from err
 
+            if tps_errors.IOErrorsDetectedError.is_instance(err):
+                raise tailsgreeter.errors.IOErrorsDetectedError from err
+
             if tps_errors.FilesystemErrorsLeftUncorrectedError.is_instance(err):
                 raise tailsgreeter.errors.FilesystemErrorsLeftUncorrectedError from err
 

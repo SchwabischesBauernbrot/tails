@@ -28,6 +28,7 @@ from tailsgreeter.errors import (
     PersistentStorageError,
     WrongPassphraseError,
     FilesystemErrorsLeftUncorrectedError,
+    IOErrorsDetectedError,
 )
 from tailsgreeter.settings import SettingNotFoundError
 from tailsgreeter.translatable_window import TranslatableWindow
@@ -407,6 +408,8 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                 GLib.idle_add(self.cb_tps_unlocked)
             except WrongPassphraseError:
                 GLib.idle_add(self.cb_tps_unlock_failed_with_incorrect_passphrase)
+            except IOErrorsDetectedError:
+                GLib.idle_add(self.cb_tps_unlock_failed_with_io_errors)
             except FilesystemErrorsLeftUncorrectedError:
                 if forceful_fsck:
                     # We already tried to unlock the storage with a forceful fsck
@@ -698,6 +701,17 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.image_storage_unlock_failed.set_visible(True)
         self.entry_storage_passphrase.select_region(0, -1)
         self.entry_storage_passphrase.grab_focus()
+
+    def cb_tps_unlock_failed_with_io_errors(self):
+        logging.debug("Persistent Storage unlock failed due to IO errors")
+
+        label = "{}\n\n{}".format(
+            _(
+                "Error reading data from your Persistent Storage. The hardware of your USB stick is probably failing."
+            ),
+            _("Start Tails to learn how to recover your data."),
+        )
+        self.on_tps_activation_failed(label)
 
     def cb_unlock_failed_with_filesystem_errors(self):
         logging.debug("Persistent Storage unlock failed due to file system errors")

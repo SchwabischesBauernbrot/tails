@@ -13,6 +13,7 @@ from tps import (
     InvalidBootDeviceErrorType,
     SYSTEM_PARTITION_MOUNT_POINT,
     LUKS_HEADER_BACKUP_PATH,
+    IO_ERRORS_FLAG_FILE_PATH,
 )
 from tps.configuration import features
 from tps.configuration.config_file import ConfigFile, InvalidStatError
@@ -23,6 +24,8 @@ from tps.dbus.errors import (
     FeatureActivationFailedError,
     ActivationFailedError,
     DeactivationFailedError,
+    FilesystemErrorsLeftUncorrectedError,
+    IOErrorsDetectedError,
 )
 from tps.dbus.object import DBusObject
 from tps.device import (
@@ -393,9 +396,24 @@ class Service(DBusObject, ServiceUsingJobs):
 
         # Mount the Persistent Storage
         cleartext_device = self._tps_partition.get_cleartext_device()
-        if not cleartext_device.is_mounted():
-            cleartext_device.fsck(forceful_fsck)
-            cleartext_device.mount(forceful_fsck)
+        try:
+            if not cleartext_device.is_mounted():
+                cleartext_device.fsck(forceful_fsck)
+                cleartext_device.mount(forceful_fsck)
+        except FilesystemErrorsLeftUncorrectedError as e:
+            # Check if there are I/O errors for the device, in which
+            # case we want to raise a different error
+            io_errors_flag_file = Path(IO_ERRORS_FLAG_FILE_PATH)
+            # If the flag file already exists, we don't need to check
+            # the journal for I/O errors
+            if io_errors_flag_file.exists():
+                raise IOErrorsDetectedError() from e
+            # Check the journal messages for IO errors
+            executil.check_call(["tails-detect-disk-ioerrors", "--oneshot"])
+            if io_errors_flag_file.exists():
+                raise IOErrorsDetectedError() from e
+            # If there are no I/O errors, we raise the original error
+            raise e
 
         # Remove the LUKS header backup if it exists. It's not needed
         # anymore and we don't want to keep it around to avoid that the
