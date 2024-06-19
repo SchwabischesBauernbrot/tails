@@ -445,7 +445,9 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             dialog.set_title(_("File System Repaired Successfully"))
             dialog.label.set_label(
                 _(
-                    "Still, we recommend that you create a backup of your Tails USB stick as soon as possible."
+                    "It's possible that some data was lost during the repair. "
+                    "Please check the contents of your Persistent Storage and "
+                    "restore any lost data from a backup."
                 )
             )
             dialog.spinner.set_visible(False)
@@ -726,7 +728,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             text=_(
                 """Errors were detected in the Persistent Storage file system.
                 
-Tails can try to fix these errors, but this may take a long time and might make it harder to recover your data if something goes wrong.
+Tails can try to fix these errors, but this may take a long time, not all data may be recoverable, and it might make it harder to further recover your data.
                 
 If you already have an up-to-date backup of your Persistent Storage, we recommend that you try to repair.
                 
