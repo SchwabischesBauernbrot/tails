@@ -60,7 +60,10 @@ def main():
     Prints an excerpt of dsa-needed.txt with only the entries for
     packages also in the Tails image .build-manifest
     """
-    parser = argparse.ArgumentParser(description="list all packages that ")
+    parser = argparse.ArgumentParser(
+        description="List relevant package sections from dsa-needed.txt for all \
+        packages in the provided Tails image .build-manufest"
+    )
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
         "--branch",
