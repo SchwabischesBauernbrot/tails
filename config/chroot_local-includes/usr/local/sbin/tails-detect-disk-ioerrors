@@ -6,6 +6,7 @@ Detect SquashFS and other I/O errors in the journal and create the file
 that file automatically activates the tails-report-disk-ioerrors.service
 user service, which will display a notification to the user.
 """
+import argparse
 
 from tailslib.utils import get_boot_device
 
@@ -54,6 +55,12 @@ def process_entries(journal: systemd.journal.Reader, ioerror_patterns: IOErrorPa
 
 
 def main():
+    parser = argparse.ArgumentParser()
+    parser.add_argument(
+        "--oneshot", action="store_true", help="Process all existing messages and exit"
+    )
+    args = parser.parse_args()
+
     ioerror_patterns = IOErrorPatterns()
 
     flags = systemd.journal.SYSTEM_ONLY | systemd.journal.LOCAL_ONLY
@@ -63,14 +70,14 @@ def main():
     j.log_level(systemd.journal.LOG_ERR)
     j.add_match(SYSLOG_IDENTIFIER="kernel")
 
-    # On start we haven't detected any error
-    DISK_IOERRORS.unlink(missing_ok=True)
-
     systemd.daemon.notify("STATUS=Processing existing messages...\n")
 
     print("process first batch...")
     # Process all existing log entries since boot
     process_entries(j, ioerror_patterns)
+
+    if args.oneshot:
+        return
 
     # Notify systemd that we're ready
     systemd.daemon.notify("READY=1")
