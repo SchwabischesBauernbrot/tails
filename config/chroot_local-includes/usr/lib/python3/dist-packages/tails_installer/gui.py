@@ -800,7 +800,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
 
         if not self.opts.partition:
             # We delete the Live OS in order to accurately calculate
-            # progress later.
+            # progress later, and make sure there are no leftover files.
             try:
                 self.live.mount_device()
             except TailsInstallerError as e:
