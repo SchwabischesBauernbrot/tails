@@ -50,7 +50,7 @@ def process_entries(journal: systemd.journal.Reader, ioerror_patterns: IOErrorPa
 
         if matched:
             # Log which message matched the error patterns
-            print(msg)
+            print(f"I/O error detected: {msg}")
             DISK_IOERRORS.touch(exist_ok=True)
 
 
@@ -71,9 +71,7 @@ def main():
     j.add_match(SYSLOG_IDENTIFIER="kernel")
 
     systemd.daemon.notify("STATUS=Processing existing messages...\n")
-
-    print("process first batch...")
-    # Process all existing log entries since boot
+    print("Processing existing messages...")
     process_entries(j, ioerror_patterns)
 
     if args.oneshot:
@@ -81,9 +79,9 @@ def main():
 
     # Notify systemd that we're ready
     systemd.daemon.notify("READY=1")
-    systemd.daemon.notify("STATUS=Waiting for new messages to process...\n")
+    systemd.daemon.notify("STATUS=Continuously processing new messages...\n")
+    print("Continuously processing new messages...")
 
-    print("start loop")
     # Wait for new messages to be appended to the journal
     while True:
         # Note that journal.wait returns each time the journal is changed,
