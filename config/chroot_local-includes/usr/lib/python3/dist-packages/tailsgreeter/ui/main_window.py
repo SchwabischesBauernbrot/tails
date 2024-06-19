@@ -426,17 +426,8 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         unlocking_thread = threading.Thread(target=do_unlock_tps, args=(forceful_fsck,))
         unlocking_thread.start()
 
-    # Callbacks
-
-    def cb_accelgroup_setting_activated(
-        self, accel_group, accelerable, keyval, modifier
-    ):
-        for setting in self.settings:
-            if setting.accel_key == keyval:
-                self.edit_setting(setting.id)
-        return False
-
-    def cb_linkbutton_help_activate(self, linkbutton, user_data=None):
+    @staticmethod
+    def open_help_window(page: str) -> GreeterHelpWindow:
         def localize_page(page: str) -> str:
             """Try to get a localized version of the page"""
             if config.current_language == "en":
@@ -452,13 +443,6 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                 return localized_page
             return page
 
-        linkbutton.set_sensitive(False)
-        # Display progress cursor and update the UI
-        self.get_window().set_cursor(Gdk.Cursor.new(Gdk.CursorType.WATCH))
-        while Gtk.events_pending():
-            Gtk.main_iteration()
-
-        page = linkbutton.get_uri()
         page = localize_page(page)
 
         # Note that we add the "file://" part here, not in the URI.
@@ -473,6 +457,27 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         logging.debug(f"Opening help window for {uri}")
         helpwindow = GreeterHelpWindow(uri)
         helpwindow.show()
+        return helpwindow
+
+    # Callbacks
+
+    def cb_accelgroup_setting_activated(
+        self, accel_group, accelerable, keyval, modifier
+    ):
+        for setting in self.settings:
+            if setting.accel_key == keyval:
+                self.edit_setting(setting.id)
+        return False
+
+    def cb_linkbutton_help_activate(self, linkbutton, user_data=None):
+        linkbutton.set_sensitive(False)
+        # Display progress cursor and update the UI
+        self.get_window().set_cursor(Gdk.Cursor.new(Gdk.CursorType.WATCH))
+        while Gtk.events_pending():
+            Gtk.main_iteration()
+
+        page = linkbutton.get_uri()
+        helpwindow = self.open_help_window(page)
 
         def restore_linkbutton_status(widget, event, linkbutton):
             linkbutton.set_sensitive(True)
