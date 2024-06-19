@@ -40,7 +40,6 @@ from tailsgreeter.ui.message_dialog import MessageDialog
 from tailsgreeter.ui.help_window import GreeterHelpWindow
 from tailsgreeter.ui.region_settings import LocalizationSettingUI
 from tailsgreeter import TRANSLATION_DOMAIN
-from tailsgreeter.ui.repair_filesystem_dialog import RepairFilesystemDialog
 from tps import InvalidBootDeviceErrorType
 
 gi.require_version("Gdk", "3.0")
@@ -426,8 +425,22 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         unlocking_thread.start()
 
     def repair_tps_filesystem(self):
-        dialog = RepairFilesystemDialog()
+        dialog = MessageDialog(
+            message_type=Gtk.MessageType.INFO,
+            title=_("Repairing the File System"),
+            text=_("This may take a long time..."),
+        )
         dialog.set_transient_for(self)
+        # Add a spinner to the dialog, next to the secondary label
+        box = Gtk.Box(spacing=6, margin=12)
+        spinner = Gtk.Spinner()
+        spinner.start()
+        box.pack_start(spinner, False, False, 0)
+        label = dialog.get_message_area().get_children()[1]
+        dialog.get_message_area().remove(label)
+        box.pack_start(label, False, False, 0)
+        box.show_all()
+        dialog.get_message_area().pack_start(box, False, False, 0)
 
         def on_tps_repair_failed():
             dialog.response(Gtk.ResponseType.CANCEL)
@@ -442,16 +455,21 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             self.on_tps_activation_failed(label)
 
         def on_tps_repair_success():
-            dialog.set_title(_("File System Repaired Successfully"))
-            dialog.label.set_label(
-                _(
+            dialog.response(Gtk.ResponseType.OK)
+            # Show a separate dialog to support closing it via Alt+F4 or Escape
+            dialog_ = MessageDialog(
+                message_type=Gtk.MessageType.INFO,
+                title=_("File System Repaired Successfully"),
+                text=_(
                     "It's possible that some data was lost during the repair. "
                     "Please check the contents of your Persistent Storage and "
                     "restore any lost data from a backup."
-                )
+                ),
+                ok_label=_("Close"),
             )
-            dialog.spinner.set_visible(False)
-            dialog.close_button.set_visible(True)
+            dialog_.set_transient_for(self)
+            dialog_.run()
+            dialog_.destroy()
 
         def do_repair_tps_filesystem():
             try:
