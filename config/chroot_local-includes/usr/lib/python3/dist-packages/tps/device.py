@@ -816,7 +816,12 @@ class CleartextDevice:
             if e.returncode == 32:
                 # Exit code 32 means "Mount failure". This happens when
                 # the file system is corrupted. We run e2fsck to try to
-                # fix the file system.
+                # fix the file system. Yes, in do_unlock() we already
+                # ran e2fsck before calling mount(), but on #15451 we
+                # decided that we want to try to fix the filesystem
+                # again if mounting fails (maybe it causes the
+                # filesystem to be marked as unclean and then e2fsck
+                # finds errors to correct?).
                 self.fsck(forceful_fsck)
                 # Try to mount again
                 executil.check_call(mount_cmd)
