@@ -178,3 +178,10 @@ Feature: Tails persistence
     And the filesystem of the Persistent Storage was repaired
     When I close the filesystem repair dialog
     Then persistence is successfully enabled
+
+  Scenario: Filesystem and I/O errors
+    Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
+    And I corrupt the Persistent Storage filesystem on USB drive "__internal" in a way which can't be automatically repaired
+    And Tails detects disk read failures on the boot device
+    When I try to enable persistence
+    Then the Welcome Screen tells me that my hardware is probably failing

@@ -1815,3 +1815,11 @@ end
 Then(/^the Persistent Storage is successfully unlocked$/) do
   pending
 end
+
+Then(/^the Welcome Screen tells me that my hardware is probably failing$/) do
+  try_for(60) do
+    greeter.child?('Error reading data from your Persistent Storage. ' \
+                     'The hardware of your USB stick is probably failing.\n\n.*',
+                   roleName: 'label')
+  end
+end
