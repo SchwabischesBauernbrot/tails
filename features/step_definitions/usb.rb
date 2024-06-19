@@ -676,19 +676,30 @@ Given /^I try to enable persistence( with the changed passphrase)?$/ do |with_ch
   @screen.press('Return')
 end
 
-Given /^I enable persistence( with the changed passphrase)?$/ do |with_changed_passphrase|
-  step "I try to enable persistence#{with_changed_passphrase}"
-
-  # Wait until the Persistent Storage was unlocked.
+Then /^persistence is successfully enabled$/ do
+  # Wait until the Persistent Storage was unlocked. We don't know which
+  # language is set in the Welcome Screen after the Persistent Storage
+  # was unlocked, so we check the backend directly.
   try_for(120) do
-    greeter.child?('Your Persistent Storage is unlocked. ' \
-                     'Its content will be available until you shut down Tails.',
-                   roleName: 'label')
+    tails_persistence_enabled?
   end
 
   # Figure out which language is set now that the Persistent Storage is
   # unlocked
   $language, $lang_code = greeter_language
+
+  # Check that the status label says that the Persistent Storage was
+  # successfully unlocked. We do that *after* figuring out the language
+  # because the `child` method translates the label into the language
+  # designated by $lang_code.
+  greeter.child('Your Persistent Storage is unlocked. ' \
+                      'Its content will be available until you shut down Tails.',
+                roleName: 'label')
+end
+
+Given /^I enable persistence( with the changed passphrase)?$/ do |with_changed_passphrase|
+  step "I try to enable persistence#{with_changed_passphrase}"
+  step 'persistence is successfully enabled'
 end
 
 Given /^I enable persistence but something goes wrong during the LUKS header upgrade$/ do
@@ -1718,6 +1729,14 @@ Then /^the Welcome Screen tells me that the Persistent Folder feature couldn't b
   end
 end
 
+Then(/^the Welcome Screen tells me that filesystem errors were found on the Persistent Storage$/) do
+  try_for(60) do
+    greeter.child?('Failed to unlock the Persistent Storage due to file system errors.',
+                   roleName: 'label') && \
+      greeter.child?('Repair File System', roleName: 'push button')
+  end
+end
+
 Then /^the Persistent Storage settings tell me that the Persistent Folder feature couldn't be activated$/ do
   launch_persistent_storage
 
@@ -1745,27 +1764,54 @@ Given /^I reload tails-persistent-storage.service$/ do
   $vm.execute_successfully('systemctl reload tails-persistent-storage.service')
 end
 
-Given(/^I corrupt the Persistent Storage filesystem on USB drive "([^"]*)" in a way which can be automatically repaired$/) do |name|
+Given(/^I corrupt the Persistent Storage filesystem on USB drive "([^"]*)"( in a way which can't be automatically repaired)?$/) do |name, requires_manual_repair|
   # Unlock the Persistent Storage
   $vm.execute_successfully(
     "echo -n #{@persistence_password} | " \
       'cryptsetup luksOpen --batch-mode --key-file=- ' \
       "#{$vm.persistent_storage_dev_on_disk(name)} TailsData_unlocked"
   )
-  # Mount the filesystem
-  $vm.execute_successfully('mkdir -p /tmp/persistence')
-  $vm.execute_successfully('mount /dev/mapper/TailsData_unlocked /tmp/persistence')
-  # Corrupt the filesystem
-  $vm.execute_successfully('rm -rf /tmp/persistence/lost+found')
-  # Unmount the filesystem
-  $vm.execute_successfully('umount /tmp/persistence')
+
+  if requires_manual_repair
+    # Corrupt the filesystem
+    $vm.execute_successfully(
+      'dd if=/dev/zero of=/dev/mapper/TailsData_unlocked bs=1k count=4k seek=10'
+    )
+  else
+    # Mount the filesystem
+    $vm.execute_successfully('mkdir -p /tmp/persistence')
+    $vm.execute_successfully('mount /dev/mapper/TailsData_unlocked /tmp/persistence')
+    # Corrupt the filesystem
+    $vm.execute_successfully('rm -rf /tmp/persistence/lost+found')
+    # Unmount the filesystem
+    $vm.execute_successfully('umount /tmp/persistence')
+  end
+
   # Lock the Persistent Storage
   $vm.execute_successfully('cryptsetup luksClose TailsData_unlocked')
 end
 
-Then(/^the filesystem of the Persistent Storage is automatically repaired$/) do
+Then(/^the filesystem of the Persistent Storage was repaired$/) do
   $vm.execute_successfully(
     'journalctl -u tails-persistent-storage.service | ' \
       'grep -q "e2fsck corrected file system errors"'
   )
+end
+
+When(/^I repair the filesystem of the Persistent Storage$/) do
+  greeter.child('Repair File System', roleName: 'push button').click
+end
+
+Then(/^the Welcome Screen tells me that the filesystem was repaired successfully$/) do
+  try_for(60) do
+    greeter.child?('File System Repaired Successfully', roleName: 'label')
+  end
+end
+
+When(/^I close the filesystem repair dialog$/) do
+  greeter.child('Close', roleName: 'push button').click
+end
+
+Then(/^the Persistent Storage is successfully unlocked$/) do
+  pending
 end

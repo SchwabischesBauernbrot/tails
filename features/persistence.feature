@@ -164,6 +164,17 @@ Feature: Tails persistence
 
   Scenario: Automatic filesystem repair
     Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
-    And I corrupt the Persistent Storage filesystem on USB drive "__internal" in a way which can be automatically repaired
+    And I corrupt the Persistent Storage filesystem on USB drive "__internal"
     When I enable persistence
-    Then the filesystem of the Persistent Storage is automatically repaired
+    Then the filesystem of the Persistent Storage was repaired
+
+  Scenario: Manual filesystem repair
+    Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
+    And I corrupt the Persistent Storage filesystem on USB drive "__internal" in a way which can't be automatically repaired
+    When I try to enable persistence
+    Then the Welcome Screen tells me that filesystem errors were found on the Persistent Storage
+    When I repair the filesystem of the Persistent Storage
+    Then the Welcome Screen tells me that the filesystem was repaired successfully
+    And the filesystem of the Persistent Storage was repaired
+    When I close the filesystem repair dialog
+    Then persistence is successfully enabled
