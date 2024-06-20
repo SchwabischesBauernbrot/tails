@@ -379,7 +379,7 @@ class Handler(socketserver.StreamRequestHandler):
             # Meanwhile, we are using this hackish way of specifying a return code
             response = req.error_respond(data["error"])
             if data.get("code", None) is not None:
-                response._jsonrpc_error_code = data["code"]
+                response._jsonrpc_error_code = data["code"]  # noqa: SLF001
         self.outgoing_q.put(response)
 
     def send(self, response: RPCResponse):
