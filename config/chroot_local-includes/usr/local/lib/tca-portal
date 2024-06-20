@@ -21,7 +21,6 @@ import socket
 import time
 from subprocess import Popen, PIPE
 import multiprocessing
-from typing import List, Optional
 
 from tinyrpc.protocols.jsonrpc import JSONRPCProtocol, JSONRPCParseError
 from tinyrpc.protocols import RPCRequest, RPCResponse, RPCErrorResponse
@@ -83,7 +82,7 @@ class InvalidArgsError(InvalidRequestError):
 
 
 class BaseCommand:
-    def __init__(self, cmd: List[str], arguments: bool):
+    def __init__(self, cmd: list[str], arguments: bool):
         self.cmd = cmd
         self.arguments = arguments
         # See WriteFileCommand.run for an example of how to use this
@@ -307,7 +306,7 @@ class Handler(socketserver.StreamRequestHandler):
 
     protocol = JSONRPCProtocol()
 
-    def handle_line(self, line: bytes) -> Optional[RPCResponse]:
+    def handle_line(self, line: bytes) -> RPCResponse | None:
         """
         This will handle bytes that we believe might form a valid request (i.e.: a not-too-long sequence of
         bytes with no newline in between; see Handler.reader) and check if they actually do.
@@ -336,7 +335,7 @@ class Handler(socketserver.StreamRequestHandler):
             log.exception("Error processing request %s", req)
             return req.error_respond(error="Server error")
 
-    def handle_request(self, req: RPCRequest) -> Optional[RPCResponse]:
+    def handle_request(self, req: RPCRequest) -> RPCResponse | None:
         """
         This will handle a request from the client.
 
