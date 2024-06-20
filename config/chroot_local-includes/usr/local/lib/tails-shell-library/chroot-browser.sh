@@ -33,17 +33,13 @@ try_cleanup_browser_chroot () {
     for mnt in ${chroot_mounts} "${cow}"; do
         try_for 10 "umount ${mnt} 2>/dev/null" 0.1
     done
-    rmdir "${cow}/rw" "${cow}/work" "${cow}" "${chroot}"
+    rmdir "${cow}/rw" "${cow}/work" "${cow}" "${chroot}" || true
 }
 
 # Setup a chroot on a clean overlayfs "fork" of the root filesystem.
 setup_chroot_for_browser () {
     local chroot="${1}"
     local cow="${2}"
-
-    local cleanup_cmd="try_cleanup_browser_chroot \"${chroot}\" \"${cow}\""
-    # shellcheck disable=SC2064
-    trap "${cleanup_cmd}" INT EXIT
 
     local rootfs_dir
     local rootfs_dirs_path="/lib/live/mount/rootfs"
