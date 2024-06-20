@@ -9,7 +9,7 @@ TITLE="$(head -n 1 "$STATE_FILE")"
 TEXT="$(tail -n +2 "$STATE_FILE")"
 
 ret=$(notify-send \
-        --icon=error \
+        --icon=network-wireless-offline \
         --urgency=critical \
         --action=open_doc="Learn About MAC Address Anonymization" \
         -- "$TITLE" "$TEXT")
