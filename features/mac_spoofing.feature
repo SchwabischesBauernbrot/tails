@@ -62,7 +62,7 @@ Feature: Spoofing MAC addresses
     Then 1 network interface is enabled
     But the MAC spoofing panic mode disabled networking
     And no network device leaked the real MAC address
-    And I see the "All networking disabled" notification after at most 60 seconds
+    And I see the "All Networking Disabled" notification after at most 60 seconds
 
   Scenario: The MAC address is not leaked when booting Tails
     Given a computer
