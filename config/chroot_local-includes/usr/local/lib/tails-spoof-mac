@@ -48,12 +48,9 @@ You might prefer to restart Tails and disable MAC address anonymization.")
 }
 
 notify_panic_failure() {
-    local nic nic_name title text
-    nic="${1}"
-    # Print the NIC name with quotes
-    nic_name="\"${2}\""
+    local title text
     title=$(gettext "All networking disabled")
-    text=$(eval_gettext "MAC address anonymization failed for network card \${nic_name} (\${nic}). The error recovery also failed, so all networking is disabled.
+    text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces. The error recovery also failed, so all networking is disabled.
 
 You might prefer to restart Tails and disable MAC address anonymization.")
     printf "%s\n%s" "${title}" "${text}" > "${MAC_SPOOFING_FAILED_STATE_FILE}"
@@ -75,7 +72,7 @@ mac_spoof_panic() {
     if nic_exists "${nic}"; then
         log "Failed to unload module ${module} of NIC ${nic}."
         stop_and_disable_NM
-        notify_panic_failure "${nic}" "${nic_name}"
+        notify_panic_failure
     else
         log "Successfully unloaded module ${module} of NIC ${nic}."
         notify_panic_success "${nic}" "${nic_name}"
