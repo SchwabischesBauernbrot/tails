@@ -8,4 +8,12 @@ TITLE="$(head -n 1 "$STATE_FILE")"
 # The text is the rest of the file
 TEXT="$(tail -n +2 "$STATE_FILE")"
 
-notify-send --icon=error --urgency=critical -- "$TITLE" "$TEXT"
+ret=$(notify-send \
+        --icon=error \
+        --urgency=critical \
+        --action=open_doc="Learn About MAC Address Anonymization" \
+        -- "$TITLE" "$TEXT")
+
+if [ "$ret" = "open_doc" ]; then
+    tails-documentation doc/first_steps/welcome_screen/mac_spoofing
+fi
