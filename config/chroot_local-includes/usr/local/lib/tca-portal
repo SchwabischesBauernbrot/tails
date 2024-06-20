@@ -414,6 +414,12 @@ def main():
     if os.getuid() != 0:
         print("%s must be run as root" % sys.argv[0], file=sys.stderr)
         sys.exit(1)
+
+    # Unset LANG (which is set to en_US.UTF-8 when running as a systemd
+    # system service) to avoid overwriting the language dumped to the
+    # user env file when using run-with-user-env.
+    os.unsetenv("LANG")
+
     p = ArgumentParser(formatter_class=ArgumentDefaultsHelpFormatter)
     socket_parser = p.add_mutually_exclusive_group(required=False)
     socket_parser.add_argument(
