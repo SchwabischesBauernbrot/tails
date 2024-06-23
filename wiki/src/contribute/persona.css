@@ -1,45 +1,27 @@
-body {
-  color: black;
+#summary, #details {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 30px;
+  align-items: center;
 }
 
-span.title {
-  margin-bottom: 0em;
+#image, #side, #details div {
+  flex-basis: calc(50% - 15px);
 }
 
-#tag {
-  font-size: 2em;
-  font-weight: bold;
-  margin-bottom: 1em;
-}
-
-#bio {
-  font-size: 1.4em;
-  font-weight: bold;
-}
-
-#quote {
+blockquote {
+  margin: 30px 0;
   font-style: italic;
-  font-size: 1.4em;
-  margin: 1em 0;
 }
 
-#quote:before {
-  content: '« ';
+blockquote:before {
+  content: '« ';
 }
- 
-#quote:after {
-  content: ' »';
+
+blockquote:after {
+  content: ' »';
 }
- 
-#primary {
-  font-size: 1.2em;
+
+#bio, #primary {
   font-weight: bold;
-}
-
-#technology, #threats, #objectives {
-  font-size: 1.2em;
-}
-
-li {
-  margin: 0.2em 0;
 }

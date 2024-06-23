@@ -74,6 +74,10 @@ p {
   margin: 0 0 1.5em 0;
 }
 
+.indent {
+  margin-left: 30px;
+}
+
 /* Headings */
 
 h1, h2, h3, h4, h5 {
@@ -324,12 +328,23 @@ header.title { /* Override style.css */
 }
 
 #tails-logo a, #tails-logo .selflink {
-  background: url(lib/logo.svg) no-repeat center 10px;
   display: block;
+  width: 330px;
   height: 110px;
+  margin: 0 auto;
+}
+
+#tails-logo a span, #tails-logo .selflink span {
+  display: block;
+  width: 0;
+  height: 0;
   font-size: 0;
   color: transparent;
   text-indent: -9999px;
+}
+
+#tails-logo a img, #tails-logo .selflink img {
+  margin: 10px 30px;
 }
 
 /* Search box and Donate button */
@@ -425,8 +440,7 @@ label[for="searchbox"]{
 @media (min-width: 600px) {
   #tails-logo a, #tails-logo .selflink {
     height: 120px;
-    background-position: 30px 10px;
-    max-width: 330px;
+    margin: 0;
   }
   #search-and-donate {
     flex-direction: column;
@@ -642,7 +656,7 @@ label[for="searchbox"]{
 
 /* Page title */
 
-span.title {
+header.title span.title {
   font-family: "Source Sans Pro Regular", "DejaVu Sans", "Verdana", sans-serif;
   font-size: 2.8em;
   line-height: 1em;
@@ -650,10 +664,29 @@ span.title {
   color: var(--medium-purple);
 }
 
-div.title span.date {
+header.title time {
   display: block;
   margin-top: 6px;
   font-style: italic;
+}
+
+header.title ul.tags {
+  margin: 0;
+  list-style-type: none;
+}
+
+header.title ul.tags li a {
+  display: none;
+}
+
+header.title ul.tags li a[href*="tags/security/fixed"] {
+  display: inline-block;
+  padding: 3px 6px;
+  margin: 6px 0;
+  background: var(--medium-purple) !important;
+  border-radius: 5px;
+  color: white;
+  text-transform: capitalize;
 }
 
 /* Links */

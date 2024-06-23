@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
-"PO-Revision-Date: 2024-01-10 22:35+0000\n"
-"Last-Translator: la_r_go* <largo@tracciabi.li>\n"
+"POT-Creation-Date: 2024-06-04 19:17+0000\n"
+"PO-Revision-Date: 2024-06-05 05:53+0000\n"
+"Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -54,8 +54,8 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "[[!toc levels=2]]\n"
-msgstr "[[!toc levels=2]]\n"
+msgid "[[!toc levels=3]]\n"
+msgstr "[[!toc levels=3]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -107,10 +107,9 @@ msgid "<div class=\"icon\">\n"
 msgstr "<div class=\"icon\">\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "[[!img lib/apps/stock_folder.png link=\"no\" alt=\"\"]]\n"
+#, no-wrap
 msgid "[[!img lib/apps/folder.png link=\"no\" alt=\"\"]]\n"
-msgstr "[[!img lib/apps/stock_folder.png link=\"no\" alt=\"\"]]\n"
+msgstr "[[!img lib/apps/folder.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -128,7 +127,7 @@ msgid ""
 "documents in the <span class=\"filename\">Persistent</span> folder.\n"
 msgstr ""
 "Quando la funzionalità Cartella Persistente è attivata, puoi salvare i file e i documenti di\n"
-"lavoro nella cartella <span class=\"nome del file\">Persistente</span>.\n"
+"lavoro nella cartella <span class=\"filename\">Persistent</span>.\n"
 
 # I menu non sono tradotti
 #. type: Plain text
@@ -139,10 +138,10 @@ msgid ""
 "  <span class=\"guimenu\">Places</span>&nbsp;▸\n"
 "  <span class=\"guimenuitem\">Persistent</span></span>.\n"
 msgstr ""
-"Per aprire la cartella <span class=\"nome del file\">Persistente</span>, seleziona\n"
-"<span class=\"opzionimenu\">\n"
+"Per aprire la cartella <span class=\"filename\">Persistent</span>, seleziona\n"
+"<span class=\"menuchoice\">\n"
 "  <span class=\"guimenu\">Posizioni</span>&nbsp;▸\n"
-"  <span class=\"guimenuitem\">Persistente</span></span>.\n"
+"  <span class=\"guimenuitem\">Persistent</span></span>.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -153,8 +152,8 @@ msgid ""
 "folder first.\n"
 msgstr ""
 "Tor Browser* ha accesso solo alla sottocartella *Tor Browser* nella cartella\n"
-"*Persistente*. Puoi salvare i download solo nella cartella *Persistente/Tor Browser*.\n"
-"Per caricare un file, devi prima copiarlo nella cartella *Persistente/Tor Browser*.\n"
+"*Persistent*. Puoi salvare i download solo nella cartella *Persistent/Tor Browser*.\n"
+"Per caricare un file, devi prima copiarlo nella cartella *Persistent/Tor Browser*.\n"
 
 #. type: Title =
 #, no-wrap
@@ -341,7 +340,7 @@ msgid ""
 "<div class=\"text\"><h2>Electrum Bitcoin Wallet</h2></div>\n"
 "</div>\n"
 msgstr ""
-"<div class=\"testo\"><h2>Electrum Bitcoin Wallet</h2></div>\n"
+"<div class=\"text\"><h2>Electrum Bitcoin Wallet</h2></div>\n"
 "</div>\n"
 
 #. type: Plain text
@@ -370,7 +369,7 @@ msgid ""
 "<div class=\"text\"><h2>Thunderbird Email Client</h2></div>\n"
 "</div>\n"
 msgstr ""
-"<div class=\"testo\"><h2>Thunderbird Email Client</h2></div>\n"
+"<div class=\"text\"><h2>Thunderbird Email Client</h2></div>\n"
 "</div>\n"
 
 #. type: Plain text
@@ -516,10 +515,8 @@ msgid "- The public keys of the hosts you connect to"
 msgstr "- Le chiavi pubbliche degli host ai quali ti connetti"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "- The SSH configuration file in *~/.ssh/config*"
 msgid "- The SSH configuration file in */home/amnesia/.ssh/config*"
-msgstr "- Il file di configurazione SSH in*~/.ssh/config*"
+msgstr "- Il file di configurazione SSH in */home/amnesia/.ssh/config*"
 
 #. type: Title =
 #, no-wrap
@@ -692,13 +689,6 @@ msgstr ""
 "di sopra</p>\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "On Tails and Linux in general, the name of configuration files often "
-#| "starts with a dot and are sometimes called [[!wikipedia dotfiles]] for "
-#| "this reason.  The Dotfiles feature of the Persistent Storage makes it "
-#| "easy to persist such \"*dotfiles*\", for example *~/.gitconfig* or *~/."
-#| "bashrc*."
 msgid ""
 "On Tails and Linux in general, the name of configuration files often starts "
 "with a dot and are sometimes called [[!wikipedia dotfiles]] for this "
@@ -709,8 +699,8 @@ msgstr ""
 "In Tails e in generale in Linux, il nome dei file di configurazione spesso "
 "inizia con un punto e sono spesso chiamati [[!wikipedia dotfiles]] per "
 "questa ragione.  La funzionalità dei Dotfiles dell'Archivio Persistente li "
-"rende più facili da mantenere come \"*dotfiles*\", per esempio:  *~/."
-"gitconfig* o *~/.bashrc*."
+"rende più facili da mantenere come \"*dotfiles*\", per esempio */home/"
+"amnesia/.gitconfig* o */home/amnesia/.bashrc*."
 
 #. type: Plain text
 #, no-wrap
@@ -741,13 +731,8 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "<a id=\"displays\"></a>\n"
-msgstr "<a id=\"displays\"></a>\n"
-
-#. type: Title ###
-#, no-wrap
-msgid "Save the configuration of your displays"
-msgstr "Salvare la configurazione dei propri schermi"
+msgid "<h3 id=\"displays\">Save the configuration of your displays</h3>\n"
+msgstr "<h3 id=\"displays\">Salvare la configurazione dei propri schermi</h3>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -786,9 +771,9 @@ msgid ""
 "live/persistence/TailsData_unlocked/dotfiles</span> folder in the <span "
 "class=\"application\">Files</span> browser."
 msgstr ""
-"Scegli **Places**&nbsp;▸ **Dotfiles** per aprire <span class=\"nomefile\">/"
+"Scegli **Places**&nbsp;▸ **Dotfiles** per aprire <span class=\"filename\">/"
 "live/persistence/TailsData_unlocked/dotfiles</span> cartella nell' <span "
-"class=\"applicatione\">File</span> browser."
+"class=\"application\">File</span> browser."
 
 #. type: Bullet: '1. '
 #, fuzzy
@@ -797,8 +782,9 @@ msgstr ""
 #| "toggle\" class=\"symbolic\" link=\"no\"]]</span> button in the title bar "
 #| "and choose <span class=\"guilabel\">Show Hidden Files</span>."
 msgid ""
-"Click the [[!img lib/open-menu.png alt=\"\" class=\"symbolic\" link=\"no\"]] "
-"button in the title bar and turn on the option **Show Hidden Files**."
+"Click the [[!img lib/open-menu.png alt=\"Main Menu\" class=\"symbolic\" "
+"link=\"no\"]] button in the title bar and turn on the option **Show Hidden "
+"Files**."
 msgstr ""
 "Fai clic sul bottone <span class=\"guimenu\">[[!img lib/pan-down.png "
 "alt=\"mostra menù\" class=\"symbolic\" link=\"no\"]]</span> nella barra del "
@@ -886,6 +872,10 @@ msgid ""
 msgstr ""
 "Attiva nuovamente la funzionalità per ripristinare i dati e renderli "
 "nuovamente disponibili in Tails."
+
+#, no-wrap
+#~ msgid "<a id=\"displays\"></a>\n"
+#~ msgstr "<a id=\"displays\"></a>\n"
 
 #, no-wrap
 #~ msgid "<!-- Remove after #8447. -->\n"

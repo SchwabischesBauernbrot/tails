@@ -8,21 +8,20 @@ msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-02-26 12:26+0100\n"
-"PO-Revision-Date: 2023-07-23 10:37+0000\n"
-"Last-Translator: xin <xin@riseup.net>\n"
+"PO-Revision-Date: 2024-05-03 16:39+0000\n"
+"Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "[[!meta title=\"Securely deleting files and clean diskspace\"]]\n"
+#, no-wrap
 msgid "[[!meta title=\"Securely deleting files\"]]\n"
-msgstr "[[!meta title=\"Effacement sécurisé des fichiers et nettoyage de l'espace disque\"]]\n"
+msgstr "[[!meta title=\"Effacement sécurisé des fichiers\"]]\n"
 
 #. type: Plain text
 msgid ""
@@ -31,55 +30,50 @@ msgid ""
 "they are not reliable enough on modern storage devices, such as USB sticks "
 "and Solid-State Drives (SSDs)."
 msgstr ""
+"Tails incluait auparavant des outils pour *effacer* des fichiers et l'espace "
+"libre disponible. Nous avons enlevé ces outils depuis Tails 6.0 (février "
+"2024), car nous pensons qu'ils ne sont pas assez fiables sur des "
+"périphériques de stockage modernes, comme des clés USB ou des SSD (Solid-"
+"State Drive)."
 
 #. type: Plain text
 msgid ""
 "To better protect from data recovery, use encrypted volumes, overwrite the "
 "entire device, or disintegrate it physically."
 msgstr ""
+"Pour mieux se protéger de la récupération de données, utilisez des volumes "
+"chiffrés, écrasez le périphérique entier ou détruisez-le physiquement."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "[[!toc levels=1]]\n"
+#, no-wrap
 msgid "[[!toc levels=2]]\n"
-msgstr "[[!toc levels=1]]\n"
+msgstr "[[!toc levels=2]]\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<h1 id=\"why\">Why use secure deletion?</h1>\n"
+#, no-wrap
 msgid "<h1 id=\"risks\">Limitations of file deletion</h1>\n"
-msgstr "<h1 id=\"why\">Pourquoi utiliser l'effacement sécurisé ?</h1>\n"
+msgstr "<h1 id=\"risks\">Limites de l'effacement de fichier </h1>\n"
 
 #. type: Plain text
-#, fuzzy
 msgid "See also [[!wikipedia Data_erasure desc=\"Wikipedia: Data Erasure\"]]."
 msgstr ""
-"<p class=\"quoted-from\">Source [[!wikipedia_fr Rémanence_des_données\n"
-"desc=\"Wikipédia: %s\"]].</p>\n"
+"Voir aussi [[!wikipedia_fr Effacement_de_données desc=\"Wikipédia : "
+"Effacement de données\"]]."
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"delete\">Deleting a file does not erase its content</h2>\n"
-msgstr ""
+msgstr "<h2 id=\"delete\">Supprimer un fichier n'efface pas son contenu</h2>\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "**Operating systems do not actually remove the contents of a file when it "
-#| "is\n"
-#| "deleted**, even after emptying the trash or explicitly removing the file, "
-#| "from\n"
-#| "the command line for example.\n"
 msgid ""
 "Operating systems do not actually remove the content of a file when the file "
 "is deleted, even after emptying the trash or removing the file from the "
 "command line."
 msgstr ""
-"**Les systèmes d'exploitation n'effacent pas le contenu d'un fichier "
-"lorsque\n"
-"celui-ci est supprimé**, même après avoir vidé la corbeille ou supprimé "
-"explicitement\n"
-"le fichier, avec une ligne de commande par exemple.\n"
+"Les systèmes d'exploitation n'effacent pas réellement le contenu d'un "
+"fichier lorsque le fichier est supprimé, même après avoir vidé la corbeille "
+"ou supprimé le fichier avec une ligne de commande."
 
 #. type: Plain text
 msgid ""
@@ -88,17 +82,23 @@ msgid ""
 "However, the content of the deleted file remains on the device until the "
 "operating system reuses the space for another file."
 msgstr ""
+"À la place, l'espace qui était utilisé par le fichier supprimé est noté "
+"comme disponible pour de futures fichiers par les systèmes d'exploitation, "
+"pour des raisons de rapidité. Cependant, le contenu du fichier effacé reste "
+"sur le périphérique jusqu'à ce que le système d'exploitation réutilise "
+"effectivement cet espace pour un autre fichier."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<div class=\"note\">\n"
+#, no-wrap
 msgid "<div class=\"attack\">\n"
-msgstr "<div class=\"note\">\n"
+msgstr "<div class=\"attack\">\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<p>Simple data recovery tools can recover deleted files.</p>\n"
 msgstr ""
+"<p>Des outils simples de récupération de données peuvent récupérer des "
+"fichiers supprimés.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -109,16 +109,22 @@ msgstr "</div>\n"
 #, no-wrap
 msgid "<h2 id=\"copy\">Other copies of the data might be stored elsewhere</h2>\n"
 msgstr ""
+"<h2 id=\"copy\">D'autres copies des données pourraient être stockées "
+"ailleurs</h2>\n"
 
 #. type: Plain text
 msgid "Other copies of the data might exist elsewhere on the device:"
 msgstr ""
+"D'autres copies des données pourraient exister ailleurs sur le périphérique :"
 
 #. type: Bullet: '- '
 msgid ""
 "Some applications, for example, office applications, store temporary backup "
 "versions of the file to be able to recover from failures."
 msgstr ""
+"Certaines applications, par exemples les applications bureautiques, stockent "
+"des sauvegardes temporaires des versions du fichier pour pouvoir le "
+"restaurer en cas de problème."
 
 #. type: Bullet: '- '
 msgid ""
@@ -126,11 +132,17 @@ msgid ""
 "to the file system, or *snapshots*, an image of the file system at a "
 "particular point in time."
 msgstr ""
+"Les systèmes d'exploitation modernes peuvent enregistrer un *journal*, un "
+"historique des changements récents dans le système de fichiers, ou des "
+"*instantanés* (en anglais snapshots), une image du système de fichier à un "
+"moment donné."
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"spare\">Spare memory cells can store a hidden copy of the data</h2>\n"
 msgstr ""
+"<h2 id=\"spare\">Des cellules de mémoire libres peuvent stocker une copie "
+"cachée des données</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -139,34 +151,48 @@ msgid ""
 "time.  Modern hard disks also integrate small flash memories for performance "
 "and reliability."
 msgstr ""
+"Les périphériques de mémoire flash, comme les clés USB ou les SSD (Solid-"
+"State Drive), ont des *cellules de mémoire libres* qui sont utilisées pour "
+"remplacer au fil du temps les cellules de mémoire cassées. Les disques durs "
+"modernes intègrent également de petites mémoires flash pour des raisons de "
+"performance et de fiabilité."
 
 #. type: Plain text
 msgid ""
 "Any data that was stored in the device can remain available in these spare "
 "cells."
 msgstr ""
+"N'importe quelle donnée qui a été stockée sur le périphérique peut rester "
+"disponible dans ces cellules libres."
 
 #. type: Plain text
 msgid ""
 "These spare cells are managed directly by the device and neither the user "
 "nor the operating system can control what is stored in them."
 msgstr ""
+"Ces cellules libres sont gérées directement par le périphérique et ni les "
+"personnes qui l'utilisent ni le système d'exploitation ne peuvent contrôler "
+"ce qui est stocké dessus."
 
 #. type: Plain text
 #, no-wrap
 msgid "<p>Specialized data recovery companies can recover data from spare cells.</p>\n"
 msgstr ""
+"<p>Des entreprises spécialisées dans la récupération de données peuvent "
+"récupérer des données depuis des cellules libres.</p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<h1 id=\"mitigation\">Mitigation techniques</h1>\n"
-msgstr ""
+msgstr "<h1 id=\"mitigation\">Mitigations techniques</h1>\n"
 
 #. type: Plain text
 msgid ""
 "Given the limitations described above, there is no perfect solution to file "
 "deletion."
 msgstr ""
+"Étant donné les limites décrites précédemment, il n'y a pas de solution "
+"parfaite pour l'effacement de fichier."
 
 #. type: Plain text
 msgid ""
@@ -174,12 +200,16 @@ msgid ""
 "these mitigation techniques, depending on the sensitivity of your data and "
 "the risks."
 msgstr ""
+"Pour mieux vous protéger de la récupération de données, vous pouvez utiliser "
+"une de ces mitigations techniques ou une combinaison d'entre-elles, suivant "
+"la sensibilité de vos données et les risques."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "Securely delete files"
+#, no-wrap
 msgid "<h2 id=\"tails\">Use Tails to avoid saving files</h2>\n"
-msgstr "Effacement sécurisé de fichiers"
+msgstr ""
+"<h2 id=\"tails\">Utilisez Tails pour éviter de sauvegarder des fichiers</h2>"
+"\n"
 
 #. type: Plain text
 msgid ""
@@ -187,6 +217,9 @@ msgid ""
 "down, except the files that you choose to store in the Persistent Storage or "
 "other storage devices."
 msgstr ""
+"Tous les fichiers que vous utilisez dans Tails disparaissent automatiquement "
+"lorsque vous l'éteignez, sauf les fichiers que vous avez choisi de stocker "
+"sur le stockage persistant ou sur un autre périphérique de stockage."
 
 #. type: Plain text
 msgid ""
@@ -194,36 +227,49 @@ msgid ""
 "place, using Tails is already an important mitigation technique given the "
 "limitations of file deletion."
 msgstr ""
+"En rendant facile d'éviter en premier lieu de sauvegarder des fichiers sur "
+"des périphériques de stockage, l'utilisation de Tails est déjà une "
+"mitigation technique importante étant donné les limite de l'effacement de "
+"fichier."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<h1 id=\"device\">Securely erasing an entire device</h1>\n"
+#, no-wrap
 msgid "<h2 id=\"encrypt\">Encrypt your storage devices</h2>\n"
-msgstr "<h1 id=\"device\">Effacer de manière sécurisée tout un périphérique</h1>\n"
+msgstr "<h2 id=\"encrypt\">Chiffrez vos périphériques de stockage</h2>\n"
 
 #. type: Plain text
 msgid ""
 "When all the data on your device is encrypted, data recovery tools can only "
 "recover encrypted data that is useless without your passphrase."
 msgstr ""
+"Quand toutes les données sur votre périphérique sont chiffrées, les outils "
+"de récupération de données peuvent seulement récupérer des données chiffrées "
+"qui sont inutiles sans votre phrase de passe."
 
 #. type: Plain text
 msgid ""
 "To better protect deleted files from data recovery, you can reformat your "
 "device and create another encryption with a different passphrase."
 msgstr ""
+"Pour mieux protéger les fichiers supprimés contre la récupération de "
+"données, vous pouvez reformater votre périphérique et créer un autre "
+"chiffrement avec une phrase de passe différente."
 
 #. type: Bullet: '- '
 msgid ""
 "For compatibility with Tails only or with another Linux, use [[LUKS "
 "encrypted volumes|encrypted_volumes]]."
 msgstr ""
+"Pour une compatibilité seulement avec Tails ou d'autres Linux, utilisez des "
+"[[volumes chiffrés LUKS|encrypted_volumes]]."
 
 #. type: Bullet: '- '
 msgid ""
 "For compatibility with Windows or macOS, use [[VeraCrypt encrypted volumes|"
 "veracrypt]]."
 msgstr ""
+"Pour une compatibilité avec Windows ou macOS, utilisez des [[volumes "
+"chiffrés VeraCrypt|veracrypt]]."
 
 #. type: Plain text
 #, no-wrap
@@ -231,18 +277,22 @@ msgid ""
 "<p>Take into account that you could be forced or tricked to give out your\n"
 "passphrase.</p>\n"
 msgstr ""
+"<p>Prenez en compte que l'on pourrait vous forcer à donner votre phrase de "
+"passe ou vous la faire donner par ruse.</p>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<h1 id=\"device\">Securely erasing an entire device</h1>\n"
+#, no-wrap
 msgid "<h2 id=\"overwrite\">Overwrite the entire device</h2>\n"
-msgstr "<h1 id=\"device\">Effacer de manière sécurisée tout un périphérique</h1>\n"
+msgstr "<h2 id=\"overwrite\">Écrasez le périphérique entier</h2>\n"
 
 #. type: Plain text
 msgid ""
 "To better protect deleted files from data recovery, you can also reformat "
 "and overwrite the entire device with zeroes."
 msgstr ""
+"Pour mieux protéger les fichiers supprimés contre la récupération de "
+"données, vous pouvez aussi reformater et écraser avec des zéros le "
+"périphérique entier."
 
 #. type: Plain text
 msgid ""
@@ -250,14 +300,17 @@ msgid ""
 "secure_deletion#spare]], overwriting the entire device is especially "
 "important if the device is not encrypted."
 msgstr ""
+"Même si certaines données pourraient encore être récupérées depuis les [["
+"cellules de mémoire libres|secure_deletion#spare]], écraser le périphérique "
+"entier est particulièrement important si le périphérique n'est pas chiffré."
 
 #. type: Plain text
 msgid "To do so:"
-msgstr ""
+msgstr "Pour ce faire :"
 
 #. type: Bullet: '1. '
 msgid "Open the *Disks* utility."
-msgstr ""
+msgstr "Ouvrez l'utilitaire *Disques\"."
 
 #. type: Plain text
 #, no-wrap
@@ -265,19 +318,14 @@ msgid "   All the current storage devices are listed in the left pane.\n"
 msgstr "   Tous les périphériques de stockage actuels sont listés dans la partie gauche.\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid "Plug in the USB stick or SSD that you want to securely delete."
 msgid "Plug in the device that you want to reformat and overwrite."
-msgstr ""
-"Branchez la clé USB ou le SSD que vous voulez effacer de manière sécurisée."
+msgstr "Branchez le périphérique que vous voulez reformater ou écraser."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid "A new device appears in the list of storage devices. Click on it:"
 msgid "A new device appears in the list of devices. Click on it."
 msgstr ""
-"Un nouveau périphérique apparaît dans la liste des périphériques de "
-"stockage. Cliquez dessus :"
+"Un nouveau périphérique apparaît dans la liste des périphériques. Cliquez "
+"dessus."
 
 #. type: Plain text
 #, no-wrap
@@ -285,57 +333,38 @@ msgid "   [[!img encrypted_volumes/storage_devices_after.png link=\"no\" alt=\"\
 msgstr "   [[!img encrypted_volumes/storage_devices_after.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Check that the description of the device on the right side of the screen "
-#| "corresponds to your device: its brand, its size, etc."
 msgid ""
 "Check that the brand and size of the device in the right pane corresponds to "
 "your device."
 msgstr ""
-"Vérifiez que la description du périphérique sur la partie droite de l'écran "
-"correspond à votre périphérique : sa marque, sa taille, etc."
+"Vérifiez que la marque et la taille du périphérique dans le volet droit "
+"correspondent à votre périphérique."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Click on the [[!img lib/open-menu.png alt=\"Menu\" class=\"symbolic\" "
-#| "link=\"no\"]] button in the right corner of the title bar and choose "
-#| "**Show Hidden Files**."
 msgid ""
 "Click on the [[!img lib/view-more.png alt=\"Drive Options\" "
 "class=\"symbolic\" link=\"no\"]] button in the title bar and choose **Format "
 "Disk**."
 msgstr ""
-"Cliquez sur le bouton [[!img lib/open-menu.png alt=\"Menu\" "
-"class=\"symbolic\" link=\"no\"]] dans la partie droite de la barre de titre "
-"et choisissez **Afficher les fichiers cachés**."
+"Cliquez sur le bouton [[!img lib/view-more.png alt=\"Options du disque\" "
+"class=\"symbolic\" link=\"no\"]] dans la barre de titre et choisissez **"
+"Formater le disque**."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid "In the <span class=\"guilabel\">Format Disk</span> dialog:"
 msgid "In the **Format Disk** dialog:"
-msgstr ""
-"Dans la boîte de dialogue <span class=\"guilabel\">Formater le disque</"
-"span> :"
+msgstr "Dans la boîte de dialogue **Formater le disque** :"
 
 #. type: Bullet: '   - '
-#, fuzzy
-#| msgid ""
-#| "Choose to <span class=\"guilabel\">Overwrite existing data with zeroes</"
-#| "span> in the <span class=\"guilabel\">Erase</span> drop-down list."
 msgid ""
 "Choose **Overwrite existing data with zeroes (Slow)** in the **Erase** menu."
 msgstr ""
-"Choisissez <span class=\"guilabel\">Écraser les données existantes avec des "
-"zéros</span> dans la liste déroulante <span class=\"guilabel\">Effacer</"
-"span>."
+"Choisissez **Écraser les données existantes avec des zéros (Lent)** dans le "
+"menu **Effacer**."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<div class=\"caution\">\n"
+#, no-wrap
 msgid "     <div class=\"caution\">\n"
-msgstr "<div class=\"caution\">\n"
+msgstr "     <div class=\"caution\">\n"
 
 #. type: Plain text
 #, no-wrap
@@ -343,66 +372,64 @@ msgid ""
 "     <p>Overwriting existing data does not erase all data on flash\n"
 "     memories, such as USB sticks and SSDs (Solid-State Drives).</p>\n"
 msgstr ""
+"     <p>Écraser les données existantes n'efface pas toutes les données sur "
+"les mémoires\n"
+"     flash, tels que les clés USB et les SSD (Solid-State Drive).</p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "     <p>See the [[limitations of file deletion|doc/encryption_and_privacy/secure_deletion#spare]].</p>\n"
 msgstr ""
+"     <p>Voir les [[limites de l'effacement de fichier|doc/"
+"encryption_and_privacy/secure_deletion#spare]].</p>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "</div>\n"
+#, no-wrap
 msgid "     </div>\n"
-msgstr "</div>\n"
+msgstr "     </div>\n"
 
 #. type: Bullet: '   - '
-#, fuzzy
-#| msgid ""
-#| "Choose <span class=\"guilabel\">Compatible with all systems and devices "
-#| "(MBR/DOS)</span> in the <span class=\"guilabel\">Partitioning</span> drop-"
-#| "down list."
 msgid ""
 "Choose **Compatible with all systems and devices (MBR/DOS)** in the "
 "**Partitioning** menu."
 msgstr ""
-"Choisissez <span class=\"guilabel\">Compatible avec tous les systèmes et "
-"périphériques (MBR / DOS)</span> dans la liste déroulante <span "
-"class=\"guilabel\">Partitionnement</span>."
+"Choisissez **Compatible avec tous les systèmes et périphériques (MBR / DOS)**"
+" dans le menu **Partitionnement**."
 
 #. type: Bullet: '1. '
 msgid "Click **Format**."
-msgstr ""
+msgstr "Cliquez sur **Formater**."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "In the confirmation dialog, make sure that the device is correct. Click "
-#| "<span class=\"bold\">Format</span> to confirm."
 msgid "In the confirmation dialog, make sure that the device is correct."
 msgstr ""
 "Dans la boîte de dialogue de confirmation, assurez-vous que le périphérique "
-"est le bon. Cliquez sur <span class=\"bold\">Formater</span> pour confirmer."
+"est le bon."
 
 #. type: Bullet: '1. '
 msgid "Click **Format** to confirm."
-msgstr ""
+msgstr "Cliquez sur **Formater** pour confirmer."
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"destroy\">Physically destroy the device</h2>\n"
-msgstr ""
+msgstr "<h2 id=\"destroy\">Détruisez physiquement le périphérique</h2>\n"
 
 #. type: Plain text
 msgid ""
 "As a last resort, physically destroying the device gives the strongest "
 "guarantee against data recovery."
 msgstr ""
+"En dernier recours, détruire physiquement le périphérique donne la plus "
+"forte garantie contre la récupération de données."
 
 #. type: Plain text
 msgid ""
 "It is unreliable to break the device into a few pieces or burn it with wood "
 "fire."
 msgstr ""
+"Il est peu fiable de casser le périphérique en plusieurs morceaux ou de le "
+"faire brûler au feu de bois."
 
 #. type: Plain text
 msgid ""
@@ -411,6 +438,10 @@ msgid ""
 "achieved using a [good quality household blender](https://commons.erau.edu/"
 "jdfsl/vol16/iss2/1/)."
 msgstr ""
+"Pour des documents top secret, la NSA ([[!wikipedia_fr National Security "
+"Agency]]) des États-Unis recommande la désintégration en particules de 2 mm. "
+"Cela peut-être fait en utilisant un [mixeur domestique de bonne "
+"qualité](https://commons.erau.edu/jdfsl/vol16/iss2/1/)."
 
 #~ msgid ""
 #~ "Instead, they simply remove the file's entry from the file system "

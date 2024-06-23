@@ -772,9 +772,10 @@ method do_incremental_upgrade (HashRef $upgrade_path) {
             "You should restart Tails on the new version as soon as possible.\n\n".
             "Do you want to restart now?"
         ),
-        title        => __(q{Restart Tails}),
-        ok_label     => __(q{Restart now}),
-        cancel_label => __(q{Restart later}),
+        title          => __(q{Restart Tails}),
+        ok_label       => __(q{Restart now}),
+        cancel_label   => __(q{Restart later}),
+        default_cancel => 1,
     ) && $self->restart_system;
 
     exit(0);

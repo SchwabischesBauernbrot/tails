@@ -1,54 +1,49 @@
-/* Remove white margin on page */
-
-#pagebody {
-  margin-left: -2em;
+#flex {
+  display: flex;
+  flex-wrap: wrap;
 }
 
-#content {
-  padding: 0;
+#feature, #other-ways-2 {
+  width: 60%;
 }
 
-.row {
-  margin-left: 0;
-  margin-right: -2em;
-  padding-left: 35px;
+#widgets-and-other-ways-1, #other-ways-3 {
+  width: 40%;
+}
+
+#flex, #expenses, #income, #recommended {
+  margin: 0 -30px;
+}
+
+#feature, #widgets, #other-ways-1, #other-ways-2, #other-ways-3, #expenses, #income {
+  padding: 0 30px;
+}
+
+@media (max-width: 978px) {
+#flex {
+  flex-direction: column;
+}
+#feature, #other-ways-2, #widgets-and-other-ways-1, #other-ways-3 {
+  width: 100%;
+}
 }
 
 /* Left part */
-
-#feature {
-  margin-bottom: 2em;
-}
 
 #feature img {
   display: block;
   margin: auto;
   width: 400px;
-  height: auto;
 }
 
-@media (max-width: 550px) {
+@media (max-width: 500px) {
 #feature img {
   width: 100%;
 }
 }
 
-#feature h2 {
+#feature h1 {
   margin: 1em 0;
-}
-
-#feature h3 {
-  font-size: 20px;
-  font-style: italic;
-  margin-bottom: 1em;
-  text-transform: none;
-  letter-spacing: 0;
-}
-
-#feature p, #feature ul {
-  font-size: 16px;
-  line-height: 1.5em;
-  margin-right: 3.5em;
 }
 
 /* Hide version with JavaScript by default */
@@ -59,59 +54,62 @@
 
 /* JavaScript version */
 
-#currency .col-md-12 {
-  margin-bottom: 1em;
-  padding: 0;
-  border: solid 3px white;
-}
-
-#donate-paypal-button {
-  width: 100%;
-  border: solid 3px white;
-}
-
-.btn-primary {
-  background-color: var(--medium-light-green) !important;
-  border-color: var(--medium-light-green) !important;
-  color: black;
-}
-
-.btn-primary.active, .btn-primary.active:hover {
-  background-color: var(--dark-green) !important;
-  border-color: var(--dark-green) !important;
-  color: white;
-}
-
-.amounts .btn-primary.active:hover {
-  border-color: white !important;
-}
-
-.btn-primary:hover {
-  background-color: var(--medium-dark-green) !important;
-  border-color: var(--medium-dark-green) !important;
-  color: black;
-}
-
-#currency, #dollar-amounts, #euro-amounts, #frequency-buttons,
+#amounts, #frequency-buttons,
 #frequency-explanation, #donate-paypal-button, .tax-deductible {
   display: inline-block;
 }
 
-#frequency-buttons, #frequency-explanation, #require-paypal, #paypal-with-js .tax-deductible, #newsletter {
-  padding: 0 4px;
+#amounts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
 }
 
-#frequency-buttons {
-  margin-top: 0.5em;
-  padding-bottom: 0.2em;
-  border-bottom: 2px solid transparent;
-  width: 100%;
+#amounts label {
+  height: 50px;
+  padding-top: 16px !important;
+  font-size: 16px;
+  flex-basis: calc((100% - 30px)/4);
+  flex-grow: 1;
+  margin: 0;
   text-align: center;
 }
 
-#frequency-buttons input {
-  position: relative;
-  margin-right: 6px;
+#amounts label input[type="radio"] {
+  position: absolute;
+  clip: rect(0,0,0,0);
+}
+
+#amounts label.other {
+  display: flex;
+  padding-left: 3px !important;
+  padding-top: 12px !important;
+}
+
+#amounts label.other input {
+  width: 100%;
+  min-width: 50px;
+  height: 28px;
+}
+
+#amounts label.other span {
+  padding-top: 4px;
+}
+
+#amounts label.active {
+  background-color: var(--dark-green) !important;
+  border-color: var(--dark-green) !important;
+  color: white !important;
+}
+
+#frequency-buttons {
+  margin-top: 1em;
+  padding-bottom: 0.3em;
+  border-bottom: 2px solid transparent;
+  display: flex;
+  justify-content: space-around;
+  font-weight: bold;
+  gap: 10px;
 }
 
 .shake {
@@ -132,137 +130,69 @@
   90% { transform: translateX(-1px); }
 }
 
-.tax-deductible {
-  font-size: 11px;
-  color: var(--medium-dark-gray);
+#frequency-explanation {
+  font-size: 13px;
+  line-height: 1.5em;
 }
 
-.amounts .btn {
-  padding-top: 19px;
-  height: 65px;
-  border: solid 3px white !important;
+.paypal-inline {
+  position: relative;
+  top: 3px;
 }
 
-.amounts .other {
-  padding: 13px 4px;
+#donate-paypal-button, #donate-paypal-button button, #donate-paypal-button input {
+  width: 100%;
+  font-size: 16px;
 }
-
-.amounts .other .input-group-addon {
-  padding: 2px;
-}
-
-.amounts .other .form-control {
-  padding: 4px;
-}
-
-/* Newsletter */
 
 #newsletter {
-  margin-top: 1.5em;
-  min-height: 3em;
+  margin: 1em 0;
+  font-size: 13px;
+  font-weight: bold;
 }
 
-#newsletter label {
-  margin-bottom: 0;
+#newsletter input {
+  top: 0;
 }
 
 #email {
   display: none;
   font-size: 11px;
-  color: var(--medium-dark-gray);
-  margin-bottom: 0;
-}
-
-p.email {
-  font-size: 11px;
+  font-weight: normal;
   color: var(--medium-dark-gray);
 }
 
-/* Version without JavaScript */
-
-#paypal-without-js form {
-  margin-bottom: 1em;
-}
-
-#paypal-without-js input[type=submit] {
-  font-weight: bold;
+.tax-deductible {
+  font-size: 9px;
+  line-height: 1.5em;
+  color: var(--medium-dark-gray);
 }
 
 /* Other ways */
 
-h4 {
+h2 {
+  margin-top: 0 !important;
+}
+
+h3 {
   color: var(--medium-purple);
-  margin-top: 2em;
 }
 
-@media (max-width: 986px) {
-h4 {
-  margin-top: 3em;
-}
-}
-
-h5 {
-  font-weight: bold;
+#other-ways-1, #expenses, #income, #recommended {
+  padding: 30px !important;
 }
 
 #other-ways-1, #other-ways-2, #other-ways-3, #expenses {
-  margin-top: 2em;
   background: var(--background-gray);
-  box-sizing: border-box;
-  padding-bottom: 1.5em;
-}
-
-#other-ways-1 {
-  margin-right: -15px;
-  margin-left: -25px;
-  padding-left: 25px;
-}
-
-#other-ways-1 h3 {
-  margin-top: 1em;
-  padding-top: 25px;
-}
-
-#other-ways-2, #other-ways-3 {
-  margin-top: 0;
-  padding-top: 20px;
-}
-
-#cryptos {
-  padding-right: 2em;
 }
 
 .crypto-address {
   overflow-wrap: break-word;
+  font-size: 13px;
 }
 
-/* Indent bank account details for wire transfers */
-
-.indent {
-  margin-left: 2em;
-}
-
-/* Hide euros until we solve #11868 */
-
-#currency, #dollars-without-js h2, #euros-without-js {
-  display: none;
-}
-
-/* Other sections */
-
-h3 {
-  margin: 1.5em 0;
-}
-
-@media (max-width: 986px) {
-#users .image img {
-  max-width: 100%;
-  height: auto;
-}
-}
-
-/* Overwrite Bootstrap */
-
-blockquote {
-  font-size: 16px;
+.toggleable {
+  margin-top: 1.5em !important;
+  background: white !important;
+  padding: 30px 30px 0 30px !important;
 }

@@ -13,15 +13,17 @@ systemctl enable initramfs-shutdown.service
 systemctl enable onion-grater.service
 systemctl enable tails-allow-external-TailsData-access.service
 systemctl enable tails-autotest-broken-gnome-shell.service
+systemctl enable tails-autotest-journal-dumper.service
 systemctl enable tails-autotest-remote-shell.service
 systemctl enable tails-create-netns.service
-systemctl enable tails-detect-disk-errors.service
-systemctl enable tails-detect-squashfs-errors.service
+systemctl enable tails-detect-disk-resize-errors.service
+systemctl enable tails-detect-disk-ioerrors.service
 systemctl enable tails-persistent-storage.service
 systemctl enable tails-remove-overlayfs-dirs.service
 systemctl enable tails-set-wireless-devices-state.service
 systemctl enable tails-shutdown-on-media-removal.service
 systemctl enable tails-tor-has-bootstrapped.target
+systemctl enable tails-update-random-seed-sector.service
 systemctl enable tails-wait-until-tor-has-bootstrapped.service
 systemctl enable tails-tor-has-bootstrapped-flag-file.service
 systemctl enable tca-portal.socket
@@ -32,8 +34,9 @@ systemctl enable var-tmp.mount
 systemctl --global enable tails-add-GNOME-bookmarks.service
 systemctl --global enable tails-additional-software-install.service
 systemctl --global enable tails-configure-keyboard.service
-systemctl --global enable tails-report-disk-errors.service
-systemctl --global enable tails-report-squashfs-errors.path
+systemctl --global enable tails-report-disk-resize-errors.service
+systemctl --global enable tails-report-disk-ioerrors.path
+systemctl --global enable tails-report-mac-spoofing-failed.service
 systemctl --global enable tails-security-check.service
 systemctl --global enable tails-upgrade-frontend.service
 systemctl --global enable tails-virt-notify-user.service
@@ -41,6 +44,7 @@ systemctl --global enable tails-wait-until-tor-has-bootstrapped.service
 systemctl --global enable tails-create-persistent-storage.service
 systemctl --global enable tails-htpdate-notify-user.service
 systemctl --global enable tails-dump-user-env.service
+systemctl --global enable tails-start-system-gnome-session-target.service
 
 # This causes the proxies to run during the whole session, instead of
 # being started and stopped when needed. The only app which needs
@@ -57,6 +61,10 @@ systemctl enable  cups.socket
 # We're starting NetworkManager and Tor ourselves.
 systemctl disable NetworkManager.service
 systemctl disable NetworkManager-wait-online.service
+
+# We seed the entropy pool ourselves in initramfs, so we don't need the
+# systemd-random-seed.service. We disable it to avoid confusion.
+systemctl disable systemd-random-seed.service
 
 # tracker-extract-3.service is a helper service that is controlled by
 # tracker-miner-fs-3.service. It should not be started automatically
@@ -94,3 +102,4 @@ systemctl mask man-db.timer
 # before we enable it
 systemctl mask avahi-daemon.socket
 systemctl mask avahi-daemon.service
+

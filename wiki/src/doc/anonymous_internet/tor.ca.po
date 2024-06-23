@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-02-08 22:26+0000\n"
-"PO-Revision-Date: 2024-02-28 19:49+0000\n"
+"POT-Creation-Date: 2024-05-16 21:49+0000\n"
+"PO-Revision-Date: 2024-05-17 00:53+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -44,8 +44,8 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "[[!img tor.svg link=\"no\" alt=\"A Tor connection goes through 3 relays with the last one establishing the actual connection to the final destination\"]]\n"
-msgstr "[[!img tor.svg link=\"no\" alt=\"Una connexió Tor passa per tres repetidors i l'últim estableix la connexió real amb la destinació final\"]]\n"
+msgid "[[!img tor.png link=\"no\" class=\"svg\" alt=\"A Tor connection goes through 3 relays with the last one establishing the actual connection to the final destination\"]]\n"
+msgstr "[[!img tor.png link=\"no\" class=\"svg\" alt=\"Una connexió Tor passa per tres repetidors i l'últim estableix la connexió real amb la destinació final\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -85,12 +85,12 @@ msgstr "-->\n"
 #. type: Plain text
 msgid ""
 "You cannot access the Internet from Tails until you are connected to Tor. "
-"For example, *Tor Browser* displays the error message `Proxy server refusing "
-"connections` until you are connected to Tor."
+"For example, *Tor Browser* displays the error message `The proxy server is "
+"refusing connections` until you are connected to Tor."
 msgstr ""
 "No podeu accedir a Internet des de Tails fins que no us connecteu a Tor. Per "
 "exemple, el *Navegador Tor* mostra el missatge d'error `El servidor "
-"intermediari rebutja connexions` fins que no us connecteu a Tor."
+"intermediari està rebutjant les connexions` fins que no us connecteu a Tor."
 
 #. type: Plain text
 #, no-wrap
@@ -368,11 +368,8 @@ msgid ""
 "      <p>Tails uses the [[default <i>obfs4</i> bridges from <i>Tor\n"
 "      Browser</i>|https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/tor-expert-bundle/pt_config.json?ref_type=heads]].</p>\n"
 msgstr ""
-"      <p>Tails utilitza els ponts [ <i>obfs4</i> predeterminats del <i>"
-"Navegador\n"
-"      Tor</i>|https://gitlab.torproject.org/tpo/applications/"
-"tor-browser-build/-/blob/main/projects/tor-expert-bundle/pt_config."
-"json?ref_type=heads]]. </p>\n"
+"      <p>Tails utilitza els ponts [ <i>obfs4</i> predeterminats del <i>Navegador\n"
+"      Tor</i>|https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/tor-expert-bundle/pt_config.json?ref_type=heads]]. </p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -454,64 +451,10 @@ msgstr "- Els ponts per defecte no estan disponibles."
 
 #. type: Plain text
 #, no-wrap
-msgid "  You will have to know the address of a custom bridge.\n"
-msgstr "  Haureu de saber l'adreça d'un pont personalitzat.\n"
-
-#. type: Plain text
-#, no-wrap
-msgid "  To request a custom bridge, you can either:\n"
-msgstr "  Per sol·licitar un pont personalitzat, podeu:\n"
-
-#. type: Bullet: '  1. '
-msgid ""
-"Request a bridge on [https://bridges.torproject.org/](https://bridges."
-"torproject.org/bridges?transport=obfs4)."
+msgid "  [[!inline pages=\"doc/anonymous_internet/tor/bridge.inline\" raw=\"yes\" sort=\"age\"]]\n"
 msgstr ""
-"Sol·licitar un pont a [https://bridges.torproject.org/](https://bridges."
-"torproject.org/bridges?transport=obfs4)."
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"     We recommend doing so before starting Tails and ideally from a different\n"
-"     local network than the one on which you want to hide that you are using\n"
-"     Tor.\n"
-msgstr ""
-"     Recomanem fer-ho abans d'iniciar Tails i, idealment, des d'una xarxa\n"
-"     local diferent de la que vulgueu amagar que esteu utilitzant\n"
-"     Tor.\n"
-
-#. type: Bullet: '  1. '
-msgid ""
-"Send an empty email to <a href=\"mailto:bridges@torproject."
-"org\">bridges@torproject.org</a> from a Gmail or Riseup email address."
-msgstr ""
-"Envieu un correu electrònic buit a <a href=\"mailto:bridges@torproject."
-"org\">bridges@torproject.org</a> des d'una adreça de correu electrònic de "
-"Gmail o Riseup."
-
-#. type: Plain text
-#, no-wrap
-msgid "     For example, you can send the email from your phone and type the bridge in Tails.\n"
-msgstr "     Per exemple, podeu enviar el correu electrònic des del vostre telèfon i escriure el pont a Tails.\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"     Sending the email reveals to Gmail or Riseup that you are trying to\n"
-"     connect to Tor but not to someone who monitors your Internet connection.\n"
-msgstr ""
-"     L'enviament del correu electrònic revela a Gmail o Riseup que esteu intentant\n"
-"     connectar-vos a Tor però no a algú que controli la vostra connexió a Internet.\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"     Even someone who knows your bridge cannot know what you are doing online\n"
-"     from Tails.\n"
-msgstr ""
-"     Fins i tot algú que conegui el vostre pont no pot saber què feu en línia\n"
-"     des de Tails.\n"
+"  [[!inline pages=\"doc/anonymous_internet/tor/bridge.inline.ca\" raw=\"yes\""
+" sort=\"age\"]]\n"
 
 #. type: Plain text
 msgid ""
@@ -598,3 +541,56 @@ msgstr "<div class=\"next\">\n"
 #, no-wrap
 msgid "<p>See our documentation on [[troubleshooting connecting to Tor|tor/troubleshoot]].</p>\n"
 msgstr "<p>Consulteu la nostra documentació sobre la [[resolució de problemes de connexió a Tor|tor/troubleshoot]].</p>\n"
+
+#, no-wrap
+#~ msgid "  You will have to know the address of a custom bridge.\n"
+#~ msgstr "  Haureu de saber l'adreça d'un pont personalitzat.\n"
+
+#, no-wrap
+#~ msgid "  To request a custom bridge, you can either:\n"
+#~ msgstr "  Per sol·licitar un pont personalitzat, podeu:\n"
+
+#~ msgid ""
+#~ "Request a bridge on [https://bridges.torproject.org/](https://bridges."
+#~ "torproject.org/bridges?transport=obfs4)."
+#~ msgstr ""
+#~ "Sol·licitar un pont a [https://bridges.torproject.org/](https://bridges."
+#~ "torproject.org/bridges?transport=obfs4)."
+
+#, no-wrap
+#~ msgid ""
+#~ "     We recommend doing so before starting Tails and ideally from a different\n"
+#~ "     local network than the one on which you want to hide that you are using\n"
+#~ "     Tor.\n"
+#~ msgstr ""
+#~ "     Recomanem fer-ho abans d'iniciar Tails i, idealment, des d'una xarxa\n"
+#~ "     local diferent de la que vulgueu amagar que esteu utilitzant\n"
+#~ "     Tor.\n"
+
+#~ msgid ""
+#~ "Send an empty email to <a href=\"mailto:bridges@torproject."
+#~ "org\">bridges@torproject.org</a> from a Gmail or Riseup email address."
+#~ msgstr ""
+#~ "Envieu un correu electrònic buit a <a href=\"mailto:bridges@torproject."
+#~ "org\">bridges@torproject.org</a> des d'una adreça de correu electrònic de "
+#~ "Gmail o Riseup."
+
+#, no-wrap
+#~ msgid "     For example, you can send the email from your phone and type the bridge in Tails.\n"
+#~ msgstr "     Per exemple, podeu enviar el correu electrònic des del vostre telèfon i escriure el pont a Tails.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "     Sending the email reveals to Gmail or Riseup that you are trying to\n"
+#~ "     connect to Tor but not to someone who monitors your Internet connection.\n"
+#~ msgstr ""
+#~ "     L'enviament del correu electrònic revela a Gmail o Riseup que esteu intentant\n"
+#~ "     connectar-vos a Tor però no a algú que controli la vostra connexió a Internet.\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "     Even someone who knows your bridge cannot know what you are doing online\n"
+#~ "     from Tails.\n"
+#~ msgstr ""
+#~ "     Fins i tot algú que conegui el vostre pont no pot saber què feu en línia\n"
+#~ "     des de Tails.\n"

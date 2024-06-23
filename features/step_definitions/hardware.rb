@@ -10,11 +10,31 @@ Given /^I start the computer from DVD with network unplugged( and an unsupported
   the_computer_boots
 end
 
-When /^Tails detects disk read failures$/ do
-  squashfs_failed = '/var/lib/live/tails.squashfs_failed'
-  $vm.execute('systemctl --now disable tails-detect-squashfs-errors')
-  $vm.execute_successfully("touch #{squashfs_failed}")
-  try_for(60) { $vm.file_exist?(squashfs_failed) }
+When /^Tails detects disk read failures on the (.+)$/ do |device|
+  disk_ioerrors = '/var/lib/live/tails.disk.ioerrors'
+  fake_ioerror_script_path = '/tmp/fake_ioerror.py'
+
+  case device
+  when 'SquashFS'
+    fake_error = 'SQUASHFS error: A fake error.'
+  when 'boot device'
+    b_d = boot_device.delete_prefix('/dev/').delete_suffix('1')
+    fake_error = "I/O error, dev #{b_d}, sector - a fake boot device one."
+  when 'boot device with a target error'
+    b_d = boot_device.delete_prefix('/dev/').delete_suffix('1')
+    fake_error = "critical target error, dev #{b_d}, sector - a fake boot device one."
+  end
+
+  fake_ioerror_script = <<~FAKEIOERROR
+    from systemd import journal
+    journal.send("#{fake_error}", SYSLOG_IDENTIFIER="kernel", PRIORITY=3)
+  FAKEIOERROR
+  $vm.file_overwrite(fake_ioerror_script_path, fake_ioerror_script)
+  $vm.execute_successfully(
+    'systemctl --quiet is-active tails-detect-disk-ioerrors'
+  )
+  $vm.execute_successfully("python3 #{fake_ioerror_script_path}")
+  try_for(60) { $vm.file_exist?(disk_ioerrors) }
   RemoteShell::SignalReady.new($vm)
 end
 

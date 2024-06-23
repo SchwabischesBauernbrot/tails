@@ -6,9 +6,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
-"PO-Revision-Date: 2024-03-26 10:20+0000\n"
-"Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
+"POT-Creation-Date: 2024-05-02 21:34+0000\n"
+"PO-Revision-Date: 2024-05-20 09:53+0000\n"
+"Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: Spanish <http://translate.tails.boum.org/projects/tails/"
 "reset_windows/es/>\n"
 "Language: es\n"
@@ -36,12 +36,12 @@ msgstr "<div class=\"caution\">\n"
 #. type: Plain text
 #, no-wrap
 msgid "<p><b>You might overwrite any hard disk on the computer.</b></p>\n"
-msgstr ""
+msgstr "<p><b>Podrías sobreescribir cualquier disco de tu ordenador.</b></p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<p>If at some point you are not sure about which device to choose, stop proceeding.</p>\n"
-msgstr ""
+msgstr "<p>Si no estás seguro del dispositivo a elegir, mejor para.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -77,27 +77,22 @@ msgid "Execute the following command to start the *Diskpart* utility."
 msgstr ""
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "Using <span class=\"application\">Diskpart</span>"
+#, no-wrap
 msgid "   <p class=\"command-windows\">diskpart</p>\n"
-msgstr "Usando <span class=\"application\">Diskpart</span>"
+msgstr "   <p class=\"command-windows\">diskpart</p>\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Execute the <span class=\"command\">list disk</span> command to obtain "
-#| "information about each disk in the computer."
 msgid ""
 "Execute the following command to obtain information about the disks in the "
 "computer."
 msgstr ""
-"Ejecuta el comando <span class=\"command\">list disk</span> para obtener "
-"información acerca de cada disco en la computadora."
+"Ejecuta el comando siguiente para obtener información acerca de los discos "
+"en la computadora."
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-windows\">list disk</p>\n"
-msgstr ""
+msgstr "   <p class=\"command-windows\">list disk</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -105,25 +100,20 @@ msgid "   For example:\n"
 msgstr "   Por ejemplo:\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "        Diskpart> list disk\n"
+#, no-wrap
 msgid "       Diskpart> list disk\n"
-msgstr "        Diskpart> list disk\n"
+msgstr "       Diskpart> list disk\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "          Disk ###  Status      Size     Free     Dyn  Gpt\n"
-#| "          --------  ----------  -------  -------  ---  ---\n"
-#| "          Disk 0    Online        80 GB      0 B\n"
+#, no-wrap
 msgid ""
 "         Disk ###  Status      Size     Free     Dyn  Gpt\n"
 "         --------  ----------  -------  -------  ---  ---\n"
 "         Disk 0    Online        80 GB      0 B\n"
 msgstr ""
-"          Disk ###  Status      Size     Free     Dyn  Gpt\n"
-"          --------  ----------  -------  -------  ---  ---\n"
-"          Disk 0    Online        80 GB      0 B\n"
+"         Disk ###  Status      Size     Free     Dyn  Gpt\n"
+"         --------  ----------  -------  -------  ---  ---\n"
+"         Disk 0    Online        80 GB      0 B\n"
 
 #. type: Bullet: '1. '
 #, fuzzy
@@ -163,18 +153,13 @@ msgstr ""
 "          Disk 1    Online         8 GB      0 B\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "   Make sure that its size corresponds to the size of the USB stick that you want to\n"
-#| "   reset. Note down the disk number assigned by <span\n"
-#| "   class=\"application\">Diskpart</span> to the USB stick.\n"
+#, no-wrap
 msgid ""
 "   Make sure that its size corresponds to the size of the USB stick that you want to\n"
 "   reset. Note down its disk number.\n"
 msgstr ""
 "   Asegúrate que su tamaño corresponde al tamaño de la memoria USB que quieres\n"
-"   reiniciar. Escribe el número de disco asignado por <span\n"
-"   class=\"application\">Diskpart</span> a la memoria USB.\n"
+"   reiniciar. Anota su número de disco.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -193,24 +178,20 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-windows command-template\">select disk=<span class=\"command-placeholder\">number</span></p>\n"
-msgstr ""
+msgstr "   <p class=\"command-windows command-template\">select disk=<span class=\"command-placeholder\">número</span></p>\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Execute the <span class=\"command\">clean</span> command to delete the "
-#| "partition table from the USB stick."
 msgid ""
 "Execute the following command to delete the partition table from the USB "
 "stick."
 msgstr ""
-"Ejecuta el comando <span class=\"command\">clean</span> para borrar la tabla "
-"de partición de la memoria USB."
+"Ejecuta el comando siguiente para borrar la tabla de partición de la memoria "
+"USB."
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-windows\">clean</p>\n"
-msgstr ""
+msgstr "   <p class=\"command-windows\">clean</p>\n"
 
 #. type: Title =
 #, no-wrap
@@ -222,38 +203,30 @@ msgid "Then, create a new partition on the USB stick:"
 msgstr ""
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Execute the <span class=\"command\">convert mbr</span> command to create "
-#| "a new partition table on the USB stick."
 msgid ""
 "Execute the following command to create a new partition table on the USB "
 "stick."
 msgstr ""
-"Ejecuta el comando <span class=\"command\">convert mbr</span> para crear una "
-"nueva tabla de partición en la memoria USB."
+"Ejecuta el comando siguiente para crear una nueva tabla de partición en la "
+"memoria USB."
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-windows\">convert mbr</p>\n"
-msgstr ""
+msgstr "   <p class=\"command-windows\">convert mbr</p>\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Execute the <span class=\"command\">create partition primary</span> "
-#| "command to create a new primary partition on the USB stick."
 msgid ""
 "Execute the following command to create a new primary partition on the USB "
 "stick."
 msgstr ""
-"Ejecuta el comando <span class=\"command\">create partition primary</span> "
-"para crear una nueva partición primaria en la memoria USB."
+"Ejecuta el comando siguiente para crear una nueva partición primaria en la "
+"memoria USB."
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-windows\">create partition primary</p>\n"
-msgstr ""
+msgstr "   <p class=\"command-windows\">create partition primary</p>\n"
 
 #. type: Bullet: '1. '
 msgid "Unplug the USB stick."
@@ -298,11 +271,21 @@ msgid "Troubleshooting"
 msgstr "Solución de problemas"
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "    [[More help on how to start the <span class=\"application\">Command\n"
+#| "    Prompt</span>|https://www.computerhope.com/issues/chdos.htm]]\n"
 msgid ""
-"- [How to start the *Command Prompt*](http://www.computerhope.com/issues/"
-"chdos.htm)  - [Microsoft: DiskPart Command-Line Options](https://learn."
-"microsoft.com/en-us/previous-versions/windows/it-pro/windows-vista/"
-"cc766465(v=ws.10))"
+"- [How to start the *Command Prompt*](https://www.computerhope.com/issues/"
+"chdos.htm)"
+msgstr ""
+"    [[Más ayuda sobre como iniciar el <span class=\"application\">Símbolo\n"
+"    del Sistema</span>|https://www.computerhope.com/issues/chdos.htm]]\n"
+
+#. type: Plain text
+msgid ""
+"- [Microsoft: diskpart](https://learn.microsoft.com/en-us/windows-server/"
+"administration/windows-commands/diskpart)"
 msgstr ""
 
 #, no-wrap
@@ -335,14 +318,6 @@ msgstr ""
 #~ "class=\"menuchoice\">Todos los programas&nbsp;▸ Accesorios&nbsp;▸ Símbolo "
 #~ "de Sistema</span>, para abrir el <span class=\"application\">[[!"
 #~ "wikipedia_es Símbolo_del_sistema desc=\"Símbolo de Sistema\"]]</span>,"
-
-#, no-wrap
-#~ msgid ""
-#~ "    [[More help on how to start the <span class=\"application\">Command\n"
-#~ "    Prompt</span>|http://www.computerhope.com/issues/chdos.htm]]\n"
-#~ msgstr ""
-#~ "    [[Más ayuda sobre como iniciar el <span class=\"application\">Símbolo\n"
-#~ "    del Sistema</span>|http://www.computerhope.com/issues/chdos.htm]]\n"
 
 #, no-wrap
 #~ msgid ""

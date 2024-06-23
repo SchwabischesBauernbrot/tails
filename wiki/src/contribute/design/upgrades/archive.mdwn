@@ -97,7 +97,7 @@ But there is probably things that have been left out of such an early draft.
 
 Plain `diff` does not work on binary files.
 
-Binary diffs ([rsync], [xdelta], [bsdiff], [VCDIFF]) gives poor
+Binary diffs ([rsync], xdelta, [bsdiff], [VCDIFF]) gives poor
 result on live system images because `squashfs` images vary
 strongly as a whole, even for tiny changes of the files inside.
 That situation is unlikely to change ([[!debbug 602965]]) and is even worse
@@ -115,6 +115,5 @@ with `squashfs-lzma`. Quoting `xz` manpage:
        files is not going to happen without freezing a part of the encoder
        implementation, which can then be used with --rsyncable.
 
-[xdelta]: http://xdelta.org/
 [bsdiff]: http://www.daemonology.net/bsdiff/
 [VCDIFF]: http://www.ietf.org/rfc/rfc3284.txt

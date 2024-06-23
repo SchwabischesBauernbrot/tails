@@ -8,7 +8,7 @@ Tor encrypts and anonymizes your connection by passing it through 3 relays. Tor
 relays are servers operated by different people and organizations around the
 world.
 
-[[!img tor.svg link="no" alt="A Tor connection goes through 3 relays with the last one establishing the actual connection to the final destination"]]
+[[!img tor.png link="no" class="svg" alt="A Tor connection goes through 3 relays with the last one establishing the actual connection to the final destination"]]
 
 <!--
 
@@ -26,8 +26,8 @@ To update it:
 -->
 
 You cannot access the Internet from Tails until you are connected to Tor. For
-example, *Tor Browser* displays the error message `Proxy
-server refusing connections` until you are connected to Tor.
+example, *Tor Browser* displays the error message `The proxy
+server is refusing connections` until you are connected to Tor.
 
 <div class="note">
 
@@ -168,27 +168,7 @@ types of Tor bridges. That is why, when you decide to hide that you are connecti
 
 - Default bridges are not available.
 
-  You will have to know the address of a custom bridge.
-
-  To request a custom bridge, you can either:
-
-  1. Request a bridge on [https://bridges.torproject.org/](https://bridges.torproject.org/bridges?transport=obfs4).
-
-     We recommend doing so before starting Tails and ideally from a different
-     local network than the one on which you want to hide that you are using
-     Tor.
-
-  1. Send an empty email to
-     <a href="mailto:bridges@torproject.org">bridges@torproject.org</a> from a
-     Gmail or Riseup email address.
-
-     For example, you can send the email from your phone and type the bridge in Tails.
-
-     Sending the email reveals to Gmail or Riseup that you are trying to
-     connect to Tor but not to someone who monitors your Internet connection.
-
-     Even someone who knows your bridge cannot know what you are doing online
-     from Tails.
+  [[!inline pages="doc/anonymous_internet/tor/bridge.inline" raw="yes" sort="age"]]
 
 - You can only use the types of bridges that our team considers discreet enough.
 

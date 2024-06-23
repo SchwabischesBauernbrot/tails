@@ -109,6 +109,13 @@
 <TMPL_VAR TITLE>
 </span>
 <TMPL_VAR CTIME>
+<TMPL_IF TAGS>
+<ul class="tags">
+<TMPL_LOOP TAGS>
+<li><TMPL_VAR LINK></li>
+</TMPL_LOOP>
+</ul>
+</TMPL_IF>
 <TMPL_IF HTML5></header><TMPL_ELSE></div></TMPL_IF>
 
 <div id="pagebody">

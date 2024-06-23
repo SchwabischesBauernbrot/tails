@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-02-26 12:26+0100\n"
-"PO-Revision-Date: 2021-12-18 10:51+0000\n"
-"Last-Translator: dedmoroz <cj75300@gmail.com>\n"
+"POT-Creation-Date: 2024-05-29 09:47+0000\n"
+"PO-Revision-Date: 2024-05-29 19:53+0000\n"
+"Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11.3\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -90,7 +90,7 @@ msgstr "Шифрование"
 #| "contact#tails]]."
 msgid ""
 "This key has an encryption subkey. Please use it to send encrypted emails to "
-"our contact address: [[tails@boum.org|about/contact#tails]]."
+"our contact address: [[info@tails.net|about/contact#tails]]."
 msgstr ""
 "У этого ключа есть подключ шифрования. Пожалуйста, используйте его для "
 "шифрования писем в зашифрованную рассылку основных разработчиков Tails: "
@@ -110,47 +110,27 @@ msgstr ""
 "Сам ключ и пароль от него хранятся на сервере, где работает программа "
 "зашифрованной рассылки, а также в системах, управляемых разработчиками Tails."
 
-#. type: Plain text
-msgid ""
-"This means people other than Tails developers are in a position to use this "
-"secret key. Tails developers trust these people enough to rely on them for "
-"running our encrypted mailing list, but still: this key pair is managed in a "
-"less safe way than our signing key."
-msgstr ""
-"Таким образом, использовать секретный ключ могут не только разработчики "
-"Tails. Мы доверяем всем этим людям в том, что касается нашего зашифрованного "
-"списка рассылки. Как бы то ни было, этот ключ менее безопасен, чем наш ключ "
-"подписи."
-
 #. type: Title -
 #, no-wrap
 msgid "Key details"
 msgstr "Информация о ключе"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "    pub   4096R/0x1D2975EDF93E735F 2009-08-14 [expires: 2019-08-01]\n"
-#| "          Key fingerprint = 09F6 BC8F EEC9 D8EE 005D  BAA4 1D29 75ED F93E 735F\n"
-#| "    uid                  Tails developers (Schleuder mailing-list) <tails@boum.org>\n"
-#| "    uid                  Tails list (schleuder list) <tails-request@boum.org>\n"
-#| "    uid                  Tails list (schleuder list) <tails-owner@boum.org>\n"
-#| "    sub   4096R/0xD843C2F5E89382EB 2009-08-14 [expires: 2019-08-01]\n"
+#, no-wrap
 msgid ""
-"    pub   rsa4096 2009-08-14 [SC] [expires: 2023-03-03]\n"
-"          09F6 BC8F EEC9 D8EE 005D  BAA4 1D29 75ED F93E 735F\n"
-"    uid           [  full  ] Tails developers (Schleuder mailing-list) <tails@boum.org>\n"
-"    uid           [  full  ] Tails list (schleuder list) <tails-owner@boum.org>\n"
-"    uid           [  full  ] Tails list (schleuder list) <tails-request@boum.org>\n"
-"    sub   rsa4096 2009-08-14 [E] [expires: 2023-03-03]\n"
-"          C394 8FE7 B604 C611 4E29  4DDF D843 C2F5 E893 82EB\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          BDDC755D6B2D9FA09F0B92278C1487D924461904\n"
+"    uid           [ unknown] info@tails.net <info@tails.net>\n"
+"    uid           [ unknown] info@tails.net <info-request@tails.net>\n"
+"    uid           [ unknown] info@tails.net <info-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 msgstr ""
-"    pub   4096R/0x1D2975EDF93E735F 2009-08-14 [expires: 2019-08-01]\n"
-"          Key fingerprint = 09F6 BC8F EEC9 D8EE 005D  BAA4 1D29 75ED F93E 735F\n"
-"    uid                  Tails developers (Schleuder mailing-list) <tails@boum.org>\n"
-"    uid                  Tails list (schleuder list) <tails-request@boum.org>\n"
-"    uid                  Tails list (schleuder list) <tails-owner@boum.org>\n"
-"    sub   4096R/0xD843C2F5E89382EB 2009-08-14 [expires: 2019-08-01]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          BDDC755D6B2D9FA09F0B92278C1487D924461904\n"
+"    uid           [ unknown] info@tails.net <info@tails.net>\n"
+"    uid           [ unknown] info@tails.net <info-request@tails.net>\n"
+"    uid           [ unknown] info@tails.net <info-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 
 #. type: Title -
 #, no-wrap
@@ -162,15 +142,19 @@ msgid "There are multiple ways to get this OpenPGP public key:"
 msgstr "Есть несколько способов получить этот открытый ключ OpenPGP:"
 
 #. type: Bullet: '- '
-msgid "download it from this website: [[!tails_website tails-email.key]]"
-msgstr "скачать с этого сайта: [[!tails_website tails-email.key]];"
+msgid "download it from this website: [[!tails_website info-tails-net.key]]"
+msgstr "скачать с этого сайта: [[!tails_website info-tails-net.key]]"
 
 #. type: Bullet: '- '
-msgid "fetch it from your favourite keyserver"
+#, fuzzy
+#| msgid "fetch it from your favourite keyserver"
+msgid "fetch it from your favourite key server"
 msgstr "скачать с сервера ключей;"
 
 #. type: Bullet: '- '
-msgid "send an email to <tails-sendkey@boum.org>."
+#, fuzzy
+#| msgid "send an email to <tails-sendkey@boum.org>."
+msgid "send an email to <info-sendkey@tails.net>."
 msgstr "запросить по email <tails-sendkey@boum.org>."
 
 #. type: Plain text
@@ -195,18 +179,13 @@ msgid "Its only purpose is:"
 msgstr "У него две задачи:"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "to sign Tails released images;"
 msgid "- To sign Tails released images"
-msgstr "подписывать файлы-образы Tails;"
+msgstr "- Подписывать файлы-образы Tails"
 
 #. type: Bullet: '- '
-#, fuzzy
-#| msgid ""
-#| "to certify other cryptographic public keys needed for Tails development."
 msgid "To certify other cryptographic public keys needed for Tails development"
 msgstr ""
-"сертифицировать другие открытые шифровальные ключи в рамках проекта Tails."
+"Сертифицировать другие открытые шифровальные ключи в рамках проекта Tails"
 
 #. type: Plain text
 msgid ""
@@ -224,7 +203,7 @@ msgstr "Первичный ключ"
 #. type: Bullet: '- '
 msgid ""
 "Is not owned in a usable format by any single individual. It is split "
-"cryptographically using [gfshare](https://git.gitano.org.uk/libgfshare.git/)."
+"cryptographically using [gfshare](https://tracker.debian.org/pkg/libgfshare)."
 msgstr ""
 
 #. type: Bullet: '- '
@@ -282,38 +261,39 @@ msgstr ""
 "системе."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "Expiration date: same as the primary key."
 msgid "- Expiration date: same as the primary key."
-msgstr "Срок действия: такой же, как у первичного ключа."
+msgstr "- Срок действия: такой же, как у первичного ключа."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "    pub   rsa4096/0xDBB802B258ACD84F 2015-01-18 [C] [expires: 2023-01-07]\n"
-#| "          Key fingerprint = A490 D0F4 D311 A415 3E2B  B7CA DBB8 02B2 58AC D84F\n"
-#| "    uid                   [  full  ] Tails developers (offline long-term identity key) <tails@boum.org>\n"
-#| "    uid                   [  full  ] Tails developers <tails@boum.org>\n"
-#| "    sub   rsa4096/0xD21DAD38AF281C0B 2017-08-28 [S] [expires: 2023-01-07]\n"
-#| "    sub   ed25519/0x90B2B4BD7AED235F 2017-08-28 [S] [expires: 2023-01-07]\n"
-#| "    sub   rsa4096/0x7BFBD2B902EE13D0 2021-10-14 [S] [expires: 2023-01-07]\n"
+#, no-wrap
 msgid ""
-"    pub   rsa4096/0xDBB802B258ACD84F 2015-01-18 [C] [expires: 2025-01-25]\n"
+"    pub   rsa4096/0xDBB802B258ACD84F 2015-01-18 [C] [expires: 2026-01-13]\n"
 "          Key fingerprint = A490 D0F4 D311 A415 3E2B  B7CA DBB8 02B2 58AC D84F\n"
-"    uid                   [  full  ] Tails developers (offline long-term identity key) <tails@boum.org>\n"
-"    uid                   [  full  ] Tails developers <tails@boum.org>\n"
+"    uid           [  full  ] Tails developers (offline long-term identity key) <tails@boum.org>\n"
+"    uid           [  full  ] Tails developers <tails@boum.org>\n"
 "    sub   rsa4096/0xD21DAD38AF281C0B 2017-08-28 [S] [expires: 2025-01-25]\n"
 "    sub   ed25519/0x90B2B4BD7AED235F 2017-08-28 [S] [expires: 2025-01-25]\n"
 "    sub   rsa4096/0x7BFBD2B902EE13D0 2021-10-14 [S] [expires: 2025-01-25]\n"
 "    sub   rsa4096/0xE5DBA2E186D5BAFC 2023-10-03 [S] [expires: 2025-01-25]\n"
+"    sub   ed25519/0x8E9567D327792707 2024-05-23 [S] [expires: 2026-01-13]\n"
+"    sub   ed25519/0xFE2C600D5BB759B5 2024-05-23 [S] [expires: 2026-01-13]\n"
+"    sub   ed25519/0xC69FF0E4C08F8209 2024-05-23 [S] [expires: 2026-01-13]\n"
+"    sub   ed25519/0xBC8BD3DAC9CD2979 2024-05-23 [S] [expires: 2026-01-13]\n"
 msgstr ""
-"    pub   rsa4096/0xDBB802B258ACD84F 2015-01-18 [C] [expires: 2023-01-07]\n"
-"          Key fingerprint = A490 D0F4 D311 A415 3E2B  B7CA DBB8 02B2 58AC D84F\n"
-"    uid                   [  full  ] Tails developers (offline long-term identity key) <tails@boum.org>\n"
-"    uid                   [  full  ] Tails developers <tails@boum.org>\n"
-"    sub   rsa4096/0xD21DAD38AF281C0B 2017-08-28 [S] [expires: 2023-01-07]\n"
-"    sub   ed25519/0x90B2B4BD7AED235F 2017-08-28 [S] [expires: 2023-01-07]\n"
-"    sub   rsa4096/0x7BFBD2B902EE13D0 2021-10-14 [S] [expires: 2023-01-07]\n"
+"    pub   rsa4096/0xDBB802B258ACD84F 2015-01-18 [C] [expires: 2026-01-13]\n"
+"          Key fingerprint = A490 D0F4 D311 A415 3E2B  B7CA DBB8 02B2 58AC "
+"D84F\n"
+"    uid           [  full  ] Tails developers (offline long-term identity "
+"key) <tails@boum.org>\n"
+"    uid           [  full  ] Tails developers <tails@boum.org>\n"
+"    sub   rsa4096/0xD21DAD38AF281C0B 2017-08-28 [S] [expires: 2025-01-25]\n"
+"    sub   ed25519/0x90B2B4BD7AED235F 2017-08-28 [S] [expires: 2025-01-25]\n"
+"    sub   rsa4096/0x7BFBD2B902EE13D0 2021-10-14 [S] [expires: 2025-01-25]\n"
+"    sub   rsa4096/0xE5DBA2E186D5BAFC 2023-10-03 [S] [expires: 2025-01-25]\n"
+"    sub   ed25519/0x8E9567D327792707 2024-05-23 [S] [expires: 2026-01-13]\n"
+"    sub   ed25519/0xFE2C600D5BB759B5 2024-05-23 [S] [expires: 2026-01-13]\n"
+"    sub   ed25519/0xC69FF0E4C08F8209 2024-05-23 [S] [expires: 2026-01-13]\n"
+"    sub   ed25519/0xBC8BD3DAC9CD2979 2024-05-23 [S] [expires: 2026-01-13]\n"
 
 #. type: Plain text
 msgid ""
@@ -346,30 +326,18 @@ msgid ""
 "private@boum.org|about/contact#tails-support-private]]."
 msgstr ""
 "Используйте этот ключ для шифрования писем в службу поддержки по адресу "
-"[[tails-support-private@boum.org/about/contact#tails-support-private]]."
+"[[tails-support-private@boum.org|about/contact#tails-support-private]]."
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "This same key is used to handle [[*WhisperBack* reports|first_steps/"
-#| "bug_reporting]]."
 msgid ""
 "- This same key is used to handle [[*WhisperBack* reports|first_steps/"
 "whisperback]]."
 msgstr ""
-"Этот ключ также используется для [[отчётов *Whisperback*|first_steps/"
-"bug_reporting]]."
+"- Этот ключ также используется для [[отчётов *Whisperback*|first_steps/"
+"whisperback]]."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "    pub   rsa4096/0xEC57B56EF0C43132 2013-07-24 [SC] [expires: 2022-02-03]\n"
-#| "          Key fingerprint = 1F56 EDD3 0741 0480 35DA  C1C5 EC57 B56E F0C4 3132\n"
-#| "    uid                   [  full  ] Tails bug squad <tails-bugs@boum.org>\n"
-#| "    uid                   [  undef ] Tails bug squad (schleuder list) <tails-bugs-owner@boum.org>\n"
-#| "    uid                   [  undef ] Tails bug squad (schleuder list) <tails-bugs-request@boum.org>\n"
-#| "    uid                   [  full  ] Tails private user support <tails-support-private@boum.org>\n"
-#| "    sub   rsa4096/0x9D6D6472AFC1AD77 2013-07-24 [E] [expires: 2022-02-03]\n"
+#, no-wrap
 msgid ""
 "    pub   rsa4096 2013-07-24 [SC] [expires: 2024-01-06]\n"
 "          1F56 EDD3 0741 0480 35DA  C1C5 EC57 B56E F0C4 3132\n"
@@ -380,25 +348,24 @@ msgid ""
 "    sub   rsa4096 2013-07-24 [E] [expires: 2024-01-06]\n"
 "          0012 C228 1573 FE8D 1C24  E350 9D6D 6472 AFC1 AD77\n"
 msgstr ""
-"    pub   rsa4096/0xEC57B56EF0C43132 2013-07-24 [SC] [expires: 2022-02-03]\n"
-"          Key fingerprint = 1F56 EDD3 0741 0480 35DA  C1C5 EC57 B56E F0C4 3132\n"
-"    uid                   [  full  ] Tails bug squad <tails-bugs@boum.org>\n"
-"    uid                   [  undef ] Tails bug squad (schleuder list) <tails-bugs-owner@boum.org>\n"
-"    uid                   [  undef ] Tails bug squad (schleuder list) <tails-bugs-request@boum.org>\n"
-"    uid                   [  full  ] Tails private user support <tails-support-private@boum.org>\n"
-"    sub   rsa4096/0x9D6D6472AFC1AD77 2013-07-24 [E] [expires: 2022-02-03]\n"
+"    pub   rsa4096 2013-07-24 [SC] [expires: 2024-01-06]\n"
+"          1F56 EDD3 0741 0480 35DA  C1C5 EC57 B56E F0C4 3132\n"
+"    uid           [  full  ] Tails bug squad <tails-bugs@boum.org>\n"
+"    uid           [  full  ] Tails private user support <tails-support-private@boum.org>\n"
+"    uid           [  full  ] Tails bug squad (schleuder list) <tails-bugs-owner@boum.org>\n"
+"    uid           [  full  ] Tails bug squad (schleuder list) <tails-bugs-request@boum.org>\n"
+"    sub   rsa4096 2013-07-24 [E] [expires: 2024-01-06]\n"
+"          0012 C228 1573 FE8D 1C24  E350 9D6D 6472 AFC1 AD77\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "download it from this website: [[!tails_website tails-bugs.key]]"
 msgid "- Download it from this website: [[!tails_website tails-bugs.key]]."
-msgstr "скачать отсюда: [[!tails_website tails-bugs.key]];"
+msgstr "- Скачать отсюда: [[!tails_website tails-bugs.key]]."
 
 #. type: Plain text
 #, fuzzy
-#| msgid "fetch it from your favourite keyserver."
-msgid "- Fetch it from your favourite keyserver."
-msgstr "скачать с сервера ключей."
+#| msgid "- Fetch it from your favourite keyserver."
+msgid "- Fetch it from your favourite key server."
+msgstr "- Скачать с сервера ключей."
 
 #. type: Plain text
 #, no-wrap
@@ -411,8 +378,12 @@ msgid "Press team key"
 msgstr "Ключ пресс-службы"
 
 #. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "Use this key to encrypt private emails sent to [[tails-press@boum.org|"
+#| "about/contact#tails-press]]."
 msgid ""
-"Use this key to encrypt private emails sent to [[tails-press@boum.org|about/"
+"Use this key to encrypt private emails sent to [[press@tails.net|about/"
 "contact#tails-press]]."
 msgstr ""
 "Используйте этот ключ для шифрования писем по адресу [[tails-press@boum.org|"
@@ -421,31 +392,29 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"    pub   rsa4096/0x457080B5A072CBE3 2014-07-11 [SCEA]\n"
-"          Key fingerprint = F3CD 9B7B 4BDF 9995 DA22  088E 4570 80B5 A072 CBE3\n"
-"    uid                   [  undef ] Tails press team (schleuder list) <tails-press@boum.org>\n"
-"    uid                   [  undef ] Tails press team (schleuder list) <tails-press-owner@boum.org>\n"
-"    uid                   [  undef ] Tails press team (schleuder list) <tails-press-request@boum.org>\n"
-"    sub   rsa4096/0x5748DE3BC338BFFC 2014-07-11 [SEA]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          C54B2D6C229607035EECE4D83114691BD78DF1ED\n"
+"    uid           [ unknown] press@tails.net <press@tails.net>\n"
+"    uid           [ unknown] press@tails.net <press-request@tails.net>\n"
+"    uid           [ unknown] press@tails.net <press-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 msgstr ""
-"    pub   rsa4096/0x457080B5A072CBE3 2014-07-11 [SCEA]\n"
-"          Key fingerprint = F3CD 9B7B 4BDF 9995 DA22  088E 4570 80B5 A072 CBE3\n"
-"    uid                   [  undef ] Tails press team (schleuder list) <tails-press@boum.org>\n"
-"    uid                   [  undef ] Tails press team (schleuder list) <tails-press-owner@boum.org>\n"
-"    uid                   [  undef ] Tails press team (schleuder list) <tails-press-request@boum.org>\n"
-"    sub   rsa4096/0x5748DE3BC338BFFC 2014-07-11 [SEA]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          C54B2D6C229607035EECE4D83114691BD78DF1ED\n"
+"    uid           [ unknown] press@tails.net <press@tails.net>\n"
+"    uid           [ unknown] press@tails.net <press-request@tails.net>\n"
+"    uid           [ unknown] press@tails.net <press-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "download it from this website: [[!tails_website tails-press.key]]"
-msgid "- Download it from this website: [[!tails_website tails-press.key]]."
-msgstr "скачать отсюда: [[!tails_website tails-press.key]];"
+msgid ""
+"- Download it from this website: [[!tails_website press-tails-net.key]]."
+msgstr "- Скачать отсюда: [[!tails_website press-tails-net.key]]."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<a id=\"support\"></a>\n"
+#, no-wrap
 msgid "<a id=\"board\"></a>\n"
-msgstr "<a id=\"support\"></a>\n"
+msgstr "<a id=\"board\"></a>\n"
 
 #. type: Title =
 #, fuzzy, no-wrap
@@ -466,34 +435,26 @@ msgstr ""
 "about/contact#tails-press]]."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "    pub   rsa4096/0xA827FE0D677E522C 2019-02-24 [SC]\n"
-#| "          Key fingerprint = EFC9 4A11 CBF6 F00F 509C  EB0C A827 FE0D 677E 522C\n"
-#| "    uid                   [ unknown] tails-foundations@boum.org <tails-foundations@boum.org>\n"
-#| "    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-request@boum.org>\n"
-#| "    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-owner@boum.org>\n"
-#| "    sub   rsa4096/0x244F9D7C6DF90D6D 2019-02-24 [E]\n"
+#, no-wrap
 msgid ""
-"    pub   rsa4096/0x08344AF2248F2BE0 2022-02-14 [SC]\n"
-"          Key fingerprint = B5C0 0222 D25F F139 28B2  CB93 0834 4AF2 248F 2BE0\n"
-"    uid                   [ unknown] tails-board@boum.org <tails-board@boum.org>\n"
-"    uid                   [ unknown] tails-board@boum.org <tails-board-owner@boum.org>\n"
-"    uid                   [ unknown] tails-board@boum.org <tails-board-request@boum.org>\n"
-"    sub   rsa4096/0x1817A67B76A21A00 2022-02-14 [E]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          2DC4FED9D88C30D95A92675788E24FE2064F1511\n"
+"    uid           [ unknown] board@tails.net <board@tails.net>\n"
+"    uid           [ unknown] board@tails.net <board-request@tails.net>\n"
+"    uid           [ unknown] board@tails.net <board-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 msgstr ""
-"    pub   rsa4096/0xA827FE0D677E522C 2019-02-24 [SC]\n"
-"          Key fingerprint = EFC9 4A11 CBF6 F00F 509C  EB0C A827 FE0D 677E 522C\n"
-"    uid                   [ unknown] tails-foundations@boum.org <tails-foundations@boum.org>\n"
-"    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-request@boum.org>\n"
-"    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-owner@boum.org>\n"
-"    sub   rsa4096/0x244F9D7C6DF90D6D 2019-02-24 [E]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          2DC4FED9D88C30D95A92675788E24FE2064F1511\n"
+"    uid           [ unknown] board@tails.net <board@tails.net>\n"
+"    uid           [ unknown] board@tails.net <board-request@tails.net>\n"
+"    uid           [ unknown] board@tails.net <board-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "download it from this website: [[!tails_website tails-bugs.key]]"
-msgid "- Download it from this website: [[!tails_website tails-board.key]]."
-msgstr "скачать отсюда: [[!tails_website tails-bugs.key]];"
+msgid ""
+"- Download it from this website: [[!tails_website board-tails-net.key]]."
+msgstr "- Скачать отсюда: [[!tails_website board-tails-net.key]]."
 
 #. type: Plain text
 #, no-wrap
@@ -506,37 +467,38 @@ msgid "Accounting team key"
 msgstr "Ключ финансового отдела"
 
 #. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "Use this key to encrypt private emails sent to [[accounting@tails.net|"
+#| "about/contact#tails-acccounting]]."
 msgid ""
-"Use this key to encrypt private emails sent to [[tails-accounting@boum.org|"
-"about/contact#tails-acccounting]]."
+"Use this key to encrypt private emails sent to [[accounting@tails.net|about/"
+"contact#tails-accounting]]."
 msgstr ""
-"Используйте этот ключ для шифрования писем по адресу [[tails-accounting@boum."
-"org|about/contact#tails-acccounting]]."
+"Используйте этот ключ для шифрования писем по адресу [[accounting@tails.net|"
+"about/contact#tails-acccounting]]."
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"    pub   rsa4096/0xC436090F4BB47C6F 2014-07-11 [SCEA]\n"
-"          Key fingerprint = 256D EB90 7788 0CD6 8167  8528 C436 090F 4BB4 7C6F\n"
-"    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting@boum.org>\n"
-"    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting-owner@boum.org>\n"
-"    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting-request@boum.org>\n"
-"    sub   rsa4096/0x289A5B45A9E89475 2014-07-11 [SEA]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          EC58494A6333D0384DD5744DA38F0F6E9A0A234E\n"
+"    uid           [ unknown] accounting@tails.net <accounting@tails.net>\n"
+"    uid           [ unknown] accounting@tails.net <accounting-request@tails.net>\n"
+"    uid           [ unknown] accounting@tails.net <accounting-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 msgstr ""
-"    pub   rsa4096/0xC436090F4BB47C6F 2014-07-11 [SCEA]\n"
-"          Key fingerprint = 256D EB90 7788 0CD6 8167  8528 C436 090F 4BB4 7C6F\n"
-"    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting@boum.org>\n"
-"    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting-owner@boum.org>\n"
-"    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting-request@boum.org>\n"
-"    sub   rsa4096/0x289A5B45A9E89475 2014-07-11 [SEA]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          EC58494A6333D0384DD5744DA38F0F6E9A0A234E\n"
+"    uid           [ unknown] accounting@tails.net <accounting@tails.net>\n"
+"    uid           [ unknown] accounting@tails.net <accounting-request@tails.net>\n"
+"    uid           [ unknown] accounting@tails.net <accounting-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "download it from this website: [[!tails_website tails-accounting.key]]"
 msgid ""
-"- Download it from this website: [[!tails_website tails-accounting.key]]."
-msgstr "скачать отсюда: [[!tails_website tails-accounting.key]];"
+"- Download it from this website: [[!tails_website accounting-tails-net.key]]."
+msgstr "- Скачать отсюда: [[!tails_website accounting-tails-net.key]]."
 
 #. type: Plain text
 #, no-wrap
@@ -549,37 +511,39 @@ msgid "Fundraising team key"
 msgstr "Ключ команды фандрайзинга"
 
 #. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "Use this key to encrypt private emails sent to [[foundations@tails.net|"
+#| "about/contact#tails-foundations]]."
 msgid ""
-"Use this key to encrypt private emails sent to [[tails-fundraising@boum.org|"
-"about/contact#tails-fundraising]]."
+"Use this key to encrypt private emails sent to [[fundraising@tails.net|about/"
+"contact#tails-fundraising]]."
 msgstr ""
-"Используйте этот ключ для шифрования писем по адресу [[tails-"
-"fundraising@boum.org|about/contact#tails-fundraising]]."
+"Используйте этот ключ для шифрования писем по адресу [[foundations@tails.net|"
+"about/contact#tails-foundations]]."
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"    pub   rsa4096/0xFEB0D5A18EACAF99 2014-08-09 [SCEA]\n"
-"          Key fingerprint = 3910 BD9D 690B A8C5 692F  93F8 FEB0 D5A1 8EAC AF99\n"
-"    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising@boum.org>\n"
-"    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising-owner@boum.org>\n"
-"    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising-request@boum.org>\n"
-"    sub   rsa4096/0xEDC585308B7A9217 2014-08-09 [SEA]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          DA1C7908D1C0DC9EAA5915BC3A5B5685A641297B\n"
+"    uid           [ unknown] fundraising@tails.net <fundraising@tails.net>\n"
+"    uid           [ unknown] fundraising@tails.net <fundraising-request@tails.net>\n"
+"    uid           [ unknown] fundraising@tails.net <fundraising-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 msgstr ""
-"    pub   rsa4096/0xFEB0D5A18EACAF99 2014-08-09 [SCEA]\n"
-"          Key fingerprint = 3910 BD9D 690B A8C5 692F  93F8 FEB0 D5A1 8EAC AF99\n"
-"    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising@boum.org>\n"
-"    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising-owner@boum.org>\n"
-"    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising-request@boum.org>\n"
-"    sub   rsa4096/0xEDC585308B7A9217 2014-08-09 [SEA]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          DA1C7908D1C0DC9EAA5915BC3A5B5685A641297B\n"
+"    uid           [ unknown] fundraising@tails.net <fundraising@tails.net>\n"
+"    uid           [ unknown] fundraising@tails.net <fundraising-request@tails.net>\n"
+"    uid           [ unknown] fundraising@tails.net <fundraising-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "download it from this website: [[!tails_website tails-fundraising.key]]"
 msgid ""
-"- Download it from this website: [[!tails_website tails-fundraising.key]]."
-msgstr "скачать отсюда: [[!tails_website tails-fundraising.key]];"
+"- Download it from this website: [[!tails_website fundraising-tails-net."
+"key]]."
+msgstr "- Скачать отсюда: [[!tails_website fundraising-tails-net.key]]."
 
 #. type: Plain text
 #, no-wrap
@@ -597,81 +561,34 @@ msgstr ""
 
 #. type: Bullet: '- '
 msgid ""
-"Use this key to encrypt private emails sent to [[tails-foundations@boum.org|"
+"Use this key to encrypt private emails sent to [[foundations@tails.net|about/"
+"contact#tails-foundations]]."
+msgstr ""
+"Используйте этот ключ для шифрования писем по адресу [[foundations@tails.net|"
 "about/contact#tails-foundations]]."
-msgstr ""
-"Используйте этот ключ для шифрования писем по адресу [[tails-"
-"foundations@boum.org/about/contact#tails-foundations]]."
 
 #. type: Plain text
 #, no-wrap
 msgid ""
-"    pub   rsa4096/0xA827FE0D677E522C 2019-02-24 [SC]\n"
-"          Key fingerprint = EFC9 4A11 CBF6 F00F 509C  EB0C A827 FE0D 677E 522C\n"
-"    uid                   [ unknown] tails-foundations@boum.org <tails-foundations@boum.org>\n"
-"    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-request@boum.org>\n"
-"    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-owner@boum.org>\n"
-"    sub   rsa4096/0x244F9D7C6DF90D6D 2019-02-24 [E]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          621609457A166C993245FFCA5F6B02630DDDE331\n"
+"    uid           [ unknown] foundations@tails.net <foundations@tails.net>\n"
+"    uid           [ unknown] foundations@tails.net <foundations-request@tails.net>\n"
+"    uid           [ unknown] foundations@tails.net <foundations-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 msgstr ""
-"    pub   rsa4096/0xA827FE0D677E522C 2019-02-24 [SC]\n"
-"          Key fingerprint = EFC9 4A11 CBF6 F00F 509C  EB0C A827 FE0D 677E 522C\n"
-"    uid                   [ unknown] tails-foundations@boum.org <tails-foundations@boum.org>\n"
-"    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-request@boum.org>\n"
-"    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-owner@boum.org>\n"
-"    sub   rsa4096/0x244F9D7C6DF90D6D 2019-02-24 [E]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          621609457A166C993245FFCA5F6B02630DDDE331\n"
+"    uid           [ unknown] foundations@tails.net <foundations@tails.net>\n"
+"    uid           [ unknown] foundations@tails.net <foundations-request@tails.net>\n"
+"    uid           [ unknown] foundations@tails.net <foundations-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "download it from this website: [[!tails_website tails-foundations.key]]"
 msgid ""
-"- Download it from this website: [[!tails_website tails-foundations.key]]."
-msgstr "скачать отсюда: [[!tails_website tails-foundations.key]];"
-
-#. type: Plain text
-#, no-wrap
-msgid "<a id=\"mirrors\"></a>\n"
-msgstr "<a id=\"mirrors\"></a>\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"Mirrors team key\n"
-"===================\n"
-msgstr ""
-"Ключ команды, отвечающей за «зеркала»\n"
-"===================\n"
-
-#. type: Bullet: '- '
-msgid ""
-"Use this key to encrypt private emails sent to [[tails-mirrors@boum.org|"
-"about/contact#tails-mirrors]]."
-msgstr ""
-"Используйте этот ключ для шифрования писем по адресу [[tails-mirrors@boum."
-"org|about/contact#tails-mirrors]]."
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"    pub   rsa4096/0xD2EDA621B572DD73 2016-04-29 [SCEA]\n"
-"          Key fingerprint = 0B08 8E31 D4F8 E59A 3D39  9137 D2ED A621 B572 DD73\n"
-"    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors@boum.org>\n"
-"    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors-request@boum.org>\n"
-"    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors-owner@boum.org>\n"
-"    sub   rsa4096/0x3DCFC1EB1C62C73C 2016-04-29 [SEA]\n"
-msgstr ""
-"    pub   rsa4096/0xD2EDA621B572DD73 2016-04-29 [SCEA]\n"
-"          Key fingerprint = 0B08 8E31 D4F8 E59A 3D39  9137 D2ED A621 B572 DD73\n"
-"    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors@boum.org>\n"
-"    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors-request@boum.org>\n"
-"    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors-owner@boum.org>\n"
-"    sub   rsa4096/0x3DCFC1EB1C62C73C 2016-04-29 [SEA]\n"
-
-#. type: Plain text
-#, fuzzy
-#| msgid "download it from this website: [[!tails_website tails-mirrors.key]]"
-msgid "- Download it from this website: [[!tails_website tails-mirrors.key]]."
-msgstr "скачать отсюда: [[!tails_website tails-mirrors.key]];"
+"- Download it from this website: [[!tails_website foundations-tails-net."
+"key]]."
+msgstr "- Скачать отсюда: [[!tails_website foundations-tails-net.key]]."
 
 #. type: Plain text
 #, no-wrap
@@ -684,44 +601,38 @@ msgid "Sysadmins team key"
 msgstr "Ключ команды системных администраторов"
 
 #. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "Use this key to encrypt private emails sent to [[tails-sysadmins@boum.org|"
+#| "about/contact#tails-sysadmins]]."
 msgid ""
-"Use this key to encrypt private emails sent to [[tails-sysadmins@boum.org|"
-"about/contact#tails-sysadmins]]."
+"Use this key to encrypt private emails sent to [[sysadmins@tails.net|about/"
+"contact#tails-sysadmins]]."
 msgstr ""
 "Используйте этот ключ для шифрования писем по адресу [[tails-sysadmins@boum."
 "org|about/contact#tails-sysadmins]]."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "    pub   rsa4096/0x70F4F03116525F43 2012-08-23 [SC] [expires: 2022-10-26]\n"
-#| "          Key fingerprint = D113 CB6D 5131 D34B A5F0  FE9E 70F4 F031 1652 5F43\n"
-#| "    uid                   [ unknown] Tails system administrators <tails-sysadmins@boum.org>\n"
-#| "    uid                   [ unknown] Tails system administrators (schleuder list) <tails-sysadmins-owner@boum.org>\n"
-#| "    uid                   [ unknown] Tails system administrators (schleuder list) <tails-sysadmins-request@boum.org>\n"
-#| "    sub   rsa4096/0x58BA940CCA0A30B4 2012-08-23 [E] [expires: 2022-10-26]\n"
+#, no-wrap
 msgid ""
-"    pub   rsa4096/0x70F4F03116525F43 2012-08-23 [SC] [expires: 2024-10-11]\n"
-"          D113CB6D5131D34BA5F0FE9E70F4F03116525F43\n"
-"    uid                              Tails system administrators <tails-sysadmins@boum.org>\n"
-"    uid                              Tails system administrators (schleuder list) <tails-sysadmins-request@boum.org>\n"
-"    uid                              Tails system administrators (schleuder list) <tails-sysadmins-owner@boum.org>\n"
-"    sub   rsa4096/0x58BA940CCA0A30B4 2012-08-23 [E] [expires: 2024-10-11]\n"
+"    pub   rsa4096 2024-04-26 [SC]\n"
+"          0082D4D63B722D1FA27518A5C8F12D2B1AE1CB26\n"
+"    uid           [ unknown] sysadmins@tails.net <sysadmins@tails.net>\n"
+"    uid           [ unknown] sysadmins@tails.net <sysadmins-request@tails.net>\n"
+"    uid           [ unknown] sysadmins@tails.net <sysadmins-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-26 [E]\n"
 msgstr ""
-"    pub   rsa4096/0x70F4F03116525F43 2012-08-23 [SC] [expires: 2022-10-26]\n"
-"          Key fingerprint = D113 CB6D 5131 D34B A5F0  FE9E 70F4 F031 1652 5F43\n"
-"    uid                   [ unknown] Tails system administrators <tails-sysadmins@boum.org>\n"
-"    uid                   [ unknown] Tails system administrators (schleuder list) <tails-sysadmins-owner@boum.org>\n"
-"    uid                   [ unknown] Tails system administrators (schleuder list) <tails-sysadmins-request@boum.org>\n"
-"    sub   rsa4096/0x58BA940CCA0A30B4 2012-08-23 [E] [expires: 2022-10-26]\n"
+"    pub   rsa4096 2024-04-26 [SC]\n"
+"          0082D4D63B722D1FA27518A5C8F12D2B1AE1CB26\n"
+"    uid           [ unknown] sysadmins@tails.net <sysadmins@tails.net>\n"
+"    uid           [ unknown] sysadmins@tails.net <sysadmins-request@tails.net>\n"
+"    uid           [ unknown] sysadmins@tails.net <sysadmins-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-26 [E]\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "download it from this website: [[!tails_website tails-sysadmins.key]]"
 msgid ""
-"- Download it from this website: [[!tails_website tails-sysadmins.key]]."
-msgstr "скачать отсюда: [[!tails_website tails-sysadmins.key]];"
+"- Download it from this website: [[!tails_website sysadmins-tails-net.key]]."
+msgstr "- Скачать отсюда: [[!tails_website sysadmins-tails-net.key]]."
 
 #. type: Plain text
 #, no-wrap
@@ -734,9 +645,14 @@ msgid "Translation platform admins team key"
 msgstr "Ключ администраторов платформы перевода"
 
 #. type: Bullet: '- '
+#, fuzzy
+#| msgid ""
+#| "Use this key to encrypt private emails sent to [[the admins of the "
+#| "translation platform at tails-weblate@boum.org|about/contact#tails-"
+#| "weblate]]."
 msgid ""
 "Use this key to encrypt private emails sent to [[the admins of the "
-"translation platform at tails-weblate@boum.org|about/contact#tails-weblate]]."
+"translation platform at weblate@tails.net|about/contact#tails-weblate]]."
 msgstr ""
 "Используйте этот ключ для шифрования писем по адресу [[tails-weblate@boum."
 "org|about/contact#tails-weblate]]."
@@ -744,25 +660,229 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid ""
-"    pub   rsa4096/0x0190E73C38F13068 2020-10-02 [SC]\n"
-"          Key fingerprint = 6AA6 4D2B 7D77 AD46 6667  E7BD 0190 E73C 38F1 3068\n"
-"    uid                      tails-weblate@boum.org <tails-weblate@boum.org>\n"
-"    uid                      tails-weblate@boum.org <tails-weblate-request@boum.org>\n"
-"    uid                      tails-weblate@boum.org <tails-weblate-owner@boum.org>\n"
-"    sub   rsa4096/0x2F7EC378C628BE30 2020-10-02 [E]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          EFECA896F429B066B83E0266B702FE73C485A41D\n"
+"    uid           [ unknown] weblate@tails.net <weblate@tails.net>\n"
+"    uid           [ unknown] weblate@tails.net <weblate-request@tails.net>\n"
+"    uid           [ unknown] weblate@tails.net <weblate-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 msgstr ""
-"    pub   rsa4096/0x0190E73C38F13068 2020-10-02 [SC]\n"
-"          Key fingerprint = 6AA6 4D2B 7D77 AD46 6667  E7BD 0190 E73C 38F1 3068\n"
-"    uid                      tails-weblate@boum.org <tails-weblate@boum.org>\n"
-"    uid                      tails-weblate@boum.org <tails-weblate-request@boum.org>\n"
-"    uid                      tails-weblate@boum.org <tails-weblate-owner@boum.org>\n"
-"    sub   rsa4096/0x2F7EC378C628BE30 2020-10-02 [E]\n"
+"    pub   rsa4096 2024-04-30 [SC]\n"
+"          EFECA896F429B066B83E0266B702FE73C485A41D\n"
+"    uid           [ unknown] weblate@tails.net <weblate@tails.net>\n"
+"    uid           [ unknown] weblate@tails.net <weblate-request@tails.net>\n"
+"    uid           [ unknown] weblate@tails.net <weblate-owner@tails.net>\n"
+"    sub   rsa4096 2024-04-30 [E]\n"
 
 #. type: Plain text
+msgid ""
+"- Download it from this website: [[!tails_website weblate-tails-net.key]]."
+msgstr "- Скачать отсюда: [[!tails_website weblate-tails-net.key]]."
+
+#~ msgid ""
+#~ "This means people other than Tails developers are in a position to use "
+#~ "this secret key. Tails developers trust these people enough to rely on "
+#~ "them for running our encrypted mailing list, but still: this key pair is "
+#~ "managed in a less safe way than our signing key."
+#~ msgstr ""
+#~ "Таким образом, использовать секретный ключ могут не только разработчики "
+#~ "Tails. Мы доверяем всем этим людям в том, что касается нашего "
+#~ "зашифрованного списка рассылки. Как бы то ни было, этот ключ менее "
+#~ "безопасен, чем наш ключ подписи."
+
+#, no-wrap
+#~ msgid ""
+#~ "    pub   rsa4096 2009-08-14 [SC] [expires: 2023-03-03]\n"
+#~ "          09F6 BC8F EEC9 D8EE 005D  BAA4 1D29 75ED F93E 735F\n"
+#~ "    uid           [  full  ] Tails developers (Schleuder mailing-list) <tails@boum.org>\n"
+#~ "    uid           [  full  ] Tails list (schleuder list) <tails-owner@boum.org>\n"
+#~ "    uid           [  full  ] Tails list (schleuder list) <tails-request@boum.org>\n"
+#~ "    sub   rsa4096 2009-08-14 [E] [expires: 2023-03-03]\n"
+#~ "          C394 8FE7 B604 C611 4E29  4DDF D843 C2F5 E893 82EB\n"
+#~ msgstr ""
+#~ "    pub   rsa4096 2009-08-14 [SC] [expires: 2023-03-03]\n"
+#~ "          09F6 BC8F EEC9 D8EE 005D  BAA4 1D29 75ED F93E 735F\n"
+#~ "    uid           [  full  ] Tails developers (Schleuder mailing-list) <tails@boum.org>\n"
+#~ "    uid           [  full  ] Tails list (schleuder list) <tails-owner@boum.org>\n"
+#~ "    uid           [  full  ] Tails list (schleuder list) <tails-request@boum.org>\n"
+#~ "    sub   rsa4096 2009-08-14 [E] [expires: 2023-03-03]\n"
+#~ "          C394 8FE7 B604 C611 4E29  4DDF D843 C2F5 E893 82EB\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "    pub   rsa4096/0x457080B5A072CBE3 2014-07-11 [SCEA]\n"
+#~ "          Key fingerprint = F3CD 9B7B 4BDF 9995 DA22  088E 4570 80B5 A072 CBE3\n"
+#~ "    uid                   [  undef ] Tails press team (schleuder list) <tails-press@boum.org>\n"
+#~ "    uid                   [  undef ] Tails press team (schleuder list) <tails-press-owner@boum.org>\n"
+#~ "    uid                   [  undef ] Tails press team (schleuder list) <tails-press-request@boum.org>\n"
+#~ "    sub   rsa4096/0x5748DE3BC338BFFC 2014-07-11 [SEA]\n"
+#~ msgstr ""
+#~ "    pub   rsa4096/0x457080B5A072CBE3 2014-07-11 [SCEA]\n"
+#~ "          Key fingerprint = F3CD 9B7B 4BDF 9995 DA22  088E 4570 80B5 A072 CBE3\n"
+#~ "    uid                   [  undef ] Tails press team (schleuder list) <tails-press@boum.org>\n"
+#~ "    uid                   [  undef ] Tails press team (schleuder list) <tails-press-owner@boum.org>\n"
+#~ "    uid                   [  undef ] Tails press team (schleuder list) <tails-press-request@boum.org>\n"
+#~ "    sub   rsa4096/0x5748DE3BC338BFFC 2014-07-11 [SEA]\n"
+
+#~ msgid "- Download it from this website: [[!tails_website tails-press.key]]."
+#~ msgstr "- Скачать отсюда: [[!tails_website tails-press.key]]."
+
+#~ msgid ""
+#~ "Use this key to encrypt private emails sent to [[tails-fundraising@boum."
+#~ "org|about/contact#tails-fundraising]]."
+#~ msgstr ""
+#~ "Используйте этот ключ для шифрования писем по адресу [[tails-"
+#~ "fundraising@boum.org|about/contact#tails-fundraising]]."
+
+#, no-wrap
+#~ msgid ""
+#~ "    pub   rsa4096/0xFEB0D5A18EACAF99 2014-08-09 [SCEA]\n"
+#~ "          Key fingerprint = 3910 BD9D 690B A8C5 692F  93F8 FEB0 D5A1 8EAC AF99\n"
+#~ "    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising@boum.org>\n"
+#~ "    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising-owner@boum.org>\n"
+#~ "    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising-request@boum.org>\n"
+#~ "    sub   rsa4096/0xEDC585308B7A9217 2014-08-09 [SEA]\n"
+#~ msgstr ""
+#~ "    pub   rsa4096/0xFEB0D5A18EACAF99 2014-08-09 [SCEA]\n"
+#~ "          Key fingerprint = 3910 BD9D 690B A8C5 692F  93F8 FEB0 D5A1 8EAC AF99\n"
+#~ "    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising@boum.org>\n"
+#~ "    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising-owner@boum.org>\n"
+#~ "    uid                   [ unknown] Tails fundraising team (schleuder list) <tails-fundraising-request@boum.org>\n"
+#~ "    sub   rsa4096/0xEDC585308B7A9217 2014-08-09 [SEA]\n"
+
+#~ msgid ""
+#~ "- Download it from this website: [[!tails_website tails-fundraising.key]]."
+#~ msgstr "- Скачать отсюда: [[!tails_website tails-fundraising.key]]."
+
+#, no-wrap
+#~ msgid "<a id=\"mirrors\"></a>\n"
+#~ msgstr "<a id=\"mirrors\"></a>\n"
+
+#, no-wrap
+#~ msgid ""
+#~ "Mirrors team key\n"
+#~ "===================\n"
+#~ msgstr ""
+#~ "Ключ команды, отвечающей за «зеркала»\n"
+#~ "===================\n"
+
+#~ msgid ""
+#~ "Use this key to encrypt private emails sent to [[tails-mirrors@boum.org|"
+#~ "about/contact#tails-mirrors]]."
+#~ msgstr ""
+#~ "Используйте этот ключ для шифрования писем по адресу [[tails-mirrors@boum."
+#~ "org|about/contact#tails-mirrors]]."
+
+#, no-wrap
+#~ msgid ""
+#~ "    pub   rsa4096/0xD2EDA621B572DD73 2016-04-29 [SCEA]\n"
+#~ "          Key fingerprint = 0B08 8E31 D4F8 E59A 3D39  9137 D2ED A621 B572 DD73\n"
+#~ "    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors@boum.org>\n"
+#~ "    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors-request@boum.org>\n"
+#~ "    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors-owner@boum.org>\n"
+#~ "    sub   rsa4096/0x3DCFC1EB1C62C73C 2016-04-29 [SEA]\n"
+#~ msgstr ""
+#~ "    pub   rsa4096/0xD2EDA621B572DD73 2016-04-29 [SCEA]\n"
+#~ "          Key fingerprint = 0B08 8E31 D4F8 E59A 3D39  9137 D2ED A621 B572 DD73\n"
+#~ "    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors@boum.org>\n"
+#~ "    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors-request@boum.org>\n"
+#~ "    uid                   [ unknown] Tails mirror pool managers (schleuder list) <tails-mirrors-owner@boum.org>\n"
+#~ "    sub   rsa4096/0x3DCFC1EB1C62C73C 2016-04-29 [SEA]\n"
+
+#~ msgid ""
+#~ "- Download it from this website: [[!tails_website tails-mirrors.key]]."
+#~ msgstr "- Скачать отсюда: [[!tails_website tails-mirrors.key]]."
+
+#, no-wrap
+#~ msgid ""
+#~ "    pub   rsa4096/0x70F4F03116525F43 2012-08-23 [SC] [expires: 2024-10-11]\n"
+#~ "          D113CB6D5131D34BA5F0FE9E70F4F03116525F43\n"
+#~ "    uid                              Tails system administrators <tails-sysadmins@boum.org>\n"
+#~ "    uid                              Tails system administrators (schleuder list) <tails-sysadmins-request@boum.org>\n"
+#~ "    uid                              Tails system administrators (schleuder list) <tails-sysadmins-owner@boum.org>\n"
+#~ "    sub   rsa4096/0x58BA940CCA0A30B4 2012-08-23 [E] [expires: 2024-10-11]\n"
+#~ msgstr ""
+#~ "    pub   rsa4096/0x70F4F03116525F43 2012-08-23 [SC] [expires: 2024-10-11]\n"
+#~ "          D113CB6D5131D34BA5F0FE9E70F4F03116525F43\n"
+#~ "    uid                              Tails system administrators <tails-sysadmins@boum.org>\n"
+#~ "    uid                              Tails system administrators (schleuder list) <tails-sysadmins-request@boum.org>\n"
+#~ "    uid                              Tails system administrators (schleuder list) <tails-sysadmins-owner@boum.org>\n"
+#~ "    sub   rsa4096/0x58BA940CCA0A30B4 2012-08-23 [E] [expires: 2024-10-11]\n"
+
+#~ msgid ""
+#~ "- Download it from this website: [[!tails_website tails-sysadmins.key]]."
+#~ msgstr "- Скачать отсюда: [[!tails_website tails-sysadmins.key]]."
+
+#, no-wrap
+#~ msgid ""
+#~ "    pub   rsa4096/0x0190E73C38F13068 2020-10-02 [SC]\n"
+#~ "          Key fingerprint = 6AA6 4D2B 7D77 AD46 6667  E7BD 0190 E73C 38F1 3068\n"
+#~ "    uid                      tails-weblate@boum.org <tails-weblate@boum.org>\n"
+#~ "    uid                      tails-weblate@boum.org <tails-weblate-request@boum.org>\n"
+#~ "    uid                      tails-weblate@boum.org <tails-weblate-owner@boum.org>\n"
+#~ "    sub   rsa4096/0x2F7EC378C628BE30 2020-10-02 [E]\n"
+#~ msgstr ""
+#~ "    pub   rsa4096/0x0190E73C38F13068 2020-10-02 [SC]\n"
+#~ "          Key fingerprint = 6AA6 4D2B 7D77 AD46 6667  E7BD 0190 E73C 38F1 3068\n"
+#~ "    uid                      tails-weblate@boum.org <tails-weblate@boum.org>\n"
+#~ "    uid                      tails-weblate@boum.org <tails-weblate-request@boum.org>\n"
+#~ "    uid                      tails-weblate@boum.org <tails-weblate-owner@boum.org>\n"
+#~ "    sub   rsa4096/0x2F7EC378C628BE30 2020-10-02 [E]\n"
+
+#~ msgid ""
+#~ "- Download it from this website: [[!tails_website tails-weblate.key]]."
+#~ msgstr "- Скачать отсюда: [[!tails_website tails-weblate.key]]."
+
+#~ msgid ""
+#~ "Use this key to encrypt private emails sent to [[tails-foundations@boum."
+#~ "org|about/contact#tails-foundations]]."
+#~ msgstr ""
+#~ "Используйте этот ключ для шифрования писем по адресу [[tails-"
+#~ "foundations@boum.org|about/contact#tails-foundations]]."
+
+#, no-wrap
+#~ msgid ""
+#~ "    pub   rsa4096/0xA827FE0D677E522C 2019-02-24 [SC]\n"
+#~ "          Key fingerprint = EFC9 4A11 CBF6 F00F 509C  EB0C A827 FE0D 677E 522C\n"
+#~ "    uid                   [ unknown] tails-foundations@boum.org <tails-foundations@boum.org>\n"
+#~ "    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-request@boum.org>\n"
+#~ "    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-owner@boum.org>\n"
+#~ "    sub   rsa4096/0x244F9D7C6DF90D6D 2019-02-24 [E]\n"
+#~ msgstr ""
+#~ "    pub   rsa4096/0xA827FE0D677E522C 2019-02-24 [SC]\n"
+#~ "          Key fingerprint = EFC9 4A11 CBF6 F00F 509C  EB0C A827 FE0D 677E 522C\n"
+#~ "    uid                   [ unknown] tails-foundations@boum.org <tails-foundations@boum.org>\n"
+#~ "    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-request@boum.org>\n"
+#~ "    uid                   [ unknown] tails-foundations@boum.org <tails-foundations-owner@boum.org>\n"
+#~ "    sub   rsa4096/0x244F9D7C6DF90D6D 2019-02-24 [E]\n"
+
 #, fuzzy
-#| msgid "download it from this website: [[!tails_website tails-weblate.key]]"
-msgid "- Download it from this website: [[!tails_website tails-weblate.key]]."
-msgstr "скачать отсюда: [[!tails_website tails-weblate.key]];"
+#~| msgid ""
+#~| "download it from this website: [[!tails_website tails-foundations.key]]"
+#~ msgid ""
+#~ "- Download it from this website: [[!tails_website tails-foundations.key]]."
+#~ msgstr "скачать отсюда: [[!tails_website tails-foundations.key]];"
+
+#, fuzzy
+#~| msgid "download it from this website: [[!tails_website tails-bugs.key]]"
+#~ msgid "- Download it from this website: [[!tails_website tails-board.key]]."
+#~ msgstr "скачать отсюда: [[!tails_website tails-bugs.key]];"
+
+#, no-wrap
+#~ msgid ""
+#~ "    pub   rsa4096/0xC436090F4BB47C6F 2014-07-11 [SCEA]\n"
+#~ "          Key fingerprint = 256D EB90 7788 0CD6 8167  8528 C436 090F 4BB4 7C6F\n"
+#~ "    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting@boum.org>\n"
+#~ "    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting-owner@boum.org>\n"
+#~ "    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting-request@boum.org>\n"
+#~ "    sub   rsa4096/0x289A5B45A9E89475 2014-07-11 [SEA]\n"
+#~ msgstr ""
+#~ "    pub   rsa4096/0xC436090F4BB47C6F 2014-07-11 [SCEA]\n"
+#~ "          Key fingerprint = 256D EB90 7788 0CD6 8167  8528 C436 090F 4BB4 7C6F\n"
+#~ "    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting@boum.org>\n"
+#~ "    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting-owner@boum.org>\n"
+#~ "    uid                   [  undef ] Tails accounting team (schleuder list) <tails-accounting-request@boum.org>\n"
+#~ "    sub   rsa4096/0x289A5B45A9E89475 2014-07-11 [SEA]\n"
 
 #, no-wrap
 #~ msgid ""

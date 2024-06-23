@@ -7,12 +7,19 @@ if TYPE_CHECKING:
     from tps_frontend.application import Application
 
 
+class ErrorDetails:
+    def __init__(self, title: str, text: str):
+        self.title = title
+        self.text = text
+
+
 class ErrorDialog(Gtk.MessageDialog):
     def __init__(
         self,
         app: "Application",
         title: str,
         msg: str,
+        details: ErrorDetails = None,
         with_send_report_button: bool = True,
     ):
         super().__init__(
@@ -26,6 +33,9 @@ class ErrorDialog(Gtk.MessageDialog):
         self.app = app
         self.title = title
         self.msg = msg
+
+        if details:
+            self.add_details(details)
 
         message_area = self.get_message_area()  # type: Gtk.Box
         title_label, secondary_label = message_area.get_children()  # type: Gtk.Label
@@ -52,9 +62,46 @@ class ErrorDialog(Gtk.MessageDialog):
             style_context = button.get_style_context()
             style_context.add_class("suggested-action")
 
+        msg = GLib.markup_escape_text(msg)
         msg = f"<span insert-hyphens='no'>{msg}</span>"
         self.format_secondary_markup(msg)
         self.set_default_response(Gtk.ResponseType.CLOSE)
+
+    def add_details(self, details: ErrorDetails):
+        # Add a details expander
+        expander = Gtk.Expander()
+        expander.set_use_markup(True)
+        expander.set_label(details.title)
+        expander.set_expanded(False)
+        expander.set_margin_start(12)
+        expander.set_margin_end(12)
+
+        # Add a scrolled window to the expander
+        scrolled_window = Gtk.ScrolledWindow()
+        # Automatically show the scrollbars when needed
+        scrolled_window.set_policy(Gtk.PolicyType.AUTOMATIC, Gtk.PolicyType.AUTOMATIC)
+        scrolled_window.set_margin_top(6)
+        scrolled_window.set_margin_start(6)
+        scrolled_window.set_margin_end(6)
+        expander.add(scrolled_window)
+
+        # Add a text view to the scrolled window
+        text_view = Gtk.TextView()
+        text_view.set_editable(False)
+        text_view.set_cursor_visible(False)
+        text_view.set_wrap_mode(Gtk.WrapMode.CHAR)
+        text_view.set_monospace(True)
+        text_view.get_buffer().set_text(details.text)
+        scrolled_window.add(text_view)
+        scrolled_window.set_vexpand(True)
+
+        # Add the expander to the dialog
+        self.get_content_area().pack_start(expander, True, True, 0)
+        expander.show_all()
+
+        # Allow the user to resize the dialog (the default size might
+        # be too small to comfortably read the details)
+        self.set_resizable(True)
 
     def do_response(self, response_id: int):
         if response_id == Gtk.ResponseType.OK:

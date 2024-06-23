@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 #
 # Copyright © 2008  Red Hat, Inc. All rights reserved.
 #
@@ -24,7 +23,7 @@ import gettext
 if os.path.exists("/usr/sbin") or os.path.exists("/usr/local/sbin"):
     try:
         os.environ["PATH"] = "/usr/local/sbin:/usr/sbin:" + os.environ["PATH"]
-    except KeyError as ex:
+    except KeyError:
         os.environ["PATH"] = "/usr/local/sbin:/usr/sbin"
 
 
@@ -37,9 +36,10 @@ def utf8_gettext(*args, **kwargs):
 
 _ = utf8_gettext
 
-from tails_installer.creator import TailsInstallerError  # NOQA E402
-from tails_installer.creator import TailsInstallerCreator  # NOQA E402
-from tails_installer.config import CONFIG  # NOQA E402
+from tails_installer.creator import TailsInstallerError  # noqa: E402
+from tails_installer.creator import TargetDeviceBusy  # noqa: E402
+from tails_installer.creator import TailsInstallerCreator  # noqa: E402
+from tails_installer.config import CONFIG  # noqa: E402
 
 branding = {
     "distribution": CONFIG["branding"]["distribution"],
@@ -49,6 +49,7 @@ branding = {
 __all__ = (
     "TailsInstallerCreator",
     "TailsInstallerError",
+    "TargetDeviceBusy",
     "TailsInstallerDialog",
     "_",
     "utf8_gettext",

@@ -8,14 +8,14 @@ export SOURCE_DATE_EPOCH="$(date --utc --date="$(dpkg-parsechangelog --show-fiel
 export SOURCE_DATE_YYYYMMDD="$(date --utc --date="$(dpkg-parsechangelog --show-field=Date)" +%Y%m%d)"
 
 # Base for the string that will be passed to "lb config --bootappend-live"
-CMDLINE_APPEND_NON_REMOVABLE="nopersistence noprompt timezone=Etc/UTC splash noautologin module=Tails slab_nomerge slub_debug=FZ mce=0 vsyscall=none init_on_free=1 mds=full,nosmt page_alloc.shuffle=1 randomize_kstack_offset=on"
+CMDLINE_APPEND_NON_REMOVABLE="nopersistence noprompt timezone=Etc/UTC splash noautologin module=Tails slab_nomerge slub_debug=FZ mce=0 vsyscall=none init_on_free=1 mds=full,nosmt page_alloc.shuffle=1 randomize_kstack_offset=on spec_store_bypass_disable=on"
 CMDLINE_APPEND="live-media=removable ${CMDLINE_APPEND_NON_REMOVABLE}"
 
 # Options passed to isohybrid
 ISOHYBRID_OPTS="-h 255 -s 63 --id 42 --verbose"
 
 # Kernel version
-KERNEL_VERSION='6.1.0-17'
+KERNEL_VERSION='6.1.0-21'
 
 ### You should not have to change anything below this line ####################
 

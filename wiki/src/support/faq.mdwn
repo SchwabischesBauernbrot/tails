@@ -119,11 +119,18 @@ that does *not* behave like Tails should. Follow the
 
 <h2 id="upgrade">Should I update Tails using <code>apt upgrade</code> or <i>Synaptic</i>?</h2>
 
-No. Tails provides upgrades every six weeks, that are thoroughly tested
+No. Upgrading whenever you get a notification from *[[Tails
+Upgrader|doc/upgrade]]* is enough.
+
+Tails provides upgrades every 4 weeks, which are thoroughly tested
 to make sure that no security feature or configuration gets broken.
-If you upgrade the system yourself using `apt` or <span class="application">Synaptic</span>,
-you might break things. Upgrading when you get a notification from
-<span class="application">[[Tails Upgrader|doc/upgrade]]</span> is enough.
+
+If you upgrade the system yourself using `apt` or *Synaptic*,
+you might break things.
+
+Our team sometimes publishes emergency releases, whenever important security
+upgrades are available in Debian or *Tor Browser* before the next scheduled
+release.
 
 <h2 id="preinstalled">Can I buy a preinstalled Tails USB stick or DVD?</h2>
 
@@ -132,7 +139,7 @@ No, we don't sell preinstalled Tails devices.
 Selling preinstalled devices would in fact be a pretty bad idea:
 
 - If burned on a DVD, then this DVD would be outdated on the next
-  release. This means after 6 weeks at most.
+  release. This means after 4 weeks at most.
 
 - If installed onto a USB stick, then it would be impossible to verify
   that the Tails on the USB stick is genuine. Trusting that a Tails USB stick
@@ -222,9 +229,12 @@ XXX: Check https://2019.www.torproject.org/docs/torbutton/torbutton-faq.html.en#
 
 <h2 id="update-add-ons">Should I manually update add-ons included in <span class="application">Tor Browser</span>?</h2>
 
-No. Tails provides upgrades every six weeks, that are thoroughly tested
+No.
+
+Tails provides upgrades every 4 weeks, which are thoroughly tested
 to make sure that no security feature or configuration gets broken.
-Updating add-ons in <span class="application">Tor Browser</span> might
+
+Updating add-ons in *Tor Browser* might
 break the security built in Tails.
 
 <h2 id="anonymity-test">How to analyse the results of online anonymity tests?</h2>
@@ -292,7 +302,7 @@ file in Tails, for example, to choose the country of your exit nodes or exclude
 some entry guards.
 
 Still, you can close a given circuit and trigger Tor to create a new one using
-the [[New Circuit for this Site|doc/anonymous_internet/Tor_Browser]] button of
+the [[New Tor circuit for this site|doc/anonymous_internet/Tor_Browser]] button of
 *Tor Browser* or the [[*Onion Circuits*|doc/anonymous_internet/tor/circuits]]
 utility.
 
@@ -472,7 +482,7 @@ for further details.
 
 <h2 id="old-software">Why does Tails include old versions of software?</h2>
 
-The Tails 5 series is based on Debian 12 (Bookworm).
+The Tails 6 series is based on Debian 12 (Bookworm).
 
 The version of each application included in Tails corresponds to the version
 available in this version of Debian. Even though some versions might be old,

@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
-"PO-Revision-Date: 2024-02-29 22:45+0000\n"
-"Last-Translator: la_r_go* <largo@tracciabi.li>\n"
+"POT-Creation-Date: 2024-04-05 11:23+0000\n"
+"PO-Revision-Date: 2024-05-21 21:40+0000\n"
+"Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: it\n"
 "MIME-Version: 1.0\n"
@@ -138,7 +138,7 @@ msgstr "   <p class=\"command\">wget https://tails.net/tails-signing.key</p>\n"
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">gpg --import < tails-signing.key</p>\n"
-msgstr ""
+msgstr "   <p class=\"command\">gpg --import < tails-signing.key</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -152,9 +152,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">sudo apt update && sudo apt install debian-keyring</p>\n"
-msgstr ""
-"   <p class=\"command\">sudo apt update && sudo apt install debian-"
-"keyring</p>\n"
+msgstr "   <p class=\"command\">sudo apt update && sudo apt install debian-keyring</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -171,6 +169,8 @@ msgstr ""
 #, no-wrap
 msgid "   <p class=\"command\">gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export chris@chris-lamb.co.uk | gpg --import</p>\n"
 msgstr ""
+"   <p class=\"command\">gpg --keyring=/usr/share/keyrings/debian-keyring.gpg "
+"--export chris@chris-lamb.co.uk | gpg --import</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -181,6 +181,8 @@ msgstr "Verifica le certificazioni riguardo la chiave di firma di Tails:"
 #, no-wrap
 msgid "   <p class=\"command\">gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 msgstr ""
+"   <p class=\"command\">gpg --keyid-format 0xlong --check-sigs "
+"A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -190,9 +192,7 @@ msgstr "   Nel risultato di questo comando, cerca la seguente linea:\n"
 #. type: Plain text
 #, no-wrap
 msgid "       sig!2        0x1E953E27D4311E58 2020-03-19  Chris Lamb <chris@chris-lamb.co.uk>\n"
-msgstr ""
-"       sig!2                   0x1E953E27D4311E58 2020-03-19  Chris Lamb "
-"<chris@chris-lamb.co.uk>\n"
+msgstr "       sig!2                   0x1E953E27D4311E58 2020-03-19  Chris Lamb <chris@chris-lamb.co.uk>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -201,8 +201,7 @@ msgid ""
 "   Lamb verified and certified the Tails signing key with his key and a level 2 check.\n"
 msgstr ""
 "   Qui, `sig!2`significa che Chris\n"
-"    Lamb ha verificato e certificato la chiave di firma di Tails con la sua "
-"chiave.\n"
+"    Lamb ha verificato e certificato la chiave di firma di Tails con la sua chiave.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -242,12 +241,9 @@ msgid ""
 "   </div>\n"
 msgstr ""
 "   <div class=\"tip\">\n"
-"   <p>La linea <code>175 firme non controllate a causa di chiavi mancanti</"
-"code> o simile\n"
-"   si riferisce alle certificazioni (chiamate anche <i>firme</i>) fatte da "
-"altre chiavi\n"
-"   pubbliche  che non si trovano nel portachiavi. Questo non è un "
-"problema.</p>\n"
+"   <p>La linea <code>175 firme non controllate a causa di chiavi mancanti</code> o simile\n"
+"   si riferisce alle certificazioni (chiamate anche <i>firme</i>) fatte da altre chiavi\n"
+"   pubbliche  che non si trovano nel portachiavi. Questo non è un problema.</p>\n"
 "   </div>\n"
 
 #
@@ -259,6 +255,8 @@ msgstr "Certifica la chiave di Tails con la tua chiave:"
 #, no-wrap
 msgid "   <p class=\"command\">gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 msgstr ""
+"   <p class=\"command\">gpg --lsign-key "
+"A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -277,9 +275,9 @@ msgstr "Scarica l'immagine USB:"
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"command-template\">wget --continue [[!inline pages=\"inc/stable_amd64_img_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
+msgid "   <p class=\"command\">wget --continue [[!inline pages=\"inc/stable_amd64_img_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
 msgstr ""
-"   <p class=\"command-template\">wget --continue [[!inline pages=\"inc/"
+"   <p class=\"command\">wget --continue [[!inline pages=\"inc/"
 "stable_amd64_img_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #. type: Plain text
@@ -309,6 +307,8 @@ msgstr "Scaricare la firma dell'immagine USB:"
 #, no-wrap
 msgid "   <p class=\"command\">wget [[!inline pages=\"inc/stable_amd64_img_sig_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
 msgstr ""
+"   <p class=\"command\">wget [[!inline pages=\"inc/stable_amd64_img_sig_url\""
+" raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -318,9 +318,7 @@ msgstr "Verificare che l'immagine USB sia firmata dalla chiave di Tails:"
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">[[!inline pages=\"inc/stable_amd64_img_gpg_verify\" raw=\"yes\" sort=\"age\"]]</p>\n"
-msgstr ""
-"   <p class=\"command\">[[!inline pages=\"inc/stable_amd64_img_gpg_verify\" "
-"raw=\"yes\" sort=\"age\"]]</p>\n"
+msgstr "   <p class=\"command\">[[!inline pages=\"inc/stable_amd64_img_gpg_verify\" raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -330,9 +328,7 @@ msgstr "   L'output di questo comando dovrebbe essere il seguente:\n"
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"code\">[[!inline pages=\"inc/stable_amd64_img_gpg_signature_output\" raw=\"yes\" sort=\"age\"]]</p>\n"
-msgstr ""
-"   <p class=\"code\">[[!inline pages=\"inc/"
-"stable_amd64_img_gpg_signature_output\" raw=\"yes\" sort=\"age\"]]</p>\n"
+msgstr "   <p class=\"code\">[[!inline pages=\"inc/stable_amd64_img_gpg_signature_output\" raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -356,9 +352,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h1 id=\"install\" class=\"step\">Install Tails using <code>dd</code></h1>\n"
-msgstr ""
-"<h1 id=\"install\" class=\"step\">Installa Tails usando <code>dd</code></h1>"
-"\n"
+msgstr "<h1 id=\"install\" class=\"step\">Installa Tails usando <code>dd</code></h1>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -486,10 +480,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M oflag=direct status=progress</p>\n"
-msgstr ""
-"   <p class=\"command-template\">dd if=<span class=\"command-placeholder\""
-">tails.img</span> of=<span class=\"command-placeholder\">dispositivo</span> "
-"bs=16M oflag=direct status=progress</p>\n"
+msgstr "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">dispositivo</span> bs=16M oflag=direct status=progress</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -499,9 +490,7 @@ msgstr "   Dovresti ottenere qualcosa del genere:\n"
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-template\">dd if=/home/user/tails-amd64-3.12.img of=/dev/sdb bs=16M oflag=direct status=progress</p>\n"
-msgstr ""
-"   <p class=\"command-template\">dd if=/home/user/tails-amd64-3.12.img of=/"
-"dev/sdb bs=16M oflag=direct status=progress</p>\n"
+msgstr "   <p class=\"command-template\">dd if=/home/user/tails-amd64-3.12.img of=/dev/sdb bs=16M oflag=direct status=progress</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -515,7 +504,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <div class=\"note\">\n"
-msgstr "   <div class=\"nota\">\n"
+msgstr "   <div class=\"note\">\n"
 
 #. type: Plain text
 #, no-wrap
@@ -523,7 +512,7 @@ msgid ""
 "   <p>If you get a <code>Permission denied</code> error, try\n"
 "   adding <code>sudo</code> at the beginning of the command:</p>\n"
 msgstr ""
-"   <p>Se hai un errore  <code>Permesso negato</code> , prova\n"
+"   <p>Se hai un errore <code>Permesso negato</code>, prova\n"
 "   ad aggiungere <code>sudo</code> at the beginning of the command:</p>\n"
 
 #. type: Plain text
@@ -532,7 +521,7 @@ msgid "   <p class=\"command-example\">sudo dd if=<span class=\"command-placehol
 msgstr ""
 "   <p class=\"command-example\">sudo dd if=<span class=\"command-"
 "placeholder\">tails.img</span> of=<span class=\"command-placeholder\""
-">device</span> bs=16M oflag=direct status=progress</p>\n"
+">dispositivo</span> bs=16M oflag=direct status=progress</p>\n"
 
 #. type: Plain text
 #, no-wrap

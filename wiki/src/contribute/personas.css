@@ -1,38 +1,35 @@
-body {
-  color: black;
+.personas {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
 }
 
-.card {
-  border: 1px solid var(--light-gray);
-  margin: 1em;
-}
-
-#pagebody .card {
+.personas a {
+  text-decoration: none !important;
   color: black !important;
+  flex-basis: calc(50% - 15px);
 }
 
-h2.name {
-  font-size: 2.8em;
-  margin-bottom: 0;
-  color: var(--medium-light-green);
+.personas a h2 {
   text-decoration: underline;
 }
 
-.tag {
-  font-size: 2em;
-  font-weight: bold;
+.personas a img {
+  display: block;
+  width: 224px;
+  margin: 0 auto;
 }
 
-#quote {
+.personas a blockquote {
   font-style: italic;
-  font-size: 1.4em;
-  margin: 1em 0;
+  margin: 30px 0;
+  background: white;
 }
 
-#quote:before {
-  content: '« ';
+.personas a blockquote:before {
+  content: '« ';
 }
- 
-#quote:after {
-  content: ' »';
+
+.personas a blockquote:after {
+  content: ' »';
 }

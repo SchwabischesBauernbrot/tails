@@ -14,35 +14,13 @@ Use references in the following order:
 
 1. This style guide.
 
-2. The [GNOME Documentation Style Guide](https://developer-old.gnome.org/gdp-style-guide/).
-
-   Read at least [Section 1 ― Fundamental Concepts of Technical
-   Documentation](http://developer-old.gnome.org/gdp-style-guide/2.32/gdp-style-guide.html#fundamentals).
-
-   The following sections are also of particular interest or have been
-   debated within Tails before:
-
-     - [4.&nbsp;Writing documentation for an International
-       Audience](http://developer-old.gnome.org/gdp-style-guide/2.32/gdp-style-guide.html#locale)
-       includes specific rules about how to write documentation that is
-       easier to translate, with practical examples.
-
-     - [5.2.&nbsp;Checks You Can Do
-       Yourself](http://developer-old.gnome.org/gdp-style-guide/2.32/gdp-style-guide.html#improving-6)
-       lists the top ten topics that you need to watch out for when you
-       review your work.
-
-     - [A.&nbsp;Recommended
-       Terminology](http://developer-old.gnome.org/gdp-style-guide/2.32/gdp-style-guide.html#wordlist)
-       contains a glossary of terms for use when writing documentation.
+2. [Apple Style Guide](https://help.apple.com/applestyleguide/)
 
 3. Other style guides:
 
    - [Google developer documentation style guide](https://developers.google.com/style)
 
    - [Microsoft Writing Style Guide](https://docs.microsoft.com/en-us/style-guide/welcome/).
-
-   - [Apple Style Guide](https://help.apple.com/applestyleguide/)
 
 We use US spelling. For spelling of words, we use the
 [Merriam-Webster](https://www.merriam-webster.com/) dictionary.
@@ -59,9 +37,9 @@ Related online resources
   However do not use bold for scanning in instruction steps. Steps
   should be short enough and bold mixes up with other GUI formatting.
 
-- [Wikipedia.org](https://en.wikipedia.org/),
-  [Webopedia.com](http://www.webopedia.com),
-  [Whatis.com](http://whatis.com) can be used as terminology websites
+- [Wikipedia](https://en.wikipedia.org/) and
+  [Webopedia](http://www.webopedia.com),
+  [WhatIs](https://www.techtarget.com/whatis/) can be used as terminology websites
   for technical terms.
 
 Style and usage
@@ -774,16 +752,25 @@ Style and usage
 
 - **SVG images**
 
-  SVG are easier to maintain and look great on all screen size, but they are
+  SVG are easier to maintain and look great on all screen sizes, but they are
   not displayed in the *Safest* security level of *Tor Browser*.
   ([[!tails_ticket 17805]])
 
-  Because of that, avoid using SVG images:
+  Because of that, we don't use SVG images by default. Instead, do the following:
 
-  - Export SVG images to PNG and [[compress them|style_guide#compress-image]].
+  1. Export SVG images to PNG at the same size as they would be displayed on a large screen.
 
-  - Store the SVG source side-by-side with its PNG version, to ease future
-    modifications.
+  1. [[Compress the PNG image.|style_guide#compress-image]]
+
+  1. Store the SVG source side-by-side with its PNG version, to ease future
+     modifications.
+
+  1. For the bigger and more significant images that could benefit from the
+     additional quality of SVG on bigger screens, you can add `class="svg"` to
+     the image so that [[!tails_gitweb wiki/src/lib/js/local.js]]
+     replaces it with the SVG version whenever JavaScript is available.
+
+         \[[!img city.png link="no" class="svg" alt=""]]
 
 <a id="tails"></a>
 

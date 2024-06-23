@@ -596,7 +596,7 @@ boot, if not fully deterministic, is parameterized by far fewer
 variables than in the case of a non-Live system.
 
 Using an auxiliary entropy source such as
-[haveged](http://www.irisa.fr/caps/projects/hipsor/) is thus
+[haveged](https://issihosts.com/haveged/) is thus
 REQUIRED.
 
 ### 2.6.4 Usability
@@ -668,8 +668,8 @@ document on the Tor wiki:
 > applied. This will ensure that new circuits, such as requested via
 > NEWNYM, will service subsequent HTTP requests.
 
-The impact of HTTP keepalive and possible solutions are [being
-discussed](http://thread.gmane.org/gmane.linux.distributions.tails.devel/52)
+The impact of HTTP keepalive and possible solutions are being
+discussed
 on the [[tails-dev@boum.org|about/contact#tails-dev]] mailing list.
 
 ### 2.7.3 Mounting of filesystems stored on removable devices
@@ -696,7 +696,7 @@ version.
 
 Critical parts of the configuration are based on the ones from
 well-known and trusted sources, namely Tails ancestor
-[Incognito](http://www.browseanonymouslyanywhere.com/incognito/)
+[Incognito](https://web.archive.org/web/20071213084719/http://www.browseanonymouslyanywhere.com/)
 and the [Tor BrowserBundle](https://www.torproject.org).
 This is for example the case for the firewall and Tor configurations.
 
@@ -959,13 +959,6 @@ Removable drives auto-mounting is disabled in Tails 0.7 and newer.
 
 - [[!tails_gitweb config/chroot_local-includes/etc/dconf/db/local.d/00_Tails_defaults]]
 
-### 3.6.11 Secure erasure of files and free disk space
-
-Securely erasing files and free disk space is made easy by integrating
-[secure-delete](http://www.thc.org) tools into the Nautilus file
-manager, thanks to [Nautilus
-Wipe](http://wipetools.tuxfamily.org/nautilus-wipe.html).
-
 ### 3.6.12 Passwords
 
 Two users are intended to be used for logins: `amnesia` and `root`.
@@ -1142,7 +1135,7 @@ possible.
 ### 3.6.16 GnuPG
 
 GnuPG and Kleopatra are configured to use
-<https://keys.opengpg.org> via its Onion service, since it's reliable.
+<https://keys.openpgp.org> via its Onion service, since it's reliable.
 
 GnuPG is configured accordingly to the [OpenPGP Best
 Practices](https://riseup.net/en/security/message-security/openpgp/best-practices),

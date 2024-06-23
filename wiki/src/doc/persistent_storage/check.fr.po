@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-02-26 12:26+0100\n"
-"PO-Revision-Date: 2023-04-03 20:28+0000\n"
+"PO-Revision-Date: 2024-05-22 18:16+0000\n"
 "Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
 "Language: fr\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -37,24 +37,20 @@ msgid "Unlock the Persistent Storage"
 msgstr "Déverrouiller le stockage persistant"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "When starting Tails, keep the Persistent Storage locked and [[set up an "
-#| "administration password|doc/first_steps/welcome_screen/"
-#| "administration_password]]."
 msgid ""
 "When starting Tails, [[set up an administration password|doc/first_steps/"
 "welcome_screen/administration_password]]."
 msgstr ""
-"Lorsque vous démarrez Tails, gardez le stockage persistant verrouillé et "
-"[[définissez un mot de passe d'administration|doc/first_steps/welcome_screen/"
-"administration_password]]."
+"Lors du démarrage de Tails, [[définissez un mot de passe d'administration|"
+"doc/first_steps/welcome_screen/administration_password]]."
 
 #. type: Bullet: '1. '
 msgid ""
 "Choose **Applications**&nbsp;▸ **Utilities**&nbsp;▸ **Disks** to open the "
 "*Disks* utility."
 msgstr ""
+"Choisissez **Applications**&nbsp;▸ **Utilitaires**&nbsp;▸ **Disques** pour "
+"ouvrir l'utilitaire *Disques*."
 
 #. type: Bullet: '1. '
 msgid ""
@@ -79,7 +75,7 @@ msgid ""
 msgstr ""
 "Cliquer sur [[!img lib/network-wireless-encrypted.png alt=\"Déverrouiller\" "
 "class=\"symbolic\" link=\"no\"]]</span> pour déverrouiller le stockage "
-"persistent. Entrer la phrase de passe du stockage persistant et cliquer à "
+"persistant. Entrer la phrase de passe du stockage persistant et cliquer à "
 "nouveau sur **Déverrouiller**."
 
 #. type: Bullet: '1. '
@@ -100,18 +96,13 @@ msgstr ""
 "span>."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Identify the device name of your Persistent Storage. The device name "
-#| "appears below the list of volumes.  It should look like <code>/dev/mapper/"
-#| "luks-xxxxxxxx</code>."
 msgid ""
 "Identify the device name of your Persistent Storage. The device name appears "
 "below the list of volumes.  It should look like `/dev/mapper/luks-xxxxxxxx`."
 msgstr ""
 "Identifiez le nom du périphérique de votre stockage persistant. Le nom du "
 "périphérique apparaît en-dessous de la liste des volumes.  Il devrait "
-"ressembler à <code>/dev/mapper/luks-xxxxxxxx</code>."
+"ressembler à `/dev/mapper/luks-xxxxxxxx`."
 
 #. type: Plain text
 #, no-wrap
@@ -146,22 +137,21 @@ msgstr ""
 "   et entrez votre mot de passe d'administration pour ouvrir le terminal superutilisateur.\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "In the terminal, execute the following command, replacing `[device]` with "
-#| "the device name found in step 8:"
 msgid ""
 "In the terminal, execute the following command. Replace <span "
 "class=\"command-placeholder\">device</span> with the device name found in "
 "step 8:"
 msgstr ""
-"Dans le terminal, exécutez la commande suivante en remplaçant "
-"`[périphérique]` par le nom de périphérique trouvé à l'étape 8 :"
+"Dans le terminal, exécutez la commande suivante. Remplacez <span class"
+"=\"command-placeholder\">périphérique</span> par le nom de périphérique "
+"trouvé à l'étape 8 :"
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-template\">fsck -y <span class=\"command-placeholder\">device</span></p>\n"
 msgstr ""
+"   <p class=\"command-template\">fsck -y <span class=\"command-placeholder\""
+">périphérique</span></p>\n"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -179,32 +169,23 @@ msgstr ""
 "   presse-papier.\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "If the file system is free of errors, the last line from the output of "
-#| "<span class=\"command\">fsck</span> starts with <span "
-#| "class=\"command\">TailsData: clean</span>."
 msgid ""
 "If the file system is free of errors, the last line from the output of "
 "`fsck` starts with `TailsData: clean`."
 msgstr ""
 "Si le système de fichiers n'a pas d'erreur, la dernière ligne du résultat de "
-"<span class=\"command\">fsck</span> commence par <span "
-"class=\"command\">TailsData: clean</span>."
+"`fsck` commence par `TailsData: clean`."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "   If the file system has errors, <span class=\"command\">fsck</span> tries to\n"
-#| "   fix them automatically. After it finishes, you can try executing the same\n"
-#| "   command again to check if all errors are solved.\n"
+#, no-wrap
 msgid ""
 "   If the file system has errors, `fsck` tries to\n"
 "   fix them automatically. After it finishes, you can try executing the same\n"
 "   command again to check if all errors are solved.\n"
 msgstr ""
-"   Si le système de fichiers a des erreurs, <span class=\"command\">fsck</span> essaye de\n"
-"   les corriger automatiquement. Après qu'il ait fini, vous pouvez essayer d'exécuter à nouveau \n"
+"   Si le système de fichiers a des erreurs, `fsck` essaye de\n"
+"   les corriger automatiquement. Après qu'il ait fini, vous pouvez essayer "
+"d'exécuter à nouveau \n"
 "   la même commande pour vérifier si toutes les erreurs ont été corrigées.\n"
 
 #, no-wrap

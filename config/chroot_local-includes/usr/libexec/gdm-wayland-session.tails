@@ -5,11 +5,11 @@ set -u
 
 # To test this functionality:
 # Run Tails with break=init, then
-#  - touch /var/lib/live/tails.squashfs_failed 
-#  - rm /root/etc/systemd/system/multi-user.target.wants/tails-detect-squashfs-errors.service
+#  - touch /var/lib/live/tails.disk.ioerrors
+#  - rm /root/etc/systemd/system/multi-user.target.wants/tails-detect-disk-ioerrors.service
 
-if [ -f /var/lib/live/tails.squashfs_failed ]; then
-    echo "SQUASHFS errors detected, stopping GDM"
+if [ -f /var/lib/live/tails.disk.ioerrors ]; then
+    echo "I/O errors detected, stopping GDM"
     sudo -n /bin/systemctl kill --signal=9 gdm
     exit 2
 fi

@@ -28,7 +28,7 @@ done
 # shellcheck disable=SC2043 # we currently build only 1 DKMS module
 for module in v4l2loopback ; do
    for modules_dir in /lib/modules/* ; do
-      found=$(find "$modules_dir" -name "${module}.ko" | wc -l)
+      found=$(find "$modules_dir" -name "${module}.ko" -o -name "${module}.ko.xz" | wc -l)
       if [ "$found" = 0 ]; then
 	  echo "Can not find ${module} module in '${modules_dir}" >&2
 	  exit 1

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
-"PO-Revision-Date: 2023-03-11 13:28+0000\n"
+"POT-Creation-Date: 2024-05-29 17:16+0000\n"
+"PO-Revision-Date: 2024-05-29 19:53+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ru\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -54,7 +54,7 @@ msgstr "<h1 id=\"project\">Проект Tails</h1>\n"
 #. type: Plain text
 #, no-wrap
 msgid "<!-- This entire section would be better placed in an \"About Us\" section. See #17700. -->\n"
-msgstr ""
+msgstr "<!-- This entire section would be better placed in an \"About Us\" section. See #17700. -->\n"
 
 #. type: Plain text
 #, no-wrap
@@ -108,10 +108,8 @@ msgid "First, see the answer to the [[previous question|faq#debian]]."
 msgstr "Сначала посмотрите ответ на [[предыдущий вопрос|faq#debian]]."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "The rapid development cycle of Ubuntu would be too fast for Tails."
 msgid "- The rapid development cycle of Ubuntu would be too fast for Tails."
-msgstr "Частые обновления Ubuntu — слишком быстрый темп для Tails."
+msgstr "- Частые обновления Ubuntu — слишком быстрый темп для Tails."
 
 #. type: Bullet: '- '
 msgid ""
@@ -196,29 +194,21 @@ msgstr ""
 "Но у GNOME есть много преимуществ. Что можно сказать про рабочий стол GNOME:"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "Well integrated, especially for new Linux users."
 msgid "- Well integrated, especially for new Linux users."
 msgstr ""
-"Качественная интеграция, что особенно важно для новых пользователей Linux."
+"- Качественная интеграция, что особенно важно для новых пользователей Linux."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "Very well translated and documented."
 msgid "- Very well translated and documented."
-msgstr "Очень хорошие перевод и документация."
+msgstr "- Очень хорошие перевод и документация."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "Doing relatively good regarding accessibility features."
 msgid "- Doing relatively good regarding accessibility features."
-msgstr "Сравнительно удачные функции для лиц  с ограниченными возможностями."
+msgstr "- Сравнительно удачные функции для лиц с ограниченными возможностями."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "Actively developed."
 msgid "- Actively developed."
-msgstr "Активно развивается."
+msgstr "- Активно развивается."
 
 #. type: Bullet: '- '
 msgid ""
@@ -332,20 +322,45 @@ msgstr ""
 "установке|install]]."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<h2 id=\"upgrade\">Should I update Tails using <span class=\"code\">apt upgrade</span> or <span class=\"application\">Synaptic</span>?</h2>\n"
+#, no-wrap
 msgid "<h2 id=\"upgrade\">Should I update Tails using <code>apt upgrade</code> or <i>Synaptic</i>?</h2>\n"
-msgstr "<h2 id =\"update\">Нужно ли обновлять Tails через <span class =\"code\">apt upgrade</span> или <span class=\"application\">Synaptic</span>?</h2>\n"
+msgstr "<h2 id=\"upgrade\">Нужно ли обновлять Tails через <code>apt upgrade</code> или <i>Synaptic</i>?</h2>\n"
 
 #. type: Plain text
-#, no-wrap
 msgid ""
-"No. Tails provides upgrades every six weeks, that are thoroughly tested\n"
-"to make sure that no security feature or configuration gets broken.\n"
-"If you upgrade the system yourself using `apt` or <span class=\"application\">Synaptic</span>,\n"
-"you might break things. Upgrading when you get a notification from\n"
-"<span class=\"application\">[[Tails Upgrader|doc/upgrade]]</span> is enough.\n"
-msgstr "Нет. Обновления Tails появляются каждые шесть недель. Они тщательно тестируются. Важно убедиться, что все функции и настройки безопасности работают. Если вы обновите систему самостоятельно через \"apt\" или <span class=\"application\">Synaptic</span>, вы можете что-то нарушить. Действуйте так: получили уведомление от <span class=\"application\">[[Tails Upgrader|doc/upgrade]]</span> — обновите систему. И всё.\n"
+"No. Upgrading whenever you get a notification from *[[Tails Upgrader|doc/"
+"upgrade]]* is enough."
+msgstr ""
+
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "No. Tails provides upgrades every six weeks, that are thoroughly tested\n"
+#| "to make sure that no security feature or configuration gets broken.\n"
+#| "Updating add-ons in <span class=\"application\">Tor Browser</span> might\n"
+#| "break the security built in Tails.\n"
+msgid ""
+"Tails provides upgrades every 4 weeks, which are thoroughly tested to make "
+"sure that no security feature or configuration gets broken."
+msgstr ""
+"Нет. Tails обновляется каждые шесть недель. Эти обновления тщательно "
+"тестируются. Разработчики хотят убедиться, что ни одна функция безопасности "
+"или настройка не будет нарушена.\n"
+"Обновление расширений <span class=\"application\">Tor Browser</span> вручную "
+"может навредить безопасности Tails.\n"
+
+#. type: Plain text
+msgid ""
+"If you upgrade the system yourself using `apt` or *Synaptic*, you might "
+"break things."
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"Our team sometimes publishes emergency releases, whenever important security "
+"upgrades are available in Debian or *Tor Browser* before the next scheduled "
+"release."
+msgstr ""
 
 #. type: Plain text
 #, no-wrap
@@ -363,10 +378,10 @@ msgstr "Продажа готовых носителей — неудачная 
 #. type: Bullet: '- '
 msgid ""
 "If burned on a DVD, then this DVD would be outdated on the next release. "
-"This means after 6 weeks at most."
+"This means after 4 weeks at most."
 msgstr ""
 "Если записать Tails на DVD, этот DVD устареет к выходу следующей версии "
-"Tails, то есть, максимум через 6 недель."
+"Tails, то есть, максимум через 4 недель."
 
 #. type: Bullet: '- '
 msgid ""
@@ -436,7 +451,7 @@ msgstr "<h1 id=\"browser\">Web browser</h1>\n"
 #. type: Plain text
 #, no-wrap
 msgid "<!-- We might move some of this content to the Tor Browser documentation. See #19122. -->\n"
-msgstr ""
+msgstr "<!-- We might move some of this content to the Tor Browser documentation. See #19122. -->\n"
 
 #. type: Plain text
 #, no-wrap
@@ -545,14 +560,7 @@ msgstr ""
 "проходили серьёзный аудит и небезопасны для Tails, пока не доказано обратное."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<div class=\"next\">\n"
-#| "  <ul>\n"
-#| "    <li>[[Warnings about the Persistent Storage|doc/first_steps/persistence/warnings#index3h1]]</li>\n"
-#| "    <li>[[Browsing the web with <span class=\"application\">Tor Browser</span>|doc/anonymous_internet/Tor_browser]]</li>\n"
-#| "  </ul>\n"
-#| "</div>\n"
+#, no-wrap
 msgid ""
 "<div class=\"next\">\n"
 "  <ul>\n"
@@ -562,7 +570,6 @@ msgid ""
 msgstr ""
 "<div class=\"next\">\n"
 "  <ul>\n"
-"    <li>[[Предупреждения насчёт Постоянного хранилища|doc/first_steps/persistence/warnings#index3h1]]</li>\n"
 "    <li>[[Веб-сёрфинг с помощью <span class=\"application\">Tor Browser</span>|doc/anonymous_internet/Tor_browser]]</li>\n"
 "  </ul>\n"
 "</div>\n"
@@ -586,15 +593,19 @@ msgid "<h2 id=\"update-add-ons\">Should I manually update add-ons included in <s
 msgstr "<h2 id=\"update-add-ons\">Нужно ли вручную обновлять расширения <span class=\"application\">Tor Browser</span>?</h2>\n"
 
 #. type: Plain text
-#, no-wrap
+msgid "No."
+msgstr "Нет."
+
+#. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "Installing add-ons in <span class=\"application\">Tor Browser</span> "
+#| "might break the security built in Tails.\n"
 msgid ""
-"No. Tails provides upgrades every six weeks, that are thoroughly tested\n"
-"to make sure that no security feature or configuration gets broken.\n"
-"Updating add-ons in <span class=\"application\">Tor Browser</span> might\n"
-"break the security built in Tails.\n"
+"Updating add-ons in *Tor Browser* might break the security built in Tails."
 msgstr ""
-"Нет. Tails обновляется каждые шесть недель. Эти обновления тщательно тестируются. Разработчики хотят убедиться, что ни одна функция безопасности или настройка не будет нарушена.\n"
-"Обновление расширений <span class=\"application\">Tor Browser</span> вручную может навредить безопасности Tails.\n"
+"Установка новых расширений в <span class=\"application\">Tor Browser</span> "
+"может снизить уровень безопасности в Tails.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -723,22 +734,17 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "For more information, see our [[!tails_blueprint desc=\"blueprint on VPN "
-#| "support\" vpn_support]]."
 msgid ""
 "For more information, see our [[!tails_blueprint desc=\"blueprint on VPN "
 "support\" VPN-support]]."
 msgstr ""
 "Подробнее о нашем отношении к использованию VPN читайте [[!tails_blueprint "
-"desc=\"здесь\" vpn_support]]."
+"desc=\"здесь\" VPN-support]]."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<h2 id=\"torrc\">Can I choose the country of my exit nodes or further edit the <span class=\"code\">torrc</span>?</h2>\n"
+#, no-wrap
 msgid "<h2 id=\"torrc\">Can I choose the country of my exit nodes or further edit the <code>torrc</code>?</h2>\n"
-msgstr "<h2 id=\"torrc\">Можно ли выбрать узлы какой-то определённой страны или отредактировать файл <span class=\"code\">torrc</span>?</h2>\n"
+msgstr "<h2 id=\"torrc\">Можно ли выбрать узлы какой-то определённой страны или отредактировать файл <code>torrc</code>?</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -758,9 +764,9 @@ msgstr ""
 #. type: Plain text
 msgid ""
 "Still, you can close a given circuit and trigger Tor to create a new one "
-"using the [[New Circuit for this Site|doc/anonymous_internet/Tor_Browser]] "
-"button of *Tor Browser* or the [[*Onion Circuits*|doc/anonymous_internet/tor/"
-"circuits]] utility."
+"using the [[New Tor circuit for this site|doc/anonymous_internet/"
+"Tor_Browser]] button of *Tor Browser* or the [[*Onion Circuits*|doc/"
+"anonymous_internet/tor/circuits]] utility."
 msgstr ""
 
 #. type: Plain text
@@ -848,25 +854,17 @@ msgid ""
 msgstr "Технически это возможно, но сложно и пока не документировано."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<h2 id=\"ping\">Can I use <span class=\"command\">ping</span> in Tails?</h2>\n"
+#, no-wrap
 msgid "<h2 id=\"ping\">Can I use <code>ping</code> in Tails?</h2>\n"
-msgstr "<h2 id=\"ping\">Можно ли в Tails использовать команду <span class=\"command\">ping</span>?</h2>\n"
+msgstr "<h2 id=\"ping\">Можно ли в Tails использовать команду <code>ping</code>?</h2>\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "It is impossible to use <span class=\"command\">ping</span> in Tails,\n"
-#| "because <span class=\"command\">ping</span> uses the ICMP protocol while "
-#| "Tor\n"
-#| "can only transport TCP connections.\n"
 msgid ""
 "It is impossible to use `ping` in Tails, because `ping` uses the ICMP "
 "protocol while Tor can only transport TCP connections."
 msgstr ""
-"Использовать <span class=\"command\">ping</span> в Tails нельзя.\n"
-"Команда <span class=\"command\">ping</span> использует протокол ICMP, а Tor\n"
-"имеет дело только с TCP-соединениями.\n"
+"Использовать `ping` в Tails нельзя. Команда `ping` использует протокол ICMP, "
+"а Tor имеет дело только с TCP-соединениями."
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -885,18 +883,13 @@ msgid "<div class=\"tip\">\n"
 msgstr "<div class=\"tip\">\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<p>If a software is not included in Tails, but is included in Debian, you can use\n"
-#| "the [[Additional\n"
-#| "Software|doc/first_steps/persistence#additional_software]] feature of\n"
-#| "the Persistent Storage to install it automatically every time you start Tails.</p>\n"
+#, no-wrap
 msgid ""
 "<p>If a software is not included in Tails, but is included in Debian, you can use\n"
 "the [[Additional\n"
 "Software|doc/persistent_storage/configure#additional_software]] feature of\n"
 "the Persistent Storage to install it automatically every time you start Tails.</p>\n"
-msgstr "<p>Если программы нет в Tails, но она есть в Debian, можете использовать [[эту опцию Постоянного хранилища|doc/first_steps/persistence#additional_software]]. Программа будет автоматически устанавливаться при каждом запуске Tails.</p>\n"
+msgstr "<p>Если программы нет в Tails, но она есть в Debian, можете использовать [[эту опцию Постоянного хранилища|doc/persistent_storage/configure#additional_software]]. Программа будет автоматически устанавливаться при каждом запуске Tails.</p>\n"
 
 #. type: Plain text
 msgid ""
@@ -913,20 +906,14 @@ msgstr ""
 "преимущества:"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "It is included in the Debian process for security updates and new "
-#| "versions."
 msgid ""
 "- It is included in the Debian process for security updates and new versions."
 msgstr ""
-"разработчики Debian уделяют внимание безопасности и обновлению программ;"
+"- Разработчики Debian уделяют внимание безопасности и обновлению программ."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "It is authenticated using OpenPGP signatures."
 msgid "- It is authenticated using OpenPGP signatures."
-msgstr "программы имеют цифровые подписи OpenPGP;"
+msgstr "- Программы имеют цифровые подписи OpenPGP."
 
 #. type: Bullet: '- '
 msgid ""
@@ -965,23 +952,17 @@ msgstr ""
 "новые только по очень веским причинам:"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "We try to limit the growth of the images and automatic upgrades."
 msgid "- We try to limit the growth of the images and automatic upgrades."
 msgstr ""
-"мы стараемся сдерживать рост числа изображений и автоматических обновлений;"
+"- Мы стараемся сдерживать рост числа изображений и автоматических обновлений."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "More software implies more security issues."
 msgid "- More software implies more security issues."
-msgstr "чем больше программ, тем больше проблем с безопасностью;"
+msgstr "- Чем больше программ, тем больше проблем с безопасностью."
 
 #. type: Plain text
-#, fuzzy
-#| msgid "We avoid proposing several options to accomplish the same task."
 msgid "- We avoid proposing several options to accomplish the same task."
-msgstr "мы стараемся не дублировать варианты решения одной и той же задачи;"
+msgstr "- Мы стараемся не дублировать варианты решения одной и той же задачи."
 
 #. type: Bullet: '- '
 msgid ""
@@ -1012,22 +993,16 @@ msgid "Here is some of the software we are often asked to include in Tails:"
 msgstr "Вот некоторые программы, которые нас часто просят включить в Tails:"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "**monero**: not in Debian, but see [[!tails_ticket 17823]]"
 msgid "- **monero**: not in Debian ([[!tails_ticket 17823]])"
-msgstr "**monero**: нет в Debian, см. [[!tails_ticket 17823]]"
+msgstr "- **monero**: нет в Debian ([[!tails_ticket 17823]])"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "**bitmessage**: not in Debian"
 msgid "- **bitmessage**: not in Debian"
-msgstr "**bitmessage**: нет в Debian"
+msgstr "- **bitmessage**: нет в Debian"
 
 #. type: Plain text
-#, fuzzy
-#| msgid "**retroshare**: not in Debian"
 msgid "- **retroshare**: not in Debian"
-msgstr "**retroshare**: нет в Debian"
+msgstr "- **retroshare**: нет в Debian"
 
 #. type: Plain text
 msgid "- **rar/unrar**: not [[Free Software|doc/about/license]]"
@@ -1157,10 +1132,9 @@ msgstr ""
 "терминале:"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "    torsocks youtube-dl \"https://www.youtube.com/watch?v=JWII85UlzKw\"\n"
+#, no-wrap
 msgid "<p class=\"command\">torsocks youtube-dl \"https://www.youtube.com/watch?v=JWII85UlzKw\"</p>\n"
-msgstr "    torsocks youtube-dl \"https://www.youtube.com/watch?v=JWII85UlzKw\"\n"
+msgstr "<p class=\"command\">torsocks youtube-dl \"https://www.youtube.com/watch?v=JWII85UlzKw\"</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -1219,10 +1193,8 @@ msgid ""
 "See the [[!wikipedia Linux_malware desc=\"Wikipedia page on Linux "
 "malware\"]] for further details."
 msgstr ""
-"Подробнее см. [страницу Википедии о вредоносных программах для Linux]"
-"(https://ru.wikipedia.org/wiki/"
-"%D0%92%D1%80%D0%B5%D0%B4%D0%BE%D0%BD%D0%BE%D1%81%D0%BD%D1%8B%D0%B5_%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D1%8B_%D0%B4%D0%BB%D1%8F_Unix-"
-"%D0%BF%D0%BE%D0%B4%D0%BE%D0%B1%D0%BD%D1%8B%D1%85_%D1%81%D0%B8%D1%81%D1%82%D0%B5%D0%BC)."
+"Подробнее см. [[!wikipedia_ru Вредоносные_программы_для_Unix-подобных_систем "
+"desc=\"страницу Википедии о вредоносных программах для Linux\"]]."
 
 #. type: Plain text
 #, no-wrap
@@ -1230,7 +1202,7 @@ msgid "<h2 id=\"old-software\">Why does Tails include old versions of software?<
 msgstr "<h2 id=\"old-software\">Почему в Tails включены старые версии программ?</h2>\n"
 
 #. type: Plain text
-msgid "The Tails 5 series is based on Debian 12 (Bookworm)."
+msgid "The Tails 6 series is based on Debian 12 (Bookworm)."
 msgstr ""
 
 #. type: Plain text
@@ -1263,6 +1235,15 @@ msgid ""
 "You can see which version of a software package is available in each version "
 "of Debian on <https://packages.debian.org/>."
 msgstr ""
+
+#, no-wrap
+#~ msgid ""
+#~ "No. Tails provides upgrades every six weeks, that are thoroughly tested\n"
+#~ "to make sure that no security feature or configuration gets broken.\n"
+#~ "If you upgrade the system yourself using `apt` or <span class=\"application\">Synaptic</span>,\n"
+#~ "you might break things. Upgrading when you get a notification from\n"
+#~ "<span class=\"application\">[[Tails Upgrader|doc/upgrade]]</span> is enough.\n"
+#~ msgstr "Нет. Обновления Tails появляются каждые шесть недель. Они тщательно тестируются. Важно убедиться, что все функции и настройки безопасности работают. Если вы обновите систему самостоятельно через \"apt\" или <span class=\"application\">Synaptic</span>, вы можете что-то нарушить. Действуйте так: получили уведомление от <span class=\"application\">[[Tails Upgrader|doc/upgrade]]</span> — обновите систему. И всё.\n"
 
 #, no-wrap
 #~ msgid "<h1 id=\"hardware\">Hardware compatibility</h1>\n"

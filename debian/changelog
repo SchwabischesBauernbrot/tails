@@ -1,8 +1,967 @@
-tails (6.2) UNRELEASED; urgency=medium
+tails (6.5) UNRELEASED; urgency=medium
 
   * Dummy entry for next release.
 
- -- Tails developers <tails@boum.org>  Wed, 27 Mar 2024 11:58:29 +0100
+ -- Tails developers <tails@boum.org>  Tue, 18 Jun 2024 12:41:49 +0200
+
+tails (6.4) unstable; urgency=medium
+
+  * Upgrade Thunderbird to 115.12
+
+  * Resolve "Upgrade to Tor Browser 13.0.16 based on 115.12" (tails/tails!1574)
+
+    Closes issues:
+      - Upgrade to Tor Browser 13.0.16 based on 115.12 (tails/tails#20417)
+
+    Commits:
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 13.0.16 (refs: tails#20417)
+
+  * Resolve "Upgrade tor to 0.4.8.12" (tails/tails!1569)
+
+    Closes issues:
+      - Upgrade tor to 0.4.8.12 (tails/tails#20416)
+
+    Commits:
+      - upgrade tor to 0.4.8.12
+
+  * Fix Plymouth messages not being hidden (tails/tails!1549)
+
+    Closes issues:
+      - "Preparing Tails for first use..." Plymouth message remains displayed until GDM
+        starts (tails/tails#20401)
+
+    Commits:
+      - Fix Plymouth messages not being hidden
+
+  * Allow NetworkManager to load kernel modules (tails/tails!1566)
+
+    Commits:
+      - Allow NetworkManager to explicitly load kernel modules
+
+  * Complete the switch to non-Onion APT repositories (tails/tails!1564)
+
+    Closes issues:
+      - Complete the switch to non-Onion APT repositories: Onion services are less
+        reliable than a direct connection (tails/tails#20365)
+
+    Commits:
+      - Test suite: relax timeout
+      - Complete the switch to non-Onion APT repositories
+
+  * Fix "no merge base" failures in ruff tests (tails/tails!1563)
+
+    Commits:
+      - Fix "no merge base" failures in ruff tests
+
+  * Use custom container image to build the website (tails/tails!1562)
+
+    Commits:
+      - Do not store all untracked files as artifacts
+      - Cache website underlays when building the website
+      - Use custom container image to build the website
+
+  * GitLab CI: fix missing diff merge base for branches that have diverged from the
+    target (tails/tails!1560)
+
+    Closes issues:
+      - ruff-*-changed-files fail on some branches: no merge base (tails/tails#20408)
+
+    Commits:
+      - GitLab CI: fix missing diff merge base for branches that have diverged from the
+        target
+
+  * Draft: GitLab CI: fix missing diff merge base for branches that have diverged
+    sufficiently from the target branch (tails/tails!1559)
+
+    Closes issues:
+      - ruff-*-changed-files fail on some branches: no merge base (tails/tails#20408)
+
+    Commits:
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Translated using Weblate (Catalan)
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Translated using Weblate (French)
+      - Weblate commit
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Weblate commit
+      - Translated using Weblate (French)
+      - Weblate commit
+      - Translated using Weblate (French)
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Translated using Weblate (French)
+      - Weblate commit
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (French)
+      - Translated using Weblate (Chinese (Taiwan) (zh_TW))
+      - Translated using Weblate (Chinese (zh))
+      - Translated using Weblate (Russian)
+      - Translated using Weblate (Catalan)
+      - Translated using Weblate (Portuguese)
+      - Translated using Weblate (Italian)
+      - Translated using Weblate (French)
+      - Translated using Weblate (Spanish)
+      - Translated using Weblate (German)
+      - updated PO files
+      - Use automatic anchors
+      - updated PO files
+      - Ditch website artifacts in GitLab CI after 1 day
+      - Make website deployment more robust
+      - Add monthly report for April 2024
+      - updated PO files
+      - Downplay the importance of manual upgrades
+      - Remove note for nerds only
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Weblate commit
+      - Shorten
+      - updated PO files
+      - Update release frequency
+      - updated PO files
+      - Delete Bootstrap (#18142)
+      - Rewrite without Bootstrap (#18142)
+      - Factorize
+      - Improve layout
+      - Remove hidden setup for dual currency donations
+
+  * Test suite: fix keyboard input in interactive debugging shell when --capture is
+    enabled (tails/tails!1552)
+
+    Closes issues:
+      - Test suite: pry run by `--interactive-debugging` is broken when `--capture` is
+        used (tails/tails#20403)
+
+    Commits:
+      - Test suite: reformat code
+      - Test suite: redirect stdin when spawning ffmpeg through --capture
+
+  * Remote shell server: add SIGIO handler earlier (tails/tails!1551)
+
+    Closes issues:
+      - Test suite: the remote shell is sometimes killed by SIGIO during startup
+        (tails/tails#20404)
+
+    Commits:
+      - Remote shell server: add SIGIO handler earlier
+
+  * Drop obsolete references to HTTPS Everywhere and fix deleting uBlock from the
+    Unsafe Browser (tails/tails!1548)
+
+    Commits:
+      - Remove another trace of HTTPS Everywhere
+      - Revert "Unsafe Browser: disable uBlock Origin"
+      - Unsafe Browser: actually delete uBlock add-on
+      - Drop obsolete references to HTTPS Everywhere
+
+  * Avoid homepage blocked on new identity (tails/tails!1547)
+
+    Closes issues:
+      - "Tor Browser blocked your homepage (tails.net) from loading because it might
+        recognize your previous session." (see screenshot) (tails/tails#20381)
+
+    Commits:
+      - Avoid homepage being blocked on new identity
+
+  * Use time.monotonic for timeouts (tails/tails!1543)
+
+    Closes issues:
+      - Use time.monotonic for timeouts (tails/tails#20400)
+
+    Commits:
+      - Use time.monotonic for timeouts
+
+  * Make boot log artifact accessible in Jenkins (tails/tails!1542)
+
+    Closes issues:
+      - boot log artifact is not accessible in Jenkins (tails/tails#20396)
+
+    Commits:
+      - Test suite: Fix file extension of failure artifacts
+      - Make boot log artifact accessible in Jenkins
+
+  * Fix GNOME's OOM notification module (tails/tails!1541)
+
+    Commits:
+      - Enable the 7782-warn-on-oom APT overlay (refs: #7782).
+
+  * Update deb.torproject.org's APT key (tails/tails!1540)
+
+    Closes issues:
+      - Included deb.torproject.org APT key will not be valid in 3 months
+        (tails/tails#20340)
+
+    Commits:
+      - Update deb.torproject.org's APT key
+
+  * Thunderbird: re-enable pdf.js that was temporarily disabled in Tails 6.3 due to
+    CVE-2024-4367 (tails/tails!1539)
+
+    Closes issues:
+      - Thunderbird: re-enable pdf.js (tails/tails#20385)
+
+    Commits:
+      - Revert "Thunderbird: temporarily disable pdf.js in Tails 6.3 to fix
+        CVE-2024-4367"
+
+  * Fix build of tails:gitlab-triage-stable container image (tails/tails!1538)
+
+    Closes issues:
+      - Cannot update tails:gitlab-triage-stable container image (tails/tails#20387)
+
+    Commits:
+      - Fix build of tails:gitlab-triage-stable container image
+
+  * Test suite: Bump timeout of waiting for Persistent Storage to be unlocked,
+    again (tails/tails!1533)
+
+    Closes issues:
+      - Step "I enable persistence" is fragile (tails/tails#20390)
+
+    Commits:
+      - Test suite: Bump timeout again
+
+  * Test suite: Enter language via Dogtail (tails/tails!1532)
+
+    Closes issues:
+      - Step "I log in to a new session $LANG" is fragile (tails/tails#20388)
+
+    Commits:
+      - Test suite: Make opening language popover more robust
+      - Test suite: Enter language via Dogtail
+
+  * tps-frontend: Fix journalctl command in error message (tails/tails!1530)
+
+    Commits:
+      - tps-frontend: Fix journalctl command in error message
+
+  * tps: Only trigger udev events for the tps partition (tails/tails!1516)
+
+    Closes issues:
+      - Unexpected pipewire error in the journal (tails/tails#20344)
+      - tpsd: don't use full-blown "udevadm trigger" and "udevadm settle" when it's not
+        necessary (tails/tails#20020)
+
+    Commits:
+      - tps: Call `udevadm trigger --settle` with a timeout
+      - Fix Ruff RUF005
+      - Fix Ruff F541
+      - Suppress Ruff PLW1510
+      - Fix Ruff UP035
+      - tps: Remove stacklevel of "Executing hook" log message
+      - tps: Fix stacklevel of log functions
+      - tps: Remove unused function
+      - tps: Print the triggered udev events
+      - tps: Wait for triggered udev events to finish
+      - tps: Only trigger udev events for the tps partition
+      - Ruff format
+      - Fix type annotation
+
+  * tails-detect-disk-ioerrors: Minor improvements to formatting and code comments
+    (tails/tails!1511)
+
+    Commits:
+      - Remove empty lines
+      - Inline _add_pattern_boot_device
+      - Improve comments
+      - Fix formatting
+      - Fix typo
+      - Fix spelling of SquashFS
+      - Fix indentation
+      - Remove copyright notice
+
+  * Test suite: stream the journal from the guest over a virtio channel
+    (tails/tails!1506)
+
+    Closes issues:
+      - Test suite: continuously stream the journal from the guest to the host
+        (tails/tails#20366)
+
+    Commits:
+      - Appease ruff
+      - Test suite: make JournalDumper#start always restart
+      - Test suite: ensure we clean up for the next scenario in the After hook
+      - Test suite: stop Tor later in After hook
+      - Test suite: fix typo
+      - Test suite: also restart JournalDumper after saving an internal snapshot
+      - Appease ruff
+      - Test suite: try to make the journal dumper not miss the last few entries
+      - Test suite: make code more readable
+      - Test suite: consistently check that the remote shell is up before using it in
+        After hook
+      - Remote shell server: log when opening files
+      - Test suite: reorder stuff in After hook so all remote shell interaction's are
+        caught in the journal
+      - Appease rubocop
+      - Test suite: stream the journal from the guest over a virtio channel
+      - Test suite: refactor
+
+  * Cloner: improve error message when target device has filesystems in use that
+    cannot be unmounted (tails/tails!1504)
+
+    Closes issues:
+      - Cloner: follow up on !1504, consider improvements to phrasings
+        (tails/tails#20383)
+      - Improve error message when Tails Cloner can't format the destination USB stick
+        because it's already mounted (tails/tails#19253)
+
+    Commits:
+      - Reformat with black and appease ruff
+      - Appease ruff
+      - Reformat with black
+      - Cloner: improve phrasing based on reviewers comments
+      - Cloner: raise TargetDeviceBusy with message as required
+      - Cloner: make cases more explicit
+      - Cloner: improve error message when target device has filesystems in use that
+        cannot be unmounted
+
+  * Test suite: make --interactive-debugging run pry in the failure's context
+    (tails/tails!1481)
+
+    Commits:
+      - Test suite: improve filename
+      - Add example of stack navigation in the automated test suite's debugging REPL
+      - Drop unnecessary part of path
+      - Test suite: drop unnecessary newline
+      - Appease rubocop
+      - Test suite: group stack commands under "Stack navigation"
+      - Test suite: print stack neighborhood after moving down/up in the stack
+      - Test suite: refactor
+      - Appease rubocop
+      - Test suite: add commands to Pry to navigate and show the stack
+      - Test suite: log any of our methods we skip when injecting a pause() breakpoint
+      - Test suite: replace crazy monkeypatch with bindex and binding_of_caller
+      - Test suite: move pause() into its own file
+      - Test suite: reorder cases so the special ones that need explanation are in the
+        top
+      - Test suite: refactor comment
+      - Test suite: exempt a few more helpers from --interactive-debugging
+      - Test suite: simplify
+      - Test suite: adapt to new libvirt error message
+      - Revert "Tests suite: temporarily add tests that were useful when developing the
+        interactive debugging monkeypatch"
+      - Tests suite: temporarily add tests that were useful when developing the
+        interactive debugging monkeypatch
+      - Appease rubocop
+      - Test suite: make --interactive-debugging run pry in the failure's context
+      - Test suite: freeze constants
+      - Test suite: make sure we only apply monkeypatch once
+      - Test suite: split code for improved organization
+
+  * Unlock VeraCrypt Volumes: Fix second unlock dialog being opened
+    (tails/tails!1457)
+
+    Closes issues:
+      - Test suite: Scenario "Use Unlock VeraCrypt Volumes to unlock a basic VeraCrypt
+        file container with a PIM" is flaky (tails/tails#20281)
+      - unlock-veracrypt-volumes opens second unlock dialog (tails/tails#20280)
+
+    Commits:
+      - Fix Ruff INT002
+      - Fix Ruff A003
+      - Suppress Ruff E402
+      - Fix Ruff UP035
+      - Fix Ruff INT002
+      - Suppress Ruff RUF001
+      - Fix Ruff UP031
+      - Fix Ruff UP018
+      - Fix Ruff UP004
+      - Suppress Ruff E402
+      - Unlock VeraCrypt Volumes: Fix "An operation is already pending"
+      - Unlock VeraCrypt Volumes: Fix lock button doing nothing if volume is not
+        mounted
+      - Fix Ruff UP004
+      - Fix Ruff UP035
+      - Unlock VeraCrypt Volumes: Fix second unlock dialog being opened
+
+  * Store a random seed (tails/tails!1431)
+
+    Closes issues:
+      - Persist a random seed across boots (tails/tails#11897)
+
+    Commits:
+      - Remove "Waiting for the Tails system partition..." plymough message
+      - Update plymouth messages
+      - Update design doc on entropy pool initialization
+      - Also use unbuffered I/O when updating random seed during shutdown
+      - Suppress Ruff S103
+      - Fix Ruff ISC001
+      - Fix Ruff UP008
+      - Fix Ruff UP009
+      - Add comment to tails-start-system-gnome-session-target.service
+      - Use unbuffered I/O when updating random seed
+      - Update random seed after the GNOME session has started
+      - Test suite: Wait for the random seed to be updated
+      - Test suite: Simplify random seed check
+      - Add quotes in variable assignment as requested by reviewer
+      - Suppress shellcheck SC2034
+      - Update the random seed late during boot
+      - Avoid plymouth error message
+      - Show Plymouth messages
+      - read-and-update-random-seed-sector: Move to earlier init-top stage
+      - Test suite: Test the random seed feature
+      - early_patch: Add note to comment that panic doesn't work with set -e
+      - read-and-update-random-seed-sector: Print messages
+      - read-and-update-random-seed-sector: Silence dd
+      - Try to obfuscate how many times Tails was booted
+      - Update design section on entropy pool initialization
+      - Tails Cloner: Write random seed
+      - partitioning: Check if parent device is actually accessible
+      - Add design section for entropy pool initialization
+      - Disable systemd-random-seed.service
+      - Improve how the random seed is stored (refs: #11897)
+      - Relate to Feature #11897: improve the storage of the random seed
+      - Relate to Feature #11897: store a random seed file after the GPT.
+      - According to the systemd random seed service source
+      - Improve random seed installation by a initramfs script on boot time. Implements
+      - Create random seed at installation time with Tails Installer,
+
+ -- Tails developers <tails@boum.org>  Mon, 17 Jun 2024 17:13:01 +0200
+
+tails (6.3) unstable; urgency=medium
+
+  * Thunderbird: temporarily disable pdf.js in Tails 6.3 to fix CVE-2024-4367
+    (tails/tails!1528)
+
+    Closes issues:
+      - Fix CVE-2024-4367 for Thunderbird in Tails 6.3 (tails/tails#20384)
+
+    Commits:
+      - Thunderbird: temporarily disable pdf.js in Tails 6.3 to fix CVE-2024-4367
+
+  * Resolve "Upgrade to Tor Browser 13.0.15 based on 115.11" (tails/tails!1525)
+
+    Closes issues:
+      - Upgrade to Tor Browser 13.0.15 based on 115.11 (tails/tails#20375)
+
+    Commits:
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 13.0.15 (refs: tails#20375)
+
+  * Upgrade to Linux 6.1.90-1 (tails/tails!1521)
+
+    Closes issues:
+      - stable branch FTBFS: Unable to locate package linux-headers-6.1.0-20-amd64
+        (tails/tails#20382)
+      - Upgrade Linux to 6.1.90-1 (DSA 5680-1) (tails/tails#20378)
+
+    Commits:
+      - fixing linenumbers of ublock autoupdate patch
+      - Upgrade to Linux 6.1.0-21 (currently at version 6.1.90-1)
+      - Bump snapshot of the "debian" APT archive to 2024050801
+
+  * Revert "Install systemd-oomd" (tails/tails!1517)
+
+    Commits:
+      - Revert "Install systemd-oomd"
+
+  * GitLab CI: Fix Ruff also checking files changed on stable (tails/tails!1514)
+
+    Commits:
+      - bin/test-utils/ruff: Also check uncommitted files
+      - GitLab CI: Fix Ruff also checking files changed on stable
+      - GitLab CI: Run Ruff Formatter
+
+  * Update URLs: gitweb.torproject.org is deprecated (tails/tails!1509)
+
+    Commits:
+      - Update URLs: gitweb.torproject.org is deprecated
+
+  * Stop listing deleted pages (tails/tails!1508)
+
+    Commits:
+      - Stop translating deleted pages
+
+  * Upgrader: make "Restart later" the default option, instead of "Restart now"
+    (tails/tails!1507)
+
+    Closes issues:
+      - Make "Restart later" the default option when the Upgrader currently defaults to
+        "Restart now" (tails/tails#20346)
+
+    Commits:
+      - Make indentation consistent
+      - Make comment markers reflect current reality
+      - Update alignment
+      - Upgrader: make "Restart later" the default option, instead of "Restart now"
+
+  * Fix tails-spoof-mac blocking udev (tails/tails!1503)
+
+    Closes issues:
+      - Long delay during login when MAC spoofing has failed (tails/tails#17813)
+      - Scenario "MAC address spoofing fails and the module is not removed" is fragile
+        (tails/tails#20349)
+
+    Commits:
+      - Fix race between tails-spoof-mac and tails-unblock-network
+      - Ensure positional arguments to notify-send are not interpreted as options
+      - Improve MAC spoofing failed error message
+      - Test suite: Add step "this test fails" for debugging purposes
+      - Fix tails-spoof-mac blocking udev
+
+  * Test suite: Fix set_browser_url (tails/tails!1502)
+
+    Closes issues:
+      - Scenario "Tails is localized for every tier-1 language" is fragile
+        (tails/tails#20357)
+
+    Commits:
+      - Test suite: Fix set_browser_url
+
+  * Test suite: Add debug output for #20356 (tails/tails!1501)
+
+    Commits:
+      - Test suite: Add debug output for #20356
+
+  * Test suite: Add bookmark via Dogtail (tails/tails!1500)
+
+    Closes issues:
+      - Scenario "Persistent browser bookmarks" is fragile (tails/tails#20353)
+
+    Commits:
+      - Test suite: Add bookmark via Dogtail
+
+  * Adapt kernel module matching for Linux 6.6+ (tails/tails!1499)
+
+    Closes issues:
+      - Linux v6.6 breaking change: module compression (tails/tails#20347)
+
+    Commits:
+      - Adapt kernel module matching for Linux 6.6+
+
+  * locale-description always includes languages from TBB tarball
+    (tails/tails!1498)
+
+    Commits:
+      - ruff: reformat
+      - create tmpdir if it doesnt exist
+      - only run doctests when running doctests
+      - more ruff linting
+      - fix ruff most severe complaints
+      - clarify which functions are imported
+      - handle ms just like other languages
+      - integrate with TBB's contents
+      - make ruff happy
+      - add functions to get locales from TBB tarball
+
+  * tps-frontend: Add ErrorDetails class (tails/tails!1497)
+
+    Commits:
+      - tps-frontend: Add ErrorDetails class
+
+  * Rotate Whisperback onion address (tails/tails!1496)
+
+    Commits:
+      - Rotate Whisperback onion address
+
+  * workaround printers configured in Tails 5 (tails/tails!1484)
+
+    Closes issues:
+      - Cannot add printer on 6.0 if CUPS configuration persisted from 5.x
+        (tails/tails#20271)
+
+    Commits:
+      - Fix log call
+      - fix permissions
+      - only update configuration when really needed
+      - workaround printers configured in Tails 5
+
+  * Install systemd-oomd (tails/tails!1479)
+
+    Closes issues:
+      - Consider using systemd-oomd (tails/tails#19454)
+
+    Commits:
+      - Start root terminal in its own systemd scope
+      - Start root terminal as part of app-org.gnome.Terminal.slice
+      - Install systemd-oomd
+
+  * GitLab CI: Don't run Black and Bandit in addition to Ruff (tails/tails!1448)
+
+    Commits:
+      - ruff: reformat
+      - handles directories correctly
+      - ruff: specify executable path
+      - ruff format creates no junit report
+      - GitLab CI: Don't run Black and Bandit in addition to Ruff
+      - GitLab CI: Run Ruff Formatter
+
+ -- Tails developers <tails@boum.org>  Wed, 15 May 2024 14:24:24 +0200
+
+tails (6.2) unstable; urgency=medium
+
+  * Upgrade to Tor Browser 13.0.14 based on 115.10 (tails/tails!1489)
+
+    Closes issues:
+      - Upgrade to Tor Browser 13.0.14 based on 115.10 (tails/tails#20330)
+
+    Commits:
+      - Add reference to which issue the Tor Browser upgrade is about
+      - Upgrade Tor Browser to 13.0.14-build1 (refs: tails#20330)
+
+  * Test suite: Adapt AppArmor regex for Linux 6.2+ (tails/tails!1461)
+
+    Closes issues:
+      - AppArmor regex in `common_steps.rb` soon to become obsolete (tails/tails#20277)
+
+    Commits:
+      - Drop unnecessary -E from grep's arguments
+      - Test suite: Adapt AppArmor regex for Linux 6.2+
+
+  * fixing linenumbers of ublock autoupdate patch (tails/tails!1485)
+
+    Commits:
+      - fixing linenumbers of ublock autoupdate patch
+
+  * Test suite: Enter passphrase via Dogtail (tails/tails!1466)
+
+    Closes issues:
+      - Step 'I change the passphrase of the Persistent Storage back to the original'
+        is fragile (tails/tails#20296)
+
+    Commits:
+      - Test suite: Enter passphrase via Dogtail
+
+  * Fix scenario "I can launch various apps via GNOME Activities Overview"
+    (tails/tails!1465)
+
+    Closes issues:
+      - Scenario "I can launch various apps via GNOME Activities Overview" is fragile
+        (tails/tails#20295)
+
+    Commits:
+      - Test suite: Make closing window more robust
+      - Test suite: Fix flaky step "I close the window via Alt+F4"
+      - Test suite: Fix check if app was closed
+      - Test suite: Fix some apps not closed in scenario
+
+  * Disable magic SysRq hacks (tails/tails!1491)
+
+    Closes issues:
+      - Lock screen bypass via sysrq (tails/tails#20334)
+
+    Commits:
+      - Disable magic SysRq hacks
+
+  * Resolve "Upgrade Linux to 6.1.85" (tails/tails!1490)
+
+    Closes issues:
+      - Upgrade Linux to 6.1.85 (tails/tails#20316)
+
+    Commits:
+      - upgrade to kernel 6.1.85
+
+  * Hardening: Unconditionally disable Speculative Store Bypass (tails/tails!1488)
+
+    Closes issues:
+      - Improve protection against Spectre v4 with spec_store_bypass_disable=on
+        (tails/tails#20335)
+
+    Commits:
+      - Hardening: Unconditionally disable Speculative Store Bypass
+
+  * Resolve "Upgrade to tor 0.4.8.11" (tails/tails!1487)
+
+    Closes issues:
+      - Upgrade to tor 0.4.8.11 (tails/tails#20339)
+
+    Commits:
+      - upgrading tor
+
+  * GitLab CI: Fix Ruff CI Job (again) (tails/tails!1486)
+
+    Closes issues:
+      - Ruff CI job still broken (tails/tails#20338)
+
+    Commits:
+      - GitLab CI: Fix bin/test-utils/ruff failing when no files were changed
+      - GitLab CI: Fix Ruff CI Job (again)
+
+  * tails-unblock-network: Skip all known non-network-related subsystems
+    (tails/tails!1482)
+
+    Closes issues:
+      - No network when "udevadm settle" failed despite successful MAC spoofing
+        (tails/tails#20045)
+
+    Commits:
+      - tails-unblock-network: Terminate udevadm trigger after 120 seconds
+      - tails-unblock-network: Log the subsystem of all devices
+      - tails-unblock-network: Don't skip rfkill subsystem
+      - tails-unblock-network: Skip all known non-network-related subsystems
+      - tails-unblock-network: Print which devices were triggered
+      - tails-unblock-network: Call `udevadm trigger` just once
+      - tails-unblock-network: Only wait for triggered udev events
+      - tails-unblock-network: Only synchronize the relevant filesystem
+      - Simplify tails-unblock-network
+      - tails-unblock-network: Add shellcheck comment
+
+  * tps-frontend: Fix and improve error dialog (tails/tails!1480)
+
+    Closes issues:
+      - tps-frontend: "Failed to set text" when formatting markup in error dialog
+        (tails/tails#20328)
+
+    Commits:
+      - tps-frontend: Extract open_documentation function
+      - tps-frontend: Hide unexpected error messages behind a "Details" expander
+      - tps-frontend: Show error message if documentation can't be opened
+      - tps-frontend: Escape error message for markup parser
+
+  * Upgrader: make "Upgrade later" the default option (tails/tails!1478)
+
+    Closes issues:
+      - Make "Upgrade Later" the default option in the first popup of Tails Upgrader
+        (tails/tails#20105)
+
+    Commits:
+      - Update alignment
+      - Upgrader: make "Upgrade later" the default option
+      - Upgrader: make dialog method support defaulting to cancel
+
+  * List all languages that have at least 25% of strings translated on the Welcome
+    Screen (tails/tails!1476)
+
+    Closes issues:
+      - Design and implement new criterion for listing languages in the Welcome Screen
+        (tails/tails#20019)
+
+    Commits:
+      - Remove dead code
+      - Delete PO files with invalid translations
+      - Update PO files
+      - Revert "generate-languages-list: workaround the fact we can't distinguish
+        reviewed translations from non-reviewed ones"
+      - import-translations: Import PO files that have at least 25% of strings
+        translated
+
+  * auto/config: don't set TAILS_GIT_BASE_COMMIT when building from tags
+    (tails/tails!1475)
+
+    Closes issues:
+      - 6.1 not reproducible anymore (tails/tails#20311)
+
+    Commits:
+      - Consistently use spaces for indentation
+      - auto/config: don't set TAILS_GIT_BASE_COMMIT when building from tags
+
+  * Disable the NVIDIA shader cache in browsers and add explanations for browser
+    environment variables (tails/tails!1472)
+
+    Closes issues:
+      - Consider disabling Nvidia shader cache (tails/tails#20278)
+
+    Commits:
+      - Point to the docs for more context.
+      - Disable NVIDIA shader cache in browsers (refs: tails/tails#20278)
+      - Document browser env vars we skip when syncing with start-browser
+      - Add explanations for browser env vars from upstream start-browser that we do
+        _not_ set
+      - Add explanations for browser environment variables
+
+  * Test suite: make pause() verbosely run pry in the caller's context
+    (tails/tails!1471)
+
+    Closes issues:
+      - Make pause() verbosely run pry in the caller's context (tails/tails#20305)
+
+    Commits:
+      - Appease rubocop
+      - Test suite: add breakpoint alias for pause
+      - Test suite: make pry quiet in the "I pause" step
+      - Test suite: make pause() verbosely run pry in the caller's context
+
+  * Test suite: support redefining steps during a run for development purposes
+    (tails/tails!1470)
+
+    Closes issues:
+      - Support redefining steps during a run for development purposes
+        (tails/tails#20304)
+
+    Commits:
+      - make rubocop happy
+      - guard against unwanted redefinitions
+      - Test suite: move patch code after guard
+      - Appease rubocop
+      - Test suite: make reload_code work in class contexts
+      - Add another test suite hacking example
+      - Test suite: simplify and fix issue with --guess
+      - Appease rubocop
+      - Test suite: remove scenario and step definitions used for experiment
+      - Test suite: support redefining steps during a run for development purposes
+      - Test suite: improve experiment on hot-reloading step definitions
+      - Test suite: make --interactive-debuggin with for failures in @source-tagged
+        scenarios
+      - Test suite: experiments on hot-reloading step definitions
+
+  * explain reproducibility test results are not blocking (tails/tails!1469)
+
+    Commits:
+      - Release process: check early that there are enough manual testers
+      - Move document
+      - Make notifying the TR a release process task for the RM instead of manual test
+      - moving some TR documentation from test to release process
+      - explain reproducibility test results are not blocking
+
+  * Improve wording (tails/tails!1468)
+
+    Closes issues:
+      - Rename "Language & Region" as "Language & Formats" (tails/tails#20204)
+
+    Commits:
+      - Improve wording
+
+  * Test suite: make find() not wait for 10 seconds (tails/tails!1467)
+
+    Closes issues:
+      - Suppress some output from the test suite screen matching machinery
+        (tails/tails#20315)
+      - Drop Screen#find() (tails/tails#20303)
+      - wait_vanish does nothing (tails/tails#20302)
+
+    Commits:
+      - Test suite: debug log duration of Screen#wait*
+      - Test suite: make wait() spam the debug log less
+      - Test suite: debug log consistently in wait/find_any/wait_any/wait_vanish
+      - Test suite: suppress some debug logging when find():ing images
+      - Test suite: wait a bit before clicking
+      - Test suite: fix wait_vanish()
+      - Test suite: implement wait_vanish() with find()
+      - Test suite: rename method to follow ruby ?-convention
+      - Test suite: make find() not wait for 10 seconds
+
+  * Test suite: Work around VM sometimes restarting after shutdown
+    (tails/tails!1460)
+
+    Closes issues:
+      - Step 'I shutdown Tails and wait for the computer to power off' sometimes fails
+        by rebooting instead (tails/tails#12132)
+      - Test suite: VM sometimes restarts after shutdown (tails/tails#20245)
+
+    Commits:
+      - Test suite: Work around VM sometimes restarting after shutdown
+
+  * Test suite: Fix unexpected return (tails/tails!1458)
+
+    Closes issues:
+      - Returning from step definition in `usb.rb` raises an `unexpected return
+        (LocalJumpError)` (tails/tails#20276)
+
+    Commits:
+      - Test suite: Fix unexpected return
+
+  * Refactor code to get boot device (tails/tails!1454)
+
+    Commits:
+      - Refactor code to get boot device
+
+  * GitLab CI: bin/test-utils/ruff also checks uncommitted/untracked changes
+    (tails/tails!1449)
+
+    Commits:
+      - GitLab CI: Use is-file-type script again in bin/test-utils/ruff
+      - GitLab CI: Improve bin/test-utils/ruff
+
+  * Detect I/O failures on Tails partition(s) (tails/tails!1427)
+
+    Closes issues:
+      - Detect SquashFS and I/O errors while Tails is running (tails/tails#5856)
+
+    Commits:
+      - execute_successfully will stop the test if it returns a exit code != 0.
+      - Revert "Fix systemd dependencies."
+      - Use better wording in hardware_failure.feature
+      - Use the device name not the device path.
+      - Move comment.
+      - Use the get_boot_device from tailslib.
+      - We know the boot device from beginning, so no need to use update_pattern.
+      - rename IOErrorPattern class.
+      - remove partion detection errors.
+      - critical target error is triggered on the device not on the partition.
+      - Don't use EXT4-fs fake errors, as we use only hardware issues.
+      - Only detect hardware issues and no filesystem ons.
+      - test failurs on different devices.
+      - Need to do a new UDisk sync in order to get the cleartext_device.
+      - Add debug information.
+      - Detect I/O failures on Tails partition.
+      - black format.
+      - Fix systemd dependencies.
+      - Make tails-report-disk-ioerrors translatable.
+      - Test the tails-detect-disk-ioerrors service.
+      - rename detect-squashfs-errors to detect-disk-ioerrors.
+      - rename tails-detect-disk-errors -> tails-detect-disk-resize-errors.
+
+ -- Tails developers <tails@boum.org>  Mon, 22 Apr 2024 11:40:37 +0200
 
 tails (6.1) unstable; urgency=medium
 

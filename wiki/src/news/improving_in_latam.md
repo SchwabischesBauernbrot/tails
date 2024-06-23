@@ -1,6 +1,6 @@
 [[!meta  title="Improving Tails for human rights defenders in Latin America"]]
 [[!meta  date="Tue, 06 Jun 2023 14:00:00 +0000"]]
-[[!pagetemplate  template="news.tmpl"]]
+[[!pagetemplate template="news.tmpl"]]
 [[!tag announce]]
 
 Between 2021 and 2023 Tails, [Tor](https://torproject.org/), and the [Guardian
@@ -51,7 +51,7 @@ Details:
 
 - Usability tests of first-time use in Mexico ([[!tails_ticket 18074]])
   * [Summary of findings](https://gitlab.tails.boum.org/tails/tails/-/issues/18074#note_210738)
-  * [Detailed findings](https://gitlab.tails.boum.org/tails/ux/-/raw/master/first-time/rainbow_table.fods?inline=false)
+  * [Detailed findings](https://gitlab.tails.boum.org/tails/ux/-/raw/master/first-time/rainbow_table_installation_2021_08_Mexico.fods?inline=false)
 
 - Usability tests of first-time use in Brazil ([[!tails_ticket 18784]])
   * [Summary of findings](https://lists.autistici.org/message/20221012.181235.a673efeb.en.html)
@@ -77,7 +77,7 @@ bridge, and to make it easier to sign in to a network using a captive portal.
 
 - Usability tests of Tor Connection ([[!tails_ticket 18762]])
   * [Summary of findings](https://lists.autistici.org/message/20221012.140611.7e58f067.en.html)
-  * [Detailed findings](https://gitlab.tails.boum.org/tails/ux/-/raw/master/network/rainbow_table_tor_connection_2022_08_Sao_Paulo.fods?inline=false)
+  * [Detailed findings](https://gitlab.tails.boum.org/tails/ux/-/raw/master/network/rainbow_table_tor_connection_2022_08_Sao_Paulo.ods?inline=false)
 
 ### Persistent Storage
 

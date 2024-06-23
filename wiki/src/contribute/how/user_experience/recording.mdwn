@@ -2,7 +2,7 @@
 
 [[!toc levels=2]]
 
-<a id="camera"></a>
+<a id="cheese"></a>
 
 Recording with a camera using <span class="application">Cheese</span>
 =====================================================================
@@ -31,6 +31,25 @@ IPEVO](https://www.ipevo.com/) works fine from Tails.
 
 1. Adjust the orientation of the camera to capture as much of the screen as
    possible while not obfuscating the light of sight of the participant.
+
+<a id="ffmpeg"></a>
+
+FFmpeg
+======
+
+When *Cheese* is not reliable enough, *FFmpeg* can be an alternative.
+
+1. Check that you have enough disk space.
+
+   You need around 1.5 GB per hour of recording.
+
+1. Configure the sound settings of GNOME to record audio from the webcam.
+
+   Test and adjust the recording level. Around 75% should be fine.
+
+1. Execute the following command:
+
+       ffmpeg -f pulse -i default -f v4l2 -video_size 1280x720 -i /dev/video0 record-$(date +%F-%H%M%S).mp4
 
 <a id="screencast"></a>
 

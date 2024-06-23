@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-02-08 22:45+0000\n"
-"PO-Revision-Date: 2020-12-25 13:44+0000\n"
-"Last-Translator: emmapeel <emma.peel@riseup.net>\n"
+"PO-Revision-Date: 2024-05-21 20:53+0000\n"
+"Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ru\n"
 "MIME-Version: 1.0\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 3.11.3\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -59,7 +59,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "[[!img error.png link=\"no\" alt=\"\"]]\n"
-msgstr ""
+msgstr "[[!img error.png link=\"no\" alt=\"\"]]\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -75,6 +75,8 @@ msgstr ""
 #, no-wrap
 msgid "   <p class=\"code\">Error starting GDM with your graphics card: NVIDIA Corporation [10de:0a6c] GT218M [NVS 3100M] (rev a2)</p>\n"
 msgstr ""
+"   <p class=\"code\">Error starting GDM with your graphics card: NVIDIA "
+"Corporation [10de:0a6c] GT218M [NVS 3100M] (rev a2)</p>\n"
 
 #. type: Bullet: '   - '
 msgid "The name is *NVIDIA Corporation GT218M [NVS 3100M]*."
@@ -162,17 +164,19 @@ msgstr "<!--\n"
 #. type: Title =
 #, no-wrap
 msgid "Name and ID in /usr/share/misc/pci.ids"
-msgstr ""
+msgstr "Name and ID in /usr/share/misc/pci.ids"
 
 #. type: Plain text
 msgid ""
 "The correspondence between the name and ID is established in /usr/share/misc/"
 "pci.ids."
 msgstr ""
+"The correspondence between the name and ID is established in /usr/share/misc/"
+"pci.ids."
 
 #. type: Plain text
 msgid "For example:"
-msgstr ""
+msgstr "For example:"
 
 #. type: Plain text
 #, no-wrap
@@ -182,39 +186,45 @@ msgid ""
 "\t        [...]\n"
 "\t        0046  Core Processor Integrated Graphics Controller\n"
 msgstr ""
+"\t8086  Intel Corporation\n"
+"\t        0007  82379AB\n"
+"\t        [...]\n"
+"\t        0046  Core Processor Integrated Graphics Controller\n"
 
 #. type: Plain text
 msgid "Corresponds to:"
-msgstr ""
+msgstr "Corresponds to:"
 
 #. type: Plain text
 #, no-wrap
 msgid "\tIntel Corporation Core Processor Integrated Graphics Controller [8086:0046]\n"
 msgstr ""
+"\tIntel Corporation Core Processor Integrated Graphics Controller [8086:0046]"
+"\n"
 
 #. type: Title =
 #, no-wrap
 msgid "Template for new section"
-msgstr ""
+msgstr "Template for new section"
 
 #. type: Plain text
 #, no-wrap
 msgid "<a id=\"$ANCHOR\"></a>\n"
-msgstr ""
+msgstr "<a id=\"$ANCHOR\"></a>\n"
 
 #. type: Title -
 #, no-wrap
 msgid "$FAMILY_NAME"
-msgstr ""
+msgstr "$FAMILY_NAME"
 
 #. type: Plain text
 msgid "$LT!-- Issues: #XXXXX #XXXXX --$GT"
-msgstr ""
+msgstr "$LT!-- Issues: #XXXXX #XXXXX --$GT"
 
 #. type: Title ###
 #, no-wrap
 msgid "Affected graphics cards"
-msgstr ""
+msgstr "Affected graphics cards"
 
 #. type: Plain text
 #, no-wrap
@@ -224,15 +234,20 @@ msgid ""
 "<tr><td>$VENDOR $DEVICE</td><td>[$VENDOR_ID:$PRODUCT_ID]</td><td>(rev $REVISION_NUMBER)</td></tr>\n"
 "</table>\n"
 msgstr ""
+"<table>\n"
+"<tr><th>Name</th><th>ID</th><th>Revision number</th></tr>\n"
+"<tr><td>$VENDOR $DEVICE</td><td>[$VENDOR_ID:$PRODUCT_ID]</td><td>(rev "
+"$REVISION_NUMBER)</td></tr>\n"
+"</table>\n"
 
 #. type: Title ###
 #, no-wrap
 msgid "Workaround"
-msgstr ""
+msgstr "Workaround"
 
 #. type: Plain text
 msgid "$WORKAROUND_IF_ANY"
-msgstr ""
+msgstr "$WORKAROUND_IF_ANY"
 
 #. type: Plain text
 #, no-wrap
@@ -251,6 +266,9 @@ msgid ""
 "Issues: #11095 #12482\n"
 "-->\n"
 msgstr ""
+"<!--\n"
+"Issues: #11095 #12482\n"
+"-->\n"
 
 #. type: Plain text
 msgid "Any graphics cards in the Radeon HD family might be affected."
@@ -265,11 +283,11 @@ msgstr ""
 
 #. type: Plain text
 msgid "- `modprobe.blacklist=amdgpu`"
-msgstr ""
+msgstr "- `modprobe.blacklist=amdgpu`"
 
 #. type: Plain text
 msgid "- `modprobe.blacklist=radeon`"
-msgstr ""
+msgstr "- `modprobe.blacklist=radeon`"
 
 #. type: Plain text
 #, fuzzy, no-wrap
@@ -283,6 +301,9 @@ msgid ""
 "Issues: #12218 #11850\n"
 "-->\n"
 msgstr ""
+"<!--\n"
+"Issues: #12218 #11850\n"
+"-->\n"
 
 #. type: Plain text
 #, no-wrap
@@ -350,7 +371,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "    iommu=soft\n"
-msgstr ""
+msgstr "    iommu=soft\n"
 
 #. type: Plain text
 #, no-wrap
@@ -401,6 +422,9 @@ msgid ""
 "Last updated: 2024-02-08\n"
 "-->\n"
 msgstr ""
+"<!--\n"
+"Last updated: 2024-02-08\n"
+"-->\n"
 
 #. type: Plain text
 msgid "For example, in the Dell Latitude 7490."
@@ -415,7 +439,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "        i915.enable_psr=0\n"
-msgstr ""
+msgstr "        i915.enable_psr=0\n"
 
 #. type: Plain text
 #, no-wrap
@@ -448,11 +472,11 @@ msgstr ""
 
 #. type: Bullet: '  - '
 msgid "`modprobe.blacklist=nouveau`"
-msgstr ""
+msgstr "`modprobe.blacklist=nouveau`"
 
 #. type: Bullet: '  - '
 msgid "`nouveau.modeset=0`"
-msgstr ""
+msgstr "`nouveau.modeset=0`"
 
 #. type: Plain text
 #, no-wrap

@@ -161,7 +161,7 @@ We cannot use such a server directly, so we need to (at least temporarily) self-
     echo "${TBB_DIST_URL:?}" > \
          config/chroot_local-includes/usr/share/tails/tbb-dist-url.txt
     git commit config/chroot_local-includes/usr/share/tails/tbb-*.txt \
-        -m "Upgrade Tor Browser to ${TBB_VERSION:?}" && \
+        -m "Upgrade Tor Browser to ${TBB_VERSION:?} (refs: tails#${TBB_TAILS_TICKET})" && \
     git show
 
 Please refer to [[Self-hosted Tor Browser tarballs archive|tor-browser#self-host]] section.
@@ -189,7 +189,7 @@ Commit
 Lastly, commit:
 
     git commit config/chroot_local-includes/usr/share/tails/tbb-*.txt \
-        -m "Upgrade Tor Browser to ${TBB_VERSION:?}" && \
+        -m "Upgrade Tor Browser to ${TBB_VERSION:?} (refs: tails#${TBB_TAILS_TICKET})" && \
     git show
 
 <div class="caution">

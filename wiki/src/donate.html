@@ -1,6 +1,5 @@
 <div>[[!meta title="Donate to fight surveillance and censorship"]]</div>
 
-[[!meta stylesheet="bootstrap.min" rel="stylesheet" title=""]]
 [[!meta stylesheet="donate" rel="stylesheet" title=""]]
 [[!meta stylesheet="donate/testimonials.inline" rel="stylesheet" title=""]]
 [[!meta stylesheet="hide-donate-banner" rel="stylesheet" title=""]]
@@ -15,13 +14,13 @@
 <meta name="twitter:image" content="https://tails.net/donate/card.png" />
 <meta name="twitter:image:alt" content="Godzilla attacking a Tails user tranquilly shielded in their magic tent" />
 
-<div class="row">
+<div id="flex">
 
-  <div id="feature" class="col-md-7">
+  <div id="feature">
 
-  [[!img godzilla.png link="no" alt=""]]
+  [[!img godzilla.png link="no" class="svg" alt=""]]
 
-  <h2>Tails is their strongest protection</h2>
+  <h1>Tails is their strongest protection</h1>
 
   <p>At Tails, we build a liberating operating system that puts people in control
   of their digital lives.</p>
@@ -61,7 +60,9 @@
 
   </div>
 
-  <div class="col-md-5">
+  <div id="widgets-and-other-ways-1">
+
+  <div id="widgets">
 
 <div id="paypal-with-js">
 
@@ -93,81 +94,38 @@
   <!-- For one-time donation only. -->
   <input type="hidden" name="amount" value="5" id="amount"/>
 
-  <div id="currency">
-  <div class="col-md-12 btn-group btn-group-justified" data-toggle="buttons" role="group">
-    <label class="btn btn-lg btn-primary active" id="currency-dollar">
-      <input type="radio" id="dollars" autocomplete="off" checked data-complete-text="finished!"/> Dollars
-    </label>
-    <label class="btn btn-lg btn-primary" id="currency-euro">
-      <input type="radio" id="euros" autocomplete="off" checked data-complete-text="finished!"/> Euros
-    </label>
-  </div>
-  </div>
-
-  <div id="dollar-amounts" class="amounts donate-dollars" data-toggle="buttons" role="group">
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 5 active">
+  <div id="amounts">
+    <label class="button js-amount active">
       <input type="radio" autocomplete="off" value="5"/>$5
     </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 10">
+    <label class="button js-amount">
       <input type="radio" autocomplete="off" value="10"/>$10
     </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 25">
+    <label class="button js-amount">
       <input type="radio" autocomplete="off" value="25"/>$25
     </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 50">
+    <label class="button js-amount">
       <input type="radio" autocomplete="off" value="50"/>$50
     </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 100">
+    <label class="button js-amount">
       <input type="radio" autocomplete="off" value="100"/>$100
     </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 150">
+    <label class="button js-amount">
       <input type="radio" autocomplete="off" value="150"/>$150
     </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 200">
+    <label class="button js-amount">
       <input type="radio" autocomplete="off" value="200"/>$200
     </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 other">
-      <div class="input-group">
-        <span class="input-group-addon">$</span>
-        <input type="text" pattern="\d+" class="form-control" id="other-dollar" placeholder="Other"/>
-      </div>
-    </label>
-  </div>
-
-  <div id="euro-amounts" class="amounts donate-euros" data-toggle="buttons" role="group">
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 5 active">
-      <input type="radio" autocomplete="off" value="5"/>5€
-    </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 10">
-      <input type="radio" autocomplete="off" value="10"/>10€
-    </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 25">
-      <input type="radio" autocomplete="off" value="25"/>25€
-    </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 50">
-      <input type="radio" autocomplete="off" value="50"/>50€
-    </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 100">
-      <input type="radio" autocomplete="off" value="100"/>100€
-    </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 150">
-      <input type="radio" autocomplete="off" value="150"/>150€
-    </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 200">
-      <input type="radio" autocomplete="off" value="200"/>200€
-    </label>
-    <label class="btn btn-amount btn-lg btn-primary col-md-3 col-xs-6 other">
-      <div class="input-group">
-        <input type="text" pattern="\d+" class="form-control text-right" id="other-euro" placeholder="Other"/>
-        <span class="input-group-addon">€</span>
-      </div>
+    <label class="button js-amount other">
+      <span>$</span>
+      <input type="text" pattern="\d+" id="other-amount" placeholder="Other"/>
     </label>
   </div>
 
   <div id="frequency-buttons">
-    <label class="col-sm-4 col-xs-12"><input type="radio" name="frequency" id="one-time"/>One-time</label>
-    <label class="col-sm-4 col-xs-12"><input type="radio" name="frequency" id="monthly"/>Monthly</label>
-    <label class="col-sm-4 col-xs-12"><input type="radio" name="frequency" id="yearly"/>Yearly</label>
+    <label><input type="radio" name="frequency" id="one-time"/>One‑time</label>
+    <label><input type="radio" name="frequency" id="monthly"/>Monthly</label>
+    <label><input type="radio" name="frequency" id="yearly"/>Yearly</label>
   </div>
 
   <div id="frequency-explanation">
@@ -178,41 +136,32 @@
 
   <div id="newsletter">
     <label>
-      <input type="checkbox" id="opt-in"/>I want to receive a newsletter 2&ndash;3 times a year.
+      <input type="checkbox" id="opt-in"/>Receive a newsletter 2&ndash;3 times a year.
     </label>
     <p id="email">We will use the email address provided in the PayPal form.</p>
   </div>
 
   <div id="donate-paypal-button">
-    <button class="btn btn-primary btn-lg btn-block col-md-12">Donate</button>
+    <button>Donate</button>
   </div>
 
-<p id="dollar-tax" class="tax-deductible donate-dollars">Your donation goes entirely to Tails
+<p id="tax" class="tax-deductible">Your donation goes entirely to Tails
 and will be handled by Riseup Labs which is a 501(c)(3) nonprofit organization
-in the USA.<br/><strong>Donations are [[!toggle id="tax-deductible" text="tax-deductible"]] to the full extent
-permitted by law.</strong></p>
-
-<p id="euro-tax" class="tax-deductible donate-euros">Your donation goes entirely to Tails
-and will be handled by CCT which is a nonprofit organization
-in Germany.<br/><strong>Donations are [[!toggle id="tax-deductible" text="tax-deductible"]] to the full extent
+in the USA.<br/><strong>Donations are [[!toggle id="tax-deductible" text="tax-deductible"]] to the extent
 permitted by law.</strong></p>
 
 </form>
 
 [[!toggleable id="tax-deductible" text="""
 <p>If you need a donation receipt, contact us at<br/>
-<a href="mailto:tails-fundraising@boum.org">tails-fundraising@boum.org</a>.</p>
+<a href="mailto:fundraising@tails.net">fundraising@tails.net</a>.</p>
 """]]
 
 </div>
 
 <div id="paypal-without-js">
 
-<div id="dollars-without-js">
-
-<h2>Donate in dollars</h2>
-
-<h4>Recurring donation</h4>
+<h2>Recurring donation</h2>
 
 <p>Monthly and yearly donations, even the smallest, are the most valuable for
 the sustainability of Tails. They require a [[!img paypal-inline.png
@@ -240,7 +189,6 @@ link="no" class="paypal-inline" alt="PayPal"]] account.</p>
   <label for="sub10"><input type="radio" name="a3" value="10" id="sub10"/>$10</label>
   <label for="sub25"><input type="radio" name="a3" value="25" id="sub25"/>$25</label>
   <label for="sub50"><input type="radio" name="a3" value="50" id="sub50"/>$50</label>
-  <br/>
   <label for="sub100"><input type="radio" name="a3" value="100" id="sub100"/>$100</label>
   <label for="sub150"><input type="radio" name="a3" value="150" id="sub150"/>$150</label>
   <label for="sub500"><input type="radio" name="a3" value="500" id="sub500"/>$200</label>
@@ -248,13 +196,15 @@ link="no" class="paypal-inline" alt="PayPal"]] account.</p>
   <label for="sub_m"><input type="radio" name="t3" value="M" id="sub_m" checked="checked"/>Monthly</label>
   <label for="sub_y"><input type="radio" name="t3" value="Y" id="sub_y"/>Yearly</label>
   <br/>
-  <label><input type="checkbox" name="custom"/>I want to receive a newsletter 2&ndash;3 times a year.</label>
+  <label><input type="checkbox" name="custom"/><b>Receive a newsletter 2&ndash;3 times a year.</b></label>
   <p class="email">We will use the email address provided in the PayPal form.</p>
-  <input type="submit" value="Donate (recurring)"/>
+  <div id="donate-paypal-button">
+    <input type="submit" value="Donate (recurring)"/>
+  </div>
 
 </form>
 
-<h4>One-time donation</h4>
+<h2>One-time donation</h2>
 
 <p>Does not require a [[!img paypal-inline.png link="no" class="paypal-inline" alt="PayPal"]] account.</p>
 
@@ -277,44 +227,45 @@ link="no" class="paypal-inline" alt="PayPal"]] account.</p>
   <label for="pp_10"><input type="radio" name="amount" value="10" id="pp_10"/>$10</label>
   <label for="pp_25"><input type="radio" name="amount" value="25" id="pp_25"/>$25</label>
   <label for="pp_50"><input type="radio" name="amount" value="50" id="pp_50"/>$50</label>
-  <br/>
   <label for="pp_100"><input type="radio" name="amount" value="100" id="pp_100"/>$100</label>
   <label for="pp_150"><input type="radio" name="amount" value="150" id="pp_150"/>$150</label>
   <label for="pp_200"><input type="radio" name="amount" value="200" id="pp_200"/>$200</label>
   <label for="pp_cust"><input type="radio" name="amount" value="" id="pp_cust"/>Custom amount</label>
   <br/>
-  <label><input type="checkbox" name="custom"/>I want to receive a newsletter 2&ndash;3 times a year.</label>
+  <label><input type="checkbox" name="custom"/><b>Receive a newsletter 2&ndash;3 times a year.</b></label>
   <p class="email">We will use the email address provided in the PayPal form.</p>
-  <input type="submit" value="Donate (one-time)"/>
+  <div id="donate-paypal-button">
+    <input type="submit" value="Donate (one-time)"/>
+  </div>
 
 </form>
 
-<p id="dollar-tax" class="tax-deductible">Your donation goes entirely to Tails
+<p id="tax" class="tax-deductible">Your donation goes entirely to Tails
 and will be handled by Riseup Labs which is a 501(c)(3) nonprofit organization
-in the USA.<br/><strong>Donations are tax-deductible to the full extent
+in the USA.<br/><strong>Donations are tax-deductible to the extent
 permitted by law.</strong></p>
 
 <p class="tax-deductible">If you need a donation receipt, contact us at
-<a href="mailto:tails-fundraising@boum.org">tails-fundraising@boum.org</a>.</p>
-
-</div> <!-- #dollars-without-js -->
+<a href="mailto:fundraising@tails.net">fundraising@tails.net</a>.</p>
 
 </div> <!-- #paypal-without-js -->
 
-<h4>Become a sponsor</h4>
+<h3>Become a sponsor</h3>
 
 <p>All donations, grants, and awards of more than $1&#8239;000
    appear in our [[list of sponsors|sponsors]].</p>
 
-<p>Come talk to us and [[become a sponsor|sponsors/become]] yourself!</p>
+<p>Come talk to us and [[become a sponsor|sponsors/become]]!</p>
+
+</div> <!-- widgets -->
 
 <div id="other-ways-1">
 
-  <h3>Other ways to donate</h3>
+  <h2>Other ways to donate</h2>
 
   <div id="cryptos">
 
-    <h4>Bitcoin</h4>
+    <h3>Bitcoin</h3>
     <!--
      The bitcoin addresses below ('bitcoin-address' class) are displayed
      randomly according to their weight ('data-weight' attribute):
@@ -330,26 +281,14 @@ permitted by law.</strong></p>
       <p class="crypto-address"><strong>bc1qjg53lww9jrm506dj0g0szmk4pxt6f55x8dncuv</strong></p>
     </div>
 
-    <h4 id="monero">Monero</h4>
+    <h3 id="monero">Monero</h3>
     <p class="crypto-address"><strong>4B93hjotwmMQeaZ799D84XTxhqUGqqjfveUTB1GeduAKNeH47WDyn5eb8P2mtScErGbsbL5X3J6vUPAVPrw8j5pMFh6dAwY</strong></p>
-
-    <h4 id="ethereum">Ethereum</h4>
-    <p class="crypto-address"><strong>0xD6A73051933ab97C38cEFf2abB2f9E06F3a3ed78</strong></p>
 
     <a id="other-cryptos"></a>
 
     [[!toggle id="other-cryptos" text="Other cryptocurrencies"]]
 
     [[!toggleable id="other-cryptos" text="""
-
-    <h4 id="bitcoin-cash">Bitcoin Cash</h4>
-    <p class="crypto-address"><strong>qrzav77wkhd942nyqvya34mya3fqxzx90ypjge0njh</strong></p>
-
-    <h4 id="ethereum-classic">Ethereum Classic</h4>
-    <p class="crypto-address"><strong>0x86359F8b44188c105E198DdA3c0421AC60729195</strong></p>
-
-    <h4 id="litecoin">Litecoin</h4>
-    <p class="crypto-address"><strong>MJ1fqVucBt8YpfPiQTuwBtmLJtzhizx6pz</strong></p>
 
     <p>Supporting more cryptocurrencies implies more work for us:
     learning how they work, installing the software in a secure place,
@@ -360,13 +299,14 @@ permitted by law.</strong></p>
     accept and the most popular.</p>
 
     <p>Until now, cryptocurrencies other than Bitcoin, Ethereum, and Monero represent less than
-    1% of our donations in cryptocurrencies. We want to see other
+    1% of our donations in cryptocurrencies. Unfortunately, we had to stop
+    accepting Ethereum. We want to see other
     cryptocurrencies gain real popularity before spending
     more time on them.</p>
 
     """]]
 
-    <h4 id="post">Cash and US checks</h4>
+    <h3 id="post">Cash and US checks</h3>
 
     <p>You can send us cash in any currency and US checks by post:</p>
     <p class="indent">Riseup Labs<br/>
@@ -380,17 +320,11 @@ permitted by law.</strong></p>
 
 </div> <!-- other-ways-1 -->
 
-</div> <!-- col-md-5 -->
+</div> <!-- widgets-and-other-ways -->
 
-</div> <!-- .row -->
+  <div id="other-ways-2">
 
-<div id="other-ways-2" class="row">
-
-  <div class="col-md-7">
-
-    <h4 id="transfer">Bank transfer</h4>
-
-    <h5>German bank account (preferred)</h5>
+    <h3 id="transfer">Bank transfer</h3>
 
     <p>These instructions also work with <a href="https://wise.com/">Wise</a>.</p>
 
@@ -402,7 +336,7 @@ permitted by law.</strong></p>
         <em>Bank</em>: GLS Gemeinschaftsbank eG<br/>
         <em>Bank address</em>: Christstrasse 9, 44789, Bochum, Germany<br/>
         <br/>
-        Please make sure to mention the purpose of transfer:<br/>
+        Please make sure to mention this purpose of transfer.<br/>
 	<br/>
         <em>Purpose of transfer</em>: TAILS-R43NGFR9<br/>
       </p>
@@ -411,13 +345,13 @@ permitted by law.</strong></p>
     <p>Your donation goes entirely to Tails and will be handled by the
     Center for the Cultivation of Technology (CCT) which is a nonprofit
     organization in Germany.<br/>
-    <a href="https://techcultivation.org/donate.html">Donations are tax-deductible to the full extent permitted by law.</a></p>
+    <a href="https://techcultivation.org/donate.html">Donations are tax-deductible to the extent permitted by law.</a></p>
 
   </div>
 
-  <div class="col-md-5">
+  <div id="other-ways-3">
 
-    <h4 id="corporate">Corporate matching donation programs</h4>
+    <h3 id="corporate">Corporate matching donation programs</h3>
 
     <p>Search for <strong>Riseup Labs</strong> and donate to
     <strong>Tails via Riseup Labs</strong>.</p>
@@ -428,20 +362,18 @@ permitted by law.</strong></p>
     Liberate (aka Riseup Labs) is a 501(c)(3) nonprofit in the
     USA.</p>
 
-    <h4 id="contact">Contact</h4>
+    <h3 id="contact">Contact</h3>
 
     <p>If you have any question or problem regarding your donation, our fundraising team is here to help you:</p>
-    <p><a href="mailto:tails-fundraising@boum.org">tails-fundraising@boum.org</a> ([[OpenPGP key|tails-fundraising.key]])</p>
+    <p><a href="mailto:fundraising@tails.net">fundraising@tails.net</a> ([[OpenPGP key|fundraising-tails-net.key]])</p>
 
   </div>
 
-</div> <!-- .row -->
+</div> <!-- flex -->
 
-<div id="income" class="row">
+<div id="income">
 
-<div class="col-md-12">
-
-<h3>Where our money comes from</h3>
+<h2>Where our money comes from</h2>
 
 <!-- Spreadsheet in fundraising.git:tools:income-chart.ods -->
 
@@ -467,15 +399,11 @@ permitted by law.</strong></p>
   </figcaption>
 </figure>
 
-</div>
+</div> <!-- income -->
 
-</div> <!-- .row -->
+<div id="expenses">
 
-<div id="expenses" class="row">
-
-<div class="col-md-12">
-
-<h3>How we spend our money</h3>
+<h2>How we spend our money</h2>
 
 <!-- Spreadsheet in fundraising.git:tools:expenses-chart.ods -->
 
@@ -507,7 +435,7 @@ permitted by law.</strong></p>
         the <i>Persistent Storage</i>.</p>
       </li>
       <li class="purple-3">
-        <div class="key-label">User experience, documentation, and support</div><div class="key-percent">(19%)</div>
+        <div class="key-label">User experience and documentation</div><div class="key-percent">(19%)</div>
         <p>Even the most secure software is worthless if the people who need it
         cannot use it. We work hard to understand our users, make it easy to
         use Tails, and help them make informed security decisions.</p>
@@ -521,18 +449,12 @@ permitted by law.</strong></p>
   </figcaption>
 </figure>
 
-</div>
+</div> <!-- expenses -->
 
-</div> <!-- .row -->
+<div id="recommended">
 
-<div id="recommended" class="row">
-
-<div class="col-md-12">
-
-<h3>Recommended by</h3>
+<h2>Recommended by</h2>
 
 [[!inline pages="donate/testimonials.inline" raw="yes" sort="age"]]
 
-</div>
-
-</div> <!-- .row -->
+</div> <!-- recommended -->

@@ -1,3 +1,8 @@
+stages:
+  - test
+  - build-website
+  - deploy-website
+
 workflow:
   rules:
     - if: $CI_FORCE_RUN
@@ -5,7 +10,10 @@ workflow:
     - if: $CI_COMMIT_TAG
     - if: '$CI_COMMIT_BRANCH =~ /^master|stable|testing|devel$/'
 
-image: debian:bookworm
+# Please, make sure to only use images from `registry.gitlab.tails.boum.org`,
+# as we give significant privileges to our Runners wrt. what they can do in our
+# repositories.
+image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:bookworm
 
 variables:
     GET_SOURCES_ATTEMPTS: 10
@@ -19,17 +27,70 @@ before_script:
   - git clone https://gitlab.tails.boum.org/tails/jenkins-tools.git /tmp/jenkins-tools
 
 build-website:
+  stage: build-website
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
     - changes:
         - .gitlab-ci.yml
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/ikiwiki:bookworm
+  cache:
+    key: website-$CI_COMMIT_REF_SLUG
+    paths:
+      - config/chroot_local-includes/usr/share/doc/tails/website
+      - wiki/src/.ikiwiki
+      - underlays
+  artifacts:
+    name: website
+    paths:
+      - config/chroot_local-includes/usr/share/doc/tails/website
+    when: on_success
+    expire_in: 1 day
+  variables:
+    UNDERLAYS_DIR: ${CI_PROJECT_DIR}/underlays
   script:
-    - apt-get -qy install ikiwiki po4a libyaml-perl libyaml-libyaml-perl libyaml-syck-perl perlmagick
-    - ./build-website
+    - mkdir -p ${UNDERLAYS_DIR}
+    - |
+      for i in etcher-binary promotion-material; do
+        test -d ${UNDERLAYS_DIR}/${i} || git clone --depth=1 https://gitlab.tails.boum.org/tails/${i}.git ${UNDERLAYS_DIR}/${i}
+        git -C ${UNDERLAYS_DIR}/${i} switch master
+        git -C ${UNDERLAYS_DIR}/${i} pull
+      done
+    - |
+      ./build-website \
+        --url "https://tails.net" \
+        --usedirs \
+        --sslcookie \
+        --historyurl "https://gitlab.tails.boum.org/tails/tails/-/commits/master/wiki/src/[[file]]" \
+        --diffurl "https://gitlab.tails.boum.org/tails/tails/-/commit/[[sha1_commit]]" \
+        --rss \
+        --atom \
+        --set-yaml add_underlays="['${UNDERLAYS_DIR}/etcher-binary','${UNDERLAYS_DIR}/promotion-material']"
+
+deploy-website:
+  stage: deploy-website
+  rules:
+    - if: '$CI_COMMIT_BRANCH == "master"'
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/rsync:bookworm
+  dependencies:
+    - build-website
+  environment: production
+  resource_group: production
+  script:
+    - apt-get install -y openssh-client rsync
+    - test -e .ssh || mkdir .ssh
+    - cp "$WEBSITE_DEPLOY_SSH_PRIVATE_KEY" .ssh/private_key
+    - cp "$WEBSITE_DEPLOY_SSH_KNOWN_HOSTS" .ssh/known_hosts
+    - chmod 400 .ssh/known_hosts .ssh/private_key
+    - echo "variables often lack a trailing newline, which breaks SSH, detect and fix"
+    - ssh-keygen -y -f .ssh/private_key || echo >> .ssh/private_key
+    - echo "here is the SSH key we will deploy with"
+    - ssh-keygen -y -f .ssh/private_key
+    - echo -n "Begin rsync, time is " && date '+%Y-%m-%d %H-%M-%S%z'
+    - rsync --rsh="ssh -p 3004 -o UserKnownHostsFile=.ssh/known_hosts -i .ssh/private_key" --checksum --archive --no-times --verbose --mkpath --delete "config/chroot_local-includes/usr/share/doc/tails/website/" www-data@chameleon.tails.net:/
 
 lint-po:
-  image: debian:testing
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:trixie
   rules:
     - if: '$CI_COMMIT_BRANCH =~ /^master|stable|testing|devel$/'
     - changes:
@@ -39,42 +100,41 @@ lint-po:
     - *prepare-lint-po
     - /tmp/jenkins-tools/slaves/lint_po
 
-bandit:
-  script:
-  - apt-get -qy install python3-bandit file
-  - bandit --version
-  - './bin/bandit-tree --configfile .bandit.yml
-                       -ll
-                       --format xml
-                       --output bandit.xml
-                       .'
-  artifacts:
-    when: always
-    reports:
-      junit: bandit.xml
-
-check-black:
-  image: debian:bookworm
-  script:
-  - apt-get -qy install black
-  - black --version
-  - black -t py311 --check .
-
-ruff-changed-files:
+ruff-lint-changed-files:
   only:
     - merge_requests
 
-  image: debian:sid
+  variables:
+    GIT_STRATEGY: clone
+    GIT_DEPTH: 0
+
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:sid
 
   script:
-    - apt-get -qy install ruff findutils git file
+    - apt-get -qy install ruff findutils git python3
     - ruff --version
     - git fetch origin "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
-    - ./bin/test-utils/ruff "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}" --output-format=junit --output-file=ruff.xml
+    - ./bin/test-utils/ruff "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}" check --output-format=junit --output-file=ruff.xml
   artifacts:
     when: always
     reports:
       junit: ruff.xml
+
+ruff-format-changed-files:
+  only:
+    - merge_requests
+
+  variables:
+    GIT_STRATEGY: clone
+    GIT_DEPTH: 0
+
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:sid
+
+  script:
+    - apt-get -qy install ruff findutils git python3
+    - ruff --version
+    - git fetch origin "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
+    - ./bin/test-utils/ruff "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}" format --check
 
 check-website-core-pages:
   script:
@@ -113,7 +173,7 @@ check-locale-descriptions:
     - ./bin/locale-descriptions suggest
 
 rubocop:
-  image: debian:bookworm
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:bookworm
   script:
   - apt-get -qy install rubocop
   - rubocop --version
@@ -151,7 +211,7 @@ test-perl5lib:
   - dzil test --all
 
 shellcheck:
-  image: debian:testing
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:trixie
   script:
   - apt-get -qy install python3 shellcheck xmlstarlet git
   - shellcheck --version
@@ -262,7 +322,7 @@ https-get-expired:
 
 https-get-expired-sid:
   # this job gives us results using a future version of Golang compared to the one we actually use
-  image: debian:sid
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:sid
   rules:
     - if: '$CI_COMMIT_BRANCH == "devel"'
     - changes:

@@ -128,6 +128,7 @@ def show_donation_message():
         # opening Electrum with our donation address.
         subprocess.check_call([
             '/usr/bin/notify-send',
+            '--',
             _('Opening Electrum with our donation address...'),
             _('Thank you for making the Internet a safer place!'),
         ])

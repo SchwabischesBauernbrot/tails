@@ -52,8 +52,8 @@ Here's why we choose a different approach than Tor:
  - When the user chooses not to try to hide the fact they're using Tor, we try
    our best to connect to Tor automatically. The way we do it may make it easier
    for an adversary to tell that the user is using Tails. For details, see our
-   design documentation about [non-Tor
-   traffic](contribute/design/Tor_enforcement). Since there are much fewer Tails
+   design documentation about [[non-Tor
+   traffic|contribute/design/Tor_enforcement]]. Since there are much fewer Tails
    users than Tor Browser users, this risk of detection matters even more in our
    case: identified Tails users may look more suspicious and would be easier to
    track down.
@@ -124,6 +124,7 @@ configure tor. Configuring tor is something that we consider to be a privileged
 operation, because it can lead to deanonymization quite easily.
 
 We want:
+
  - _Tor Connection_ to run as `amnesia`. This is required to nicely integrate
    with the desktop environment
  - the `amnesia` user not to be able to configure tor. ie: an attacker
@@ -137,6 +138,7 @@ We want:
    Those actions must not be permitted to the user outside of _Tor Connection_.
 
 So that's what we do:
+
  - _Tor Connection_ is started in a dedicated, privileged, network namespace;
    this is needed to be able to reach onion-grater properly; see
    [[!tails_ticket 18123]]
@@ -155,6 +157,7 @@ So that's what we do:
    `connect-drop` is responsible for this, too
 
 The code lives in:
+
  * [[!tails_gitweb_dir config/chroot_local-includes/usr/lib/python3/dist-packages/tca]]
  * [[!tails_gitweb config/chroot_local-includes/usr/local/bin/tca]]
  * [[!tails_gitweb config/chroot_local-includes/usr/share/applications/tca.desktop.in]]

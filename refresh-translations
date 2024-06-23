@@ -44,6 +44,7 @@ PYTHON_PROGS="\
     /usr/lib/python3/dist-packages/tps_frontend/error_dialog.py \
     /usr/lib/python3/dist-packages/tps_frontend/feature.py \
     /usr/lib/python3/dist-packages/tps_frontend/passphrase_strength_hint.py \
+    /usr/lib/python3/dist-packages/tps_frontend/views/features_view.py \
     /usr/lib/python3/dist-packages/tps_frontend/window.py \
     /usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py \
     /usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_list.py \
@@ -59,7 +60,8 @@ SHELL_PROGS=" \
     /usr/local/bin/keepassxc \
     /usr/local/bin/tca \
     /usr/local/lib/tails-spoof-mac \
-    /usr/local/lib/tails-report-disk-errors \
+    /usr/local/lib/tails-report-disk-ioerrors \
+    /usr/local/lib/tails-report-disk-resize-errors \
     /usr/local/bin/thunderbird \
     /usr/bin/tor-browser \
     /usr/local/sbin/unsafe-browser"
@@ -158,7 +160,7 @@ create_pot () {
                 ;;
             *)
                 xgettext_args=
-                        ;;
+                ;;
         esac
 	# shellcheck disable=SC2086
         xgettext --language="${proglang}" --from-code=UTF-8 \
@@ -231,7 +233,7 @@ intltool_update_pot () {
 
 intltool_merge_desktop () {
     extract_from_file_between_markers po/POTFILES.in \
-        '^# Files updated by intltool-update --desktop-style' '^$' \
+        '^# Files updated by intltool-merge --desktop-style' '^$' \
         | while read -r infile ; do
               intltool-merge --quiet --desktop-style --utf8 \
                              po "$infile" "${infile%.in}"
@@ -240,7 +242,7 @@ intltool_merge_desktop () {
 
 intltool_merge_xml () {
     extract_from_file_between_markers po/POTFILES.in \
-        '^# Files updated by intltool-update --xml-style' '^$' \
+        '^# Files updated by intltool-merge --xml-style' '^$' \
         | while read -r infile ; do
               intltool-merge --quiet --xml-style --utf8 \
                              po "$infile" "${infile%.in}"

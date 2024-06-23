@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2023-05-04 17:49+0000\n"
-"PO-Revision-Date: 2024-02-27 23:47+0000\n"
+"POT-Creation-Date: 2024-05-16 21:16+0000\n"
+"PO-Revision-Date: 2024-06-04 21:53+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -33,9 +33,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"clock\">The computer clock is set to an incorrect time zone</h2>\n"
-msgstr ""
-"<h2 id=\"clock\">El rellotge de l'ordinador està configurat en una zona "
-"horària incorrecta</h2>\n"
+msgstr "<h2 id=\"clock\">El rellotge de l'ordinador està configurat en una zona horària incorrecta</h2>\n"
 
 #. type: Plain text
 msgid "The clock of the computer needs to be correct to connect to Tor."
@@ -54,14 +52,15 @@ msgid ""
 "Choose **Fix Clock** in the error screen of the *Tor Connection* assistant "
 "to set the clock and time zone of your computer."
 msgstr ""
-"Trieu **Corregir Rellotge** a la pantalla d'error de l'assistent de *"
-"Connexió de Tor* per configurar el rellotge i la zona horària de l'ordinador."
+"Trieu **Corregir Rellotge** a la pantalla d'error de l'assistent de "
+"*Connexió de Tor* per configurar el rellotge i la zona horària de "
+"l'ordinador."
 
 #. type: Plain text
 msgid ""
 "If you have problems fixing the clock, you can instead try to restart Tails "
 "and choose to [[connect to Tor automatically|tor#automatic]]. When "
-"connecting to Tails automatically, Tails fixes the clock automatically by "
+"connecting to Tor automatically, Tails fixes the clock automatically by "
 "connecting to the captive portal detection service of [Fedora](https://"
 "getfedora.org/) before connecting to Tor."
 msgstr ""
@@ -79,9 +78,7 @@ msgstr "<h2 id=\"portal\">Heu d'iniciar sessió a la xarxa</h2>\n"
 #. type: Plain text
 #, no-wrap
 msgid "[[!inline pages=\"doc/anonymous_internet/unsafe_browser/captive_portal.inline\" raw=\"yes\" sort=\"age\"]]\n"
-msgstr ""
-"[[!inline pages=\"doc/anonymous_internet/unsafe_browser/captive_portal.inline"
-".ca\" raw=\"yes\" sort=\"age\"]]\n"
+msgstr "[[!inline pages=\"doc/anonymous_internet/unsafe_browser/captive_portal.inline.ca\" raw=\"yes\" sort=\"age\"]]\n"
 
 #. type: Plain text
 msgid "To sign in to a network using a captive portal:"
@@ -106,8 +103,7 @@ msgstr "Seguiu les instruccions de la pàgina d'inici del *Navegador Insegur*."
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"stuck\">The progress bar gets stuck around 50%</h2>\n"
-msgstr ""
-"<h2 id=\"stuck\">La barra de progrés s'encalla al voltant del 50%</h2>\n"
+msgstr "<h2 id=\"stuck\">La barra de progrés s'encalla al voltant del 50%</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -134,8 +130,8 @@ msgstr ""
 "inicial."
 
 #. type: Plain text
-msgid "- Try a different obfs4 bridge."
-msgstr "- Provar un pont obfs4 diferent."
+msgid "- Try with [[another bridge|troubleshoot#bridge]]."
+msgstr "- Proveu [[un altre pont|troubleshoot#bridge]]."
 
 #. type: Plain text
 #, no-wrap
@@ -177,8 +173,20 @@ msgid "It is possible that the bridge that you entered is no longer working."
 msgstr "És possible que el pont que heu introduït ja no funcioni."
 
 #. type: Plain text
-msgid "Try entering another bridge or requesting other bridges."
-msgstr "Intenteu entrar un altre pont o sol·licitar-ne d'altres."
+msgid "Try with [[another bridge|troubleshoot#bridge]]."
+msgstr "Proveu [[un altre pont|troubleshoot#bridge]]."
+
+#. type: Plain text
+#, no-wrap
+msgid "<h2 id=\"bridge\">Learning about another bridge</h2>\n"
+msgstr "<h2 id=\"bridge\">Descobrir un altre pont</h2>\n"
+
+#. type: Plain text
+#, no-wrap
+msgid "[[!inline pages=\"doc/anonymous_internet/tor/bridge.inline\" raw=\"yes\" sort=\"age\"]]\n"
+msgstr ""
+"[[!inline pages=\"doc/anonymous_internet/tor/bridge.inline.ca\" raw=\"yes\" "
+"sort=\"age\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -196,10 +204,7 @@ msgstr "Un pont obfs4 té l'aspecte següent:"
 #. type: Plain text
 #, no-wrap
 msgid "    obfs4 1.2.3.4:1234 B0E566C9031657EA7ED3FC9D248E8AC4F37635A4 cert=OYWq67L7MDApdJCctUAF7rX8LHvMxvIBPHOoAp0+YXzlQdsxhw6EapaMNwbbGICkpY8CPQ iat-mode=0\n"
-msgstr ""
-"    obfs4 1.2.3.4:1234 B0E566C9031657EA7ED3FC9D248E8AC4F37635A4 "
-"cert=OYWq67L7MDApdJCctUAF7rX8LHvMxvIBPHOoAp0+YXzlQdsxhw6EapaMNwbbGICkpY8CPQ "
-"iat-mode=0\n"
+msgstr "    obfs4 1.2.3.4:1234 B0E566C9031657EA7ED3FC9D248E8AC4F37635A4 cert=OYWq67L7MDApdJCctUAF7rX8LHvMxvIBPHOoAp0+YXzlQdsxhw6EapaMNwbbGICkpY8CPQ iat-mode=0\n"
 
 #. type: Plain text
 msgid ""
@@ -207,3 +212,6 @@ msgid ""
 "combination."
 msgstr ""
 "Heu d'introduir tota la línia, no només la combinació d'adreça IP i port."
+
+#~ msgid "- Try a different obfs4 bridge."
+#~ msgstr "- Provar un pont obfs4 diferent."

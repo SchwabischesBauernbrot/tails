@@ -1,6 +1,6 @@
 import os.path
 
-from gi.repository import Gdk, Gio, Gtk
+from gi.repository import Gdk, Gio, Gtk, GLib
 import inspect
 from logging import getLogger
 import subprocess
@@ -12,6 +12,7 @@ from tps_frontend import (
     DBUS_SERVICE_NAME,
     DBUS_FEATURE_INTERFACE,
     CUSTOM_FEATURE_UI_FILE,
+    _,
 )
 from tps_frontend.view import View
 from tps_frontend.feature import Feature, CustomFeatureRow
@@ -194,18 +195,26 @@ class FeaturesView(View):
         app.launch(context=launch_context)
 
     def on_activate_link(self, label: Gtk.Label, uri: str):
-        logger.debug("Opening documentation: %s", uri)
-        subprocess.run(["/usr/local/bin/tails-documentation", uri])  # noqa: PLW1510
+        self.open_documentation(uri)
         return True
 
     def on_activate_link_button(self, link_button: Gtk.LinkButton):
-        uri = link_button.get_uri()
-        page, anchor = uri.split("#")
-        logger.debug("Opening documentation: %s", uri)
-        subprocess.run(
-            ["/usr/local/bin/tails-documentation", page, anchor]
-        )  # noqa: PLW1510
+        self.open_documentation(link_button.get_uri())
         return True
+
+    def open_documentation(self, uri: str):
+        logger.debug("Opening documentation: %s", uri)
+        if "#" in uri:
+            page, anchor = uri.split("#")
+            cmd = ["/usr/local/bin/tails-documentation", page, anchor]
+        else:
+            cmd = ["/usr/local/bin/tails-documentation", uri]
+        try:
+            subprocess.run(cmd, stderr=subprocess.PIPE, text=True, check=True)
+        except subprocess.CalledProcessError as e:
+            logger.error("Failed to open documentation: %s", e)
+            title = _("Failed to open the documentation")
+            self.window.display_command_failed_error(title, cmd, e)
 
     def add_custom_feature(self, proxy: Gio.DBusObject):
         description = proxy.get_cached_property("Description").get_string()

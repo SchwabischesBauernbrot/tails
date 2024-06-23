@@ -35,6 +35,37 @@
    [[!img install/inc/screenshots/tails_cloner.png link="no" class="pc-clone mac-clone screenshot" alt="Tails Cloner: 'Clone the current Tails'"]]
    [[!img install/inc/screenshots/tails_cloner_upgrade.png link="no" class="upgrade screenshot" alt="Tails Cloner: 'Clone the current Tails'"]]
 
+   <p>If the Tails that you are cloning from has a Persistent Storage, another
+   option <b>Clone the current Persistent Storage</b> is available.</p>
+
+   <p>[[!img install/inc/screenshots/tails_cloner_persistent_storage.png link="no" class="screenshot" alt="Option: **Clone the current Persistent Storage** below **Clone the current Tails**"]]</p>
+
+   <p></p>
+
+   <div class="pc-clone mac-clone">
+
+   <p>If you select the option <b>Clone the current Persistent Storage</b>, the
+   Persistent Storage of the Tails USB stick that you are cloning from will
+   also be copied.</p>
+
+   </div>
+
+   <div class="upgrade">
+
+   <p>If you select the option <b>Clone the current Persistent Storage</b>, the
+   <b>Upgrade</b> button becomes unavailable and you can only
+   [[reinstall|install/clone]] and delete all data on the target USB stick.</p>
+
+   <div class="bug">
+
+   <p>In the future, we want to allow cloning the Persistent Storage when
+   upgrading as well, for example to make it quicker to update a [[backup Tails
+   USB stick|doc/persistent_storage/backup]]. ([[!tails_ticket 20362]])</p>
+
+   </div>
+
+   </div>
+
 1. Choose
    <span class="pc-clone mac-clone">the new</span>
    <span class="upgrade">your</span>
@@ -44,16 +75,15 @@
    <span class="pc-clone mac-clone">installation, click on the <b>Install</b> button.</span>
    <span class="upgrade">upgrade, click on the <b>Upgrade</b> button.</span>
 
-   <div class="note upgrade">
-   <p>The Persistent Storage of your Tails USB stick will be preserved.</p>
-   <p class="upgrade-clone">The Persistent Storage of the other Tails will not be copied.</p>
+   <div class="pc-clone mac-clone">
+
+   <p>Read the warning message in the confirmation dialog.</p>
+
+   <p>Click <b>Delete All Data and Install</b> to confirm.</p>
+
    </div>
 
-1. Read the warning message in the confirmation dialog.
-
-1. Click **Delete All Data and Install** to confirm.
-
-   The
+1. The
    <span class="pc-clone mac-clone">installation</span>
    <span class="upgrade">upgrade</span>
    takes a few minutes.
@@ -63,7 +93,10 @@
    while synchronizing data on disk.</p>
    </div>
 
-1. After the installation finishes, close <span class="application">Tails Cloner</span>.
+1. After the
+   <span class="pc-clone mac-clone">installation</span>
+   <span class="upgrade">upgrade</span>
+   finishes, close <i>Tails Cloner</i>
 
    [[!img install/inc/screenshots/installation_complete.png link="no" class="screenshot" alt=""]]
 

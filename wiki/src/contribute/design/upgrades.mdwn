@@ -196,7 +196,7 @@ of upgrade-description file files.
 * channel (e.g. *stable* or *beta*)
 * `upgrade.yml`
 
-Example: <https://tails.net/upgrade/v2/Tails/0.11/amd64/beta/upgrades.yml>
+Example: <https://tails.net/upgrade/v2/Tails/6.0/amd64/stable/upgrades.yml>
 
 Such a file shall be shipped along with its OpenPGP detached signature
 (`upgrades.yml.pgp`).
@@ -223,7 +223,7 @@ upgrade to an individual product version, with the following keys:
 
 * `details-url` (optional) -- a URL to a web page with more
   information about the specified upgrade (e.g.
-  <https://tails.net/news/version_0.11.1/>)
+  the release notes)
 
 * `upgrade-paths` -- a list of at least one and no more than two
   upgrade path elements.
@@ -253,7 +253,7 @@ Every target file element has the following keys:
   will need to be specified when this happens.)
 
 Example that would be found at
-<https://tails.net/upgrade/v2/Tails/0.11.1/amd64/stable/upgrades.yml>:
+`https://tails.net/upgrade/v2/Tails/0.11.1/amd64/stable/upgrades.yml`:
 
 	product-name: Tails
 	initial-install-version: 0.11.1
@@ -310,7 +310,7 @@ A given IUK is meant to be made available at the URL composed from:
 * `https://download.tails.net/tails/iuk/v2/`
 * the IUK file basename
 
-Example: <https://download.tails.net/tails/iuk/v2/Tails_amd64_0.11.1_to_0.11.2.iuk>
+Example: <https://mirrors.edge.kernel.org/tails/stable/iuk/v2/Tails_amd64_6.0_to_6.1.iuk>
 
 ## Client and user interface
 
@@ -552,7 +552,7 @@ files is protected as well as it is in the old Tails upgrade system.
 
 **Note**: the attack definitions below come straight from the [TUF
 security
-documentation](https://www.updateframework.com/wiki/Docs/Security)
+documentation](https://theupdateframework.io/security/)
 (2012-05-04).
 
 We believe the upgrade system described on this page is at least as
@@ -760,7 +760,7 @@ relies in the privilege separation described above: all that the
 ## Secure upgrade
 
 * [TUF: The Update Framework](https://www.updateframework.com/)
-* [Thandy specification](https://gitweb.torproject.org/thandy.git/blob_plain/HEAD:/specs/thandy-spec.txt)
+* [Thandy specification](https://gitlab.torproject.org/legacy/gitolite/thandy/-/blob/HEAD/specs/thandy-spec.txt)
 
 ## Discarded options and historical information
 

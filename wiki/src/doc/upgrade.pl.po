@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
-"PO-Revision-Date: 2022-12-21 11:06+0000\n"
+"POT-Creation-Date: 2024-05-30 11:29+0000\n"
+"PO-Revision-Date: 2024-05-20 17:54+0000\n"
 "Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pl\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=n==1 ? 0 : n%10>=2 && n%10<=4 && (n%100<10 "
 "|| n%100>=20) ? 1 : 2;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -40,23 +40,6 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "<div class=\"tip\">\n"
-msgstr "<div class=\"tip\">\n"
-
-#. type: Plain text
-#, no-wrap
-msgid ""
-"<p>To learn how Tails implements automatic upgrades, see our\n"
-"[[design documentation about automatic upgrades|contribute/design/upgrades]].</p>\n"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid "</div>\n"
-msgstr "</div>\n"
-
-#. type: Plain text
-#, no-wrap
 msgid "<div class=\"note\">\n"
 msgstr "<div class=\"note\">\n"
 
@@ -66,6 +49,11 @@ msgid ""
 "<p>Your Persistent Storage will be preserved by both automatic and\n"
 "manual upgrades.</p>\n"
 msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "</div>\n"
+msgstr "</div>\n"
 
 #. type: Plain text
 msgid ""
@@ -165,6 +153,11 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
+msgid "<div class=\"tip\">\n"
+msgstr "<div class=\"tip\">\n"
+
+#. type: Plain text
+#, no-wrap
 msgid ""
 "<p>If you cannot upgrade at startup (for example, if you have no network\n"
 "connection by then), you can start <span class=\"application\">Tails\n"
@@ -223,83 +216,6 @@ msgstr ""
 
 #. type: Plain text
 #, no-wrap
-msgid "<h2 id=\"reduce\">Reducing the size of the download</h2>\n"
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"When doing automatic upgrades, the size of the download increases over time."
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"You can reduce the size of the download of future automatic upgrades by "
-"doing a [[manual upgrade|upgrade#manual]] to the latest version."
-msgstr ""
-
-#. type: Plain text
-msgid "Your Tails USB stick stores:"
-msgstr ""
-
-#. type: Bullet: '- '
-msgid ""
-"1 **base** version that you first installed or to which you last did a "
-"manual upgrade"
-msgstr ""
-
-#. type: Bullet: '- '
-msgid ""
-"1 **upgrade** package containing all the changes made to Tails since the "
-"base version"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid "[[!img system.png link=\"no\" alt=\"\"]]\n"
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"For example, if you install a Tails USB stick with 4.6, the base version is "
-"4.6, and:"
-msgstr ""
-
-#. type: Plain text
-msgid "- The upgrade to 4.7 is 181 MB."
-msgstr ""
-
-#. type: Plain text
-msgid "- The upgrade to 4.8 is 347 MB."
-msgstr ""
-
-#. type: Plain text
-msgid "- The upgrade to 4.9 is 418 MB."
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid "[[!img incremental.png link=\"no\" alt=\"\"]]\n"
-msgstr ""
-
-#. type: Plain text
-msgid ""
-"But if you do a manual upgrade of the same USB stick from 4.7 to 4.8, the "
-"base version becomes 4.8, and then:"
-msgstr ""
-
-#. type: Bullet: '- '
-msgid ""
-"The upgrade to 4.9 is only 205 MB, instead of 418 MB when 4.6 was the base "
-"version."
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
-msgid "[[!img manual.png link=\"no\" alt=\"\"]]\n"
-msgstr ""
-
-#. type: Plain text
-#, no-wrap
 msgid "<h1 id=\"manual\">Manual upgrade using <i>Tails Cloner</i></h1>\n"
 msgstr ""
 
@@ -354,7 +270,23 @@ msgstr ""
 #, no-wrap
 msgid ""
 "<p>You can also do a manual upgrade to reduce the size of future automatic\n"
-"upgrades, as described [[above|upgrade#reduce]].</p>\n"
+"upgrades.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>When doing automatic upgrades, the size of the download increases over time.\n"
+"If you do a manual upgrade, the size of future automatic upgrades will become\n"
+"smaller again.</p>\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p>We [[!tails_ticket 15289 desc=\"estimated\"]] that, to actually reduce the\n"
+"overall download size, it's only worth it to do 1 manual upgrade every year if\n"
+"you apply all upgrades of Tails.</p>\n"
 msgstr ""
 
 #. type: Plain text
@@ -374,10 +306,6 @@ msgstr ""
 
 #. type: Plain text
 msgid "- [[Burn a new Tails DVD|install/dvd]]"
-msgstr ""
-
-#. type: Plain text
-msgid "- [[Upgrade your virtual machine|install/vm]]"
 msgstr ""
 
 #. type: Plain text

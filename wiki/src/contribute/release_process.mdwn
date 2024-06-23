@@ -244,6 +244,23 @@ Check the Release Manager role
 Check the [[contribute/working_together/roles/release_manager]] role
 documentation: it has more tasks that should be done early enough.
 
+Sometimes some of these are forgotten, and for emergency releases they
+will always be last minute, so let's make sure that the release will
+not be blocked later.
+
+### Make sure there are enough manual testers
+
+Check your if you have enough manual testers registered. If not, ping
+the usual testers (manual-testers@tails.net) and warn the
+Foundations Team that you may need their help.
+
+### Make sure there is a Trusted Reproducer
+
+Check that the <https://tails.net/contribute/calendar/> has a _Trusted
+Reproducer_ assigned for this release, otherwise try to find one among
+the manual testers (manual-testers@tails.net) or FT (XMPP,
+foundations@tails.net).
+
 Coordinate with Debian security updates
 ---------------------------------------
 
@@ -438,7 +455,8 @@ Manually inspect the diffs:
  - The only lines added or removed should reflect the addition or removal of a file with a matching name in `po/`.
 
    For example, if you see `zz-YY:YY` added in `config/chroot_local-includes/usr/share/tails/browser-localization/descriptions`
-   it must be because of a `po/zz_YY.po` which includes a line `"Language: zz_YY\n"`
+   it must be because of a `po/zz_YY.po` which includes a line `"Language: zz_YY\n"`, or `po/zz.po` and
+   `"Language: zz\n"` if a `zz="zz_YY"` mapping exists in `po/po-to-mozilla.toml`.
 
 Commit the changes (if any):
 
@@ -677,92 +695,8 @@ Build the almost-final images
 
         . $(./bin/rm-config generate-environment --stage built-almost-final)
 
-Tag the release in Git
-======================
-
-	git tag -u "${TAILS_SIGNATURE_KEY:?}" \
-	  -m "tagging version ${VERSION:?}" "${TAG:?}" && \
-	git push origin "${TAG:?}" "${RELEASE_BRANCH:?}"
-
-Known limitations:
-
-- Pushing the tag is needed so that the APT repository is updated, and the Tails
-  APT configuration works at build and boot time. It might be premature, as
-  testing might reveal critical issues, but this is a signed tag, so it can be
-  overridden later.
-
-- From this push of a tag, the release branch will fail to build because the
-  last changelog entry is unreleased but corresponds to an existing tag.
-  Don't worry about it, this will be fixed shortly.
-
-Prepare the versioned APT suites
-================================
-
-Expected time: 15 minutes
-
-Versioned APT suite in our custom APT repository
-------------------------------------------------
-
-Within a few minutes after pushing the new release's Git tag, a cronjob
-creates a new APT suite in our custom APT repository. This new APT suite is
-called `$TAG` and is initially empty.
-
-Wait for this APT suite to be created and initialize it with the packages
-currently found in the APT suite corresponding to the branch used to prepare
-the release:
-
-      while ! ssh reprepro@incoming.deb.tails.boum.org reprepro list "${TAG:?}" >/dev/null 2>&1; do
-         sleep 5
-      done && \
-      ssh reprepro@incoming.deb.tails.boum.org \
-         tails-merge-suite "${RELEASE_BRANCH:?}" "${TAG:?}"
-
-Tagged snapshots of upstream APT repositories
----------------------------------------------
-
-Create tagged snapshots of upstream APT repositories:
-
-      ./bin/tag-apt-snapshots "${ALMOST_FINAL_BUILD_MANIFEST:?}" "${TAG:?}"
-
-Note:
-
-  - This command takes a while (about a dozen minutes).
-    While it's running, if you don't feel the need to take a break,
-    you can proceed with the "SquashFS file order" section below.
-
-  - It's expected that the packages that were pulled from our
-    [[custom APT repository|APT_repository/custom]] are
-    listed under "some packages were not found anywhere" (because we
-    are currently not using time-based snapshots for our custom APT
-    repository). However, _no other package should be on that list_.
-    Now, we have a "safety" net, in case you don't notice such a problem: if
-    other packages are missing, the next build (that will use the
-    newly created partial, tagged APT repository) will fail.
-
-Build images
-============
-
-Expected time: 50-95 minutes depending on your computer and the available
-Jenkins workers.
-
-Sanity check
-------------
-
-Verify that the Tor Browser release used in Tails still is the most
-recent. Also look if there's a new `-buildX` tag (e.g.
-`tor-browser-60.3.0esr-8.0-1-build1`) for the Firefox version the Tor
-Browser we want to ship is based on in these Git repositories:
-
-* [tor-browser-build activity](https://gitlab.torproject.org/tpo/applications/tor-browser-build/activity)
-  (`maint-X.Y` branch)
-* [tor-browser activity](https://gitlab.torproject.org/tpo/applications/tor-browser/activity)
-
-A new tag may indicate that a new Tor Browser release or rebuild is imminent.
-
-Better catch this before people spend time doing manual tests.
-
 SquashFS file order
--------------------
+===================
 
 Expected time: 20 minutes
 
@@ -823,14 +757,30 @@ Feel free to skip this section when preparing an emergency release.
             config/binary_rootfs/squashfs.sort && \
         rm -f config/binary_rootfs/squashfs.sort.old
 
-Build the final images
-----------------------
+Build images
+============
 
-Expected time: 30-75 minutes depending on your computer and the available
+Expected time: 50-95 minutes depending on your computer and the available
 Jenkins workers.
 
-Then all included files should be up-to-date and the versioned APT
-suite should be ready, so it is time to:
+Sanity check
+------------
+
+Verify that the Tor Browser release used in Tails still is the most
+recent. Also look if there's a new `-buildX` tag (e.g.
+`tor-browser-60.3.0esr-8.0-1-build1`) for the Firefox version the Tor
+Browser we want to ship is based on in these Git repositories:
+
+* [tor-browser-build activity](https://gitlab.torproject.org/tpo/applications/tor-browser-build/activity)
+  (`maint-X.Y` branch)
+* [tor-browser activity](https://gitlab.torproject.org/tpo/applications/tor-browser/activity)
+
+A new tag may indicate that a new Tor Browser release or rebuild is imminent.
+
+Better catch this before people spend time doing manual tests.
+
+Finalize and tag the release
+----------------------------
 
 1. Mark the version as "released" in the changelog:
 
@@ -852,12 +802,59 @@ suite should be ready, so it is time to:
 
         . $(./bin/rm-config generate-environment --stage finalized-changelog)
 
-1. Tag the release *again*, with all included files in:
+1. Tag the release:
 
-        git tag -f -u "${TAILS_SIGNATURE_KEY:?}" \
+        git tag -u "${TAILS_SIGNATURE_KEY:?}" \
                 -m "tagging version ${VERSION:?}" "${TAG:?}" && \
-        git push --force origin "${TAG:?}" && \
-        git push origin "${RELEASE_BRANCH:?}"
+        git push origin "${TAG:?}" "${RELEASE_BRANCH:?}"
+
+Prepare the versioned APT suites
+--------------------------------
+
+Expected time: 15 minutes
+
+### Versioned APT suite in our custom APT repository
+
+Within a few minutes after pushing the new release's Git tag, a cronjob
+creates a new APT suite in our custom APT repository. This new APT suite is
+called `$TAG` and is initially empty.
+
+Wait for this APT suite to be created and initialize it with the packages
+currently found in the APT suite corresponding to the branch used to prepare
+the release:
+
+      while ! ssh reprepro@incoming.deb.tails.boum.org reprepro list "${TAG:?}" >/dev/null 2>&1; do
+         sleep 5
+      done && \
+      ssh reprepro@incoming.deb.tails.boum.org \
+         tails-merge-suite "${RELEASE_BRANCH:?}" "${TAG:?}"
+
+### Tagged snapshots of upstream APT repositories
+
+Create tagged snapshots of upstream APT repositories:
+
+      ./bin/tag-apt-snapshots "${ALMOST_FINAL_BUILD_MANIFEST:?}" "${TAG:?}"
+
+Note:
+
+  - This command takes a while (about a dozen minutes).
+    While it's running, if you don't feel the need to take a break,
+    you can proceed with the "SquashFS file order" section below.
+
+  - It's expected that the packages that were pulled from our
+    [[custom APT repository|APT_repository/custom]] are
+    listed under "some packages were not found anywhere" (because we
+    are currently not using time-based snapshots for our custom APT
+    repository). However, _no other package should be on that list_.
+    Now, we have a "safety" net, in case you don't notice such a problem: if
+    other packages are missing, the next build (that will use the
+    newly created partial, tagged APT repository) will fail.
+
+Build the final images
+----------------------
+
+Expected time: 30-75 minutes depending on your computer and the available
+Jenkins workers.
 
 1. Build the final images:
 
@@ -870,8 +867,15 @@ suite should be ready, so it is time to:
    If the build fails and you commit some last-minute fix, then you must
    redo the previous step where you re-tag and force-push to origin!
 
-1. Make sure the Jenkins build starts as soon as possible. If needed, remove
-   other builds from the _Build Queue_.
+1. Manually start a build of the release branch on Jenkins, removing
+   other builds from the _Build Queue_ if needed so it can start
+   immediately. Take note of which job number was used for later (see
+   `matching_jenkins_images_build_id` below).
+
+   Note that jenkins automatically started a build earlier when you
+   pushed the tag, but since the versioned APT suite wasn't finished
+   by then we avoid using that build and rely on the manually started
+   one to be safe.
 
 1. Make sure the Jenkins build is right: you can recognize this is the case,
    when you see Jenkins starts building the website. Jenkins will take
@@ -1009,11 +1013,11 @@ files metadata:
 Get the internal manual testing started
 =======================================
 
-Email <tails-board@boum.org> and <tails-manual-testers@boum.org> that tests
+Email <board@tails.net> and <manual-testers@tails.net> that tests
 may start. Remember to encrypt and sign your email!
 
     ./bin/automailer.py <<EOF
-    To: tails-board@boum.org, tails-manual-testers@boum.org
+    To: board@tails.net, manual-testers@tails.net
     Subject: Testing Tails ${VERSION:?}
     X-Attach: $(/bin/ls -1 "$ISOS/tails-amd64-${VERSION:?}/tails-amd64-${VERSION:?}.packages" "$ISOS/tails-amd64-${VERSION:?}/"tails-amd64-${VERSION:?}.{iso,img}.sig "$ISOS/tails-amd64-${VERSION:?}".{iso,img}.torrent | tr '\n' ,)
 
@@ -1066,6 +1070,7 @@ To build the IUKS, run this command:
     IUK_CREATION_LOG=$(mktemp --tmpdir=/var/tmp wrap_tails_create_iuks.XXXXXXXX.log)
     (
        set -eu
+       set -o pipefail
        WORK_DIR=$(mktemp -d)
        TAILS_REMOTE="$(git -C "${RELEASE_CHECKOUT?:}" remote get-url origin)"
        PUPPET_TAILS_REMOTE=$(echo -n "${TAILS_REMOTE?:}" | perl -p -E 's,:tails/tails(?:[.]git)?\z,:tails/puppet-tails,')
@@ -1435,7 +1440,7 @@ back semi-mechanically later on.
 
 **Beware!** If your have to plug your OpenPGP smart card or reassemble the
 key again after this point it invalidates *everything* done for
-the [[reproduction of this release|test#reproducibility-final-check]]
+the [[reproduction of this release|#reproducibility-final-check]]
 so it has to be started from the beginning:
 
 * the original text is restored on the pad, and
@@ -1690,11 +1695,6 @@ EOF
 Lead the internal manual testing to conclusion
 ==============================================
 
-1. Manual testers can now do the "Reproducibility" part of the manual test suite.
-
-   To communicate this to them, delete "⚠ Wait until the Release Manager […]" in
-   the "Reproducibility" section on the pad.
-
 1. Make sure that enough people are here to run the tests, that they
    report their results in due time, and that they make it clear when
    they're leaving for good.
@@ -1725,9 +1725,22 @@ Lead the internal manual testing to conclusion
 1. If you were the one running the [automated test suite](#run-automated-tests),
    check its results.
 
-1. Triage test results, reproduce bugs as needed, decide what the next
-   step is and make sure it happens: add to known issues? file an issue?
-   release blocker? improve the test description (steps, expected outcome)?
+1. Triage test results (except for the reproducibility test), reproduce bugs as
+   needed, decide what the next step is and make sure it happens: add to known
+   issues? file an issue? release blocker? improve the test description (steps,
+   expected outcome)?
+
+<a id="reproducibility-final-check"></a>
+
+Notify the Trusted Reproducer
+=============================
+
+Send an email to the TR telling them they can now start the
+Reproducibility test.
+
+Note that the Trusted Reproducer has 72 hours to complete this check,
+you do not have to wait for this to be completed, just make sure they
+are informed that the Reproducibility check can be started.
 
 Prepare announcements and blog posts
 ====================================
@@ -1835,9 +1848,7 @@ prepare the announcement for the release, write it yourself:
    - Mention major user-visible improvements.
 
    - Document important config changes that users of the Persistent Storage have to do
-     themselves (e.g. the Pidgin proxy settings change in
-     [[!tails_gitweb_commit 9925321]] breaks all existing persistent
-     profiles).
+     themselves.
 
    - Document known issues.
 
@@ -1846,7 +1857,7 @@ prepare the announcement for the release, write it yourself:
 In `wiki/src/home/testing.html`, in the "Current calls for testing" section,
 add a bullet point with a pointer to
 the call for testing for this release candidate
-(<https://tails.net/news/test_$TAG/>, that you just wrote).
+(`https://tails.net/news/test_$TAG/`, that you just wrote).
 
 In any case
 -----------
@@ -1920,9 +1931,9 @@ To disable mirrors that are lagging behind:
 
 2. Push to the [[!tails_gitlab tails/mirror-pool]] `master` branch.
 
-3. Verify that the CI pipeline passed on [[!tails_gitlab tails/mirror-pool/-/pipelines]].
+3. Verify that the CI pipeline passed on `https://gitlab.tails.boum.org/tails/mirror-pool/-/pipelines`.
 
-4. Notify <tails-mirrors@boum.org>, so they communicate with the operators of the
+4. Notify <sysadmins@tails.net>, so they communicate with the operators of the
    outdated mirrors.
 
 Sanity checks
@@ -1990,7 +2001,7 @@ Check:
 
     [ "${DIST:?}" = alpha ]
 
-wait until <https://tails.net/news/test_$TAG/> is live.
+wait until `https://tails.net/news/test_$TAG/` is live.
 
 Bug tracker [if preparing a final release]
 --------------------------------------------
@@ -2297,7 +2308,7 @@ Check that you are indeed preparing a final release:
 
    If the upcoming release dates in the Mozilla calendar does not match
    what we have in our release calendar, then alert
-   <tails-dev@boum.org>, <tails-rm@boum.org>, and explicitly Cc the
+   <tails-dev@boum.org>, <rm@tails.net>, and explicitly Cc the
    designated RM for that upcoming release.
 
 1. Announce the date of the next release on <tails-dev@boum.org> and
@@ -2305,7 +2316,7 @@ Check that you are indeed preparing a final release:
 
          ./bin/automailer.py <<EOF
          To: tails-dev@boum.org,tails-l10n@boum.org
-         Cc: tails-manual-testers@boum.org
+         Cc: manual-testers@tails.net
          Subject: Release schedule for Tails ${NEXT_PLANNED_VERSION:?}
 
          Hi,
@@ -2323,7 +2334,7 @@ Check that you are indeed preparing a final release:
    - If a release candidate is planned, include it in the release schedule
      and the call for manual testers.
 
-1. If you don't know who will be the release managers for the next 2 releases, open
+1. If you don't know who will be the release managers for the next **2** releases, open
    an issue per missing RM so you don't forget.
 
        /label ~"C:Release management" ~"Core Work:Foundations Team" ~"To Do" ~"P:Elevated" 

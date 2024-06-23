@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2023-12-22 04:29+0000\n"
-"PO-Revision-Date: 2024-01-17 22:37+0000\n"
-"Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
+"POT-Creation-Date: 2024-04-05 11:23+0000\n"
+"PO-Revision-Date: 2024-05-20 18:00+0000\n"
+"Last-Translator: xin <xin@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: es\n"
 "MIME-Version: 1.0\n"
@@ -21,9 +21,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "[[!meta title=\"Install Tails from Debian or Ubuntu using the command line and GnuPG\"]]\n"
-msgstr ""
-"[[!meta title=\"Instalar desde Debian o Ubuntu usando la línea de comandos y "
-"GnuPG\"]]\n"
+msgstr "[[!meta title=\"Instalar desde Debian o Ubuntu usando la línea de comandos y GnuPG\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -77,8 +75,7 @@ msgid ""
 "can skip this step and start [[downloading and verifying the USB\n"
 "image|expert#download]].</p>\n"
 msgstr ""
-"<p>Si ya verificaste la clave de firma de Tails previamente con tu propia "
-"clave,\n"
+"<p>Si ya verificaste la clave de firma de Tails previamente con tu propia clave,\n"
 "puedes saltarte este paso y empezar a [[descargar y verificar la imagen\n"
 "USB|expert#download]].</p>\n"
 
@@ -119,8 +116,7 @@ msgid ""
 "OpenPGP Keys</a> by <em>Riseup</em>.</p>\n"
 msgstr ""
 "<p>Para aprender a crear tu propia llave OpenPGP, consulta\n"
-"<a href=\"https://riseup.net/es/security/message-security/openpgp/gpg-keys\">"
-"Managing\n"
+"<a href=\"https://riseup.net/es/security/message-security/openpgp/gpg-keys\">Managing\n"
 "OpenPGP Keys</a> por <em>Riseup</em>.</p>\n"
 
 #
@@ -139,8 +135,8 @@ msgid ""
 "Import the Tails signing key in your <span class=\"application\">GnuPG</"
 "span> keyring:"
 msgstr ""
-"Importa la clave de firma de Tails en el depósito de claves de <span class="
-"\"application\">GnuPG</span>:"
+"Importa la clave de firma de Tails en el depósito de claves de <span "
+"class=\"application\">GnuPG</span>:"
 
 #. type: Plain text
 #, no-wrap
@@ -164,9 +160,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">sudo apt update && sudo apt install debian-keyring</p>\n"
-msgstr ""
-"   <p class=\"command\">sudo apt update && sudo apt install debian-"
-"keyring</p>\n"
+msgstr "   <p class=\"command\">sudo apt update && sudo apt install debian-keyring</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -182,9 +176,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export chris@chris-lamb.co.uk | gpg --import</p>\n"
-msgstr ""
-"   <p class=\"command\">gpg --keyring=/usr/share/keyrings/debian-keyring.gpg "
-"--export chris@chris-lamb.co.uk | gpg --import</p>\n"
+msgstr "   <p class=\"command\">gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export chris@chris-lamb.co.uk | gpg --import</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -195,9 +187,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
-msgstr ""
-"   <p class=\"command\">gpg --keyid-format 0xlong --check-sigs "
-"A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
+msgstr "   <p class=\"command\">gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -207,9 +197,7 @@ msgstr "   En el resultado de este comando, busca la siguiente línea:\n"
 #. type: Plain text
 #, no-wrap
 msgid "       sig!2        0x1E953E27D4311E58 2020-03-19  Chris Lamb <chris@chris-lamb.co.uk>\n"
-msgstr ""
-"       sig!2        0x1E953E27D4311E58 2020-03-19  Chris Lamb <chris@chris-"
-"lamb.co.uk>\n"
+msgstr "       sig!2        0x1E953E27D4311E58 2020-03-19  Chris Lamb <chris@chris-lamb.co.uk>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -255,9 +243,7 @@ msgstr "Certifica la clave de firma de Tails con tu propia clave:"
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
-msgstr ""
-"   <p class=\"command\">gpg --lsign-key "
-"A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
+msgstr "   <p class=\"command\">gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -276,9 +262,9 @@ msgstr "Descargar la imagen USB:"
 
 #. type: Plain text
 #, no-wrap
-msgid "   <p class=\"command-template\">wget --continue [[!inline pages=\"inc/stable_amd64_img_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
+msgid "   <p class=\"command\">wget --continue [[!inline pages=\"inc/stable_amd64_img_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
 msgstr ""
-"   <p class=\"command-template\">wget --continue [[!inline pages=\"inc/"
+"   <p class=\"command\">wget --continue [[!inline pages=\"inc/"
 "stable_amd64_img_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #. type: Plain text
@@ -306,9 +292,7 @@ msgstr "Descarga la firma de la imagen USB:"
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">wget [[!inline pages=\"inc/stable_amd64_img_sig_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
-msgstr ""
-"   <p class=\"command\">wget [[!inline pages=\"inc/stable_amd64_img_sig_url\""
-" raw=\"yes\" sort=\"age\"]]</p>\n"
+msgstr "   <p class=\"command\">wget [[!inline pages=\"inc/stable_amd64_img_sig_url\" raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -379,9 +363,7 @@ msgstr "   <p class=\"command\">ls -1 /dev/sd?</p>\n"
 #. type: Plain text
 #, no-wrap
 msgid "   It returns a list of the storage devices on the system. For example:\n"
-msgstr ""
-"   Devuelve una lista de los dispositivos de almacenamiento del sistema. Por "
-"ejemplo:\n"
+msgstr "   Devuelve una lista de los dispositivos de almacenamiento del sistema. Por ejemplo:\n"
 
 #. type: Plain text
 #, no-wrap
@@ -396,9 +378,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <div class=\"caution\"><p>All the data on this USB stick will be lost.</p></div>\n"
-msgstr ""
-"   <div class=\"caution\"><p>Se perderá toda la información en esta memoria "
-"USB.</p></div>\n"
+msgstr "   <div class=\"caution\"><p>Se perderá toda la información en esta memoria USB.</p></div>\n"
 
 #
 #. type: Bullet: '1. '
@@ -439,8 +419,7 @@ msgid ""
 msgstr ""
 "   <div class=\"caution\">\n"
 "<p>Si no estás seguro del nombre del dispositivo deberías parar ahora o\n"
-"<strong>te arriesgas a sobrescribir cualquier otro disco duro del "
-"sistema</strong>.</p>\n"
+"<strong>te arriesgas a sobrescribir cualquier otro disco duro del sistema</strong>.</p>\n"
 "</div>\n"
 
 #
@@ -487,6 +466,8 @@ msgstr "   Deberías obtener algo como esto:\n"
 #, no-wrap
 msgid "   <p class=\"command-template\">dd if=/home/user/tails-amd64-3.12.img of=/dev/sdb bs=16M oflag=direct status=progress</p>\n"
 msgstr ""
+"   <p class=\"command-template\">dd if=/home/user/tails-amd64-3.12.img of=/"
+"dev/sdb bs=16M oflag=direct status=progress</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -494,8 +475,7 @@ msgid ""
 "   If no error message is returned, Tails is being copied on the USB\n"
 "   stick. The copy takes some time, generally a few minutes.\n"
 msgstr ""
-"   Si no aparece ningún mensaje de error, Tails está siendo copiado a la "
-"memoria\n"
+"   Si no aparece ningún mensaje de error, Tails está siendo copiado a la memoria\n"
 "   USB. El proceso de copiado tarda por lo general un par de minutos.\n"
 
 #. type: Plain text
@@ -516,10 +496,9 @@ msgid "   <p class=\"command-example\">sudo dd if=<span class=\"command-placehol
 msgstr ""
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "</div>\n"
+#, no-wrap
 msgid "   </div>\n"
-msgstr "</div>\n"
+msgstr "   </div>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -534,9 +513,7 @@ msgstr "[[!inline pages=\"install/inc/steps/restart_first_time.inline.es\" raw=\
 #. type: Plain text
 #, no-wrap
 msgid "[[!inline pages=\"install/inc/steps/welcome.inline\" raw=\"yes\" sort=\"age\"]]\n"
-msgstr ""
-"[[!inline pages=\"install/inc/steps/welcome.inline.es\" raw=\"yes\" sort="
-"\"age\"]]\n"
+msgstr "[[!inline pages=\"install/inc/steps/welcome.inline.es\" raw=\"yes\" sort=\"age\"]]\n"
 
 #, no-wrap
 #~ msgid ""

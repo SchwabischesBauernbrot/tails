@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
-"PO-Revision-Date: 2023-10-01 21:12+0000\n"
+"POT-Creation-Date: 2024-05-02 21:34+0000\n"
+"PO-Revision-Date: 2024-05-20 13:53+0000\n"
 "Last-Translator: _ignifugo <ignifugo@insicuri.net>\n"
 "Language-Team: ita <transitails@inventati.org>\n"
 "Language: it\n"
@@ -16,7 +16,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, no-wrap
@@ -36,12 +36,14 @@ msgstr "<div class=\"caution\">\n"
 #. type: Plain text
 #, no-wrap
 msgid "<p><b>You might overwrite any hard disk on the computer.</b></p>\n"
-msgstr ""
+msgstr "<p><b>Rischi di sovrascrivere il disco rigido del computer.</b></p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<p>If at some point you are not sure about which device to choose, stop proceeding.</p>\n"
 msgstr ""
+"<p>Se in qualche passaggio non sei sicura di quale dispositivo scegliere, "
+"interrompi la procedura.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -51,53 +53,48 @@ msgstr "</div>\n"
 #. type: Title =
 #, no-wrap
 msgid "Erase Tails from the USB stick"
-msgstr ""
+msgstr "CancellaTails dalla chiavetta USB"
 
 #. type: Plain text
 msgid "First, erase Tails from the USB stick:"
-msgstr ""
+msgstr "Per prima cosa, cancella Tails dalla chiavetta USB:"
 
 #. type: Bullet: '1. '
 msgid "Make sure that the USB stick that you want to reset is unplugged."
-msgstr ""
-"Assicurati che la chiavetta USB che vuoi inizializzare sia disinserita."
+msgstr "Assicurati che la chiavetta USB che vuoi resettare sia disinserita."
 
 #. type: Bullet: '1. '
 msgid ""
 "Open the **Start** ([[!img lib/start.png class=\"symbolic\" link=\"no\" "
 "alt=\"\"]]) menu."
 msgstr ""
+"Apri il menù **Avvio** ([[!img lib/start.png class=\"symbolic\" link=\"no\" "
+"alt=\"\"]])."
 
 #. type: Bullet: '1. '
 msgid "Choose **Windows System**&nbsp;▸ **Command Prompt**."
-msgstr ""
+msgstr "Scegli **Sistema Windows**&nbsp;▸ **Prompt dei comandi**."
 
 #. type: Bullet: '1. '
 msgid "Execute the following command to start the *Diskpart* utility."
-msgstr ""
+msgstr "Esegui il seguente comando per avviare l'utilità *Diskpart*."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "Using <span class=\"application\">Diskpart</span>"
+#, no-wrap
 msgid "   <p class=\"command-windows\">diskpart</p>\n"
-msgstr "Usando <span class=\"application\">Diskpart</span>"
+msgstr "   <p class=\"command-windows\">diskpart</p>\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Execute the <span class=\"command\">list disk</span> command to obtain "
-#| "information about each disk in the computer."
 msgid ""
 "Execute the following command to obtain information about the disks in the "
 "computer."
 msgstr ""
-"Esegui il comando <span class=\"command\">list disk</span> per ottenere "
-"informazioni su ogni disco del computer."
+"Esegui il seguente comando per ottenere informazioni sui dischi del computer."
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-windows\">list disk</p>\n"
-msgstr ""
+msgstr "   <p class=\"command-windows\">list disk</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -105,44 +102,37 @@ msgid "   For example:\n"
 msgstr "   Per esempio:\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "        Diskpart> list disk\n"
+#, no-wrap
 msgid "       Diskpart> list disk\n"
-msgstr "        Diskpart> list disk\n"
+msgstr "       Diskpart> list disk\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "          Disk ###  Status      Size     Free     Dyn  Gpt\n"
-#| "          --------  ----------  -------  -------  ---  ---\n"
-#| "          Disk 0    Online        80 GB      0 B\n"
+#, no-wrap
 msgid ""
 "         Disk ###  Status      Size     Free     Dyn  Gpt\n"
 "         --------  ----------  -------  -------  ---  ---\n"
 "         Disk 0    Online        80 GB      0 B\n"
 msgstr ""
-"          Disk ###  Status      Size     Free     Dyn  Gpt\n"
-"          --------  ----------  -------  -------  ---  ---\n"
-"          Disk 0    Online        80 GB      0 B\n"
+"         Disk ###  Status      Size     Free     Dyn  Gpt\n"
+"         --------  ----------  -------  -------  ---  ---\n"
+"         Disk 0    Online        80 GB      0 B\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid "Make sure that the USB stick that you want to reset is unplugged."
 msgid "Plug in the USB stick that you want to reset."
-msgstr ""
-"Assicurati che la chiavetta USB che vuoi inizializzare sia disinserita."
+msgstr "Collega la chiavetta USB da resettare."
 
 #. type: Bullet: '1. '
 msgid "Run the same command again."
-msgstr ""
+msgstr "Esegui di nuovo lo stesso comando."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   A new disk, which corresponds to that USB stick, appears in the list.\n"
+#, no-wrap
 msgid ""
 "   A new disk, which corresponds to the USB stick that you plugged in,\n"
 "   appears in the list.\n"
-msgstr "   Un nuovo disco, che corrisponde a questa chiavetta USB, appare nella lista.\n"
+msgstr ""
+"   Un nuovo disco, che corrisponde alla chiavetta USB, che hai inserito,\n"
+"      compare nell'elenco.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -163,18 +153,14 @@ msgstr ""
 "          Disk 1    Online         8 GB      0 B\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "   Make sure that its size corresponds to the size of the USB stick that you want to\n"
-#| "   reset. Note down the disk number assigned by <span\n"
-#| "   class=\"application\">Diskpart</span> to the USB stick.\n"
+#, no-wrap
 msgid ""
 "   Make sure that its size corresponds to the size of the USB stick that you want to\n"
 "   reset. Note down its disk number.\n"
 msgstr ""
-"   Assicurati che la sua dimensione corrisponda alla dimensione della chiavetta USB che vuoi\n"
-"   inizializzare. Annota il numero di disco assegnato da <span\n"
-"   class=\"application\">Diskpart</span> alla chiavetta USB.\n"
+"   Assicurati che la sua dimensione corrisponda alla dimensione della "
+"chiavetta USB che vuoi\n"
+"      resettare. Annotati il suo numero del disco.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -182,6 +168,8 @@ msgid ""
 "   In this example, the disk number of the USB stick is 1.\n"
 "   Yours might be different.\n"
 msgstr ""
+"   In questo esempio, il numero di disco della chiavetta USB è 1\n"
+"     Il tuo potrebbe essere diverso.\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -189,121 +177,130 @@ msgid ""
 "class=\"command-placeholder\">number</span> with the disk number found in "
 "step 7."
 msgstr ""
+"Esegui il seguente comando per selezionare la chiavetta USB. Sostituisci "
+"<span class=\"command-placeholder\">numero</span> con il numero del disco "
+"trovato al punto 7."
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-windows command-template\">select disk=<span class=\"command-placeholder\">number</span></p>\n"
 msgstr ""
+"   <p class=\"command-windows command-template\">select disk=<span class"
+"=\"command-placeholder\">numero</span></p>\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Execute the <span class=\"command\">clean</span> command to delete the "
-#| "partition table from the USB stick."
 msgid ""
 "Execute the following command to delete the partition table from the USB "
 "stick."
 msgstr ""
-"Esegui il comando <span class=\"command\">clean</span> per eliminare la "
-"tabella delle partizioni dalla chiavetta USB."
+"Esegui il seguente comando per eliminare la tabella delle partizioni dalla "
+"chiavetta USB."
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-windows\">clean</p>\n"
-msgstr ""
+msgstr "   <p class=\"command-windows\">clean</p>\n"
 
 #. type: Title =
 #, no-wrap
 msgid "Create a new partition on the USB stick"
-msgstr ""
+msgstr "Crea una nuova partizione sulla chiavetta USB"
 
 #. type: Plain text
 msgid "Then, create a new partition on the USB stick:"
-msgstr ""
+msgstr "Poi, crea una nuova partizione sulla chiavetta USB:"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Execute the <span class=\"command\">convert mbr</span> command to create "
-#| "a new partition table on the USB stick."
 msgid ""
 "Execute the following command to create a new partition table on the USB "
 "stick."
 msgstr ""
-"Esegui il comando <span class=\"command\">convert mbr</span> per creare una "
-"nuova tabella delle partizioni sulla chiavetta USB."
+"Esegui il seguente comando per creare una nuova tabella delle partizioni "
+"sulla chiavetta USB."
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-windows\">convert mbr</p>\n"
-msgstr ""
+msgstr "   <p class=\"command-windows\">convert mbr</p>\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Execute the <span class=\"command\">create partition primary</span> "
-#| "command to create a new primary partition on the USB stick."
 msgid ""
 "Execute the following command to create a new primary partition on the USB "
 "stick."
 msgstr ""
-"Esegui il comando <span class=\"command\">create partition primary</span> "
-"per creare una nuova partizione primaria sulla chiavetta USB."
+"Esegui il comando seguente per creare una nuova partizione primaria sulla "
+"chiavetta USB."
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-windows\">create partition primary</p>\n"
-msgstr ""
+msgstr "   <p class=\"command-windows\">create partition primary</p>\n"
 
 #. type: Bullet: '1. '
 msgid "Unplug the USB stick."
-msgstr ""
+msgstr "Stacca la chiavetta USB."
 
 #. type: Bullet: '1. '
 msgid "Plug the USB stick again."
-msgstr ""
+msgstr "Inserisci nuovamente la chiavetta USB."
 
 #. type: Bullet: '1. '
 msgid "A dialog appears to format the disk before using it."
 msgstr ""
+"Viene visualizzata una finestra di dialogo che invita a formattare il disco "
+"prima di utilizzarlo."
 
 #. type: Plain text
 #, no-wrap
 msgid "   [[!img format.png link=\"no\" class=\"screenshot\" alt=\"You need to format the disk before you can use it. Do you want to format it?\"]]\n"
 msgstr ""
+"   [[!img format.png link=\"no\" class=\"screenshot\" alt=\"Devi formattare "
+"il disco prima di poterlo utilizzare. Vuoi formattarlo?\"]]\n"
 
 #. type: Bullet: '1. '
 msgid "Click on the **Format disk** button."
-msgstr ""
+msgstr "Clicca sul tasto**Formatta disco**."
 
 #. type: Bullet: '1. '
 msgid ""
 "In the **Format USB Drive** dialog, review the settings and click **Start**."
 msgstr ""
+"Nella finestra di dialogo **Formatta unità USB**, controlla le impostazioni "
+"e clicca su **Avvio**."
 
 #. type: Bullet: '1. '
 msgid ""
 "After the formatting is complete, the USB stick should appear as a new drive "
 "in the files browser."
 msgstr ""
+"Al termine della formattazione, la chiavetta USB dovrebbe apparire come una "
+"nuova unità nel browser file."
 
 #. type: Plain text
 #, no-wrap
 msgid "   Otherwise, try unplugging and plugging it again.\n"
-msgstr ""
+msgstr "   Altrimenti, prova a scollegare e ricollegare.\n"
 
 #. type: Title =
 #, no-wrap
 msgid "Troubleshooting"
-msgstr "Risoluzione di problemi"
+msgstr "Risoluzione dei problemi"
 
 #. type: Plain text
 msgid ""
-"- [How to start the *Command Prompt*](http://www.computerhope.com/issues/"
-"chdos.htm)  - [Microsoft: DiskPart Command-Line Options](https://learn."
-"microsoft.com/en-us/previous-versions/windows/it-pro/windows-vista/"
-"cc766465(v=ws.10))"
+"- [How to start the *Command Prompt*](https://www.computerhope.com/issues/"
+"chdos.htm)"
 msgstr ""
+"- [Come avviare il *prompt dei comandi*}(https://www.computerhope.com/issues/"
+"chdos.htm)"
+
+#. type: Plain text
+msgid ""
+"- [Microsoft: diskpart](https://learn.microsoft.com/en-us/windows-server/"
+"administration/windows-commands/diskpart)"
+msgstr ""
+"- [Microsoft: diskpart](https://learn.microsoft.com/it-it/windows-server/"
+"administration/windows-commands/diskpart)"
 
 #, no-wrap
 #~ msgid "<div class=\"bug\">\n"
@@ -335,14 +332,6 @@ msgstr ""
 #~ "class=\"menuchoice\">Tutti i Programmi&nbsp;▸ Accessori&nbsp;▸ Prompt di "
 #~ "comando</span>, per aprire <span class=\"application\">[[!wikipedia_it "
 #~ "cmd.exe desc=\"Prompt\"]]</span>,"
-
-#, no-wrap
-#~ msgid ""
-#~ "    [[More help on how to start the <span class=\"application\">Command\n"
-#~ "    Prompt</span>|http://www.computerhope.com/issues/chdos.htm]]\n"
-#~ msgstr ""
-#~ "    [[Ulteriore aiuto su come avviare il <span class=\"application\">prompt\n"
-#~ "    dei comandi</span>|https://www.computerhope.com/issues/chdos.htm]] (in inglese)\n"
 
 #, no-wrap
 #~ msgid ""

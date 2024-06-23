@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-01-31 15:45+0100\n"
-"PO-Revision-Date: 2024-03-14 16:07+0000\n"
+"POT-Creation-Date: 2024-05-29 17:16+0000\n"
+"PO-Revision-Date: 2024-06-04 21:53+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -59,9 +59,7 @@ msgstr "<h1 id=\"project\">Projecte Tails</h1>\n"
 #. type: Plain text
 #, no-wrap
 msgid "<!-- This entire section would be better placed in an \"About Us\" section. See #17700. -->\n"
-msgstr ""
-"<!-- This entire section would be better placed in an \"About Us\" section. "
-"See #17700. -->\n"
+msgstr "<!-- This entire section would be better placed in an \"About Us\" section. See #17700. -->\n"
 
 #. type: Plain text
 #, no-wrap
@@ -335,19 +333,39 @@ msgid "<h2 id=\"upgrade\">Should I update Tails using <code>apt upgrade</code> o
 msgstr "<h2 id=\"upgrade\">He d'actualitzar Tails mitjançant <code>apt upgrade</code> o <i>Synaptic</i>?</h2>\n"
 
 #. type: Plain text
-#, no-wrap
 msgid ""
-"No. Tails provides upgrades every six weeks, that are thoroughly tested\n"
-"to make sure that no security feature or configuration gets broken.\n"
-"If you upgrade the system yourself using `apt` or <span class=\"application\">Synaptic</span>,\n"
-"you might break things. Upgrading when you get a notification from\n"
-"<span class=\"application\">[[Tails Upgrader|doc/upgrade]]</span> is enough.\n"
+"No. Upgrading whenever you get a notification from *[[Tails Upgrader|doc/"
+"upgrade]]* is enough."
 msgstr ""
-"No. Tails ofereix actualitzacions cada sis setmanes, que es posen a prova a fons\n"
-"per assegurar que cap funció de seguretat o configuració no es trenca.\n"
-"Si actualitzeu el sistema amb `apt` o <span class=\"application\">Synaptic</span>,\n"
-"podeu trencar coses. Actualitzar quan rebeu una notificació del\n"
-"<span class=\"application\">[[Actualitzador de Tails|doc/upgrade]]</span> és suficient.\n"
+"No. Amb actualitzar sempre que rebeu una notificació del *[[Tails Upgrader|"
+"doc/upgrade]]* és suficient."
+
+#. type: Plain text
+msgid ""
+"Tails provides upgrades every 4 weeks, which are thoroughly tested to make "
+"sure that no security feature or configuration gets broken."
+msgstr ""
+"Tails ofereix actualitzacions cada quatre setmanes, que es posen a prova a "
+"fons per assegurar que cap funcionalitat de seguretat o configuració es "
+"trenca."
+
+#. type: Plain text
+msgid ""
+"If you upgrade the system yourself using `apt` or *Synaptic*, you might "
+"break things."
+msgstr ""
+"Si actualitzeu el sistema amb `apt` o *Synaptic*, és possible que trenqueu "
+"coses."
+
+#. type: Plain text
+msgid ""
+"Our team sometimes publishes emergency releases, whenever important security "
+"upgrades are available in Debian or *Tor Browser* before the next scheduled "
+"release."
+msgstr ""
+"De vegades, el nostre equip publica versions d'emergència, sempre que hi "
+"hagi actualitzacions de seguretat importants disponibles a Debian o al *"
+"Navegador Tor* abans de la propera versió programada."
 
 #. type: Plain text
 #, no-wrap
@@ -365,10 +383,10 @@ msgstr "Vendre dispositius preinstal·lats seria de fet una molt mala idea:"
 #. type: Bullet: '- '
 msgid ""
 "If burned on a DVD, then this DVD would be outdated on the next release. "
-"This means after 6 weeks at most."
+"This means after 4 weeks at most."
 msgstr ""
 "Si es grava en un DVD, aquest DVD quedaria obsolet a la propera versió. Això "
-"vol dir després de sis setmanes com a màxim."
+"vol dir després de quatre setmanes com a màxim."
 
 #. type: Bullet: '- '
 msgid ""
@@ -440,9 +458,7 @@ msgstr "<h1 id=\"browser\">Navegador Tor</h1>\n"
 #. type: Plain text
 #, no-wrap
 msgid "<!-- We might move some of this content to the Tor Browser documentation. See #19122. -->\n"
-msgstr ""
-"<!-- We might move some of this content to the Tor Browser documentation. "
-"See #19122. -->\n"
+msgstr "<!-- We might move some of this content to the Tor Browser documentation. See #19122. -->\n"
 
 #. type: Plain text
 #, no-wrap
@@ -592,17 +608,15 @@ msgid "<h2 id=\"update-add-ons\">Should I manually update add-ons included in <s
 msgstr "<h2 id=\"update-add-ons\">He d'actualitzar manualment els complements inclosos al <span class=\"application\">Navegador Tor</span>?</h2>\n"
 
 #. type: Plain text
-#, no-wrap
+msgid "No."
+msgstr "No."
+
+#. type: Plain text
 msgid ""
-"No. Tails provides upgrades every six weeks, that are thoroughly tested\n"
-"to make sure that no security feature or configuration gets broken.\n"
-"Updating add-ons in <span class=\"application\">Tor Browser</span> might\n"
-"break the security built in Tails.\n"
+"Updating add-ons in *Tor Browser* might break the security built in Tails."
 msgstr ""
-"No. Tails ofereix actualitzacions cada sis setmanes, que es posen a prova a fons\n"
-"per assegurar que cap funció de seguretat o configuració es trenca.\n"
-"És possible que actualitzar els complements del <span class=\"application\">Navegador Tor</span>\n"
-"trenqui la seguretat construïda a Tails.\n"
+"L'actualització de complements al *Navegador Tor* pot trencar la seguretat "
+"integrada a Tails."
 
 #. type: Plain text
 #, no-wrap
@@ -774,21 +788,19 @@ msgstr ""
 #. type: Plain text
 msgid ""
 "Still, you can close a given circuit and trigger Tor to create a new one "
-"using the [[New Circuit for this Site|doc/anonymous_internet/Tor_Browser]] "
-"button of *Tor Browser* or the [[*Onion Circuits*|doc/anonymous_internet/tor/"
-"circuits]] utility."
+"using the [[New Tor circuit for this site|doc/anonymous_internet/"
+"Tor_Browser]] button of *Tor Browser* or the [[*Onion Circuits*|doc/"
+"anonymous_internet/tor/circuits]] utility."
 msgstr ""
 "Tot i així, podeu tancar un circuit determinat i activar Tor per crear-ne un "
-"de nou utilitzant el botó [[Nou circuit per a aquest lloc|doc/"
+"de nou utilitzant el botó [[Nou circuit de Tor per a aquest lloc|doc/"
 "anonymous_internet/Tor_Browser]] del *Navegador Tor* o la utilitat de "
 "[[*Circuits Onion*|doc/ anonymous_internet/tor/circuits]]."
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"htp\">Why does Tails automatically connect to websites when starting?</h2>\n"
-msgstr ""
-"<h2 id=\"htp\">Per què Tails es connecta automàticament a llocs web en "
-"començar?</h2>\n"
+msgstr "<h2 id=\"htp\">Per què Tails es connecta automàticament a llocs web en començar?</h2>\n"
 
 #. type: Plain text
 msgid "The clock of the computer needs to be set at the correct time to both:"
@@ -857,9 +869,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"onion-service\">Can I run a Tor onion service from Tails?</h2>\n"
-msgstr ""
-"<h2 id=\"onion-service\">Puc executar un servei onion de Tor des de "
-"Tails?</h2>\n"
+msgstr "<h2 id=\"onion-service\">Puc executar un servei onion de Tor des de Tails?</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -1011,8 +1021,8 @@ msgid ""
 "tails_ticket desc=\"GitLab\"]]."
 msgstr ""
 "Després de considerar tot això, si encara creieu que aquest programari és un "
-"bon candidat per ser inclòs a Tails, expliqueu-nos la vostra proposta a [["
-"!tails_ticket desc=\"GitLab\"]]."
+"bon candidat per ser inclòs a Tails, expliqueu-nos la vostra proposta a [[!"
+"tails_ticket desc=\"GitLab\"]]."
 
 #. type: Plain text
 msgid "Here is some of the software we are often asked to include in Tails:"
@@ -1060,7 +1070,7 @@ msgid ""
 "  supports TCP connections, like the ones used for HTTP and email.\n"
 msgstr ""
 "  Es basen en la tecnologia [[!wikipedia WebRTC]], que utilitza\n"
-"  connexions [[!wikipedia User_Datagram_Protocol desc=\"UDP\"]]. Però, la xarxa Tor només\n"
+"  connexions [[!wikipedia_ca User_Datagram_Protocol desc=\"UDP\"]]. Però, la xarxa Tor només\n"
 "  admet connexions TCP, com les que s'utilitzen per a HTTP i correu electrònic.\n"
 
 #. type: Plain text
@@ -1224,8 +1234,8 @@ msgid ""
 "See the [[!wikipedia Linux_malware desc=\"Wikipedia page on Linux "
 "malware\"]] for further details."
 msgstr ""
-"Vegeu la [[!wikipedia Linux_malware desc=\"pàgina de Viquipèdia sobre "
-"programari maliciós a Linux\"]] per a més detalls."
+"Vegeu la [[!wikipedia_ca Programari_maliciós_a_GNU/Linux desc=\"pàgina de "
+"Viquipèdia sobre programari maliciós a Linux\"]] per a més detalls."
 
 #. type: Plain text
 #, no-wrap
@@ -1233,8 +1243,8 @@ msgid "<h2 id=\"old-software\">Why does Tails include old versions of software?<
 msgstr "<h2 id=\"old-software\">Per què Tails inclou versions antigues de programari?</h2>\n"
 
 #. type: Plain text
-msgid "The Tails 5 series is based on Debian 12 (Bookworm)."
-msgstr "La sèrie Tails 5 es basa en Debian 12 (Bookworm)."
+msgid "The Tails 6 series is based on Debian 12 (Bookworm)."
+msgstr "La sèrie Tails 6 es basa en Debian 12 (Bookworm)."
 
 #. type: Plain text
 msgid ""
@@ -1265,6 +1275,20 @@ msgid ""
 msgstr ""
 "Podeu veure quina versió de cada paquet de programari està disponible a cada "
 "versió de Debian a <https://packages.debian.org/>."
+
+#, no-wrap
+#~ msgid ""
+#~ "No. Tails provides upgrades every six weeks, that are thoroughly tested\n"
+#~ "to make sure that no security feature or configuration gets broken.\n"
+#~ "If you upgrade the system yourself using `apt` or <span class=\"application\">Synaptic</span>,\n"
+#~ "you might break things. Upgrading when you get a notification from\n"
+#~ "<span class=\"application\">[[Tails Upgrader|doc/upgrade]]</span> is enough.\n"
+#~ msgstr ""
+#~ "No. Tails ofereix actualitzacions cada sis setmanes, que es posen a prova a fons\n"
+#~ "per assegurar que cap funció de seguretat o configuració no es trenca.\n"
+#~ "Si actualitzeu el sistema amb `apt` o <span class=\"application\">Synaptic</span>,\n"
+#~ "podeu trencar coses. Actualitzar quan rebeu una notificació del\n"
+#~ "<span class=\"application\">[[Actualitzador de Tails|doc/upgrade]]</span> és suficient.\n"
 
 #, no-wrap
 #~ msgid "<h1 id=\"hardware\">Hardware compatibility</h1>\n"
