@@ -680,9 +680,9 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.__combobox_target.set_active(0)
                 self.update_start_button()
             else:
-                title = _("No USB stick suitable to install Tails could be found")
-                clone = _("No USB stick suitable to clone this Tails could be found")
-                backup = _("No USB stick suitable to back up Tails could be found")
+                title = _("No suitable USB stick could be found to install Tails ")
+                clone = _("No suitable USB stick could be found to clone this Tails")
+                backup = _("No suitable USB stick could be found to back up Tails")
                 self.__infobar.set_message_type(Gtk.MessageType.INFO)
                 # The device size passed below reduces 8000 MB to 7200 MiB, 16000 to 14500
                 #  this is to be nice to users who believe what was written on the box.
