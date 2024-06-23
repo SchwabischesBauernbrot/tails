@@ -453,7 +453,7 @@ class TailsInstallerCreator:
         try:
             return (
                 self.space_for_backup(device_size_in_bytes)
-                > get_persistent_storage_backup_size() - mebibytes_to_bytes(16)
+                > get_persistent_storage_backup_size(count_luks2_header=False)
             )
         except NotImplementedError:
             return False
