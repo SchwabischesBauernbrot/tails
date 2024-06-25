@@ -9,8 +9,11 @@ set -u
 
 MAC_SPOOFING_FAILED_STATE_FILE=/var/lib/live/config/tails.mac-spoofing-failed
 
+# shellcheck source=tails-shell-library/hardware.sh
 . /usr/local/lib/tails-shell-library/hardware.sh
+# shellcheck source=tails-shell-library/log.sh
 . /usr/local/lib/tails-shell-library/log.sh
+# shellcheck source=tails-shell-library/tails-greeter.sh
 . /usr/local/lib/tails-shell-library/tails-greeter.sh
 
 # Get LIVE_USERNAME
