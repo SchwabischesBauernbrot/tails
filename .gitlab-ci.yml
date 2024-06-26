@@ -77,7 +77,7 @@ deploy-website:
   dependencies:
     - build-website
   environment: production
-  resource_group: production
+  resource_group: production/$SSH_SERVER
   parallel:
     matrix:
       - SSH_SERVER: www.lizard
