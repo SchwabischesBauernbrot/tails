@@ -68,6 +68,7 @@ build-website:
         --diffurl "https://gitlab.tails.boum.org/tails/tails/-/commit/[[sha1_commit]]" \
         --rss \
         --atom \
+        --set exclude='^misc\/.*|\.(ar|fa|id|pl|sr_Latn|tr|zh|zh_TW)\.po$' \
         --set-yaml add_underlays="['${UNDERLAYS_DIR}/etcher-binary','${UNDERLAYS_DIR}/promotion-material']"
 
 deploy-website:
