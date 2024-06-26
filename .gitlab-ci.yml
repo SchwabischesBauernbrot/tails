@@ -69,6 +69,7 @@ build-website:
         --rss \
         --atom \
         --set exclude='^misc\/.*|\.(ar|fa|id|pl|sr_Latn|tr|zh|zh_TW)\.po$' \
+        --include '^contribute\/how\/promote\/material\/.*' \
         --set-yaml add_underlays="['${UNDERLAYS_DIR}/etcher-binary','${UNDERLAYS_DIR}/promotion-material']"
 
 deploy-website:
