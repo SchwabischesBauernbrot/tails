@@ -80,8 +80,8 @@ deploy-website:
   resource_group: production
   parallel:
     matrix:
-      - SSH_SERVER: lizard.tails.boum.org
-        SSH_PORT: 3009
+      - SSH_SERVER: www.lizard
+        SSH_PORT: 22
       - SSH_SERVER: chameleon.tails.net
         SSH_PORT: 3004
   script:
