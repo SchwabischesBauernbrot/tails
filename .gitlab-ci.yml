@@ -59,9 +59,11 @@ build-website:
         git -C ${UNDERLAYS_DIR}/${i} pull
       done
     - |
-      test "$CI_COMMIT_BRANCH" == "master" && \
-        git checkout -B master $CI_COMMIT_SHA && \
+      if [ "$CI_COMMIT_BRANCH" == "master" ]; then
+        git checkout -B master $CI_COMMIT_SHA
         git branch -u origin/master
+        git remote set-url origin https://user:$PROJECT_TOKEN_REPOSITORY_RW@gitlab.tails.boum.org/tails/tails.git
+      fi
     - |
       ./build-website ${IKIWIKI_RCS_OPTION} \
         --url "https://tails.net" \
