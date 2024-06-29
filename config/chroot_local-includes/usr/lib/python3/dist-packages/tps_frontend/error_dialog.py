@@ -19,6 +19,7 @@ class ErrorDialog(Gtk.MessageDialog):
         parent: "Window",
         title: str,
         msg: str,
+        msg_is_markup: bool = False,
         details: ErrorDetails = None,
         with_send_report_button: bool = True,
     ):
@@ -62,7 +63,8 @@ class ErrorDialog(Gtk.MessageDialog):
             style_context = button.get_style_context()
             style_context.add_class("suggested-action")
 
-        msg = GLib.markup_escape_text(msg)
+        if not msg_is_markup:
+            msg = GLib.markup_escape_text(msg)
         msg = f"<span insert-hyphens='no'>{msg}</span>"
         self.format_secondary_markup(msg)
         self.set_default_response(Gtk.ResponseType.CLOSE)

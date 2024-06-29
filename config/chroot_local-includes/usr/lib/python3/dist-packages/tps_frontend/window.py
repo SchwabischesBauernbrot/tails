@@ -294,6 +294,7 @@ class Window(Gtk.ApplicationWindow):
         self,
         title: str,
         msg: str,
+        msg_is_markup: bool = False,
         details: ErrorDetails = None,
         with_send_report_button: Optional[bool] = None,
     ):
@@ -307,6 +308,7 @@ class Window(Gtk.ApplicationWindow):
             self,
             title,
             msg,
+            msg_is_markup=msg_is_markup,
             details=details,
             with_send_report_button=with_send_report_button,
         )
@@ -322,4 +324,4 @@ class Window(Gtk.ApplicationWindow):
             text = f"$ {' '.join(cmd)}\n{e.stderr.strip()}"
             details = ErrorDetails(_("Details (command output)"), text)
 
-        self.display_error(title, msg, details=details)
+        self.display_error(title, msg, msg_is_markup=True, details=details)
