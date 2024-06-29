@@ -4,7 +4,7 @@ from typing import TYPE_CHECKING
 from tps_frontend import _
 
 if TYPE_CHECKING:
-    from tps_frontend.application import Application
+    from tps_frontend.window import Window
 
 
 class ErrorDetails:
@@ -16,21 +16,21 @@ class ErrorDetails:
 class ErrorDialog(Gtk.MessageDialog):
     def __init__(
         self,
-        app: "Application",
+        parent: "Window",
         title: str,
         msg: str,
         details: ErrorDetails = None,
         with_send_report_button: bool = True,
     ):
         super().__init__(
-            app.window,
+            parent,
             Gtk.DialogFlags.DESTROY_WITH_PARENT,
             Gtk.MessageType.ERROR,
             Gtk.ButtonsType.CLOSE,
             title,
             use_markup=True,
         )
-        self.app = app
+        self.launch_whisperback = parent.app.launch_whisperback
         self.title = title
         self.msg = msg
 
@@ -105,7 +105,7 @@ class ErrorDialog(Gtk.MessageDialog):
 
     def do_response(self, response_id: int):
         if response_id == Gtk.ResponseType.OK:
-            self.app.launch_whisperback(
+            self.launch_whisperback(
                 error_summary="PersistentStorage - %s" % self.title,
                 error_report_msg=self.msg,
             )
