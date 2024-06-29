@@ -227,8 +227,7 @@ class DBusObject(object, metaclass=ABCMeta):
             error_name = inspect.getmodule(e).__name__ + "." + type(e).__name__
             msg = str(e)
             if e.stderr:
-                stderr = GLib.markup_escape_text(e.stderr.strip())
-                msg += f" Command output:\n\n<tt>{stderr}</tt>"
+                msg += f" Command output:\n\n{e.stderr.strip()}"
             invocation.return_dbus_error(error_name, msg)
         except Exception as e:
             logger.exception(e)
