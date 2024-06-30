@@ -14,9 +14,7 @@ class WelcomeView(View):
 
     def __init__(self, window) -> None:
         super().__init__(window)
-        self.continue_button = self.builder.get_object(
-            "continue_button"
-        )  # type: Gtk.Button
+        self.continue_button = self.builder.get_object("continue_button")  # type: Gtk.Button
         self.device_not_supported_label = self.builder.get_object(
             "device_not_supported_label"
         )  # type: Gtk.Box

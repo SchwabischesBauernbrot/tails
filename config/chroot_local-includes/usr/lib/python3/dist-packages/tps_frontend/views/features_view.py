@@ -27,9 +27,7 @@ logger = getLogger(__name__)
 class PersistentDirectory(Feature):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.open_button = self.builder.get_object(
-            "persistent_directory_open_button"
-        )  # type: Gtk.Button
+        self.open_button = self.builder.get_object("persistent_directory_open_button")  # type: Gtk.Button
         self.open_button.set_visible(self.switch.get_state())
 
     @property
@@ -128,15 +126,11 @@ class FeaturesView(View):
             listbox.set_header_func(self.add_separator)
 
         # Show custom features
-        self.custom_features_box = self.builder.get_object(
-            "custom_features_box"
-        )  # type: Gtk.Box
+        self.custom_features_box = self.builder.get_object("custom_features_box")  # type: Gtk.Box
         self.custom_features_list_box = self.builder.get_object(
             "custom_features_list_box"
         )  # type: Gtk.ListBox
-        dbus_objects = (
-            self.object_manager.get_objects()
-        )  # type: list[Gio.DBusObjectProxy]
+        dbus_objects = self.object_manager.get_objects()  # type: list[Gio.DBusObjectProxy]
         for obj in dbus_objects:
             path = obj.get_object_path()
             if os.path.basename(path).startswith("CustomFeature"):
