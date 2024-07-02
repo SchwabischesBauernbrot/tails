@@ -62,7 +62,7 @@ build-website:
       if [ "$CI_COMMIT_BRANCH" == "master" ]; then
         git checkout -B master $CI_COMMIT_SHA
         git branch -u origin/master
-        git remote set-url origin https://user:$PROJECT_TOKEN_REPOSITORY_RW@gitlab.tails.boum.org/tails/tails.git
+        git remote set-url origin https://user:$WEBSITE_BUILD_PROJECT_ACCESS_TOKEN@gitlab.tails.boum.org/tails/tails.git
       fi
     - |
       ./build-website ${IKIWIKI_RCS_OPTION} \
