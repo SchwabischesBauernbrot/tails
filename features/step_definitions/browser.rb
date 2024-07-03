@@ -534,6 +534,19 @@ When /^I can print the current page as "([^"]+[.]pdf)" to the (default downloads
   end
 end
 
+def activate_places_sidebar_item(parent, desc)
+  list_item = parent.child(description: desc, roleName: 'list item')
+  try_for(3) do
+    list_item.select
+    list_item.grabFocus
+    list_item.selected and list_item.focused
+  end
+  # Give the UI some time to update the selection. This is workaround
+  # for #20159.
+  sleep 3
+  @screen.press('Space')
+end
+
 When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (directory|GNOME bookmark)$/ do |should_work, output_file, output_dir, bookmark|
   should_work = should_work == 'can'
   is_gnome_bookmark = bookmark == 'GNOME bookmark'
@@ -543,30 +556,13 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
   case output_dir
   when 'persistent Tor Browser'
     output_dir = "/home/#{LIVE_USER}/Persistent/Tor Browser"
-    # Select the "Tor Browser (persistent)" bookmark in the file chooser's
-    # sidebar. It doesn't expose an action via the accessibility API, so we
-    # have to select it and use the keyboard to activate it.
-    bookmark = file_dialog.child(
-      description: output_dir,
-      roleName:    'list item',
-      showingOnly: true
-    )
-    try_for(3) do
-      bookmark.select
-      bookmark.grabFocus
-      bookmark.selected and bookmark.focused
-    end
-    @screen.press('Enter')
+    activate_places_sidebar_item(file_dialog, output_dir)
   when 'default downloads'
     output_dir = "/home/#{LIVE_USER}/Tor Browser"
   else
     if is_gnome_bookmark
       output_dir = "/home/#{LIVE_USER}/#{output_dir}"
-      file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
-      # Give the UI some time to update the selection. This is workaround
-      # for #20159.
-      sleep 3
-      @screen.press('Space')
+      activate_places_sidebar_item(file_dialog, output_dir)
     else
       # Enter the output directory in the text entry
       text_entry = file_dialog.child('Name', roleName: 'label').labelee
