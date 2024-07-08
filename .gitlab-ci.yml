@@ -30,6 +30,8 @@ build-website:
   stage: build-website
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
+      variables:
+        IKIWIKI_RCS_OPTION: --rcs git
     - if: '$CI_MERGE_REQUEST_TARGET_BRANCH_NAME == "master"'
     - changes:
         - .gitlab-ci.yml
@@ -57,7 +59,13 @@ build-website:
         git -C ${UNDERLAYS_DIR}/${i} pull
       done
     - |
-      ./build-website \
+      if [ "$CI_COMMIT_BRANCH" == "master" ]; then
+        git checkout -B master $CI_COMMIT_SHA
+        git branch -u origin/master
+        git remote set-url origin https://user:$WEBSITE_BUILD_PROJECT_ACCESS_TOKEN@gitlab.tails.boum.org/tails/tails.git
+      fi
+    - |
+      ./build-website ${IKIWIKI_RCS_OPTION} \
         --url "https://tails.net" \
         --usedirs \
         --sslcookie \
@@ -65,6 +73,8 @@ build-website:
         --diffurl "https://gitlab.tails.boum.org/tails/tails/-/commit/[[sha1_commit]]" \
         --rss \
         --atom \
+        --set exclude='^misc\/.*|\.(ar|fa|id|pl|sr_Latn|tr|zh|zh_TW)\.po$' \
+        --include '^contribute\/how\/promote\/material\/.*' \
         --set-yaml add_underlays="['${UNDERLAYS_DIR}/etcher-binary','${UNDERLAYS_DIR}/promotion-material']"
 
 deploy-website:
@@ -75,7 +85,13 @@ deploy-website:
   dependencies:
     - build-website
   environment: production
-  resource_group: production
+  resource_group: production/$SSH_SERVER
+  parallel:
+    matrix:
+      - SSH_SERVER: www.lizard
+        SSH_PORT: 3009
+      - SSH_SERVER: www2.chameleon
+        SSH_PORT: 22
   script:
     - apt-get install -y openssh-client rsync
     - test -e .ssh || mkdir .ssh
@@ -87,7 +103,7 @@ deploy-website:
     - echo "here is the SSH key we will deploy with"
     - ssh-keygen -y -f .ssh/private_key
     - echo -n "Begin rsync, time is " && date '+%Y-%m-%d %H-%M-%S%z'
-    - rsync --rsh="ssh -p 3004 -o UserKnownHostsFile=.ssh/known_hosts -i .ssh/private_key" --checksum --archive --no-times --verbose --mkpath --delete "config/chroot_local-includes/usr/share/doc/tails/website/" www-data@chameleon.tails.net:/
+    - rsync --rsh="ssh -p ${SSH_PORT} -o UserKnownHostsFile=.ssh/known_hosts -i .ssh/private_key" --checksum --archive --no-times --verbose --mkpath --delete "config/chroot_local-includes/usr/share/doc/tails/website/" www-data@${SSH_SERVER}:/
 
 lint-po:
   image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:trixie
