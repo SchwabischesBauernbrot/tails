@@ -25,6 +25,7 @@ import gettext
 import gi
 import locale
 import logging.config
+from pathlib import Path
 import sys
 import traceback
 
@@ -58,6 +59,12 @@ locale.bindtextdomain(tailsgreeter.__appname__, tailsgreeter.config.system_local
 _ = gettext.gettext
 
 if __name__ == "__main__":
+    flagfile = Path('/var/lib/gdm3/tails.greeter-seen')
+    try:
+        flagfile.touch(exist_ok=False)
+    except FileExistsError:
+        logging.error("Spawning a second greeter instance prevented")  # noqa: TRY400
+        sys.exit(1)
     GLib.set_prgname(tailsgreeter.APPLICATION_TITLE)
     GLib.set_application_name(_(tailsgreeter.APPLICATION_TITLE))
     Gtk.init(sys.argv)
