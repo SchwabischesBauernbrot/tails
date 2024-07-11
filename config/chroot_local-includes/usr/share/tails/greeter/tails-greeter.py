@@ -22,19 +22,20 @@ GDM greeter for Tails project using gtk
 """
 
 import gettext
-import gi
 import locale
 import logging.config
 import sys
 import traceback
+from pathlib import Path
 
-from tailsgreeter.greeter import GreeterApplication
+import gi
 import tailsgreeter.config
 import tailsgreeter.gdmclient
+from tailsgreeter.greeter import GreeterApplication
 
 gi.require_version("GLib", "2.0")
 gi.require_version("Gtk", "3.0")
-from gi.repository import GLib, Gtk
+from gi.repository import GLib, Gtk  # noqa: E402
 
 # Logging
 logging.config.fileConfig("tails-logging.conf")
@@ -58,6 +59,12 @@ locale.bindtextdomain(tailsgreeter.__appname__, tailsgreeter.config.system_local
 _ = gettext.gettext
 
 if __name__ == "__main__":
+    flagfile = Path("/var/lib/gdm3/tails.greeter-seen")
+    try:
+        flagfile.touch(exist_ok=False)
+    except FileExistsError:
+        logging.error("Spawning a second greeter instance prevented")  # noqa: TRY400
+        sys.exit(1)
     GLib.set_prgname(tailsgreeter.APPLICATION_TITLE)
     GLib.set_application_name(_(tailsgreeter.APPLICATION_TITLE))
     Gtk.init(sys.argv)
