@@ -75,10 +75,10 @@ dd bs=512 skip=34 count=1 status=none if="${PARENT_DEVICE}" of=/dev/urandom
 log_end_msg
 
 # We try to obfuscate the number of times Tails has been booted by
-# writing a random number of times (1-2000) to the seed during the first
+# writing a random number of times (1-1000) to the seed during the first
 # boot.
 if [ -n "${FIRST_BOOT:-}" ]; then
-  ITERATIONS=$((1 + $(od -An -N2 -t uI /dev/urandom) % 2000))
+  ITERATIONS=$((1 + $(od -An -N2 -t uI /dev/urandom) % 1000))
   echo "First boot, writing random seed $ITERATIONS times..."
   PLYMOUTH_INIT_MSG="Preparing Tails for first use..."
   plymouth display-message --text="${PLYMOUTH_INIT_MSG}"
