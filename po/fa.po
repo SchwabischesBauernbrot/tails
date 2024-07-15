@@ -38,8 +38,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-06-17 13:28+0200\n"
-"PO-Revision-Date: 2024-06-15 04:19+0000\n"
+"POT-Creation-Date: 2024-07-15 09:56+0200\n"
+"PO-Revision-Date: 2024-06-21 14:20+0000\n"
 "Last-Translator: Danial Behzadi <dani.behzi@ubuntu.com>\n"
 "Language-Team: Persian <https://hosted.weblate.org/projects/tor/tails-gui/fa/"
 ">\n"
@@ -48,7 +48,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.6-rc\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:205
 #, python-brace-format
@@ -154,7 +154,7 @@ msgstr "برداشتن"
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:737
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:28
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:376
@@ -918,8 +918,8 @@ msgid ""
 "Not enough free space on device.\n"
 "%(iso_size)dMB ISO + %(overlay_size)dMB overlay > %(free_space)dMB free space"
 msgstr ""
-"فضای خالی کافی در دستگاه وجود ندارد.\n"
-"%(iso_size)dMB ISO + %(overlay_size)dMB overlay > %(free_space)dMB فضای خالی."
+"فضای آزاد کافی روی افزاره وجود ندارد.\n"
+"%(iso_size)dم‌ب ایزو + %(overlay_size)dم‌ب پوشش >‌%(free_space)dم‌ب فضای آزاد"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:509
 #, python-format
@@ -956,14 +956,14 @@ msgid "Cannot find device %s"
 msgstr "دستگاه %s یافت نشد"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:704
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1025
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1024
 msgid "Unknown filesystem.  Your device may need to be reformatted."
 msgstr ""
 "نوع فايل سيستم ناشناخته است. دستگاه شما ممكن است نياز به فرمت مجدد داشته "
 "باشد."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:707
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1028
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1027
 #, python-format
 msgid "Unsupported filesystem: %s"
 msgstr "فایل سیستم های غیرقابل پشتیبانی: %s"
@@ -983,9 +983,8 @@ msgid "No mount points found"
 msgstr "هيچ نقطه بازگذاري يافت نشد"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:805
-#, fuzzy
 msgid "Target device has opened files"
-msgstr "نوشته شده بر روی دستگاه جانبی در %(speed)d مگابایت بر ثانیه"
+msgstr "افزارهٔ مقصد پرونده‌هایی گشوده دارد"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:833
 #, python-format
@@ -997,80 +996,78 @@ msgstr "نصب %s بعد از حذف موجود است"
 msgid "Partitioning device %(device)s"
 msgstr "در حال پاتیشن‌بندیِ %(device)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1009
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1008
 #, python-format
 msgid "Unsupported device '%(device)s', please report a bug."
-msgstr "دستگاه پشتیبانی نشده '%(device)s'، لطفا یک باگ را گزارش دهید"
+msgstr "افزارهٔ پشتیبانی نشده '%(device)s'. لطفاُ مشکل را گزارش کنید."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1012
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1011
 msgid "Trying to continue anyway."
 msgstr "تلاش برای ادامه دادن در هر صورت."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1021
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1020
 msgid "Verifying filesystem..."
 msgstr "تایید فایل سیستم..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1044
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1043
 #, python-format
 msgid "Unable to change volume label: %s"
 msgstr "قادر به تغییر برچسب حافظه نیست: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1050
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1049
 msgid "Installing bootloader..."
 msgstr "نصب بوت لودر..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1058
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1057
 #, python-format
 msgid "Removing %(file)s"
 msgstr "حذف %(file)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1087
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1086
 #, fuzzy
 msgid "Cloning Persistent Storage..."
 msgstr "ایجاد ذخیره سازی مداوم"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1170
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1169
 #, python-format
 msgid "%s already bootable"
 msgstr "%s از پیش قابل راه‌اندازی"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1191
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1190
 msgid "Unable to find partition"
-msgstr "قادر به پیدا کردن پارتیشن نیست."
+msgstr "ناتوان در یافتن افراز"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1213
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1212
 #, python-format
 msgid "Formatting %(device)s as FAT32"
 msgstr "فرمت کردن %(device)s به صورت FAT32"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1290
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1289
 #, python-format
 msgid "Reading extracted MBR from %s"
 msgstr "در حال خواندن MBR استخراج شده از %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1295
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1294
 #, python-format
 msgid "Could not read the extracted MBR from %(path)s"
 msgstr "خطا در خواندن MBR استخراج شده از %(path)s"
 
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1308
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1309
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1310
 #, python-format
 msgid "Resetting Master Boot Record of %s"
 msgstr "بازنشانی رکورد راه‌اندازی اصلی از %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1314
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1313
 #, python-format
 msgid "Writing random seed to LBA 34 of %s"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1321
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1320
 msgid "Drive is a loopback, skipping MBR reset"
-msgstr ""
-"درایو از نوع Loopback است. راه‌اندازی دوباره \"رکورد راه‌اندازی اصلی\" MBR را "
-"رد کنید."
+msgstr "افزاره loopback است. پرش از بازنشانی MBR"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1325
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1324
 msgid "Synchronizing data on disk..."
 msgstr "هماهنگ سازی داده‌ها بر روی دیسک..."
 
@@ -1097,78 +1094,78 @@ msgstr "عمليات نصب به پايان رسيد! (%s)"
 msgid "Tails installation failed!"
 msgstr "نصب تیلز ناموفق بود!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:334
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:332
 #: ../config/chroot_local-includes/usr/share/applications/tails-installer.desktop.in.h:1
 #, fuzzy
 msgid "Tails Cloner"
 msgstr "نصب کننده تیلز"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:386
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:384
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:164
 msgid "Clone the current Tails"
 msgstr "همین تیلز را کلون کن"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:394
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:392
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:200
 msgid "Use a downloaded Tails ISO image"
 msgstr "از یک تصویر ISO تیلز بارگیری شده استفاده کن"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:446
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:444
 msgid "Upgrade"
 msgstr "ارتقاء"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:447
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:445
 msgid "Manual Upgrade Instructions"
 msgstr "دستورالعمل‌های بروزرسانی دستی"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:458
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:723
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:456
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:714
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:374
 msgid "Install"
 msgstr "نصب"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:461
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:459
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:131
 msgid "Installation Instructions"
 msgstr "دستورالعمل‌های نصب"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:464
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:462
 #, fuzzy
 msgid "Backup Instructions"
 msgstr "دستورالعمل‌های بروزرسانی دستی"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:475
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:473
 #, python-format
 msgid "%(size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(size)s %(vendor)s %(model)s دستگاه (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:488
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:486
 msgid "No ISO image selected"
 msgstr "هیچ تصویر ISO انتخاب نشده است"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:488
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:486
 msgid "Please select a Tails ISO image."
 msgstr "لطفا یک تصویر ISO تیلز انتخاب کنید."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:546
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:537
 msgid ""
 "Clone the current Persistent Storage\n"
 "Impossible to clone the Persistent Storage because it is locked."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:550
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:541
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:180
 #, fuzzy
 msgid "Clone the current Persistent Storage"
 msgstr "ایجاد ذخیره سازی مداوم"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:553
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:544
 msgid ""
 "Clone the current Persistent Storage\n"
 "You can only choose to reinstall when cloning the Persistent Storage."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:591
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:582
 #, python-format
 msgid ""
 "The USB stick \"%(pretty_name)s\" is configured as non-removable by its "
@@ -1179,7 +1176,7 @@ msgstr ""
 "است. تیلز ممکن است در اجرا روی این دستگاه با مشکل مواجه شود. لطفا مدل دیگری "
 "را امتحان کنید."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:601
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:592
 #, python-format
 msgid ""
 "The device \"%(pretty_name)s\" is too small to install Tails (at least "
@@ -1188,7 +1185,7 @@ msgstr ""
 "فضای دستگاه \"%(pretty_name)s\" برای نصب کم است (حداقل %(size)s گیگابایت فضا "
 "لازم است)."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:616
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:607
 #, python-format
 msgid ""
 "To upgrade device \"%(pretty_name)s\" from this Tails, you need to use a "
@@ -1198,34 +1195,30 @@ msgstr ""
 "برای ارتقای دستگاه \"%(pretty_name)s\" از این تیلز، باید از تصویر بارگیری "
 "شده ISO تیلز استفاده کنید: %(dl_url)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:637
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:628
 msgid "No device suitable to install Tails could be found"
 msgstr "دستگاه مناسبی برای نصب تیلز پیدا نشد"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:640
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:631
 #, fuzzy, python-format
 msgid "Plug in a USB stick of at least %0.1f GB."
 msgstr ""
 "لطفا یک فلش درایو USB یا SD کارتی با حجم حداقل %0.1f گیگابایت وارد کنید."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:653
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:644
 msgid "An error happened while installing Tails"
 msgstr "در نصب تیلز یک خطا رخ داد"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:710
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:701
 msgid "Installation complete!"
 msgstr "عمليات نصب به پايان رسيد!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:772
-msgid "Unable to mount device"
-msgstr "فادر به بارگذاري دستگاه نيست."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:779
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:757
 #, python-format
 msgid "%(parent_size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "%(parent_size)s %(vendor)s %(model)s دستگاه (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:792
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:770
 #, fuzzy
 msgid ""
 "\n"
@@ -1236,11 +1229,11 @@ msgstr ""
 "\n"
 "ذخیره‌ساز دائم روی این یو‌اس‌بی از بین خواهد رفت."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:794
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:772
 msgid "Delete Persistent Storage and Reinstall"
 msgstr "حذف ذخیره‌ساز دائم و نصب مجدد"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:796
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:774
 msgid ""
 "\n"
 "\n"
@@ -1250,28 +1243,32 @@ msgstr ""
 "\n"
 "تمام داده روی این یواس‌بی از بین خواهد رفت."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:797
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:775
 msgid "Delete All Data and Install"
 msgstr "حذف همه اطلاعات و نصب"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:798
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:776
 #, python-format
 msgid "%(description)s%(delete_message)s"
 msgstr "%(description)s%(delete_message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:803
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:781
 msgid "Confirm the target USB stick"
 msgstr "فلش USB هدف را تایید کنید"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:846
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:811
+msgid "Unable to mount device"
+msgstr "ناتوان در سوار کردن افراز"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:840
 msgid ""
 "The selected file is unreadable. Please fix its permissions or select "
 "another file."
 msgstr ""
-"فایل انتخاب‌شده قابل خواندن نیست. لطفا اجازه دسترسی به آن را اصلاح کنید یا "
-"فایل دیگری را انتخاب کنید"
+"پروندهٔ گزیده خوانش‌پذیر نیست. لطفاً اجازه‌هابش را درست کرده یا پرونده‌ای دیگر را "
+"برگزینید."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:856
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:850
 msgid ""
 "Unable to use the selected file.  You may have better luck if you move your "
 "ISO to the root of your drive (ie: C:\\)"
@@ -1279,7 +1276,7 @@ msgstr ""
 "قادر به استفاده از فايل انتخاب شده نيست. اگر فايل ايزو را به ريشه درايو خود "
 "(مثلاً C) منتقل كنيد ممكن است شانس بيتشري داشته باشيد."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:865
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:859
 #, python-format
 msgid "%(filename)s selected"
 msgstr "%(filename)s انتخاب شده"
@@ -1510,11 +1507,11 @@ msgstr ""
 #: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:112
 #, python-brace-format
 msgid "Failed to remove {pkg}"
-msgstr "پاک کردن {pkg} با شکست روبرو شد."
+msgstr "شکست در برداشتن {pkg}"
 
 #: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:134
 msgid "Failed to read additional software configuration"
-msgstr "خواندن تنظیمات نرم افزار جانبی با شکست مواجه شد."
+msgstr "شکست در خواندن پیکربندی نرم‌افزارهای اضافی"
 
 #. Translators: Don't translate {package}, it's a placeholder and will be replaced.
 #: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:164
@@ -1596,32 +1593,81 @@ msgstr "این نسخه از Tails این مشکلات امنیت شناخته �
 msgid "Known security issues"
 msgstr "مسائل امنیتی شناخته شده"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:43
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:76
 #, sh-format
-msgid "Network card ${nic} disabled"
-msgstr "کارت شبکهٔ ${nic} غیرفعال است"
-
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:44
-#, fuzzy, sh-format
-msgid ""
-"MAC address anonymization failed for network card ${nic_name} (${nic}) so it "
-"is temporarily disabled.\n"
-"\n"
-"You might prefer to restart Tails and disable MAC address anonymization."
+msgid "Wi-Fi Interface Disabled"
 msgstr ""
-"گم‌نام‌سازی آدرس MAC برای کارت شبکه ${nic_name} (${nic}) ناموفق بود و به صورت "
-"موقت غیرفعال شد.\n"
-"ممکن است ترجیح دهید تیلز را دوباره راه‌اندازی کرده و گم‌نام‌سازی آدرس MAC را "
-"غیرفعال کنید."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:55
-msgid "All networking disabled"
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:77
+#, sh-format
+msgid ""
+"MAC address anonymization failed for one of your Wi-Fi interfaces, so it is "
+"temporarily disabled."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:79
+#, fuzzy, sh-format
+msgid "Wi-Fi Disabled"
+msgstr "غیرفعال کردن"
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:80
+#, sh-format
+msgid ""
+"MAC address anonymization failed for your Wi-Fi interface, so it is "
+"temporarily disabled."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:82
+#, sh-format
+msgid "Wired Interface Disabled"
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:83
+#, sh-format
+msgid ""
+"MAC address anonymization failed for one of your wired interfaces, so it is "
+"temporarily disabled."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:85
+#, fuzzy, sh-format
+msgid "Wired Network Disabled"
 msgstr "شبکه غیرفعال شده است"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:56
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:86
+#, sh-format
+msgid ""
+"MAC address anonymization failed for your wired interface, so it is "
+"temporarily disabled."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:88
+#, fuzzy, sh-format
+msgid "Network Interface Disabled"
+msgstr "کارت شبکهٔ ${nic} غیرفعال است"
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
+#, sh-format
+msgid ""
+"MAC address anonymization failed for one of your network interfaces, so it "
+"is temporarily disabled."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:91
+#, sh-format
+msgid ""
+"You might prefer to restart Tails and disable MAC address anonymization."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:98
+#, fuzzy
+msgid "All Networking Disabled"
+msgstr "شبکه غیرفعال شده است"
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:99
 #, fuzzy, sh-format
 msgid ""
-"MAC address anonymization failed for network card ${nic_name} (${nic}). The "
+"MAC address anonymization failed for one of your network interfaces. The "
 "error recovery also failed, so all networking is disabled.\n"
 "\n"
 "You might prefer to restart Tails and disable MAC address anonymization."
@@ -1744,16 +1790,16 @@ msgstr "همگام سازی ساعت سیستم…"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:512
 msgid "Connecting to Tor without bridges…"
-msgstr "اتصال به تور بدون پل..."
+msgstr "وصل شدن به تور بدون پل…"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:519
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:543
 msgid "Connecting to Tor with default bridges…"
-msgstr "اتصال به تور با پل‌های پیش‌فرض..."
+msgstr "وصل شدن به تور با پل‌های پیش‌گزیده…"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:526
 msgid "Connecting to Tor with a custom bridge…"
-msgstr "اتصال به تور از طریق پل سفارشی..."
+msgstr "وصل شدن به تور با پل سفارشی…"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tca/ui/main_window.py:634
 msgid "Connected to Tor successfully with bridges"
@@ -1888,9 +1934,8 @@ msgid "Formatting the file system..."
 msgstr "تایید فایل سیستم..."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:434
-#, fuzzy
 msgid "Activating the Persistent Storage..."
-msgstr "ایجاد ذخیره سازی مداوم: {}"
+msgstr "فعّال سازی ذخیره سازی مانا…"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
 #, fuzzy
@@ -1938,9 +1983,8 @@ msgid "Could not find the WhisperBack application"
 msgstr ""
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:94
-#, fuzzy
 msgid "Delete Data…"
-msgstr "حذف"
+msgstr "حذف داده‌ها…"
 
 #. Translators: Don't translate {feature}, it's a placeholder
 #. and will be replaced.
@@ -1973,9 +2017,8 @@ msgid "Error activating feature {}"
 msgstr "ایجاد ذخیره سازی مداوم: {}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:297
-#, fuzzy
 msgid "An error occurred while activating the feature."
-msgstr "ایجاد ذخیره سازی مداوم: {}"
+msgstr "هنگام فعّال سازی ویژگی خطایی رخ داد."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:298
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:347
@@ -1994,9 +2037,8 @@ msgid "Error deactivating feature {}"
 msgstr "ایجاد ذخیره سازی مداوم: {}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:346
-#, fuzzy
 msgid "An error occurred while deactivating the feature."
-msgstr "ایجاد ذخیره سازی مداوم: {}"
+msgstr "هنگام غیرفعّال سازی ویژگی خطایی رخ داد."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:366
 msgid ""
@@ -2007,9 +2049,8 @@ msgid ""
 msgstr ""
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:377
-#, fuzzy
 msgid "_Delete Data"
-msgstr "حذف"
+msgstr "_حذف داده‌ها"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:407
 msgid "Error deleting data of feature {}"
@@ -2046,20 +2087,17 @@ msgstr ""
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:37
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/change_passphrase_dialog.ui.in:8
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:56
-#, fuzzy
 msgid "Change Passphrase"
-msgstr "نمایش کلمه عبور"
+msgstr "تعویض عبارت عبور"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:92
-#, fuzzy
 msgid "The current passphrase is incorrect"
-msgstr "رمز ها با هم یکسان نیستند"
+msgstr "عبارت عبور کنونی درست نیست"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:103
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:113
-#, fuzzy
 msgid "Changing the passphrase failed"
-msgstr "نمایش کلمه عبور"
+msgstr "دگرگونی عبارت عبور شکست خورد"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:114
 msgid "An error occurred while changing the passphrase."
@@ -2086,9 +2124,8 @@ msgid "You can send an error report to help solve the issue."
 msgstr ""
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:60
-#, fuzzy
 msgid "_Send Error Report"
-msgstr "گزارش خطا‌ی WhisperBack"
+msgstr "_فرستادن گزارش خطا‌"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:144
 msgid ""
@@ -2135,9 +2172,8 @@ msgid "_Cancel"
 msgstr "_لغو"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:183
-#, fuzzy
 msgid "_Delete Persistent Storage"
-msgstr "ایجاد ذخیره سازی مداوم"
+msgstr "_حذف ذخیره سازی مانا"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:193
 #, fuzzy
@@ -2168,20 +2204,17 @@ msgid "Failed to create Persistent Storage"
 msgstr "عدم موفقیت در پیکربندی ذخیره‌ساز دائم"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:260
-#, fuzzy
 msgid "An error occurred while creating the Persistent Storage."
-msgstr "ذخیره دائمی رمزگذاری شده: {}"
+msgstr "هنگام ایجاد ذخیره سازی مانا خطایی رخ داد."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:280
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:287
-#, fuzzy
 msgid "Error deleting Persistent Storage"
-msgstr "ذخیره دائمی رمزگذاری شده: {}"
+msgstr "خطای حذف ذخیره سازی مانا"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:288
-#, fuzzy
 msgid "An error occurred while deleting the Persistent Storage."
-msgstr "ذخیره دائمی رمزگذاری شده: {}"
+msgstr "هنگام حذف ذخیره سازی مانا خطایی رخ داد."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:315
 msgid "Details (command output)"
@@ -2299,7 +2332,7 @@ msgstr "باز کردن حجم‌های VeraCrypt"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:120
 msgid "Container already added"
-msgstr "مخزن افزوده‌شده است."
+msgstr "بارگنج از پیش افزوده شده"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:121
 #, python-format
@@ -2390,7 +2423,7 @@ msgstr "راه اندازی مجدد سیستم انجام نشد."
 
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:74
 msgid "Starting the Unsafe Browser..."
-msgstr "در حال اجرای مرورگر نا امن"
+msgstr "آغازش مرورگر ناامن…"
 
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:75
 msgid "This may take a while, so please be patient."
@@ -2398,7 +2431,7 @@ msgstr "این ممکن است مدتی طول بکشد, بنابراین لطف
 
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:81
 msgid "Shutting down the Unsafe Browser..."
-msgstr "در حال بستن مرورگر نا امن"
+msgstr "خاموش کردن مرورگر ناامن…"
 
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:82
 msgid ""
@@ -2424,7 +2457,7 @@ msgstr ""
 
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:117
 msgid "Failed to setup chroot."
-msgstr "عدم موفقیت در راه اندازی Chroot"
+msgstr "شکست در برپایی Chroot."
 
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:123
 msgid "Failed to configure browser."
@@ -2468,7 +2501,7 @@ msgstr "این عملیات ممکن است کمی بطول بیانجامد..."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:195
 msgid "The contact email address doesn't seem valid."
-msgstr "آدرس ایمیل ارتباطی به نظر معتبر نمی آید"
+msgstr "نشانی رایانامهٔ آشنا معتبر به نظر نمی‌رسد."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:215
 msgid "Unable to send the mail: SMTP error."
@@ -2510,7 +2543,7 @@ msgstr "در هنگام رمزنگاری خطایی رخ داده است."
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:268
 #, python-format
 msgid "Unable to save %s."
-msgstr "امکان ذخیره سازی اطلاعات وجود ندارد%s"
+msgstr "ناتوان در ذخیرهٔ %s."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:298
 #, python-format
@@ -2552,7 +2585,7 @@ msgstr "کلید OpenPGP نامعتبر: %s"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:80
 msgid "Invalid contact OpenPGP public key block"
-msgstr "قطعه کلید عمومی OpenPGP نامعتبر است."
+msgstr "قطعه کلید عمومی OpenPGP آشنای نامعتبر"
 
 #: config/chroot_local-includes/usr/local/bin/tca:11
 msgid ""
@@ -2827,9 +2860,8 @@ msgid "Show Passphrase"
 msgstr "نمایش کلمه عبور"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:481
-#, fuzzy
 msgid "_Passphrase"
-msgstr "رمز"
+msgstr "_عبارت عبور"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:558
 #, fuzzy
@@ -2868,35 +2900,30 @@ msgstr ""
 "دکمه‌ی \"+\" در پایین را بفشارید."
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/change_passphrase_dialog.ui.in:95
-#, fuzzy
 msgid "Current _Passphrase"
-msgstr "رمز"
+msgstr "عبارت عبور _کنونی"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/change_passphrase_dialog.ui.in:131
-#, fuzzy
 msgid "_New Passphrase"
-msgstr "نمایش کلمه عبور"
+msgstr "عبارت عبور _جدید"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/change_passphrase_dialog.ui.in:179
-#, fuzzy
 msgid "_Confirm New Passphrase"
-msgstr "نمایش کلمه عبور"
+msgstr "_تایید عبارت عبور جدید"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/change_passphrase_dialog.ui.in:215
-#, fuzzy
 msgid "_Show Passphrases"
-msgstr "نمایش کلمه عبور"
+msgstr "_نمایش عبارت عبور"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/change_passphrase_dialog.ui.in:253
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/passphrase_view.ui.in:301
 #: ../config/chroot_local-includes/usr/share/tails-installer/passphrase_dialog.ui.in:161
-#, fuzzy
 msgid "The passphrases do not match"
-msgstr "رمز ها با هم یکسان نیستند"
+msgstr "عبارت‌های عبور مطابق نیستند"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/change_passphrase_dialog.ui.in:317
 msgid "Ch_ange"
-msgstr ""
+msgstr "_دگرگونی"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/deleted_view.ui.in:21
 #, fuzzy
@@ -3066,12 +3093,11 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/features_view.ui.in:575
 msgid "SSH Client"
-msgstr "کلاینت اس اس اچ (SSH Client)"
+msgstr "کارخواه پوستهٔ امن"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/features_view.ui.in:591
-#, fuzzy
 msgid "Activate SSH Client"
-msgstr "کلاینت اس اس اچ (SSH Client)"
+msgstr "فعّال سازی کارخواه پوستهٔ امن"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/features_view.ui.in:618
 #, fuzzy
@@ -3151,34 +3177,30 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/passphrase_view.ui.in:94
 msgid " For example:"
-msgstr ""
+msgstr " برای نمونه:"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/passphrase_view.ui.in:186
 #: ../config/chroot_local-includes/usr/share/tails-installer/passphrase_dialog.ui.in:46
 msgid "Passphrase:"
-msgstr "رمز"
+msgstr "عبارت عبور:"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/passphrase_view.ui.in:205
 #: ../config/chroot_local-includes/usr/share/tails-installer/passphrase_dialog.ui.in:65
-#, fuzzy
 msgid "Confirm:"
-msgstr "تایید"
+msgstr "تایید:"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/passphrase_view.ui.in:325
 #: ../config/chroot_local-includes/usr/share/tails-installer/passphrase_dialog.ui.in:185
-#, fuzzy
 msgid "_Show Passphrase"
-msgstr "نمایش کلمه عبور"
+msgstr "_نمایش عبارت عبور"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/passphrase_view.ui.in:375
-#, fuzzy
 msgid "_Back"
-msgstr "بازگشت"
+msgstr "_بازگشت"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/passphrase_view.ui.in:391
-#, fuzzy
 msgid "_Create Persistent Storage"
-msgstr "ایجاد ذخیره سازی مداوم"
+msgstr "_ایجاد ذخیرهٔ مانا"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/welcome_view.ui.in:56
 msgid ""
@@ -3207,26 +3229,23 @@ msgstr ""
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/welcome_view.ui.in:137
 #: ../config/chroot_local-includes/usr/share/tails-installer/passphrase_dialog.ui.in:232
 msgid "Co_ntinue"
-msgstr ""
+msgstr "ادا_مه"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:29
-#, fuzzy
 msgid "_Delete…"
-msgstr "حذف"
+msgstr "_حذف…"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:49
-#, fuzzy
 msgid "_Change Passphrase…"
-msgstr "نمایش کلمه عبور"
+msgstr "_دگرگونی عبارت عبور…"
 
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:66
-#, fuzzy
 msgid "_Restart Tails"
-msgstr "راه‌اندازی مجدد تیلز"
+msgstr "_راه‌اندازی دوبارهٔ تیلز"
 
 #: ../config/chroot_local-includes/usr/share/tails/unlock-veracrypt-volumes/main.ui.in:61
 msgid "File Containers"
-msgstr "مخزن فایل"
+msgstr "بارگنج‌های پرونده"
 
 #: ../config/chroot_local-includes/usr/share/tails/unlock-veracrypt-volumes/main.ui.in:80
 msgid "_Add"
@@ -3264,14 +3283,12 @@ msgid "Detach this volume"
 msgstr "جدا کردن این حجم"
 
 #: ../config/chroot_local-includes/usr/share/tails-installer/passphrase_dialog.ui.in:8
-#, fuzzy
 msgid "Choose Passphrase"
-msgstr "نمایش کلمه عبور"
+msgstr "گزینش عبارت عبور"
 
 #: ../config/chroot_local-includes/usr/share/tails-installer/passphrase_dialog.ui.in:30
-#, fuzzy
 msgid "Choose the passphrase for the cloned Persistent Storage."
-msgstr "یک رمز برای محافظت‌كردن از درایو ذخيره‌سازى مداوم انتخاب كنيد"
+msgstr "گزینش عبارت عبوری برای ذخيره‌ساز مانا."
 
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:281
 msgid "Target USB stick:"
@@ -3364,9 +3381,8 @@ msgid "Technical details to include"
 msgstr "اطلاعات تخصصی"
 
 #: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:703
-#, fuzzy
 msgid "_Send"
-msgstr "ارسال"
+msgstr "_فرستادن"
 
 #: ../config/chroot_local-includes/usr/local/share/mime/packages/unlock-veracrypt-volumes.xml.in.h:1
 msgid "TrueCrypt/VeraCrypt container"
@@ -3558,9 +3574,8 @@ msgstr ""
 "سرورهایی هستند که توسط سازمان‌ها و داوطلبان مختلف در سراسر جهان اداره می‌شوند."
 
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1241
-#, fuzzy
 msgid "<b>Connect to Tor _automatically</b>"
-msgstr "<b>به طور خودکار به Tor متصل شوید</b>"
+msgstr "<b> وصل شدن _خودکار به تور</b>"
 
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1291
 msgid ""
@@ -3602,17 +3617,16 @@ msgstr ""
 "می‌دهد که آیا برای اتصال به تور از شبکه محلی خود به پل نیاز دارید یا خیر."
 
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1431
-#, fuzzy
 msgid "<b>_Hide to my local network that I'm connecting to Tor</b>"
-msgstr "<b>به شبکه محلی من که با آن به Tor وصل می‌شوم مخفی شود</b>"
+msgstr "<b>_نهفتن استفاده‌ام از تور از دید شبکهٔ محلّیم</b>"
 
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1481
 msgid ""
 "You might need to go unnoticed if using Tor could look suspicious to someone "
 "who monitors your Internet connection."
 msgstr ""
-"اگر استفاده از تور برای کسی که اتصال اینترنت شما را نظارت می‌کند مشکوک به نظر "
-"برسد، ممکن است بخواهید جلب توجه نکنید!"
+"اگر استفاده از تور برای کسی که اتصال اینترنتیتان را می‌پاید مشکوک به نظر "
+"برسد، ممکن است بخواهید جلب توجه نکنید."
 
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1499
 #, fuzzy
@@ -3662,7 +3676,7 @@ msgstr "باز‌ کردن تنظیمات وای-فای"
 
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1707
 msgid "Testing Internet access…"
-msgstr "آزمایش دسترسی اینترنت..."
+msgstr "آزمودن دسترسی اینترنتی…"
 
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1747
 msgid "You have access to the Internet"
@@ -3670,7 +3684,7 @@ msgstr "شما به اینترنت دسترسی دارید"
 
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1781
 msgid "Testing access to Tor…"
-msgstr "آزمایش دسترسی به تور..."
+msgstr "آزمودن دسترسی به تور…"
 
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1824
 msgid "You can connect to Tor"
@@ -3687,7 +3701,7 @@ msgstr "شبکه محلی شما دسترسی به Tor را مسدود کرده 
 
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:1902
 msgid "Connecting to Tor…"
-msgstr "در حال اتصال به تور..."
+msgstr "وصل شدن به تور…"
 
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:2007
 msgid "Start Tor Browser"
@@ -3830,6 +3844,18 @@ msgstr "دسامبر"
 #: ../config/chroot_local-includes/usr/share/tails/tca/time-dialog.ui.in:368
 msgid "Clock"
 msgstr "ساعت"
+
+#, fuzzy, sh-format
+#~ msgid ""
+#~ "MAC address anonymization failed for network card ${nic_name} (${nic}) so "
+#~ "it is temporarily disabled.\n"
+#~ "\n"
+#~ "You might prefer to restart Tails and disable MAC address anonymization."
+#~ msgstr ""
+#~ "گم‌نام‌سازی آدرس MAC برای کارت شبکه ${nic_name} (${nic}) ناموفق بود و به "
+#~ "صورت موقت غیرفعال شد.\n"
+#~ "ممکن است ترجیح دهید تیلز را دوباره راه‌اندازی کرده و گم‌نام‌سازی آدرس MAC را "
+#~ "غیرفعال کنید."
 
 #~ msgid "Language & Region"
 #~ msgstr "زبان و منطقه"
