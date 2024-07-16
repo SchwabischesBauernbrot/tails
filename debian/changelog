@@ -1,12 +1,180 @@
 tails (6.7) UNRELEASED; urgency=medium
 
-  [ Tails developers ]
-  * Dummy entry for next release.
-
-  [ groente ]
   * Dummy entry for next release.
 
  -- groente <groente@puscii.nl>  Tue, 18 Jun 2024 12:45:17 +0200
+
+tails (6.6) UNRELEASED; urgency=medium
+
+  * Dummy entry for next release.
+
+ -- anonym <anonym@riseup.net>  Tue, 16 Jul 2024 15:40:01 +0200
+
+tails (6.5) unstable; urgency=medium
+
+  * Repair first-boot partitioning: write the random seed only up to 1000 times
+    (tails/tails!1605)
+
+    Commits:
+      - Repair first-boot partitioning: write the random seed only up to 1000 times
+        during first boot
+
+  * Upgrade to Tor Browser 13.5.1 based on Firefox 115.13esr (tails/tails!1604)
+
+    Closes issues:
+      - Upgrade to Tor Browser 13.5.1 (or higher) based on Firefox 115.13esr
+        (tails/tails#20434)
+
+    Commits:
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 13.5.1 (refs: tails#20434)
+
+  * Upgrade Tor Browser to 13.5 (tails/tails!1587)
+
+    Closes issues:
+      - Upgrade to Tor Browser 13.5 (tails/tails#20425)
+
+    Commits:
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 13.5 (refs: tails#20425)
+      - Test suite: adapt New Identity step vs Tor Browser 13.5
+      - Upgrade Tor Browser to 13.5a9 (refs: tails#20425)
+
+  * greeter can only be run once (tails/tails!1601)
+
+    Closes issues:
+      - Ctrl+Alt+F1 displays the Welcome Screen (tails/tails#20309)
+
+    Commits:
+      - reformat
+      - greeter can only be run once
+
+  * Bring back support for AR9170 USB wireless adapters (tails/tails!1599)
+
+    Closes issues:
+      - Install firmware-carl9170: firmware for AR9170 USB wireless adapters
+        (tails/tails#20427)
+
+    Commits:
+      - Bring back support for AR9170 USB wireless adapters
+
+  * Upgrade to Bookworm 12.6 (tails/tails!1598)
+
+    Closes issues:
+      - stable branch FTBFS: openssh-client has unmet dependency on libssl3
+        (tails/tails#20443)
+      - Upgrade to Bookworm 12.6 (tails/tails#20209)
+
+    Commits:
+      - Vagrant: bump snapshot of the "tails" archive to 2024070801
+      - Upgrade to Bookworm 12.6
+
+  * tails-report-mac-spoofing-failed: Point to doc (tails/tails!1594)
+
+    Closes issues:
+      - MAC spoofing failure notification should point to the corresponding
+        documentation (tails/tails#10559)
+
+    Commits:
+      - Reduce priority of "Mac spoofing discarded" log messages
+      - Connect stdout and stderr of tails-spoof-mac to the journal
+      - Add shellcheck comments
+      - Adapt error message in tails-spoof-mac for better UX
+      - Capitalize title of notification
+      - Rephrase error message in tails-spoof-mac
+      - tails-report-mac-spoofing-failed: Use WiFi offline icon
+      - tails-report-mac-spoofing-failed: Point to doc
+
+  * Fix connecting via mobile broadband (e.g. LTE), by reverting extra
+    NetworkManager hardening (tails/tails!1592)
+
+    Closes issues:
+      - Mobile broadband (LTE) broken since 6.0 (tails/tails#20291)
+
+    Commits:
+      - Revert extra NetworkManager hardening
+
+  * tca-portal: Fix LANG of processes launched via UserCommand (tails/tails!1591)
+
+    Closes issues:
+      - Tor Browser started with Tor Connection's "Start Tor Browser" button does not
+        honor locale (tails/tails#20318)
+
+    Commits:
+      - Suppress Ruff SLF001
+      - Fix Ruff RUF012
+      - Fix Ruff UP035
+      - Ruff format
+      - tca-portal: Fix LANG of processes launched via UserCommand
+
+  * Tails Cloner: Remove one of the 30 second sleeps during partitioning
+    (tails/tails!1588)
+
+    Commits:
+      - Cloner: Remove one of the 30 second sleeps during partitioning
+
+  * bin/test-utils/ruff: Don't try to check removed files (tails/tails!1585)
+
+    Closes issues:
+      - Ruff tries to check removed files (tails/tails#20430)
+
+    Commits:
+      - bin/test-utils/ruff: Don't try to check removed files
+
+  * Add the sources file for Dangerzone (#20355) (tails/tails!1581)
+
+    Commits:
+      - Move configuration file to somewhere more relevant for system configuration
+      - Add the sources file for Dangerzone (#20355)
+
+  * Configure Podman to use overlayfs storage by default (#20355)
+    (tails/tails!1579)
+
+    Commits:
+      - Configure Podman to use overlayfs storage by default (#20335)
+
+  * Use our own container images (tails/tails!1573)
+
+    Commits:
+      - Add explanation on why we use custom container images
+      - Use our own Debian Trixie and Sid images
+      - Use our custom Bookworm image to run tests
+      - Use our own container images to build and push the website
+
+  * Tails Cloner: show confirmation dialog before Choose Passphrase dialog
+    (tails/tails!1510)
+
+    Closes issues:
+      - Show confirmation dialog before Choose Passphrase dialog when cloning
+        Persistent Storage (tails/tails#20367)
+
+    Commits:
+      - Cloner: improve comment
+      - Cloner: Fix no "Reinstall" button when cancelling choose passphrase dialog
+      - Cloner: Fix sensitive "Upgrade" button when cloning enabled
+      - Cloner: run passphrase dialog before deleting Tails on Upgrade
+      - Cloner: improve code comment
+      - Cloner: unify if-statements
+      - Cloner: drop useless variable and the nested if-statement it's used in
+      - Cloner: reduce complexity by moving code out of nested if
+      - Cloner: drop unused instance variable
+      - Tails Cloner: show confirmation dialog before Choose Passphrase dialog
+
+  * Test suite: Verify GPT (tails/tails!1493)
+
+    Closes issues:
+      - Verify GPT partition table in test suite (tails/tails#20343)
+
+    Commits:
+      - Revert "Test suite: Fix `udisksctl info` failing after `sgdisk --verify`"
+      - Enable the 20343-verify-gpt APT overlay (refs: #20343).
+      - Make comment phrasing less ambiguous
+      - Add comments
+      - Test suite: Fix `udisksctl info` failing after `sgdisk --verify`
+      - Test suite: Check that `udisksctl info` succeeds
+      - Test suite: Verify GPT
+
+ -- Tails developers <tails@boum.org>  Mon, 15 Jul 2024 16:24:03 +0200
 
 tails (6.4) unstable; urgency=medium
 
