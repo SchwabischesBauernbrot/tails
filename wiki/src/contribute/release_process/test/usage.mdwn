@@ -102,6 +102,10 @@ by the local configuration file:
 * `CAPTURE_ALL`: Keep videos for all scenarios, including those that
   succeed (implies `CAPTURE`). Defaults to `false`.
 
+* `ALWAYS_SAVE_JOURNAL`: Boolean value. If set to `true`, the journal
+  of the Tails system under test will be saved for each scenario,
+  regardless of the scenario's outcome. Defaults to `false`.
+
 * `EXTRA_BOOT_OPTIONS`: String value. Specify additional kernel
   command-line options for the VM, for example `"rootpw=root"`.
 
