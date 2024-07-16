@@ -210,14 +210,6 @@ class VM
     set_network_link_state('down')
   end
 
-  def set_boot_device(dev)
-    raise 'boot settings can only be set for inactive vms' if running?
-
-    update do |xml|
-      xml.elements['domain/os/boot'].attributes['dev'] = dev
-    end
-  end
-
   def add_cdrom_device
     raise "Can't attach a CDROM device to a running domain" if running?
 
@@ -284,7 +276,16 @@ class VM
       add_cdrom_device
     end
     set_cdrom_image(image)
-    set_boot_device('cdrom')
+
+    return if domain_xml.elements["domain/os/boot[@dev='cdrom']"]
+
+    # Set the dev attribute of os/boot to "cdrom"
+    update do |xml|
+      unless xml.elements['domain/os/boot']
+        xml.elements['domain/os'].add_element('boot')
+      end
+      xml.elements['domain/os/boot'].add_attribute('dev', 'cdrom')
+    end
   end
 
   def list_disk_devs
@@ -405,12 +406,33 @@ class VM
   def set_disk_boot(name, type)
     raise 'boot settings can only be set for inactive vms' if running?
 
-    plug_drive(name, type) unless disk_plugged?(name)
-    set_boot_device('hd')
+    debug_log("Setting boot device to #{name}")
 
-    # We must remove the CDROM device to allow disk boot.
-    if domain_xml.elements["domain/devices/disk[@device='cdrom']"]
-      remove_cdrom_device
+    plug_drive(name, type) unless disk_plugged?(name)
+
+    update do |xml|
+      # Remove any os/boot elements
+      xml.elements.each('domain/os') do |e|
+        e.delete_element('boot')
+      end
+
+      # Remove any "boot" element from the disk devices
+      xml.elements.each('domain/devices/disk') do |e|
+        e.delete_element('boot')
+      end
+
+      # Add a "boot" element with the "order" attribute set to 1 to the
+      # disk device which has source file set to the given name.
+      found_device = false
+      xml.elements.each("domain/devices/disk[@device='disk']") do |e|
+        source_file = e.elements['source'].attribute('file').to_s
+        next unless source_file == @storage.disk_path(name)
+
+        e.add_element('boot', { 'order' => '1' })
+        found_device = true
+        break
+      end
+      raise "No such disk device '#{name}'" unless found_device
     end
   end
 
@@ -784,11 +806,12 @@ class VM
       begin
         potential_internal_snapshot = @domain.lookup_snapshot_by_name(name)
         @domain.revert_to_snapshot(potential_internal_snapshot)
-      rescue Guestfs::Error, Libvirt::RetrieveError
+      rescue Guestfs::Error, Libvirt::RetrieveError => e
         raise "The (internal nor external) snapshot #{name} may be known " \
               'by libvirt but it cannot be restored. ' \
               "To investigate, use 'virsh snapshot-list TailsToaster'. " \
-              "To clean up old dangling snapshots, use 'virsh snapshot-delete'."
+              "To clean up old dangling snapshots, use 'virsh snapshot-delete'.\n" \
+              "Error: #{e}"
       end
     end
     JournalDumper.instance.start

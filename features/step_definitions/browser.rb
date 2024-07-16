@@ -582,7 +582,8 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
 end
 
 When /^I request a new identity in Tor Browser$/ do
-  @torbrowser.child('New Identity', roleName: 'push button').press
+  @torbrowser.child('Tor Browser', roleName: 'push button').press
+  @torbrowser.child('New identity', roleName: 'push button').press
   @torbrowser.child('Restart Tor Browser', roleName: 'push button').press
 end
 

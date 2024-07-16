@@ -315,8 +315,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             live=self.live, progress=self.progress_thread, parent=self
         )
         self.live.connect_drive_monitor(self.populate_devices)
-        self.confirmed = False
-        self.delete_existing_liveos_confirmed = False
 
         # If an ISO was specified on the command line, use it.
         if args:
@@ -493,13 +491,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         if not self.live.opts.clone and not self.is_ISO_selected():
             self.warn_ISO_not_selected()
             return
-
-        if self.opts.clone_persistent_storage_requested:
-            passphrase_dialog = PassphraseDialog(self, self.live)
-            passphrase_dialog.run()
-            if not passphrase_dialog.passphrase:
-                return
-            self.live.passphrase = passphrase_dialog.passphrase
 
         self.begin()
 
@@ -761,7 +752,55 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         for signal_match in self.signals_connected:
             signal_match.remove()
 
+        if self.opts.partition:
+            description = _(
+                "%(parent_size)s %(vendor)s %(model)s device (%(device)s)"
+            ) % {
+                "vendor": self.live.drive["vendor"],
+                "model": self.live.drive["model"],
+                "device": self.live.drive["device"],
+                "parent_size": _format_bytes_in_gb(
+                    self.live.drive["parent_size"]
+                    if self.live.drive["parent_size"]
+                    else self.live.drive["size"]
+                ),
+            }
+            if self.live.has_persistent_storage():
+                delete_message = _(
+                    "\n\nThe Persistent Storage on this USB stick will be lost."
+                )
+                confirmation_label = _("Delete Persistent Storage and Reinstall")
+            else:
+                delete_message = _("\n\nAll data on this USB stick will be lost.")
+                confirmation_label = _("Delete All Data and Install")
+            msg = _("%(description)s%(delete_message)s") % {
+                "description": description,
+                "delete_message": delete_message,
+            }
+            if not self.show_confirmation_dialog(
+                _("Confirm the target USB stick"), msg, False, confirmation_label
+            ):
+                if self.force_reinstall_button_available:
+                    self.force_reinstall = False
+                    self.opts.partition = False
+                self.update_start_button()
+                return
+
+        if self.opts.clone_persistent_storage_requested:
+            passphrase_dialog = PassphraseDialog(self, self.live)
+            passphrase_dialog.run()
+            if not passphrase_dialog.passphrase:
+                self.force_reinstall = False
+                self.opts.partition = False
+                self.target_selected = None
+                self.enable_widgets(True)
+                self.update_start_button()
+                return
+            self.live.passphrase = passphrase_dialog.passphrase
+
         if not self.opts.partition:
+            # We delete the Live OS in order to accurately calculate
+            # progress later, and make sure there are no leftover files.
             try:
                 self.live.mount_device()
             except TailsInstallerError as e:
@@ -772,51 +811,6 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.status(_("Unable to mount device"))
                 self.enable_widgets(True)
                 return
-
-        if self.opts.partition:
-            if not self.confirmed:
-                description = _(
-                    "%(parent_size)s %(vendor)s %(model)s device (%(device)s)"
-                ) % {
-                    "vendor": self.live.drive["vendor"],
-                    "model": self.live.drive["model"],
-                    "device": self.live.drive["device"],
-                    "parent_size": _format_bytes_in_gb(
-                        self.live.drive["parent_size"]
-                        if self.live.drive["parent_size"]
-                        else self.live.drive["size"]
-                    ),
-                }
-                if self.live.has_persistent_storage():
-                    delete_message = _(
-                        "\n\nThe Persistent Storage on this USB stick will be lost."
-                    )
-                    confirmation_label = _("Delete Persistent Storage and Reinstall")
-                else:
-                    delete_message = _("\n\nAll data on this USB stick will be lost.")
-                    confirmation_label = _("Delete All Data and Install")
-                msg = _("%(description)s%(delete_message)s") % {
-                    "description": description,
-                    "delete_message": delete_message,
-                }
-                if self.show_confirmation_dialog(
-                    _("Confirm the target USB stick"), msg, False, confirmation_label
-                ):
-                    self.confirmed = True
-                else:
-                    if self.force_reinstall_button_available:
-                        self.force_reinstall = False
-                        self.opts.partition = False
-                    return
-            else:
-                # The user has confirmed that they wish to partition their device,
-                # let's go on
-                self.confirmed = False
-        else:
-            # The user has confirmed that they wish to overwrite their
-            # existing Live OS.  Here we delete it first, in order to
-            # accurately calculate progress.
-            self.delete_existing_liveos_confirmed = False
             try:
                 self.live.delete_liveos()
             except TailsInstallerError as ex:

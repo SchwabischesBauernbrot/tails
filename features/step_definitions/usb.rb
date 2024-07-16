@@ -233,21 +233,6 @@ When /^I (install|reinstall|upgrade) Tails( with Persistent Storage)? (?:to|on) 
     @installer.button(label).grabFocus
     @screen.press('Enter')
 
-    if with_persistence
-      # Enter the passphrase in the passphrase dialog
-      passphrase_entry = @installer.child('Choose Passphrase',
-                                          roleName: 'dialog')
-                                   .child('Passphrase:', roleName: 'label')
-                                   .labelee
-      confirm_entry = @installer.child('Choose Passphrase',
-                                       roleName: 'dialog')
-                                .child('Confirm:', roleName: 'label')
-                                .labelee
-      passphrase_entry.text = @persistence_password
-      confirm_entry.text = @persistence_password
-      confirm_entry.activate
-    end
-
     unless action == 'upgrade'
       confirmation_label = if persistence_exists?(name)
                              'Delete Persistent Storage and Reinstall'
@@ -256,7 +241,23 @@ When /^I (install|reinstall|upgrade) Tails( with Persistent Storage)? (?:to|on) 
                            end
       @installer.child('Question',
                        roleName: 'alert').button(confirmation_label).click
+
+      if with_persistence
+        # Enter the passphrase in the passphrase dialog
+        passphrase_entry = @installer.child('Choose Passphrase',
+                                            roleName: 'dialog')
+                                     .child('Passphrase:', roleName: 'label')
+                                     .labelee
+        confirm_entry = @installer.child('Choose Passphrase',
+                                         roleName: 'dialog')
+                                  .child('Confirm:', roleName: 'label')
+                                  .labelee
+        passphrase_entry.text = @persistence_password
+        confirm_entry.text = @persistence_password
+        confirm_entry.activate
+      end
     end
+
     try_for(15 * 60, delay: 10) do
       @installer
         .child('Information', roleName: 'alert')
@@ -480,16 +481,43 @@ Given /^I change the passphrase of the Persistent Storage( back to the original)
 end
 
 def check_disk_integrity(name, dev, scheme)
-  info = $vm.execute("udisksctl info --block-device '#{dev}'").stdout
+  info = $vm.execute_successfully(
+    "udisksctl info --block-device '#{dev}'"
+  ).stdout
   info_split = info.split("\n  org\.freedesktop\.UDisks2\.PartitionTable:\n")
   part_table_info = info_split[1]
   assert_match(/^    Type: +#{scheme}/, part_table_info,
                "Unexpected partition scheme on USB drive '#{name}', '#{dev}'")
+
+  # Now we will additionally verify the partition table if, and only if,
+  # the scheme is gpt.
+  return unless scheme == 'gpt'
+
+  c = $vm.execute("sgdisk --verify #{dev}")
+  assert(
+    # Note that sgdisk --verify exits with 0 even if it finds problems,
+    # so we also need to check the output.
+    c.success? &&
+    c.to_s.include?('No problems found.') && \
+    # The output of sgdisk --verify includes "ERROR" if any of the
+    # following are corrupt:
+    # * The GPT header
+    # * The GPT partition table
+    # * The GPT backup header
+    # * The GPT backup partition table
+    !c.to_s.include?('ERROR') &&
+    # The output of sgdisk --verify includes "corrupt" if the protective
+    # MBR is corrupt.
+    !c.to_s.include?('corrupt'),
+    "sgdisk --verify #{dev} failed.\n#{c}"
+  )
 end
 
 def check_part_integrity(name, dev, usage, fs_type,
                          part_label: nil, part_type: nil)
-  info = $vm.execute("udisksctl info --block-device '#{dev}'").stdout
+  info = $vm.execute_successfully(
+    "udisksctl info --block-device '#{dev}'"
+  ).stdout
   info_split = info.split("\n  org\.freedesktop\.UDisks2\.Partition:\n")
   dev_info = info_split[0]
   part_info = info_split[1]
@@ -617,7 +645,9 @@ Then /^a Tails persistence partition exists( with LUKS version 1)? on USB drive 
   end
 
   # Adapting check_part_integrity() seems like a bad idea so here goes
-  info = $vm.execute("udisksctl info --block-device '#{luks_dev}'").stdout
+  info = $vm.execute_successfully(
+    "udisksctl info --block-device '#{luks_dev}'"
+  ).stdout
   assert_match(%r{^    CryptoBackingDevice: +'/[a-zA-Z0-9_/]+'$}, info)
   assert_match(/^    IdUsage: +filesystem$/, info)
   assert_match(/^    IdType: +ext[34]$/, info)
@@ -899,10 +929,17 @@ Then /^the boot device has safe access rights$/ do
     end
   end
 
-  info = $vm.execute("udisksctl info --block-device '#{super_boot_dev}'").stdout
+  info = $vm.execute_successfully(
+    "udisksctl info --block-device '#{super_boot_dev}'"
+  ).stdout
   assert_match(/^    HintSystem: +true$/, info,
                "Boot device '#{super_boot_dev}' is not system internal " \
                'for udisks')
+end
+
+Then /^the USB drive "([^"]+)" has a valid partition table$/ do |name|
+  disk_dev = $vm.disk_dev(name)
+  check_disk_integrity(name, disk_dev, 'gpt')
 end
 
 Then /^all persistent filesystems have safe access rights$/ do
