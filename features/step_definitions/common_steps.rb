@@ -251,7 +251,7 @@ When /^I start the computer$/ do
   $lang_code = ''
 end
 
-Given /^I start Tails( from DVD)?( with network unplugged)?( and genuine APT sources)?( and I login)?$/ do |dvd_boot, network_unplugged, keep_apt_sources, do_login|
+Given /^I start Tails( from DVD)?( with network unplugged)?( and I login)?$/ do |dvd_boot, network_unplugged, do_login|
   step 'the computer is set to boot from the Tails DVD' if dvd_boot
   if network_unplugged
     step 'the network is unplugged'
@@ -259,11 +259,7 @@ Given /^I start Tails( from DVD)?( with network unplugged)?( and genuine APT sou
     step 'the network is plugged'
   end
   step 'I start the computer'
-  if keep_apt_sources
-    step 'the computer boots Tails with genuine APT sources'
-  else
-    step 'the computer boots Tails'
-  end
+  step 'the computer boots Tails'
   if do_login
     step 'I log in to a new session'
     if network_unplugged
@@ -442,7 +438,7 @@ def the_computer_boots
   $vm.wait_until_remote_shell_is_up(5 * 60)
 end
 
-Given /^the computer (?:re)?boots Tails( with genuine APT sources)?$/ do |keep_apt_sources|
+Given /^the computer (?:re)?boots Tails$/ do
   the_computer_boots
 
   try_for(60) do
@@ -452,9 +448,6 @@ Given /^the computer (?:re)?boots Tails( with genuine APT sources)?$/ do |keep_a
 
   post_vm_start_hook
   configure_simulated_Tor_network unless config_bool('DISABLE_CHUTNEY')
-  # This is required to use APT in the test suite as explained in
-  # commit e2510fae79870ff724d190677ff3b228b2bf7eac
-  step 'I configure APT to use non-onion sources' unless keep_apt_sources
 end
 
 Given /^I set the language to (.*) \((.*)\)$/ do |lang, lang_code|

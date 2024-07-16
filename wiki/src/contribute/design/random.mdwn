@@ -133,7 +133,7 @@ physical access to the device to determine how many times it has been
 booted due to the wear leveling of the flash memory.
 
 We try to mitigate this by writing the random seed a random number of
-times ((1 to 2000) during first boot. This should make it harder to
+times ((1 to 1000) during first boot. This should make it harder to
 determine the number of boots by looking at the wear leveling of the
 flash memory. Concerns that this might not be enough if the device uses
 static wear leveling have been raised on [[!tails_ticket 11897]].

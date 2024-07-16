@@ -8,10 +8,10 @@ SUBSYSTEM=="net", ACTION=="add", ATTR{type}=="1", DRIVERS=="ipheth", GOTO="mac_s
 ENV{INTERFACE}=="veth*", ACTION=="add", GOTO="mac_spoof_ignore"
 
 # Perform MAC spoofing otherwise
-SUBSYSTEM=="net", ACTION=="add", ATTR{type}=="1", RUN+="/usr/local/lib/tails-spoof-mac $name"
+SUBSYSTEM=="net", ACTION=="add", ATTR{type}=="1", RUN+="/usr/bin/systemd-cat -t spoof-mac -p debug /usr/local/lib/tails-spoof-mac $name"
 SUBSYSTEM=="net", ACTION=="add", ATTR{type}=="1", GOTO="mac_spoof_end"
 
 LABEL="mac_spoof_ignore"
-SUBSYSTEM=="net", ACTION=="add", ATTR{type}=="1", RUN+="/usr/bin/logger -t spoof-mac \"MAC spoofing discarded by udev rule for $name ($driver)\""
+SUBSYSTEM=="net", ACTION=="add", ATTR{type}=="1", RUN+="/usr/bin/logger -t spoof-mac -p debug \"MAC spoofing discarded by udev rule for $name ($driver)\""
 
 LABEL="mac_spoof_end"

@@ -932,14 +932,13 @@ class TailsInstallerCreator:
             else:
                 raise
 
-        self._set_partition_flags(self.get_system_partition(), SYSTEM_PARTITION_FLAGS)
-
         # Get a fresh system_partition object, otherwise
         # call_set_flags_sync sometimes fails with 'No such interface
         # 'org.freedesktop.UDisks2.Partition' on object at path
         # /org/freedesktop/UDisks2/block_devices/sdd1'
         # (https://gitlab.tails.boum.org/tails/tails/-/issues/15432)
-        self.get_system_partition()
+        system_partition = self.get_system_partition()
+        self._set_partition_flags(system_partition, SYSTEM_PARTITION_FLAGS)
 
         # Give the system some more time to recognize the updated
         # partition, otherwise sometimes later on, when

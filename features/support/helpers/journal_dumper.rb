@@ -19,12 +19,13 @@ require 'socket'
 class JournalDumper
   include Singleton
 
-  attr_reader :path
+  attr_accessor :path
 
   def start
     stop unless @thread.nil?
     socket_path = $vm.virtio_channel_socket_path(VIRTIO_JOURNAL_DUMPER)
     @path ||= "#{$config['TMPDIR']}/artifact.journal"
+    debug_log("Starting journal dumper thread, dumping to #{@path}")
     @thread = Thread.new do
       Thread.current.report_on_exception = false
       UNIXSocket.open(socket_path) do |socket|
