@@ -45,14 +45,9 @@ Package: src:onionshare
 Pin: origin deb.tails.boum.org
 Pin-Priority: 999
 
-Explanation: Dependency forward-ported from bullseye for our forward-ported onionshare (#20135): the version in bookworm has dropped the soft_unicode module which OnionShare 2.2 imports.
-Package: python3-markupsafe
-Pin: origin deb.tails.boum.org
-Pin-Priority: 999
-
-Explanation: Dependencies from bullseye for our forward-ported onionshare (#20135)
-Package: python3-flask python3-flask-httpauth python3-flask-socketio python3-itsdangerous python3-jinja2 python3-werkzeug
-Pin: release o=Debian,n=bullseye
+Explanation: Dependencies of our backported onionshare (#20198)
+Package: python3-blinker python3-flask python3-werkzeug
+Pin: release o=Debian,n=sid
 Pin-Priority: 999
 
 Package: webext-ublock-origin-firefox
