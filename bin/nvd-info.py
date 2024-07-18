@@ -5,6 +5,7 @@ import argparse
 import logging
 from pathlib import Path
 import json
+import re
 
 import requests
 
@@ -61,6 +62,25 @@ class CveFetcher:
         )
 
         query = search.add_argument_group("query")
+        query.add_argument(
+            "--vector-includes",
+            metavar="REGEXP",
+            type=re.compile,
+            default=[],
+            action="append",
+            help=(
+                "Matches the attack vector string.\n"
+                "May be given multiple times: if so, all of them must match\n"
+                "Example: --vector-includes 'AV:[LR]' --vector-includes 'C:[MH]'\n"
+            ),
+        )
+        query.add_argument(
+            "--description",
+            metavar="REGEXP",
+            type=lambda s: re.compile(s, flags=re.IGNORECASE),
+            help="Filter CVEs whose description matches this regexp (case-insensitive)",
+        )
+
         query.add_argument("--min-score", type=float)
         query.add_argument(
             "--min-confidentiality-impact", choices=["LOW", "MEDIUM", "HIGH"]
@@ -112,10 +132,28 @@ class CveFetcher:
             "HIGH": 30,
         }
 
+        if self.args.description:
+            all_descriptions = vuln["descriptions"]
+            english_descriptions = [
+                d["value"] for d in all_descriptions if d["lang"] == "en"
+            ]
+            if english_descriptions:
+                description = "\n".join(english_descriptions)
+            else:
+                description = "\n".join(all_descriptions)
+            if self.args.description.search(description) is None:
+                return False
+
         if not vuln["metrics"]:
-            return self.args.show_missing_data
-        metrics = vuln["metrics"]["cvssMetricV31"][0]["cvssData"]
+            if self.args.show_missing_data:
+                return True
+            metrics = None
+        else:
+            metrics = vuln["metrics"]["cvssMetricV31"][0]["cvssData"]
+
         if self.args.min_score is not None:
+            if metrics is None:
+                return False
             if metrics["baseScore"] < self.args.min_score:
                 return False
 
@@ -123,10 +161,21 @@ class CveFetcher:
             option = getattr(self.args, f"min_{impact}_impact")
             if option is None:
                 continue
+            if metrics is None:
+                return False
             metric = f"{impact}Impact"
             if impact_to_number[metrics[metric]] < impact_to_number[option]:
                 return False
 
+        if self.args.vector_includes:
+            if metrics is None:
+                return False
+            if not metrics["vectorString"]:
+                return self.args.show_missing_data
+            vector_features = metrics["vectorString"].split("/")
+            for regexp in self.args.vector_includes:
+                if not any(bool(regexp.search(feature)) for feature in vector_features):
+                    return False
         return True
 
     def output_cve(self, cve: str):
