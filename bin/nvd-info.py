@@ -23,7 +23,7 @@ class CveFetcher:
         p.add_argument(
             "--config-dir",
             type=Path,
-            default=str(Path("~/.local/share/cveinfo/").expanduser()),
+            default=str(Path("~/.local/share/cve-scraper/").expanduser()),
         )
         p.add_argument(
             "--log-level", choices=["DEBUG", "INFO", "WARN", "ERROR"], default="INFO"
@@ -121,6 +121,7 @@ class CveFetcher:
 
     def main_fetch(self):
         self.args.config_dir.mkdir(exist_ok=True)
+        (self.args.config_dir / "nvd").mkdir(exist_ok=True)
         for cve in self.args.cveid:
             self.fetch(cve)
 
