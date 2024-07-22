@@ -187,8 +187,8 @@ These stakeholders must be part of the decision-making process:
 
    Sometimes (for example when a DSA for the Linux kernel is out) assessing the
    severity is quite of a long process, because the DSA page could reference
-   dozens of CVEs. To simplify this, you can use [cve-scraper](https://gitlab.tails.boum.org/tails/cve-scraper/).
-   Here is some good query to get you started:
+   dozens of CVEs. To simplify this, you can use `nvd-info.py`.
+   Here is some good queries to get you started:
 
      - `./bin/nvd-info.py search --vector 'AV:[^P]' --vector '[CI]:[MH]' "${listOfCVEs[@]}"`
      - `./bin/nvd-info.py search --description 'privileg|escalat' "${listOfCVEs[@]}"`
