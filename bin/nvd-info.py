@@ -1,11 +1,11 @@
 #!/usr/bin/python3
 
-import sys
 import argparse
-import logging
-from pathlib import Path
 import json
+import logging
 import re
+import sys
+from pathlib import Path
 
 import requests
 
@@ -18,7 +18,7 @@ class CveFetcher:
 
     def get_parser(self) -> argparse.ArgumentParser:
         p = argparse.ArgumentParser(
-            formatter_class=argparse.ArgumentDefaultsHelpFormatter
+            formatter_class=argparse.ArgumentDefaultsHelpFormatter,
         )
         p.add_argument(
             "--config-dir",
@@ -26,7 +26,7 @@ class CveFetcher:
             default=str(Path("~/.local/share/cve-scraper/").expanduser()),
         )
         p.add_argument(
-            "--log-level", choices=["DEBUG", "INFO", "WARN", "ERROR"], default="INFO"
+            "--log-level", choices=["DEBUG", "INFO", "WARN", "ERROR"], default="INFO",
         )
         p.set_defaults(func=None)
         sub = p.add_subparsers()
@@ -83,11 +83,11 @@ class CveFetcher:
 
         query.add_argument("--min-score", type=float)
         query.add_argument(
-            "--min-confidentiality-impact", choices=["LOW", "MEDIUM", "HIGH"]
+            "--min-confidentiality-impact", choices=["LOW", "MEDIUM", "HIGH"],
         )
         query.add_argument("--min-integrity-impact", choices=["LOW", "MEDIUM", "HIGH"])
         query.add_argument(
-            "--min-availability-impact", choices=["LOW", "MEDIUM", "HIGH"]
+            "--min-availability-impact", choices=["LOW", "MEDIUM", "HIGH"],
         )
         search.add_argument("cveid", help="Example: CVE-2014-0160", nargs="+")
         return p
@@ -100,9 +100,9 @@ class CveFetcher:
         if not self.args.overwrite and fpath.exists():
             self.log.debug("%s already downloaded, skipping", cve)
             return
-        resp = requests.get(self.baseurl, params={"cveId": cve})
+        resp = requests.get(self.baseurl, params={"cveId": cve}, timeout=30)
         if not resp.ok:
-            self.log.warn("Could not fetch %s", cve)
+            self.log.warning("Could not fetch %s", cve)
             return
         content = resp.json()  # check if json is valid
         with fpath.open(mode="w") as buf:
