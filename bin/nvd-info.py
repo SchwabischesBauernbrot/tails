@@ -26,7 +26,9 @@ class CveFetcher:
             default=str(Path("~/.local/share/cve-scraper/").expanduser()),
         )
         p.add_argument(
-            "--log-level", choices=["DEBUG", "INFO", "WARN", "ERROR"], default="INFO",
+            "--log-level",
+            choices=["DEBUG", "INFO", "WARN", "ERROR"],
+            default="INFO",
         )
         p.set_defaults(func=None)
         sub = p.add_subparsers()
@@ -83,11 +85,13 @@ class CveFetcher:
 
         query.add_argument("--min-score", type=float)
         query.add_argument(
-            "--min-confidentiality-impact", choices=["LOW", "MEDIUM", "HIGH"],
+            "--min-confidentiality-impact",
+            choices=["LOW", "MEDIUM", "HIGH"],
         )
         query.add_argument("--min-integrity-impact", choices=["LOW", "MEDIUM", "HIGH"])
         query.add_argument(
-            "--min-availability-impact", choices=["LOW", "MEDIUM", "HIGH"],
+            "--min-availability-impact",
+            choices=["LOW", "MEDIUM", "HIGH"],
         )
         search.add_argument("cveid", help="Example: CVE-2014-0160", nargs="+")
         return p
