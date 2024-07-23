@@ -1,0 +1,20 @@
+[Unit]
+Description=Arti is a Tor-implementation in Rust
+Documentation=https://tpo.pages.torproject.net/core/arti/
+After=network-online.target nss-lookup.target
+
+[Service]
+User=arti
+Type=simple
+ExecStart=arti proxy -c /etc/arti/arti.toml
+CapabilityBoundingSet=
+PrivateDevices=yes
+PrivateTmp=yes
+ProtectHome=yes
+ProtectSystem=full
+# Override /etc/resolv.conf so tor can use a clearnet DNS server to
+# resolve hostnames used for pluggable transport and proxies.
+BindReadOnlyPaths=/etc/resolv-over-clearnet.conf:/etc/resolv.conf
+
+[Install]
+WantedBy=multi-user.target

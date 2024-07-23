@@ -18,3 +18,9 @@ ARTI_BINARY_URL='http://gitlab.torproject.org/tpo/core/arti/-/jobs/593103/artifa
 cd /usr/bin
 /usr/bin/curl --retry 20 --output arti "${ARTI_BINARY_URL}"
 chmod a+x arti
+
+addgroup --system --quiet arti
+adduser --system --quiet --no-create-home arti
+chown -R arti:arti /etc/arti/
+mkdir -p /var/lib/arti/cache /var/lib/arti/state
+chown -R arti:arti /var/lib/arti
