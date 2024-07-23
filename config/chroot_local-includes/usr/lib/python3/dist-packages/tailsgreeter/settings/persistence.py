@@ -107,8 +107,9 @@ class PersistentStorageSettings:
                 parameters=GLib.Variant("(s)", (passphrase,)),
                 flags=Gio.DBusCallFlags.NONE,
                 # In some cases, the default timeout of 25 seconds was not
-                # enough, so we use a timeout of 120 seconds instead.
-                timeout_msec=120000,
+                # enough, especially since we now run fsck as part of the unlock
+                # operation, so we use a timeout of 240 seconds instead.
+                timeout_msec=240000,
             )
         except GLib.GError as err:
             if tps_errors.IncorrectPassphraseError.is_instance(err):
