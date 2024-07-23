@@ -11,9 +11,15 @@ echo "Fetch and install arti"
 # 4. Click on the repro-build job
 # 5. In the Job Artifacts section on the right sidebar, click Browse
 # 6. Click arti-linux
-# 7. Get the URL from the Download
-# 8. Update ARTI_BINARY_URL with the URL, switching from http → https due to apt-cacher-ng
-ARTI_BINARY_URL='http://gitlab.torproject.org/tpo/core/arti/-/jobs/593103/artifacts/raw/arti-linux'
+# 7. Get the URL from the Download link and update ARTI_BINARY_URL
+ARTI_BINARY_URL='https://gitlab.torproject.org/tpo/core/arti/-/jobs/593103/artifacts/raw/arti-linux'
+
+# Cache file with apt-cacher-ng
+apt_proxy="$(apt-config --format '%v' dump Acquire::http::Proxy)"
+if [ "${apt_proxy}" = 'http://127.0.0.1:3142' ]; then
+    ARTI_BINARY_URL="$(echo "$ARTI_BINARY_URL" | sed "s@^https://@${apt_proxy}/HTTPS///@")"
+    unset http_proxy HTTP_PROXY https_proxy HTTPS_PROXY
+fi
 
 cd /usr/bin
 /usr/bin/curl --retry 20 --output arti "${ARTI_BINARY_URL}"
