@@ -268,8 +268,10 @@ class ASPConfigApplication(Gtk.Application):
             else:
                 if apt_package.installed:
                     summary = apt_package.installed.summary
-                else:
+                elif apt_package.candidate:
                     summary = apt_package.candidate.summary
+                else:
+                    summary = _("[description not available]")
             packages_with_description.append((package, summary))
 
         return packages_with_description
