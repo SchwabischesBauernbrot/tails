@@ -1,0 +1,20 @@
+#!/bin/sh
+
+set -eu
+
+echo "Fetch and install arti"
+
+# To get the URL for a new arti release binary:
+# 1. Go to https://gitlab.torproject.org/tpo/core/arti/-/tags
+# 2. Click the commit for the latest tag
+# 3. Click the link for the report for the pipeline that ran for this commit
+# 4. Click on the repro-build job
+# 5. In the Job Artifacts section on the right sidebar, click Browse
+# 6. Click arti-linux
+# 7. Get the URL from the Download
+# 8. Update ARTI_BINARY_URL with the URL, switching from http → https due to apt-cacher-ng
+ARTI_BINARY_URL='http://gitlab.torproject.org/tpo/core/arti/-/jobs/593103/artifacts/raw/arti-linux'
+
+cd /usr/bin
+/usr/bin/curl --retry 20 --output arti "${ARTI_BINARY_URL}"
+chmod a+x arti
