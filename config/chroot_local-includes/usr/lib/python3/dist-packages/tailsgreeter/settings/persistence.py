@@ -52,9 +52,7 @@ class PersistentStorageSettings:
             INTERFACE_NAME,
             None,
         )  # type: Gio.DBusProxy
-        device_variant = self.service_proxy.get_cached_property(
-            "Device"
-        )  # type: GLib.Variant
+        device_variant = self.service_proxy.get_cached_property("Device")  # type: GLib.Variant
         self.device = device_variant.get_string() if device_variant else "/"
         self.is_unlocked = False
         self.is_created = self.service_proxy.get_cached_property("IsCreated")
