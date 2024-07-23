@@ -12,20 +12,23 @@ import time
 import apt.cache
 import gi
 
-from gi.repository import Gio                               # NOQA: E402
-gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk                               # NOQA: E402
+from gi.repository import Gio  # NOQA: E402
 
-from tailslib.persistence import (                          # NOQA: E402
+gi.require_version("Gtk", "3.0")
+from gi.repository import Gtk  # NOQA: E402
+
+from tailslib.persistence import (  # NOQA: E402
     additional_software_persistence_feature_is_active,
     has_unlocked_persistence,
     has_persistence,
-    is_tails_media_writable)
+    is_tails_media_writable,
+)
 
-from additional_software import (                   # NOQA: E402
+from additional_software import (  # NOQA: E402
     get_additional_packages,
     get_packages_list_path,
-    filter_package_details)
+    filter_package_details,
+)
 
 
 gettext.install("tails")
@@ -80,7 +83,8 @@ class ASPConfigApplicationWindow(Gtk.ApplicationWindow):
             Gtk.DialogFlags.DESTROY_WITH_PARENT,
             Gtk.MessageType.ERROR,
             Gtk.ButtonsType.OK,
-            explanation)
+            explanation,
+        )
         dialog.format_secondary_text(str(exception))
         dialog.run()
         dialog.destroy()
@@ -98,9 +102,12 @@ class ASPConfigApplicationWindow(Gtk.ApplicationWindow):
             Gtk.MessageType.QUESTION,
             Gtk.ButtonsType.NONE,
             # Translators: Don't translate {package}, it's a placeholder and will be replaced.
-            _("Remove {package} from your additional software? "
-              "This will stop installing the package "
-              "automatically.").format(package=package_name))
+            _(
+                "Remove {package} from your additional software? "
+                "This will stop installing the package "
+                "automatically."
+            ).format(package=package_name),
+        )
         dialog.add_button(Gtk.STOCK_CANCEL, Gtk.ResponseType.REJECT)
         dialog.add_button(Gtk.STOCK_REMOVE, Gtk.ResponseType.ACCEPT)
         if dialog.run() == Gtk.ResponseType.ACCEPT:
@@ -110,11 +117,14 @@ class ASPConfigApplicationWindow(Gtk.ApplicationWindow):
                 self.__show_exception_dialog(
                     # Translators: Don't translate {pkg}, it's a placeholder and will be replaced.
                     _("Failed to remove {pkg}").format(pkg=package_name),
-                    e)
+                    e,
+                )
         dialog.destroy()
 
     def cb_persistence_button_clicked(self, button, data=None):
-        subprocess.check_call(["/usr/bin/gtk-launch", "org.boum.tails.PersistentStorage.desktop"])
+        subprocess.check_call(
+            ["/usr/bin/gtk-launch", "org.boum.tails.PersistentStorage.desktop"]
+        )
 
     def _wait_for_persistence_ready(self):
         print("Waiting for Persistent Storage to be ready")
@@ -131,8 +141,8 @@ class ASPConfigApplicationWindow(Gtk.ApplicationWindow):
             packages = self.get_config_func()
         except Exception as e:
             self.__show_exception_dialog(
-                _("Failed to read additional software configuration"),
-                e)
+                _("Failed to read additional software configuration"), e
+            )
             self.hide()
             return
         self.persistence_button.set_visible(False)
@@ -151,24 +161,24 @@ class ASPConfigApplicationWindow(Gtk.ApplicationWindow):
                 vbox.pack_start(name_label, expand=True, fill=True, padding=0)
                 description_label = Gtk.Label.new(package_description)
                 description_label.set_xalign(0)
-                vbox.pack_start(
-                    description_label, expand=True, fill=True, padding=0)
+                vbox.pack_start(description_label, expand=True, fill=True, padding=0)
                 hbox.pack_start(vbox, expand=True, fill=True, padding=12)
 
                 remove_button = Gtk.Button.new_from_icon_name(
-                    "window-close-symbolic",
-                    Gtk.IconSize.SMALL_TOOLBAR)
+                    "window-close-symbolic", Gtk.IconSize.SMALL_TOOLBAR
+                )
                 remove_button.set_relief(Gtk.ReliefStyle.NONE)
                 remove_button.set_tooltip_text(
                     # Translators: Don't translate {package}, it's a placeholder and will be replaced.
-                    _("Stop installing {package} "
-                      "automatically").format(package=package_name))
+                    _("Stop installing {package} automatically").format(
+                        package=package_name
+                    )
+                )
                 remove_button.get_accessible().set_name(_("Remove"))
                 remove_button.connect(
-                    "clicked", self.cb_listboxrow_remove_button_clicked,
-                    package_name)
-                hbox.pack_end(
-                    remove_button, expand=False, fill=False, padding=0)
+                    "clicked", self.cb_listboxrow_remove_button_clicked, package_name
+                )
+                hbox.pack_end(remove_button, expand=False, fill=False, padding=0)
 
                 listboxrow.add(hbox)
                 self.listbox.add(listboxrow)
@@ -180,56 +190,71 @@ class ASPConfigApplicationWindow(Gtk.ApplicationWindow):
             self.listbox.show_all()
             self.stack.set_visible_child(self.package_list_page)
             self.install_label.set_markup(
-                _('To add more, install some software using '
-                  '<a href="synaptic.desktop">Synaptic Package Manager</a> '
-                  'or <a href="org.gnome.Terminal.desktop">APT on the '
-                  'command line</a>.'))
+                _(
+                    "To add more, install some software using "
+                    '<a href="synaptic.desktop">Synaptic Package Manager</a> '
+                    'or <a href="org.gnome.Terminal.desktop">APT on the '
+                    "command line</a>."
+                )
+            )
         else:
             self.stack.set_visible_child(self.no_package_page)
             self.install_label.set_markup(
-                _('To do so, install some software using '
-                  '<a href="synaptic.desktop">Synaptic Package Manager</a> '
-                  'or <a href="org.gnome.Terminal.desktop">APT on the '
-                  'command line</a>.'))
+                _(
+                    "To do so, install some software using "
+                    '<a href="synaptic.desktop">Synaptic Package Manager</a> '
+                    'or <a href="org.gnome.Terminal.desktop">APT on the '
+                    "command line</a>."
+                )
+            )
             if has_unlocked_persistence():
                 # The label from the UI file is good unmodified
                 pass
             elif has_persistence():
                 self.install_label.set_markup(
-                    _('To do so, unlock your Persistent Storage '
-                      'when starting Tails and '
-                      'install some software using '
-                      '<a href="synaptic.desktop">Synaptic Package '
-                      'Manager</a> or '
-                      '<a href="org.gnome.Terminal.desktop">APT on the '
-                      'command line</a>.'))
+                    _(
+                        "To do so, unlock your Persistent Storage "
+                        "when starting Tails and "
+                        "install some software using "
+                        '<a href="synaptic.desktop">Synaptic Package '
+                        "Manager</a> or "
+                        '<a href="org.gnome.Terminal.desktop">APT on the '
+                        "command line</a>."
+                    )
+                )
             elif is_tails_media_writable():
                 self.persistence_button.set_visible(True)
                 self.install_label.set_markup(
-                    _('To do so, create a Persistent Storage and install some '
-                      'software using '
-                      '<a href="synaptic.desktop">Synaptic Package '
-                      'Manager</a> or '
-                      '<a href="org.gnome.Terminal.desktop">APT on the '
-                      'command line</a>.'))
+                    _(
+                        "To do so, create a Persistent Storage and install some "
+                        "software using "
+                        '<a href="synaptic.desktop">Synaptic Package '
+                        "Manager</a> or "
+                        '<a href="org.gnome.Terminal.desktop">APT on the '
+                        "command line</a>."
+                    )
+                )
                 # Start a thread to update the app when the Persistent Storage
                 # is ready.
-                threading.Thread(target=self._wait_for_persistence_ready,
-                                 daemon=True,
-                                 ).start()
+                threading.Thread(
+                    target=self._wait_for_persistence_ready,
+                    daemon=True,
+                ).start()
 
-            else:   # It's impossible to have a persistent storage
+            else:  # It's impossible to have a persistent storage
                 self.install_label.set_markup(
-                    _('To do so, install Tails on a USB stick '
-                      'and create a Persistent Storage.'))
+                    _(
+                        "To do so, install Tails on a USB stick "
+                        "and create a Persistent Storage."
+                    )
+                )
 
 
 class ASPConfigApplication(Gtk.Application):
     def __init__(self, *args, **kwargs):
         super().__init__(
-            *args,
-            application_id="org.boum.tails.AdditionalSoftware",
-            **kwargs)
+            *args, application_id="org.boum.tails.AdditionalSoftware", **kwargs
+        )
 
     def do_activate(self):
         self.window.present()
@@ -240,17 +265,18 @@ class ASPConfigApplication(Gtk.Application):
         self.window = ASPConfigApplicationWindow(
             application=self,
             get_config_func=self.get_asp_configuration,
-            remove_asp_func=self.remove_additional_software)
+            remove_asp_func=self.remove_additional_software,
+        )
 
         packages_list_file = Gio.File.new_for_path(
-            get_packages_list_path(return_nonexistent=True))
+            get_packages_list_path(return_nonexistent=True)
+        )
         self.packages_list_monitor = packages_list_file.monitor(
-            Gio.FileMonitorFlags.NONE, None)
-        self.packages_list_monitor.connect(
-            "changed", self.cb_packages_list_changed)
+            Gio.FileMonitorFlags.NONE, None
+        )
+        self.packages_list_monitor.connect("changed", self.cb_packages_list_changed)
 
-    def cb_packages_list_changed(self, file_monitor, file, other_file,
-                                 event_type):
+    def cb_packages_list_changed(self, file_monitor, file, other_file, event_type):
         if os.access(file.get_path(), os.R_OK):
             self.window.update_packages_list()
 
@@ -277,10 +303,14 @@ class ASPConfigApplication(Gtk.Application):
         return packages_with_description
 
     def remove_additional_software(self, package_name):
-        subprocess.run(["/usr/bin/pkexec",
-                        "/usr/local/lib/additional-software/asp-remove-package",
-                        package_name],
-                       check=True)
+        subprocess.run(
+            [
+                "/usr/bin/pkexec",
+                "/usr/local/lib/additional-software/asp-remove-package",
+                package_name,
+            ],
+            check=True,
+        )
 
 
 asp_application = ASPConfigApplication()
