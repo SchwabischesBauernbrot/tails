@@ -11,6 +11,11 @@ ORIG_DISK_GUID="17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3"
 MIN_SYSTEM_PARTITION_SIZE=$((4096 * 1024 * 1024 - 4096 * 512))
 
 PARENT_DEVICE="$1"
+REPARTITIONING_ERROR_FLAG_FILE="$2"
+
+set_error_reason() {
+    echo "$1" > "${REPARTITIONING_ERROR_FLAG_FILE}"
+}
 
 # Verify the GPT headers and partition tables. We've seen cases where
 # both the MBR and the GPT backup tables were corrupted, which caused
@@ -31,6 +36,7 @@ sgdisk --verify "${PARENT_DEVICE}"
 # * The GPT backup partition table
 if sgdisk --verify "${PARENT_DEVICE}" 2>&1 | grep -q 'corrupt\|ERROR'; then
   echo "Detected GPT corruption"
+  set_error_reason 'gpt-corruption'
   exit 1
 fi
 
@@ -39,6 +45,7 @@ GUID=$(sgdisk --print "${PARENT_DEVICE}" \
   | sed -n '/^Disk identifier (GUID)/ s/^Disk identifier (GUID): // p')
 if [ "${GUID}" = "${ORIG_DISK_GUID}" ]; then
   echo "The disk GUID was not randomized."
+  set_error_reason 'guid-not-randomized'
   exit 1
 fi
 
@@ -49,5 +56,6 @@ SIZE=$((SECTORS * 512))
 if [ "${SIZE}" -lt "${MIN_SYSTEM_PARTITION_SIZE}" ]; then
   echo "The system partition was not correctly resized " \
        "(expected at least ${MIN_SYSTEM_PARTITION_SIZE}, got ${SIZE})."
+  set_error_reason 'system-partition-not-resized'
   exit 1
 fi

@@ -9,6 +9,7 @@ ESP_GUID="C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
 
 PARENT_DEVICE="$1"
 SYSTEM_PARTITION="$2"
+REPARTITIONING_ERROR_FLAG_FILE="$3"
 
 # We call this after each action that alters the device/partition in any
 # way in an attempt to avoid various races that has caused this script
@@ -143,4 +144,4 @@ settle
 partprobe "${PARENT_DEVICE}"
 settle
 
-/scripts/lib/verify_partition_table "${PARENT_DEVICE}"
+/scripts/lib/verify_partition_table "${PARENT_DEVICE}" "${REPARTITIONING_ERROR_FLAG_FILE}"
