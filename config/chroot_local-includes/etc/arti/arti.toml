@@ -1,6 +1,15 @@
 [proxy]
-socks_listen = [19050, 19150]
-dns_listen = 15353
+socks_listen = [
+    # Default
+    "127.0.0.1:9050",
+    # Other Tails-specific applications
+    "127.0.0.1:9062",
+    # Tails Upgrader
+    "127.0.0.1:9063",
+    # Tor Browser (address is defined in tails-create-netns)
+    "10.200.1.1:9050"
+]
+dns_listen = 5353
 
 [storage]
 cache_dir = "/var/lib/arti/cache"

@@ -2,6 +2,7 @@
 Description=Arti is a Tor-implementation in Rust
 Documentation=https://tpo.pages.torproject.net/core/arti/
 After=network-online.target nss-lookup.target
+Requires=tails-create-netns.service
 
 [Service]
 User=arti
