@@ -81,6 +81,8 @@ steps:
     keyring: ${DEBOOTSTRAP_GNUPG_PUBRING}
     target: rootfs
 
+  - virtual-filesystems: rootfs
+
   - create-file: /etc/network/interfaces.d/wired
     contents: |
       auto eth0
