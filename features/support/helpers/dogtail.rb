@@ -89,7 +89,7 @@ module Dogtail
       code = code.join("\n") if code.instance_of?(Array)
       c = RemoteShell::PythonCommand.new($vm, code, user: @opts[:user])
       if c.failure?
-        msg = 'The Dogtail init script raised: ' \
+        msg = 'The Dogtail script raised: ' \
               "#{c.exception}\nSTDOUT:\n#{c.stdout.strip}\nSTDERR:\n#{c.stderr.strip}\n"
         raise Failure, msg
       end
