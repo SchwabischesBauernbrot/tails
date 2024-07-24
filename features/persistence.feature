@@ -27,9 +27,11 @@ Feature: Tails persistence
     Then persistence for "Persistent" is active
     And the file I created in the Persistent directory exists
 
-  Scenario: Persistent Storage error when the MBR and the GPT backup header is corrupt
+  Scenario: Persistent Storage error when resizing system partition fails
     Given a computer
-    And I set Tails to boot with options "test_gpt_corruption=mbr,gpt_backup,gpt_backup_table"
+    # Corrupting the GPT backup table causes the system partition to not
+    # be resized, because it causes fatresize to fail.
+    And I set Tails to boot with options "test_gpt_corruption=gpt_backup,gpt_backup_table"
     And I create a 7200 MiB disk named "temp"
     And I plug USB drive "temp"
     And I write the Tails USB image to disk "temp"
