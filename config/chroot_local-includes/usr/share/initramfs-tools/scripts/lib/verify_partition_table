@@ -34,7 +34,7 @@ sgdisk --verify "${PARENT_DEVICE}"
 # * The GPT partition table
 # * The GPT backup header
 # * The GPT backup partition table
-if sgdisk --verify "${PARENT_DEVICE}" 2>&1 | grep -q 'corrupt\|ERROR'; then
+if sgdisk --verify "${PARENT_DEVICE}" 2>&1 | grep -q -e corrupt -e ERROR; then
   echo "Detected GPT corruption"
   set_error_reason 'gpt-corruption'
   exit 1
