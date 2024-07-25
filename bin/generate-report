@@ -61,12 +61,13 @@ class GitLabWrapper(gitlab.Gitlab):
 
 
 class ReportGenerator(object):
-    def __init__(self, gl, group, projects: list, label: str, year: int,
-                 month: int):
+    def __init__(self, gl, group, projects: list, label: str,
+                 assignee: str, year: int, month: int):
         self.gl = gl
         self.group = group
         self.projects = projects
         self.label = label
+        self.assignee = assignee
         self.after = end_of_previous_month(year, month)
         self.before = beginning_of_next_month(year, month)
 
@@ -92,6 +93,9 @@ class ReportGenerator(object):
         for issue in gl_closed_issues:
             project = self.gl.project(issue["project_id"])
             issue = project.issues.get(issue["iid"])
+            if self.assignee is not None \
+               and self.assignee not in [a["username"] for a in issue.assignees]:
+                continue
             if self.label is not None and self.label not in issue.labels:
                 continue
             closed_issues.append({
@@ -123,6 +127,7 @@ if __name__ == '__main__':
     parser.add_argument('--year', type=int, required=True)
     parser.add_argument('--month', type=int, required=True)
     parser.add_argument('--label', default=None)
+    parser.add_argument('--assignee', default=None)
     parser.add_argument('--project')
     parser.add_argument("--debug", action="store_true", help="debug output")
     args = parser.parse_args()
@@ -145,7 +150,7 @@ if __name__ == '__main__':
         projects = PROJECTS
 
     report_generator = ReportGenerator(gl, group, projects, args.label,
-                                       args.year, args.month)
+                                       args.assignee, args.year, args.month)
 
     print("Closed issues")
     print("=============")
