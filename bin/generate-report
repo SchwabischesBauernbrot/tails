@@ -9,7 +9,7 @@ import sys
 from datetime import datetime
 
 try:
-    import gitlab  # type: ignore
+    import gitlab
 except ImportError:
     sys.exit("You need to install python3-gitlab to use this program.")
 
@@ -19,8 +19,10 @@ except ImportError:
     sys.exit("You need to install python3-dateutil to use this program.")
 from pathlib import Path
 
+# we can ignore PLW1508 because pathlib.Path.home
+# already handles the case of unset HOME environment variable
 PYTHON_GITLAB_CONFIG_FILE = os.getenv('PYTHON_GITLAB_CONFIG_FILE',
-                                      default=Path.home() /
+                                      default=Path.home() /  # noqa: PLW1508
                                       '.python-gitlab.cfg')
 
 PYTHON_GITLAB_NAME = os.getenv('GITLAB_NAME', default='Tails')
@@ -44,11 +46,11 @@ log = logging.getLogger()
 
 
 class GitLabWrapper(gitlab.Gitlab):
-    @functools.cache
+    @functools.cache  # noqa: B019
     def project(self, project_id):
         return self.projects.get(project_id)
 
-    @functools.cache
+    @functools.cache  # noqa: B019
     def project_from_name(self, project_name):
         project = next(
             p for p in self.projects.list(all=True)
@@ -60,7 +62,7 @@ class GitLabWrapper(gitlab.Gitlab):
 
 
 class ReportGenerator:
-    def __init__(self, gl, group, projects: list, label: str,
+    def __init__(self, gl, group, projects: list, label: str,  # noqa: PLR0913
                  assignee: str, year: int, month: int):
         self.gl = gl
         self.group = group
@@ -88,9 +90,9 @@ class ReportGenerator:
             if issue not in gl_closed_issues:
                 gl_closed_issues.append(issue)
 
-        for issue in gl_closed_issues:
-            project = self.gl.project(issue["project_id"])
-            issue = project.issues.get(issue["iid"])
+        for raw_issue in gl_closed_issues:
+            project = self.gl.project(raw_issue["project_id"])
+            issue = project.issues.get(raw_issue["iid"])
             if self.assignee is not None \
                and self.assignee not in [a["username"] for a in issue.assignees]:
                 continue
