@@ -15,10 +15,4 @@ After=plymouth-quit-wait.service
 
 [Service]
 Type=oneshot
-# We use VT5 that is clean of boot messages and does not get a getty started
-# when we switch there, thanks to our custom NAutoVTs=4 logind.conf setting
-ExecStart=/sbin/plymouthd --mode=shutdown --tty=tty5
-ExecStart=/bin/chvt 5
-ExecStart=/bin/plymouth show-splash
 ExecStart=/usr/local/lib/tails-gdm-error-message
-ExecStart=/bin/plymouth quit --retain-splash

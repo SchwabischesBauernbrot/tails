@@ -4,17 +4,31 @@ import re
 import os.path
 import pathlib
 from argparse import ArgumentParser
-from subprocess import check_call, check_output
+import subprocess
 
 MAX_LENGTH = 254  # this depends on a limit of plymouth
 DISK_IOERRORS = pathlib.Path("/var/lib/live/tails.disk.ioerrors")
+
+
+def run(*args, **kwargs):
+    """
+    Wrapper around subprocess.run that prints the command being run.
+    """
+    print("Executing command:", " ".join(args[0]))
+    return subprocess.run(*args, **kwargs)  # noqa: PLW1510
 
 
 def run_lspci(lspci_args: list) -> str:
     """
     get lspci output
     """
-    return check_output(["/usr/bin/lspci", "-vmm", *lspci_args], encoding="utf8")
+    p = run(
+        ["/usr/bin/lspci", "-vmm", *lspci_args],
+        text=True,
+        check=True,
+        stdout=subprocess.PIPE,
+    )
+    return p.stdout
 
 
 def parse_lspci(text: str) -> list:
@@ -151,11 +165,26 @@ def main():
         gpus = sort_gpus(gpus)
         msg = format_gpus(gpus)
 
-    cmd = ["/bin/plymouth", "display-message", "--text", msg]
-    if not args.dry_run:
-        check_call(cmd)
-    else:
-        print("would run `%s`, but --dry-run is selected" % " ".join(cmd))
+    if args.dry_run:
+        print(f"Would display message: {msg}")
+        return
+
+    # Start plymouth on VT5 because it is clean of boot messages and
+    # does not get a getty started when we switch there, thanks to our
+    # custom NAutoVTs=4 logind.conf setting
+    run(["/sbin/plymouthd", "--mode=shutdown", "--tty=tty5"], check=True)
+
+    # Switch to VT5
+    run(["/bin/chvt", "5"], check=True)
+
+    # Show the splash screen
+    run(["/bin/plymouth", "show-splash"], check=True)
+
+    # Display the message on the splash screen
+    run(["/bin/plymouth", "display-message", "--text", msg], check=True)
+
+    # Quit plymouth and keep the splash screen with the message visible
+    run(["/bin/plymouth", "quit", "--retain-splash"], check=True)
 
 
 if __name__ == "__main__":
