@@ -3,9 +3,9 @@
 # Documentation: https://tails.net/contribute/working_together/GitLab/#api
 
 import functools
-import sys
 import logging
 import os
+import sys
 from datetime import datetime
 
 try:
@@ -18,7 +18,6 @@ try:
 except ImportError:
     sys.exit("You need to install python3-dateutil to use this program.")
 from pathlib import Path
-
 
 PYTHON_GITLAB_CONFIG_FILE = os.getenv('PYTHON_GITLAB_CONFIG_FILE',
                                       default=Path.home() /
@@ -45,22 +44,22 @@ log = logging.getLogger()
 
 
 class GitLabWrapper(gitlab.Gitlab):
-    @functools.lru_cache(maxsize=None)
+    @functools.cache
     def project(self, project_id):
         return self.projects.get(project_id)
 
-    @functools.lru_cache(maxsize=None)
+    @functools.cache
     def project_from_name(self, project_name):
-        project = [
+        project = next(
             p for p in self.projects.list(all=True)
             # Disambiguate between projects whose names share a common prefix
             if p.path_with_namespace == project_name
-        ][0]
+        )
         assert isinstance(project, gitlab.v4.objects.Project)
         return project
 
 
-class ReportGenerator(object):
+class ReportGenerator:
     def __init__(self, gl, group, projects: list, label: str,
                  assignee: str, year: int, month: int):
         self.gl = gl
@@ -72,7 +71,6 @@ class ReportGenerator(object):
         self.before = beginning_of_next_month(year, month)
 
     def closed_issues_in_project(self, project_name) -> list:
-        closed_issues = []
         project = self.gl.project_from_name(project_name)
         closed_issues_events = project.events.list(iterator=True,
                                                    get_all=True,
@@ -83,7 +81,7 @@ class ReportGenerator(object):
 
         gl_closed_issues_with_duplicates = [{
             "project_id": event.project_id,
-            "iid": event.target_iid
+            "iid": event.target_iid,
         } for event in closed_issues_events]
         gl_closed_issues = []
         for issue in gl_closed_issues_with_duplicates:
@@ -139,10 +137,7 @@ if __name__ == '__main__':
     group = gl.groups.list(search=GROUP_NAME)[0]
     assert isinstance(group, gitlab.v4.objects.Group)
 
-    if args.project:
-        projects = [args.project]
-    else:
-        projects = PROJECTS
+    projects = [args.project] if args.project else PROJECTS
 
     report_generator = ReportGenerator(gl, group, projects, args.label,
                                        args.assignee, args.year, args.month)
