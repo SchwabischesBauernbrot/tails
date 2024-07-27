@@ -22,15 +22,24 @@ option="$(tr ' ' '\n' < /proc/cmdline | grep -E '\b(early_)?patch\b')"
 
 [ -n "$option" ] || exit 0
 
-# We support setting the option to "umount" to unmount the git repo
-# after the hooks have been run, or to the name of a custom directory
-# below config/patch/hooks/ to run the hooks in that directory. Multiple
-# options can be passed, separated by commas.
-umount_option="$(echo "$option" | grep -w umount || true)"
-if echo "$option" | grep -q =; then
-  hook_dirs="$(echo "$option" | cut -d= -f2 | tr , ' ' || true)"
-else
-  hook_dirs="default"
+# We support the following arguments:
+# - umount: unmount the git repo after running the hooks
+# - virtiofs: use virtiofs instead of 9p to mount the git repo
+# - <hook_dir>: the name of a custom directory below config/patch/hooks/
+#               that contains hooks to run.
+# Multiple arguments can be passed as a comma-separated list.
+options="$(echo "$option" | sed -n 's/^.*=//p' | tr ',' '\n')"
+umount_option="$(echo "$options" | grep -w 'umount' || true)"
+virtiofs_option="$(echo "$options" | grep -w 'virtiofs' || true)"
+hook_dirs="$(echo "$options" | grep -v -e 'umount' -e 'virtiofs' || true)"
+
+# Set the default hook directory if none was specified
+if [ -z "$hook_dirs" ]; then
+  if [ -n "$umount_option" ]; then
+    hook_dirs="umount"
+  else
+    hook_dirs="default"
+  fi
 fi
 
 . /scripts/functions
@@ -47,14 +56,21 @@ run() {
     /bin/plymouth update-root-fs --new-root-dir=/root --read-write
   fi
 
-  for mod in fscache 9pnet 9pnet_virtio 9p; do
-    modprobe -vvv -d /root/ $mod
-  done
+  if [ -n "${virtiofs_option}" ]; then
+    modprobe -vvv -d /root/ virtiofs
+    fstype=virtiofs
+  else
+    modprobe -vvv -d /root/ fscache
+    modprobe -vvv -d /root/ 9pnet
+    modprobe -vvv -d /root/ 9pnet_virtio
+    modprobe -vvv -d /root/ 9p
+    fstype=9p
+  fi
 
   mkdir -p "$MOUNTPOINT"
 
   set +x
-  if ! err=$(mount -t 9p tails.git "$MOUNTPOINT" 2>&1); then
+  if ! err=$(mount -t "${fstype}" tails.git "$MOUNTPOINT" 2>&1); then
     echo >&2 "$err"
     # If the error is that the device does not exist, print a more
     # helpful error message.
