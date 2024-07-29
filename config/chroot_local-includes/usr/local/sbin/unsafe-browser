@@ -117,21 +117,12 @@ show_start_notification
 trap "try_cleanup_browser_chroot \"${CHROOT}\" \"${COW}\"" INT EXIT
 
 echo "* Setting up chroot"
-# This `set +e` dance with a subshell is necessary to have `set -e` work
-# in the called function and be able to act on its return value. See:
-# https://stackoverflow.com/a/11092989
-set +e
-(set -e; setup_chroot_for_browser "${CHROOT}" "${COW}" "${BROWSER_USER}"); ret=$?
-set -e
-[ $ret -eq 0 ] || error "$(gettext "Failed to setup chroot.")"
+setup_chroot_for_browser "${CHROOT}" "${COW}" "${BROWSER_USER}"
 
 echo "* Configuring chroot"
-set +e
-(set -e; configure_chroot_browser "${CHROOT}" "${BROWSER_USER}" \
-    "${BROWSER_NAME}" "${HUMAN_READABLE_NAME}" "${HOME_PAGE}" \
-    /usr/share/tails/chroot-browsers/unsafe-browser/extensions/*.xpi); ret=$?
-set -e
-[ $ret -eq 0 ] || error "$(gettext "Failed to configure browser.")"
+configure_chroot_browser "${CHROOT}" "${BROWSER_USER}" "${BROWSER_NAME}" \
+    "${HUMAN_READABLE_NAME}" "${HOME_PAGE}" \
+    /usr/share/tails/chroot-browsers/unsafe-browser/extensions/*.xpi
 
 if ! nm_is_connected; then
     error "$(gettext "You are not connected to a local network yet.\n\nTo be able to start the Unsafe Browser, you first need to connect to a Wi-Fi, wired, or mobile network.")"
