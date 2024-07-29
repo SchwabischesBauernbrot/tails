@@ -15,7 +15,9 @@ fi
 as_root_do() {
 	# shellcheck disable=SC2154
 	sudo \
+		${JENKINS_URL:+JENKINS_URL="${JENKINS_URL}"} \
 		${RSYNC_PROXY:+RSYNC_PROXY="${RSYNC_PROXY}"} \
+		${TAILS_PROXY_TYPE:+TAILS_PROXY_TYPE="${TAILS_PROXY_TYPE}"} \
 		${http_proxy:+http_proxy="${http_proxy}"} \
 		${https_proxy:+https_proxy="${https_proxy}"} \
 		${ftp_proxy:+ftp_proxy="${ftp_proxy}"} \

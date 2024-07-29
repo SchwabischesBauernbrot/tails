@@ -33,6 +33,7 @@ VAGRANT_PATH = File.expand_path('vagrant', __dir__)
 STABLE_BRANCH_NAMES = ['stable', 'testing'].freeze
 
 EXPORTED_VARIABLES = [
+  'JENKINS_URL',
   'MKSQUASHFS_OPTIONS',
   'APT_SNAPSHOTS_SERIALS',
   'TAILS_ACNG_PROXY',

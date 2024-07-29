@@ -4,6 +4,8 @@ set -eu
 
 echo "Fetch and install arti"
 
+. /usr/share/tails/build/variables
+
 # To get the URL for a new arti release binary:
 # 1. Go to https://gitlab.torproject.org/tpo/core/arti/-/tags
 # 2. Click the commit for the latest tag
@@ -14,9 +16,11 @@ echo "Fetch and install arti"
 # 7. Get the URL from the Download link and update ARTI_BINARY_URL
 ARTI_BINARY_URL='https://gitlab.torproject.org/tpo/core/arti/-/jobs/593103/artifacts/raw/arti-linux'
 
-# Cache file with apt-cacher-ng
-apt_proxy="$(apt-config --format '%v' dump Acquire::http::Proxy)"
-if [ "${apt_proxy}" = 'http://127.0.0.1:3142' ]; then
+# When using the vmproxy or building on jenkins we know that
+# apt-cacher-ng is used, so we fetch and cache over https using the
+# HTTPS/// trick.
+if [ "${TAILS_PROXY_TYPE}" = 'vmproxy' ] || [ -n "${JENKINS_URL:-}" ]; then
+    apt_proxy="$(apt-config --format '%v' dump Acquire::http::Proxy)"
     ARTI_BINARY_URL="$(echo "$ARTI_BINARY_URL" | sed "s@^https://@${apt_proxy}/HTTPS///@")"
     unset http_proxy HTTP_PROXY https_proxy HTTPS_PROXY
 fi

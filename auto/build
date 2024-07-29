@@ -56,6 +56,8 @@ rm -rf cache/stages_rootfs
            /bin/grep -E --no-filename '[^ #]*\.in$' po/POTFILES.in \
            | sed -e 's,^config/chroot_local-includes,,' | tr "\n" ' '
          )'"
+   echo "TAILS_PROXY_TYPE=${TAILS_PROXY_TYPE}"
+   [ -n "${JENKINS_URL:-}" ] && echo "JENKINS_URL=${JENKINS_URL}"
 } >> config/chroot_local-includes/usr/share/tails/build/variables
 
 # fix permissions on some source files that will be copied as is to the chroot.
