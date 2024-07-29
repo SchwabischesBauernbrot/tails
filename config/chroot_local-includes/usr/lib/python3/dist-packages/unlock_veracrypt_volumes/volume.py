@@ -13,13 +13,13 @@ from unlock_veracrypt_volumes.exceptions import (
 gi.require_version("Gtk", "3.0")
 gi.require_version("GLib", "2.0")
 gi.require_version("Gio", "2.0")
-from gi.repository import Gtk, GLib, Gio, UDisks
+from gi.repository import Gtk, GLib, Gio, UDisks  # noqa: E402
 
 
 logger = getLogger(__name__)
 
 
-class Volume(object):
+class Volume:
     def __init__(
         self,
         manager,
@@ -103,7 +103,7 @@ class Volume(object):
     @property
     def drive_name(self) -> str:
         if self.is_file_container:
-            return str()
+            return ""
 
         if self.is_unlocked:
             drive_object = self.udisks_client.get_object(
@@ -113,17 +113,17 @@ class Volume(object):
             drive_object = self.drive_object
 
         if drive_object:
-            return "%s %s" % (
+            return "{} {}".format(
                 drive_object.get_drive().props.vendor,
                 drive_object.get_drive().props.model,
             )
         else:
-            return str()
+            return ""
 
     @property
     def backing_file_name(self) -> str:
         if not self.is_file_container:
-            return str()
+            return ""
         if self.is_unlocked:
             return self.backing_udisks_object.get_loop().props.backing_file
         elif self.is_loop_device:
@@ -154,7 +154,7 @@ class Volume(object):
             # Translators: Don't translate {volume_name} and {path_to_file_container},
             # they are placeholders and will be replaced. You should only have to translate
             # this string if it makes sense to reverse the order of the placeholders.
-            return _("{volume_name} – {path_to_file_container}").format(
+            return _("{volume_name} – {path_to_file_container}").format(  # noqa: RUF001
                 volume_name=desc, path_to_file_container=self.backing_file_name
             )
         elif self.is_partition and self.drive_object:
@@ -170,7 +170,7 @@ class Volume(object):
             # Translators: Don't translate {volume_name} and {drive_name},
             # they are placeholders and will be replaced. You should only have to translate
             # this string if it makes sense to reverse the order of the placeholders.
-            return _("{volume_name} – {drive_name}").format(
+            return _("{volume_name} – {drive_name}").format(  # noqa: RUF001
                 volume_name=desc, drive_name=self.drive_name
             )
         else:
@@ -283,10 +283,8 @@ class Volume(object):
                 # they are placeholder and will be replaced.  They need
                 # to be present in the translated string.
                 body = _(
-                    "Couldn't unlock volume {volume_name}:\n{error_message}".format(
-                        volume_name=self.name, error_message=e.message
-                    )
-                )
+                    "Couldn't unlock volume {volume_name}:\n{error_message}",
+                ).format(volume_name=self.name, error_message=e.message)
                 self.manager.show_warning(title, body)
                 return
             finally:
@@ -298,7 +296,7 @@ class Volume(object):
                 # crypto backing loop device to the unlocked device-mapper device,
                 # which we can then open
                 self.udisks_object = self._find_udisks_object()
-                self.open()
+                self.open_()
 
         if self.is_unlocked:
             raise AlreadyUnlockedError(
@@ -327,21 +325,22 @@ class Volume(object):
             GLib.Variant("a{sv}", {}), None  # options
         )  # cancellable
 
-    def unmount(self):
+    def ensure_not_mounted(self):
+        filesystem = self.udisks_object.get_filesystem()
+        if not filesystem:
+            logger.info("Volume %s is not mounted", self.device_file)
+            return
+
         logger.info("Unmounting volume %s", self.device_file)
-        unmounted_at_least_once = False
-        while self.udisks_object.get_filesystem().props.mount_points:
+        while filesystem.props.mount_points:
             try:
-                self.udisks_object.get_filesystem().call_unmount_sync(
+                filesystem.call_unmount_sync(
                     GLib.Variant("a{sv}", {}), None  # options
                 )  # cancellable
-                unmounted_at_least_once = True
             except GLib.Error as e:
-                # Ignore "not mounted" error if the volume was already unmounted
                 if (
                     e.domain == "udisks-error-quark"
                     and e.code == UDisks.Error.NOT_MOUNTED
-                    and unmounted_at_least_once
                 ):
                     return
                 raise
@@ -357,12 +356,12 @@ class Volume(object):
                 GLib.Variant("a{sv}", {}), None  # options
             )  # cancellable
 
-    def open(self):
+    def open_(self):
         logger.info("Opening volume %s", self.device_file)
         mount_points = self.udisks_object.get_filesystem().props.mount_points
         if not mount_points:
             self.mount()
-            self.open()
+            self.open_()
         else:
             self.manager.open_uri(GLib.filename_to_uri(mount_points[0]))
 
@@ -396,7 +395,7 @@ class Volume(object):
                 True, GLib.Variant("a{sv}", {}), None  # options
             )  # cancellable
         try:
-            self.unmount()
+            self.ensure_not_mounted()
             self.backing_volume.lock()
         except GLib.Error as e:
             # Show a more helpful message for the known error cases
@@ -409,10 +408,8 @@ class Volume(object):
                 # they are placeholder and will be replaced. They need
                 # to be present in the translated string.
                 body = _(
-                    "Couldn't lock volume {volume_name}:\n{error_message}".format(
-                        volume_name=self.name, error_message=e.message
-                    )
-                )
+                    "Couldn't lock volume {volume_name}:\n{error_message}",
+                ).format(volume_name=self.name, error_message=e.message)
             self.manager.show_warning(_("Locking the volume failed"), body)
             return
 
@@ -426,7 +423,7 @@ class Volume(object):
 
     def on_open_button_clicked(self, button):
         logger.debug("in on_open_button_clicked")
-        self.open()
+        self.open_()
 
     def update_list_box_row(self):
         logger.debug("in update_list_box_row. is_unlocked: %s", self.is_unlocked)

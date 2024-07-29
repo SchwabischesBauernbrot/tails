@@ -232,6 +232,14 @@ If the error message lists multiple graphics cards:
   - `modprobe.blacklist=nouveau`
   - `nouveau.modeset=0`
 
+<h2 id="intel-bay-trail">Intel HD Graphics (Bay Trail)</h2>
+
+For example, in the Acer Aspire e13.
+
+Try adding the following [[boot option|doc/advanced_topics/boot_options]] when starting Tails:
+
+    plymouth.enable=0 disablehooks=plymouth
+
 <h1 id="other-issues">Other issues</h1>
 
 <h2 id="black-screen-switchable-graphics">Black screen with switchable graphics computers</h2>

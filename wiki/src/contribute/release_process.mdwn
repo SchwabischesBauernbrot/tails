@@ -956,7 +956,7 @@ Then:
 
    - If you cannot rule out that the difference is harmful: let's take
      a step back; we might be compromised, so we are in no position to
-     release. Halt the release, involve the rest of the Board, and then
+     release. Halt the release, involve the rest of <foundations@tails.net>, and then
      try to re-establish trust in all build machines and infra
      involved, etc. Have fun!
 
@@ -2329,12 +2329,16 @@ Check that you are indeed preparing a final release:
 
          @testers, please let the RM know how much time you'll have for manual QA
          from Monday 17:00 to Tuesday 11:00 (Europe/Berlin)
+
+         @developers, please don't push any change to the branch used for the release
+         on these days.
+
          EOF
 
    - If a release candidate is planned, include it in the release schedule
      and the call for manual testers.
 
-1. If you don't know who will be the release managers for the next 2 releases, open
+1. If you don't know who will be the release managers for the next **2** releases, open
    an issue per missing RM so you don't forget.
 
        /label ~"C:Release management" ~"Core Work:Foundations Team" ~"To Do" ~"P:Elevated" 

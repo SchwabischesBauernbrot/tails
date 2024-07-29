@@ -99,26 +99,15 @@ that we can use as a basis to explain why we're removing the milestone.
 
 ## Automated tasks
 
-Make sure dependencies are installed:
-
-    sudo apt install -y python3-django python3-gitlab podman
-
-To run the automated triaging processes described below, execute
-the following commands:
-
-    ./config/gitlab-triage/bin/ensure-up-to-date-container-image && \
-    ./bin/gitlab-triage-gardener \
-        --host-url "$(bin/gitlab-url TailsGardener)" \
-        --token "$(bin/gitlab-api-token TailsGardener)"
-
-This can take a few dozens of minutes to complete.
-You can pass any extra `gitlab-triage` option, such as `--dry-run`.
+Automated ticket triaging tasks are run as a [[!tails_gitlab
+tails/ticket-gardening/-/pipeline_schedules desc="Scheduled Pipeline in
+GitLab"]] and triaging issues are created in [[!tails_gitlab
+tails/ticket-gardening/-/issues desc="the `ticket-triaging` project"]].
 
 Implementation:
 
  - uses [GitLab Triage](https://gitlab.com/gitlab-org/gitlab-triage)
- - [[!tails_gitweb bin/gitlab-triage-gardener]]
- - [[!tails_gitweb_dir config/gitlab-triage]]
+ - [[!tails_gitlab tails/ticket-gardening]]
 
 ### Stalled WIP
 

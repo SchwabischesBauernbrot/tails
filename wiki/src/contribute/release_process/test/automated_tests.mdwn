@@ -497,6 +497,121 @@ also makes `foo was successful` happy, and the scenario should pass
 (unless there is an issue in the `maybe more stuff` step, then we
 rinse and repeat)!
 
+#### Example: stack navigation
+
+When an error is caught with `--interactive-debugging` and you start
+the debugging REPL you will not necessarily start in the context where
+the error was raised. For convenience reasons it's preferred to put
+you in our code's context instead of deep in some module or cucumber,
+because generally the error lies in our step definitions. But even in
+our code we skip the contexts of some our helpers, for instance, if
+the error occurred in a code block passed to `try_for()` you generally
+are not interested in the context inside `try_for()` where it raises
+its own exception, you want the context where `try_for()` was called
+from. Let's look at an example of just that:
+
+```
+From: features/step_definitions/test.rb:3 :
+
+    1: When /^I fail through try_for$/ do
+    2:   foo = 42
+ => 3:   try_for(1, delay: 0.1) do
+    4:     bar = "this variable will not be in scope"
+    5:     assert_equal(0, foo)
+    6:   end
+    7: end
+
+[1] pry(#<Object>)> foo
+=> 42
+[2] pry(#<Object>)>
+```
+
+So here we could investigate what `foo` actually was set to (which was
+obvious in this silly example, but in general `foo` would probably get
+its value as a return value from a function or be similarly
+opaque). But what if we suspect `try_for()` has a bug?
+
+You can investigate the call stack with the `stack` command, which
+will show you something like this:
+
+```
+Stack: <method> (<instance>) at <source location>
+     try_for() (#<Object>) at features/support/helpers/misc_helpers.rb:145
+     try_for() (#<Object>) at features/support/helpers/misc_helpers.rb:51
+  => <top-level> (#<Object>) at features/step_definitions/test.rb:3
+     cucumber_instance_exec() (#<Object>) at /usr/lib/ruby/vendor_ruby/cucumber/core_ext/instance_exec.rb:25
+     cucumber_run_with_backtrace_filtering() (#<Object>) at /usr/lib/ruby/vendor_ruby/cucumber/core_ext/instance_exec.rb:42
+[...]
+```
+
+You can move up in the stack with the `up` command (and down with the
+`down` command):
+
+```
+[3] pry(#<Object>)> up
+
+From: features/support/helpers/misc_helpers.rb:51 Object#try_for:
+
+    46: # XXX: giving up on a few worst offenders for now
+    47: # rubocop:disable Metrics/AbcSize
+    48: # rubocop:disable Metrics/CyclomaticComplexity
+    49: # rubocop:disable Metrics/MethodLength
+    50: # rubocop:disable Metrics/PerceivedComplexity
+ => 51: def try_for(timeout, **options)
+    52:   return yield if block_given? && timeout.nil?
+    53: 
+    54:   options[:delay] ||= 1
+    55:   options[:log] = true if options[:log].nil?
+    56:   last_exception = nil
+
+Stack: <method> (<instance>) at <source location>
+     try_for() (#<Object>) at features/support/helpers/misc_helpers.rb:145
+  => try_for() (#<Object>) at features/support/helpers/misc_helpers.rb:51
+     <top-level> (#<Object>) at features/step_definitions/test.rb:3
+     cucumber_instance_exec() (#<Object>) at /usr/lib/ruby/vendor_ruby/cucumber/core_ext/instance_exec.rb:25
+     cucumber_run_with_backtrace_filtering() (#<Object>) at /usr/lib/ruby/vendor_ruby/cucumber/core_ext/instance_exec.rb:42
+     [...]
+[4] pry(#<Object>)>
+```
+
+Ruby has these "extra" contexts for various constructs, e.g. loops
+tend to create a new one. So to get to the actual point the exception
+was raised we call `up` once more:
+
+```
+[4] pry(#<Object>)> up
+
+From: features/support/helpers/misc_helpers.rb:145 Object#try_for:
+
+    140:   if last_exception
+    141:     msg += "\nLast ignored exception was: " \
+    142:            "#{last_exception.class}: #{last_exception}"
+    143:     msg += "\n#{last_exception.backtrace.join("\n")}"
+    144:   end
+ => 145:   raise exc_class, msg
+    146: end
+    147: # rubocop:enable Metrics/AbcSize
+    148: # rubocop:enable Metrics/MethodLength
+    149: # rubocop:enable Metrics/PerceivedComplexity
+    150: # rubocop:enable Metrics/CyclomaticComplexity
+
+Stack: <method> (<instance>) at <source location>
+  => try_for() (#<Object>) at features/support/helpers/misc_helpers.rb:145
+     try_for() (#<Object>) at features/support/helpers/misc_helpers.rb:51
+     <top-level> (#<Object>) at features/step_definitions/test.rb:3
+     cucumber_instance_exec() (#<Object>) at /usr/lib/ruby/vendor_ruby/cucumber/core_ext/instance_exec.rb:25
+     cucumber_run_with_backtrace_filtering() (#<Object>) at /usr/lib/ruby/vendor_ruby/cucumber/core_ext/instance_exec.rb:42
+     [...]
+```
+
+and then we can access the variables in this context, e.g.:
+
+```
+[5] pry(#<Object>)> last_exception
+=> #<Test::Unit::AssertionFailedError: <0> expected but was
+<42>.>
+```
+
 #### Example: writing a new scenario
 
 Let's say we want to implement the silly scenario from the previous
@@ -603,7 +718,7 @@ run completes:
 0m2.799s
 features/support/helpers/vm_helper.rb:817:in `lookup_domain_by_name': Connect has been freed (ArgumentError)
         from features/support/helpers/vm_helper.rb:817:in `remove_all_snapshots'
-        from /home/anonym/src/tails/tails/features/support/hooks.rb:89:in `block in <top (required)>'
+        from features/support/hooks.rb:89:in `block in <top (required)>'
 ```
 
 Who knows what else is broken? So use `reload_code()` and

@@ -2,6 +2,7 @@ require 'fileutils'
 require 'rb-inotify'
 require 'time'
 require 'tmpdir'
+require "#{GIT_DIR}/features/support/monkeypatches/extra_hooks.rb"
 
 # Run once, before any feature
 AfterConfiguration do |config|
@@ -81,6 +82,16 @@ AfterConfiguration do |config|
       raise "Cannot create temporary directory: #{e}"
     end
   end
+
+  if config_bool('INTERACTIVE_DEBUGGING')
+    # This module extends exceptions so they contain the stack of
+    # bindings for all callers from the point that it was raised,
+    # which we use to restore the context of the failure when
+    # --interactive-debugging is enabled.
+    # BTW, upstream renamed the module to skiptrace five years ago but
+    # hasn't done any release since then.
+    require 'bindex'
+  end
 end
 
 # Common
@@ -119,8 +130,9 @@ def add_after_scenario_hook(&block)
   @after_scenario_hooks << block
 end
 
-def save_failure_artifact(desc, path)
-  $failure_artifacts << [desc, path]
+def save_failure_artifact(desc, path, suffix: nil)
+  suffix ||= File.extname(path)
+  $failure_artifacts << [desc, path, suffix]
 end
 
 def record_scenario_skipped(scenario)
@@ -128,49 +140,47 @@ def record_scenario_skipped(scenario)
   File.open(destfile, 'a') { |f| f.write("#{scenario.location}\n") }
 end
 
-def _save_vm_file_content(file:, destfile:, desc:)
+def _save_vm_file_content(file:, destfile:, suffix:, desc:)
   destfile = "#{$config['TMPDIR']}/#{destfile}"
   File.open(destfile, 'w') { |f| f.write($vm.file_content(file)) }
-  save_failure_artifact(desc, destfile)
+  save_failure_artifact(desc, destfile, suffix:)
 rescue StandardError => e
   info_log("Exception thrown while trying to save #{destfile}: " \
            "#{e.class.name}: #{e}")
 end
 
-def save_vm_command_output(command:, id:, basename: nil, desc: nil) # rubocop:disable Naming/MethodParameterName
-  basename ||= "artifact.cmd_output_#{id}"
+def save_vm_command_output(command:, id:, suffix: nil, desc: nil) # rubocop:disable Naming/MethodParameterName
+  suffix ||= ".cmd_output_#{id}"
+  basename = "artifact#{suffix}"
   $vm.execute("#{command} > /tmp/#{basename} 2>&1")
   _save_vm_file_content(
     file:     "/tmp/#{basename}",
     destfile: basename,
+    suffix:,
     desc:     desc || "Output of #{command}"
   )
 end
 
 def save_journal
-  save_vm_command_output(
-    command:  'journalctl -a --no-pager',
-    id:       'journal',
-    basename: 'artifact.journal',
-    desc:     'systemd Journal'
+  save_failure_artifact(
+    'systemd Journal',
+    JournalDumper.instance.path,
+    suffix: '.journal'
+  )
+end
+
+def save_vm_file_content(file, desc: nil, suffix: nil)
+  suffix ||= ".file_content_#{file.gsub('/', '_').sub(/^_/, '')}"
+  _save_vm_file_content(
+    file:,
+    destfile: "artifact#{suffix}",
+    suffix:,
+    desc:     desc || "Content of #{file}"
   )
 end
 
 def save_boot_log
-  save_vm_command_output(
-    command:  'cat /var/log/boot.log*',
-    id:       'boot-log',
-    basename: 'artifact.boot-log',
-    desc:     'boot log'
-  )
-end
-
-def save_vm_file_content(file, desc: nil)
-  _save_vm_file_content(
-    file:,
-    destfile: "artifact.file_content_#{file.gsub('/', '_').sub(/^_/, '')}",
-    desc:     desc || "Content of #{file}"
-  )
+  save_vm_file_content('/var/log/boot.log', desc: 'Boot log')
 end
 
 # Due to Tails' Tor enforcement, we only allow contacting hosts that
@@ -262,18 +272,29 @@ Before('@product') do |scenario|
     video_name = sanitize_filename("#{scenario.name}.mkv")
     @video_path = "#{ARTIFACTS_DIR}/#{video_name}"
     debug_log("Starting video capture of '#{@video_path}'")
-    capture = IO.popen(['ffmpeg',
-                        '-f', 'x11grab',
-                        '-s', '1024x768',
-                        '-r', '15',
-                        '-i', "#{$config['DISPLAY']}.0",
-                        '-an',
-                        '-c:v', 'libx264',
-                        '-y',
-                        @video_path,
-                        { err: ['/dev/null', 'w'] },])
+    capture = IO.popen(
+      [
+        'ffmpeg',
+        '-f', 'x11grab',
+        '-s', '1024x768',
+        '-r', '15',
+        '-i', "#{$config['DISPLAY']}.0",
+        '-an',
+        '-c:v', 'libx264',
+        '-y',
+        @video_path,
+      ],
+      in:  ['/dev/null', 'r'],
+      err: ['/dev/null', 'w']
+    )
     @video_capture_pid = capture.pid
   end
+
+  if config_bool('ALWAYS_SAVE_JOURNAL')
+    journal_path = sanitize_filename("#{scenario.name}.journal")
+    JournalDumper.instance.path = "#{ARTIFACTS_DIR}/#{journal_path}"
+  end
+
   @screen = if config_bool('IMAGE_BUMPING_MODE')
               ImageBumpingScreen.new
             else
@@ -324,6 +345,7 @@ After('@product') do |scenario|
     hrs  = format('%<hrs>02d',  hrs: time_of_fail / (60 * 60))
     elapsed = "#{hrs}:#{mins}:#{secs}"
     info_log("SCENARIO FAILED: '#{scenario.name}' (at time #{elapsed})")
+    save_journal
     unless $vm.display.nil?
       screenshot_path = sanitize_filename("#{scenario.name}.png")
       $vm.display.screenshot(screenshot_path)
@@ -336,11 +358,8 @@ After('@product') do |scenario|
     elsif scenario.exception.is_a?(TestSuiteRuntimeError)
       info_log("Scenario must be retried: #{scenario.name}")
       record_scenario_skipped(scenario)
-    elsif [TorBootstrapFailure, TimeSyncingError].any? do |c|
-            scenario.exception.is_a?(c)
-          end
-      save_tor_journal
-      save_failure_artifact('Tor logs', "#{$config['TMPDIR']}/log.tor")
+    elsif [TorBootstrapFailure, TimeSyncingError].any? \
+          { |c| scenario.exception.is_a?(c) }
       if File.exist?("#{$config['TMPDIR']}/chutney-data")
         chutney_logs = sanitize_filename(
           "#{elapsed}_#{scenario.name}_chutney-data"
@@ -364,21 +383,26 @@ After('@product') do |scenario|
         info_log('Found no Chutney data')
       end
 
-      if $vm.file_exist?('/var/lib/tor/pt_state/obfs4proxy.log')
-        File.open("#{$config['TMPDIR']}/log.obfs4proxy", 'w') do |f|
-          f.write($vm.file_content('/var/lib/tor/pt_state/obfs4proxy.log'))
+      if $vm&.remote_shell_is_up?
+        save_tor_journal
+        save_failure_artifact('Tor logs', "#{$config['TMPDIR']}/log.tor")
+        if $vm.file_exist?('/var/lib/tor/pt_state/obfs4proxy.log')
+          File.open("#{$config['TMPDIR']}/log.obfs4proxy", 'w') do |f|
+            f.write($vm.file_content('/var/lib/tor/pt_state/obfs4proxy.log'))
+          end
+          save_failure_artifact('obfs4proxy logs',
+                                "#{$config['TMPDIR']}/log.obfs4proxy")
         end
-        save_failure_artifact('obfs4proxy logs', "#{$config['TMPDIR']}/log.obfs4proxy")
-      end
 
-      if scenario.exception.instance_of?(HtpdateError)
-        content = if $vm.file_exist?('/var/log/htpdate.log')
-                    $vm.file_content('/var/log/htpdate.log')
-                  else
-                    "The htpdate logs did not exist\n"
-                  end
-        File.write("#{$config['TMPDIR']}/log.htpdate", content)
-        save_failure_artifact('Htpdate logs', "#{$config['TMPDIR']}/log.htpdate")
+        if scenario.exception.instance_of?(HtpdateError)
+          content = if $vm.file_exist?('/var/log/htpdate.log')
+                      $vm.file_content('/var/log/htpdate.log')
+                    else
+                      "The htpdate logs did not exist\n"
+                    end
+          File.write("#{$config['TMPDIR']}/log.htpdate", content)
+          save_failure_artifact('Htpdate logs', "#{$config['TMPDIR']}/log.htpdate")
+        end
       end
     end
     # Note that the remote shell isn't necessarily running at all
@@ -387,7 +411,6 @@ After('@product') do |scenario|
     # we cause a system crash), so let's collect everything depending
     # on the remote shell here:
     if $vm&.remote_shell_is_up?
-      save_journal
       save_boot_log
       if scenario.feature.file \
          == 'features/additional_software_packages.feature'
@@ -412,10 +435,15 @@ After('@product') do |scenario|
         save_vm_file_content('/run/live-additional-software/log')
       end
     end
+    # We give JournalDumper a little time to receive the journal
+    # entries for any remote shell interactions above before stopping
+    # it and saving the journal.
+    sleep 1
+    JournalDumper.instance.stop
     $failure_artifacts.sort!
-    $failure_artifacts.each do |desc, file|
+    $failure_artifacts.each do |desc, file, suffix|
       artifact_name = sanitize_filename(
-        "#{elapsed}_#{scenario.name}#{File.extname(file)}"
+        "#{elapsed}_#{scenario.name}#{suffix}"
       )
       artifact_path = "#{ARTIFACTS_DIR}/#{artifact_name}"
       assert(File.exist?(file))
@@ -426,12 +454,30 @@ After('@product') do |scenario|
     if config_bool('INTERACTIVE_DEBUGGING')
       pause(
         "Scenario failed: #{scenario.name}. " \
-        "The error was: #{scenario.exception.class.name}: #{scenario.exception}"
+        "The error was: #{scenario.exception.class.name}: #{scenario.exception}",
+        exception: scenario.exception
       )
     end
   elsif @video_path && File.exist?(@video_path) && !config_bool('CAPTURE_ALL')
     FileUtils.rm(@video_path)
   end
+ensure
+  # If there are uncaught exceptions during the After hook (which
+  # happens sometimes, e.g. if the remote shell crashes) we still want
+  # to ensure that we do the things necessary to prevent leftovers
+  # from this scenario to interfere with the next scenario. Here we
+  # take extra care to prevent uncaught exceptions so as many of these
+  # are run as possible.
+
+  begin
+    # We don't want a stray JournalDumper thread from a previous
+    # scenario interfering with a new thread it starts for a
+    # subsequent scenario.
+    JournalDumper.instance.stop
+  rescue StandardError
+    # At least we tried!
+  end
+
   begin
     if $vm&.remote_shell_is_up?
       # We gracefully stop tor in order to make the bridges/guards not
@@ -445,11 +491,16 @@ After('@product') do |scenario|
   rescue StandardError
     # At least we tried!
   end
-  # If we don't shut down the system under testing it will continue to
-  # run during the next scenario's Before hooks, which we have seen
-  # causing trouble (for instance, packets from the previous scenario
-  # have failed scenarios tagged @check_tor_leaks).
-  $vm&.power_off
+
+  begin
+    # If we don't shut down the system under testing it will continue to
+    # run during the next scenario's Before hooks, which we have seen
+    # causing trouble (for instance, packets from the previous scenario
+    # have failed scenarios tagged @check_tor_leaks).
+    $vm&.power_off
+  rescue StandardError
+    # At least we tried!
+  end
 end
 # rubocop:enable Metrics/BlockNesting
 
@@ -491,7 +542,8 @@ After('@source') do |scenario|
   if scenario.failed? && config_bool('INTERACTIVE_DEBUGGING')
     pause(
       "Scenario failed: #{scenario.name}. " \
-      "The error was: #{scenario.exception.class.name}: #{scenario.exception}"
+      "The error was: #{scenario.exception.class.name}: #{scenario.exception}",
+      exception: scenario.exception
     )
   end
 end

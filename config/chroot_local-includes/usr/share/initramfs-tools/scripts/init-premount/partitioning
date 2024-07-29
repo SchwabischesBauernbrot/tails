@@ -1,6 +1,6 @@
 #!/bin/sh
 
-PREREQS="plymouth"
+PREREQS="plymouth read-and-update-random-seed-sector"
 
 prereqs() { echo "$PREREQS"; }
 
@@ -38,34 +38,30 @@ fi
 
 # Wait for system partition
 log_begin_msg "Waiting for system partition to become available"
-success=
 i=0
-while [ "$i" -lt 300 ]; do
-	if [ -b "/dev/disk/by-uuid/${FSUUID}" ]; then
-		success=1
-		break
-	fi
-	sleep 0.2
-	i="$((i + 1))"
+while true; do
+    if [ -b "/dev/disk/by-uuid/${FSUUID}" ]; then
+        SYSTEM_PARTITION="$(readlink -f "/dev/disk/by-uuid/${FSUUID}")"
+        PARENT_PATH="$(udevadm info --query=property --name="${SYSTEM_PARTITION}" |
+            sed -n '/^ID_PATH=/ s/^ID_PATH=// p')"
+        PARENT_DEVICE="$(readlink -f "/dev/disk/by-path/${PARENT_PATH}")"
+        if [ -b "${PARENT_DEVICE}" ]; then
+            break
+        fi
+    fi
+
+    if [ "$i" -ge 300 ]; then
+        log_failure_msg "Reached timeout waiting for system partition." \
+            "Skipping partitioning."
+        exit 0
+    fi
+
+    sleep 0.2
+    i="$((i + 1))"
 done
+log_end_msg
 
-if [ -n "$success" ]; then
-	log_end_msg
-else
-	log_failure_msg "Reached timeout waiting for system partition. Skipping partitioning."
-	# The exit code is irrelevant in the current implementation of live-config
-	exit 1
-fi
-
-# Get parent device
-# XXX: We assume here that the parent device is also ready if the
-# system partition is.
-SYSTEM_PARTITION=$(readlink -f "/dev/disk/by-uuid/${FSUUID}")
-PARENT_PATH=$(udevadm info --query=property --name="${SYSTEM_PARTITION}" \
-	| sed -n '/^ID_PATH=/ s/^ID_PATH=// p')
-PARENT_DEVICE=$(readlink -f "/dev/disk/by-path/${PARENT_PATH}")
-DEVICE_NAME=$(basename "${PARENT_DEVICE}")
-
+DEVICE_NAME="$(basename "${PARENT_DEVICE}")"
 
 first_boot_repartition() {
 	# Compute the new system partition size
@@ -195,8 +191,16 @@ GUID=$(sgdisk --print "${PARENT_DEVICE}" \
 
 if [ "${GUID}" = "17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3" ]; then
 	_log_msg "This is the first boot, so repartitioning"
+	PLYMOUTH_MSG="Preparing Tails for first use..."
+	plymouth display-message --text="${PLYMOUTH_MSG}"
 	first_boot_repartition
+	# `plymouth hide-message` doesn't work (#20401)
+	plymouth display-message --text=""
 else
 	_log_msg "This is not the first boot, so repairing filesystem"
+	PLYMOUTH_MSG="Checking the Tails system partition for errors..."
+	plymouth display-message --text="${PLYMOUTH_MSG}"
 	repair_system_partition
+	# `plymouth hide-message` doesn't work (#20401)
+	plymouth display-message --text=""
 fi
