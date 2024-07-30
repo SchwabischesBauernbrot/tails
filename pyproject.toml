@@ -8,6 +8,14 @@ extend-exclude = '''
 '''
 
 [tool.mypy]
+exclude = [
+    # symlink
+    "^lib/python3/",
+    # built website
+    "^config/chroot_local-includes/usr/share/doc/tails/website/",
+    # submodules that we don't maintain
+    "^submodules/(chutney|live-build|torbrowser-launcher)",
+]
 mypy_path = "config/chroot_local-includes/usr/lib/python3/dist-packages"
 warn_no_return = true
 warn_return_any = true
