@@ -31,6 +31,10 @@ if [ "$1" = "--transient-systemd-service" ]; then
   shift
   SERVICE_NAME="$1"
   shift
+elif [ "$1" = "--transient-systemd-scope" ]; then
+  shift
+  UNIT_NAME="$1"
+  shift
 fi
 
 export DBUS_SESSION_BUS_ADDRESS=unix:path=/run/user/1000/bus
@@ -54,6 +58,12 @@ if [ -n "${SERVICE_NAME:-}" ]; then
   exec systemd-run --user \
     --unit="${SERVICE_NAME}" \
     --property="SyslogIdentifier=$(basename "$1")" \
+    /usr/local/lib/run-with-env --env-file "${USER_ENV_FILE}" -- "$@"
+elif [ -n "${UNIT_NAME:-}" ]; then
+  # Run the command as a transient systemd scope.
+  exec systemd-run --user \
+    --scope \
+    --unit="${UNIT_NAME}" \
     /usr/local/lib/run-with-env --env-file "${USER_ENV_FILE}" -- "$@"
 else
   exec /usr/local/lib/run-with-env --env-file "${USER_ENV_FILE}" -- "$@"

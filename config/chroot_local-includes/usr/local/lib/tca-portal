@@ -34,6 +34,8 @@ from tailslib.logutils import configure_logging
 from tailslib import CLEARNET_USERNAME, LIVE_USERNAME, PERSISTENT_STORAGE_USERNAME
 from tca.config import CONFIG_FILE as TCA_CONFIG_FILE
 
+import uuid
+
 TPS_TOR_CONFIG_FEATURE_NAME = "TorConfiguration"
 
 log = getLogger("tca-portal")
@@ -139,6 +141,18 @@ class RootCommand(BaseCommand):
 class UserCommand(BaseCommand):
     def full_command(self, request: RPCRequest) -> tuple:
         args = ("/usr/local/lib/run-with-user-env", *(super().full_command(request)))
+        return args
+
+
+class UserCommandTransientSystemdScope(BaseCommand):
+    def full_command(self, request: RPCRequest) -> tuple:
+        unit_name = "tca-portal-UserCommand-" + str(uuid.uuid4())
+        args = (
+            "/usr/local/lib/run-with-user-env",
+            "--transient-systemd-scope",
+            unit_name,
+            *(super().full_command(request)),
+        )
         return args
 
 
@@ -263,14 +277,16 @@ class Handler(socketserver.StreamRequestHandler):
         "open-unsafebrowser": UserCommand(
             ("/usr/bin/gtk-launch", "unsafe-browser"), False
         ),
-        "open-tbb": UserCommand(("/usr/bin/gtk-launch", "tor-browser"), False),
-        "open-networkmonitor": UserCommand(
+        "open-tbb": UserCommandTransientSystemdScope(
+            ("/usr/bin/gtk-launch", "tor-browser"), False
+        ),
+        "open-networkmonitor": UserCommandTransientSystemdScope(
             ("/usr/bin/gnome-system-monitor", "--show-resources-tab"), False
         ),
-        "open-onioncircuits": UserCommand(
+        "open-onioncircuits": UserCommandTransientSystemdScope(
             ("/usr/bin/gtk-launch", "onioncircuits"), False
         ),
-        "open-documentation": UserCommand(
+        "open-documentation": UserCommandTransientSystemdScope(
             ("/usr/local/bin/tails-documentation",), True
         ),
         "open-wifi-config": UserCommand(
