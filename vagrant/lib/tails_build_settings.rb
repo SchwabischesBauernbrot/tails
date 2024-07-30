@@ -38,6 +38,6 @@ def box_name
   git_root = `git rev-parse --show-toplevel`.chomp
   shortid, date = `git log -1 --date="format:%Y%m%d" \
                    --no-show-signature --pretty="%h %ad" -- \
-                   #{git_root}/vagrant/`.chomp.split
+                   #{git_root}/vagrant/definitions/tails-builder/`.chomp.split
   "tails-builder-#{ARCHITECTURE}-#{DISTRIBUTION}-#{date}-#{shortid}"
 end
