@@ -25,13 +25,13 @@ from subprocess import Popen, PIPE
 import multiprocessing
 
 from tinyrpc.protocols.jsonrpc import JSONRPCProtocol, JSONRPCParseError
-from tinyrpc.protocols import RPCRequest, RPCResponse, RPCErrorResponse
+from tinyrpc.protocols import RPCRequest, RPCResponse
 from tinyrpc.exc import InvalidRequestError
 
 import systemd.daemon
 
 from tailslib.logutils import configure_logging
-from tailslib import CLEARNET_USERNAME, LIVE_USERNAME, PERSISTENT_STORAGE_USERNAME
+from tailslib import CLEARNET_USERNAME, PERSISTENT_STORAGE_USERNAME
 from tca.config import CONFIG_FILE as TCA_CONFIG_FILE
 
 import uuid
