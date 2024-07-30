@@ -161,12 +161,12 @@ def vm_state
   end
 end
 
-def enough_free_host_memory_for_ram_build?
+def enough_free_host_memory_for_ram_build?(cpus)
   return false unless RbConfig::CONFIG['host_os'] =~ /linux/i
 
   begin
     usable_free_mem = `free`.split[12].to_i
-    usable_free_mem > VM_MEMORY_FOR_RAM_BUILDS * 1024
+    usable_free_mem > vm_memory_for_ram_builds(cpus) * 1024
   rescue StandardError
     false
   end
@@ -176,15 +176,19 @@ def free_vm_memory
   capture_vagrant_ssh('free').first.chomp.split[12].to_i
 end
 
-def enough_free_vm_memory_for_ram_build?
-  free_vm_memory > BUILD_SPACE_REQUIREMENT * 1024
+def enough_free_vm_memory_for_ram_build?(cpus)
+  needed = BUILD_SPACE_REQUIREMENT * 1024
+  # Take into account that more memory is needed depending on the
+  # number of processors (see vagrant/lib/tails_build_settings.rb).
+  needed += (vm_memory_base(cpus) - vm_memory_base(0)) * 1024
+  free_vm_memory > needed
 end
 
-def enough_free_memory_for_ram_build?
+def enough_free_memory_for_ram_build?(cpus)
   if vm_state == :running
-    enough_free_vm_memory_for_ram_build?
+    enough_free_vm_memory_for_ram_build?(cpus)
   else
-    enough_free_host_memory_for_ram_build?
+    enough_free_host_memory_for_ram_build?(cpus)
   end
 end
 
@@ -207,8 +211,6 @@ ENV['TAILS_WEBSITE_CACHE'] = releasing? ? '0' : '1'
 task :parse_build_options do
   options = []
 
-  # Default to in-memory builds if there is enough RAM available
-  options << 'ram' if enough_free_memory_for_ram_build?
   # Default to build using the in-VM proxy
   options << 'vmproxy'
   # Default to fast compression on development branches
@@ -304,6 +306,14 @@ task :parse_build_options do
     else
       raise "Unknown Tails build option '#{opt}'"
     end
+  end
+
+  # Unlike other defaults, whether to default to build in RAM depends
+  # on the number of CPUs, so it has to be handled after parsing the
+  # options passed by the user.
+  if !options.member?('ram') && !options.member?('noram') &&
+     enough_free_memory_for_ram_build?(ENV['TAILS_BUILD_CPUS'].to_i)
+    ENV['TAILS_RAM_BUILD'] = '1'
   end
 
   if ENV['TAILS_OFFLINE_MODE'] == '1' && ENV['TAILS_PROXY'].nil?
@@ -491,7 +501,7 @@ task build: [
   'vm:up',
   'ensure_clean_home_directory',
 ] do
-  if ENV['TAILS_RAM_BUILD'] && !enough_free_memory_for_ram_build?
+  if ENV['TAILS_RAM_BUILD'] && !enough_free_memory_for_ram_build?(ENV['TAILS_BUILD_CPUS'].to_i)
     warn <<-END_OF_MESSAGE.gsub(/^        /, '')
 
         The virtual machine is not currently set with enough memory to
