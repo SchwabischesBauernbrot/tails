@@ -86,7 +86,7 @@ class InvalidArgsError(InvalidRequestError):
 
 
 class BaseCommand:
-    def __init__(self, cmd: list[str], arguments: bool):
+    def __init__(self, cmd: tuple[str, ...], arguments: bool):
         self.cmd = cmd
         self.arguments = arguments
         # See WriteFileCommand.run for an example of how to use this
@@ -166,12 +166,12 @@ class PersistentStorageCommand(BaseCommand):
 class GetNetworkTimeCommand(BaseCommand):
     def __init__(self):
         super().__init__(
-            ["/usr/local/lib/tails-get-network-time", "--log-target=syslog"], False
+            ("/usr/local/lib/tails-get-network-time", "--log-target=syslog"), False
         )
 
-    def full_command(self, request: RPCRequest) -> list:
-        drop = ["runuser", "-u", CLEARNET_USERNAME]
-        args = [*drop, "--", *(super().full_command(request))]
+    def full_command(self, request: RPCRequest) -> tuple:
+        drop = ("runuser", "-u", CLEARNET_USERNAME)
+        args = (*drop, "--", *(super().full_command(request)))
         return args
 
     def create_response(self, returncode: int, stdout, stderr) -> tuple[bool, dict]:
@@ -238,7 +238,7 @@ class SetTimeCommand(RootCommand):
 
 class WriteFileCommand(RootCommand):
     def __init__(self, dest_file: str):
-        super().__init__(["/bin/dd", "status=none", f"of={dest_file}"], True)
+        super().__init__(("/bin/dd", "status=none", f"of={dest_file}"), True)
 
     def validate_args(self, args: tuple) -> tuple:
         if len(args) != 1:
@@ -317,7 +317,7 @@ class Handler(socketserver.StreamRequestHandler):
         ),
         "get-network-time": GetNetworkTimeCommand(),
         "set-system-time": SetTimeCommand(),
-        "read-tca-config": RootCommand(["/bin/cat", TCA_CONFIG_FILE], False),
+        "read-tca-config": RootCommand(("/bin/cat", TCA_CONFIG_FILE), False),
         "write-tca-config": WriteFileCommand(TCA_CONFIG_FILE),
     }
     valid_commands: ClassVar = set(spawn_commands.keys())
