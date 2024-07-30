@@ -40,7 +40,7 @@ def main():
     if args.delete:
         os.remove(args.env_file)
 
-    os.execvpe(args.CMD, [args.CMD] + args.ARGS, env)
+    os.execvpe(args.CMD, [args.CMD, *args.ARGS], env)
 
 
 if __name__ == "__main__":
