@@ -2,6 +2,14 @@ def browser
   Dogtail::Application.new('Firefox')
 end
 
+def desktop_portal
+  Dogtail::Application.new('xdg-desktop-portal-gtk')
+end
+
+def desktop_portal_save_as_dialog
+  desktop_portal.child(roleName: 'file chooser')
+end
+
 def save_page_as
   browser.child(
     description: 'Open application menu',
@@ -11,7 +19,7 @@ def save_page_as
     name:     'Save page as\u2026',
     roleName: 'push button'
   ).press
-  browser.child('Save As', roleName: 'file chooser')
+  desktop_portal_save_as_dialog
 end
 
 def browser_url_entry
@@ -287,10 +295,9 @@ When /^I download some file in the Tor Browser$/ do
            .button('Save File')
   try_for(10) { button.sensitive }
   button.press
-  @torbrowser
-    .child(roleName: 'file chooser')
-    .button('Save')
-    .click
+  file_dialog = desktop_portal_save_as_dialog
+  file_dialog.child('Save', roleName: 'push button').click
+
   @torbrowser
     .button('Downloads')
     .press
@@ -514,7 +521,7 @@ When /^I can print the current page as "([^"]+[.]pdf)" to the (default downloads
                end
   @screen.press('ctrl', 'p')
   @torbrowser.child('Save', roleName: 'push button').press
-  file_dialog = @torbrowser.child('Save As', roleName: 'file chooser')
+  file_dialog = desktop_portal_save_as_dialog
   # Enter the output filename in the text entry
   text_entry = file_dialog.child('Name', roleName: 'label').labelee
   filename = "#{output_dir}/#{output_file}"
@@ -527,6 +534,19 @@ When /^I can print the current page as "([^"]+[.]pdf)" to the (default downloads
   end
 end
 
+def activate_places_sidebar_item(parent, desc)
+  list_item = parent.child(description: desc, roleName: 'list item')
+  try_for(3) do
+    list_item.select
+    list_item.grabFocus
+    list_item.selected and list_item.focused
+  end
+  # Give the UI some time to update the selection. This is workaround
+  # for #20159.
+  sleep 3
+  @screen.press('Space')
+end
+
 When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (directory|GNOME bookmark)$/ do |should_work, output_file, output_dir, bookmark|
   should_work = should_work == 'can'
   is_gnome_bookmark = bookmark == 'GNOME bookmark'
@@ -536,24 +556,13 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
   case output_dir
   when 'persistent Tor Browser'
     output_dir = "/home/#{LIVE_USER}/Persistent/Tor Browser"
-    # Select the "Tor Browser (persistent)" bookmark in the file chooser's
-    # sidebar. It doesn't expose an action via the accessibility API, so we
-    # have to grab focus and use the keyboard to activate it.
-    file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
-    # Give the UI some time to update the selection. This is workaround
-    # for #20159.
-    sleep 3
-    @screen.press('Space')
+    activate_places_sidebar_item(file_dialog, output_dir)
   when 'default downloads'
     output_dir = "/home/#{LIVE_USER}/Tor Browser"
   else
     if is_gnome_bookmark
       output_dir = "/home/#{LIVE_USER}/#{output_dir}"
-      file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
-      # Give the UI some time to update the selection. This is workaround
-      # for #20159.
-      sleep 3
-      @screen.press('Space')
+      activate_places_sidebar_item(file_dialog, output_dir)
     else
       # Enter the output directory in the text entry
       text_entry = file_dialog.child('Name', roleName: 'label').labelee

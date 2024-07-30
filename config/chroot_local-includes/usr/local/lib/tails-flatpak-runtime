@@ -1,0 +1,111 @@
+#!/bin/bash
+
+set -eu
+set -x
+
+# This script is used to create a pseudo flatpak runtime from the Tails
+# root filesystem.
+
+NEW_INCLUDES_DIR=/mnt/config/chroot_local-includes
+MERGEBASE=/var/lib/flatpak/runtime/org.boum.tails.Platform/x86_64/stable/active/files
+RUNDIR=/run/tails-flatpak-runtime-overlay
+DIRS="/usr/bin /usr/lib /usr/lib64 /usr/sbin /usr/include /usr/libexec /usr/local /usr/share"
+
+usage() {
+  cat <<EOF
+Usage: $0 [--create|--destroy|--help]
+
+--create: create the runtime
+--destroy: destroy the runtime
+--help: print help
+EOF
+}
+
+create() {
+  # Create an overlay filesystem for each directory in DIRS and mount
+  # it into the flatpak runtime directory.
+  local lowerdirs upperdir workdir mergeddir
+
+  for dir in ${DIRS}; do
+    upperdir="${RUNDIR}/upper${dir}"
+    workdir="${RUNDIR}/work${dir}"
+    lowerdirs=
+
+    # Add the directory to the lowerdirs if it exists
+    if [ -d "${dir}" ]; then
+      lowerdirs="${dir}"
+    fi
+
+    # If the early_patch boot parameter is used, we also overlay the
+    # /mnt/config/chroot_local-includes directory over the runtime, so
+    # we can easily test changes to the runtime without having to rebuild
+    # the squashfs filesystem. This is only used for development.
+    if grep -qw early_patch /proc/cmdline && [ -d "${NEW_INCLUDES_DIR}${dir}" ]; then
+      if [ -n "${lowerdirs:-}" ]; then
+        lowerdirs="${NEW_INCLUDES_DIR}${dir}:${lowerdirs}"
+      else
+        lowerdirs="${NEW_INCLUDES_DIR}${dir}"
+      fi
+    fi
+
+    if [ -z "${lowerdirs:-}" ]; then
+      # Nothing to do for this dir
+      continue
+    fi
+
+    # The files/ directory of the flatpak runtime is mounted to /usr in
+    # the flatpak sandbox, so we need to remove the leading "/usr" from
+    # the directory name to avoid it being mounted below "/usr/usr".
+    mergeddir="${MERGEBASE}${dir#/usr}"
+    install -d "${upperdir}" "${workdir}" "${mergeddir}"
+    mount -t overlay overlay \
+      -o lowerdir="${lowerdirs}",upperdir="${upperdir}",workdir="${workdir}" \
+      "${mergeddir}"
+  done
+
+  # Flatpak expects the .ref file to exist
+  install /dev/null "${MERGEBASE}/.ref"
+}
+
+destroy() {
+  # Unmount the overlay filesystems
+  for dir in ${DIRS}; do
+    mergeddir="${MERGEBASE}${dir#/usr}"
+    if mountpoint -q "${mergeddir}"; then
+      umount --recursive "${mergeddir}"
+    fi
+  done
+
+  # Unmount all mountpoints below the run directory
+  mountpoints=$(find "${RUNDIR}" -exec mountpoint -q {} \; -print)
+  for m in ${mountpoints}; do
+    umount --recursive "${m}"
+  done
+
+  # Remove the run directory
+  rm -rf "${RUNDIR}"
+}
+
+if [ $# -eq 1 ]; then
+  if [ "$1" = "--create" ]; then
+    # Create the runtime
+    create
+    exit 0
+  elif [ "$1" = "--destroy" ]; then
+    # destroy the runtime
+    destroy
+    exit 0
+  elif [ "$1" = "--help" ]; then
+    # Print help
+    usage
+    exit 0
+  else
+    echo "Unknown argument: $1" >&2
+    usage >&2
+    exit 1
+  fi
+elif [ $# -ne 0 ]; then
+  echo "Too many arguments" >&2
+  usage >&2
+  exit 1
+fi

@@ -161,7 +161,8 @@ When /^I accept the (?:autoconfiguration wizard's|manual) configuration$/ do
 end
 
 When /^I select the autoconfiguration wizard's IMAP choice$/ do
-  thunderbird_wizard.child('IMAP (remote folders)', roleName: 'radio button').select
+  thunderbird_wizard.child('IMAP (remote folders)', roleName: 'radio button')
+                    .doActionNamed('select')
 end
 
 When /^I send an email to myself$/ do

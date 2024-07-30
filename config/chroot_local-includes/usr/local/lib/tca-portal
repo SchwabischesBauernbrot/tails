@@ -25,7 +25,7 @@ from subprocess import Popen, PIPE
 import multiprocessing
 
 from tinyrpc.protocols.jsonrpc import JSONRPCProtocol, JSONRPCParseError
-from tinyrpc.protocols import RPCRequest, RPCResponse, RPCErrorResponse
+from tinyrpc.protocols import RPCRequest, RPCResponse
 from tinyrpc.exc import InvalidRequestError
 
 import systemd.daemon
@@ -263,7 +263,9 @@ class Handler(socketserver.StreamRequestHandler):
         "open-unsafebrowser": UserCommand(
             ("/usr/bin/gtk-launch", "unsafe-browser"), False
         ),
-        "open-tbb": UserCommand(("/usr/bin/gtk-launch", "tor-browser"), False),
+        "open-tbb": UserCommand(
+            ("/usr/bin/gtk-launch", "org.boum.tails.TorBrowser.desktop"), False
+        ),
         "open-networkmonitor": UserCommand(
             ("/usr/bin/gnome-system-monitor", "--show-resources-tab"), False
         ),

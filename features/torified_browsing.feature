@@ -62,26 +62,12 @@ Feature: Browsing the web using the Tor Browser
     And I open the address "file:///home/amnesia/Tor Browser/synaptic.html" in the Tor Browser
     Then I see "TorBrowserSynapticManual.png" after at most 5 seconds
     And AppArmor has not denied "torbrowser_firefox" from opening "/home/amnesia/Tor Browser/synaptic.html"
-    Given I restart monitoring the AppArmor log of "torbrowser_firefox"
     When I open the address "file:///home/amnesia/.gnupg/synaptic.html" in the Tor Browser
     Then I do not see "TorBrowserSynapticManual.png" after at most 5 seconds
-    And AppArmor has denied "torbrowser_firefox" from opening "/home/amnesia/.gnupg/synaptic.html"
-    Given I restart monitoring the AppArmor log of "torbrowser_firefox"
     When I open the address "file:///lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html" in the Tor Browser
     Then I do not see "TorBrowserSynapticManual.png" after at most 5 seconds
-    And AppArmor has denied "torbrowser_firefox" from opening "/usr/lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html"
-    Given I restart monitoring the AppArmor log of "torbrowser_firefox"
     When I open the address "file:///live/overlay/rw/home/amnesia/.gnupg/synaptic.html" in the Tor Browser
     Then I do not see "TorBrowserSynapticManual.png" after at most 5 seconds
-    # Due to our AppArmor aliases, /live/overlay will be treated
-    # as /lib/live/mount/overlay.
-    And AppArmor has denied "torbrowser_firefox" from opening "/usr/lib/live/mount/overlay/rw/home/amnesia/.gnupg/synaptic.html"
-    # We do not get any AppArmor log for when access to files in /tmp is denied
-    # since we explictly override (commit 51c0060) the rules (from the user-tmp
-    # abstraction) that would otherwise allow it, and we do so with "deny", which
-    # also specifies "noaudit". We could explicitly specify "audit deny" and
-    # then have logs, but it could be a problem when we set up desktop
-    # notifications for AppArmor denials (#9337).
     When I open the address "file:///tmp/synaptic.html" in the Tor Browser
     Then I do not see "TorBrowserSynapticManual.png" after at most 5 seconds
 

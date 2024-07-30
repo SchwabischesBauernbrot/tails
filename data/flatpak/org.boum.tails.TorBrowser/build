@@ -1,0 +1,117 @@
+#!/bin/bash
+
+set -eu
+set -x
+
+# This script rebuilds the org.boum.tails.TorBrowser flatpak app
+
+usage() {
+  cat <<EOF
+Usage: $0 [--no-download] [--help]
+
+Rebuild the org.boum.tails.TorBrowser flatpak app.
+
+Options:
+  --no-download  Don't download the latest Tor Browser Launcher flatpak.
+  --help         Show this help message.
+EOF
+}
+
+# Support the --no-download and --help options
+NAME=$(basename "${0}")
+LONGOPTS="no-download,help"
+if ! getopt -Qq -o "" --longoptions $LONGOPTS -n "${NAME}" -- "$@"; then
+  usage >&2
+  exit 2
+fi
+OPTS=$(getopt -o "" --longoptions $LONGOPTS -n "${NAME}" -- "$@")
+eval set -- "$OPTS"
+while [ $# -gt 0 ]; do
+  case $1 in
+  --no-download)
+    NO_DOWNLOAD=1
+    shift
+    ;;
+  --help)
+    usage
+    exit 0
+    ;;
+  esac
+  shift
+done
+
+DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+
+GIT_TOPLEVEL_DIR=$(git rev-parse --show-toplevel)
+TARGET_DIR="${GIT_TOPLEVEL_DIR}/config/chroot_local-includes/var/lib/flatpak/app/org.boum.tails.TorBrowser"
+METADATA_FILE="${DIR}/metadata"
+
+# We didn't find a way to make flatpak-builder install to a custom
+# directory directly, so we install to the default user installation
+# directory first and move it to the git repo
+APP_DIR=${HOME}/.local/share/flatpak/app/org.boum.tails.TorBrowser
+FILES_DIR=${APP_DIR}/x86_64/stable/active/files/
+
+# Check that the dependencies are installed
+if ! which flatpak-builder >/dev/null; then
+  echo >&2 "Error: flatpak-builder is not installed. Please install it
+ via 'apt install flatpak-builder'".
+  exit 1
+fi
+
+# Check that the working tree is clean, because we automatically commit
+# the changes to the flatpak app to the git repo and we don't want to
+# commit other uncommitted changes.
+# Check that the working tree is clean (at least in `$TARGET_DIR)`, because we automatically commit
+# the changes to the flatpak app to the git repo and we don't want to
+# commit other uncommitted changes.
+if [ -n "$(git status --porcelain "${TARGET_DIR}")" ]; then
+  echo >&2 "Error: The working tree has uncommitted changes."
+  exit 1
+fi
+
+# Setup flatpak
+flatpak --user remote-add --if-not-exists flathub https://flathub.org/repo/flathub.flatpakrepo
+
+# Install the org.torproject.torbrowser-launcher flatpak app to
+# get the updated metadata file
+if [ -z "${NO_DOWNLOAD:-}" ]; then
+  flatpak install --user --assumeyes --reinstall flathub org.torproject.torbrowser-launcher
+fi
+METADATA=$(flatpak info --show-metadata org.torproject.torbrowser-launcher)
+
+# Rename the old metadata file
+mv "${METADATA_FILE}" "${METADATA_FILE}.old"
+
+# Copy the [Application] section of the old metadata file
+sed -n '/^\[Application\]/,/^\[/p' "${METADATA_FILE}.old" >>"${METADATA_FILE}"
+
+# Delete the old metadata file
+rm "${METADATA_FILE}.old"
+
+# Copy everything except for the [Application] section of the new
+# metadata
+echo "${METADATA}" | sed '/^\[Application\]/,/^\[/d' >>"${METADATA_FILE}"
+
+# Build the app
+cd "${DIR}"
+flatpak-builder --user --install --force-clean build-dir org.boum.tails.TorBrowser.yaml "$@"
+
+# Remove all files that were installed from org.freedesktop.Platform
+rm -rf "${FILES_DIR}"
+mkdir "${FILES_DIR}"
+
+# Create the .ref file which is needed to run the flatpak
+touch "${FILES_DIR}/.ref"
+
+# Remove the existing app from the git repo
+rm -rf "${TARGET_DIR}"
+
+# Move the app to the git repo
+mv "${APP_DIR}" "${TARGET_DIR}"
+
+# Commit the changes to the git repo
+git add "${TARGET_DIR}"
+git add "${METADATA_FILE}"
+git commit -m "Rebuild org.boum.tails.TorBrowser flatpak app"
+git show
