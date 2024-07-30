@@ -52,7 +52,7 @@ Vagrant.configure('2') do |config|
                     else
                       vm_memory_for_disk_builds(cpus)
                     end
-    domain.cpus = cpus unless cpus.nil?
+    domain.cpus = cpus
     if ENV['TAILS_PROXY_TYPE'] == 'vmproxy'
       domain.storage(
         :file, size: '15G', allow_existing: true,

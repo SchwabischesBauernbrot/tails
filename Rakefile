@@ -197,13 +197,7 @@ def releasing?
 end
 
 def system_cpus
-  return unless RbConfig::CONFIG['host_os'] =~ /linux/i
-
-  begin
-    File.read('/proc/cpuinfo').scan(/^processor\s+:/).count
-  rescue StandardError
-    nil
-  end
+  File.read('/proc/cpuinfo').scan(/^processor\s+:/).count
 end
 
 ENV['TAILS_WEBSITE_CACHE'] = releasing? ? '0' : '1'
@@ -215,9 +209,8 @@ task :parse_build_options do
   options << 'vmproxy'
   # Default to fast compression on development branches
   options << 'fastcomp' unless releasing?
-  # Default to the number of system CPUs when we can figure it out
-  cpus = system_cpus
-  options << "cpus=#{cpus}" if cpus
+  # Default to use all host CPUs
+  options << "cpus=#{system_cpus}"
 
   options += ENV['TAILS_BUILD_OPTIONS'].split if ENV['TAILS_BUILD_OPTIONS']
 
