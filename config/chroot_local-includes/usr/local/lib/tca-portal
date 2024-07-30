@@ -433,8 +433,8 @@ class Handler(socketserver.StreamRequestHandler):
         self.pid = os.getpid()
         self.outgoing_q = multiprocessing.Queue()
 
-        self.reader = multiprocessing.Process(target=self.reader)
-        self.reader.start()
+        self.reader_process = multiprocessing.Process(target=self.reader)
+        self.reader_process.start()
 
         while True:
             response = self.outgoing_q.get()
