@@ -275,25 +275,32 @@ class Handler(socketserver.StreamRequestHandler):
     spawn_commands: ClassVar = {  # some commands just mean "run this specified commands as LIVE_USERNAME, please"
         "scan-qrcode": UserCommand(("/usr/bin/zbarcam", "--raw", "--oneshot"), False),
         "open-unsafebrowser": UserCommand(
-            ("/usr/bin/gtk-launch", "unsafe-browser"), False
+            ("/usr/bin/gtk-launch", "unsafe-browser"),
+            False,
         ),
         "open-tbb": UserCommandTransientSystemdScope(
-            ("/usr/bin/gtk-launch", "tor-browser"), False
+            ("/usr/bin/gtk-launch", "tor-browser"),
+            False,
         ),
         "open-networkmonitor": UserCommandTransientSystemdScope(
-            ("/usr/bin/gnome-system-monitor", "--show-resources-tab"), False
+            ("/usr/bin/gnome-system-monitor", "--show-resources-tab"),
+            False,
         ),
         "open-onioncircuits": UserCommandTransientSystemdScope(
-            ("/usr/bin/gtk-launch", "onioncircuits"), False
+            ("/usr/bin/gtk-launch", "onioncircuits"),
+            False,
         ),
         "open-documentation": UserCommandTransientSystemdScope(
-            ("/usr/local/bin/tails-documentation",), True
+            ("/usr/local/bin/tails-documentation",),
+            True,
         ),
         "open-wifi-config": UserCommand(
-            ("/bin/systemctl", "--user", "start", "gnome-wifi-panel"), False
+            ("/bin/systemctl", "--user", "start", "gnome-wifi-panel"),
+            False,
         ),
         "set-tor-sandbox": RootCommand(
-            ("/usr/local/lib/tor-pt-configuration-helper",), True
+            ("/usr/local/lib/tor-pt-configuration-helper",),
+            True,
         ),
         # It would be nicer to do this in Python without calling out
         # to external processes, but it would require either implementing
@@ -301,7 +308,8 @@ class Handler(socketserver.StreamRequestHandler):
         # the Handler.run and Command.run code a fair bit:
         # https://gitlab.tails.boum.org/tails/tails/-/merge_requests/544#note_174919
         "is-tor-configuration-persistent?": UserCommand(
-            ("/usr/local/lib/tpscli", "is-active", TPS_TOR_CONFIG_FEATURE_NAME), False
+            ("/usr/local/lib/tpscli", "is-active", TPS_TOR_CONFIG_FEATURE_NAME),
+            False,
         ),
         "ensure-tor-configuration-is-persistent": PersistentStorageCommand(
             ("/usr/local/lib/tpscli", "ensure-is-active", TPS_TOR_CONFIG_FEATURE_NAME),
