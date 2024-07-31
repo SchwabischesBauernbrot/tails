@@ -109,7 +109,6 @@ def get_user_env(user):
 class PythonSession:
     def __init__(self, user=None):
         logging.info("Starting new Python session")
-
         interactive_shell_code = "import sys; import code; sys.ps1 = ''; sys.ps2 = ''; code.interact(banner='')"
         if not user:
             user = pwd.getpwuid(os.getuid()).pw_name
@@ -121,19 +120,6 @@ class PythonSession:
         if "WAYLAND_DISPLAY" in env:
             del env["WAYLAND_DISPLAY"]
         cwd = env.get("HOME", "/")
-
-        # Ensure that at-spi-dbus-bus.service is running, otherwise Dogtail
-        # will fail to connect to the bus.
-        if user == "root":
-            session_bus_user = "amnesia"
-        else:
-            session_bus_user = user
-        subprocess.check_call(
-            ["/bin/systemctl", "--user", "start", "at-spi-dbus-bus.service"],
-            env=env,
-            preexec_fn=mk_switch_user_fn(session_bus_user),  # noqa: PLW1509
-        )
-
         self.process = subprocess.Popen(
             ["python3", "-u", "-c", interactive_shell_code],  # noqa: S607
             bufsize=0,
