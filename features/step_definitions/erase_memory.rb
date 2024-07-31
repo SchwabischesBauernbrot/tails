@@ -211,9 +211,12 @@ When(/^I umount "([^"]*)"$/) do |mount_arg|
   $vm.execute_successfully("umount '#{mount_arg}'")
 end
 
-Then /^I find very few patterns in the guest's memory$/ do
-  # Give the Linux kernel's memory poisoning feature time to do its job
-  sleep 3
+Then /^I find very few patterns in the guest's memory(?: after (\d+) seconds)?$/ do |delay|
+  # Give the Linux kernel's memory poisoning feature time to do its
+  # job. This is not needed in scenarios that first run "I wait for
+  # Tails to finish wiping the memory step", such as those in
+  # emergency_shutdown.feature.
+  sleep delay.to_i if delay
   coverage = pattern_coverage_in_guest_ram(@free_mem_before_fill_b)
   max_coverage = 0.008
   assert(
