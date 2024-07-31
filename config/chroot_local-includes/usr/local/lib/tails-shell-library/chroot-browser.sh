@@ -31,7 +31,7 @@ try_cleanup_browser_chroot () {
         findmnt --output TARGET --list --submounts "${chroot}" | tail -n+2 | tac
     )"
     for mnt in ${chroot_mounts} "${cow}"; do
-        try_for 10 "umount ${mnt} 2>/dev/null" 0.1
+        try_for 10 "umount ${mnt} 2>/dev/null" 0.1 || true
     done
     rmdir "${cow}/rw" "${cow}/work" "${cow}" "${chroot}" || true
 }
