@@ -110,6 +110,7 @@ with GnuPG:
 
     (
         set -e
+        gpg --refresh-keys EF6E286DDA85EA2A4BA7DE684E2C6E8793298290
         for f in sha256sums-unsigned-build.txt{.asc${TBB_SIGNER_SUFFIX?},}; do
             wget "${TBB_DIST_URL:?}/$f" -O "$f"
         done
