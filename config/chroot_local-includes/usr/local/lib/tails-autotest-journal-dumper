@@ -7,5 +7,8 @@ until [ -e "${channel}" ]; do
 done
 
 while true; do
+    echo "------------------ /var/log/boot.log -----------------" > "${channel}"
+    cat /var/log/boot.log > "${channel}"
+    echo "----------------------- journal ----------------------" > "${channel}"
     journalctl --all --no-pager --lines=all --follow > "${channel}"
 done
