@@ -325,7 +325,9 @@ class Handler(socketserver.StreamRequestHandler):
         "set-system-time": SetTimeCommand(),
         "read-tca-config": RootCommand(("/bin/cat", TCA_CONFIG_FILE), False),
         "write-tca-config": WriteFileCommand(TCA_CONFIG_FILE),
-        "start-arti": RootCommand(("/bin/systemctl", "start", "--no-block", "arti.service"), False),
+        "start-arti": RootCommand(
+            ("/bin/systemctl", "start", "--no-block", "arti.service"), False
+        ),
     }
 
     protocol = JSONRPCProtocol()
