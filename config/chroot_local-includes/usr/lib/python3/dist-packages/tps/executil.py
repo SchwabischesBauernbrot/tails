@@ -5,7 +5,7 @@ from os import PathLike
 import sys
 from pathlib import Path
 import subprocess
-from typing import List, Union
+from typing import Union
 
 import tps
 import tps.logging
@@ -13,7 +13,7 @@ import tps.logging
 logger = tps.logging.get_logger(__name__)
 
 
-def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
+def _run(cmd: list, *args, **kwargs) -> subprocess.CompletedProcess:
     """Run a command and print it's stderr continuously but also return
     stderr in the return CompletedProcess and any raised CalledProcessError.
 
@@ -23,7 +23,7 @@ def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
     # This method will be called from executil.run() (or check_call, or check_output),
     # and we want to attribute the log message to its caller
     # we should use logger.debug, but #19871 pushes us towards higher log level
-    logger.info(f"Executing command {' '.join(cmd)}", stacklevel=5)
+    logger.info(f"Executing command {' '.join(cmd)}", stacklevel=3)
 
     if tps.PROFILING:
         cmd = prepare_for_profiling(cmd)
@@ -31,7 +31,7 @@ def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
     kwargs["stderr"] = subprocess.PIPE
     kwargs["text"] = True
     try:
-        p = subprocess.run(cmd, *args, **kwargs)
+        p = subprocess.run(cmd, *args, **kwargs)  # noqa: PLW1510
     except subprocess.CalledProcessError as e:
         print(e.stderr, file=sys.stderr)
         raise
@@ -39,18 +39,18 @@ def _run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
         print(p.stderr, file=sys.stderr)
         return p
     finally:
-        logger.debug(f"Done executing command", stacklevel=5)
+        logger.debug("Done executing command", stacklevel=3)
 
 
-def run(cmd: List, *args, **kwargs) -> subprocess.CompletedProcess:
+def run(cmd: list, *args, **kwargs) -> subprocess.CompletedProcess:
     return _run(cmd, *args, **kwargs)
 
 
-def check_call(cmd: List, *args, **kwargs):
+def check_call(cmd: list, *args, **kwargs):
     return _run(cmd, *args, **kwargs, check=True)
 
 
-def check_output(cmd: List, *args, **kwargs) -> str:
+def check_output(cmd: list, *args, **kwargs) -> str:
     p = _run(cmd, *args, **kwargs, check=True, stdout=subprocess.PIPE)
     return p.stdout
 
@@ -68,14 +68,14 @@ def execute_hooks(hooks_dir: Union[str, PathLike]):
     for file in sorted(hooks_dir.iterdir()):
         if file.is_dir():
             continue
-        logger.info(f"Executing hook {file}", stacklevel=4)
+        logger.info(f"Executing hook {file}")
         try:
             check_call([str(file)])
         finally:
-            logger.debug(f"Done executing hook", stacklevel=4)
+            logger.debug("Done executing hook")
 
 
-def prepare_for_profiling(cmd: List) -> List:
+def prepare_for_profiling(cmd: list) -> list:
     uptime = Path("/proc/uptime").read_text().split()[0]
     profile_file = tempfile.NamedTemporaryFile(
         prefix=f"{uptime}-{os.path.basename(cmd[0])}.",
@@ -93,4 +93,5 @@ def prepare_for_profiling(cmd: List) -> List:
         "--summary",
         "--trace=file,process,network,signal,ipc,desc,memory",
         f"--output={profile_file.name}",
-    ] + cmd
+        *cmd,
+    ]

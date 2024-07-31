@@ -91,7 +91,10 @@ while IFS=: read -r MOZILLA_LOCALE LOCATION; do
         HOMEPAGE="${HOMEPAGE}index.${LANG_CODE}.html"
     fi
     set_mozilla_pref "${LOCALE_PROFILE_FILE}" \
-                          "browser.startup.homepage" "\"${HOMEPAGE}\"" "user_pref"
+                     "browser.startup.homepage" "\"${HOMEPAGE}\"" "user_pref"
+    set_mozilla_pref "${LOCALE_PROFILE_FILE}" \
+                     "browser.startup.homepage.new_identity" "\"${HOMEPAGE}\"" \
+                     "user_pref"
 done < "${DESCRIPTIONS_FILE}"
 
 # This directory is not needed after build time.

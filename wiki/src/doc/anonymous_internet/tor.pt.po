@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
-"POT-Creation-Date: 2024-05-16 21:49+0000\n"
-"PO-Revision-Date: 2024-05-16 22:54+0000\n"
-"Last-Translator: xin <xin@riseup.net>\n"
+"POT-Creation-Date: 2024-07-30 22:52+0000\n"
+"PO-Revision-Date: 2024-07-03 14:01+0000\n"
+"Last-Translator: drebs <drebs@riseup.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: pt\n"
 "MIME-Version: 1.0\n"
@@ -84,24 +84,15 @@ msgid "-->\n"
 msgstr "-->\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "You cannot access the Internet from Tails until you are connected to Tor. "
-#| "For\n"
-#| "example, *Tor Browser* displays the error message <span "
-#| "class=\"code\">Proxy\n"
-#| "server refusing connections</span> until you are connected to Tor.\n"
 msgid ""
 "You cannot access the Internet from Tails until you are connected to Tor. "
 "For example, *Tor Browser* displays the error message `The proxy server is "
 "refusing connections` until you are connected to Tor."
 msgstr ""
-"Você não poderá acessar a internet a partir do Tails até que a conexão com a "
-"rede Tor esteja estabelecida. Por\n"
-"exemplo, o *Navegador Tor* mostra a seguinte mensagem de erro <span "
-"class=\"code\">Proxy\n"
-"servers refusing connections</span> até que a conexão com a rede Tor esteja "
-"estabelecida.\n"
+"Você não poderá acessar a Internet a partir do Tails até que a conexão com a "
+"rede Tor esteja estabelecida. Por exemplo, o *Navegador Tor* mostra a "
+"mensagem de erro `The proxy server is refusing connections` até que a "
+"conexão com a rede Tor esteja estabelecida."
 
 #. type: Plain text
 #, no-wrap
@@ -378,6 +369,8 @@ msgid ""
 "      <p>Tails uses the [[default <i>obfs4</i> bridges from <i>Tor\n"
 "      Browser</i>|https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/tor-expert-bundle/pt_config.json?ref_type=heads]].</p>\n"
 msgstr ""
+"      <p>O Tails usa as [[pontes <i>obfs4</i> padrão do <i>Tor\n"
+"      Browser</i>|https://gitlab.torproject.org/tpo/applications/tor-browser-build/-/blob/main/projects/tor-expert-bundle/pt_config.json?ref_type=heads]].</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -414,10 +407,15 @@ msgstr ""
 "suspeitas para alguém que esteja monitorando sua conexão à Internet."
 
 #. type: Plain text
+#, fuzzy
+#| msgid ""
+#| "When you choose this option, Tails will only connect to Tor after you "
+#| "configure a Tor bridge. Bridges are secret Tor relays that hide that you "
+#| "are connecting to Tor."
 msgid ""
 "When you choose this option, Tails will only connect to Tor after you "
-"configure a Tor bridge. Bridges are secret Tor relays that hide that you are "
-"connecting to Tor."
+"configure a custom Tor bridge. Bridges are secret Tor relays that hide that "
+"you are connecting to Tor."
 msgstr ""
 "Ao escolher essa opção, Tails apenas conectará à rede Tor depois que você "
 "configurar uma ponte. Pontes são retransmissores secretos da rede Tor que "
@@ -459,9 +457,7 @@ msgstr "- Pontes padrão não estão disponíveis."
 #. type: Plain text
 #, no-wrap
 msgid "  [[!inline pages=\"doc/anonymous_internet/tor/bridge.inline\" raw=\"yes\" sort=\"age\"]]\n"
-msgstr ""
-"  [[!inline pages=\"doc/anonymous_internet/tor/bridge.inline.pt\" raw=\"yes\""
-" sort=\"age\"]]\n"
+msgstr "  [[!inline pages=\"doc/anonymous_internet/tor/bridge.inline.pt\" raw=\"yes\" sort=\"age\"]]\n"
 
 #. type: Plain text
 msgid ""
@@ -501,7 +497,7 @@ msgid ""
 msgstr ""
 "<ul>\n"
 "<li>Será possível solicitar uma ponte diretamente no Tails após resolver um CAPTCHA. ([[!tails_ticket 15331]])</li>\n"
-"<li>Haverá suporte a <i>snowflake</i> bridges. ([[!tails_ticket 5494]])</li>\n"
+"<li>Haverá suporte a pontes <i>snowflake</i>. ([[!tails_ticket 5494]])</li>\n"
 "</ul>\n"
 
 #. type: Plain text
@@ -513,11 +509,6 @@ msgstr "<h1 id=\"status\">Visualizando o estado do Tor</h1>\n"
 msgid "The status of Tor appears as an onion icon in the notification area:"
 msgstr ""
 "O estado do Tor aparece como um ícone de cebola na área de notificações:"
-
-#. type: Plain text
-#, no-wrap
-msgid "[[!img doc/first_steps/desktop/tor-status.png link=\"no\"]]\n"
-msgstr "[[!img doc/first_steps/desktop/tor-status.png link=\"no\"]]\n"
 
 #. type: Bullet: '  - '
 msgid ""
@@ -549,6 +540,10 @@ msgstr "<div class=\"next\">\n"
 #, no-wrap
 msgid "<p>See our documentation on [[troubleshooting connecting to Tor|tor/troubleshoot]].</p>\n"
 msgstr "<p>Veja nossa documentação sobre [[resolução de problemas de conexão à rede Tor|tor/troubleshoot]].</p>\n"
+
+#, no-wrap
+#~ msgid "[[!img doc/first_steps/desktop/tor-status.png link=\"no\"]]\n"
+#~ msgstr "[[!img doc/first_steps/desktop/tor-status.png link=\"no\"]]\n"
 
 #, no-wrap
 #~ msgid "  You will have to know the address of a custom bridge.\n"

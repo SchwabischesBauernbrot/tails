@@ -22,9 +22,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-05-15 10:37+0200\n"
-"PO-Revision-Date: 2024-05-13 08:53+0000\n"
-"Last-Translator: Chrono Lux <amber_c001@protonmail.com>\n"
+"POT-Creation-Date: 2024-07-15 09:56+0200\n"
+"PO-Revision-Date: 2024-06-18 17:09+0000\n"
+"Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tor/tails-gui/es/"
 ">\n"
 "Language: es\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.5.5-dev\n"
+"X-Generator: Weblate 5.6-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:205
 #, python-brace-format
@@ -96,7 +96,7 @@ msgid ""
 "Storage and activate the <b>Additional Software</b> feature."
 msgstr ""
 "Para instalarlo automáticamente al iniciar Tails, puedes crear un "
-"almacenamiento persistente y activar la función <b> Software adicional </b> ."
+"Almacenamiento Persistente y activar la función <b>Software Adicional</b> ."
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:81
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
@@ -141,7 +141,7 @@ msgstr "Eliminar"
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:720
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:28
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:376
@@ -765,7 +765,7 @@ msgstr "Modo _Offline"
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:276
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:445
 msgid "Enable networking (default)"
-msgstr "Activar la red (por defecto)"
+msgstr "Habilitar redes (predeterminado)"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py:278
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:491
@@ -911,21 +911,21 @@ msgstr "_Formatos"
 msgid "_Keyboard Layout"
 msgstr "_Configuración del teclado"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:309
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:321
 #, python-format
 msgid "Unable to write on %(device)s, skipping."
 msgstr "No se pudo escribir en %(device)s, omitiendo..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:358
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:370
 #, python-format
 msgid "Wrote to device at %(speed)d MB/s"
 msgstr "Grabado en el dispositivo a %(speed)d MB/seg"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:370
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:382
 msgid "Extracting live image to the target device..."
 msgstr "Extrayendo la imagen autoarrancable al dispositivo de destino..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:465
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:477
 #, python-format
 msgid ""
 "There was a problem executing the following command: `%(command)s`.\n"
@@ -934,7 +934,7 @@ msgstr ""
 "Hubo un problema al ejecutar el siguiente comando: `%(command)s`.\n"
 "Se ha escrito un registro de errores más detallado en \"%(filename)s\"."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:484
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:496
 #, python-format
 msgid ""
 "Not enough free space on device.\n"
@@ -944,151 +944,169 @@ msgstr ""
 "%(iso_size)dMB ISO + %(overlay_size)dMB overlay > %(free_space)dMB espacio "
 "libre"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:497
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:509
 #, python-format
 msgid "Creating %sMB persistent overlay"
 msgstr "Creando partición de datos persistentes ('overlay') de %s MB"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:563
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:575
 #, python-format
 msgid "Unable to copy %(infile)s to %(outfile)s: %(message)s"
 msgstr "No se pudo copiar %(infile)s en %(outfile)s: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:576
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:588
 msgid "Removing existing Tails system"
 msgstr "Eliminando sistema Tails existente"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:587
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:599
 #, python-format
 msgid "Unable to remove file from previous Tails system: %(message)s"
 msgstr "No se pudieron borrar archivos del anterior sistema Tails: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:597
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:609
 #, python-format
 msgid "Unable to chmod %(file)s: %(message)s"
 msgstr "No se pudo completar chmod para %(file)s: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:605
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:617
 #, python-format
 msgid "Unable to remove directory from previous Tails system: %(message)s"
 msgstr "No se pudo borrar directorio del anterior sistema Tails: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:656
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:668
 #, python-format
 msgid "Cannot find device %s"
 msgstr "No se pudo encontrar el dispositivo %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:692
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1007
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:704
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1024
 msgid "Unknown filesystem.  Your device may need to be reformatted."
 msgstr ""
 "Sistema de archivos desconocido. Tu dispositivo podría tener que ser "
 "formateado."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:695
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1010
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:707
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1027
 #, python-format
 msgid "Unsupported filesystem: %s"
 msgstr "No se admite el sistema de archivos: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:711
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:723
 #, python-format
 msgid "Unknown GLib exception while trying to mount device: %(message)s"
 msgstr ""
 "Excepción GLib desconocida mientras se intentaba montar el dispositivo: "
 "%(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:718
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:730
 #, python-format
 msgid "Unable to mount device: %(message)s"
 msgstr "No se pudo montar el dispositivo: %(message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:723
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:735
 msgid "No mount points found"
 msgstr "No se encontraron puntos de montaje"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:815
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:805
+msgid "Target device has opened files"
+msgstr "El dispositivo de destino ha abierto archivos"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:833
 #, python-format
 msgid "Mount %s exists after unmounting"
 msgstr "El punto de montaje %s sigue existiendo tras desmontar"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:846
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:864
 #, python-format
 msgid "Partitioning device %(device)s"
 msgstr "Particionando el dispositivo %(device)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:991
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1008
 #, python-format
 msgid "Unsupported device '%(device)s', please report a bug."
 msgstr "Dispositivo '%(device)s' no soportado, por favor informa del fallo."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:994
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1011
 msgid "Trying to continue anyway."
 msgstr "Tratando de continuar igualmente."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1003
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1020
 msgid "Verifying filesystem..."
 msgstr "Verificando el sistema de archivos..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1026
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1043
 #, python-format
 msgid "Unable to change volume label: %s"
 msgstr "No se puede cambiar la etiqueta del volumen: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1032
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1049
 msgid "Installing bootloader..."
 msgstr "Instalando gestor de arranque (bootloader) ..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1040
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1057
 #, python-format
 msgid "Removing %(file)s"
 msgstr "Eliminando %(file)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1069
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1086
 msgid "Cloning Persistent Storage..."
 msgstr "Clonando Almacenamiento Persistente..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1152
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1169
 #, python-format
 msgid "%s already bootable"
 msgstr "%s ya es arrancable"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1190
 msgid "Unable to find partition"
 msgstr "No se ha podido encontrar la partición"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1195
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1212
 #, python-format
 msgid "Formatting %(device)s as FAT32"
 msgstr "Formateando %(device)s como FAT32"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1272
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1289
 #, python-format
 msgid "Reading extracted MBR from %s"
 msgstr "Leyendo MBR extraído de %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1277
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1294
 #, python-format
 msgid "Could not read the extracted MBR from %(path)s"
 msgstr "No se pudo leer el MBR extraído de %(path)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1291
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1292
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1308
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1309
 #, python-format
 msgid "Resetting Master Boot Record of %s"
 msgstr "Restableciendo Master Boot Record de %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1297
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1313
+#, python-format
+msgid "Writing random seed to LBA 34 of %s"
+msgstr "Escribiendo semilla aleatoria en LBA 34 de %s"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1320
 msgid "Drive is a loopback, skipping MBR reset"
 msgstr ""
 "La unidad es de tipo loopback (virtual, de bucle), omitiendo el "
 "restablecimiento del MBR"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1301
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1324
 msgid "Synchronizing data on disk..."
 msgstr "Sincronizando datos en el disco..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:163
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:148
+msgid ""
+"Unable to clone because the target USB stick is being used. Close all open "
+"files on the target USB stick, restart Tails Cloner, and try to clone again."
+msgstr ""
+"No se ha podido clonar porque se está utilizando la memoria USB de destino. "
+"Cierra todos los archivos abiertos en la memoria USB de destino, reinicia "
+"Tails Cloner e intenta clonar de nuevo."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:180
 msgid ""
 "Error: Cannot set the label or obtain the UUID of your device.  Unable to "
 "continue."
@@ -1096,67 +1114,67 @@ msgstr ""
 "Error: No se ha podido establecer u obtener el UUID del dispositivo. No se "
 "puede continuar."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:208
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:225
 #, python-format
 msgid "Cloning complete! (%s)"
 msgstr "¡Clonación completa! ( %s )"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:213
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:230
 msgid "Tails installation failed!"
 msgstr "La instalación de Tails ha fallado!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:317
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:332
 #: ../config/chroot_local-includes/usr/share/applications/tails-installer.desktop.in.h:1
 msgid "Tails Cloner"
 msgstr "Tails Cloner"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:369
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:384
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:164
 msgid "Clone the current Tails"
 msgstr "Clonar el Tails actual"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:377
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:392
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:200
 msgid "Use a downloaded Tails ISO image"
 msgstr "Usar una imagen ISO de Tails descargada"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:429
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:444
 msgid "Upgrade"
 msgstr "Actualizar"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:430
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:445
 msgid "Manual Upgrade Instructions"
 msgstr "Instrucciones para la Actualización Manual"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:441
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:706
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:456
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:714
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:374
 msgid "Install"
 msgstr "Instalar"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:444
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:459
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:131
 msgid "Installation Instructions"
 msgstr "Instrucciones de instalación"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:447
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:462
 msgid "Backup Instructions"
 msgstr "Instrucciones de la copia de seguridad"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:458
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:473
 #, python-format
 msgid "%(size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "Dispositivo %(size)s %(vendor)s %(model)s (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:471
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:486
 msgid "No ISO image selected"
 msgstr "No se ha seleccionado ninguna imagen ISO"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:471
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:486
 msgid "Please select a Tails ISO image."
 msgstr "Por favor, selecciona una imagen ISO de Tails."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:529
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:537
 msgid ""
 "Clone the current Persistent Storage\n"
 "Impossible to clone the Persistent Storage because it is locked."
@@ -1164,12 +1182,12 @@ msgstr ""
 "Clona el Almacenamiento Persistente actual\n"
 "No se puede clonar el Almacenamiento Persistente porque está bloqueado."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:533
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:541
 #: ../config/chroot_local-includes/usr/share/tails-installer/tails-installer.ui.in:180
 msgid "Clone the current Persistent Storage"
 msgstr "Clona el Almacenamiento Persistente actual"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:536
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:544
 msgid ""
 "Clone the current Persistent Storage\n"
 "You can only choose to reinstall when cloning the Persistent Storage."
@@ -1177,7 +1195,7 @@ msgstr ""
 "Clona el Almacenamiento Persistente actual\n"
 "Sólo puedes elegir reinstalar cuando clones el Almacenamiento Persistente."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:574
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:582
 #, python-format
 msgid ""
 "The USB stick \"%(pretty_name)s\" is configured as non-removable by its "
@@ -1188,7 +1206,7 @@ msgstr ""
 "fabricante, y Tails no podrá iniciarse desde ella. Por favor, prueba a "
 "instalar en un modelo distinto."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:584
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:592
 #, python-format
 msgid ""
 "The device \"%(pretty_name)s\" is too small to install Tails (at least "
@@ -1197,7 +1215,7 @@ msgstr ""
 "El dispositivo \"%(pretty_name)s\" es demasiado pequeño para instalar Tails "
 "(se requieren al menos %(size)s GB)."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:599
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:607
 #, python-format
 msgid ""
 "To upgrade device \"%(pretty_name)s\" from this Tails, you need to use a "
@@ -1208,33 +1226,29 @@ msgstr ""
 "necesitas usar una imagen ISO de Tails descargada:\n"
 "%(dl_url)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:620
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:628
 msgid "No device suitable to install Tails could be found"
 msgstr "No se encontró ningún dispositivo adecuado para instalar Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:623
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:631
 #, python-format
 msgid "Plug in a USB stick of at least %0.1f GB."
 msgstr "Conecta una memoria USB de al menos %0.1f GB."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:636
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:644
 msgid "An error happened while installing Tails"
 msgstr "Ha ocurrido un error mientras se instalaba Tails"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:693
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:701
 msgid "Installation complete!"
 msgstr "¡Instalación completa!"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:755
-msgid "Unable to mount device"
-msgstr "No se pudo montar el dispositivo"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:762
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:757
 #, python-format
 msgid "%(parent_size)s %(vendor)s %(model)s device (%(device)s)"
 msgstr "Dispositivo %(parent_size)s %(vendor)s %(model)s (%(device)s)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:775
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:770
 msgid ""
 "\n"
 "\n"
@@ -1244,11 +1258,11 @@ msgstr ""
 "\n"
 "El almacenamiento persistente de esta memoria USB se perderá."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:777
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:772
 msgid "Delete Persistent Storage and Reinstall"
 msgstr "Borrar el Almacenamiento Persistente y reinstalar"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:779
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:774
 msgid ""
 "\n"
 "\n"
@@ -1258,20 +1272,24 @@ msgstr ""
 "\n"
 "Se perderán todos los datos de esta memoria USB."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:780
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:775
 msgid "Delete All Data and Install"
 msgstr "Borrar todos los datos e instalar"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:781
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:776
 #, python-format
 msgid "%(description)s%(delete_message)s"
 msgstr "%(description)s%(delete_message)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:786
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:781
 msgid "Confirm the target USB stick"
 msgstr "Confirmar la memoria USB de destino"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:829
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:811
+msgid "Unable to mount device"
+msgstr "No se pudo montar el dispositivo"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:840
 msgid ""
 "The selected file is unreadable. Please fix its permissions or select "
 "another file."
@@ -1279,7 +1297,7 @@ msgstr ""
 "El archivo seleccionado no se puede leer. Ajusta sus permisos o selecciona "
 "otro archivo."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:839
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:850
 msgid ""
 "Unable to use the selected file.  You may have better luck if you move your "
 "ISO to the root of your drive (ie: C:\\)"
@@ -1287,7 +1305,7 @@ msgstr ""
 "No se pudo utilizar el archivo seleccionado. Puede que tengas más suerte si "
 "mueves tu ISO a la carpeta raíz de su unidad (ej. C:\\)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:848
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:859
 #, python-format
 msgid "%(filename)s selected"
 msgstr "%(filename)s seleccionado"
@@ -1327,7 +1345,7 @@ msgstr "\"%s\" no es un directorio"
 msgid "Skipping \"%(filename)s\""
 msgstr "Saltando \"%(filename)s\""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:65
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:63
 #, python-format
 msgid ""
 "There was a problem executing `%(cmd)s`.%(out)s\n"
@@ -1336,7 +1354,7 @@ msgstr ""
 "Se ha producido un problema al ejecutar `%(cmd)s`.%(out)s\n"
 "%(err)s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:146
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/utils.py:144
 msgid "Could not open device for writing."
 msgstr "No se ha podido abrir el dispositivo para la escritura."
 
@@ -1605,32 +1623,81 @@ msgstr "Esta versión de Tails tiene problemas de seguridad conocidos:"
 msgid "Known security issues"
 msgstr "Problemas de seguridad conocidos"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:43
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:76
 #, sh-format
-msgid "Network card ${nic} disabled"
-msgstr "Tarjeta de red ${nic} deshabilitada"
-
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:44
-#, fuzzy, sh-format
-msgid ""
-"MAC address anonymization failed for network card ${nic_name} (${nic}) so it "
-"is temporarily disabled.\n"
-"\n"
-"You might prefer to restart Tails and disable MAC address anonymization."
+msgid "Wi-Fi Interface Disabled"
 msgstr ""
-"Ha fallado la anonimización de la dirección MAC para la tarjeta de red "
-"${nic_name} (${nic}) por lo que está temporalmente desactivada.\n"
-"Es posible que prefieras reiniciar Tails y desactivar el anonimato de "
-"direcciones MAC."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:55
-msgid "All networking disabled"
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:77
+#, sh-format
+msgid ""
+"MAC address anonymization failed for one of your Wi-Fi interfaces, so it is "
+"temporarily disabled."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:79
+#, fuzzy, sh-format
+msgid "Wi-Fi Disabled"
+msgstr "Desactivado"
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:80
+#, sh-format
+msgid ""
+"MAC address anonymization failed for your Wi-Fi interface, so it is "
+"temporarily disabled."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:82
+#, sh-format
+msgid "Wired Interface Disabled"
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:83
+#, sh-format
+msgid ""
+"MAC address anonymization failed for one of your wired interfaces, so it is "
+"temporarily disabled."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:85
+#, fuzzy, sh-format
+msgid "Wired Network Disabled"
 msgstr "Se deshabilitaron todas las redes"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:56
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:86
+#, sh-format
+msgid ""
+"MAC address anonymization failed for your wired interface, so it is "
+"temporarily disabled."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:88
+#, fuzzy, sh-format
+msgid "Network Interface Disabled"
+msgstr "Tarjeta de red ${nic} deshabilitada"
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
+#, sh-format
+msgid ""
+"MAC address anonymization failed for one of your network interfaces, so it "
+"is temporarily disabled."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:91
+#, sh-format
+msgid ""
+"You might prefer to restart Tails and disable MAC address anonymization."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:98
+#, fuzzy
+msgid "All Networking Disabled"
+msgstr "Se deshabilitaron todas las redes"
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:99
 #, fuzzy, sh-format
 msgid ""
-"MAC address anonymization failed for network card ${nic_name} (${nic}). The "
+"MAC address anonymization failed for one of your network interfaces. The "
 "error recovery also failed, so all networking is disabled.\n"
 "\n"
 "You might prefer to restart Tails and disable MAC address anonymization."
@@ -1638,6 +1705,7 @@ msgstr ""
 "Ha fallado la anonimización de la dirección MAC para la tarjeta de red "
 "${nic_name} (${nic}). La recuperación del error también falló, por lo que "
 "toda la red está desactivada.\n"
+"\n"
 "Es recomendable reiniciar Tails y desactivar el anonimato de direcciones MAC."
 
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:36
@@ -1875,7 +1943,7 @@ msgstr "Estado de Tor"
 msgid "Open Onion Circuits"
 msgstr "Abrir Onion Circuits"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:345
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:343
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1888,11 +1956,11 @@ msgstr ""
 "\n"
 "Inténtalo de nuevo tras cerrar algunas aplicaciones o tras reiniciar."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:359
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:357
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Se está creando una partición para el Almacenamiento Persistente..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:381
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:379
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
@@ -1916,7 +1984,7 @@ msgstr "Se está activando el Almacenamiento Persistente..."
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Terminando de configurar el Almacenamiento Persistente..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:689
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:694
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1928,7 +1996,7 @@ msgstr ""
 "estar accediendo a él e inténtalo de nuevo. Si eso no funciona, reinicia "
 "Tails e intenta borrar el Almacenamiento Persistente sin desbloquearlo."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:722
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:727
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -2294,11 +2362,11 @@ msgstr ""
 "No se pudo desbloquear el volumen {volume_name}:\n"
 "{error_message}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:404
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:403
 msgid "One or more applications are keeping the volume busy."
 msgstr "Una o más aplicaciones tienen el volumen ocupado."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:412
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:411
 #, python-brace-format
 msgid ""
 "Couldn't lock volume {volume_name}:\n"
@@ -2307,7 +2375,7 @@ msgstr ""
 "No se pudo bloquear el volumen {volume_name}:\n"
 "{error_message}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:416
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume.py:413
 msgid "Locking the volume failed"
 msgstr "El bloqueo del volumen falló"
 
@@ -2377,7 +2445,7 @@ msgstr ""
 "configuración del bucle.\n"
 "Por favor intenta usar, en su lugar, la aplicación <i>Discos</i>."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:234
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/unlock_veracrypt_volumes/volume_manager.py:241
 msgid "Choose File Container"
 msgstr "Selecciona contenedor de archivo"
 
@@ -3883,6 +3951,19 @@ msgstr "Diciembre"
 #: ../config/chroot_local-includes/usr/share/tails/tca/time-dialog.ui.in:368
 msgid "Clock"
 msgstr "Reloj"
+
+#, sh-format
+#~ msgid ""
+#~ "MAC address anonymization failed for network card ${nic_name} (${nic}) so "
+#~ "it is temporarily disabled.\n"
+#~ "\n"
+#~ "You might prefer to restart Tails and disable MAC address anonymization."
+#~ msgstr ""
+#~ "Ha fallado la anonimización de la dirección MAC para la tarjeta de red "
+#~ "${nic_name} (${nic}) por lo que está temporalmente desactivada.\n"
+#~ "\n"
+#~ "Es posible que prefieras reiniciar Tails y desactivar el anonimato de "
+#~ "direcciones MAC."
 
 #~ msgid "Language & Region"
 #~ msgstr "Idioma y región"

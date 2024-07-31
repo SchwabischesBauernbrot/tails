@@ -582,28 +582,17 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
 end
 
 When /^I request a new identity in Tor Browser$/ do
-  # Each tab (and only them) has its own 'document web' node
-  @old_tab_names = @torbrowser
-                   .children(roleName: 'document web', showingOnly: false)
-                   .map(&:name)
-  @torbrowser.child('New Identity', roleName: 'push button').press
+  @torbrowser.child('Tor Browser', roleName: 'push button').press
+  @torbrowser.child('New identity', roleName: 'push button').press
   @torbrowser.child('Restart Tor Browser', roleName: 'push button').press
 end
 
 Then /^the Tor Browser restarts into a fresh session$/ do
-  try_for(20) do
-    # Each tab (and only them) has its own 'document web' node
-    tabs = @torbrowser.children(roleName: 'document web', showingOnly: false)
-    assert_equal(1, tabs.size)
-    only_tab = tabs.first
-    assert_equal('New Tab', only_tab.name)
-    # Since Tor Browser 13.0, requesting a New Identity restarts and
-    # loads about:tor and not the start page. This link always exists on
-    # the about:tor page in Tails as part of the info box explaining
-    # that Tor Browser is not managing tor.
-    only_tab.child('Test your connection', roleName: 'link')
-    assert_not_equal(@old_tab_names, tabs.map(&:name))
-    true
-  end
-  assert_empty(get_current_browser_url)
+  step 'the Tor Browser loads the startup page'
+
+  # Check that there is only one tab (the startup page). We search for
+  # 'document web' nodes to detect tabs because each tab (and only them)
+  # has its own 'document web' node.
+  tabs = @torbrowser.children(roleName: 'document web', showingOnly: false)
+  assert_equal(1, tabs.size)
 end

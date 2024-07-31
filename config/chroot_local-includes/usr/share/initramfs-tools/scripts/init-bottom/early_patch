@@ -53,7 +53,7 @@ spawn_shell() {
   echo >&2 "Press Ctrl-D to continue booting."
 
   # Call panic from /usr/share/initramfs-tools/scripts/functions to
-  # spawn a shell.
+  # spawn a shell. Note that panic does not work if set -e is active.
   . /scripts/functions
   panic
 }

@@ -371,6 +371,3 @@ pref("mail.identity.default.encryptionpolicy", 2);
 // email. Attaching the key bloats the email (especially keys that
 // have many signatures) but also leaks who sent email when using Schleuder's remailing functionality.
 pref("mail.identity.default.attachPgpKey", false);
-
-// Temporarily fix CVE-2024-4367 in Tails 6.3 (tails#20384)
-pref("pdfjs.disabled", true);

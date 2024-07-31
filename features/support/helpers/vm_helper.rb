@@ -113,7 +113,9 @@ class VM
     set_vcpu($config['VCPUS']) if $config['VCPUS']
     @display = Display.new(@domain_name, x_display)
     set_cdrom_boot(TAILS_ISO)
-    add_remote_shell_channel
+    @virtio_channel_sockets = {}
+    add_virtio_channel(VIRTIO_JOURNAL_DUMPER)
+    add_virtio_channel(VIRTIO_REMOTE_SHELL)
   rescue StandardError => e
     destroy_and_undefine
     raise e
@@ -208,14 +210,6 @@ class VM
     set_network_link_state('down')
   end
 
-  def set_boot_device(dev)
-    raise 'boot settings can only be set for inactive vms' if running?
-
-    update do |xml|
-      xml.elements['domain/os/boot'].attributes['dev'] = dev
-    end
-  end
-
   def add_cdrom_device
     raise "Can't attach a CDROM device to a running domain" if running?
 
@@ -282,7 +276,16 @@ class VM
       add_cdrom_device
     end
     set_cdrom_image(image)
-    set_boot_device('cdrom')
+
+    return if domain_xml.elements["domain/os/boot[@dev='cdrom']"]
+
+    # Set the dev attribute of os/boot to "cdrom"
+    update do |xml|
+      unless xml.elements['domain/os/boot']
+        xml.elements['domain/os'].add_element('boot')
+      end
+      xml.elements['domain/os/boot'].add_attribute('dev', 'cdrom')
+    end
   end
 
   def list_disk_devs
@@ -403,12 +406,33 @@ class VM
   def set_disk_boot(name, type)
     raise 'boot settings can only be set for inactive vms' if running?
 
-    plug_drive(name, type) unless disk_plugged?(name)
-    set_boot_device('hd')
+    debug_log("Setting boot device to #{name}")
 
-    # We must remove the CDROM device to allow disk boot.
-    if domain_xml.elements["domain/devices/disk[@device='cdrom']"]
-      remove_cdrom_device
+    plug_drive(name, type) unless disk_plugged?(name)
+
+    update do |xml|
+      # Remove any os/boot elements
+      xml.elements.each('domain/os') do |e|
+        e.delete_element('boot')
+      end
+
+      # Remove any "boot" element from the disk devices
+      xml.elements.each('domain/devices/disk') do |e|
+        e.delete_element('boot')
+      end
+
+      # Add a "boot" element with the "order" attribute set to 1 to the
+      # disk device which has source file set to the given name.
+      found_device = false
+      xml.elements.each("domain/devices/disk[@device='disk']") do |e|
+        source_file = e.elements['source'].attribute('file').to_s
+        next unless source_file == @storage.disk_path(name)
+
+        e.add_element('boot', { 'order' => '1' })
+        found_device = true
+        break
+      end
+      raise "No such disk device '#{name}'" unless found_device
     end
   end
 
@@ -462,31 +486,29 @@ class VM
     execute(cmd, **options)
   end
 
-  def remote_shell_socket_path
+  def virtio_channel_socket_path(channel)
     domain_rexml = REXML::Document.new(@domain.xml_desc)
     domain_rexml.elements.each('domain/devices/channel') do |e|
       target = e.elements['target']
-      if target.attribute('name').to_s == 'org.tails.remote_shell.0'
+      if target.attribute('name').to_s == channel
         return e.elements['source'].attribute('path').to_s
       end
     end
-    nil
+    raise "There is no #{channel} virtio channel"
   end
 
-  def add_remote_shell_channel
+  def add_virtio_channel(channel)
     if running?
-      raise 'The remote shell channel can only be added for inactive vms'
+      raise 'Virtio channels can only be added to inactive vms'
     end
 
-    if @remote_shell_socket_path.nil?
-      @remote_shell_socket_path =
-        "/tmp/remote-shell_#{random_alnum_string(8)}.socket"
-    end
+    @virtio_channel_sockets[channel] ||=
+      "/tmp/virtio-channel_#{random_alnum_string(8)}.socket"
     update do |xml|
       channel_xml = <<-XML
         <channel type='unix'>
-          <source mode="bind" path='#{@remote_shell_socket_path}'/>
-          <target type='virtio' name='org.tails.remote_shell.0'/>
+          <source mode="bind" path='#{@virtio_channel_sockets[channel]}'/>
+          <target type='virtio' name='#{channel}'/>
         </channel>
       XML
       xml.elements['domain/devices'].add_element(
@@ -730,6 +752,7 @@ class VM
 
   def save_snapshot(name)
     debug_log("Saving snapshot '#{name}'...")
+    JournalDumper.instance.stop
     # If we have no qcow2 disk device, we'll use "memory state"
     # snapshots, and if we have at least one qcow2 disk device, we'll
     # use internal "system checkpoint" (memory + disks) snapshots. We
@@ -753,6 +776,10 @@ class VM
     # state"(-only) snapshots.
     if internal_snapshot
       save_internal_snapshot(name)
+      # In the non-internal snapshot case we also restore the
+      # snapshot, which also restarts JournalDumper, so we don't have
+      # to start it again in the other case like we do here.
+      JournalDumper.instance.start
     else
       save_ram_only_snapshot(name)
       # For consistency with the internal snapshot case (which is
@@ -779,13 +806,15 @@ class VM
       begin
         potential_internal_snapshot = @domain.lookup_snapshot_by_name(name)
         @domain.revert_to_snapshot(potential_internal_snapshot)
-      rescue Guestfs::Error, Libvirt::RetrieveError
+      rescue Guestfs::Error, Libvirt::RetrieveError => e
         raise "The (internal nor external) snapshot #{name} may be known " \
               'by libvirt but it cannot be restored. ' \
               "To investigate, use 'virsh snapshot-list TailsToaster'. " \
-              "To clean up old dangling snapshots, use 'virsh snapshot-delete'."
+              "To clean up old dangling snapshots, use 'virsh snapshot-delete'.\n" \
+              "Error: #{e}"
       end
     end
+    JournalDumper.instance.start
     @display.start
   end
 
@@ -838,9 +867,10 @@ class VM
     # in which case the above statement is racy (TOCTOU). So we ignore
     # the resulting failures:
     rescue Guestfs::Error => e
-      raise e unless e.to_s == 'Call to virDomainDestroyFlags failed: ' \
-                               'Requested operation is not valid: ' \
-                               'domain is not running'
+      raise e unless Regexp.new('Call to virDomainDestroy(Flags)? failed: ' \
+                                'Requested operation is not valid: ' \
+                                'domain is not running')
+                           .match?(e.to_s)
 
       debug_log('Tried to destroy a domain that was already stopped, ignoring')
     end
