@@ -25,14 +25,16 @@ from subprocess import Popen, PIPE
 import multiprocessing
 
 from tinyrpc.protocols.jsonrpc import JSONRPCProtocol, JSONRPCParseError
-from tinyrpc.protocols import RPCRequest, RPCResponse, RPCErrorResponse
+from tinyrpc.protocols import RPCRequest, RPCResponse
 from tinyrpc.exc import InvalidRequestError
 
 import systemd.daemon
 
 from tailslib.logutils import configure_logging
-from tailslib import CLEARNET_USERNAME, LIVE_USERNAME, PERSISTENT_STORAGE_USERNAME
+from tailslib import CLEARNET_USERNAME, PERSISTENT_STORAGE_USERNAME
 from tca.config import CONFIG_FILE as TCA_CONFIG_FILE
+
+import uuid
 
 TPS_TOR_CONFIG_FEATURE_NAME = "TorConfiguration"
 
@@ -84,7 +86,7 @@ class InvalidArgsError(InvalidRequestError):
 
 
 class BaseCommand:
-    def __init__(self, cmd: list[str], arguments: bool):
+    def __init__(self, cmd: tuple[str, ...], arguments: bool):
         self.cmd = cmd
         self.arguments = arguments
         # See WriteFileCommand.run for an example of how to use this
@@ -142,6 +144,18 @@ class UserCommand(BaseCommand):
         return args
 
 
+class UserCommandTransientSystemdScope(BaseCommand):
+    def full_command(self, request: RPCRequest) -> tuple:
+        unit_name = "tca-portal-UserCommand-" + str(uuid.uuid4())
+        args = (
+            "/usr/local/lib/run-with-user-env",
+            "--transient-systemd-scope",
+            unit_name,
+            *(super().full_command(request)),
+        )
+        return args
+
+
 class PersistentStorageCommand(BaseCommand):
     def full_command(self, request: RPCRequest) -> tuple:
         drop = ("/sbin/runuser", "-u", PERSISTENT_STORAGE_USERNAME)
@@ -152,12 +166,12 @@ class PersistentStorageCommand(BaseCommand):
 class GetNetworkTimeCommand(BaseCommand):
     def __init__(self):
         super().__init__(
-            ["/usr/local/lib/tails-get-network-time", "--log-target=syslog"], False
+            ("/usr/local/lib/tails-get-network-time", "--log-target=syslog"), False
         )
 
-    def full_command(self, request: RPCRequest) -> list:
-        drop = ["runuser", "-u", CLEARNET_USERNAME]
-        args = [*drop, "--", *(super().full_command(request))]
+    def full_command(self, request: RPCRequest) -> tuple:
+        drop = ("runuser", "-u", CLEARNET_USERNAME)
+        args = (*drop, "--", *(super().full_command(request)))
         return args
 
     def create_response(self, returncode: int, stdout, stderr) -> tuple[bool, dict]:
@@ -224,7 +238,7 @@ class SetTimeCommand(RootCommand):
 
 class WriteFileCommand(RootCommand):
     def __init__(self, dest_file: str):
-        super().__init__(["/bin/dd", "status=none", f"of={dest_file}"], True)
+        super().__init__(("/bin/dd", "status=none", f"of={dest_file}"), True)
 
     def validate_args(self, args: tuple) -> tuple:
         if len(args) != 1:
@@ -261,23 +275,32 @@ class Handler(socketserver.StreamRequestHandler):
     spawn_commands: ClassVar = {  # some commands just mean "run this specified commands as LIVE_USERNAME, please"
         "scan-qrcode": UserCommand(("/usr/bin/zbarcam", "--raw", "--oneshot"), False),
         "open-unsafebrowser": UserCommand(
-            ("/usr/bin/gtk-launch", "unsafe-browser"), False
+            ("/usr/bin/gtk-launch", "unsafe-browser"),
+            False,
         ),
-        "open-tbb": UserCommand(("/usr/bin/gtk-launch", "tor-browser"), False),
-        "open-networkmonitor": UserCommand(
-            ("/usr/bin/gnome-system-monitor", "--show-resources-tab"), False
+        "open-tbb": UserCommandTransientSystemdScope(
+            ("/usr/bin/gtk-launch", "tor-browser"),
+            False,
         ),
-        "open-onioncircuits": UserCommand(
-            ("/usr/bin/gtk-launch", "onioncircuits"), False
+        "open-networkmonitor": UserCommandTransientSystemdScope(
+            ("/usr/bin/gnome-system-monitor", "--show-resources-tab"),
+            False,
         ),
-        "open-documentation": UserCommand(
-            ("/usr/local/bin/tails-documentation",), True
+        "open-onioncircuits": UserCommandTransientSystemdScope(
+            ("/usr/bin/gtk-launch", "onioncircuits"),
+            False,
+        ),
+        "open-documentation": UserCommandTransientSystemdScope(
+            ("/usr/local/bin/tails-documentation",),
+            True,
         ),
         "open-wifi-config": UserCommand(
-            ("/bin/systemctl", "--user", "start", "gnome-wifi-panel"), False
+            ("/bin/systemctl", "--user", "start", "gnome-wifi-panel"),
+            False,
         ),
         "set-tor-sandbox": RootCommand(
-            ("/usr/local/lib/tor-pt-configuration-helper",), True
+            ("/usr/local/lib/tor-pt-configuration-helper",),
+            True,
         ),
         # It would be nicer to do this in Python without calling out
         # to external processes, but it would require either implementing
@@ -285,7 +308,8 @@ class Handler(socketserver.StreamRequestHandler):
         # the Handler.run and Command.run code a fair bit:
         # https://gitlab.tails.boum.org/tails/tails/-/merge_requests/544#note_174919
         "is-tor-configuration-persistent?": UserCommand(
-            ("/usr/local/lib/tpscli", "is-active", TPS_TOR_CONFIG_FEATURE_NAME), False
+            ("/usr/local/lib/tpscli", "is-active", TPS_TOR_CONFIG_FEATURE_NAME),
+            False,
         ),
         "ensure-tor-configuration-is-persistent": PersistentStorageCommand(
             ("/usr/local/lib/tpscli", "ensure-is-active", TPS_TOR_CONFIG_FEATURE_NAME),
@@ -301,7 +325,7 @@ class Handler(socketserver.StreamRequestHandler):
         ),
         "get-network-time": GetNetworkTimeCommand(),
         "set-system-time": SetTimeCommand(),
-        "read-tca-config": RootCommand(["/bin/cat", TCA_CONFIG_FILE], False),
+        "read-tca-config": RootCommand(("/bin/cat", TCA_CONFIG_FILE), False),
         "write-tca-config": WriteFileCommand(TCA_CONFIG_FILE),
     }
     valid_commands: ClassVar = set(spawn_commands.keys())
@@ -417,8 +441,8 @@ class Handler(socketserver.StreamRequestHandler):
         self.pid = os.getpid()
         self.outgoing_q = multiprocessing.Queue()
 
-        self.reader = multiprocessing.Process(target=self.reader)
-        self.reader.start()
+        self.reader_process = multiprocessing.Process(target=self.reader)
+        self.reader_process.start()
 
         while True:
             response = self.outgoing_q.get()
