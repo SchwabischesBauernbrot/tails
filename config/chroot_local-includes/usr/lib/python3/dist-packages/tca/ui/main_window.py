@@ -930,7 +930,7 @@ class TCAMainWindow(
     StepErrorMixin,
     StepProxyMixin,
 ):
-    STEPS_ORDER = ["offline", "hide", "bridge", "proxy", "error", "progress"]
+    STEPS_ORDER = ("offline", "hide", "bridge", "proxy", "error", "progress")
 
     # l10n {{{
     def get_translation_domain(self):
