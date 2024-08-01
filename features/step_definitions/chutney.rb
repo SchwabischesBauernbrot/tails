@@ -61,6 +61,11 @@ def initialize_chutney
   end
 
   if KEEP_CHUTNEY
+    # We sometimes look for strings in the Chutney nodes' logs so we
+    # clear them so previous runs do not affect the current one.
+    Dir.glob("#{$config['TMPDIR']}/chutney-data/nodes/*/notice.log") do |log|
+      FileUtils.rm_f(log)
+    end
     begin
       chutney_cmd('start')
     rescue Test::Unit::AssertionFailedError => e
@@ -116,6 +121,22 @@ def wait_until_chutney_is_working
   assert_equal(
     total, running, "Chutney is only running #{running}/#{total} nodes"
   )
+
+  # After bootstrapping it still takes time for bridges (especially
+  # those with pluggable transports) to become usable.
+  try_for(120) do
+    Dir.glob("#{$config['TMPDIR']}/chutney-data/nodes/*") do |node_dir|
+      torrc = File.read("#{node_dir}/torrc")
+      next unless torrc[/BridgeRelay 1/]
+      log = File.read("#{node_dir}/notice.log")
+      raise unless log[/Self-testing indicates your ORPort .* is reachable from the outside/]
+      if torrc[/^ServerTransportListenAddr/]
+        raise unless log['Registered server transport']
+      end
+    end
+    true
+  end
+
   chutney_status_log('done')
   $chutney_working = true
 end
