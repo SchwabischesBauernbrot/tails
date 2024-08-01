@@ -1,13 +1,12 @@
-[tool.black]
-# XXX:Bookworm: bump to py311
-target-version = ["py39"]
-extend-exclude = '''
-(
-  ^/(submodules|tmp)/
-)
-'''
-
 [tool.mypy]
+exclude = [
+    # symlink
+    "^lib/python3/",
+    # built website
+    "^config/chroot_local-includes/usr/share/doc/tails/website/",
+    # submodules that we don't maintain
+    "^submodules/(chutney|live-build|torbrowser-launcher)",
+]
 mypy_path = "config/chroot_local-includes/usr/lib/python3/dist-packages"
 warn_no_return = true
 warn_return_any = true
@@ -30,8 +29,7 @@ ignore_missing_imports = true
 # overriding could better be made "global" please say so by creating an issue and proposing to change our
 # Python style guidelines.
 
-# TODO: bump for Bookworm
-target-version = "py39"
+target-version = "py311"
 extend-exclude = [
     "submodules/chutney",
     "submodules/live-build",
