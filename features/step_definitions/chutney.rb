@@ -199,6 +199,12 @@ def configure_simulated_Tor_network # rubocop:disable Naming/MethodName
   client_torrc_lines.concat(dir_auth_lines)
   $vm.file_append('/etc/tor/torrc', client_torrc_lines)
 
+  $vm.execute_successfully('systemctl restart tor@default.service')
+end
+
+# This is for things that must be run after Chutney's network is
+# bootstrapped and everything is ready for clients.
+def finalize_simulated_Tor_network_configuration
   # Since we use a simulated Tor network (via Chutney) we have to
   # switch to its default bridges.
   default_bridges_path = '/usr/share/tails/tca/default_bridges.txt'
@@ -206,6 +212,4 @@ def configure_simulated_Tor_network # rubocop:disable Naming/MethodName
   chutney_bridges('obfs4', chutney_tag: 'defbr').each do |bridge|
     $vm.file_append(default_bridges_path, bridge[:line])
   end
-
-  $vm.execute_successfully('systemctl restart tor@default.service')
 end

@@ -171,7 +171,10 @@ Then /^drive "([^"]+)" is detected by Tails$/ do |name|
 end
 
 Given /^the network is plugged$/ do
-  wait_until_chutney_is_working unless config_bool('DISABLE_CHUTNEY')
+  unless config_bool('DISABLE_CHUTNEY')
+    wait_until_chutney_is_working
+    finalize_simulated_Tor_network_configuration
+  end
   $vm.plug_network
 end
 
