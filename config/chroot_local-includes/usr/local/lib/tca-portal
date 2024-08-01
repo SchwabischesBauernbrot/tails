@@ -9,32 +9,28 @@ theory we could split this portal into a privileged one and an unprivileged
 one. However, that wouldn't reduce the attack surface much, if at all.
 """
 import logging
-import re
+import multiprocessing
 import os
-import sys
-import stat
-from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
+import re
+import socket
 import socketserver
-from typing import ClassVar
-
+import stat
+import sys
+import time
+import uuid
+from argparse import ArgumentDefaultsHelpFormatter, ArgumentParser
 from logging import getLogger
 from pathlib import Path
-import socket
-import time
-from subprocess import Popen, PIPE
-import multiprocessing
-
-from tinyrpc.protocols.jsonrpc import JSONRPCProtocol, JSONRPCParseError
-from tinyrpc.protocols import RPCRequest, RPCResponse
-from tinyrpc.exc import InvalidRequestError
+from subprocess import PIPE, Popen
+from typing import ClassVar
 
 import systemd.daemon
-
-from tailslib.logutils import configure_logging
 from tailslib import CLEARNET_USERNAME, PERSISTENT_STORAGE_USERNAME
+from tailslib.logutils import configure_logging
 from tca.config import CONFIG_FILE as TCA_CONFIG_FILE
-
-import uuid
+from tinyrpc.exc import InvalidRequestError
+from tinyrpc.protocols import RPCRequest, RPCResponse
+from tinyrpc.protocols.jsonrpc import JSONRPCParseError, JSONRPCProtocol
 
 TPS_TOR_CONFIG_FEATURE_NAME = "TorConfiguration"
 
@@ -127,11 +123,11 @@ class BaseCommand:
         Second returnvalue is a dictionary to be sent to the client
         """
         if returncode == 0:
-            return True, dict(result={"returncode": returncode, "stdout": stdout})
+            return True, {"result": {"returncode": returncode, "stdout": stdout}}
         else:
-            return False, dict(
-                error="Command failed with returncode %d" % returncode, code=1
-            )
+            return False, {
+                "error": "Command failed with returncode %d" % returncode, "code": 1,
+            }
 
 
 class RootCommand(BaseCommand):
@@ -166,7 +162,7 @@ class PersistentStorageCommand(BaseCommand):
 class GetNetworkTimeCommand(BaseCommand):
     def __init__(self):
         super().__init__(
-            ("/usr/local/lib/tails-get-network-time", "--log-target=syslog"), False
+            ("/usr/local/lib/tails-get-network-time", "--log-target=syslog"), False,
         )
 
     def full_command(self, request: RPCRequest) -> tuple:
