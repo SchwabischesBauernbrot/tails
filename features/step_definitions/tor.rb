@@ -511,7 +511,6 @@ When(/^I look at the hide mode but then I go back$/) do
   end
 end
 
-# XXX: giving up on a few worst offenders for now
 def chutney_bridges(bridge_type, chutney_tag: nil)
   chutney_tag = bridge_type if chutney_tag.nil?
   bridge_dirs = Dir.glob(
