@@ -128,10 +128,14 @@ def wait_until_chutney_is_working
     Dir.glob("#{$config['TMPDIR']}/chutney-data/nodes/*") do |node_dir|
       torrc = File.read("#{node_dir}/torrc")
       next unless torrc[/BridgeRelay 1/]
+
       log = File.read("#{node_dir}/notice.log")
-      raise unless log[/Self-testing indicates your ORPort .* is reachable from the outside/]
-      if torrc[/^ServerTransportListenAddr/]
-        raise unless log['Registered server transport']
+      unless log[/Self-testing indicates your ORPort .* is reachable from the outside/]
+        raise
+      end
+
+      if torrc[/^ServerTransportListenAddr/] && !log['Registered server transport']
+        raise
       end
     end
     true
@@ -204,7 +208,7 @@ end
 
 # This is for things that must be run after Chutney's network is
 # bootstrapped and everything is ready for clients.
-def finalize_simulated_Tor_network_configuration
+def finalize_simulated_Tor_network_configuration # rubocop:disable Naming/MethodName
   # Since we use a simulated Tor network (via Chutney) we have to
   # switch to its default bridges.
   default_bridges_path = '/usr/share/tails/tca/default_bridges.txt'
