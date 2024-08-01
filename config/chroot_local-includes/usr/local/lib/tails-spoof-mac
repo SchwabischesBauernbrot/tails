@@ -75,12 +75,14 @@ notify_panic_success() {
     if [ "${is_wifi:-}" = true ] && [ "${other_wifi_cards:-}" = true ]; then
       title=$(eval_gettext "Wi-Fi Interface Disabled")
       text=$(eval_gettext "MAC address anonymization failed for one of your Wi-Fi interfaces, so it is temporarily disabled.")
+      text="${text}\n\n${nic}: ${nic_name}"
     elif [ "${is_wifi:-}" = true ] && [ "${other_wifi_cards:-}" != true ]; then
       title=$(eval_gettext "Wi-Fi Disabled")
       text=$(eval_gettext "MAC address anonymization failed for your Wi-Fi interface, so it is temporarily disabled.")
     elif [ "${is_wired:-}" = true ] && [ "${other_wired_cards:-}" = true ]; then
       title=$(eval_gettext "Wired Interface Disabled")
       text=$(eval_gettext "MAC address anonymization failed for one of your wired interfaces, so it is temporarily disabled.")
+      text="${text}\n\n${nic}: ${nic_name}"
     elif [ "${is_wired:-}" = true ] && [ "${other_wired_cards:-}" != true ]; then
       title=$(eval_gettext "Wired Network Disabled")
       text=$(eval_gettext "MAC address anonymization failed for your wired interface, so it is temporarily disabled.")
@@ -93,9 +95,13 @@ notify_panic_success() {
 }
 
 notify_panic_failure() {
-    local title text
+    local nic nic_name title text
+    nic="${1}"
+    # Print the NIC name with quotes
+    nic_name="\"${2}\""
     title=$(gettext "All Networking Disabled")
     text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces. The error recovery also failed, so all networking is disabled.")
+    text="${text}\n\n${nic}: ${nic_name}"
     printf "%s\n%s" "${title}" "${text}" > "${MAC_SPOOFING_FAILED_STATE_FILE}"
 }
 
@@ -127,7 +133,7 @@ mac_spoof_panic() {
     if nic_exists "${nic}"; then
         log "Failed to unload module ${module} of NIC ${nic}."
         stop_and_disable_NM
-        notify_panic_failure
+        notify_panic_failure "${nic}" "${nic_name}"
     else
         log "Successfully unloaded module ${module} of NIC ${nic}."
         notify_panic_success "${nic}" "${nic_name}" "${is_wifi:-}" "${is_wired:-}"
