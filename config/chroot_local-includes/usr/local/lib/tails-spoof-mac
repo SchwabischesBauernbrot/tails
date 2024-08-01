@@ -88,7 +88,6 @@ notify_panic_success() {
       title=$(eval_gettext "Network Interface Disabled")
       text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces, so it is temporarily disabled.")
     fi
-    text="${text}\n\n$(eval_gettext "You might prefer to restart Tails and disable MAC address anonymization.")"
 
     printf "%s\n%s" "${title}" "${text}" > "${MAC_SPOOFING_FAILED_STATE_FILE}"
 }
@@ -96,9 +95,7 @@ notify_panic_success() {
 notify_panic_failure() {
     local title text
     title=$(gettext "All Networking Disabled")
-    text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces. The error recovery also failed, so all networking is disabled.
-
-You might prefer to restart Tails and disable MAC address anonymization.")
+    text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces. The error recovery also failed, so all networking is disabled.")
     printf "%s\n%s" "${title}" "${text}" > "${MAC_SPOOFING_FAILED_STATE_FILE}"
 }
 
