@@ -126,7 +126,8 @@ class BaseCommand:
             return True, {"result": {"returncode": returncode, "stdout": stdout}}
         else:
             return False, {
-                "error": "Command failed with returncode %d" % returncode, "code": 1,
+                "error": "Command failed with returncode %d" % returncode,
+                "code": 1,
             }
 
 
@@ -162,7 +163,8 @@ class PersistentStorageCommand(BaseCommand):
 class GetNetworkTimeCommand(BaseCommand):
     def __init__(self):
         super().__init__(
-            ("/usr/local/lib/tails-get-network-time", "--log-target=syslog"), False,
+            ("/usr/local/lib/tails-get-network-time", "--log-target=syslog"),
+            False,
         )
 
     def full_command(self, request: RPCRequest) -> tuple:
