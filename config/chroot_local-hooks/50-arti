@@ -26,7 +26,7 @@ if [ "${TAILS_PROXY_TYPE}" = 'vmproxy' ] || [ -n "${JENKINS_URL:-}" ]; then
 fi
 
 cd /usr/bin
-/usr/bin/curl --retry 20 --output arti "${ARTI_BINARY_URL}"
+/usr/bin/curl --fail-with-body --retry 20 --output arti "${ARTI_BINARY_URL}"
 chmod a+x arti
 
 addgroup --system --quiet arti
