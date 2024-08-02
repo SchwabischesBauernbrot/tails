@@ -32,7 +32,9 @@ we tag.
 
 Still, one can set an arbitrary download location in
 `tbb-dist-url.txt`, which should provide all the flexibility needed
-for development purposes.
+for development purposes, e.g. when importing an alpha version with no intention
+to include it in a tagged Tails release, in which case a stable URL is
+not needed and we can point directly to the upstream URL.
 
 Occasionally, the new Tor Browser requires adjustments to the corresponding
 AppArmor profile: [[tor-browser/AppArmor_policy]].
@@ -110,6 +112,7 @@ with GnuPG:
 
     (
         set -e
+        gpg --refresh-keys EF6E286DDA85EA2A4BA7DE684E2C6E8793298290
         for f in sha256sums-unsigned-build.txt{.asc${TBB_SIGNER_SUFFIX?},}; do
             wget "${TBB_DIST_URL:?}/$f" -O "$f"
         done
