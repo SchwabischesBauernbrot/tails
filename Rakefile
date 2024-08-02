@@ -161,37 +161,6 @@ def vm_state
   end
 end
 
-def enough_free_host_memory_for_ram_build?(cpus)
-  return false unless RbConfig::CONFIG['host_os'] =~ /linux/i
-
-  begin
-    usable_free_mem = `free`.split[12].to_i
-    usable_free_mem > vm_memory_for_ram_builds(cpus) * 1024
-  rescue StandardError
-    false
-  end
-end
-
-def free_vm_memory
-  capture_vagrant_ssh('free').first.chomp.split[12].to_i
-end
-
-def enough_free_vm_memory_for_ram_build?(cpus)
-  needed = BUILD_SPACE_REQUIREMENT * 1024
-  # Take into account that more memory is needed depending on the
-  # number of processors (see vagrant/lib/tails_build_settings.rb).
-  needed += (vm_memory_base(cpus) - vm_memory_base(0)) * 1024
-  free_vm_memory > needed
-end
-
-def enough_free_memory_for_ram_build?(cpus)
-  if vm_state == :running
-    enough_free_vm_memory_for_ram_build?(cpus)
-  else
-    enough_free_host_memory_for_ram_build?(cpus)
-  end
-end
-
 def releasing?
   git_helper('git_on_a_tag?')
 end
@@ -305,6 +274,40 @@ task :parse_build_options do
 
   if ENV['TAILS_OFFLINE_MODE'] == '1' && ENV['TAILS_PROXY'].nil?
     abort 'You must use a caching proxy when building offline'
+  end
+end
+
+task :ensure_enough_free_memory do
+  next unless vm_state == :not_created
+
+  cpus = ENV['TAILS_BUILD_CPUS'].to_i
+  free_memory = capture_command('free', '--mebi').first.split[12].to_i
+  required_memory = if ENV['TAILS_RAM_BUILD']
+                      vm_memory_for_ram_builds(cpus)
+                    else
+                      vm_memory_base(cpus)
+                    end
+
+  if free_memory < required_memory
+    message = <<-END_OF_MESSAGE.gsub(/^ */, '')
+
+      There is not enough free memory to start the virtual machine: only
+      #{free_memory} MB is free but #{required_memory} MB is required.
+
+    END_OF_MESSAGE
+    message += if ENV['TAILS_RAM_BUILD']
+                 <<-END_OF_MESSAGE.gsub(/^ */, '')
+      Try again with the `noram` option added to the TAILS_BUILD_OPTIONS
+      environment variable to force a slower on-disk build.
+
+                 END_OF_MESSAGE
+               else
+                 <<-END_OF_MESSAGE.gsub(/^ */, '')
+      Try freeing up some system memory before attempting to build again.
+
+                 END_OF_MESSAGE
+               end
+    abort message
   end
 end
 
@@ -488,19 +491,6 @@ task build: [
   'vm:up',
   'ensure_clean_home_directory',
 ] do
-  if ENV['TAILS_RAM_BUILD'] && !enough_free_memory_for_ram_build?(ENV['TAILS_BUILD_CPUS'].to_i)
-    warn <<-END_OF_MESSAGE.gsub(/^        /, '')
-
-        The virtual machine is not currently set with enough memory to
-        perform an in-memory build. Either remove the `ram` option from
-        the TAILS_BUILD_OPTIONS environment variable, or shut the
-        virtual machine down using `rake vm:halt` before trying again.
-
-    END_OF_MESSAGE
-    abort 'Not enough memory for the virtual machine to run an in-memory ' \
-          'build. Aborting.'
-  end
-
   if ENV['TAILS_BUILD_CPUS'] \
      && current_vm_cpus != ENV['TAILS_BUILD_CPUS'].to_i
     warn <<-END_OF_MESSAGE.gsub(/^        /, '')
@@ -682,6 +672,7 @@ namespace :vm do
   desc 'Start the build virtual machine'
   task up: [
     'parse_build_options',
+    'ensure_enough_free_memory',
     'validate_http_proxy',
     'setup_environment',
     'basebox:create',
