@@ -205,6 +205,8 @@ ENV['TAILS_WEBSITE_CACHE'] = releasing? ? '0' : '1'
 task :parse_build_options do
   options = []
 
+  # Default to in-memory builds
+  options << 'ram'
   # Default to build using the in-VM proxy
   options << 'vmproxy'
   # Default to fast compression on development branches
@@ -299,14 +301,6 @@ task :parse_build_options do
     else
       raise "Unknown Tails build option '#{opt}'"
     end
-  end
-
-  # Unlike other defaults, whether to default to build in RAM depends
-  # on the number of CPUs, so it has to be handled after parsing the
-  # options passed by the user.
-  if !options.member?('ram') && !options.member?('noram') &&
-     enough_free_memory_for_ram_build?(ENV['TAILS_BUILD_CPUS'].to_i)
-    ENV['TAILS_RAM_BUILD'] = '1'
   end
 
   if ENV['TAILS_OFFLINE_MODE'] == '1' && ENV['TAILS_PROXY'].nil?
