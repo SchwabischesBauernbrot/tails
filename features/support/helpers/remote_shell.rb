@@ -61,7 +61,6 @@ module RemoteShell
           line_init = "{#{line_init}"
         end
         line = line_init + socket.readline("\n").chomp("\n")
-        debug_log("Remote shell response: '#{line}'")
         resp = JSON.parse(line)
         response_id = resp.delete('tx_id')
         status = resp.delete('status')
