@@ -31,19 +31,15 @@ try_cleanup_browser_chroot () {
         findmnt --output TARGET --list --submounts "${chroot}" | tail -n+2 | tac
     )"
     for mnt in ${chroot_mounts} "${cow}"; do
-        try_for 10 "umount ${mnt} 2>/dev/null" 0.1
+        try_for 10 "umount ${mnt} 2>/dev/null" 0.1 || true
     done
-    rmdir "${cow}/rw" "${cow}/work" "${cow}" "${chroot}"
+    rmdir "${cow}/rw" "${cow}/work" "${cow}" "${chroot}" || true
 }
 
 # Setup a chroot on a clean overlayfs "fork" of the root filesystem.
 setup_chroot_for_browser () {
     local chroot="${1}"
     local cow="${2}"
-
-    local cleanup_cmd="try_cleanup_browser_chroot \"${chroot}\" \"${cow}\""
-    # shellcheck disable=SC2064
-    trap "${cleanup_cmd}" INT EXIT
 
     local rootfs_dir
     local rootfs_dirs_path="/lib/live/mount/rootfs"
@@ -181,7 +177,6 @@ set_chroot_browser_name () {
        if [ ! -d "${torbutton_locale_dir}" ]; then
           torbutton_locale_dir="chrome/torbutton/locale/en-US"
        fi
-       sed -i "s/<"'!'"ENTITY\s\+brand\(Full\|Product\|Short\|Shorter\)Name.*$/<"'!'"ENTITY brand\1Name \"${human_readable_name}\">/" "${torbutton_locale_dir}/brand.dtd"
        sed --regexp-extended -i \
            "s/-brand-(full|short|shorter|product)-name = .*$/-brand-\1-name = ${human_readable_name}/" \
 	   "${torbutton_locale_dir}/branding/brand.ftl"
