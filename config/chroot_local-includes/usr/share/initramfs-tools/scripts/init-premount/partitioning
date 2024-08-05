@@ -16,16 +16,20 @@ set -eu
 REPARTITIONING_ERROR_FLAG_FILE=/run/repartitioning-failed
 
 . /scripts/functions
+# shellcheck source=../lib/lib.sh
+. /scripts/lib/lib.sh
 
+# Enable xtrace with timestamp
+export PS4='$(date "+%H:%M:%S.%3N") '
 set -x
 
 if [ -z "${FSUUID:-}" ]; then
-	echo "\$FSUUID is unset, probably because the boot medium is an ISO, and not a USB image. Skipping partitioning."
+	log "\$FSUUID is unset, probably because the boot medium is an ISO, and not a USB image. Skipping partitioning."
 	exit 0
 fi
 
 # Wait for system partition
-log_begin_msg "Waiting for system partition to become available"
+log "Waiting for system partition to become available"
 i=0
 while true; do
     if [ -b "/dev/disk/by-uuid/${FSUUID}" ]; then
@@ -39,7 +43,7 @@ while true; do
     fi
 
     if [ "$i" -ge 300 ]; then
-        log_failure_msg "Reached timeout waiting for system partition." \
+        log "Failure: Reached timeout waiting for system partition." \
             "Skipping partitioning."
         exit 0
     fi
@@ -47,12 +51,12 @@ while true; do
     sleep 0.2
     i="$((i + 1))"
 done
-log_end_msg
+log "System partition is available at ${SYSTEM_PARTITION}"
 
 
 verify_partition_table() {
   if ! /scripts/lib/verify_partition_table "${PARENT_DEVICE}" "${REPARTITIONING_ERROR_FLAG_FILE}"; then
-    _log_msg "The partition table is invalid"
+    log "The partition table is invalid"
     touch "${REPARTITIONING_ERROR_FLAG_FILE}"
   fi
 }
@@ -64,10 +68,10 @@ repair_system_partition() {
 	set -e
 	case "${FSCK_EXIT_CODE}" in
 		0)
-			_log_msg "fsck has detected no recoverable errors"
+			log "fsck has detected no recoverable errors"
 			;;
 		1)
-			_log_msg "fsck has fixed errors, deleting fsck recovery files"
+			log "fsck has fixed errors, deleting fsck recovery files"
 			MOUNTPOINT=$(mktemp -d)
 			mount -t vfat "${SYSTEM_PARTITION}" "${MOUNTPOINT}"
 			find "${MOUNTPOINT}" \
@@ -76,7 +80,7 @@ repair_system_partition() {
 			umount "${MOUNTPOINT}"
 			;;
 		*)
-			_log_msg "fsck usage error. Ignoring and booting anyway."
+			log "fsck usage error. Ignoring and booting anyway."
 			;;
 	esac
 }
@@ -89,11 +93,11 @@ GUID=$(sgdisk --print "${PARENT_DEVICE}" \
 	| sed -n '/^Disk identifier (GUID)/ s/^Disk identifier (GUID): // p')
 
 if [ "${GUID}" = "17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3" ]; then
-  _log_msg "This is the first boot, so repartitioning"
+  log "This is the first boot, so repartitioning"
   PLYMOUTH_MSG="Preparing Tails for first use..."
   plymouth display-message --text="${PLYMOUTH_MSG}"
   if ! /scripts/lib/first_boot_repartition "${PARENT_DEVICE}" "${SYSTEM_PARTITION}"; then
-    _log_msg "Repartitioning failed"
+    log "Repartitioning failed"
     touch "${REPARTITIONING_ERROR_FLAG_FILE}"
   fi
   verify_partition_table
@@ -111,7 +115,7 @@ else
 
   verify_partition_table
 
-  _log_msg "This is not the first boot, so repairing filesystem"
+  log "This is not the first boot, so repairing filesystem"
   PLYMOUTH_MSG="Checking the Tails system partition for errors..."
   plymouth display-message --text="${PLYMOUTH_MSG}"
   repair_system_partition
