@@ -318,7 +318,7 @@ def headings_in_page(browser, page_title)
 end
 
 def page_has_heading(browser, page_title, heading)
-  headings_in_page(browser, page_title).any? { |h| h.text == heading }
+  headings_in_page(browser, page_title).any? { |h| h.name == heading }
 end
 
 Then /^the Tor Browser shows the "([^"]+)" error$/ do |error|
