@@ -27,19 +27,6 @@ set_error_reason() {
 # errors.
 sgdisk --verify "${PARENT_DEVICE}"
 
-# Check if sgdisk --verify detects any corruption. This verifies the
-# following:
-# * The protective MBR
-# * The GPT header
-# * The GPT partition table
-# * The GPT backup header
-# * The GPT backup partition table
-if sgdisk --verify "${PARENT_DEVICE}" 2>&1 | grep -q -e corrupt -e ERROR; then
-  echo "Detected partitioning corruption"
-  set_error_reason 'partitioning-corruption'
-  exit 1
-fi
-
 # Check if the disk GUID was randomized
 GUID=$(sgdisk --print "${PARENT_DEVICE}" \
   | sed -n '/^Disk identifier (GUID)/ s/^Disk identifier (GUID): // p')
@@ -57,5 +44,22 @@ if [ "${SIZE}" -lt "${MIN_SYSTEM_PARTITION_SIZE}" ]; then
   echo "The system partition was not correctly resized " \
        "(expected at least ${MIN_SYSTEM_PARTITION_SIZE}, got ${SIZE})."
   set_error_reason 'system-partition-not-resized'
+  exit 1
+fi
+
+# Check if sgdisk --verify detects any corruption. This verifies the
+# following:
+# * The protective MBR
+# * The GPT header
+# * The GPT partition table
+# * The GPT backup header
+# * The GPT backup partition table
+# This is checked last because it is considered to be the less serious error:
+# despite this error, the user will be able to create Persistent Storage and
+# apply automatic upgrades
+# See https://gitlab.tails.boum.org/tails/tails/-/issues/20163#note_234914
+if sgdisk --verify "${PARENT_DEVICE}" 2>&1 | grep -q -e corrupt -e ERROR; then
+  echo "Detected partitioning corruption"
+  set_error_reason 'partitioning-corruption'
   exit 1
 fi
