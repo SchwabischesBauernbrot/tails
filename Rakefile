@@ -161,45 +161,12 @@ def vm_state
   end
 end
 
-def enough_free_host_memory_for_ram_build?
-  return false unless RbConfig::CONFIG['host_os'] =~ /linux/i
-
-  begin
-    usable_free_mem = `free`.split[12].to_i
-    usable_free_mem > VM_MEMORY_FOR_RAM_BUILDS * 1024
-  rescue StandardError
-    false
-  end
-end
-
-def free_vm_memory
-  capture_vagrant_ssh('free').first.chomp.split[12].to_i
-end
-
-def enough_free_vm_memory_for_ram_build?
-  free_vm_memory > BUILD_SPACE_REQUIREMENT * 1024
-end
-
-def enough_free_memory_for_ram_build?
-  if vm_state == :running
-    enough_free_vm_memory_for_ram_build?
-  else
-    enough_free_host_memory_for_ram_build?
-  end
-end
-
 def releasing?
   git_helper('git_on_a_tag?')
 end
 
 def system_cpus
-  return unless RbConfig::CONFIG['host_os'] =~ /linux/i
-
-  begin
-    File.read('/proc/cpuinfo').scan(/^processor\s+:/).count
-  rescue StandardError
-    nil
-  end
+  File.read('/proc/cpuinfo').scan(/^processor\s+:/).count
 end
 
 ENV['TAILS_WEBSITE_CACHE'] = releasing? ? '0' : '1'
@@ -207,15 +174,14 @@ ENV['TAILS_WEBSITE_CACHE'] = releasing? ? '0' : '1'
 task :parse_build_options do
   options = []
 
-  # Default to in-memory builds if there is enough RAM available
-  options << 'ram' if enough_free_memory_for_ram_build?
+  # Default to in-memory builds
+  options << 'ram'
   # Default to build using the in-VM proxy
   options << 'vmproxy'
   # Default to fast compression on development branches
   options << 'fastcomp' unless releasing?
-  # Default to the number of system CPUs when we can figure it out
-  cpus = system_cpus
-  options << "cpus=#{cpus}" if cpus
+  # Default to use all host CPUs
+  options << "cpus=#{system_cpus}"
 
   options += ENV['TAILS_BUILD_OPTIONS'].split if ENV['TAILS_BUILD_OPTIONS']
 
@@ -308,6 +274,40 @@ task :parse_build_options do
 
   if ENV['TAILS_OFFLINE_MODE'] == '1' && ENV['TAILS_PROXY'].nil?
     abort 'You must use a caching proxy when building offline'
+  end
+end
+
+task :ensure_enough_free_memory do
+  next unless vm_state == :not_created
+
+  cpus = ENV['TAILS_BUILD_CPUS'].to_i
+  free_memory = capture_command('free', '--mebi').first.split[12].to_i
+  required_memory = if ENV['TAILS_RAM_BUILD']
+                      vm_memory_for_ram_builds(cpus)
+                    else
+                      vm_memory_base(cpus)
+                    end
+
+  if free_memory < required_memory
+    message = <<-END_OF_MESSAGE.gsub(/^ */, '')
+
+      There is not enough free memory to start the virtual machine: only
+      #{free_memory} MB is free but #{required_memory} MB is required.
+
+    END_OF_MESSAGE
+    message += if ENV['TAILS_RAM_BUILD']
+                 <<-END_OF_MESSAGE.gsub(/^ */, '')
+      Try again with the `noram` option added to the TAILS_BUILD_OPTIONS
+      environment variable to force a slower on-disk build.
+
+                 END_OF_MESSAGE
+               else
+                 <<-END_OF_MESSAGE.gsub(/^ */, '')
+      Try freeing up some system memory before attempting to build again.
+
+                 END_OF_MESSAGE
+               end
+    abort message
   end
 end
 
@@ -491,19 +491,6 @@ task build: [
   'vm:up',
   'ensure_clean_home_directory',
 ] do
-  if ENV['TAILS_RAM_BUILD'] && !enough_free_memory_for_ram_build?
-    warn <<-END_OF_MESSAGE.gsub(/^        /, '')
-
-        The virtual machine is not currently set with enough memory to
-        perform an in-memory build. Either remove the `ram` option from
-        the TAILS_BUILD_OPTIONS environment variable, or shut the
-        virtual machine down using `rake vm:halt` before trying again.
-
-    END_OF_MESSAGE
-    abort 'Not enough memory for the virtual machine to run an in-memory ' \
-          'build. Aborting.'
-  end
-
   if ENV['TAILS_BUILD_CPUS'] \
      && current_vm_cpus != ENV['TAILS_BUILD_CPUS'].to_i
     warn <<-END_OF_MESSAGE.gsub(/^        /, '')
@@ -685,6 +672,7 @@ namespace :vm do
   desc 'Start the build virtual machine'
   task up: [
     'parse_build_options',
+    'ensure_enough_free_memory',
     'validate_http_proxy',
     'setup_environment',
     'basebox:create',

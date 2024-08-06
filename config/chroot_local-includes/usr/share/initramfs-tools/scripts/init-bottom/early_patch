@@ -61,7 +61,7 @@ spawn_shell() {
 }
 
 # This is necessary to have `set -e` work in the `run` function, see
-# https://stackoverflow.com/a/11092989/2804197
+# https://stackoverflow.com/a/11092989
 set +e
 (set -e; run); ret=$?
 
