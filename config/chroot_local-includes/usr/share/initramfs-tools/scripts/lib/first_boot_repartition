@@ -6,6 +6,7 @@ set -eu
 set -x
 
 ESP_GUID="C12A7328-F81F-11D2-BA4B-00A0C93EC93B"
+ORIG_DISK_GUID="17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3"
 
 PARENT_DEVICE="$1"
 SYSTEM_PARTITION="$2"
@@ -66,6 +67,11 @@ if grep -qw "test_gpt_corruption" /proc/cmdline; then
   SECTORS=$(blockdev --getsz "${PARENT_DEVICE}")
 
   corrupt_options=$(sed -n 's/.*test_gpt_corruption=\([^ ]*\).*/\1/p' /proc/cmdline)
+  if echo "${corrupt_options}" | grep -qw guid; then
+      sgdisk \
+          --disk-guid="${ORIG_DISK_GUID}" \
+          "${PARENT_DEVICE}"
+  fi
   if echo "${corrupt_options}" | grep -qw mbr; then
     # Corrupt the MBR partition table
     dd if=/dev/zero of="${PARENT_DEVICE}" bs=1 count=64 seek=446
