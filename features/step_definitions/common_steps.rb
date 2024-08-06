@@ -173,7 +173,15 @@ end
 Given /^the network is plugged$/ do
   unless config_bool('DISABLE_CHUTNEY')
     wait_until_chutney_is_working
-    finalize_simulated_Tor_network_configuration
+    begin
+      finalize_simulated_Tor_network_configuration
+    rescue Errno::ENOENT => e
+      if $vm.running?
+        raise e
+      else
+        raise 'This step must be run after the remote shell is up'
+      end
+    end
   end
   $vm.plug_network
 end
@@ -256,13 +264,13 @@ end
 
 Given /^I start Tails( from DVD)?( with network unplugged)?( and I login)?$/ do |dvd_boot, network_unplugged, do_login|
   step 'the computer is set to boot from the Tails DVD' if dvd_boot
+  step 'I start the computer'
+  step 'the computer boots Tails'
   if network_unplugged
     step 'the network is unplugged'
   else
     step 'the network is plugged'
   end
-  step 'I start the computer'
-  step 'the computer boots Tails'
   if do_login
     step 'I log in to a new session'
     if network_unplugged
@@ -277,13 +285,13 @@ end
 
 Given /^I start Tails from (.+?) drive "(.+?)"( with network unplugged)?( and I login( with persistence enabled)?( with the changed persistence passphrase)?( (?:and|with) an administration password)?)?$/ do |drive_type, drive_name, network_unplugged, do_login, persistence_on, persistence_with_changed_passphrase, admin_password| # rubocop:disable Metrics/ParameterLists
   step "the computer is set to boot from #{drive_type} drive \"#{drive_name}\""
+  step 'I start the computer'
+  step 'the computer boots Tails'
   if network_unplugged
     step 'the network is unplugged'
   else
     step 'the network is plugged'
   end
-  step 'I start the computer'
-  step 'the computer boots Tails'
   if do_login
     step 'I enable persistence' if persistence_on
     step 'I enable persistence with the changed passphrase' \
