@@ -176,11 +176,9 @@ Given /^the network is plugged$/ do
     begin
       finalize_simulated_Tor_network_configuration
     rescue Errno::ENOENT => e
-      if $vm.running?
-        raise e
-      else
-        raise 'This step must be run after the remote shell is up'
-      end
+      raise e if $vm.running?
+
+      raise 'This step must be run after the remote shell is up'
     end
   end
   $vm.plug_network
