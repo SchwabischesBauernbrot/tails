@@ -116,4 +116,4 @@ Feature: Installing Tails to a USB drive
     Then Tails is running from USB drive "temp"
     When I log in to a new session
     And all notifications have disappeared
-    Then I see an error about GPT header
+    Then the system journal includes message "Detected partitioning-corruption, but not showing any message"

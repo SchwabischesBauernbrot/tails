@@ -16,6 +16,7 @@ error_reason=$(cat "${REPARTITIONING_ERROR_FLAG_FILE}")
 title=$(gettext 'Disk partitioning errors')
 
 if [ "${error_reason}" = 'partitioning-corruption' ]; then
+    logger "Detected partitioning-corruption, but not showing any message"
     exit 0
 fi
 details=$(gettext 'Something went wrong when starting your Tails USB stick for the first time: resizing the system partition failed')
