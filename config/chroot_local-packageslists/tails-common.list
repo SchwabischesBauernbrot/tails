@@ -1,8 +1,7 @@
 ### Self-bla
 # profiling => squashfs optimization
 python3-pyinotify
-# contains mkpasswd, needed in chroot_local-hooks/01-password and for
-# setting the admin password in chroot_local-includes/etc/gdm3/PostLogin/Default
+# contains mkpasswd, that we use in a couple places
 whois
 # needed by tails-security-check
 libcarp-assert-perl
@@ -115,9 +114,7 @@ gnome-user-docs
 gnupg-agent
 gnupg2
 gobi-loader
-## breaks lb because of desktop-base.postinst (see Debian bug #467620)
 #if ARCHITECTURE amd64
-# grub
 grub-efi-amd64-signed
 grub-efi-ia32
 shim-signed
@@ -200,8 +197,6 @@ simple-scan
 sshfs
 # ships the *.c32 modules in syslinux 6.x packaging
 syslinux-common
-# ships syslinux.efi in syslinux 6.x packaging
-syslinux-efi
 # ships isohybrid in syslinux 6.x packaging
 syslinux-utils
 system-config-printer-common
@@ -246,6 +241,9 @@ firmware-amd-graphics
 firmware-ath9k-htc
 firmware-atheros
 firmware-brcm80211
+firmware-carl9170
+firmware-intel-graphics
+firmware-intel-misc
 firmware-intel-sound
 firmware-ipw2x00
 firmware-iwlwifi
@@ -253,7 +251,9 @@ firmware-libertas
 firmware-linux
 firmware-linux-free
 firmware-linux-nonfree
+firmware-mediatek
 firmware-misc-nonfree
+firmware-nvidia-graphics
 firmware-realtek
 firmware-sof-signed
 firmware-ti-connectivity
@@ -426,3 +426,7 @@ sq-keyring-linter
 
 # Needed by Electrum
 python3-pyqt5
+
+# Install systemd-oomd to provide better experience for users in OOM
+# situations (#19454)
+systemd-oomd

@@ -32,7 +32,9 @@ we tag.
 
 Still, one can set an arbitrary download location in
 `tbb-dist-url.txt`, which should provide all the flexibility needed
-for development purposes.
+for development purposes, e.g. when importing an alpha version with no intention
+to include it in a tagged Tails release, in which case a stable URL is
+not needed and we can point directly to the upstream URL.
 
 Occasionally, the new Tor Browser requires adjustments to the corresponding
 AppArmor profile: [[tor-browser/AppArmor_policy]].
@@ -53,7 +55,7 @@ To check if the desired version is available:
         (
             set -eu
             typeset -a tbbUrls
-            tbbUrls=( 'https://archive.torproject.org/tor-package-archive/torbrowser/?C=M;O=D' 'https://www.torproject.org/dist/torbrowser/?C=M;O=D' 'https://people.torproject.org/~gk/builds/?C=M;O=D' 'https://people.torproject.org/~boklm/builds/?C=M;O=D' 'https://people.torproject.org/~pierov/builds/?C=M;O=D' 'https://people.torproject.org/~richard/builds/tor-browser/?C=M;O=D' 'https://tb-build-02.torproject.org/~ma1/builds/torbrowser/release/unsigned/' 'https://tb-build-02.torproject.org/~richard/builds/torbrowser/release/unsigned/' )
+            tbbUrls=( 'https://archive.torproject.org/tor-package-archive/torbrowser/?C=M;O=D' 'https://www.torproject.org/dist/torbrowser/?C=M;O=D' 'https://people.torproject.org/~gk/builds/?C=M;O=D' 'https://people.torproject.org/~boklm/builds/?C=M;O=D' 'https://people.torproject.org/~pierov/builds/?C=M;O=D' 'https://people.torproject.org/~morgan/builds/tor-browser/?C=M;O=D' 'https://tb-build-02.torproject.org/~ma1/builds/torbrowser/release/unsigned/' 'https://tb-build-02.torproject.org/~richard/builds/torbrowser/release/unsigned/' )
             while true
             do
                 if (for u in "${tbbUrls[@]}"; do
@@ -110,6 +112,7 @@ with GnuPG:
 
     (
         set -e
+        gpg --refresh-keys EF6E286DDA85EA2A4BA7DE684E2C6E8793298290
         for f in sha256sums-unsigned-build.txt{.asc${TBB_SIGNER_SUFFIX?},}; do
             wget "${TBB_DIST_URL:?}/$f" -O "$f"
         done

@@ -44,7 +44,7 @@ In a directory with many Tails ISO and USB images
     (
     cd "${ISOS:?}"
     find -L \( -iname "tails*.iso" -o -iname "tails*.img" \) \
-           -type f -ls | sort -k 7
+           -type f -ls | sort -n -k 7
     )
 
 Automated test suite
