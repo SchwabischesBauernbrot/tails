@@ -151,19 +151,15 @@ of the final SquashFS. It depends on the compression algorithm used:
 
 ## Memory build settings
 
-Tails builds way faster when everything is done in memory. If your computer
-has enough free memory before you
-start the virtual machine, it will automatically switch to 'build in RAM'
-mode.
+By default the builder VM is assigned a lot of RAM and mounts the
+build's working directory as a `tmpfs`, which makes the build much
+faster compared to if a hard drive was used.
 
-To force a specific behaviour please set:
+ * **ram**: The above default behavior.
 
- * **ram**: start the virtual machine with lots of memory, build Tails
-   inside a `tmpfs`. Build fails if the system is not in a proper state to
-   do so.
-
- * **noram**: start the virtual machine with the bare minimum needed memory if not already
-   done, build Tails using the virtual machine hard disk.
+ * **noram**: start the virtual machine with the minimum needed RAM
+   and build Tails in a working directory backed by the host system's
+   hard drive.
 
 ## Network settings
 
