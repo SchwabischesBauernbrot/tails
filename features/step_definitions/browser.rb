@@ -321,9 +321,15 @@ def page_has_heading(browser, page_title, heading)
   headings_in_page(browser, page_title).any? { |h| h.name == heading }
 end
 
-Then /^the Tor Browser shows the "([^"]+)" error$/ do |error|
+Then /^the (Tor|Unsafe) Browser shows the "([^"]+)" error$/ do |browser_name, error|
+  browser = if browser_name == 'Tor'
+              @torbrowser
+            else
+              @unsafe_browser
+            end
+
   try_for(60, delay: 3) do
-    page_has_heading(@torbrowser, 'Problem loading page', error)
+    page_has_heading(browser, 'Problem loading page', error)
   end
 end
 
