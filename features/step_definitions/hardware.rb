@@ -48,7 +48,7 @@ Then /^I see an error about (disk partitioning|GPT header|system partition resiz
   reason_to_message = {
     'disk partitioning'         => '',
     'GPT header'                => 'the GPT header is corrupted',
-    'system partition resizing' => 'resizing the System Partition failed',
+    'system partition resizing' => 'resizing the system partition failed',
   }
   error_message = error_message_prefix + reason_to_message[reason]
   try_for(30) do
