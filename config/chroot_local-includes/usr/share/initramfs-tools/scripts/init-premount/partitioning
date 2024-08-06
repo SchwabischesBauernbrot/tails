@@ -5,7 +5,7 @@ PREREQS="plymouth read-and-update-random-seed-sector"
 prereqs() { echo "$PREREQS"; }
 
 case "$1" in
-	prereqs)
+prereqs)
 	prereqs
 	exit 0
 	;;
@@ -32,33 +32,32 @@ fi
 log "Waiting for system partition to become available"
 i=0
 while true; do
-    if [ -b "/dev/disk/by-uuid/${FSUUID}" ]; then
-        SYSTEM_PARTITION="$(readlink -f "/dev/disk/by-uuid/${FSUUID}")"
-        PARENT_PATH="$(udevadm info --query=property --name="${SYSTEM_PARTITION}" |
-            sed -n '/^ID_PATH=/ s/^ID_PATH=// p')"
-        PARENT_DEVICE="$(readlink -f "/dev/disk/by-path/${PARENT_PATH}")"
-        if [ -b "${PARENT_DEVICE}" ]; then
-            break
-        fi
-    fi
+	if [ -b "/dev/disk/by-uuid/${FSUUID}" ]; then
+		SYSTEM_PARTITION="$(readlink -f "/dev/disk/by-uuid/${FSUUID}")"
+		PARENT_PATH="$(udevadm info --query=property --name="${SYSTEM_PARTITION}" |
+			sed -n '/^ID_PATH=/ s/^ID_PATH=// p')"
+		PARENT_DEVICE="$(readlink -f "/dev/disk/by-path/${PARENT_PATH}")"
+		if [ -b "${PARENT_DEVICE}" ]; then
+			break
+		fi
+	fi
 
-    if [ "$i" -ge 300 ]; then
-        log "Failure: Reached timeout waiting for system partition." \
-            "Skipping partitioning."
-        exit 0
-    fi
+	if [ "$i" -ge 300 ]; then
+		log "Failure: Reached timeout waiting for system partition." \
+			"Skipping partitioning."
+		exit 0
+	fi
 
-    sleep 0.2
-    i="$((i + 1))"
+	sleep 0.2
+	i="$((i + 1))"
 done
 log "System partition is available at ${SYSTEM_PARTITION}"
 
-
 verify_partition_table() {
-  if ! /scripts/lib/verify_partition_table "${PARENT_DEVICE}" "${REPARTITIONING_ERROR_FLAG_FILE}"; then
-    log "The partition table is invalid"
-    touch "${REPARTITIONING_ERROR_FLAG_FILE}"
-  fi
+	if ! /scripts/lib/verify_partition_table "${PARENT_DEVICE}" "${REPARTITIONING_ERROR_FLAG_FILE}"; then
+		log "The partition table is invalid"
+		touch "${REPARTITIONING_ERROR_FLAG_FILE}"
+	fi
 }
 
 repair_system_partition() {
@@ -67,21 +66,21 @@ repair_system_partition() {
 	FSCK_EXIT_CODE=$?
 	set -e
 	case "${FSCK_EXIT_CODE}" in
-		0)
-			log "fsck has detected no recoverable errors"
-			;;
-		1)
-			log "fsck has fixed errors, deleting fsck recovery files"
-			MOUNTPOINT=$(mktemp -d)
-			mount -t vfat "${SYSTEM_PARTITION}" "${MOUNTPOINT}"
-			find "${MOUNTPOINT}" \
-			     -maxdepth 1 -type f -iname 'FSCK*.REC' \
-			     -exec rm '{}' \;
-			umount "${MOUNTPOINT}"
-			;;
-		*)
-			log "fsck usage error. Ignoring and booting anyway."
-			;;
+	0)
+		log "fsck has detected no recoverable errors"
+		;;
+	1)
+		log "fsck has fixed errors, deleting fsck recovery files"
+		MOUNTPOINT=$(mktemp -d)
+		mount -t vfat "${SYSTEM_PARTITION}" "${MOUNTPOINT}"
+		find "${MOUNTPOINT}" \
+			-maxdepth 1 -type f -iname 'FSCK*.REC' \
+			-exec rm '{}' \;
+		umount "${MOUNTPOINT}"
+		;;
+	*)
+		log "fsck usage error. Ignoring and booting anyway."
+		;;
 	esac
 }
 
@@ -89,37 +88,37 @@ repair_system_partition() {
 # please keep them in sync!
 
 # Check if this is first boot
-GUID=$(sgdisk --print "${PARENT_DEVICE}" \
-	| sed -n '/^Disk identifier (GUID)/ s/^Disk identifier (GUID): // p')
+GUID=$(sgdisk --print "${PARENT_DEVICE}" |
+	sed -n '/^Disk identifier (GUID)/ s/^Disk identifier (GUID): // p')
 
 if [ "${GUID}" = "17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3" ]; then
-  log "This is the first boot, so repartitioning"
-  PLYMOUTH_MSG="Preparing Tails for first use..."
-  plymouth display-message --text="${PLYMOUTH_MSG}"
-  if ! /scripts/lib/first_boot_repartition "${PARENT_DEVICE}" "${SYSTEM_PARTITION}"; then
-    log "Repartitioning failed"
-    touch "${REPARTITIONING_ERROR_FLAG_FILE}"
-  fi
-  verify_partition_table
-  # `plymouth hide-message` doesn't work (#20401)
-  plymouth display-message --text=""
+	log "This is the first boot, so repartitioning"
+	PLYMOUTH_MSG="Preparing Tails for first use..."
+	plymouth display-message --text="${PLYMOUTH_MSG}"
+	if ! /scripts/lib/first_boot_repartition "${PARENT_DEVICE}" "${SYSTEM_PARTITION}"; then
+		log "Repartitioning failed"
+		touch "${REPARTITIONING_ERROR_FLAG_FILE}"
+	fi
+	verify_partition_table
+	# `plymouth hide-message` doesn't work (#20401)
+	plymouth display-message --text=""
 else
-  # The "test_gpt_corruption" option is only effective on the first boot. To
-  # avoid confusion, we don't allow booting with this option when it's
-  # not the first boot.
-  if grep -qw "test_gpt_corruption" /proc/cmdline; then
-    MSG="The 'test_gpt_corruption' option is only effective on the first boot, and it's not the first boot. Please remove the 'test_gpt_corruption' option from the boot command line. Press ENTER to shut down."
-    plymouth message --text="${MSG}"
-    plymouth watch-keystroke > /dev/null
-    poweroff -f
-  fi
+	# The "test_gpt_corruption" option is only effective on the first boot. To
+	# avoid confusion, we don't allow booting with this option when it's
+	# not the first boot.
+	if grep -qw "test_gpt_corruption" /proc/cmdline; then
+		MSG="The 'test_gpt_corruption' option is only effective on the first boot, and it's not the first boot. Please remove the 'test_gpt_corruption' option from the boot command line. Press ENTER to shut down."
+		plymouth message --text="${MSG}"
+		plymouth watch-keystroke >/dev/null
+		poweroff -f
+	fi
 
-  verify_partition_table
+	verify_partition_table
 
-  log "This is not the first boot, so repairing filesystem"
-  PLYMOUTH_MSG="Checking the Tails system partition for errors..."
-  plymouth display-message --text="${PLYMOUTH_MSG}"
-  repair_system_partition
-  # `plymouth hide-message` doesn't work (#20401)
-  plymouth display-message --text=""
+	log "This is not the first boot, so repairing filesystem"
+	PLYMOUTH_MSG="Checking the Tails system partition for errors..."
+	plymouth display-message --text="${PLYMOUTH_MSG}"
+	repair_system_partition
+	# `plymouth hide-message` doesn't work (#20401)
+	plymouth display-message --text=""
 fi
