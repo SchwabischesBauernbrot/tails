@@ -16,10 +16,9 @@ error_reason=$(cat "${REPARTITIONING_ERROR_FLAG_FILE}")
 title=$(gettext 'Disk partitioning errors')
 
 if [ "${error_reason}" = 'partitioning-corruption' ]; then
-    details=$(gettext 'Something went wrong when starting your Tails USB stick for the first time: the partitioning is corrupted')
-else
-    details=$(gettext 'Something went wrong when starting your Tails USB stick for the first time: resizing the system partition failed')
+    exit 0
 fi
+details=$(gettext 'Something went wrong when starting your Tails USB stick for the first time: resizing the system partition failed')
 
 text="$(cat <<EOTEXT
 $details
