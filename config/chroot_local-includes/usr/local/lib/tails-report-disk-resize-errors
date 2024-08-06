@@ -18,7 +18,7 @@ title=$(gettext 'Disk partitioning errors')
 if [ "${error_reason}" = 'partitioning-corruption' ]; then
     details=$(gettext 'Something went wrong when starting your Tails USB stick for the first time: the partitioning is corrupted')
 else
-    details=$(gettext 'Something went wrong when starting your Tails USB stick for the first time: resizing tye System Partition failed')
+    details=$(gettext 'Something went wrong when starting your Tails USB stick for the first time: resizing the system partition failed')
 fi
 
 text="$(cat <<EOTEXT
