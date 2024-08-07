@@ -25,6 +25,7 @@ def chutney_env
     # The default value (60s) is too short for "chutney wait_for_bootstrap"
     # to succeed reliably.
     'CHUTNEY_START_TIME'     => ENV['CHUTNEY_START_TIME'] || '600',
+    'CHUTNEY_TOR_SANDBOX'    => '0',
   }
 end
 
@@ -126,6 +127,8 @@ def wait_until_chutney_is_working
   # those with pluggable transports) to become usable.
   try_for(120) do
     Dir.glob("#{$config['TMPDIR']}/chutney-data/nodes/*") do |node_dir|
+      next unless File.directory?(node_dir)
+
       torrc = File.read("#{node_dir}/torrc")
       next unless torrc[/BridgeRelay 1/]
 
