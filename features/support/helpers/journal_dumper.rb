@@ -40,6 +40,6 @@ class JournalDumper
   end
 
   def stop
-    @thread.kill
+    @thread&.kill
   end
 end

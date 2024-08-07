@@ -1727,3 +1727,9 @@ Then /^running "([^"]+)" as user "([^"]+)" fails$/ do |command, user|
     "Success running command when we were expecting failure:\n#{c.stdout}\n#{c.stderr}"
   )
 end
+
+Then /^the system journal includes message "([^"]+)"$/ do |message|
+  lines = $vm.execute('journalctl -b -o cat').stdout.split("\n")
+
+  assert(lines.any? { |l| l.include?(message) })
+end

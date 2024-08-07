@@ -105,3 +105,27 @@ Feature: Installing Tails to a USB drive
     And the UUID of the FAT filesystem on the system partition on "usbimage" was randomized
     And the label of the FAT filesystem on the system partition on "usbimage" is "TAILS"
     And the system partition on "usbimage" has the expected flags
+
+  Scenario: Error when the GPT backup header is corrupt
+    Given a computer
+    And I set Tails to boot with options "test_gpt_corruption=gpt_backup,gpt_backup_table"
+    And I create a 7200 MiB disk named "temp"
+    And I plug USB drive "temp"
+    And I write the Tails USB image to disk "temp"
+    And I start Tails from USB drive "temp" with network unplugged
+    Then Tails is running from USB drive "temp"
+    When I log in to a new session
+    And all notifications have disappeared
+    Then the system journal includes message "Detected partitioning-corruption, but not showing any message"
+
+  Scenario: Error when the disk GUID has not changed
+    Given a computer
+    And I set Tails to boot with options "test_gpt_corruption=guid"
+    And I create a 7200 MiB disk named "temp"
+    And I plug USB drive "temp"
+    And I write the Tails USB image to disk "temp"
+    And I start Tails from USB drive "temp" with network unplugged
+    Then Tails is running from USB drive "temp"
+    When I log in to a new session
+    And all notifications have disappeared
+    Then I see an error about system partition resizing
