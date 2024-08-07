@@ -51,6 +51,8 @@ def work_around_issue20054(confirm: false)
   end
 end
 
+# rubocop:disable Metrics/MethodLength
+# rubocop:disable Metrics/CyclomaticComplexity
 def post_snapshot_restore_hook(snapshot_name, num_try)
   # Press escape to wake up the display
   @screen.press('Escape')
@@ -117,19 +119,28 @@ def post_snapshot_restore_hook(snapshot_name, num_try)
   # was configured in the snapshot we are using: for example,
   # with-network-logged-in-unsafe-browser connects to the LAN
   # but did not configure Tor.
-  if $vm.connected_to_network? &&
-     $vm.execute('systemctl --quiet is-active tor@default.service').success? &&
-     check_disable_network != '1'
-    debug_log('Restarting Tor...')
-    $vm.execute('systemctl stop tor@default.service')
+  if $vm.connected_to_network? && check_disable_network != '1'
+    tor_active = $vm.execute('systemctl --quiet is-active tor@default.service').success?
+    if tor_active
+      debug_log('Restarting Tor...')
+      $vm.execute('systemctl stop tor@default.service')
+    end
+    arti_active = $vm.execute('systemctl --quiet is-active arti.service').success?
+    if arti_active
+      debug_log('Restarting Arti...')
+      $vm.execute('systemctl stop arti.service')
+    end
     $vm.host_to_guest_time_sync
     already_synced_time_host_to_guest = true
     wait_until_chutney_is_working unless config_bool('DISABLE_CHUTNEY')
-    $vm.execute('systemctl start tor@default.service')
+    $vm.execute('systemctl start tor@default.service') if tor_active
+    $vm.execute('systemctl start arti.service') if arti_active
     wait_until_tor_is_working
   end
   $vm.host_to_guest_time_sync unless already_synced_time_host_to_guest
 end
+# rubocop:enable Metrics/MethodLength
+# rubocop:enable Metrics/CyclomaticComplexity
 
 Given /^a computer$/ do
   $vm&.destroy_and_undefine
