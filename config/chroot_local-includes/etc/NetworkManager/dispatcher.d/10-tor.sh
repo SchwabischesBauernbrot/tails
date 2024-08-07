@@ -29,7 +29,6 @@ fi
 # To work around this we restart Tor.
 echo >&2 "$BASENAME: $1 up: restarting tor@default.service"
 systemctl restart tor@default.service
-systemctl restart arti.service
 
 echo >&2 "$BASENAME: $1 up: starting tca.service"
 /usr/local/lib/run-with-user-env systemctl --user start tca.service

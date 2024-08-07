@@ -1,6 +1,7 @@
 #!/bin/sh
 
 set -eu
+set -x
 
 echo "Fetch and install arti"
 
@@ -26,7 +27,11 @@ if [ "${TAILS_PROXY_TYPE}" = 'vmproxy' ] || [ -n "${JENKINS_URL:-}" ]; then
 fi
 
 cd /usr/bin
-/usr/bin/curl --retry 20 --output arti "${ARTI_BINARY_URL}"
+/usr/bin/curl --fail-with-body --retry 20 --output arti "${ARTI_BINARY_URL}"
+if ! file --brief arti | grep -q "^ELF 64-bit LSB pie executable"; then
+    echo "When fetching arti we got something else than an ELF executable" >&2
+    exit 1
+fi
 chmod a+x arti
 
 addgroup --system --quiet arti

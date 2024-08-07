@@ -508,6 +508,7 @@ class StepConnectProgressMixin:
         def do_tor_connect_config():
             if not self.state["hide"]["bridge"]:
                 self.app.configurator.tor_connection_config.disable_bridges()
+                self.app.portal.call_async("start-arti", None)
                 self.get_object("label_status").set_text(
                     _("Connecting to Tor without bridges…")
                 )
