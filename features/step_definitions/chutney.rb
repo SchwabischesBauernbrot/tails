@@ -205,8 +205,20 @@ def configure_simulated_Tor_network # rubocop:disable Naming/MethodName
   end
   client_torrc_lines.concat(dir_auth_lines)
   $vm.file_append('/etc/tor/torrc', client_torrc_lines)
-
   $vm.execute_successfully('systemctl restart tor@default.service')
+
+  # Append Chutney's generated arti config to ours, extracting only
+  # the lines from (and including) [path_rules] until (and not
+  # including) [bridges].
+  chutney_sample_arti_config_file = "#{chutney_env['CHUTNEY_DATA_DIR']}/nodes/arti.toml"
+  chutney_arti_config = "\n"
+  keep = false
+  File.open(chutney_sample_arti_config_file).each_line do |line|
+    keep = true if line.chomp == '[path_rules]'
+    keep = false if line.chomp == '[bridges]'
+    chutney_arti_config += line if keep
+  end
+  $vm.file_append('/etc/arti/arti.toml', chutney_arti_config)
 end
 
 # This is for things that must be run after Chutney's network is
