@@ -527,13 +527,10 @@ def chutney_bridges(bridge_type, chutney_tag: nil)
         port = f.grep(/^OrPort\b/).first.split.last
       end
     else
-      # This is the pluggable transport case. While we could set a
-      # static port via ServerTransportListenAddr we instead let it be
-      # picked randomly so an already used port is not picked --
-      # Chutney already has issues with that for OrPort selection.
-      pt_re = /Registered server transport '#{bridge_type}' at '[^']*:(\d+)'/
-      File.open("#{bridge_dir}/notice.log") do |f|
+      pt_re = /^ServerTransportListenAddr .*:(\d+)$/
+      File.open("#{bridge_dir}/torrc") do |f|
         pt_lines = f.grep(pt_re)
+        assert_equal(1, pt_lines.size)
         port = pt_lines.last.match(pt_re)[1]
       end
       if bridge_type == 'obfs4'
