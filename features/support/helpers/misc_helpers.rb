@@ -252,10 +252,21 @@ def save_tor_journal
 end
 
 def wait_until_tor_is_working
+  # This ID can be used to get the journal for only the current run of
+  # arti.service, which is necessary below where we look for a string
+  # in its journal and don't want it to be from a previous run.
+  arti_current_invocation = $vm.execute_successfully(
+    'systemctl show -p InvocationID --value arti.service'
+  ).stdout.chomp
   try_for(270) do
-    $vm.execute(
+    $vm.execute_successfully(
       '/bin/systemctl --quiet is-active tails-tor-has-bootstrapped.target'
-    ).success?
+    )
+    $vm.execute_successfully(
+      "journalctl _SYSTEMD_INVOCATION_ID=#{arti_current_invocation} | " \
+      "grep -q 'arti: Sufficiently bootstrapped; system SOCKS now functional.'"
+    )
+    true
   end
 rescue Timeout::Error
   raise TorBootstrapFailure, 'Tor failed to bootstrap'
