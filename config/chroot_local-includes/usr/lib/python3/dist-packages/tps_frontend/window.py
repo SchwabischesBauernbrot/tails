@@ -325,3 +325,17 @@ class Window(Gtk.ApplicationWindow):
             details = ErrorDetails(_("Details (command output)"), text)
 
         self.display_error(title, msg, msg_is_markup=True, details=details)
+
+    def open_documentation(self, uri: str):
+        logger.debug("Opening documentation: %s", uri)
+        if "#" in uri:
+            page, anchor = uri.split("#")
+            cmd = ["/usr/local/bin/tails-documentation", page, anchor]
+        else:
+            cmd = ["/usr/local/bin/tails-documentation", uri]
+        try:
+            subprocess.run(cmd, stderr=subprocess.PIPE, text=True, check=True)
+        except subprocess.CalledProcessError as e:
+            logger.error("Failed to open documentation: %s", e)
+            title = _("Failed to open the documentation")
+            self.window.display_command_failed_error(title, cmd, e)

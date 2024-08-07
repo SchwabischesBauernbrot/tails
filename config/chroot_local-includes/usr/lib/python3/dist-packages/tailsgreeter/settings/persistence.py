@@ -59,7 +59,7 @@ class PersistentStorageSettings:
         self.can_unlock = self.service_proxy.get_cached_property("CanUnlock")
         self.is_upgraded = self.service_proxy.get_cached_property("IsUpgraded")
         self.error: GLib.Variant = self.service_proxy.get_cached_property("Error")
-        self.error_type: Optional[InvalidBootDeviceErrorType] = None
+        self.error_type: InvalidBootDeviceErrorType | None = None
         if self.error:
             self.error_type = InvalidBootDeviceErrorType(self.error.get_uint32())
         self.service_proxy.connect("g-properties-changed", self.on_properties_changed)

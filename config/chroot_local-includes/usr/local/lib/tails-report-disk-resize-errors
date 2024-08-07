@@ -3,16 +3,26 @@
 set -eu
 set -o pipefail
 
-grep --line-regexp partition-resize-failed /var/lib/live/config/tails.disk-resize-errors || exit 0
-
 export TEXTDOMAIN='tails'
 
-# If we're here, it means something strange happened. Let's inform the user and tell them to give us some
-# information
+# If we're here, it means
+# config/chroot_local-includes/usr/share/initramfs-tools/scripts/lib/verify_partition_table failed. Let's
+# inform the user and tell them to give us some information
 
-title="$(gettext 'Resizing System Partition Failed')"
+REPARTITIONING_ERROR_FLAG_FILE=/var/lib/live/config/tails.disk-resize-errors
+
+error_reason=$(cat "${REPARTITIONING_ERROR_FLAG_FILE}")
+
+title=$(gettext 'Disk partitioning errors')
+
+if [ "${error_reason}" = 'partitioning-corruption' ]; then
+    logger "Detected partitioning-corruption, but not showing any message"
+    exit 0
+fi
+details=$(gettext 'Something went wrong when starting your Tails USB stick for the first time: resizing the system partition failed')
+
 text="$(cat <<EOTEXT
-$(gettext 'Something went wrong when starting your Tails USB stick for the first time.')
+$details
 
 $(gettext 'It will be impossible to create a Persistent Storage or apply automatic upgrades.')
 
