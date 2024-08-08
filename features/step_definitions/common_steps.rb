@@ -502,7 +502,7 @@ Given /^I log in to a new session(?: in ([^ ]*) \(([^ ]*)\))?( without activatin
   login_button_region.click
 
   begin
-    @screen.wait('PersistentStorageNotUnlocked.png', 3)
+    @screen.wait('PersistentStorageNotUnlocked.png', 4)
     assert(!expect_no_warning)
     saw_warning = true
     @screen.press('Right')
