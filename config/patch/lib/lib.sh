@@ -125,12 +125,6 @@ apply_changes() {
     dconf update
   fi
 
-  # Call 52-update-rc.d if it was changed
-  file="${GIT_REPO}/config/chroot_local-hooks/52-update-rc.d"
-  if [ -f "${file}" ] && has_changes "${commit}" "${file}"; then
-    run_with_plymouth_msg "Updating systemd units" "${file}"
-  fi
-
   # Call 52-update-systemd-units if it was changed
   file="${GIT_REPO}/config/chroot_local-hooks/52-update-systemd-units"
   if [ -f "${file}" ] && has_changes "${commit}" "${file}"; then
