@@ -35,8 +35,10 @@ if [ -z "${TARGET_ROOT:-}" ]; then
 fi
 
 bind_file() {
-  local src=$1
-  local dest=$2
+  local tails_path src dest
+  tails_path="${1#"${INCLUDES_DIR}"}"
+  src="${GIT_REPO}/${INCLUDES_DIR}/${tails_path}"
+  dest="$(realpath -s "${2:-${TARGET_ROOT}/${tails_path}}")"
 
   # Only run bindfs once
   if ! findmnt -t fuse --source "${GIT_REPO}" --mountpoint "${GIT_REPO}"; then
@@ -132,10 +134,7 @@ while IFS= read -r file; do
   if [ -z "${file}" ]; then
     continue
   fi
-
-  src="${GIT_REPO}/${file}"
-  dest=$(realpath -s "${TARGET_ROOT}/${file#"${INCLUDES_DIR}"}")
-  bind_file "${src}" "${dest}"
+  bind_file "${file}"
 done <<<"${FILES_TO_BIND}"
 
 # Re-apply all modified patches
