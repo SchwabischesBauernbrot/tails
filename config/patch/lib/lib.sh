@@ -140,7 +140,7 @@ apply_changes() {
   fi
 }
 
-bind_file() {
+bind_include() {
   local tails_path src dest
   tails_path="${1#"${INCLUDES_DIR}"}"
   src="${GIT_REPO}/${INCLUDES_DIR}/${tails_path}"
@@ -225,7 +225,7 @@ bind_file() {
   mount --bind "${src}" "${dest}"
 }
 
-copy_file() {
+copy_include() {
   local tails_path src dest
   tails_path="${1#"${INCLUDES_DIR}"}"
   src="${GIT_REPO}/${INCLUDES_DIR}/${tails_path}"

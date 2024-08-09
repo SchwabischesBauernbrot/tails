@@ -29,7 +29,7 @@ untracked_and_modified_files "${COMMIT}" "${INCLUDES_DIR}" | \
     if [ -z "${file}" ]; then
       continue
     fi
-    copy_file "${file}"
+    copy_include "${file}"
   done
 
 # Re-apply all modified patches
