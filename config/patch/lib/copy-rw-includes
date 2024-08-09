@@ -19,31 +19,30 @@ else
   INCLUDES_DIR=$(realpath "${DIR}/../rw-includes")
 fi
 
-FILES="$(find -L "${INCLUDES_DIR}" -type f | sort)"
+find -L "${INCLUDES_DIR}" -type f | sort | \
+  while read -r file; do
+    # Ignore empty lines and the .gitignore and README.md files
+    if [ -z "${file}" ] || \
+       [ "${file}" = "${INCLUDES_DIR}/.gitignore" ] || \
+       [ "${file}" = "${INCLUDES_DIR}/README.md" ]; then
+      continue
+    fi
 
-while read -r file; do
-  # Ignore empty lines and the .gitignore and README.md files
-  if [ -z "${file}" ] || \
-     [ "${file}" = "${INCLUDES_DIR}/.gitignore" ] || \
-     [ "${file}" = "${INCLUDES_DIR}/README.md" ]; then
-    continue
-  fi
+    src="${file}"
+    dest="${file#"${INCLUDES_DIR}"}"
 
-  src="${file}"
-  dest="${file#"${INCLUDES_DIR}"}"
+    # Create the target directory
+    mkdir -p "$(dirname "${dest}")"
 
-  # Create the target directory
-  mkdir -p "$(dirname "${dest}")"
+    # Copy the file. Don't preserve ownership (i.e. change ownership to
+    # root) to avoid issues like:
+    #
+    #   sudo: /etc/sudoers.d/zzz_tbb is owned by uid 1000, should be 0
+    #
+    cp --no-dereference --preserve=all --no-preserve=ownership "${src}" "${dest}"
 
-  # Copy the file. Don't preserve ownership (i.e. change ownership to
-  # root) to avoid issues like:
-  #
-  #   sudo: /etc/sudoers.d/zzz_tbb is owned by uid 1000, should be 0
-  #
-  cp --no-dereference --preserve=all --no-preserve=ownership "${src}" "${dest}"
-
-  # If the file was copied below /home/amnesia, change owner to amnesia
-  if [ "${dest:0:13}" = /home/amnesia ]; then
-    chown amnesia:amnesia "${dest}"
-  fi
-done <<< "${FILES}"
+    # If the file was copied below /home/amnesia, change owner to amnesia
+    if [ "${dest:0:13}" = /home/amnesia ]; then
+      chown amnesia:amnesia "${dest}"
+    fi
+  done

@@ -36,15 +36,13 @@ if [ -z "${COMMIT:-}" ]; then
   COMMIT=$(patch_base_ref)
 fi
 
-FILES_TO_BIND="$(untracked_and_modified_files "${COMMIT}" "${INCLUDES_DIR}")"
-
-# Bind mount the files
-while IFS= read -r file; do
-  if [ -z "${file}" ]; then
-    continue
-  fi
-  bind_file "${file}"
-done <<<"${FILES_TO_BIND}"
+untracked_and_modified_files "${COMMIT}" "${INCLUDES_DIR}" | \
+  while IFS= read -r file; do
+    if [ -z "${file}" ]; then
+      continue
+    fi
+    bind_file "${file}"
+  done
 
 # Re-apply all modified patches
 reapply_patches "${COMMIT}" "${TARGET_ROOT}"

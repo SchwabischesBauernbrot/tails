@@ -24,14 +24,13 @@ if [ -z "${COMMIT:-}" ]; then
   COMMIT=$(patch_base_ref)
 fi
 
-FILES_TO_COPY="$(untracked_and_modified_files "${COMMIT}" "${INCLUDES_DIR}")"
-
-while IFS= read -r file; do
-  if [ -z "${file}" ]; then
-    continue
-  fi
-  copy_file "${file}"
-done <<< "${FILES_TO_COPY}"
+untracked_and_modified_files "${COMMIT}" "${INCLUDES_DIR}" | \
+  while IFS= read -r file; do
+    if [ -z "${file}" ]; then
+      continue
+    fi
+    copy_file "${file}"
+  done
 
 # Re-apply all modified patches
 reapply_patches "${COMMIT}" "${TARGET_ROOT}"

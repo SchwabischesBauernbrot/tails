@@ -32,65 +32,65 @@ bindfs --map="${LIBVIRT_USER_ID}/0:@${LIBVIRT_USER_ID}/@0" \
   "${INCLUDES_DIR}" "${INCLUDES_DIR}"
 
 # Bind the files from the includes directory to the root filesystem
-FILES="$(find -L "${INCLUDES_DIR}" -type f | sort)"
-while IFS= read -r file; do
-  # Ignore empty lines and the .gitignore and README.md files
-  if [ -z "${file}" ] || \
-     [ "${file}" = "${INCLUDES_DIR}/.gitignore" ] || \
-     [ "${file}" = "${INCLUDES_DIR}/README.md" ]; then
-    continue
-  fi
-
-  src="${file}"
-  dest="${file#"${INCLUDES_DIR}"}"
-
-  # Abort if the source file is not writable, to avoid that we bind
-  # files which cause unexpected behavior (e.g. binding a non-writable
-  # .bash_history which breaks bash history)
-  if ! true >> "${src}"; then
-    echo >&2 "Error: ${src} is not writable.
-Make sure that you run the config/patch/set-rw-includes-permissions.sh
-script after adding new files to the rw-includes directory."
-    exit 1
-  fi
-
-  # Delete symlinks in the destination which would get dereferenced by
-  # the findmnt below
-  if [ -L "${dest}" ]; then
-    rm "${dest}"
-  fi
-
-  # Check if something is already mounted on the destination
-  mount_src=$(findmnt --output=FSROOT --noheadings --notruncate --canonicalize --first --mountpoint "${dest}" || true)
-  if [ "${INCLUDES_DIR}${mount_src}" = "${src}" ]; then
-    # The source is already mounted
-    continue
-  fi
-  if [ -n "${mount_src}" ]; then
-    # Something else is mounted on the destination
-    umount "${dest}" || continue
-  fi
-
-  # Handle symlink
-  if [ -L "${src}" ]; then
-    # Ensure there is nothing in our way
-    rm -rf "${dest}"
-    # Ensure that the parent directory exists
-    mkdir -p "$(dirname "${dest}")"
-    # Copy symlink
-    cp --no-dereference "${src}" "${dest}"
-    continue
-  fi
-
-  # Create the destination if it doesn't exist
-  if ! [ -e "${dest}" ]; then
-    if [ -d "${src}" ]; then
-      mkdir -p "${dest}"
-    else
-      mkdir -p "$(dirname "${dest}")"
-      touch "${dest}"
+find -L "${INCLUDES_DIR}" -type f | sort | \
+  while IFS= read -r file; do
+    # Ignore empty lines and the .gitignore and README.md files
+    if [ -z "${file}" ] || \
+       [ "${file}" = "${INCLUDES_DIR}/.gitignore" ] || \
+       [ "${file}" = "${INCLUDES_DIR}/README.md" ]; then
+      continue
     fi
-  fi
 
-  mount --bind "${src}" "${dest}"
-done <<< "${FILES}"
+    src="${file}"
+    dest="${file#"${INCLUDES_DIR}"}"
+
+    # Abort if the source file is not writable, to avoid that we bind
+    # files which cause unexpected behavior (e.g. binding a non-writable
+    # .bash_history which breaks bash history)
+    if ! true >> "${src}"; then
+      echo >&2 "Error: ${src} is not writable.
+  Make sure that you run the config/patch/set-rw-includes-permissions.sh
+  script after adding new files to the rw-includes directory."
+      exit 1
+    fi
+
+    # Delete symlinks in the destination which would get dereferenced by
+    # the findmnt below
+    if [ -L "${dest}" ]; then
+      rm "${dest}"
+    fi
+
+    # Check if something is already mounted on the destination
+    mount_src=$(findmnt --output=FSROOT --noheadings --notruncate --canonicalize --first --mountpoint "${dest}" || true)
+    if [ "${INCLUDES_DIR}${mount_src}" = "${src}" ]; then
+      # The source is already mounted
+      continue
+    fi
+    if [ -n "${mount_src}" ]; then
+      # Something else is mounted on the destination
+      umount "${dest}" || continue
+    fi
+
+    # Handle symlink
+    if [ -L "${src}" ]; then
+      # Ensure there is nothing in our way
+      rm -rf "${dest}"
+      # Ensure that the parent directory exists
+      mkdir -p "$(dirname "${dest}")"
+      # Copy symlink
+      cp --no-dereference "${src}" "${dest}"
+      continue
+    fi
+
+    # Create the destination if it doesn't exist
+    if ! [ -e "${dest}" ]; then
+      if [ -d "${src}" ]; then
+        mkdir -p "${dest}"
+      else
+        mkdir -p "$(dirname "${dest}")"
+        touch "${dest}"
+      fi
+    fi
+
+    mount --bind "${src}" "${dest}"
+  done
