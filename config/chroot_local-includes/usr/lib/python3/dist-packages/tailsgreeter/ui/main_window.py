@@ -445,7 +445,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         def on_tps_repair_failed():
             dialog.response(Gtk.ResponseType.CANCEL)
             label = "{}\n\n{}".format(
-                _("Failed to repair the Persistent Storage file system."),
+                _("Failed to repair the file system of your Persistent Storage."),
                 _(
                     "Start Tails to send an error report and learn how to recover your data."
                 ),
@@ -744,7 +744,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             message_type=Gtk.MessageType.WARNING,
             title=_("File System Errors"),
             text=_(
-                """Errors were detected in the Persistent Storage file system.
+                """Errors were detected in the file system of your Persistent Storage.
                 
 Tails can try to fix these errors, but this may take a long time, not all data may be recoverable, and it might make it harder to further recover your data.
                 
