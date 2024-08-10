@@ -428,7 +428,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         dialog = MessageDialog(
             message_type=Gtk.MessageType.INFO,
             title=_("Repairing the File System"),
-            text=_("This may take a long time..."),
+            text=_("This might take a long time..."),
         )
         dialog.set_transient_for(self)
         # Add a spinner to the dialog, next to the secondary label
@@ -746,7 +746,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             text=_(
                 """Errors were detected in the file system of your Persistent Storage.
                 
-Tails can try to fix these errors, but this may take a long time, not all data may be recoverable, and it might make it harder to further recover your data.
+Tails can try to fix these errors, but this might take a long time, not all data might be recoverable, and it might make it harder to further recover your data.
                 
 If you already have an up-to-date backup of your Persistent Storage, we recommend that you try to repair.
                 
@@ -803,7 +803,7 @@ If you don't have a backup, we recommend that you create a backup first."""
         self.box_storage_unlock_status.set_visible(True)
 
     def on_tps_upgrading(self):
-        label = _("Upgrading the Persistent Storage. This may take a while…")
+        label = _("Upgrading the Persistent Storage. This might take a while…")
         self.label_storage_unlock_status.set_label(label)
 
 
