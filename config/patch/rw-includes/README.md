@@ -18,6 +18,10 @@ the correct permissions; it sets a default ACL that are applied to
 files and directories when they are created (existing files are
 unaffected) so you will not have to think about this again.
 
+Furthermore you need to make sure the `tails.git` filesystem share is
+writable by dropping `<readonly/>` from it in your libvirt domain
+configuration.
+
 ## Examples
 
 Make the bash history persistent for root and amnesia:
