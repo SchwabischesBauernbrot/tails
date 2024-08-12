@@ -265,3 +265,11 @@ copy_include() {
   #
   cp --no-dereference --preserve=all --no-preserve=ownership "${src}" "${dest}"
 }
+
+# Create and initialize amnesia's home directory like `adduser --home`
+# would do it.
+initialize_amnesia_home() {
+  [ -d /home/amnesia ] && return
+  cp -r /etc/skel /home/amnesia
+  chown -R 1000:1000 /home/amnesia
+}

@@ -20,11 +20,11 @@ unaffected) so you will not have to think about this again.
 
 ## Examples
 
-Make the bash history persistent:
+Make the bash history persistent for root and amnesia:
 
 ```bash
-mkdir -p rw-includes/root
-touch rw-includes/root/.bash_history
+mkdir -p rw-includes/root rw-includes/home/amnesia
+touch rw-includes/root/.bash_history rw-includes/home/amnesia.bash_history
 ```
 
 Have a `.bashrc` for the root user:

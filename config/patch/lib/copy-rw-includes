@@ -14,11 +14,17 @@ fi
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# shellcheck source=lib.sh
+. "${DIR}/lib.sh"
+
 if [ -n "${1:-}" ]; then
   INCLUDES_DIR=$(realpath "$1")
 else
   INCLUDES_DIR=$(realpath "${DIR}/../rw-includes")
 fi
+
+# See comment in bind-rw-includes
+initialize_amnesia_home
 
 find -L "${INCLUDES_DIR}" -type f | sort | \
   while read -r file; do

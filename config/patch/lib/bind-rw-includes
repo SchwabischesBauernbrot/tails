@@ -17,6 +17,9 @@ fi
 
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 
+# shellcheck source=lib.sh
+. "${DIR}/lib.sh"
+
 if [ -n "${1:-}" ]; then
   INCLUDES_DIR=$(realpath "$1")
 else
@@ -32,6 +35,18 @@ OWNER_UID=$(stat -c %u "${INCLUDES_DIR}")
 OWNER_GID=$(stat -c %g "${INCLUDES_DIR}")
 bindfs --map="${OWNER_UID}/0:@${OWNER_GID}/@0" \
   "${INCLUDES_DIR}" "${INCLUDES_DIR}"
+# But for /home/amnesia we map to the amnesia user/group instead.
+if [ -d "${INCLUDES_DIR}/home/amnesia" ]; then
+  bindfs --map="${OWNER_UID}/1000:@${OWNER_GID}/@1000" \
+    "${INCLUDES_DIR}/home/amnesia" "${INCLUDES_DIR}/home/amnesia"
+fi
+# If you have anything under config/patch/rw-includes/home/amnesia we
+# will create /home/amnesia during initramfs time, which is before
+# live-config calling `adduser` for the amnesia user, which leads to
+# the complaint: "The home directory `/home/amnesia' already exists.
+# Not touching this directory". So we have to initialize it as if done
+# by `adduser` with `--home /home/amnesia`.
+initialize_amnesia_home
 
 # Bind the files from the includes directory to the root filesystem
 find -L "${INCLUDES_DIR}" -type f | sort | \
