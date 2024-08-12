@@ -1013,11 +1013,11 @@ files metadata:
 Get the internal manual testing started
 =======================================
 
-Email <board@tails.net> and <manual-testers@tails.net> that tests
+Email <manual-testers@tails.net> that tests
 may start. Remember to encrypt and sign your email!
 
     ./bin/automailer.py <<EOF
-    To: board@tails.net, manual-testers@tails.net
+    To: manual-testers@tails.net
     Subject: Testing Tails ${VERSION:?}
     X-Attach: $(/bin/ls -1 "$ISOS/tails-amd64-${VERSION:?}/tails-amd64-${VERSION:?}.packages" "$ISOS/tails-amd64-${VERSION:?}/"tails-amd64-${VERSION:?}.{iso,img}.sig "$ISOS/tails-amd64-${VERSION:?}".{iso,img}.torrent | tr '\n' ,)
 
