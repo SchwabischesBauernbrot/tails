@@ -46,7 +46,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-15 09:56+0200\n"
+"POT-Creation-Date: 2024-08-12 09:47+0200\n"
 "PO-Revision-Date: 2024-06-28 01:09+0000\n"
 "Last-Translator: tachyglossues <tachyglossues@gmail.com>\n"
 "Language-Team: French <https://hosted.weblate.org/projects/tor/tails-gui/fr/"
@@ -59,7 +59,7 @@ msgstr ""
 "1000000 == 0 ? 1 : 2;\n"
 "X-Generator: Weblate 5.7-dev\n"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:205
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
 msgid ""
 "{details} Please check your list of additional software or read the system "
@@ -68,7 +68,7 @@ msgstr ""
 "{details} Veuillez vérifier votre liste de logiciels supplémentaires ou lire "
 "le journal système afin de mieux comprendre le problème."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:212
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:216
 msgid ""
 "Please check your list of additional software or read the system log to "
 "understand the problem."
@@ -76,11 +76,11 @@ msgstr ""
 "Veuillez vérifier votre liste de logiciels supplémentaires ou lire le "
 "journal système afin de mieux comprendre le problème."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:218
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:222
 msgid "Show Log"
 msgstr "Afficher le journal"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:218
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:222
 msgid "Configure"
 msgstr "Configurer"
 
@@ -160,7 +160,7 @@ msgid "This will stop installing {packages} automatically."
 msgstr "Cela arrêtera l’installation automatique de {packages}."
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:165
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:166
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:177
 msgid "Remove"
 msgstr "Supprimer"
 
@@ -168,7 +168,7 @@ msgstr "Supprimer"
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:28
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:38
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:376
 msgid "Cancel"
@@ -245,7 +245,7 @@ msgstr ""
 "stockage persistant lors du démarrage de Tails."
 
 #: config/chroot_local-includes/usr/share/tails/additional-software/configuration-window.ui:135
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:183
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:194
 msgid ""
 "To add more, install some software using <a href=\"synaptic."
 "desktop\">Synaptic Package Manager</a> or <a href=\"org.gnome.Terminal."
@@ -857,22 +857,22 @@ msgstr ""
 msgid "Start Without Persistent Storage"
 msgstr "Démarrer sans stockage persistant"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:119
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:118
 msgid "Error unlocking Persistent Storage: {}"
 msgstr "Erreur de déverrouillage du stockage persistant : {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:144
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:143
 msgid "Error upgrading Persistent Storage: {}"
 msgstr "Erreur de mise à jour du stockage persistant : {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:170
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:169
 #, python-brace-format
 msgid "Failed to activate some features of the Persistent Storage: {features}."
 msgstr ""
 "Échec de l'activation de certaines fonctionnalités du stockage persistant : "
 "{features}."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:175
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:174
 msgid "Error activating Persistent Storage: {}"
 msgstr "Erreur d'activation du stockage persistant : {}"
 
@@ -1464,17 +1464,19 @@ msgstr "Rejeter"
 msgid "Learn More"
 msgstr "En apprendre davantage"
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:13
-msgid "Resizing System Partition Failed"
-msgstr "Échec du redimensionnement de la partition système"
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:16
+msgid "Disk partitioning errors"
+msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:15
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:22
+#, fuzzy
 msgid ""
-"Something went wrong when starting your Tails USB stick for the first time."
+"Something went wrong when starting your Tails USB stick for the first time: "
+"resizing the system partition failed"
 msgstr ""
 "Un problème s'est produit lors du premier démarrage de votre clé USB Tails."
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:17
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:27
 msgid ""
 "It will be impossible to create a Persistent Storage or apply automatic "
 "upgrades."
@@ -1482,7 +1484,7 @@ msgstr ""
 "Il sera impossible de créer un stockage persistant ou d'appliquer des mises "
 "à jour automatiques."
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:19
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:29
 msgid ""
 "Try to follow our instructions on <a href=\"%INSTALLPAGE%\">installing Tails "
 "on a USB stick</a> again or use a different USB stick."
@@ -1491,7 +1493,7 @@ msgstr ""
 "\">l'installation de Tails sur une clé USB</a> à nouveau ou utilisez une "
 "autre clé USB."
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:21
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:31
 msgid ""
 "If you have already tried this, please send us an error report to help us "
 "solve this issue."
@@ -1499,14 +1501,14 @@ msgstr ""
 "Si vous avez déjà essayé, veuillez nous envoyer un rapport d'erreur en "
 "anglais, pour nous aider à résoudre ce problème."
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:29
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:39
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/fail_view.ui.in:74
 msgid "Send Error Report"
 msgstr "Envoyer un rapport d'erreur"
 
 #: config/chroot_local-includes/usr/src/perl5lib/lib/Tails/RunningSystem.pm:221
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:77
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:97
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:79
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:38
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:314
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:460
@@ -1571,8 +1573,7 @@ msgstr "Construit à partir de %s"
 msgid "Documentation"
 msgstr "Documentation"
 
-#. Translators: Don't translate {package}, it's a placeholder and will be replaced.
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:101
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:106
 #, python-brace-format
 msgid ""
 "Remove {package} from your additional software? This will stop installing "
@@ -1582,22 +1583,22 @@ msgstr ""
 "l’installation automatique du paquet."
 
 #. Translators: Don't translate {pkg}, it's a placeholder and will be replaced.
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:112
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:119
 #, python-brace-format
 msgid "Failed to remove {pkg}"
 msgstr "Échec de la suppression de {pkg}"
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:134
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:144
 msgid "Failed to read additional software configuration"
 msgstr "Échec de la lecture de la configuration des logiciels supplémentaires"
 
 #. Translators: Don't translate {package}, it's a placeholder and will be replaced.
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:164
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:173
 #, python-brace-format
 msgid "Stop installing {package} automatically"
 msgstr "Arrêter d’installer {package} automatiquement"
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:190
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:204
 msgid ""
 "To do so, install some software using <a href=\"synaptic.desktop\">Synaptic "
 "Package Manager</a> or <a href=\"org.gnome.Terminal.desktop\">APT on the "
@@ -1607,7 +1608,7 @@ msgstr ""
 "desktop\">gestionnaire de paquets Synaptic</a> ou <a href=\"org.gnome."
 "Terminal.desktop\">APT en ligne de commande</a>."
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:199
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:216
 msgid ""
 "To do so, unlock your Persistent Storage when starting Tails and install "
 "some software using <a href=\"synaptic.desktop\">Synaptic Package Manager</"
@@ -1618,7 +1619,7 @@ msgstr ""
 "desktop\">gestionnaire de paquets Synaptic</a> ou <a href=\"org.gnome."
 "Terminal.desktop\">APT en ligne de commande</a>."
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:209
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:229
 msgid ""
 "To do so, create a Persistent Storage and install some software using <a "
 "href=\"synaptic.desktop\">Synaptic Package Manager</a> or <a href=\"org."
@@ -1628,14 +1629,19 @@ msgstr ""
 "utilisant le <a href=\"synaptic.desktop\">gestionnaire de paquets Synaptic</"
 "a> ou <a href=\"org.gnome.Terminal.desktop\">APT en ligne de commande</a>."
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:223
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:247
 msgid "To do so, install Tails on a USB stick and create a Persistent Storage."
 msgstr ""
 "Pour ce faire, installez Tails sur une clé USB et créez un espace de "
 "stockage persistant."
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:267
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:293
 msgid "[package not available]"
+msgstr "[paquet non disponible]"
+
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:300
+#, fuzzy
+msgid "[description not available]"
 msgstr "[paquet non disponible]"
 
 #: config/chroot_local-includes/usr/local/lib/tails-htp-notify-user:68
@@ -1993,7 +1999,7 @@ msgstr "État de Tor"
 msgid "Open Onion Circuits"
 msgstr "Ouvrir Circuits onion"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:343
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:344
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -2006,11 +2012,11 @@ msgstr ""
 "\n"
 "Réessayez après avoir fermé certaines applications ou redémarré."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:357
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:358
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Création d'une partition pour le stockage persistant..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:379
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:380
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
@@ -2018,23 +2024,23 @@ msgstr ""
 "Initialisation du cryptage LUKS... Il se peut que l'ordinateur ne réponde "
 "plus pendant quelques secondes."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:408
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:409
 msgid "Unlocking the encryption..."
 msgstr "Déverrouiller le chiffrement..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:416
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:417
 msgid "Formatting the file system..."
 msgstr "Formatage du système de fichiers..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:434
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:435
 msgid "Activating the Persistent Storage..."
 msgstr "Activation du stockage persistant..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:440
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Fin de la configuration du stockage persistant..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:694
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:695
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -2046,7 +2052,7 @@ msgstr ""
 "réessayer. Si cela ne fonctionne pas, redémarrez Tails et essayez de "
 "supprimer le stockage persistant sans le déverrouiller."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:727
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:728
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -2064,7 +2070,7 @@ msgstr ""
 "Veuillez fermer toutes les applications susceptibles d'accéder à la cible et "
 "réessayer."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:31
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:30
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:48
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
@@ -2073,11 +2079,11 @@ msgstr ""
 msgid "Persistent Storage"
 msgstr "Stockage persistant"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:57
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:56
 msgid "Failed to start the Persistent Storage service"
 msgstr "Échec du démarrage du service de stockage persistant"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:98
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:80
 msgid "Could not find the WhisperBack application"
 msgstr "Impossible de trouver l'application WhisperBack"
 
@@ -2220,12 +2226,12 @@ msgstr "Bon"
 msgid "Strong"
 msgstr "Excellent"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:53
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:54
 msgid "You can send an error report to help solve the issue."
 msgstr ""
 "Vous pouvez envoyer un rapport d'erreur pour aider à résoudre le problème."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:60
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:61
 msgid "_Send Error Report"
 msgstr "_Envoyer un rapport d'erreur"
 
@@ -2328,9 +2334,14 @@ msgstr "Erreur lors de la suppression du stockage persistant"
 msgid "An error occurred while deleting the Persistent Storage."
 msgstr "Erreur lors de la suppression du stockage persistant."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:315
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:325
 msgid "Details (command output)"
 msgstr "Détails (sortie de la commande)"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:340
+#, fuzzy
+msgid "Failed to open the documentation"
+msgstr "Documentation de Tails"
 
 #. Translators: Don't translate {volume_label} or {volume_size},
 #. they are placeholders and will be replaced. They need
@@ -2571,15 +2582,7 @@ msgstr ""
 "Un autre Navigateur non sécurisé est en cours d’exécution ou de nettoyage. "
 "Veuillez réessayer dans un moment."
 
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:117
-msgid "Failed to setup chroot."
-msgstr "Échec d’exécution de chroot."
-
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:123
-msgid "Failed to configure browser."
-msgstr "Échec de configuration du navigateur."
-
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:125
+#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:128
 msgid ""
 "You are not connected to a local network yet.\\n\\nTo be able to start the "
 "Unsafe Browser, you first need to connect to a Wi-Fi, wired, or mobile "
@@ -2589,7 +2592,7 @@ msgstr ""
 "Navigateur non sécurisé, vous devez d’abord vous connecter à un réseau Wi-"
 "fi, filaire ou mobile."
 
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:155
+#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:158
 msgid "Failed to run browser."
 msgstr "Échec de démarrage du navigateur."
 
@@ -4020,6 +4023,15 @@ msgstr "décembre"
 #: ../config/chroot_local-includes/usr/share/tails/tca/time-dialog.ui.in:368
 msgid "Clock"
 msgstr "Horloge"
+
+#~ msgid "Resizing System Partition Failed"
+#~ msgstr "Échec du redimensionnement de la partition système"
+
+#~ msgid "Failed to setup chroot."
+#~ msgstr "Échec d’exécution de chroot."
+
+#~ msgid "Failed to configure browser."
+#~ msgstr "Échec de configuration du navigateur."
 
 #, sh-format
 #~ msgid ""
