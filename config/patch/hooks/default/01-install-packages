@@ -3,7 +3,8 @@
 # Install packages from the config/patch/packages directory.
 # See config/patch/packages/README.md for more information.
 
-set -euo pipefail
+set -eu -o pipefail
+shopt -s inherit_errexit
 
 # Enable xtrace with timestamp
 export PS4='+ $(date "+%H:%M:%S.%3N") '

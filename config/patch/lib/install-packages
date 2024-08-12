@@ -12,7 +12,8 @@
 # effect immediately. For example, it reloads the dconf database if any
 # dconf files were changed.
 
-set -euo pipefail
+set -eu -o pipefail
+shopt -s inherit_errexit
 
 # Enable xtrace with timestamp
 export PS4='+ $(date "+%H:%M:%S.%3N") '

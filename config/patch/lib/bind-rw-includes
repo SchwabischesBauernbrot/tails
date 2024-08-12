@@ -3,7 +3,8 @@
 # This script binds files from the rw-includes directory to the root
 # filesystem. It is intended to be run by the early_patch hook.
 
-set -euo pipefail
+set -eu -o pipefail
+shopt -s inherit_errexit
 
 # Enable xtrace with timestamp
 export PS4='+ $(date "+%H:%M:%S.%3N") '

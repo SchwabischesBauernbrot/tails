@@ -1,5 +1,8 @@
 # shellcheck shell=bash
 
+# This shell library is meant to be sources by bash with
+# `set -eu -o pipefail` and `shopt -s inherit_errexit`.
+
 PATCH_COMMIT_FILE=/var/lib/tails-patch-commit
 PATCHES_DIR=config/chroot_local-patches
 LIB_DIR=$(realpath "$(dirname "${BASH_SOURCE[0]}")")
@@ -37,8 +40,6 @@ untracked_files() {
 }
 
 untracked_and_modified_files() {
-  # This function is called in a subshell, so we need to set options again
-  set -euo pipefail
   local commit="$1"
   local dir="$2"
   local modified
@@ -52,8 +53,6 @@ untracked_and_modified_files() {
 }
 
 tails_commit() {
-  # This function is called in a subshell, so we need to set options again
-  set -euo pipefail
   grep TAILS_GIT_COMMIT /etc/os-release | cut -d= -f2 | tr -d '"'
 }
 
