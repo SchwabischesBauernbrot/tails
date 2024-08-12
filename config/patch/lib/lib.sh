@@ -151,12 +151,13 @@ bind_include() {
       modprobe -vvv fuse
 
       OWNER_UID=$(stat -c %u "${GIT_REPO}")
+      OWNER_GID=$(stat -c %g "${GIT_REPO}")
 
       # Map the owner of the git repo to 0 to avoid issues like:
       #
       #   sudo: /etc/sudoers.d/zzz_tbb is owned by uid 1000, should be 0
       #
-      bindfs --map="${OWNER_UID}/0:@${OWNER_UID}/@0" "${GIT_REPO}" "${GIT_REPO}"
+      bindfs --map="${OWNER_UID}/0:@${OWNER_GID}/@0" "${GIT_REPO}" "${GIT_REPO}"
   fi
 
   # Remove any .in extensions from the destination to replace the

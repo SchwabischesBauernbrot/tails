@@ -28,8 +28,9 @@ modprobe -vvv fuse
 
 # The includes are owned by the libvirt-qemu user. We map that to 0
 # to have the includes mounted as root.
-LIBVIRT_USER_ID=$(stat -c %u "${INCLUDES_DIR}")
-bindfs --map="${LIBVIRT_USER_ID}/0:@${LIBVIRT_USER_ID}/@0" \
+OWNER_UID=$(stat -c %u "${INCLUDES_DIR}")
+OWNER_GID=$(stat -c %g "${INCLUDES_DIR}")
+bindfs --map="${OWNER_UID}/0:@${OWNER_GID}/@0" \
   "${INCLUDES_DIR}" "${INCLUDES_DIR}"
 
 # Bind the files from the includes directory to the root filesystem
