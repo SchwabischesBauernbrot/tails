@@ -44,6 +44,6 @@ find -L "${INCLUDES_DIR}" -type f | sort | \
 
     # If the file was copied below /home/amnesia, change owner to amnesia
     if [ "${dest:0:13}" = /home/amnesia ]; then
-      chown amnesia:amnesia "${dest}"
+      chown 1000:1000 "${dest}"
     fi
   done
