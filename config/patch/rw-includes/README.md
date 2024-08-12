@@ -12,9 +12,11 @@ so any changes made in the Tails VM will be reflected on the host,
 allowing you to persist changes across reboots.
 
 The files and directories in this directory must be writable by the
-libvirt-qemu user on the host. You can use the
-`config/patch/set-rw-includes-permissions.sh` script to set the correct
-permissions.
+libvirt-qemu user on the host. Before modifying this directory, please
+run the `config/patch/set-rw-includes-permissions.sh` script to set
+the correct permissions; it sets a default ACL that are applied to
+files and directories when they are created (existing files are
+unaffected) so you will not have to think about this again.
 
 ## Examples
 
@@ -23,7 +25,6 @@ Make the bash history persistent:
 ```bash
 mkdir -p rw-includes/root
 touch rw-includes/root/.bash_history
-./set-rw-includes-permissions.sh
 ```
 
 Have a `.bashrc` for the root user:
@@ -31,5 +32,4 @@ Have a `.bashrc` for the root user:
 ```bash
 mkdir -p rw-includes/root
 cp /etc/skel/.bashrc rw-includes/root/
-./set-rw-includes-permissions.sh
 ```
