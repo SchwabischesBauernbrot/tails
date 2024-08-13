@@ -32,6 +32,7 @@ esac
 
 html_body() {
     ikiwiki --setup ikiwiki.setup \
+            --disable-plugin po \
             --libdir lib/perl5 \
             --render "$MARKDOWN_SOURCE" \
         | tidy --quiet yes \
