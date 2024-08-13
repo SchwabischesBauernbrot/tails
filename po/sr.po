@@ -12,9 +12,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-15 09:56+0200\n"
-"PO-Revision-Date: 2024-07-05 16:09+0000\n"
-"Last-Translator: Andrija Djakovic <bozika331@yahoo.com>\n"
+"POT-Creation-Date: 2024-08-12 09:47+0200\n"
+"PO-Revision-Date: 2024-07-31 14:09+0000\n"
+"Last-Translator: Djordje Cerovic <djordjecerovic3@gmail.com>\n"
 "Language-Team: Serbian <https://hosted.weblate.org/projects/tor/tails-gui/sr/"
 ">\n"
 "Language: sr\n"
@@ -25,7 +25,7 @@ msgstr ""
 "n%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 "X-Generator: Weblate 5.7-dev\n"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:205
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
 msgid ""
 "{details} Please check your list of additional software or read the system "
@@ -34,7 +34,7 @@ msgstr ""
 "{details} Molimo proverite Vašu listu dodatnih softvera ili pročitajte "
 "sistemski dnevnik logova kako biste razumeli u čemu je problem."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:212
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:216
 msgid ""
 "Please check your list of additional software or read the system log to "
 "understand the problem."
@@ -42,11 +42,11 @@ msgstr ""
 "Molimo proverite Vašu listu dodatnih softvera ili pročitajte sistemski "
 "dnevnik logova kako biste razumeli u čemu je problem."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:218
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:222
 msgid "Show Log"
 msgstr "Prikaži dnevnik"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:218
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:222
 msgid "Configure"
 msgstr "Konfiguriši"
 
@@ -122,7 +122,7 @@ msgid "This will stop installing {packages} automatically."
 msgstr "Ovo će automatski zaustaviti instaliranje {packages}."
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:165
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:166
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:177
 msgid "Remove"
 msgstr "Ukloni"
 
@@ -130,7 +130,7 @@ msgstr "Ukloni"
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:28
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:38
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:376
 msgid "Cancel"
@@ -203,7 +203,7 @@ msgstr ""
 "pokretanja Tails-a."
 
 #: config/chroot_local-includes/usr/share/tails/additional-software/configuration-window.ui:135
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:183
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:194
 msgid ""
 "To add more, install some software using <a href=\"synaptic."
 "desktop\">Synaptic Package Manager</a> or <a href=\"org.gnome.Terminal."
@@ -798,21 +798,21 @@ msgstr ""
 msgid "Start Without Persistent Storage"
 msgstr "Pokreni bez Upornog Skladišta"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:119
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:118
 msgid "Error unlocking Persistent Storage: {}"
 msgstr "Greška pri otključavanju Upornog Skladišta: {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:144
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:143
 msgid "Error upgrading Persistent Storage: {}"
 msgstr "Greška pri nadogradnji Upornog Skladišta: {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:170
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:169
 #, python-brace-format
 msgid "Failed to activate some features of the Persistent Storage: {features}."
 msgstr ""
 "Neuspelo aktiviranje nekih karakteristika Upornog Skladišta: {features}."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:175
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:174
 msgid "Error activating Persistent Storage: {}"
 msgstr "Greška tokom aktiviranja Upornog Skladišta: {}"
 
@@ -1389,23 +1389,25 @@ msgstr "Одбаци"
 msgid "Learn More"
 msgstr "Vidi još"
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:13
-msgid "Resizing System Partition Failed"
-msgstr "Promena veličine Sistemske Particije neuspelo"
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:16
+msgid "Disk partitioning errors"
+msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:15
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:22
+#, fuzzy
 msgid ""
-"Something went wrong when starting your Tails USB stick for the first time."
+"Something went wrong when starting your Tails USB stick for the first time: "
+"resizing the system partition failed"
 msgstr "Nešto se pokvralio tokom paljenja vašeg Tails USB stick-a prvi put."
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:17
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:27
 msgid ""
 "It will be impossible to create a Persistent Storage or apply automatic "
 "upgrades."
 msgstr ""
 "Biće nemoguće napraviti Uporno Skladište ili primeniti automatske nadograde."
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:19
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:29
 msgid ""
 "Try to follow our instructions on <a href=\"%INSTALLPAGE%\">installing Tails "
 "on a USB stick</a> again or use a different USB stick."
@@ -1413,7 +1415,7 @@ msgstr ""
 "Pokušajte pratiti naše instrukcije o <a href=\"%INSTALLPAGE%\">instaliranju "
 "Tails na USB stick-u</a> ponovo ili koristite drugi USB stick."
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:21
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:31
 msgid ""
 "If you have already tried this, please send us an error report to help us "
 "solve this issue."
@@ -1421,14 +1423,14 @@ msgstr ""
 "Ako ste ovo već pokušali, molimo pošaljite izveštaj greške da nam pomognete "
 "da razrešimo problem."
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:29
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:39
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/fail_view.ui.in:74
 msgid "Send Error Report"
 msgstr "Pošaljite Izveštaj o grešci"
 
 #: config/chroot_local-includes/usr/src/perl5lib/lib/Tails/RunningSystem.pm:221
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:77
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:97
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:79
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:38
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:314
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:460
@@ -1493,8 +1495,7 @@ msgstr "Napravljen sa %s"
 msgid "Documentation"
 msgstr "Dokumentacija"
 
-#. Translators: Don't translate {package}, it's a placeholder and will be replaced.
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:101
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:106
 #, python-brace-format
 msgid ""
 "Remove {package} from your additional software? This will stop installing "
@@ -1504,22 +1505,22 @@ msgstr ""
 "automatsko instaliranje paketa."
 
 #. Translators: Don't translate {pkg}, it's a placeholder and will be replaced.
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:112
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:119
 #, python-brace-format
 msgid "Failed to remove {pkg}"
 msgstr "Neuspešno uklanjanje {pkg}"
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:134
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:144
 msgid "Failed to read additional software configuration"
 msgstr "Neuspešno čitanje konfiguracije dodatnog softvera"
 
 #. Translators: Don't translate {package}, it's a placeholder and will be replaced.
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:164
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:173
 #, python-brace-format
 msgid "Stop installing {package} automatically"
 msgstr "Zaustavite automatsko instaliranje {package}"
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:190
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:204
 msgid ""
 "To do so, install some software using <a href=\"synaptic.desktop\">Synaptic "
 "Package Manager</a> or <a href=\"org.gnome.Terminal.desktop\">APT on the "
@@ -1529,7 +1530,7 @@ msgstr ""
 "desktop\">Synaptic Package Manager</a> ili <a href=\"org.gnome.Terminal."
 "desktop\">APT kroz komandnu liniju</a>."
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:199
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:216
 msgid ""
 "To do so, unlock your Persistent Storage when starting Tails and install "
 "some software using <a href=\"synaptic.desktop\">Synaptic Package Manager</"
@@ -1540,7 +1541,7 @@ msgstr ""
 "Sinaptičih Paketa</a> ili <a href=\"org.gnome.Terminal.desktop\">APT na "
 "komandnoj liniji</a>."
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:209
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:229
 msgid ""
 "To do so, create a Persistent Storage and install some software using <a "
 "href=\"synaptic.desktop\">Synaptic Package Manager</a> or <a href=\"org."
@@ -1550,14 +1551,19 @@ msgstr ""
 "koristeći <a href=\"synaptic.desktop\">Menadžer Sinaptičkih Paketa</a> ili "
 "<a href=\"org.gnome.Terminal.desktop\">APT na komandnoj liniji</a>."
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:223
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:247
 msgid "To do so, install Tails on a USB stick and create a Persistent Storage."
 msgstr ""
 "Da biste to uradili, instalirajte Tails na USB stick-u i napravite Uporno "
 "Skladište."
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:267
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:293
 msgid "[package not available]"
+msgstr "[paket nije dostupan]"
+
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:300
+#, fuzzy
+msgid "[description not available]"
 msgstr "[paket nije dostupan]"
 
 #: config/chroot_local-includes/usr/local/lib/tails-htp-notify-user:68
@@ -1593,7 +1599,7 @@ msgstr "Poznati bezbednosni problemi"
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:76
 #, sh-format
 msgid "Wi-Fi Interface Disabled"
-msgstr ""
+msgstr "Wi-Fi interfejs onemogućen"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:77
 #, sh-format
@@ -1601,11 +1607,13 @@ msgid ""
 "MAC address anonymization failed for one of your Wi-Fi interfaces, so it is "
 "temporarily disabled."
 msgstr ""
+"Anonimizacija MAC adrese nije uspela za jedan od vaših Wi-Fi interfejsa, pa "
+"je privremeno onemogućen."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:79
-#, fuzzy, sh-format
+#, sh-format
 msgid "Wi-Fi Disabled"
-msgstr "Isključeno"
+msgstr "Wi-Fi onemogućen"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:80
 #, sh-format
@@ -1613,11 +1621,13 @@ msgid ""
 "MAC address anonymization failed for your Wi-Fi interface, so it is "
 "temporarily disabled."
 msgstr ""
+"Anonimizacija MAC adrese nije uspela za jedan od vaših Wi-Fi interfejsa, pa "
+"je privremeno onemogućen."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:82
 #, sh-format
 msgid "Wired Interface Disabled"
-msgstr ""
+msgstr "Žičani interfejs onemogućen"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:83
 #, sh-format
@@ -1625,11 +1635,13 @@ msgid ""
 "MAC address anonymization failed for one of your wired interfaces, so it is "
 "temporarily disabled."
 msgstr ""
+"Anonimizacija MAC adrese nije uspela za jedan od vaših Wi-Fi interfejsa, pa "
+"je privremeno onemogućen."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:85
-#, fuzzy, sh-format
+#, sh-format
 msgid "Wired Network Disabled"
-msgstr "Svako umrežavanje onemogućeno"
+msgstr "Žičana mreža onemogućena"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:86
 #, sh-format
@@ -1637,11 +1649,13 @@ msgid ""
 "MAC address anonymization failed for your wired interface, so it is "
 "temporarily disabled."
 msgstr ""
+"Anonimizacija MAC adrese nije uspela za jedan od vaših Wi-Fi interfejsa, pa "
+"je privremeno onemogućen."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:88
-#, fuzzy, sh-format
+#, sh-format
 msgid "Network Interface Disabled"
-msgstr "${nic} mrežne karte onemogućen"
+msgstr "Mrežni interfejs onemogućen"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
 #, sh-format
@@ -1649,30 +1663,33 @@ msgid ""
 "MAC address anonymization failed for one of your network interfaces, so it "
 "is temporarily disabled."
 msgstr ""
+"Anonimizacija MAC adrese nije uspela za jedan od vaših Wi-Fi interfejsa, pa "
+"je privremeno onemogućen."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:91
 #, sh-format
 msgid ""
 "You might prefer to restart Tails and disable MAC address anonymization."
 msgstr ""
+"Možda biste želeli da restartujete Tails i onemogućite anonimnost MAC adrese."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:98
-#, fuzzy
 msgid "All Networking Disabled"
-msgstr "Svako umrežavanje onemogućeno"
+msgstr "Sva mrežna povezivanja onemogućena"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:99
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
 "error recovery also failed, so all networking is disabled.\n"
 "\n"
 "You might prefer to restart Tails and disable MAC address anonymization."
 msgstr ""
-"Anonimizacija MAC adrese nije uspelo za mrežnu karticu ${nic_name} (${nic}). "
-"Oporavak od greške je isto neuspeo, pa je svo umrežavanje ugašeno.\n"
+"Anonimizacija MAC adrese nije uspela za jedan od vaših mrežnih interfejsa. "
+"Takođe je došlo do greške pri pokušaju oporavka, pa su sva mrežna "
+"povezivanja onemogućena.\n"
 "\n"
-"Možete restartovati Tails i ugasiti anonimizaciju MAC adrese."
+"Možda biste želeli da restartujete Tails i onemogućite anonimnost MAC adrese."
 
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:36
 #, python-brace-format
@@ -1901,7 +1918,7 @@ msgstr "Status Tora"
 msgid "Open Onion Circuits"
 msgstr "Otvori Onion Kola"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:343
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:344
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1914,34 +1931,34 @@ msgstr ""
 "\n"
 "Pokušajte ponovo nakon zatvaranja nekih aplikacija i restartovanja."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:357
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:358
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Pravljenje particije Upornog Skladišta..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:379
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:380
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
 msgstr ""
 "Inicijalizujovanje LUKS enkripcije... Kompjuter se može smrznuti par sekundi."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:408
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:409
 msgid "Unlocking the encryption..."
 msgstr "Otključavanje enkripcije..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:416
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:417
 msgid "Formatting the file system..."
 msgstr "Fomratiranje fajl sistema..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:434
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:435
 msgid "Activating the Persistent Storage..."
 msgstr "Aktiviranje Upornog Skladišta..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:440
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Završavanje nameštanja Upornog Skladišta..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:694
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:695
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1953,7 +1970,7 @@ msgstr ""
 "restartujte Tails i pokušajte izbrisati Uporno Skladište bez otključavanja "
 "njega."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:727
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:728
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -1971,7 +1988,7 @@ msgstr ""
 "Molimo zatvorite sve aplikacije koje mogu pristupati cilju i pokušajte "
 "ponovo."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:31
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:30
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:48
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
@@ -1980,11 +1997,11 @@ msgstr ""
 msgid "Persistent Storage"
 msgstr "Uporno Skladište"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:57
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:56
 msgid "Failed to start the Persistent Storage service"
 msgstr "Neuspelo pokretanje servisa Upornog Skladišta"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:98
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:80
 msgid "Could not find the WhisperBack application"
 msgstr "Nije se mogla naći WhisperBack aplikacija"
 
@@ -2124,11 +2141,11 @@ msgstr "Dobra"
 msgid "Strong"
 msgstr "Jaka"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:53
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:54
 msgid "You can send an error report to help solve the issue."
 msgstr "Možete poslati izveštaj greške da pomognete rešavanju ovog problema."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:60
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:61
 msgid "_Send Error Report"
 msgstr "_Pošalji Izveštaj Greške"
 
@@ -2229,9 +2246,14 @@ msgstr "Greška pri brisanju Upornog Skladišta"
 msgid "An error occurred while deleting the Persistent Storage."
 msgstr "Догодила се грешка приликом брисања Упорног складишта."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:315
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:325
 msgid "Details (command output)"
 msgstr "Детаљи (излаз наредбе)"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:340
+#, fuzzy
+msgid "Failed to open the documentation"
+msgstr "Tails Dokumentacija"
 
 #. Translators: Don't translate {volume_label} or {volume_size},
 #. they are placeholders and will be replaced. They need
@@ -2470,15 +2492,7 @@ msgstr ""
 "Drugi nesigurni pregledač je pokrenut ili se čisti. Molimo pokušajte malo "
 "kasnije."
 
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:117
-msgid "Failed to setup chroot."
-msgstr "Neuspešno izvršavanje chroot komande."
-
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:123
-msgid "Failed to configure browser."
-msgstr "Neuspešno konfigurisanje pregledača."
-
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:125
+#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:128
 msgid ""
 "You are not connected to a local network yet.\\n\\nTo be able to start the "
 "Unsafe Browser, you first need to connect to a Wi-Fi, wired, or mobile "
@@ -2487,7 +2501,7 @@ msgstr ""
 "Još niste povezani na lokalnu mrežu.\\n\\nDa možete pokrenuti Nesiguran "
 "Browser, morate se prvo povezati na Wi-Fi ili mobilnu mrežu."
 
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:155
+#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:158
 msgid "Failed to run browser."
 msgstr "Neuspešno pokretanje pregledača."
 
@@ -3877,6 +3891,15 @@ msgstr "Децембар"
 #: ../config/chroot_local-includes/usr/share/tails/tca/time-dialog.ui.in:368
 msgid "Clock"
 msgstr "Сат"
+
+#~ msgid "Resizing System Partition Failed"
+#~ msgstr "Promena veličine Sistemske Particije neuspelo"
+
+#~ msgid "Failed to setup chroot."
+#~ msgstr "Neuspešno izvršavanje chroot komande."
+
+#~ msgid "Failed to configure browser."
+#~ msgstr "Neuspešno konfigurisanje pregledača."
 
 #, sh-format
 #~ msgid ""

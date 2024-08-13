@@ -1013,11 +1013,11 @@ files metadata:
 Get the internal manual testing started
 =======================================
 
-Email <board@tails.net> and <manual-testers@tails.net> that tests
+Email <manual-testers@tails.net> that tests
 may start. Remember to encrypt and sign your email!
 
     ./bin/automailer.py <<EOF
-    To: board@tails.net, manual-testers@tails.net
+    To: manual-testers@tails.net
     Subject: Testing Tails ${VERSION:?}
     X-Attach: $(/bin/ls -1 "$ISOS/tails-amd64-${VERSION:?}/tails-amd64-${VERSION:?}.packages" "$ISOS/tails-amd64-${VERSION:?}/"tails-amd64-${VERSION:?}.{iso,img}.sig "$ISOS/tails-amd64-${VERSION:?}".{iso,img}.torrent | tr '\n' ,)
 
@@ -1104,8 +1104,8 @@ you can follow the next steps:
    build, but stop at the `rm-config --stage built-iuks` step which
    has to wait for your local IUK build to finish)
 
-3. If you expect the need to run some manual tests and you have one spare computer, you can prepare a USB
-   stick and do so.
+3. If you expect you will have to do some manual testing yourself and you have a spare computer, you can prepare a USB
+   stick and start testing.
 
 ISO history
 -----------

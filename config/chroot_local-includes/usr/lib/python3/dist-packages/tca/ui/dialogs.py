@@ -24,7 +24,7 @@ def get_release_year():
     return tailslib.release.get_release_date().year
 
 
-def get_time_dialog(initial_tz: Optional[str] = None):
+def get_time_dialog(initial_tz: str | None = None):
     """Create a TimeDialog."""
     builder = Gtk.Builder()
     builder.set_translation_domain("tails")

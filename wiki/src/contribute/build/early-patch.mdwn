@@ -52,6 +52,11 @@ the same reason, you should write in POSIX shell, not bash.
 
 Run your VM, and add `early_patch` to the kernel cmdline.
 
+# Known issues
+
+- Changes applied to the root filesystem with `early_patch` are ineffective for
+  the *Unsafe Browser*: [[!tails_ticket 20461]].
+
 # Implementation
 
 Most important implementation bits are at
