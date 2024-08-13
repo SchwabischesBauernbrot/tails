@@ -736,9 +736,6 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
     def cb_unlock_failed_with_filesystem_errors(self):
         logging.debug("Persistent Storage unlock failed due to file system errors")
 
-        label = _("Failed to unlock the Persistent Storage due to file system errors.")
-        self.on_tps_activation_failed(label)
-
         # Ask the user if they want to repair the filesystem
         dialog = MessageDialog(
             message_type=Gtk.MessageType.WARNING,
@@ -771,9 +768,13 @@ If you don't have a backup, we recommend that you create a backup first."""
             # XXX: Actually open some documentation on how to create a backup
             #      using ddrescue after Tails has started
             return
-
-        if response == Gtk.ResponseType.OK:
+        elif response == Gtk.ResponseType.OK:
             self.repair_tps_filesystem()
+        else:
+            label = _(
+                "Failed to unlock the Persistent Storage due to file system errors."
+            )
+            self.on_tps_activation_failed(label)
 
     def on_tps_upgrade_failed(self):
         label = _(
