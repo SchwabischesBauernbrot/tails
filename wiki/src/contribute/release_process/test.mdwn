@@ -109,6 +109,15 @@ Security and fingerprinting
      invisible trackers" tests, which seem unreliable (we've seen
      different results for the very same version of Tor Browser).
 
+   - Ignore the "bits of identifying information" in the "Your
+     results" summary, it is not clear what this number is (it is
+     *not* the sum of the results for each section).
+
+   - Instead compare results section-by-section. The only section that
+     is allowed to differ is the "Screen Size and Color Depth" in case
+     you couldn't test the browsers with the exact same window
+     dimensions.
+
 5. If the fingerprints differ, ask the Release Manager
    to update the *Browser fingerprint* section of the
    [[known issues|support/known_issues]] page.
