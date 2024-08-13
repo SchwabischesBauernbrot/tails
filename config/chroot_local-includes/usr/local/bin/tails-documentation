@@ -94,7 +94,19 @@ def main():
         return
 
     os.environ["TOR_BROWSER_SKIP_OFFLINE_WARNING"] = "yes"
-    os.execv("/usr/bin/gtk-launch", ["/usr/bin/gtk-launch", "tor-browser.desktop", uri])
+    # Some of our callers capture the stderr of the
+    # tails-documentation command, which, if we did not use
+    # systemd-cat, would make them block until Tor Browser was closed:
+    # the stderr of tails-documentation would be passed to gtk-launch,
+    # which in turn would pass it to Tor Browser, so the stderr file
+    # descriptor would be kept open by Tor Browser until it's closed.
+    #
+    # By using systemd-cat, we avoid passing our stderr to gtk-launch,
+    # and is therefore closed immediately when tails-documentation exits.
+    os.execv(
+        "/usr/bin/systemd-cat",
+        ["/usr/bin/systemd-cat", "/usr/bin/gtk-launch", "tor-browser.desktop", uri],
+    )
 
 
 if __name__ == "__main__":

@@ -11,7 +11,7 @@ from tps.dbus.errors import DBusError, NotEnoughMemoryError, TargetIsBusyError
 
 from tps_frontend import WINDOW_UI_FILE, _
 from tps_frontend.change_passphrase_dialog import ChangePassphraseDialog
-from tps_frontend.error_dialog import ErrorDetails
+from tps_frontend.error_dialog import ErrorDetails, ErrorDialog
 from tps_frontend.views.creation_view import CreationView
 from tps_frontend.views.deleted_view import DeletedView
 from tps_frontend.views.fail_view import FailView
@@ -294,6 +294,7 @@ class Window(Gtk.ApplicationWindow):
         self,
         title: str,
         msg: str,
+        msg_is_markup: bool = False,
         details: ErrorDetails = None,
         with_send_report_button: Optional[bool] = None,
     ):
@@ -302,7 +303,16 @@ class Window(Gtk.ApplicationWindow):
             # active view, because we already show a send report button
             # there.
             with_send_report_button = self.active_view != self.fail_view
-        self.app.display_error(title, msg, details, with_send_report_button)
+
+        dialog = ErrorDialog(
+            self,
+            title,
+            msg,
+            msg_is_markup=msg_is_markup,
+            details=details,
+            with_send_report_button=with_send_report_button,
+        )
+        dialog.run()
 
     def display_command_failed_error(
         self, title: str, cmd: list[str], e: subprocess.CalledProcessError
@@ -314,4 +324,18 @@ class Window(Gtk.ApplicationWindow):
             text = f"$ {' '.join(cmd)}\n{e.stderr.strip()}"
             details = ErrorDetails(_("Details (command output)"), text)
 
-        self.display_error(title, msg, details=details)
+        self.display_error(title, msg, msg_is_markup=True, details=details)
+
+    def open_documentation(self, uri: str):
+        logger.debug("Opening documentation: %s", uri)
+        if "#" in uri:
+            page, anchor = uri.split("#")
+            cmd = ["/usr/local/bin/tails-documentation", page, anchor]
+        else:
+            cmd = ["/usr/local/bin/tails-documentation", uri]
+        try:
+            subprocess.run(cmd, stderr=subprocess.PIPE, text=True, check=True)
+        except subprocess.CalledProcessError as e:
+            logger.error("Failed to open documentation: %s", e)
+            title = _("Failed to open the documentation")
+            self.window.display_command_failed_error(title, cmd, e)

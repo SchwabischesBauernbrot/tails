@@ -65,7 +65,7 @@ class TorConnectionProxy:
         address: str,
         port: int,
         proxy_type: str,
-        auth: Optional[tuple[str, str]] = None,
+        auth: tuple[str, str] | None = None,
         enabled: bool = True,
     ):
         self.enabled = enabled
@@ -90,7 +90,7 @@ class TorConnectionProxy:
         kwargs = dict(
             proxy_type=obj["proxy_type"], address=obj["address"], port=int(obj["port"])
         )
-        auth: tuple[Optional[str], Optional[str]] = (
+        auth: tuple[str | None, str | None] = (
             obj.get("username"),
             obj.get("password"),
         )
@@ -115,10 +115,10 @@ class TorConnectionProxy:
 
     @classmethod
     def from_tor_value(
-        cls, proxy_type: str, val: str, auth_values: Optional[list[str]] = None
+        cls, proxy_type: str, val: str, auth_values: list[str] | None = None
     ) -> "TorConnectionProxy":
         address, port = val.split(":")
-        auth: Optional[tuple[str, str]] = None
+        auth: tuple[str, str] | None = None
         if auth_values and any(auth_values):
             if len(auth_values) == 1:
                 auth = cast(tuple[str, str], tuple(auth_values[0].split(":", 1)))
@@ -133,8 +133,8 @@ class TorConnectionProxy:
         obj = cls(address, int(port), proxy_type, auth=auth)
         return obj
 
-    def to_tor_value_options(self) -> dict[str, Optional[str]]:
-        r: dict[str, Optional[str]] = {}
+    def to_tor_value_options(self) -> dict[str, str | None]:
+        r: dict[str, str | None] = {}
         if self.enabled:
             r[self.proxy_type] = "%s:%d" % (self.address, self.port)
         for proxy_type in PROXY_TYPES:
@@ -169,7 +169,7 @@ VALID_BRIDGE_TYPES = {"bridge", "obfs4"}
 
 class TorConnectionConfig:
     def __init__(
-        self, bridges: Optional[list] = None, proxy: Optional[TorConnectionProxy] = None
+        self, bridges: list | None = None, proxy: TorConnectionProxy | None = None
     ):
         if bridges is None:
             bridges = []
@@ -191,7 +191,7 @@ class TorConnectionConfig:
         self.bridges.clear()
 
     @classmethod
-    def parse_bridge_line(cls, line: str) -> Optional[str]:
+    def parse_bridge_line(cls, line: str) -> str | None:
         """
         Validate bridges syntax.
 
@@ -327,7 +327,7 @@ class TorConnectionConfig:
         return cls.parse_bridge_lines(lines)
 
     @classmethod
-    def get_default_bridges(cls, only_type: Optional[str] = None) -> list[str]:
+    def get_default_bridges(cls, only_type: str | None = None) -> list[str]:
         """Get default bridges from a txt file."""
         bridges = []
         with open(os.path.join(tca.config.data_path, "default_bridges.txt")) as buf:
@@ -350,7 +350,7 @@ class TorConnectionConfig:
         bridges = self.__class__.parse_bridge_lines(bridges)
         self.bridges.extend(bridges)
 
-    def enable_default_bridges(self, only_type: Optional[str] = None):
+    def enable_default_bridges(self, only_type: str | None = None):
         """
         Set default bridges.
 

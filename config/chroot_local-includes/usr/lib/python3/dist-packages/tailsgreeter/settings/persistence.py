@@ -52,16 +52,14 @@ class PersistentStorageSettings:
             INTERFACE_NAME,
             None,
         )  # type: Gio.DBusProxy
-        device_variant = self.service_proxy.get_cached_property(
-            "Device"
-        )  # type: GLib.Variant
+        device_variant = self.service_proxy.get_cached_property("Device")  # type: GLib.Variant
         self.device = device_variant.get_string() if device_variant else "/"
         self.is_unlocked = False
         self.is_created = self.service_proxy.get_cached_property("IsCreated")
         self.can_unlock = self.service_proxy.get_cached_property("CanUnlock")
         self.is_upgraded = self.service_proxy.get_cached_property("IsUpgraded")
         self.error: GLib.Variant = self.service_proxy.get_cached_property("Error")
-        self.error_type: Optional[InvalidBootDeviceErrorType] = None
+        self.error_type: InvalidBootDeviceErrorType | None = None
         if self.error:
             self.error_type = InvalidBootDeviceErrorType(self.error.get_uint32())
         self.service_proxy.connect("g-properties-changed", self.on_properties_changed)
@@ -107,8 +105,9 @@ class PersistentStorageSettings:
                 parameters=GLib.Variant("(s)", (passphrase,)),
                 flags=Gio.DBusCallFlags.NONE,
                 # In some cases, the default timeout of 25 seconds was not
-                # enough, so we use a timeout of 120 seconds instead.
-                timeout_msec=120000,
+                # enough, especially since we now run fsck as part of the unlock
+                # operation, so we use a timeout of 240 seconds instead.
+                timeout_msec=240000,
             )
         except GLib.GError as err:
             if tps_errors.IncorrectPassphraseError.is_instance(err):

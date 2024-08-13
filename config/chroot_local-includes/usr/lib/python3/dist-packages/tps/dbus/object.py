@@ -6,9 +6,8 @@ import threading
 import time
 from abc import abstractmethod, ABCMeta
 import inspect
-from logging import getLogger
 from pathlib import Path
-from typing import Any, Dict, List
+from typing import Any, Optional
 from threading import Thread
 
 from gi.repository import Gio, GLib
@@ -28,7 +27,7 @@ class UnregistrationFailedError(Exception):
     pass
 
 
-class DBusObject(object, metaclass=ABCMeta):
+class DBusObject(metaclass=ABCMeta):
     """DBusObject is an abstract class which facilitates registering
     D-Bus objects"""
 
@@ -89,7 +88,7 @@ class DBusObject(object, metaclass=ABCMeta):
         self.registered = False
 
     def emit_signal(
-        self, connection: Gio.DBusConnection, signal_name: str, values: Dict[str, Any]
+        self, connection: Gio.DBusConnection, signal_name: str, values: dict[str, Any]
     ):
         signal = self.signals[signal_name]
         parameters = []
@@ -110,8 +109,8 @@ class DBusObject(object, metaclass=ABCMeta):
         self,
         connection: Gio.DBusConnection,
         interface_name: str,
-        changed_properties: Dict[str, GLib.Variant],
-        invalidated_properties: List[str] = None,
+        changed_properties: dict[str, GLib.Variant],
+        invalidated_properties: Optional[list[str]] = None,
     ):
         if invalidated_properties is None:
             invalidated_properties = list()
@@ -227,8 +226,7 @@ class DBusObject(object, metaclass=ABCMeta):
             error_name = inspect.getmodule(e).__name__ + "." + type(e).__name__
             msg = str(e)
             if e.stderr:
-                stderr = GLib.markup_escape_text(e.stderr.strip())
-                msg += f" Command output:\n\n<tt>{stderr}</tt>"
+                msg += f" Command output:\n\n{e.stderr.strip()}"
             invocation.return_dbus_error(error_name, msg)
         except Exception as e:
             logger.exception(e)

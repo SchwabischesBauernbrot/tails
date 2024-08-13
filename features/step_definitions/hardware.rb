@@ -42,6 +42,22 @@ Then /^I see a disk failure message$/ do
   @screen.wait('GnomeDiskFailureMessage.png', 10)
 end
 
+Then /^I see an error about (disk partitioning|GPT header|system partition resizing)$/ do |reason|
+  error_message_prefix = 'Something went wrong when starting your Tails USB stick' \
+    ' for the first time: '
+  reason_to_message = {
+    'disk partitioning'         => '',
+    'GPT header'                => 'the GPT header is corrupted',
+    'system partition resizing' => 'resizing the system partition failed',
+  }
+  error_message = error_message_prefix + reason_to_message[reason]
+  try_for(30) do
+    Dogtail::Application.new('zenity')
+                        .children(roleName: 'label')
+                        .any? { |n| n.text.include?(error_message) }
+  end
+end
+
 Then /^I see a disk failure message on the splash screen$/ do
   @screen.wait('PlymouthDiskFailureMessage.png', 60)
 end

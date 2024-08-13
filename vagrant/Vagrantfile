@@ -46,13 +46,13 @@ Vagrant.configure('2') do |config|
       domain.cpu_mode = 'host-passthrough'
     end
     domain.emulator_path = '/usr/bin/qemu-system-x86_64'
+    cpus = ENV['TAILS_BUILD_CPUS'].to_i
     domain.memory = if ENV['TAILS_RAM_BUILD']
-                      VM_MEMORY_FOR_RAM_BUILDS
+                      vm_memory_for_ram_builds(cpus)
                     else
-                      VM_MEMORY_FOR_DISK_BUILDS
+                      vm_memory_for_disk_builds(cpus)
                     end
-    cpus = ENV['TAILS_BUILD_CPUS']
-    domain.cpus = cpus unless cpus.nil?
+    domain.cpus = cpus
     if ENV['TAILS_PROXY_TYPE'] == 'vmproxy'
       domain.storage(
         :file, size: '15G', allow_existing: true,

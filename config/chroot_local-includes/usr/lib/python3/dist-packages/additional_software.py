@@ -6,6 +6,7 @@ import logging
 import os
 import os.path
 import tempfile
+import uuid
 from pathlib import Path
 import pwd
 import re
@@ -152,10 +153,13 @@ def notify(
         urgent = ""
 
     try:
+        unit_name = "tails-additional-software-notify-" + str(uuid.uuid4())
         success_exit_codes = (0, 3, 4, 5)
         completed_process = subprocess.run(  # noqa: PLW1510
             [  # noqa: S603
                 "/usr/local/lib/run-with-user-env",
+                "--transient-systemd-scope",
+                unit_name,
                 cmd,
                 title,
                 body,

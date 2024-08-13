@@ -256,7 +256,7 @@ class StepChooseBridgeMixin:
             )
             self.builder.get_object("step_bridge_persistence_help_box").show()
 
-    def _step_bridge_is_text_valid(self, text: Optional[str] = None) -> bool:
+    def _step_bridge_is_text_valid(self, text: str | None = None) -> bool:
         def set_warning(msg):
             self.get_object("label_warning").set_label(msg)
             self.get_object("box_warning").show()
@@ -930,7 +930,7 @@ class TCAMainWindow(
     StepErrorMixin,
     StepProxyMixin,
 ):
-    STEPS_ORDER = ["offline", "hide", "bridge", "proxy", "error", "progress"]
+    STEPS_ORDER = ("offline", "hide", "bridge", "proxy", "error", "progress")
 
     # l10n {{{
     def get_translation_domain(self):
@@ -999,7 +999,7 @@ class TCAMainWindow(
 
         self.stack = builder.get_object("box_main_container_stack")
         for step in self.STEPS_ORDER:
-            box = builder.get_object("step_{}_box".format(step))
+            box = builder.get_object(f"step_{step}_box")
             box.show()
             self.stack.add_named(box, step)
 
@@ -1040,7 +1040,7 @@ class TCAMainWindow(
         text.get_buffer().set_text(content, len(content))
 
     @property
-    def user_wants_hide(self) -> Optional[bool]:
+    def user_wants_hide(self) -> bool | None:
         """
         If the user decided already: returns what they decided, as a boolean.
 
@@ -1101,7 +1101,7 @@ class TCAMainWindow(
 
         This is a shortcut over self.builder.get_object which takes steps into account
         """
-        return self.builder.get_object("step_%s_%s" % (self.state["step"], name))
+        return self.builder.get_object("step_{}_{}".format(self.state["step"], name))
 
     def cb_window_delete_event(self, widget, event, user_data=None):
         if self.state["step"] != "progress" or self.state["progress"]["success"]:
@@ -1166,7 +1166,7 @@ class TCAMainWindow(
             f"Status: up={up} disable_network={disable_network}, working={tor_working}, step={step}"
         )
 
-        def _get_right_step() -> Optional[str]:
+        def _get_right_step() -> str | None:
             """
             Return the step we need to go to.
 

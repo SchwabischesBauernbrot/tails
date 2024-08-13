@@ -6,7 +6,8 @@ from pathlib import Path
 import time
 import re
 import stat
-from typing import Optional, Callable
+from typing import Optional
+from collections.abc import Callable
 
 import psutil
 from gi.repository import GLib, UDisks, Gio
@@ -301,7 +302,7 @@ class TPSPartition:
     @classmethod
     def create(
         cls,
-        job: Optional[Job],
+        job: Job | None,
         passphrase: str,
         parent_device: Optional["BootDevice"] = None,
     ) -> "TPSPartition":
@@ -317,7 +318,7 @@ class TPSPartition:
         num_steps = 7
         current_step = 0
 
-        def next_step(description: Optional[str] = None):
+        def next_step(description: str | None = None):
             if not job:
                 return
             nonlocal current_step
@@ -353,7 +354,7 @@ class TPSPartition:
         mem_cost_kib = min(mem_cost_kib, DESIRED_PBKDF_MEMORY_KIB)
 
         # Create the partition
-        logger.info("Creating partition")
+        logger.info(f"Creating partition on {parent_device.device_path}")
         next_step(_("Creating a partition for the Persistent Storage..."))
         partition_table = parent_device.partition_table
         object_path = partition_table.call_create_partition_sync(
@@ -457,7 +458,7 @@ class TPSPartition:
             )
         )
 
-    def test_passphrase(self, passphrase: str, header_file: Optional[Path] = None):
+    def test_passphrase(self, passphrase: str, header_file: Path | None = None):
         """Try to unlock the encrypted partition with the given passphrase."""
         cmd = [
             "cryptsetup",
@@ -839,7 +840,7 @@ class CleartextDevice:
                 )
             )
 
-    def get_dm_name(self) -> Optional[str]:
+    def get_dm_name(self) -> str | None:
         udisks_devno = self.block.props.device_number
         out = executil.check_output(["dmsetup", "ls", "-o", "devno"])
         for line in out.strip().split("\n"):
@@ -857,7 +858,7 @@ class CleartextDevice:
 
 
 def wait_for_udisks_object(
-    device_path: str, func: Callable[..., Optional[object]], *args, timeout: int = 20
+    device_path: str, func: Callable[..., object | None], *args, timeout: int = 20
 ) -> object:
     """Repeatedly call `udevadm trigger` and then func() until func()
     returns a udisks object or timeout is reached."""

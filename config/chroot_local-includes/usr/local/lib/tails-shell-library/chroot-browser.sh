@@ -1,7 +1,5 @@
 #!/bin/sh
 
-NEW_INCLUDES_DIR=/mnt/config/chroot_local-includes
-
 if [ "$(whoami)" != "root" ]; then
     echo "This library is useless for non-root users. Exiting..." >&2
     exit 1
@@ -33,19 +31,15 @@ try_cleanup_browser_chroot () {
         findmnt --output TARGET --list --submounts "${chroot}" | tail -n+2 | tac
     )"
     for mnt in ${chroot_mounts} "${cow}"; do
-        try_for 10 "umount ${mnt} 2>/dev/null" 0.1
+        try_for 10 "umount ${mnt} 2>/dev/null" 0.1 || true
     done
-    rmdir "${cow}/rw" "${cow}/work" "${cow}" "${chroot}"
+    rmdir "${cow}/rw" "${cow}/work" "${cow}" "${chroot}" || true
 }
 
 # Setup a chroot on a clean overlayfs "fork" of the root filesystem.
 setup_chroot_for_browser () {
     local chroot="${1}"
     local cow="${2}"
-
-    local cleanup_cmd="try_cleanup_browser_chroot \"${chroot}\" \"${cow}\""
-    # shellcheck disable=SC2064
-    trap "${cleanup_cmd}" INT EXIT
 
     local rootfs_dir
     local rootfs_dirs_path="/lib/live/mount/rootfs"
@@ -62,16 +56,6 @@ setup_chroot_for_browser () {
     done < "${tails_module_path}"
     # Remove the trailing colon
     lowerdirs=${lowerdirs%?}
-
-    # If the early_patch boot parameter is used, we also overlay the
-    # /mnt/config/chroot_local-includes directory over the chroot, so
-    # we can easily test changes to the runtime without having to rebuild
-    # the squashfs filesystem. This is only used for development.
-    if grep -qw early_patch /proc/cmdline; then
-      if [ -d "${NEW_INCLUDES_DIR}" ]; then
-        lowerdirs="${NEW_INCLUDES_DIR}:${lowerdirs}"
-      fi
-    fi
 
     mkdir -p "${cow}" "${chroot}"
 
@@ -193,7 +177,6 @@ set_chroot_browser_name () {
        if [ ! -d "${torbutton_locale_dir}" ]; then
           torbutton_locale_dir="chrome/torbutton/locale/en-US"
        fi
-       sed -i "s/<"'!'"ENTITY\s\+brand\(Full\|Product\|Short\|Shorter\)Name.*$/<"'!'"ENTITY brand\1Name \"${human_readable_name}\">/" "${torbutton_locale_dir}/brand.dtd"
        sed --regexp-extended -i \
            "s/-brand-(full|short|shorter|product)-name = .*$/-brand-\1-name = ${human_readable_name}/" \
 	   "${torbutton_locale_dir}/branding/brand.ftl"
