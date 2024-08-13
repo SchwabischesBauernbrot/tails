@@ -564,7 +564,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             self.persistence_setting.is_created
             and self.persistence_setting.can_unlock
             and not self.persistence_setting.is_unlocked
-            and not self.persistence_setting.failed_with_unexpected_error
+            and not self.persistence_setting.failed_with_unrecoverable_error
         ):
             response = self.confirm_dialog.run()
             self.confirm_dialog.set_visible(False)

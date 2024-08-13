@@ -40,7 +40,7 @@ class PersistentStorageSettings:
     """Controller for settings related to Persistent Storage"""
 
     def __init__(self) -> None:
-        self.failed_with_unexpected_error = False
+        self.failed_with_unrecoverable_error = False
         self.cleartext_name = "TailsData_unlocked"
         self.cleartext_device = "/dev/mapper/" + self.cleartext_name
         self.service_proxy = Gio.DBusProxy.new_sync(
@@ -111,13 +111,16 @@ class PersistentStorageSettings:
             if tps_errors.IncorrectPassphraseError.is_instance(err):
                 raise tailsgreeter.errors.WrongPassphraseError from err
 
+            # All of the following errors are considered unrecoverable
+            # (so we don't ask the user to unlock before starting Tails)
+            self.failed_with_unrecoverable_error = True
+
             if tps_errors.IOErrorsDetectedError.is_instance(err):
                 raise tailsgreeter.errors.IOErrorsDetectedError from err
 
             if tps_errors.FilesystemErrorsLeftUncorrectedError.is_instance(err):
                 raise tailsgreeter.errors.FilesystemErrorsLeftUncorrectedError from err
 
-            self.failed_with_unexpected_error = True
             raise tailsgreeter.errors.PersistentStorageError(
                 _("Error unlocking Persistent Storage: {}").format(err)
             ) from err
@@ -142,7 +145,7 @@ class PersistentStorageSettings:
         except GLib.GError as err:
             if tps_errors.IncorrectPassphraseError.is_instance(err):
                 raise tailsgreeter.errors.WrongPassphraseError from err
-            self.failed_with_unexpected_error = True
+            self.failed_with_unrecoverable_error = True
             raise tailsgreeter.errors.PersistentStorageError(
                 _("Error upgrading Persistent Storage: {}").format(err)
             ) from err
@@ -173,7 +176,7 @@ class PersistentStorageSettings:
                     "Failed to activate some features of the Persistent Storage: {features}."
                 ).format(features=", ".join(features))
                 raise tailsgreeter.errors.FeatureActivationFailedError(msg) from err
-            self.failed_with_unexpected_error = True
+            self.failed_with_unrecoverable_error = True
             raise tailsgreeter.errors.PersistentStorageError(
                 _("Error activating Persistent Storage: {}").format(err)
             ) from err
