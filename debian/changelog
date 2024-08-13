@@ -2,13 +2,348 @@ tails (6.7) UNRELEASED; urgency=medium
 
   * Dummy entry for next release.
 
- -- groente <groente@puscii.nl>  Tue, 18 Jun 2024 12:45:17 +0200
+ -- intrigeri <intrigeri@boum.org>  Tue, 13 Aug 2024 12:13:49 +0000
 
-tails (6.6) UNRELEASED; urgency=medium
+tails (6.6) unstable; urgency=medium
 
-  * Dummy entry for next release.
+  * Upgrade Thunderbird to1:115.14.0-1~deb12u1
 
- -- anonym <anonym@riseup.net>  Tue, 16 Jul 2024 15:40:01 +0200
+  * Upgrade Tor Browser to 13.5.2 (tails/tails!1651)
+
+    Closes issues:
+      - Upgrade to Tor Browser based on Firefox ESR 115.14 (tails/tails#20446)
+
+    Commits:
+      - Upgrade Tor Browser to 13.5.2 (refs: tails#20446)
+
+  * Fix connecting with default Tor bridges (tails/tails!1614)
+
+    Closes issues:
+      - Cannot connect using default bridges in 6.5 (tails/tails#20467)
+
+    Commits:
+      - Adjust extraction of default bridges to Tor Browser 13.5
+
+  * Test suite: write Chutney's default bridges after Chutney is fully working
+    (tails/tails!1646)
+
+    Closes issues:
+      - Test suite tries to retrieve info about PTs before they are registered (on some
+        computers) (tails/tails#20493)
+
+    Commits:
+      - Appease rubocop
+      - Test suite: 'the network is plugged' step requires the remote shell to be up
+      - Appease rubocop
+      - Test suite: write Chutney's default bridges after Chutney is fully working
+        (refs: tails#20493)
+      - Test suite: get the Chutney default bridge port from torrc instead of
+        notice.log
+      - Test suite: also wait for bridges to be ready before considering Chutney to be
+        started
+
+  * Upgrade kernel to 6.1.99-1 (tails/tails!1636)
+
+    Closes issues:
+      - Upgrade to Linux 6.1.99-1 (DSA 5731-1) (tails/tails#20464)
+
+    Commits:
+      - Upgrade kernel to 6.1.99-1
+
+  * asp: Fix Tor Browser not opened when "Documentation" button is clicked
+    (tails/tails!1654)
+
+    Closes issues:
+      - Post-6.5 regression: tails-documentation fails when run from tails-additional-
+        software-notify (tails/tails#20500)
+
+    Commits:
+      - asp: Fix Tor Browser not opened when "Documentation" button is clicked
+
+  * Test suite: wait a bit longer for PersistentStorageNotUnlocked.png
+    (tails/tails!1652)
+
+    Closes issues:
+      - Test suite: does not wait long enough for PersistentStorageNotUnlocked.png
+        (tails/tails#20501)
+
+    Commits:
+      - Test suite: wait a bit longer for PersistentStorageNotUnlocked.png
+
+  * Make first-boot partitioning more robust: write the random seed only up to 500
+    times (tails/tails!1648)
+
+    Commits:
+      - Fix typo
+      - Make first-boot partitioning more robust: write the random seed only up to 500
+        times
+
+  * Lint some TorConnection code (tails/tails!1644)
+
+    Commits:
+      - fix UP007
+      - ruff reformat
+      - ruff --fix tca-portal
+      - ruff: tca/ui/
+      - ruff: fix files to be changed in !1632
+      - make class attribute immutable
+
+  * Update Chutney to a version that works with Python 3.12 (tails/tails!1641)
+
+    Closes issues:
+      - Test suite: Chutney is broken on Python 3.12 (tails/tails#20444)
+
+    Commits:
+      - Test suite: remove obsolete comment
+      - Update Chutney to a version that works with Python 3.12
+
+  * Remove unused import (tails/chutney!3)
+
+    Commits:
+      - Remove unused import
+
+  * Test suite: allow the pattern to cover a bit less of the write cache
+    (tails/tails!1640)
+
+    Commits:
+      - Test suite: allow the pattern to cover less of the write cache
+
+  * Fix GNOME Shell segfault due to setenv after starting threads
+    (tails/tails!1635)
+
+    Closes issues:
+      - gnome-shell crashes due to segmentation fault due to setenv after starting
+        threads (tails/tails#20333)
+
+    Commits:
+      - Enable the 20333-fix-gnome-shell-segfault APT overlay (refs: #20333).
+
+  * Build system: don't OOM during mksquashfs on systems with many CPUs
+    (tails/tails!1634)
+
+    Closes issues:
+      - Building in RAM FTBFS due to oom (tails/tails#20459)
+
+    Commits:
+      - Update the memory options section in the build instructions (refs: tails#20459)
+      - Build system: consolidate memory sanity checks into a task that vm:up depends
+        on
+      - Build system: unconditionally default to in-RAM building
+      - Revert "Update the Vagrant basebox for any change under vagrant/."
+      - Drop useless code for not being able to determine the number of CPUs
+      - Build system: bump RAM based on number of CPUs to avoid OOM during mksquashfs
+
+  * Resolve "Experimental arti support in Tor Connection" (tails/tails!1632)
+
+    Commits:
+      - fixup! Arti: start via NetworkManager hook instead of during boot
+      - Revert "Ferm: drop access to onion-grater from veth-tbb"
+      - Don't start arti automatically, only through TCA
+      - Trace the arti hook for debugging purposes
+      - Verify that we get an ELF executable when downloading arti
+      - Use curl's --fail-with-body when fetching arti
+      - ruff format new code
+      - Adjust to new typing
+      - Add missing argument
+      - start arti when connecting in easy mode
+      - remove useless code
+      - arti can be started through tca-portal
+
+  * Test suite: Bump the time we wait before checking memory poisoning
+    (tails/tails!1630)
+
+    Closes issues:
+      - Scenario "Erasure of memory freed by killed userspace processes" is fragile
+        (tails/tails#20354)
+
+    Commits:
+      - Test suite: be explicit about why we wait and when
+      - Test suite: Bump the time we wait before checking memory poisoning
+
+  * Additional Software config: don't break when virtual packages are listed in
+    live-additional-software.conf (tails/tails!1626)
+
+    Closes issues:
+      - Additional Software config app fails when virtual packages are listed in live-
+        additional-software.conf (tails/tails#20477)
+
+    Commits:
+      - ruff format
+      - Additional Software config: handle the case when a package is available with no
+        candidate
+
+  * Increase timeout for unlock & fsck of the Persistent Storage (tails/tails!1625)
+
+    Closes issues:
+      - e2fsck takes more than 2 minutes ⇒ time out ⇒ breaks activation
+        (tails/tails#20475)
+
+    Commits:
+      - ruff format
+      - Increase timeout for unlock & fsck of the Persistent Storage
+
+  * Upgrade firmware-nonfree to 20240709-1 (tails/tails!1624)
+
+    Closes issues:
+      - Upgrade firmware-nonfree to  20240709-1 (tails/tails#20462)
+
+    Commits:
+      - Upgrade firmware-nonfree to 20240709-1
+      - Fix package name
+      - Don't install syslinux-efi anymore
+      - Drop obsolete comment
+      - Give up on maintaining list of callers
+      - Install new firmware packages
+      - Stop deleting files that are not installed anymore
+      - Bump APT snapshot of the 'debian' archive to 2024072302
+
+  * Fix devel branch FTBFS with firmware-nonfree 20240610-1 (tails/tails!1623)
+
+    Commits:
+      - Stop deleting files that are not installed anymore
+
+  * Fix overly slow build of Vagrant basebox (tails/tails!1622)
+
+    Closes issues:
+      - Building Vagrant baseboxes is extremely slow (tails/tails#20458)
+
+    Commits:
+      - Vagrant basebox build: mount the usual Linux virtual filesystems in the chroot
+
+  * Document tooling for evaluating vulnerabilities (tails/tails!1617)
+
+    Closes issues:
+      - Document tooling for evaluating vulnerabilities (tails/tails#20469)
+
+    Commits:
+      - ruff format
+      - Update doc to match current script location, fix grammar
+      - code lint
+      - Explain useful tooling for CVEs
+      - emergency release process: more sub-headings
+      - change storage directory
+      - add more filtering options
+      - add nvd-info.py: crawls and search in NVD
+
+  * Report broken GPT errors (tails/tails!1611)
+
+    Closes issues:
+      - First boot partitioning sometimes yields broken backup GPT, non-resized
+        filesystem, and tpsd fails to create Persistent Storage (tails/tails#20163)
+
+    Commits:
+      - apply shfmt to .../init-premount/partitioning
+      - fix test suite string
+      - add new test about partitioning errors
+      - Message is not displayed: adapt test
+      - partitioning-corruption not reported to the user
+      - partitioning-corruption deprioritized
+      - fix typo in file name
+      - fix instances of #20401 again
+      - fix typo
+      - Fix Ruff CI
+      - Fix scenario description; move it to better place
+      - correct error description
+      - move verify_partition_table out of first_boot_repartition
+      - more readable
+      - remove dead code
+      - safe navigation: thread could be nil
+      - Test error when GPT backup header is corrupt
+      - Report details about reason
+      - make comment more specific
+      - Fix issue with partition table verification
+      - Report any error during first boot repartitioning
+      - Mention that corrupt GPT can also break fatresize
+      - tps: Log which device we try to create the partition on
+      - Verify GPT after first boot repartitioning
+
+  * Fix Unsafe Browser not starting when early_patch is used (tails/tails!1610)
+
+    Closes issues:
+      - Unsafe Browser doesn't start when early_patch is used (tails/tails#20395)
+
+    Commits:
+      - Fix typo in comment
+      - Document limitation of early_patch vs. Unsafe Browser
+      - Revert "early_patch: Support making local changes available in Unsafe Browser
+        chroot"
+
+  * tps-frontend: Fix opening documentation causing window to freeze
+    (tails/tails!1596)
+
+    Closes issues:
+      - tps-frontend: Opening documentation causes tps-frontend to hang
+        (tails/tails#20438)
+
+    Commits:
+      - Add comment
+      - Ruff format
+      - tps-frontend: Re-use open_documentation code
+      - tps-frontend: Fix opening documentation causing window to freeze
+
+  * Delete obsolete default wired Network Manager system connection
+    (tails/tails!1593)
+
+    Commits:
+      - Revert "Set required permissions for NM system connections."
+      - Delete obsolete default wired Network Manager system connection
+
+  * Fix Unsafe Browser starting if chroot setup fails (tails/tails!1590)
+
+    Closes issues:
+      - Unsafe Browser continues starting if chroot setup fails (tails/tails#20431)
+
+    Commits:
+      - try_cleanup_browser_chroot: clean up other mountpoints even if we can't unmount
+        1 of them
+      - Don't try to localize strings in non-existent files
+      - Simplify
+      - Fix Unsafe Browser starting if chroot setup fails
+      - Remove user ID from stackoverflow URL
+
+  * Tails Cloner: Avoid 30 second sleep (tails/tails!1589)
+
+    Commits:
+      - Cloner: Avoid 30 second sleep
+
+  * Test suite: Also stream boot log over the virtio channel (tails/tails!1558)
+
+    Commits:
+      - Test suite: Also stream boot log over the virtio channel
+
+  * Add timestamps to xtrace output in initramfs scripts (tails/tails!1545)
+
+    Commits:
+      - Add timestamps to log messages in initramfs scripts
+      - Add timestamps to xtrace output in initramfs scripts
+      - read-and-update-random-seed-sector: Fix restoration of debug output
+
+  * Install systemd-oomd and configure it to be less aggressive than the default
+    (tails/tails!1518)
+
+    Closes issues:
+      - Consider using systemd-oomd (tails/tails#19454)
+      - Warn the user when available RAM / memory is low (tails/tails#7782)
+      - Reconsider error-prone use of tuples vs. lists in tca-portal
+        (tails/tails#19317)
+
+    Commits:
+      - ruff: target Bookworm's Python
+      - Remove config for black
+      - Add minimal configuration to enable "mypy ." to check our source tree
+      - Don't import unused stuff
+      - Apply linting suggested by ruff
+      - ruff format
+      - Apply linting suggested by ruff
+      - run-with-env: don't import unused variable
+      - tca-portal: don't assign to method
+      - tca-portal: finish the move to tuples
+      - tca-portal: start user-facing apps as transient systemd user scopes
+      - Tell systemd-oomd to avoid killing gnome-shell
+      - Bump memory pressure limit for user@1000.service
+      - Reapply "Install systemd-oomd"
+
+ -- Tails developers <tails@boum.org>  Mon, 12 Aug 2024 09:06:12 +0000
 
 tails (6.5) unstable; urgency=medium
 
@@ -6655,7 +6990,7 @@ tails (5.8) unstable; urgency=medium
   * Fix FTBFS: refresh patch (tails/tails!965)
 
     Closes #19297
-  
+
     Commits:
       - Fix FTBFS: refresh patch
 
