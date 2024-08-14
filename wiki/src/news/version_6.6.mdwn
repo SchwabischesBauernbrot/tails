@@ -12,6 +12,18 @@
 - Update [many](https://salsa.debian.org/kernel-team/firmware-nonfree/-/blob/master/debian/changelog?ref_type=heads) firmware packages. This improves the support for newer hardware:
   graphics, Wi-Fi, and so on.
 
+- Detect new types of errors when resizing the system partition
+  fails (the first time Tails is started) and report the following error message.
+
+  <p class="code">
+  Something went wrong when starting your Tails USB stick for the first time:<br>
+  resizing the system partition failed
+  <br><br>
+  It will be impossible to create a Persistent Storage or apply automatic upgrades.
+  </p>
+
+  Affected users can try to install Tails again or use a different USB stick.
+
 <h1 id="fixes">Fixed problems</h1>
 
 ### Persistent Storage
