@@ -139,6 +139,11 @@ apply_changes() {
   fi
 }
 
+# Usage: bind_include src [dest]
+#
+# Bind-mounts src (in your Git checkout) to dest (inside Tails
+# filesystem). If dest is not given it is derived from src. If src
+# does not exist, dest is removed.
 bind_include() {
   local tails_path src dest
   tails_path="${1#"${INCLUDES_DIR}"}"
@@ -225,6 +230,11 @@ bind_include() {
   mount --bind "${src}" "${dest}"
 }
 
+# Usage: copy_include src [dest]
+#
+# Copies src (in your Git checkout) to dest (inside Tails
+# filesystem). If dest is not given it is derived from src. If src
+# does not exist, dest is removed.
 copy_include() {
   local tails_path src dest
   tails_path="${1#"${INCLUDES_DIR}"}"
