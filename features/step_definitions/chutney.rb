@@ -1,3 +1,6 @@
+class ChutneyBootstrapFailure < StandardError
+end
+
 def chutney_status_log(cmd)
   action = case cmd
            when 'start'
@@ -110,7 +113,11 @@ def wait_until_chutney_is_working
   initialize_chutney
 
   # Documentation: submodules/chutney/README, "Waiting for the network" section
-  chutney_cmd('wait_for_bootstrap')
+  begin
+    chutney_cmd('wait_for_bootstrap')
+  rescue CommandFailed => e
+    raise ChutneyBootstrapFailure, e.message
+  end
 
   # We have to sanity check that all nodes are running because
   # `chutney start` will return success even if some nodes fail.

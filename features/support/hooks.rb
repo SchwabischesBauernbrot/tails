@@ -358,7 +358,7 @@ After('@product') do |scenario|
     elsif scenario.exception.is_a?(TestSuiteRuntimeError)
       info_log("Scenario must be retried: #{scenario.name}")
       record_scenario_skipped(scenario)
-    elsif [TorBootstrapFailure, TimeSyncingError].any? \
+    elsif [ChutneyBootstrapFailure, TorBootstrapFailure, TimeSyncingError].any? \
           { |c| scenario.exception.is_a?(c) }
       if File.exist?("#{$config['TMPDIR']}/chutney-data")
         chutney_logs = sanitize_filename(
