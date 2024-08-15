@@ -32,12 +32,12 @@ def chutney_env
   }
 end
 
-def chutney_cmd(cmd)
+def chutney_cmd(cmd, **opts)
   chutney_script = "#{GIT_DIR}/features/scripts/chutney"
   network_definition = "#{GIT_DIR}/features/chutney/test-network"
   chutney_status_log(cmd)
   cmd = 'stop' if cmd == 'stop_old'
-  cmd_helper([chutney_script, cmd, network_definition], env: chutney_env)
+  cmd_helper([chutney_script, cmd, network_definition], env: chutney_env, **opts)
 end
 
 def chutney_data_dir_cleanup
@@ -114,9 +114,14 @@ def wait_until_chutney_is_working
 
   # Documentation: submodules/chutney/README, "Waiting for the network" section
   begin
-    chutney_cmd('wait_for_bootstrap')
+    chutney_cmd('wait_for_bootstrap', suppress_output: true)
   rescue CommandFailed => e
-    raise ChutneyBootstrapFailure, e.message
+    # raise ChutneyBootstrapFailure.new(e.message)
+
+    # The output from this command is massive, so let's just keep the
+    # last status report from the failed command's output.
+    message = "#{e.message}\n#{e.command_output[/^Bootstrap failed:.*/m]}"
+    raise ChutneyBootstrapFailure, message
   end
 
   # We have to sanity check that all nodes are running because
