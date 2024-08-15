@@ -172,8 +172,8 @@ unless defined? CHECKPOINTS
     Given step_regex do
       reach_checkpoint(name)
     rescue StandardError => e
-      debug_log("    Generated snapshot step failed with exception:\n" \
-                "      #{e.class}: #{e}\n", color: :red, timestamp: false)
+      debug_log("    Generated snapshot step failed with exception: #{e.class}",
+                color: :red, timestamp: false)
       raise e
     end
   end
