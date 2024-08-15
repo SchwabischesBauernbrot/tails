@@ -39,38 +39,14 @@ stop_and_disable_NM() {
 }
 
 notify_panic_success() {
-    local nic nic_name is_wifi is_wired title text
+    local nic nic_name is_wifi is_wired title text other_wifi_cards other_wired_cards
     nic="${1}"
     # Print the NIC name with quotes
     nic_name="\"${2}\""
     is_wifi="${3}"
     is_wired="${4}"
-
-    interfaces=$(ip link show | awk -F: '/^[0-9]+: [a-z]/ {print $2}' | tr -d ' ')
-
-    # Check if there are other WiFi or wired cards
-    local other_wifi_cards other_wired_cards
-    if [ "${is_wifi:-}" = true ]; then
-        for interface in ${interfaces}; do
-            if [ "${interface}" = "${1}" ]; then
-                continue
-            fi
-            if iw dev "${interface}" info 2>/dev/null; then
-                other_wifi_cards=true
-                break
-            fi
-        done
-    elif [ "${is_wired:-}" = true ]; then
-        for interface in ${interfaces}; do
-            if [ "${interface}" = "${1}" ] || [ "${interface}" = "lo" ]; then
-                continue
-            fi
-            if ethtool "${interface}" 2>/dev/null; then
-                other_wired_cards=true
-                break
-            fi
-        done
-    fi
+    other_wifi_cards="${5}"
+    other_wired_cards="${6}"
 
     if [ "${is_wifi:-}" = true ] && [ "${other_wifi_cards:-}" = true ]; then
       title=$(eval_gettext "Wi-Fi Interface Disabled")
@@ -99,9 +75,14 @@ notify_panic_failure() {
     nic="${1}"
     # Print the NIC name with quotes
     nic_name="\"${2}\""
+    other_nics="${3}"
     title=$(gettext "All Networking Disabled")
-    text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces. The error recovery also failed, so all networking is disabled.")
-    text="${text}\n\n${nic}: ${nic_name}"
+    if [ "${other_nics:-}" = true ]; then
+      text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces. The error recovery also failed, so all networking is disabled.")
+      text="${text}\n\n${nic}: ${nic_name}"
+    else
+      text=$(eval_gettext "MAC address anonymization failed for your network interfaces. The error recovery also failed, so all networking is disabled.")
+    fi
     printf "%s\n%s" "${title}" "${text}" > "${MAC_SPOOFING_FAILED_STATE_FILE}"
 }
 
@@ -127,16 +108,47 @@ mac_spoof_panic() {
         is_wired=true
     fi
 
+    interfaces=$(ip link show | awk -F: '/^[0-9]+: [a-z]/ {print $2}' | tr -d ' ')
+
+    # Check if there are other WiFi or wired cards
+    local other_wifi_cards other_wired_cards
+    if [ "${is_wifi:-}" = true ]; then
+        for interface in ${interfaces}; do
+            if [ "${interface}" = "${1}" ]; then
+                continue
+            fi
+            if iw dev "${interface}" info 2>/dev/null; then
+                other_wifi_cards=true
+                break
+            fi
+        done
+    elif [ "${is_wired:-}" = true ]; then
+        for interface in ${interfaces}; do
+            if [ "${interface}" = "${1}" ] || [ "${interface}" = "lo" ]; then
+                continue
+            fi
+            if ethtool "${interface}" 2>/dev/null; then
+                other_wired_cards=true
+                break
+            fi
+        done
+    fi
+    local other_nics
+    if [ "${other_wifi_cards:-}" = true ] || [ "${other_wired_cards:-}" = true ]; then
+        other_nics=true
+    fi
+
     echo "install ${module} /bin/true" >> \
          /etc/modprobe.d/"${module}"-blocklist.conf
     unload_module_and_rev_deps "${module}" || :
     if nic_exists "${nic}"; then
         log "Failed to unload module ${module} of NIC ${nic}."
         stop_and_disable_NM
-        notify_panic_failure "${nic}" "${nic_name}"
+        notify_panic_failure "${nic}" "${nic_name}" "${other_nics:-}"
     else
         log "Successfully unloaded module ${module} of NIC ${nic}."
-        notify_panic_success "${nic}" "${nic_name}" "${is_wifi:-}" "${is_wired:-}"
+        notify_panic_success "${nic}" "${nic_name}" "${is_wifi:-}" "${is_wired:-}" \
+                             "${other_wifi_cards:-}" "${other_wired_cards:-}"
     fi
 }
 
