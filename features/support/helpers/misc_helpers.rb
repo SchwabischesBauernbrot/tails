@@ -307,9 +307,15 @@ end
 # Raised when cmd_helper() ran a command that exited with non-zero
 # status
 class CommandFailed < StandardError
+  attr_reader :command_output
+
+  def initialize(message, command_output)
+    super(message)
+    @command_output = command_output
+  end
 end
 
-def cmd_helper(cmd, env: {})
+def cmd_helper(cmd, env: {}, suppress_output: false)
   if cmd.instance_of?(Array)
     cmd << { err: [:child, :out] }
   elsif cmd.instance_of?(String)
@@ -321,7 +327,9 @@ def cmd_helper(cmd, env: {})
     Process.wait(p.pid)
     ret = $CHILD_STATUS
     if ret.exitstatus != 0
-      raise CommandFailed, "Command failed (#{ret}): #{cmd}:\n#{out}"
+      message = "Command failed (#{ret}): #{cmd}"
+      message += ":\n#{out}" unless suppress_output
+      raise CommandFailed.new(message, out)
     end
     return out
   end
