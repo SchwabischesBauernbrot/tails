@@ -57,7 +57,7 @@ def initialize_chutney
   begin
     cmd_helper(['pkill', '--full', '--exact',
                 "tor -f #{chutney_env['CHUTNEY_DATA_DIR']}/nodes/.*/torrc --quiet",])
-  rescue StandardError
+  rescue CommandFailed
     # Nothing to kill
   end
 
@@ -69,7 +69,7 @@ def initialize_chutney
     end
     begin
       chutney_cmd('start')
-    rescue Test::Unit::AssertionFailedError => e
+    rescue CommandFailed => e
       if File.directory?(chutney_env['CHUTNEY_DATA_DIR'])
         raise e, %{#{e.message}
 

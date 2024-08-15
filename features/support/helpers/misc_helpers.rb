@@ -304,6 +304,11 @@ def convert_from_bytes(size, unit)
   size.to_f / convert_bytes_mod(unit)
 end
 
+# Raised when cmd_helper() ran a command that exited with non-zero
+# status
+class CommandFailed < StandardError
+end
+
 def cmd_helper(cmd, env: {})
   if cmd.instance_of?(Array)
     cmd << { err: [:child, :out] }
@@ -315,7 +320,9 @@ def cmd_helper(cmd, env: {})
     out = p.read
     Process.wait(p.pid)
     ret = $CHILD_STATUS
-    assert_equal(0, ret, "Command failed (returned #{ret}): #{cmd}:\n#{out}")
+    if ret.exitstatus != 0
+      raise CommandFailed, "Command failed (#{ret}): #{cmd}:\n#{out}"
+    end
     return out
   end
 end

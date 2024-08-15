@@ -65,10 +65,10 @@ end
 # state, and we return the empty string.
 def describe_git_head
   cmd_helper("git describe --tags --exact-match #{current_commit}".split).strip
-rescue Test::Unit::AssertionFailedError
+rescue CommandFailed
   begin
     current_branch
-  rescue Test::Unit::AssertionFailedError
+  rescue CommandFailed, Test::Unit::AssertionFailedError
     ''
   end
 end
