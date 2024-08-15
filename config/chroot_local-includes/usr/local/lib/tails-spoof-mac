@@ -108,7 +108,7 @@ mac_spoof_panic() {
         is_wired=true
     fi
 
-    interfaces=$(ip link show | awk -F: '/^[0-9]+: [a-z]/ {print $2}' | tr -d ' ')
+    interfaces=$(ip link show | grep -o "^[0-9]\+: \w\+" | awk -F': ' '{print $2}')
 
     # Check if there are other WiFi or wired cards
     local other_wifi_cards other_wired_cards
