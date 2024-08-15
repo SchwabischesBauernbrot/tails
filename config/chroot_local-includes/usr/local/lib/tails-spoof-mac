@@ -52,7 +52,7 @@ notify_panic_success() {
     local other_wifi_cards other_wired_cards
     if [ "${is_wifi:-}" = true ]; then
         for interface in ${interfaces}; do
-            if [ "${interface}" != "${1}" ]; then
+            if [ "${interface}" = "${1}" ]; then
                 continue
             fi
             if iw dev "${interface}" info 2>/dev/null; then
