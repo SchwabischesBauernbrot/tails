@@ -451,13 +451,7 @@ After('@product') do |scenario|
       info_log
       info_log_artifact_location(desc, artifact_path)
     end
-    if config_bool('INTERACTIVE_DEBUGGING')
-      pause(
-        "Scenario failed: #{scenario.name}. " \
-        "The error was: #{scenario.exception.class.name}: #{scenario.exception}",
-        exception: scenario.exception
-      )
-    end
+    pause('Interactive debugging') if config_bool('INTERACTIVE_DEBUGGING')
   elsif @video_path && File.exist?(@video_path) && !config_bool('CAPTURE_ALL')
     FileUtils.rm(@video_path)
   end
