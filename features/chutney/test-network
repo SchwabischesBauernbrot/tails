@@ -29,7 +29,8 @@ ExitRelay = Node(
 Client = Node(
     tag="client",
     client=1,
-    torrc="client.tmpl"
+    torrc="client.tmpl",
+    launch_phase=2
 )
 
 Bridge = Node(
