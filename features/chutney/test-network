@@ -36,21 +36,24 @@ Bridge = Node(
     tag="bridge",
     bridge=1,
     relay=1,
-    torrc="bridge.tmpl"
+    torrc="bridge.tmpl",
+    launch_phase=2
 )
 
 BridgeObfs4 = Node(
     tag="obfs4",
     bridge=1,
     relay=1,
-    torrc="bridge-obfs4.tmpl"
+    torrc="bridge-obfs4.tmpl",
+    launch_phase=2
 )
 
 BridgeDefault = Node(
     tag="defbr",
     bridge=1,
     relay=1,
-    torrc="bridge-obfs4.tmpl"
+    torrc="bridge-obfs4.tmpl",
+    launch_phase=2
 )
 
 NODES = Authority.getN(3) + \
