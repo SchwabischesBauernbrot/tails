@@ -743,8 +743,8 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             text=_(
                 """Errors were detected in the file system of your Persistent Storage.
                 
-Tails can try to fix these errors, but this might take a long time, not all data might be recoverable, and it might make it harder to further recover your data.
-                
+Tails can try to fix these errors, but this might erase some of your data and take a long time.
+
 If you already have an up-to-date backup of your Persistent Storage, we recommend that you try to repair.
                 
 If you don't have a backup, we recommend that you create a backup first."""
