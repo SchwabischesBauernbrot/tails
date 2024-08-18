@@ -17,16 +17,13 @@ def set_passphrase_strength_hint(progress_bar: Gtk.ProgressBar, passhrase: str):
             strength = 0.01
         return strength
 
-
     def set_progress_bar_class(class_name: str):
         # Remove other classes
         for c in progress_bar_style_context.list_classes():
             progress_bar_style_context.remove_class(c)
         progress_bar_style_context.add_class(class_name)
 
-    progress_bar_style_context = (
-        progress_bar.get_style_context()
-    )  # type: Gtk.StyleContext
+    progress_bar_style_context = progress_bar.get_style_context()  # type: Gtk.StyleContext
 
     if len(passhrase) == 0:
         hint = ""
