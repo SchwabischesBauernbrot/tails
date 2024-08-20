@@ -1731,8 +1731,7 @@ end
 
 Then(/^the Welcome Screen tells me that filesystem errors were found on the Persistent Storage$/) do
   try_for(60) do
-    greeter.child?('Failed to unlock the Persistent Storage due to file system errors.',
-                   roleName: 'label') && \
+    greeter.child?('File System Errors', roleName: 'label') && \
       greeter.child?('Repair File System', roleName: 'push button')
   end
 end
