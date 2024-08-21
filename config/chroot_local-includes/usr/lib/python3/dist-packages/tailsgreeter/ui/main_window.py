@@ -451,9 +451,10 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                     "Start Tails to send an error report and learn how to recover your data."
                 ),
             )
-            # XXX: Actually open WhisperBack and some documentation on
-            #      how to recover data after Tails has started
             self.on_tps_activation_failed(label)
+            self.open_prefilled_whisperback_after_login(
+                "fsck", "Failed to repair the file system of your Persistent Storage"
+            )
 
         def on_tps_repair_success():
             dialog.response(Gtk.ResponseType.OK)
