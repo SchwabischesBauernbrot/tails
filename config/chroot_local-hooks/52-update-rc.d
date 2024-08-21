@@ -44,6 +44,7 @@ systemctl --global enable tails-create-persistent-storage.service
 systemctl --global enable tails-htpdate-notify-user.service
 systemctl --global enable tails-dump-user-env.service
 systemctl --global enable tails-start-system-gnome-session-target.service
+systemctl --global enable tails-post-greeter-docs.service
 
 # This causes the proxies to run during the whole session, instead of
 # being started and stopped when needed. The only app which needs

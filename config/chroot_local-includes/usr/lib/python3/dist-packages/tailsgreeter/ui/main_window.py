@@ -492,6 +492,10 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         if response == Gtk.ResponseType.OK:
             self.unlock_tps(forceful_fsck=True)
 
+    def open_help_after_login(self, doc: str):
+        with open("/var/lib/gdm3/post-greeter-docs.url", "w") as f:
+            f.write(doc)
+
     @staticmethod
     def open_help_window(page: str) -> GreeterHelpWindow:
         def localize_page(page: str) -> str:
