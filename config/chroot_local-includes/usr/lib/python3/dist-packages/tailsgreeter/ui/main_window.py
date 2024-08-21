@@ -747,6 +747,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             _("Start Tails to learn how to recover your data."),
         )
         self.on_tps_activation_failed(label)
+        self.open_help_after_login("doc/persistent_storage/recover")
 
     def cb_unlock_failed_with_filesystem_errors(self):
         logging.debug("Persistent Storage unlock failed due to file system errors")
