@@ -167,6 +167,7 @@ Feature: Tails persistence
     And I corrupt the Persistent Storage filesystem on USB drive "__internal"
     When I enable persistence
     Then the filesystem of the Persistent Storage was repaired
+    And persistence is successfully enabled
 
   Scenario: Manual filesystem repair
     Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
