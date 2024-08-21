@@ -18,6 +18,7 @@ import logging
 import threading
 from typing import TYPE_CHECKING
 import gi
+import json
 import os
 
 import tailsgreeter  # NOQA: E402
@@ -491,6 +492,16 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
 
         if response == Gtk.ResponseType.OK:
             self.unlock_tps(forceful_fsck=True)
+
+    def open_prefilled_whisperback_after_login(self, app: str, summary: str):
+        with open("/var/lib/gdm3/post-greeter-whisperback.json", "w") as f:
+            json.dump(
+                {
+                    "app": app,
+                    "summary": summary,
+                },
+                f,
+            )
 
     def open_help_after_login(self, doc: str):
         with open("/var/lib/gdm3/post-greeter-docs.url", "w") as f:
