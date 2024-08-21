@@ -781,8 +781,7 @@ If you don't have a backup, we recommend that you create a backup first."""
                 "Start Tails to learn how to create a backup of your Persistent Storage."
             )
             self.on_tps_activation_failed(label)
-            # XXX: Actually open some documentation on how to create a backup
-            #      using ddrescue after Tails has started
+            self.open_help_after_login('doc/persistent_storage/recover/ddrescue')
             return
         elif response == Gtk.ResponseType.OK:
             self.repair_tps_filesystem()
