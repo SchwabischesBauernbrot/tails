@@ -407,8 +407,23 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                 # on_tps_upgrading() above.
                 self.label_storage_unlock_status.set_label(_("Unlocking…"))
 
+                # If unlocking takes a long time we assume it is
+                # because the filesystem integrity check is taking a
+                # long time and give that as feedback to the user.
+                def cb_unlocking_is_slow():
+                    self.label_storage_unlock_status.set_label(
+                        _("Checking the file system…")
+                    )
+                    # Only run this callback once when passed to GLib.timeout_add*()
+                    return False
+
+                timeout_cb_id = GLib.timeout_add_seconds(5, cb_unlocking_is_slow)
+
                 # Then, unlock the storage
-                self.persistence_setting.unlock(passphrase, forceful_fsck)
+                try:
+                    self.persistence_setting.unlock(passphrase, forceful_fsck)
+                finally:
+                    GLib.source_remove(timeout_cb_id)
                 GLib.idle_add(self.cb_tps_unlocked)
             except WrongPassphraseError:
                 GLib.idle_add(self.cb_tps_unlock_failed_with_incorrect_passphrase)
