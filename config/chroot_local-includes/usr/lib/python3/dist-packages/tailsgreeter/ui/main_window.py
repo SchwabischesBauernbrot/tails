@@ -403,6 +403,10 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                         logging.error(e)
                         self.tps_upgrade_failed = True
 
+                # Reset the label in case it was altered by
+                # on_tps_upgrading() above.
+                self.label_storage_unlock_status.set_label(_("Unlocking…"))
+
                 # Then, unlock the storage
                 self.persistence_setting.unlock(passphrase, forceful_fsck)
                 GLib.idle_add(self.cb_tps_unlocked)
