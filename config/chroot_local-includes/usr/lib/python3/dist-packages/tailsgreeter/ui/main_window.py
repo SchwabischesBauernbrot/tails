@@ -40,6 +40,7 @@ from tailsgreeter.ui.additional_settings import AdditionalSetting
 from tailsgreeter.ui.message_dialog import MessageDialog
 from tailsgreeter.ui.help_window import GreeterHelpWindow
 from tailsgreeter.ui.region_settings import LocalizationSettingUI
+from tailsgreeter.utils import glib_idle_add_once
 from tailsgreeter import TRANSLATION_DOMAIN
 from tps import InvalidBootDeviceErrorType
 
@@ -395,7 +396,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                 # to upgrade)
                 if not self.persistence_setting.is_upgraded and not forceful_fsck:
                     try:
-                        GLib.idle_add(self.on_tps_upgrading)
+                        glib_idle_add_once(self.on_tps_upgrading)
                         self.persistence_setting.upgrade_luks(passphrase)
                     except PersistentStorageError as e:
                         # We continue unlocking the storage even if the upgrade
@@ -424,21 +425,21 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                     self.persistence_setting.unlock(passphrase, forceful_fsck)
                 finally:
                     GLib.source_remove(timeout_cb_id)
-                GLib.idle_add(self.cb_tps_unlocked)
+                glib_idle_add_once(self.cb_tps_unlocked)
             except WrongPassphraseError:
-                GLib.idle_add(self.cb_tps_unlock_failed_with_incorrect_passphrase)
+                glib_idle_add_once(self.cb_tps_unlock_failed_with_incorrect_passphrase)
             except IOErrorsDetectedError:
-                GLib.idle_add(self.cb_tps_unlock_failed_with_io_errors)
+                glib_idle_add_once(self.cb_tps_unlock_failed_with_io_errors)
             except FilesystemErrorsLeftUncorrectedError:
                 if forceful_fsck:
                     # We already tried to unlock the storage with a forceful fsck
                     # and it still failed, so we give up
-                    GLib.idle_add(self.on_tps_unlock_failed)
+                    glib_idle_add_once(self.on_tps_unlock_failed)
                 else:
-                    GLib.idle_add(self.cb_unlock_failed_with_filesystem_errors)
+                    glib_idle_add_once(self.cb_unlock_failed_with_filesystem_errors)
             except PersistentStorageError as e:
                 logging.error(e)
-                GLib.idle_add(self.on_tps_unlock_failed)
+                glib_idle_add_once(self.on_tps_unlock_failed)
                 return
 
         unlocking_thread = threading.Thread(target=do_unlock_tps, args=(forceful_fsck,))
@@ -495,10 +496,10 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         def do_repair_tps_filesystem():
             try:
                 self.persistence_setting.repair_filesystem()
-                GLib.idle_add(on_tps_repair_success)
+                glib_idle_add_once(on_tps_repair_success)
             except PersistentStorageError as e:
                 logging.error(e)
-                GLib.idle_add(on_tps_repair_failed)
+                glib_idle_add_once(on_tps_repair_failed)
 
         repair_thread = threading.Thread(target=do_repair_tps_filesystem)
         repair_thread.start()

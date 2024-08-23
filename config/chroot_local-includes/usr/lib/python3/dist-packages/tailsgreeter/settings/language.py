@@ -31,6 +31,7 @@ from tailsgreeter.settings.localization import (
     add_encoding,
 )
 from tailsgreeter.settings.utils import read_settings, write_settings
+from tailsgreeter.utils import glib_idle_add_once
 
 gi.require_version("GLib", "2.0")
 gi.require_version("GObject", "2.0")
@@ -227,7 +228,7 @@ class LanguageSetting(LocalizationSetting):
             # the language is actually applied.
             #     AccountsService-WARNING **: 19:29:39.181: SetLanguage for language de_DE.UTF-8 failed:
             #     GDBus.Error:org.freedesktop.Accounts.Error.PermissionDenied: Not authorized
-            GLib.idle_add(lambda: self._user_account.set_language(normalized_code))
+            glib_idle_add_once(lambda: self._user_account.set_language(normalized_code))
         else:
             logging.warning("AccountsManager not ready")
 
