@@ -186,3 +186,6 @@ Feature: Tails persistence
     And Tails detects disk read failures on the boot device
     When I try to enable persistence
     Then the Welcome Screen tells me that my hardware is probably failing
+    When I log in to a new session
+    Then the Tor Browser starts
+    And "Tails - Recovering the Persistent Storage of a broken Tails" has loaded in the Tor Browser
