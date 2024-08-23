@@ -181,15 +181,15 @@ class PersistentStorageSettings:
                 _("Error activating Persistent Storage: {}").format(err)
             ) from err
 
-    def repair_filesystem(self):
-        """Do a forceful filesystem check (e2fsck -f -y) on the Persistent
+    def abort_repair_filesystem(self):
+        """Abort any ongoing filesystem check on the Persistent
         Storage.
 
         Raises PersistentStorageError if something went wrong."""
 
         try:
             self.service_proxy.call_sync(
-                method_name="RepairFilesystem",
+                method_name="AbortRepairFilesystem",
                 parameters=None,
                 flags=Gio.DBusCallFlags.NONE,
                 # GLib.MAXINT (largest 32-bit signed integer) disables
@@ -198,5 +198,34 @@ class PersistentStorageSettings:
             )
         except GLib.GError as err:
             raise tailsgreeter.errors.PersistentStorageError(
-                _("Error repairing Persistent Storage filesystem: {}").format(err)
+                _(
+                    "Failed to abort when repairing Persistent Storage filesystem: {}"
+                ).format(err)
             ) from err
+
+    def repair_filesystem(self, finish_callback: callable) -> Gio.Cancellable:
+        """Asynchronously start a forceful filesystem check (e2fsck -f -y)
+        on the Persistent Storage.
+
+        The finish_callback is called once the operation has finished
+        and will receive any errors raised during the operation.
+
+        Returns a Gio.Cancellable so the caller can abort the
+        filesystem check by calling its cancel() method.
+
+        Raises PersistentStorageError if something went wrong."""
+
+        cancellable = Gio.Cancellable()
+
+        self.service_proxy.call(
+            method_name="RepairFilesystem",
+            parameters=None,
+            flags=Gio.DBusCallFlags.NONE,
+            # GLib.MAXINT (largest 32-bit signed integer) disables
+            # the timeout
+            timeout_msec=GLib.MAXINT,
+            cancellable=cancellable,
+            callback=finish_callback,
+        )
+
+        return cancellable

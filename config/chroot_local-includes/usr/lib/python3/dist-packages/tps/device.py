@@ -5,6 +5,7 @@ import tempfile
 from pathlib import Path
 import time
 import re
+import signal
 import stat
 from typing import Optional
 from collections.abc import Callable
@@ -23,6 +24,7 @@ from tps.dbus.errors import (
     TargetIsBusyError,
     NotEnoughMemoryError,
     FilesystemErrorsLeftUncorrectedError,
+    FilesystemRepairAborted,
 )
 from tps.job import Job
 
@@ -743,6 +745,7 @@ class CleartextDevice:
             raise InvalidCleartextDeviceError("Device is not a block device")
         self.device_path = self.block.props.device
         self.mount_point = Path(TPS_MOUNT_POINT)
+        self.fsck_process = None
 
     def is_mounted(self):
         p = executil.run(
@@ -761,6 +764,7 @@ class CleartextDevice:
         p.check_returncode()
 
     def fsck(self, forceful: bool = False):
+        assert self.fsck_process is None
         if forceful:
             # Assume an answer of `yes' to all questions, i.e.
             # tell e2fsck to try to fix all errors which it asks
@@ -771,22 +775,24 @@ class CleartextDevice:
             mode = "-p"
 
         try:
-            executil.check_call(
-                [
-                    "e2fsck",
-                    # Force checking even if the file system seems clean:
-                    # some filesystems are corrupted in a way that fsck
-                    # won't spot it without this option, and then mount
-                    # will fail.
-                    "-f",
-                    mode,
-                    self.device_path,
-                ]
-            )
-        except subprocess.CalledProcessError as e:
+            cmd = [
+                "e2fsck",
+                # Force checking even if the file system seems clean:
+                # some filesystems are corrupted in a way that fsck
+                # won't spot it without this option, and then mount
+                # will fail.
+                "-f",
+                mode,
+                self.device_path,
+            ]
+            logger.info(f"Executing command {' '.join(cmd)}", stacklevel=3)
+            p = subprocess.Popen(cmd, stderr=subprocess.PIPE, text=True)
+            self.fsck_process = p
+            p.communicate()
+            logger.debug(f"Done executing command {' '.join(cmd)}", stacklevel=3)
             # e2fsck returns a sum, so we need to use bitwise AND to
             # check the exit code.
-            if e.returncode & 4:
+            if p.returncode & 4:
                 # Exit code 4 means "File system errors left uncorrected".
                 # We can try to fix them by running e2fsck again with `-y`
                 # instead of `-p`, but that is a potentially destructive
@@ -797,12 +803,27 @@ class CleartextDevice:
                 # decided on #15451 that we still want to try to fix the
                 # errors before trying to mount, because mounting a
                 # corrupted filesystem might cause further data loss.
-                raise FilesystemErrorsLeftUncorrectedError from e
-            elif e.returncode == 1:
+                raise FilesystemErrorsLeftUncorrectedError(
+                    f"e2fsck could not correct all errors, returned {p.returncode}"
+                )
+            elif p.returncode == 1:
                 # Exit code 1 means "File system errors corrected".
                 logger.info("e2fsck corrected file system errors")
+            elif p.returncode == -15:
+                # -15 = SIGTERM
+                raise FilesystemRepairAborted("e2fsck was aborted by the user")
             else:
-                logger.warning("e2fsck returned %i", e.returncode)
+                logger.warning("e2fsck returned %i", p.returncode)
+        finally:
+            self.fsck_process = None
+
+    def abort_fsck(self):
+        if self.fsck_process is None:
+            return
+        try:
+            self.fsck_process.send_signal(signal.SIGTERM)
+        finally:
+            self.fsck_process = None
 
     def mount(self, forceful_fsck: bool = False):
         # Ensure that the mount point exists

@@ -47,7 +47,7 @@ from tps import InvalidBootDeviceErrorType
 gi.require_version("Gdk", "3.0")
 gi.require_version("Gtk", "3.0")
 gi.require_version("Handy", "1")
-from gi.repository import Gdk, Gtk, GdkPixbuf, Handy, GLib  # noqa: E402
+from gi.repository import Gdk, GdkPixbuf, Gio, GLib, Gtk, Handy  # noqa: E402
 
 Handy.init()
 
@@ -450,6 +450,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             message_type=Gtk.MessageType.INFO,
             title=_("Repairing the File System"),
             text=_("This might take a long time..."),
+            cancel_label=_("Cancel"),
         )
         dialog.set_transient_for(self)
         # Add a spinner to the dialog, next to the secondary label
@@ -493,26 +494,28 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             dialog_.run()
             dialog_.destroy()
 
-        def do_repair_tps_filesystem():
+        def on_tps_repair_finished(proxy: Gio.DBusProxy, res: Gio.AsyncResult):
             try:
-                self.persistence_setting.repair_filesystem()
+                proxy.call_finish(res)
+            except GLib.GError as err:
+                logging.error(err)
+                if err.matches(Gio.io_error_quark(), Gio.IOErrorEnum.CANCELLED):
+                    self.persistence_setting.abort_repair_filesystem()
+                    self.on_tps_activation_failed(_("Filesystem repair aborted"))
+                else:
+                    glib_idle_add_once(on_tps_repair_failed)
+            else:
                 glib_idle_add_once(on_tps_repair_success)
-            except PersistentStorageError as e:
-                logging.error(e)
-                glib_idle_add_once(on_tps_repair_failed)
 
-        repair_thread = threading.Thread(target=do_repair_tps_filesystem)
-        repair_thread.start()
+        cancellable = self.persistence_setting.repair_filesystem(on_tps_repair_finished)
 
-        # The response is DELETE_EVENT if the dialog is closed via the
-        # Escape key, in which case we want to keep the dialog open.
-        response = Gtk.ResponseType.DELETE_EVENT
-        while response == Gtk.ResponseType.DELETE_EVENT:
-            response = dialog.run()
+        response = dialog.run()
         dialog.destroy()
 
         if response == Gtk.ResponseType.OK:
             self.unlock_tps(forceful_fsck=True)
+        elif response in [Gtk.ResponseType.DELETE_EVENT, Gtk.ResponseType.CANCEL]:
+            cancellable.cancel()
 
     def open_prefilled_whisperback_after_login(self, app: str, summary: str):
         with open("/var/lib/gdm3/post-greeter-whisperback.json", "w") as f:

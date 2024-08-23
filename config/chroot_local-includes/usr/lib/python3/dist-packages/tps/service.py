@@ -101,6 +101,7 @@ class Service(DBusObject, ServiceUsingJobs):
                     <arg name='passphrase' direction='in' type='s'/>
                 </method>
                 <method name='RepairFilesystem'/>
+                <method name='AbortRepairFilesystem'/>
                 <property name="State" type="s" access="read" />
                 <property name="Error" type="u" access="read" />
                 <property name="IsCreated" type="b" access="read"/>
@@ -126,6 +127,7 @@ class Service(DBusObject, ServiceUsingJobs):
         self.bus_id = None
         self.features: list[Feature] = []
         self._tps_partition = None  # type: Optional[TPSPartition]
+        self._cleartext_device = None
         self._device = ""
         self.state = State.UNKNOWN
         self._error: int = 0
@@ -523,13 +525,35 @@ class Service(DBusObject, ServiceUsingJobs):
             raise NotCreatedError("No Persistent Storage found") from e
 
         try:
-            cleartext_device = partition.get_cleartext_device()
+            self._cleartext_device = partition.get_cleartext_device()
         except PartitionNotUnlockedError as e:
             raise NotUnlockedError("Persistent Storage is not unlocked") from e
 
-        cleartext_device.fsck(forceful=True)
+        try:
+            self._cleartext_device.fsck(forceful=True)
+        finally:
+            self._cleartext_device = None
 
         logger.info("Done repairing filesystem")
+
+    def AbortRepairFilesystem(self):
+        """Abort any ongoing filesystem check of the Persistent
+        Storage"""
+
+        if (
+            self._cleartext_device is None
+            or self._cleartext_device.fsck_process is None
+        ):
+            logger.warning(
+                "Attempted to abort reparation of filesystem while none was running"
+            )
+            return
+
+        logger.info("Aborting reparation of filesystem")
+
+        self._cleartext_device.abort_fsck()
+
+        logger.info("Done aborting reparation of filesystem")
 
     # ----- Exported properties ----- #
 
