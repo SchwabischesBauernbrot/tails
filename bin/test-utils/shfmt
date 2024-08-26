@@ -17,11 +17,7 @@ usage() {
 shfmtArgs=(--indent 4)
 
 check() {
-    if [ -n "$(shfmt "${shfmtArgs[@]}" -l "$1")" ]; then
-        echo "$1"
-        return 1
-    fi
-    return 0
+    shfmt "${shfmtArgs[@]}" --diff "$1"
 }
 
 check_all() {
