@@ -23,6 +23,7 @@ from tps.dbus.errors import (
     IncorrectPassphraseError,
     TargetIsBusyError,
     NotEnoughMemoryError,
+    FilesystemRepairFailure,
     FilesystemErrorsLeftUncorrectedError,
     FilesystemRepairAborted,
 )
@@ -790,9 +791,17 @@ class CleartextDevice:
             self.fsck_process = p
             p.communicate()
             logger.debug(f"Done executing command {' '.join(cmd)}", stacklevel=3)
+            if p.returncode == 0:
+                return
+            elif p.returncode == 1:
+                # Exit code 1 means "File system errors corrected".
+                logger.info("e2fsck corrected file system errors")
+            elif p.returncode == -15:
+                # -15 = SIGTERM
+                raise FilesystemRepairAborted("e2fsck was aborted by the user")
             # e2fsck returns a sum, so we need to use bitwise AND to
             # check the exit code.
-            if p.returncode & 4:
+            elif p.returncode & 4:
                 # Exit code 4 means "File system errors left uncorrected".
                 # We can try to fix them by running e2fsck again with `-y`
                 # instead of `-p`, but that is a potentially destructive
@@ -806,14 +815,8 @@ class CleartextDevice:
                 raise FilesystemErrorsLeftUncorrectedError(
                     f"e2fsck could not correct all errors, returned {p.returncode}"
                 )
-            elif p.returncode == 1:
-                # Exit code 1 means "File system errors corrected".
-                logger.info("e2fsck corrected file system errors")
-            elif p.returncode == -15:
-                # -15 = SIGTERM
-                raise FilesystemRepairAborted("e2fsck was aborted by the user")
             else:
-                logger.warning("e2fsck returned %i", p.returncode)
+                raise FilesystemRepairFailure(f"e2fsck returned {p.returncode}")
         finally:
             self.fsck_process = None
 

@@ -79,10 +79,13 @@ class FeatureActivationFailedError(DBusError):
     name = "org.boum.tails.PersistentStorage.Error.FeatureActivationFailedError"
 
 
-class FilesystemErrorsLeftUncorrectedError(DBusError):
+class FilesystemRepairFailure(DBusError):
+    name = "org.boum.tails.PersistentStorage.Error.FilesystemRepairFailure"
+
+class FilesystemErrorsLeftUncorrectedError(FilesystemRepairFailure):
     name = "org.boum.tails.PersistentStorage.Error.FilesystemErrorsLeftUncorrectedError"
 
-class FilesystemRepairAborted(DBusError):
+class FilesystemRepairAborted(FilesystemRepairFailure):
     name = "org.boum.tails.PersistentStorage.Error.FilesystemRepairAborted"
 
 class IOErrorsDetectedError(DBusError):
