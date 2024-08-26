@@ -371,3 +371,10 @@ pref("mail.identity.default.encryptionpolicy", 2);
 // email. Attaching the key bloats the email (especially keys that
 // have many signatures) but also leaks who sent email when using Schleuder's remailing functionality.
 pref("mail.identity.default.attachPgpKey", false);
+
+// Clean mailbox server-side
+// delete messages from server regardless if POP3 or IMAP is set as protocol for accounts
+// delete POP3 messages from server when moved for example when moved to trash in Thunderbird
+// delete IMAP messages from server when deleted or marked for deletion in Thunderbird
+pref("mail.pop3.deleteFromServerOnMove", true);
+pref("mail.imap.expunge_after_delete", true);
