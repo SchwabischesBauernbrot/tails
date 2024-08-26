@@ -507,15 +507,16 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             else:
                 glib_idle_add_once(on_tps_repair_success)
 
+        def on_repairing_dialog_response(dialog, response):
+            dialog.destroy()
+            if response == Gtk.ResponseType.OK:
+                self.unlock_tps(forceful_fsck=True)
+            else:
+                cancellable.cancel()
+
         cancellable = self.persistence_setting.repair_filesystem(on_tps_repair_finished)
-
-        response = dialog.run()
-        dialog.destroy()
-
-        if response == Gtk.ResponseType.OK:
-            self.unlock_tps(forceful_fsck=True)
-        elif response in [Gtk.ResponseType.DELETE_EVENT, Gtk.ResponseType.CANCEL]:
-            cancellable.cancel()
+        dialog.connect("response", on_repairing_dialog_response)
+        dialog.show_all()
 
     def open_prefilled_whisperback_after_login(self, app: str, summary: str):
         with open("/var/lib/gdm3/post-greeter-whisperback.json", "w") as f:
@@ -795,25 +796,28 @@ If you don't have a backup, we recommend that you create a backup first."""
             destructive=True,
         )
         dialog.set_transient_for(self)
-        response = dialog.run()
-        dialog.destroy()
 
-        # The REJECT response is not used by GTK by default, so we use
-        # it for the "Create Backup" button out of better options.
-        if response == Gtk.ResponseType.REJECT:
-            label = _(
-                "Start Tails to learn how to create a backup of your Persistent Storage."
-            )
-            self.on_tps_activation_failed(label)
-            self.open_help_after_login('doc/persistent_storage/recover/ddrescue')
-            return
-        elif response == Gtk.ResponseType.OK:
-            self.repair_tps_filesystem()
-        else:
-            label = _(
-                "Failed to unlock the Persistent Storage due to file system errors."
-            )
-            self.on_tps_activation_failed(label)
+        def on_fs_errors_dialog_response(dialog, response):
+            dialog.destroy()
+            # The REJECT response is not used by GTK by default, so we use
+            # it for the "Create Backup" button out of better options.
+            if response == Gtk.ResponseType.REJECT:
+                label = _(
+                    "Start Tails to learn how to create a backup of your Persistent Storage."
+                )
+                self.on_tps_activation_failed(label)
+                self.open_help_after_login("doc/persistent_storage/recover/ddrescue")
+                return
+            elif response == Gtk.ResponseType.OK:
+                self.repair_tps_filesystem()
+            else:
+                label = _(
+                    "Failed to unlock the Persistent Storage due to file system errors."
+                )
+                self.on_tps_activation_failed(label)
+
+        dialog.connect("response", on_fs_errors_dialog_response)
+        dialog.show_all()
 
     def on_tps_upgrade_failed(self):
         label = _(
