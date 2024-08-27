@@ -108,7 +108,7 @@ SERVICES_EXPECTED_ON_ALL_IFACES =
   [
     ['cups-browsed', IPAddr.new('0.0.0.0'),    631],
     ['onion-grater', IPAddr.new('0.0.0.0'),    951],
-    ['tor',          IPAddr.new('10.200.1.1'), 9050],
+    ['arti',         IPAddr.new('10.200.1.1'), 9050],
   ].freeze
 SERVICES_ALLOWED_FOR_LIVE_USER =
   [
