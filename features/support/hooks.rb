@@ -451,7 +451,9 @@ After('@product') do |scenario|
       info_log
       info_log_artifact_location(desc, artifact_path)
     end
-    pause('Interactive debugging') if config_bool('INTERACTIVE_DEBUGGING')
+    if config_bool('INTERACTIVE_DEBUGGING')
+      pause('Interactive debugging', exception: scenario.exception)
+    end
   elsif @video_path && File.exist?(@video_path) && !config_bool('CAPTURE_ALL')
     FileUtils.rm(@video_path)
   end
