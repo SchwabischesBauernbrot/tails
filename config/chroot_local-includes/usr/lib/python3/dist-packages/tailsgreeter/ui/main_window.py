@@ -501,7 +501,14 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                 logging.error(err)
                 if err.matches(Gio.io_error_quark(), Gio.IOErrorEnum.CANCELLED):
                     self.persistence_setting.abort_repair_filesystem()
-                    self.on_tps_activation_failed(_("Filesystem repair aborted"))
+                    self.on_tps_activation_failed(
+                        _(
+                            "You aborted the repair of the file system. You can "
+                            "either start Tails without Persistent Storage or restart "
+                            "the computer to try repairing the file system again."
+                        )
+                    )
+
                 else:
                     glib_idle_add_once(on_tps_repair_failed)
             else:
