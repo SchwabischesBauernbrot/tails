@@ -55,7 +55,7 @@ def check_output(cmd: list, *args, **kwargs) -> str:
     return p.stdout
 
 
-def execute_hooks(hooks_dir: Union[str, PathLike]):
+def execute_hooks(hooks_dir: str | PathLike):
     """
     Execute all regular files in the specified directory, in (locale) lexicographic order.
 
