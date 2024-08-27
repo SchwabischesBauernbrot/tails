@@ -91,7 +91,6 @@ class LanguageSetting(LocalizationSetting):
 
         for lang_code, language_name in self.language_names_per_language.items():
             print(f"{lang_code}: {language_name}")
-            language_name = self._language_name(lang_code)
             if not language_name:
                 # Don't display languages without a name
                 continue
