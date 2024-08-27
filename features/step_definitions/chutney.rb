@@ -46,6 +46,7 @@ def chutney_data_dir_cleanup
   end
 end
 
+# rubocop:disable Metrics/MethodLength
 def initialize_chutney
   # Ensure that a fresh chutney instance is running, and that it will
   # be cleaned upon exit. We only do it once, though, since the same
@@ -57,11 +58,37 @@ def initialize_chutney
   # are about to use. If chutney's data dir also was removed, this
   # will prevent chutney from starting the network unless the tor
   # processes are killed manually.
-  begin
-    cmd_helper(['pkill', '--full', '--exact',
-                "tor -f #{chutney_env['CHUTNEY_DATA_DIR']}/nodes/.*/torrc --quiet",])
-  rescue CommandFailed
-    # Nothing to kill
+  if File.directory?(chutney_env['CHUTNEY_DATA_DIR'])
+    chutney_cmd('stop_old')
+  else
+    args = [
+      '--full',
+      '--exact',
+      "tor -f #{chutney_env['CHUTNEY_DATA_DIR']}/nodes/.*/torrc --quiet",
+    ]
+    begin
+      cmd_helper(['pkill', *args])
+    rescue CommandFailed
+      # Nothing to kill
+    else
+      begin
+        try_for(30) do
+          assert_raise(CommandFailed) { cmd_helper(['pgrep', *args]) }
+          true
+        end
+      rescue Timeout::Error
+        begin
+          cmd_helper(['pkill', '-KILL', *args])
+        rescue CommandFailed
+          # Nothing to kill
+        else
+          try_for(30) do
+            assert_raise(CommandFailed) { cmd_helper(['pgrep', *args]) }
+            true
+          end
+        end
+      end
+    end
   end
 
   if KEEP_CHUTNEY
@@ -93,7 +120,6 @@ want to delete Chutney's data directory and all test suite snapshots:
       end
     end
   else
-    chutney_cmd('stop_old')
     chutney_data_dir_cleanup
     chutney_cmd('configure')
     chutney_cmd('start')
@@ -106,6 +132,7 @@ want to delete Chutney's data directory and all test suite snapshots:
 
   $chutney_initialized = true
 end
+# rubocop:enable Metrics/MethodLength
 
 def wait_until_chutney_is_working
   return if $chutney_working
