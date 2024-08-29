@@ -50,6 +50,14 @@ module Dogtail
         end
 
         a11y_bus = c.stdout.strip
+
+        cmd = "busctl --address=#{a11y_bus} tree"
+        c = RemoteShell::ShellCommand.new($vm, cmd, user:      @opts[:user],
+                                                    debug_log: false)
+        if c.returncode != 0
+          debug_log('Could not connect to a11y bus with busctl (tails#20263)')
+        end
+
         init = [
           'import os',
           "os.environ['AT_SPI_BUS_ADDRESS'] = '#{a11y_bus}'",
