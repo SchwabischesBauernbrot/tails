@@ -185,9 +185,15 @@ class PythonSession:
         try:
             return_str = _get_output()
         except timeout_decorator.TimeoutError:
+            exited = self.process.poll() is not None
             self.process.terminate()
             self.process.wait()
-            exc_str = f"Python process timed out after {timeout} seconds"
+            if exited:
+                exc_str = (
+                    f"Python process exited unexpectedly with {self.process.returncode}"
+                )
+            else:
+                exc_str = f"Python process timed out after {timeout} seconds"
             out_str = self.process.stdout.read()
             err_str = self.process.stderr.read()
             return exc_str, out_str, err_str
