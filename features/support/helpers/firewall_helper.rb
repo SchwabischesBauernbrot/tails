@@ -1,4 +1,5 @@
 require 'packetfu'
+require "#{GIT_DIR}/lib/ruby/vendor/packetfu/icmpv6.rb"
 require 'net/dns'
 
 def looks_like_icmpv6_packet?(packet)

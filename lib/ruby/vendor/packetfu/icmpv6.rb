@@ -7,8 +7,8 @@ require 'packetfu/protos/eth/mixin'
 require 'packetfu/protos/ipv6/header'
 require 'packetfu/protos/ipv6/mixin'
 
-require 'packetfu/icmpv6/header'
-require 'packetfu/icmpv6/mixin'
+require "#{GIT_DIR}/lib/ruby/vendor/packetfu/icmpv6/header.rb"
+require "#{GIT_DIR}/lib/ruby/vendor/packetfu/icmpv6/mixin.rb"
 
 module PacketFu
 
