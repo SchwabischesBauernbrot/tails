@@ -1,6 +1,16 @@
 require 'packetfu'
 require 'net/dns'
 
+def looks_like_icmpv6_packet?(packet)
+  packet.instance_of?(PacketFu::ICMPv6Packet) || (
+    # PacketFu doesn't supported ICMPv6's embedded MLDv2 protocol
+    packet.instance_of?(PacketFu::IPv6Packet) &&
+    packet.ipv6_daddr == 'ff02::16' && # Sent to all MLDv2-capable routers
+    packet.payload[0].ord == 58 &&     # Type ICMPv6
+    packet.payload[8].ord == 143       # Type MLDv2
+  )
+end
+
 def looks_like_dhcp_packet?(packet)
   packet.instance_of?(PacketFu::UDPPacket) &&
     packet.udp_sport == 68 &&
@@ -64,6 +74,7 @@ end
 def pcap_connections_helper(pcap_file,
                             ignore_arp: true,
                             ignore_dhcp: true,
+                            ignore_icmpv6: true,
                             ignore_sources: [$vm.vmnet.bridge_mac])
   connections = []
   PacketFu::PcapFile.new.file_to_array(filename: pcap_file).map do |pcap_packet|
@@ -78,6 +89,7 @@ def pcap_connections_helper(pcap_file,
 
     next if ignore_arp && packet.instance_of?(PacketFu::ARPPacket)
     next if ignore_dhcp && looks_like_dhcp_packet?(packet)
+    next if ignore_icmpv6 && looks_like_icmpv6_packet?(packet)
     next if ignore_sources.include?(packet.eth_saddr)
 
     connections << connection_info(packet)
