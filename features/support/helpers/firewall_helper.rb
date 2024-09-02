@@ -22,10 +22,10 @@ end
 # rubocop:disable Metrics/CyclomaticComplexity
 # rubocop:disable Metrics/MethodLength
 # rubocop:disable Metrics/PerceivedComplexity
-def pcap_connections_helper(pcap_file, **opts)
-  opts[:ignore_dhcp] = true unless opts.key?(:ignore_dhcp)
-  opts[:ignore_arp] = true unless opts.key?(:ignore_arp)
-  opts[:ignore_sources] ||= [$vm.vmnet.bridge_mac]
+def pcap_connections_helper(pcap_file,
+                            ignore_arp: true,
+                            ignore_dhcp: true,
+                            ignore_sources: [$vm.vmnet.bridge_mac])
   connections = []
   packets = PacketFu::PcapFile.new.file_to_array(filename: pcap_file)
   packets.each do |p|
@@ -68,11 +68,11 @@ def pcap_connections_helper(pcap_file, **opts)
             'Found something that cannot be parsed'
     end
 
-    next if opts[:ignore_dhcp] &&
+    next if ignore_dhcp &&
             looks_like_dhcp_packet?(eth_packet, protocol,
                                     sport, dport, ip_packet)
-    next if opts[:ignore_arp] && protocol == 'arp'
-    next if opts[:ignore_sources].include?(eth_packet.eth_saddr)
+    next if ignore_arp && protocol == 'arp'
+    next if ignore_sources.include?(eth_packet.eth_saddr)
 
     if protocol == 'udp' && dport == 53
       begin
