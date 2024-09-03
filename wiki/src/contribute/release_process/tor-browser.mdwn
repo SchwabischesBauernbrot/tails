@@ -55,7 +55,7 @@ To check if the desired version is available:
         (
             set -eu
             typeset -a tbbUrls
-            tbbUrls=( 'https://archive.torproject.org/tor-package-archive/torbrowser/?C=M;O=D' 'https://www.torproject.org/dist/torbrowser/?C=M;O=D' 'https://people.torproject.org/~gk/builds/?C=M;O=D' 'https://people.torproject.org/~boklm/builds/?C=M;O=D' 'https://people.torproject.org/~pierov/builds/?C=M;O=D' 'https://people.torproject.org/~morgan/builds/tor-browser/?C=M;O=D' 'https://tb-build-02.torproject.org/~ma1/builds/torbrowser/release/unsigned/' 'https://tb-build-02.torproject.org/~richard/builds/torbrowser/release/unsigned/' )
+            tbbUrls=( 'https://archive.torproject.org/tor-package-archive/torbrowser/?C=M;O=D' 'https://www.torproject.org/dist/torbrowser/?C=M;O=D' 'https://people.torproject.org/~gk/builds/?C=M;O=D' 'https://people.torproject.org/~boklm/builds/?C=M;O=D' 'https://people.torproject.org/~pierov/builds/?C=M;O=D' 'https://people.torproject.org/~morgan/builds/tor-browser/?C=M;O=D' 'https://tb-build-02.torproject.org/~ma1/builds/torbrowser/release/unsigned/' 'https://tb-build-02.torproject.org/~morgan/builds/torbrowser/release/unsigned/' )
             while true
             do
                 if (for u in "${tbbUrls[@]}"; do
