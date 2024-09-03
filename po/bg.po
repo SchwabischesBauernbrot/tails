@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-07-15 09:56+0200\n"
+"POT-Creation-Date: 2024-09-03 16:21+0200\n"
 "PO-Revision-Date: 2024-06-11 16:09+0000\n"
 "Last-Translator: emma peel <emma.peel@riseup.net>\n"
 "Language-Team: Bulgarian <https://hosted.weblate.org/projects/tor/tails-gui/"
@@ -32,24 +32,24 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
 "X-Generator: Weblate 5.6-dev\n"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:205
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
 msgid ""
 "{details} Please check your list of additional software or read the system "
 "log to understand the problem."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:212
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:216
 msgid ""
 "Please check your list of additional software or read the system log to "
 "understand the problem."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:218
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:222
 msgid "Show Log"
 msgstr "Покажи Лог"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:218
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:222
 msgid "Configure"
 msgstr "Конфигурирай"
 
@@ -88,8 +88,8 @@ msgid ""
 msgstr ""
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:81
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:342
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:270
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:289
 msgid "Create Persistent Storage"
 msgstr ""
 
@@ -124,15 +124,17 @@ msgid "This will stop installing {packages} automatically."
 msgstr ""
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:165
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:166
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:177
 msgid "Remove"
 msgstr "Премахване"
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:176
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:453
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:800
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:28
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:38
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:376
 msgid "Cancel"
@@ -199,7 +201,7 @@ msgid ""
 msgstr ""
 
 #: config/chroot_local-includes/usr/share/tails/additional-software/configuration-window.ui:135
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:183
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:194
 msgid ""
 "To add more, install some software using <a href=\"synaptic."
 "desktop\">Synaptic Package Manager</a> or <a href=\"org.gnome.Terminal."
@@ -724,12 +726,12 @@ msgstr "Изкл"
 msgid "Off (default)"
 msgstr "Изкл (подразбиране)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:167
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
 #, fuzzy
 msgid "Persistent Storage Still Locked"
 msgstr "Криптирано пространство"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:169
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:174
 #, fuzzy
 msgid ""
 "Do you really want to start Tails without unlocking your Persistent Storage?"
@@ -737,79 +739,177 @@ msgstr ""
 "Do you really want to restart Tails now?\\n\\nAll your current work will be "
 "lost."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:177
 #, fuzzy
 msgid "Start Without Persistent Storage"
 msgstr "Криптирано _пространство"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:119
-#, fuzzy
-msgid "Error unlocking Persistent Storage: {}"
-msgstr "Криптирано пространство:{}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:144
-#, fuzzy
-msgid "Error upgrading Persistent Storage: {}"
-msgstr "Криптирано пространство:{}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:170
-#, python-brace-format
-msgid "Failed to activate some features of the Persistent Storage: {features}."
-msgstr ""
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:175
-#, fuzzy
-msgid "Error activating Persistent Storage: {}"
-msgstr "Криптирано пространство: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:89
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:243
 msgid ""
 "Impossible to unlock the Persistent Storage because the USB stick is read-"
 "only."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:104
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:381
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:409
 msgid "Unlocking…"
 msgstr "Отключване..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:142
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:176
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:517
-msgid "Unlock Encryption"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:416
+#, fuzzy
+msgid "Checking the file system…"
+msgstr "Проверка на файловата система ..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:451
+#, fuzzy
+msgid "Repairing the File System"
+msgstr "Проверка на файловата система ..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:452
+#, fuzzy
+msgid "This might take a long time..."
+msgstr "Това ще отнеме известно време..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:470
+#, fuzzy
+msgid "Failed to repair the file system of your Persistent Storage."
+msgstr "Криптирано _пространство"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:472
+msgid "Start Tails to send an error report and learn how to recover your data."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:147
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:41
-msgid "Cannot unlock encrypted storage with this passphrase."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:485
+msgid "File System Repaired Successfully"
 msgstr ""
-"Неуспешно отключване на криптираното дисково пространство със зададената "
-"парола."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:158
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:487
+msgid ""
+"It's possible that some data was lost during the repair. Please check the "
+"contents of your Persistent Storage and restore any lost data from a backup."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:491
+msgid "Close"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:506
+msgid ""
+"You aborted the repair of the file system. You can either start Tails "
+"without Persistent Storage or restart the computer to try repairing the file "
+"system again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:722
+msgid "Start Tails and open the Persistent Storage settings to find out more."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:751
+#, fuzzy
+msgid ""
+"Your Persistent Storage is unlocked. Its content will be available until you "
+"shut down Tails."
+msgstr ""
+"Вашето дисково пространство е отключено. Рестартирайте Tails,  за да го "
+"заключите отново."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:766
+msgid "Incorrect passphrase. Please try again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:777
+msgid ""
+"Error reading data from your Persistent Storage. The hardware of your USB "
+"stick is probably failing."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:779
+msgid "Start Tails to learn how to recover your data."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:790
+msgid "File System Errors"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:792
+msgid ""
+"Errors were detected in the file system of your Persistent Storage.\n"
+"                \n"
+"Tails can try to fix these errors, but this might erase some of your data "
+"and take a long time.\n"
+"\n"
+"If you already have an up-to-date backup of your Persistent Storage, we "
+"recommend that you try to repair.\n"
+"                \n"
+"If you don't have a backup, we recommend that you create a backup first."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:801
+msgid "Repair File System"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:802
+#, fuzzy
+msgid "Create Backup"
+msgstr "Създаване на"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:813
+#, fuzzy
+msgid "Start Tails to learn how to create a backup of your Persistent Storage."
+msgstr "Криптирано _пространство"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:822
+#, fuzzy
+msgid "Failed to unlock the Persistent Storage due to file system errors."
+msgstr "Криптирано _пространство"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:831
 msgid ""
 "Failed to upgrade the Persistent Storage. Please start Tails and send an "
 "error report."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:165
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
 msgid ""
 "Failed to unlock the Persistent Storage. Please start Tails and send an "
 "error report."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:846
 msgid ""
 "Failed to activate the Persistent Storage. Please start Tails and send an "
 "error report."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:184
-msgid "Upgrading the Persistent Storage. This may take a while…"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:857
+#, fuzzy
+msgid "Upgrading the Persistent Storage. This might take a while…"
+msgstr "Криптирано _пространство"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:125
+#, fuzzy
+msgid "Error unlocking Persistent Storage: {}"
+msgstr "Криптирано пространство:{}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:150
+#, fuzzy
+msgid "Error upgrading Persistent Storage: {}"
+msgstr "Криптирано пространство:{}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:176
+#, python-brace-format
+msgid "Failed to activate some features of the Persistent Storage: {features}."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:199
-msgid "Start Tails and open the Persistent Storage settings to find out more."
-msgstr ""
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:181
+#, fuzzy
+msgid "Error activating Persistent Storage: {}"
+msgstr "Криптирано пространство: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:202
+#, fuzzy
+msgid "Failed to abort when repairing Persistent Storage filesystem: {}"
+msgstr "Проблем при рестартирането"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
@@ -1307,41 +1407,42 @@ msgstr ""
 msgid "Learn More"
 msgstr "Научете повече"
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:13
-msgid "Resizing System Partition Failed"
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:16
+msgid "Disk partitioning errors"
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:15
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:22
 msgid ""
-"Something went wrong when starting your Tails USB stick for the first time."
+"Something went wrong when starting your Tails USB stick for the first time: "
+"resizing the system partition failed"
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:17
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:27
 msgid ""
 "It will be impossible to create a Persistent Storage or apply automatic "
 "upgrades."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:19
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:29
 msgid ""
 "Try to follow our instructions on <a href=\"%INSTALLPAGE%\">installing Tails "
 "on a USB stick</a> again or use a different USB stick."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:21
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:31
 msgid ""
 "If you have already tried this, please send us an error report to help us "
 "solve this issue."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:29
+#: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:39
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/fail_view.ui.in:74
 msgid "Send Error Report"
 msgstr ""
 
 #: config/chroot_local-includes/usr/src/perl5lib/lib/Tails/RunningSystem.pm:221
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:77
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:97
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:79
 #: config/chroot_local-includes/usr/local/sbin/unsafe-browser:38
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:314
 #: ../config/chroot_local-includes/usr/share/tails/tca/main.ui.in:460
@@ -1406,8 +1507,7 @@ msgstr ""
 msgid "Documentation"
 msgstr "Документация"
 
-#. Translators: Don't translate {package}, it's a placeholder and will be replaced.
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:101
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:106
 #, python-brace-format
 msgid ""
 "Remove {package} from your additional software? This will stop installing "
@@ -1415,49 +1515,54 @@ msgid ""
 msgstr ""
 
 #. Translators: Don't translate {pkg}, it's a placeholder and will be replaced.
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:112
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:119
 #, python-brace-format
 msgid "Failed to remove {pkg}"
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:134
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:144
 msgid "Failed to read additional software configuration"
 msgstr ""
 
 #. Translators: Don't translate {package}, it's a placeholder and will be replaced.
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:164
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:173
 #, python-brace-format
 msgid "Stop installing {package} automatically"
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:190
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:204
 msgid ""
 "To do so, install some software using <a href=\"synaptic.desktop\">Synaptic "
 "Package Manager</a> or <a href=\"org.gnome.Terminal.desktop\">APT on the "
 "command line</a>."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:199
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:216
 msgid ""
 "To do so, unlock your Persistent Storage when starting Tails and install "
 "some software using <a href=\"synaptic.desktop\">Synaptic Package Manager</"
 "a> or <a href=\"org.gnome.Terminal.desktop\">APT on the command line</a>."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:209
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:229
 msgid ""
 "To do so, create a Persistent Storage and install some software using <a "
 "href=\"synaptic.desktop\">Synaptic Package Manager</a> or <a href=\"org."
 "gnome.Terminal.desktop\">APT on the command line</a>."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:223
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:247
 msgid "To do so, install Tails on a USB stick and create a Persistent Storage."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:267
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:293
 msgid "[package not available]"
 msgstr ""
+
+#: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:300
+#, fuzzy
+msgid "[description not available]"
+msgstr "не е в наличност"
 
 #: config/chroot_local-includes/usr/local/lib/tails-htp-notify-user:68
 msgid "Failed to synchronize the clock!"
@@ -1775,7 +1880,7 @@ msgstr "Състояние на Тор"
 msgid "Open Onion Circuits"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:343
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:348
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1784,37 +1889,37 @@ msgid ""
 "Try again after closing some applications or rebooting."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:357
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:362
 #, fuzzy
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Коригиране на привилегии на постоянния дял."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:379
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:384
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:408
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:413
 msgid "Unlocking the encryption..."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:416
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:421
 #, fuzzy
 msgid "Formatting the file system..."
 msgstr "Проверка на файловата система ..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:434
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
 #, fuzzy
 msgid "Activating the Persistent Storage..."
 msgstr "Криптирано пространство: {}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:444
 #, fuzzy
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Криптирано _пространство"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:694
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:699
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1822,7 +1927,7 @@ msgid ""
 "unlocking it."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:727
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:732
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -1835,21 +1940,19 @@ msgid ""
 "all applications that could be accessing the target and try again."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:31
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:30
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:48
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:390
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:25
 msgid "Persistent Storage"
 msgstr "Криптирано пространство"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:57
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:56
 #, fuzzy
 msgid "Failed to start the Persistent Storage service"
 msgstr "Проблем при рестартирането"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:98
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:80
 msgid "Could not find the WhisperBack application"
 msgstr ""
 
@@ -1997,11 +2100,11 @@ msgstr ""
 msgid "Strong"
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:53
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:54
 msgid "You can send an error report to help solve the issue."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:60
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/error_dialog.py:61
 msgid "_Send Error Report"
 msgstr ""
 
@@ -2099,9 +2202,14 @@ msgstr "Криптирано пространство:{}"
 msgid "An error occurred while deleting the Persistent Storage."
 msgstr "Криптирано пространство:{}"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:315
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:325
 msgid "Details (command output)"
 msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:340
+#, fuzzy
+msgid "Failed to open the documentation"
+msgstr "Tails документация"
 
 #. Translators: Don't translate {volume_label} or {volume_size},
 #. they are placeholders and will be replaced. They need
@@ -2328,22 +2436,14 @@ msgstr ""
 "Друг Несигурен Браузър работи или се почиства в момента.Моля опитайте по-"
 "късно."
 
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:117
-msgid "Failed to setup chroot."
-msgstr "Не можа да се установи chroot."
-
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:123
-msgid "Failed to configure browser."
-msgstr "Неуспех при настройката на браузъра."
-
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:125
+#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:128
 msgid ""
 "You are not connected to a local network yet.\\n\\nTo be able to start the "
 "Unsafe Browser, you first need to connect to a Wi-Fi, wired, or mobile "
 "network."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:155
+#: config/chroot_local-includes/usr/local/sbin/unsafe-browser:158
 msgid "Failed to run browser."
 msgstr "Неуспех при пускането на браузъра."
 
@@ -2569,7 +2669,7 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:18
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:56
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:836
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:758
 msgid "Administration Password"
 msgstr "Администраторска парола"
 
@@ -2596,7 +2696,7 @@ msgid "Disable"
 msgstr "Деактивиране"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:186
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:840
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:762
 msgid "MAC Address Anonymization"
 msgstr ""
 
@@ -2617,7 +2717,7 @@ msgid "Don't anonymize MAC addresses"
 msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:343
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:844
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:766
 msgid "Network Configuration"
 msgstr "Настройки на мрежата"
 
@@ -2670,75 +2770,76 @@ msgstr "Стартриране на Несигурният Браузър..."
 msgid "Disable the Unsafe Browser"
 msgstr "Стартриране на Несигурният Браузър..."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:101
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:46
 #, fuzzy
 msgid "Settings were loaded from the Persistent Storage."
 msgstr "Коригиране на привилегии на постоянния дял."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:153
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:98
 msgid "Welcome to Tails!"
 msgstr "Добре дошли в Tails!"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:186
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:131
 msgid "Language and Formats"
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:222
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:167
 msgid "Default Settings"
 msgstr "Настройки по подразбиране"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:298
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:225
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:337
+#, fuzzy
+msgid "_Persistent Storage"
+msgstr "Криптирано _пространство"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:245
 msgid ""
 "You can save some of your files and configuration in an encrypted Persistent "
 "Storage on your Tails USB stick: your documents, browser bookmarks, Wi-Fi "
 "passwords, and so on."
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:325
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:272
 #, fuzzy
 msgid "Create and configure a Persistent Storage after starting Tails"
 msgstr "Tails is configuring your Persistent Storage. Please wait..."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:429
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:364
 msgid "Show Passphrase"
 msgstr "Покажи паролата"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:481
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:421
 #, fuzzy
-msgid "_Passphrase"
-msgstr "Тайна фраза:"
+msgid "Enter your passphrase"
+msgstr "Потвърди тайната фраза:"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:558
-#, fuzzy
-msgid ""
-"Your Persistent Storage is unlocked. Its content will be available until you "
-"shut down Tails."
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:436
+msgid "Unlock Encryption"
 msgstr ""
-"Вашето дисково пространство е отключено. Рестартирайте Tails,  за да го "
-"заключите отново."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:581
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:503
 #, fuzzy
 msgid "Impossible to unlock the Persistent Storage."
 msgstr "Криптирано _пространство"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:640
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:562
 msgid "_Additional Settings"
 msgstr "_Допълнителни настройки"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:723
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:645
 msgid "Add an additional setting"
 msgstr "Добавяне на допълнителни настройки"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:770
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:692
 msgid "Shutdown"
 msgstr "Изключване"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:779
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:701
 msgid "_Start Tails"
 msgstr "_Стартиране на Tails"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:808
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:730
 msgid ""
 "The default settings are safe in most situations. To add a custom setting, "
 "press the \"+\" button below."
@@ -3650,6 +3751,21 @@ msgstr ""
 msgid "Clock"
 msgstr ""
 
+#~ msgid "Cannot unlock encrypted storage with this passphrase."
+#~ msgstr ""
+#~ "Неуспешно отключване на криптираното дисково пространство със зададената "
+#~ "парола."
+
+#~ msgid "Failed to setup chroot."
+#~ msgstr "Не можа да се установи chroot."
+
+#~ msgid "Failed to configure browser."
+#~ msgstr "Неуспех при настройката на браузъра."
+
+#, fuzzy
+#~ msgid "_Passphrase"
+#~ msgstr "Тайна фраза:"
+
 #~ msgid "Language & Region"
 #~ msgstr "Език & регион"
 
@@ -3677,9 +3793,6 @@ msgstr ""
 #~ "Билд на информация:\n"
 #~ "%s"
 
-#~ msgid "not available"
-#~ msgstr "не е в наличност"
-
 #~ msgid "Name of the affected software"
 #~ msgstr "Име на засегнатия софтуер"
 
@@ -3703,10 +3816,6 @@ msgstr ""
 
 #~ msgid "Unlock"
 #~ msgstr "Отключване"
-
-#, fuzzy
-#~ msgid "_Persistent Storage"
-#~ msgstr "Криптирано _пространство"
 
 #~ msgid "Encrypted _Persistent Storage"
 #~ msgstr "Криптирано _пространство"
@@ -3825,12 +3934,6 @@ msgstr ""
 
 #~ msgid "Persistence wizard - Persistent volume creation"
 #~ msgstr "Persistence Wizard - създаване на Постоянно пространство"
-
-#~ msgid "Create"
-#~ msgstr "Създаване на"
-
-#~ msgid "Verify Passphrase:"
-#~ msgstr "Потвърди тайната фраза:"
 
 #~ msgid "Passphrase can't be empty"
 #~ msgstr "Тайната фраза не може да бъде празна"
