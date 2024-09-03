@@ -250,7 +250,7 @@ shfmt-changed-files:
   image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:sid
 
   script:
-    - apt-get -qy install shfmt findutils git
+    - apt-get -qy install shfmt findutils git python3
     - shfmt --version
     - git fetch origin "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
     - ./bin/test-utils/shfmt -s "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
