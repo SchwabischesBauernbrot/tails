@@ -442,6 +442,21 @@ Then /^the Tor Connection Assistant knows that there might be a captive portal$/
   end
 end
 
+# Connectivity check server, used by tails-get-network-time
+def connectivity_check_hostname
+  url = $vm.file_content('/etc/tails-get-network-time.conf').match(/^url=(.*)/)[1]
+  URI.parse(url).host
+end
+
+def connectivity_check_hosts
+  Resolv.getaddresses(connectivity_check_hostname)
+end
+
+def connectivity_check_allowed_nodes
+  connectivity_check_hosts.map { |ip| { address: ip, port: 80 } }
+end
+
+
 def tca_configure(mode, connect: true, &block)
   step 'the Tor Connection Assistant is running'
   # this is the default, so why bother setting it?
@@ -455,8 +470,8 @@ def tca_configure(mode, connect: true, &block)
     # @allowed_dns_queries is already initialized, and the corresponding
     # add_extra_allowed_hosts have already been called
     unless @allowed_dns_queries && !@allowed_dns_queries.empty?
-      @allowed_dns_queries = ["#{CONNECTIVITY_CHECK_HOSTNAME}."]
-      Resolv.getaddresses(CONNECTIVITY_CHECK_HOSTNAME).each do |ip|
+      @allowed_dns_queries = ["#{connectivity_check_hostname}."]
+      connectivity_check_hosts.each do |ip|
         add_extra_allowed_host(ip, 80)
       end
     end
@@ -918,8 +933,8 @@ Then /^all Internet traffic has only flowed through (Tor|the \w+ bridges)( or (?
       # tails-get-network-time to resolve the hostname of the
       # connectivity check service
       allowed_hosts << { address: $vmnet.bridge_ip_addr, port: 53 }
-      allowed_hosts += CONNECTIVITY_CHECK_ALLOWED_NODES
-      allowed_dns_queries = ["#{CONNECTIVITY_CHECK_HOSTNAME}."]
+      allowed_hosts += connectivity_check_allowed_nodes
+      allowed_dns_queries = ["#{connectivity_check_hostname}."]
     end
 
   else
