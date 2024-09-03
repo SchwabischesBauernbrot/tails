@@ -122,7 +122,7 @@ SERVICES_ALLOWED_FOR_LIVE_USER =
     [IPAddr.new('127.0.0.1'),  9050],
   ].freeze
 # OpenDNS
-SOME_DNS_SERVER = '208.67.222.222'.freeze
+SOME_DNS_SERVER = '9.9.9.9'.freeze
 RTL_LANGUAGES = ['Arabic', 'Persian'].freeze
 VM_XML_PATH = "#{Dir.pwd}/features/domains".freeze
 LAN_WEB_SERVER_HELLO_MSG = 'Welcome to the LAN web server!'.freeze
