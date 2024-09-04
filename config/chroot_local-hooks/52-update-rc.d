@@ -57,7 +57,7 @@ systemctl --global enable "tails-ibus-proxy.service"
 
 # Use socket activation only, to delay the startup of cupsd.
 systemctl disable cups.service
-systemctl enable  cups.socket
+systemctl enable cups.socket
 
 # We're starting NetworkManager and Tor ourselves.
 systemctl disable NetworkManager.service
@@ -103,4 +103,3 @@ systemctl mask man-db.timer
 # before we enable it
 systemctl mask avahi-daemon.socket
 systemctl mask avahi-daemon.service
-

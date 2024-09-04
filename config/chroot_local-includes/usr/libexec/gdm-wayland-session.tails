@@ -32,7 +32,7 @@ fi
 
 RET=$?
 
-if [ $RET -ne 0 ] ; then
+if [ $RET -ne 0 ]; then
     echo "gdm-wayland-session failed, stopping GDM"
     # killing gdm will trigger OnFailure=tails-gdm-failed-to-start.service
     sudo -n /bin/systemctl kill --signal=9 gdm
