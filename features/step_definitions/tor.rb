@@ -450,8 +450,8 @@ end
 
 def connectivity_check_hosts
   # We locally resolve using the same dnsmasq instance as the VM under
-  # testing will use when resolving the connectivity check hostname so
-  # that we get the same results (tails#20515).
+  # testing will use when resolving the connectivity check hostname,
+  # to increase the chances that we get the same results (tails#20515).
   Resolv::DNS.new(nameserver: [$vmnet.bridge_ip_addr])
              .getaddresses(connectivity_check_hostname)
              .map(&:to_s)
