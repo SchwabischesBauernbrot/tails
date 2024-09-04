@@ -154,6 +154,42 @@ Last updated: 2022-09-12
 The keyboard and mouse do not work on this laptop.
 If you find a workaround, please let us know.
 
+<h2 id="sbat">Shim SBAT verification error</h2>
+
+This section applies if you get the following error message, either when
+starting Tails or when restarting your regular Linux operating system after
+starting Tails.
+
+<p class="code">
+Verifying shim SBAT data failed: Security Policy Violation<br>
+Something has gone seriously wrong: SBAT self-check failed: Security Policy Violation
+</p>
+
+- If you get this error message when starting Tails, then do a [[manual
+  upgrade|upgrade#manual]] of your Tails USB to Tails 6.7 or later.
+
+- If you get this error message when starting your regular Linux operating
+  system, then it means that your Linux operating system is outdated.
+
+  1. Edit your UEFI settings to disable Secure Boot.
+
+     With Secure Boot disabled, your regular Linux operating system should
+     start again.
+
+     To learn how to edit the BIOS or UEFI settings, search for the user manual
+     of the computer on the support website of the manufacturer.
+
+  1. Update your regular Linux operating system.
+
+  1. Try to enable Secure Boot again in your UEFI settings.
+
+     If your regular Linux operating system still doesn't start, then disable
+     Secure Boot again. You can try to enable Secure Boot again in the future.
+
+     It might take several months for your Linux distribution to provide updates
+     before you can enable Secure Boot again.
+
+
 <h1 id="wifi">Networking issues</h1>
 
 <h2 id="problematic-wifi">Problematic Wi-Fi interfaces</h2>
