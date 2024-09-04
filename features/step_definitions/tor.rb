@@ -461,7 +461,6 @@ def connectivity_check_allowed_nodes
   connectivity_check_hosts.map { |ip| { address: ip, port: 80 } }
 end
 
-
 def tca_configure(mode, connect: true, &block)
   step 'the Tor Connection Assistant is running'
   # this is the default, so why bother setting it?
