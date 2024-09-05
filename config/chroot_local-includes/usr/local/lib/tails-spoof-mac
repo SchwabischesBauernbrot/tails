@@ -108,7 +108,7 @@ mac_spoof_panic() {
         is_wired=true
     fi
 
-    interfaces=$(ip link show | grep -o "^[0-9]\+: \w\+" | awk -F': ' '{print $2}')
+    interfaces=$(get_all_ethernet_nics)
 
     # Check if there are other WiFi or wired cards
     local other_wifi_cards other_wired_cards
@@ -124,7 +124,7 @@ mac_spoof_panic() {
         done
     elif [ "${is_wired:-}" = true ]; then
         for interface in ${interfaces}; do
-            if [ "${interface}" = "${1}" ] || [ "${interface}" = "lo" ]; then
+            if [ "${interface}" = "${1}" ]; then
                 continue
             fi
             if ethtool "${interface}" 2>/dev/null; then
