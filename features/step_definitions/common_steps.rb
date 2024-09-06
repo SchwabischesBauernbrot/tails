@@ -1234,7 +1234,7 @@ Given /^a web server is running on the LAN$/ do
 end
 
 def start_web_server
-  @web_server_ip_addr = $vmnet.bridge_ip_addr
+  @web_server_ip_addr = $vmnet.bridge_ip_address
   @web_server_port = 8000
   @web_server_url = "http://#{@web_server_ip_addr}:#{@web_server_port}"
 

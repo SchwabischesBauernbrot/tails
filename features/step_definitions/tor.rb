@@ -452,7 +452,7 @@ def connectivity_check_hosts
   # We locally resolve using the same dnsmasq instance as the VM under
   # testing will use when resolving the connectivity check hostname,
   # to increase the chances that we get the same results (tails#20515).
-  Resolv::DNS.new(nameserver: [$vmnet.bridge_ip_addr])
+  Resolv::DNS.new(nameserver: [$vmnet.bridge_ip_address])
              .getaddresses(connectivity_check_hostname)
              .map(&:to_s)
 end
@@ -537,7 +537,7 @@ def chutney_bridges(bridge_type, chutney_tag: nil)
   )
   assert(bridge_dirs.size.positive?, "No bridges of type '#{chutney_tag}' found")
   bridge_dirs.map do |bridge_dir|
-    address = $vmnet.bridge_ip_addr
+    address = $vmnet.bridge_ip_address
     port = nil
     fingerprint = nil
     extra = nil
@@ -936,7 +936,7 @@ Then /^all Internet traffic has only flowed through (Tor|the \w+ bridges)( or (?
       # Allow connections to the local DNS resolver, used by
       # tails-get-network-time to resolve the hostname of the
       # connectivity check service
-      allowed_hosts << { address: $vmnet.bridge_ip_addr, port: 53 }
+      allowed_hosts << { address: $vmnet.bridge_ip_address, port: 53 }
       allowed_hosts += connectivity_check_allowed_nodes
       allowed_dns_queries = ["#{connectivity_check_hostname}."]
     end

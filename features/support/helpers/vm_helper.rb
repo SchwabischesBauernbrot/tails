@@ -59,11 +59,11 @@ class VMNet
     @net.bridge_name
   end
 
-  def bridge_ip_addr
+  def bridge_ip_address
     IPAddr.new(net_xml.elements['network/ip[@family="ipv4"]'].attributes['address']).to_s
   end
 
-  def bridge_ipv6_addr
+  def bridge_ipv6_address
     IPAddr.new(net_xml.elements['network/ip[@family="ipv6"]'].attributes['address']).to_s
   end
 
