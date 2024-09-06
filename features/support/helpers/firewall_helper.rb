@@ -2,15 +2,69 @@ require 'packetfu'
 require "#{GIT_DIR}/lib/ruby/vendor/packetfu/icmpv6.rb"
 require 'net/dns'
 
-def looks_like_icmpv6_packet?(packet)
-  packet.instance_of?(PacketFu::ICMPv6Packet) || (
-    # PacketFu doesn't supported ICMPv6's embedded MLDv2 protocol
-    packet.instance_of?(PacketFu::IPv6Packet) &&
-    packet.ipv6_daddr == 'ff02::16' && # Sent to all MLDv2-capable routers
-    packet.payload[0].ord == 58 &&     # Type ICMPv6
-    packet.payload[8].ord == 143       # Type MLDv2
-  )
+# Unfortunately PacketFu's ICMPv6 module does not support the embedded
+# MLDv2 protocol, which is used during SLAAC.
+def looks_like_mldv2_packet?(packet)
+  # Multicast Listener Report Message v2
+  packet.instance_of?(PacketFu::IPv6Packet) &&
+    # IPv6 type: ICMPv6.
+    packet.payload[0].ord == 58 &&
+    # ICMPv6 type: MLDv2.
+    packet.payload[8].ord == 143 &&
+    # IPv6 multicast to MLDv2-capable routers.
+    packet.ipv6_daddr == 'ff02::16' &&
+    # Corresponding ethernet multicast address.
+    packet.eth_daddr == '33:33:00:00:00:16'
 end
+
+# rubocop:disable Metrics/AbcSize
+def looks_like_slaac_packet?(packet)
+  return true if looks_like_mldv2_packet?(packet)
+
+  return false unless packet.instance_of?(PacketFu::ICMPv6Packet)
+
+  case packet.ipv6_header.body.icmpv6_type
+  # Router solicitation
+  when 133
+    packet.ipv6_saddr == $vm.ipv6_address &&
+      # IPv6 multicast to all local routers
+      packet.ipv6_daddr == 'ff02::2'
+  # Neighbor solicitation
+  when 135
+    (
+      packet.ipv6_saddr == $vm.ipv6_address &&
+      packet.ipv6_daddr == $vmnet.bridge_ipv6_address
+    ) ||
+      # Special case: Duplicate Address Detection (DAD)
+      (
+        # The lowest 24 bits of the IPv6 address are used to create
+        # the multicast addresses for DAD. We must pad with leading
+        # zeros up to the full 24 bits (so 6 hex chars) since the
+        # first part is inserted into the middle of a IPv6 address
+        # group, and zeros can only (optionally) be omitted when
+        # occurring in the beginning of a group.
+        low = (IPAddr.new($vm.ipv6_address) & 0xffffff).to_i.to_s(16).rjust(6, '0')
+        # Solicited-node multicast address used for checking if the
+        # address is already in use. We condense the address by
+        # dropping any leading zeros we would have introduced in the
+        # last group, which matches what PacketFu does.
+        dad_ipv6_addr = "ff02::1:ff#{low[0, 2]}:#{low[2, 4].sub(/^0*/, '')}"
+        # Corresponding ethernet multicast address
+        dad_eth_addr = "33:33:ff:#{low[0, 2]}:#{low[2, 2]}:#{low[4, 2]}"
+
+        packet.ipv6_saddr == '::' &&
+        packet.ipv6_daddr == dad_ipv6_addr &&
+        packet.eth_daddr == dad_eth_addr
+      )
+  # Neighbor advertisement
+  when 136
+    packet.ipv6_saddr == $vm.ipv6_address &&
+      packet.ipv6_daddr == $vmnet.bridge_ipv6_address
+  else
+    false
+  end
+end
+# rubocop:enable Metrics/AbcSize
 
 def looks_like_dhcp_packet?(packet)
   packet.instance_of?(PacketFu::UDPPacket) &&
@@ -75,7 +129,7 @@ end
 def pcap_connections_helper(pcap_file,
                             ignore_arp: true,
                             ignore_dhcp: true,
-                            ignore_icmpv6: true,
+                            ignore_slaac: true,
                             ignore_sources: [$vm.vmnet.bridge_mac_address])
   connections = []
   PacketFu::PcapFile.new.file_to_array(filename: pcap_file).map do |pcap_packet|
@@ -90,7 +144,7 @@ def pcap_connections_helper(pcap_file,
 
     next if ignore_arp && packet.instance_of?(PacketFu::ARPPacket)
     next if ignore_dhcp && looks_like_dhcp_packet?(packet)
-    next if ignore_icmpv6 && looks_like_icmpv6_packet?(packet)
+    next if ignore_slaac && looks_like_slaac_packet?(packet)
     next if ignore_sources.include?(packet.eth_saddr)
 
     connections << connection_info(packet)
