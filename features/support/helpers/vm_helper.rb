@@ -542,10 +542,24 @@ class VM
     execute_successfully("timedatectl set-time '#{host_time}'")
   end
 
+  def ip_address(version: 4)
+    nmcli_info = $vm.execute_successfully('nmcli device show eth0').stdout
+    addrs = nmcli_info.scan(%r{^IP#{version}.ADDRESS(?:\[\d+\])?:\s*(.+)/\d+$})
+                      .flatten.map { |addr| IPAddr.new(addr) }
+    if addrs.size > 1
+      raise "The default network iterface has more than one IPv#{version} address, " \
+            "which isn't supported"
+    elsif addrs.size == 1
+      addrs.first.to_s
+    end
+  end
+
+  def ipv6_address
+    ip_address(version: 6)
+  end
+
   def connected_to_network?
-    nmcli_info = execute('nmcli device show eth0').stdout
-    has_ipv4_addr = %r{^IP4.ADDRESS(\[\d+\])?:\s*([0-9./]+)$}.match(nmcli_info)
-    network_link_state == 'up' && has_ipv4_addr
+    network_link_state == 'up' && ip_address
   end
 
   def process_running?(process)
