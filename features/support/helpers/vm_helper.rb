@@ -68,7 +68,7 @@ class VMNet
   end
 
   def bridge_mac
-    File.open("/sys/class/net/#{bridge_name}/address", 'rb').read.chomp
+    net_xml.elements['network/mac'].attributes['address']
   end
 end
 
