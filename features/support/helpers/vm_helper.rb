@@ -67,7 +67,7 @@ class VMNet
     IPAddr.new(net_xml.elements['network/ip[@family="ipv6"]'].attributes['address']).to_s
   end
 
-  def bridge_mac
+  def bridge_mac_address
     net_xml.elements['network/mac'].attributes['address']
   end
 end

@@ -76,7 +76,7 @@ def pcap_connections_helper(pcap_file,
                             ignore_arp: true,
                             ignore_dhcp: true,
                             ignore_icmpv6: true,
-                            ignore_sources: [$vm.vmnet.bridge_mac])
+                            ignore_sources: [$vm.vmnet.bridge_mac_address])
   connections = []
   PacketFu::PcapFile.new.file_to_array(filename: pcap_file).map do |pcap_packet|
     # PacketFu cannot parse RARP, see #16825. We consider RARP safe.
