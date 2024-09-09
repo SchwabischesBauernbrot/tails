@@ -29,7 +29,7 @@ msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-08-12 09:47+0200\n"
-"PO-Revision-Date: 2024-08-09 23:09+0000\n"
+"PO-Revision-Date: 2024-09-05 14:09+0000\n"
 "Last-Translator: slrslr <adm@prnet.info>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tor/tails-gui/cs/"
 ">\n"
@@ -39,7 +39,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
-"X-Generator: Weblate 5.7-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
@@ -1078,7 +1078,7 @@ msgstr "Obnovování hlavního bootovacího záznamu %s"
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1313
 #, python-format
 msgid "Writing random seed to LBA 34 of %s"
-msgstr ""
+msgstr "Zapisování náhodného seedu do LBA 34 z %s"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1320
 msgid "Drive is a loopback, skipping MBR reset"
@@ -1413,14 +1413,15 @@ msgstr "Zjistit více"
 
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:16
 msgid "Disk partitioning errors"
-msgstr ""
+msgstr "Chyby nastavování oddílů disku"
 
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:22
-#, fuzzy
 msgid ""
 "Something went wrong when starting your Tails USB stick for the first time: "
 "resizing the system partition failed"
-msgstr "Něco se pokazilo při prvním startu z vašeho USB flash disku Tails."
+msgstr ""
+"Něco se pokazilo při prvním startu z vašeho USB flash disku Tails: selhala "
+"změna velikosti systémového oddílu"
 
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:27
 msgid ""
@@ -1582,9 +1583,8 @@ msgid "[package not available]"
 msgstr "[balík není dostupný]"
 
 #: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:300
-#, fuzzy
 msgid "[description not available]"
-msgstr "[balík není dostupný]"
+msgstr "[popis není dostupný]"
 
 #: config/chroot_local-includes/usr/local/lib/tails-htp-notify-user:68
 msgid "Failed to synchronize the clock!"
@@ -1655,6 +1655,8 @@ msgid ""
 "MAC address anonymization failed for one of your wired interfaces, so it is "
 "temporarily disabled."
 msgstr ""
+"Selhala anonymizace adres MAC u jednoho z vašich kabelových síťových "
+"rozhraní, takže je dočasně zakázána."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:85
 #, sh-format
@@ -1667,6 +1669,8 @@ msgid ""
 "MAC address anonymization failed for your wired interface, so it is "
 "temporarily disabled."
 msgstr ""
+"Selhala anonymizace adresy MAC u vašeho kabelového síťového rozhraní, takže "
+"je dočasně zakázána."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:88
 #, sh-format
@@ -1679,6 +1683,8 @@ msgid ""
 "MAC address anonymization failed for one of your network interfaces, so it "
 "is temporarily disabled."
 msgstr ""
+"Selhala anonymizace adresy MAC u jednoho z vašich síťových rozhraní, takže "
+"je dočasně zakázána."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:91
 #, sh-format
@@ -1692,17 +1698,18 @@ msgid "All Networking Disabled"
 msgstr "Všechny sítě zakázané"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:99
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
 "error recovery also failed, so all networking is disabled.\n"
 "\n"
 "You might prefer to restart Tails and disable MAC address anonymization."
 msgstr ""
-"Anonymizace MAC adresy se pro síťovou kartu ${nic_name} (${nic}) nezdařila, "
-"takže je dočasně zakázána. Zotavení z chyby selhalo taky, takže je zakázána "
-"veškerá síťová komunikace.\n"
-"Možná raději restartujete Tails a zakážte anonymizaci adres MAC."
+"Selhala anonymizace adresy MAC u jednoho z vašich síťových rozhraní. Selhalo "
+"také zotavení z chyby, takže je zakázán veškerý síťový provoz.\n"
+"\n"
+"Možná byste teď upřednostnili restartování Tails a vypnutí anonymizace "
+"adresy MAC."
 
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:36
 #, python-brace-format
@@ -2262,9 +2269,8 @@ msgid "Details (command output)"
 msgstr "Podrobnosti (výstup příkazu)"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:340
-#, fuzzy
 msgid "Failed to open the documentation"
-msgstr "Dokumentace Tails"
+msgstr "Selhalo otevření dokumentace"
 
 #. Translators: Don't translate {volume_label} or {volume_size},
 #. they are placeholders and will be replaced. They need
