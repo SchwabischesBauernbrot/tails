@@ -60,11 +60,11 @@ class VMNet
   end
 
   def bridge_ip_address
-    IPAddr.new(net_xml.elements['network/ip[@family="ipv4"]'].attributes['address']).to_s
+    IPAddr.new(net_xml.elements['network/ip[@family="ipv4"]'].attributes['address'])
   end
 
   def bridge_ipv6_address
-    IPAddr.new(net_xml.elements['network/ip[@family="ipv6"]'].attributes['address']).to_s
+    IPAddr.new(net_xml.elements['network/ip[@family="ipv6"]'].attributes['address'])
   end
 
   def bridge_mac_address
@@ -550,7 +550,7 @@ class VM
       raise "The default network iterface has more than one IPv#{version} address, " \
             "which isn't supported"
     elsif addrs.size == 1
-      addrs.first.to_s
+      addrs.first
     end
   end
 

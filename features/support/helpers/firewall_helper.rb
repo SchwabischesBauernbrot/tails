@@ -12,7 +12,7 @@ def looks_like_mldv2_packet?(packet)
     # ICMPv6 type: MLDv2.
     packet.payload[8].ord == 143 &&
     # IPv6 multicast to MLDv2-capable routers.
-    packet.ipv6_daddr == 'ff02::16' &&
+    IPAddr.new(packet.ipv6_daddr) == IPAddr.new('ff02::16') &&
     # Corresponding ethernet multicast address.
     packet.eth_daddr == '33:33:00:00:00:16'
 end
@@ -26,14 +26,14 @@ def looks_like_slaac_packet?(packet)
   case packet.ipv6_header.body.icmpv6_type
   # Router solicitation
   when 133
-    packet.ipv6_saddr == $vm.ipv6_address &&
+    IPAddr.new(packet.ipv6_saddr) == $vm.ipv6_address &&
       # IPv6 multicast to all local routers
-      packet.ipv6_daddr == 'ff02::2'
+      IPAddr.new(packet.ipv6_daddr) == IPAddr.new('ff02::2')
   # Neighbor solicitation
   when 135
     (
-      packet.ipv6_saddr == $vm.ipv6_address &&
-      packet.ipv6_daddr == $vmnet.bridge_ipv6_address
+      IPAddr.new(packet.ipv6_saddr) == $vm.ipv6_address &&
+      IPAddr.new(packet.ipv6_daddr) == $vmnet.bridge_ipv6_address
     ) ||
       # Special case: Duplicate Address Detection (DAD)
       (
@@ -43,23 +43,21 @@ def looks_like_slaac_packet?(packet)
         # first part is inserted into the middle of a IPv6 address
         # group, and zeros can only (optionally) be omitted when
         # occurring in the beginning of a group.
-        low = (IPAddr.new($vm.ipv6_address) & 0xffffff).to_i.to_s(16).rjust(6, '0')
+        low = ($vm.ipv6_address & 0xffffff).to_i.to_s(16).rjust(6, '0')
         # Solicited-node multicast address used for checking if the
-        # address is already in use. We condense the address by
-        # dropping any leading zeros we would have introduced in the
-        # last group, which matches what PacketFu does.
-        dad_ipv6_addr = "ff02::1:ff#{low[0, 2]}:#{low[2, 4].sub(/^0*/, '')}"
+        # address is already in use
+        dad_ipv6_addr = IPAddr.new("ff02::1:ff#{low[0, 2]}:#{low[2, 4]}")
         # Corresponding ethernet multicast address
         dad_eth_addr = "33:33:ff:#{low[0, 2]}:#{low[2, 2]}:#{low[4, 2]}"
 
-        packet.ipv6_saddr == '::' &&
-        packet.ipv6_daddr == dad_ipv6_addr &&
+        IPAddr.new(packet.ipv6_saddr) == IPAddr.new('::') &&
+        IPAddr.new(packet.ipv6_daddr) == dad_ipv6_addr &&
         packet.eth_daddr == dad_eth_addr
       )
   # Neighbor advertisement
   when 136
-    packet.ipv6_saddr == $vm.ipv6_address &&
-      packet.ipv6_daddr == $vmnet.bridge_ipv6_address
+    IPAddr.new(packet.ipv6_saddr) == $vm.ipv6_address &&
+      IPAddr.new(packet.ipv6_daddr) == $vmnet.bridge_ipv6_address
   else
     false
   end
