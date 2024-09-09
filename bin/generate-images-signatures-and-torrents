@@ -7,6 +7,7 @@ mkdir -p "${ISOS:?}/tails-amd64-${VERSION:?}"
 for type in iso img ; do
     cd "${ISOS:?}/tails-amd64-${VERSION:?}"
     mv "${ARTIFACTS:?}/tails-amd64-${VERSION:?}.${type:?}" .
+    echo "Please sign ${type}"
     gpg --armor --default-key "${TAILS_SIGNATURE_KEY:?}" \
 	--detach-sign -- *".${type:?}"
     rename 's,\.asc$,.sig,' -- *.asc
