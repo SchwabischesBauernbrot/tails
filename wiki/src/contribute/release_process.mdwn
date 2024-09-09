@@ -1070,6 +1070,7 @@ Verify there's enough free disk space in `$IUKS_DIR`:
 
 To build the IUKS, run this command:
 
+    (
     IUK_CREATION_LOG=$(mktemp --tmpdir=/var/tmp wrap_tails_create_iuks.XXXXXXXX.log)
     (
        set -eu
@@ -1097,6 +1098,7 @@ To build the IUKS, run this command:
     ) && \
      cd "${IUKS_DIR?:}" && \
      sha256sum Tails_amd64_*_to_${VERSION?:}.iuk > "${IUKS_HASHES?:}"
+    )
 
 This command takes a long time. In parallel, while it is running,
 you can follow the next steps:
