@@ -241,25 +241,10 @@ Pre-freeze
 Check the Release Manager role
 ------------------------------
 
-Check the [[contribute/working_together/roles/release_manager]] role
-documentation: it has more tasks that should be done early enough.
-
-Sometimes some of these are forgotten, and for emergency releases they
-will always be last minute, so let's make sure that the release will
-not be blocked later.
-
-### Make sure there are enough manual testers
-
-Check your if you have enough manual testers registered. If not, ping
-the usual testers (manual-testers@tails.net) and warn the
-Foundations Team that you may need their help.
-
-### Make sure there is a Trusted Reproducer
-
-Check that the <https://tails.net/contribute/calendar/> has a _Trusted
-Reproducer_ assigned for this release, otherwise try to find one among
-the manual testers (manual-testers@tails.net) or FT (XMPP,
-foundations@tails.net).
+Make sure all the shift preparation steps, in the
+[[contribute/working_together/roles/release_manager]] role documentation, have
+been done. Fill the gaps if needed, otherwise the release process will be
+blocked later.
 
 Coordinate with Debian security updates
 ---------------------------------------
@@ -1013,11 +998,10 @@ files metadata:
 Get the internal manual testing started
 =======================================
 
-Email <manual-testers@tails.net> that tests
-may start. Remember to encrypt and sign your email!
+Tell testers that they can start testing. Remember to encrypt and sign your email!
 
     ./bin/automailer.py <<EOF
-    To: manual-testers@tails.net
+    To: rm@tails.net, sajolida@pimienta.org
     Subject: Testing Tails ${VERSION:?}
     X-Attach: $(/bin/ls -1 "$ISOS/tails-amd64-${VERSION:?}/tails-amd64-${VERSION:?}.packages" "$ISOS/tails-amd64-${VERSION:?}/"tails-amd64-${VERSION:?}.{iso,img}.sig "$ISOS/tails-amd64-${VERSION:?}".{iso,img}.torrent | tr '\n' ,)
 
@@ -1879,8 +1863,6 @@ Draft the Tor blog post
 
 Skip this if you are not preparing a stable release.
 
-Feel free to skip this if you are not preparing a major release.
-
 - Generate the draft blog post:
 
         ./bin/generate-Tor-blog-post "${VERSION:?}" "${TAG:?}" "${DIST:?}" "${RELEASE_DATE:?}"
@@ -2087,17 +2069,23 @@ To login:
 Request the publication of the Tor blog post
 --------------------------------------------
 
-If you prepared a draft Tor blog post earlier, then:
+Skip this section unless you have prepared a draft Tor blog post earlier.
 
-- If you have developer status (check
-  [here](https://gitlab.torproject.org/tpo/web/blog/-/project_members))
-  then can merge it yourself. Once merged a new pipeline is started
-  whose last stage (Deploy) will require manual action: click on it to
-  open a menu where you will see "deploy-prod ▶️", then click on the ▶️
-  to deploy.
+1. Check if you have developer status in the
+  [list of project members](https://gitlab.torproject.org/tpo/web/blog/-/project_members).
 
-- Otherwise, mark the merge request as ready by remove the `Draft:`
-  prefix, and wait until someone merges it for you.
+2. If you have developer status, then you can merge and deploy yourself:
+
+     - Merge your draft MR
+     - Open the page of the new pipeline that is started after you've merged
+     - Wait until the `deploy-staging` job succeeds
+     - Check on the [staging blog](https://blog.staging.torproject.net/) that the new blog post appears and looks OK
+     - On the pipeline page, click on the ▶️ button for the `deploy-prod` job
+
+   Otherwise:
+
+     - Mark the merge request as ready: remove the `Draft:` prefix
+     - Request a review from one of your fellow RMs who has Developer status
 
 Amnesia news
 ------------
@@ -2311,12 +2299,10 @@ Check that you are indeed preparing a final release:
    <tails-dev@boum.org>, <rm@tails.net>, and explicitly Cc the
    designated RM for that upcoming release.
 
-1. Announce the date of the next release on <tails-dev@boum.org> and
-   <tails-l10n@boum.org>.
+1. Announce the date of the next release:
 
          ./bin/automailer.py <<EOF
          To: tails-dev@boum.org,tails-l10n@boum.org
-         Cc: manual-testers@tails.net
          Subject: Release schedule for Tails ${NEXT_PLANNED_VERSION:?}
 
          Hi,
@@ -2324,25 +2310,39 @@ Check that you are indeed preparing a final release:
          XXX will be the RM for Tails ${NEXT_PLANNED_VERSION:?}
 
          The current plan is:
+
           - Monday, XXX: build images, start testing
-          - Tuesday, XXX: releasing
+          - Tuesday, XXX: release
 
-         @testers, please let the RM know how much time you'll have for manual QA
-         from Monday 17:00 to Tuesday 11:00 (Europe/Berlin)
+         Developers, please:
 
-         @developers, please don't push any change to the branch used for the release
-         on these days.
+           - Book time for automated and manual QA during office hours,
+             from Monday 15:00 to Tuesday 11:00 (Europe/Berlin).
+             If you can't, please let the RM know.
+
+           - During these 2 days, don't push any change to the branch
+             used for the release.
 
          EOF
 
    - If a release candidate is planned, include it in the release schedule
      and the call for manual testers.
 
-1. If you don't know who will be the release managers for the next **2** releases, open
-   an issue per missing RM so you don't forget.
+1. If you don't know who will be the release managers and trusted reproducers for the next **2** releases, open
+   an issue per missing RM so we don't forget.
 
        /label ~"C:Release management" ~"Core Work:Foundations Team" ~"To Do" ~"P:Elevated" 
        /milestone %"Tails_${NEXT_PLANNED_VERSION:?}" 
+
+   Include this information:
+
+   - For the Trusted Reproducer
+     - Your job will be to reproduce the ISO and USB images for the RC (if
+       applicable) and final release within 72 hours after the RM has
+       unplugged their smartcard.
+     - If you volunteer, you must immediately read the "Preparation" section of
+       the instructions:
+       https://tails.net/contribute/release_process/reproducibility/#preparation
 
 1. If you are the release manager for the next release too, look at the
    tasks that must be done at the beginning of your shift in the
