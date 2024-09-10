@@ -6,24 +6,23 @@ import logging
 import os
 import smtplib  # for smtplib.SMTPException
 import socket  # for socket.error
-from typing import Optional
 
 # GIR imports
 import gi
 
-from gi.repository import GObject
-
 gi.require_version("GdkPixbuf", "2.0")
 gi.require_version("Gdk", "3.0")
-from gi.repository import Gdk, GdkPixbuf
-
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import (  # noqa: E402
+    Gdk,
+    GObject,
+    Gtk,
+)
 
 # Import our modules
-import whisperBack.exceptions
-import whisperBack.utils
-import whisperBack.whisperback
+import whisperBack.exceptions  # noqa: E402
+import whisperBack.utils  # noqa: E402
+import whisperBack.whisperback  # noqa: E402
 
 LOG = logging.getLogger(__name__)
 CSS_FILE = "/usr/share/whisperback/style.css"
@@ -36,7 +35,7 @@ class WhisperBackUI:
 
     """
 
-    def __init__(self, debugging_info: str, prefill: Optional[dict]):
+    def __init__(self, debugging_info: str, prefill: dict | None):
         """Constructor of the class, which creates the main window
 
         This is where the main window will be created and filled with the
@@ -55,7 +54,7 @@ class WhisperBackUI:
         builder = Gtk.Builder()
         builder.set_translation_domain("tails")
         builder.add_from_file(
-            os.path.join(whisperBack.utils.get_datadir(), "whisperback.ui")
+            os.path.join(whisperBack.utils.get_datadir(), "whisperback.ui"),
         )
         builder.connect_signals(self)
 
@@ -80,22 +79,22 @@ class WhisperBackUI:
         self.contact_gpg_keyblock = builder.get_object("buttonGPGKeyBlock")
         self.prepended_details = builder.get_object("textviewPrependedInfo")
         self.include_prepended_details = builder.get_object(
-            "checkbuttonIncludePrependedInfo"
+            "checkbuttonIncludePrependedInfo",
         )
         self.include_bug_specific_details = builder.get_object(
-            "checkbuttonIncludePrefill"
+            "checkbuttonIncludePrefill",
         )
         self.bug_specific_details = builder.get_object("textviewPrefill")
         self.bug_specific_details_frame = builder.get_object("framePrefill")
         self.appended_details = builder.get_object("textviewAppendedInfo")
         self.include_appended_details = builder.get_object(
-            "checkbuttonIncludeAppendedInfo"
+            "checkbuttonIncludeAppendedInfo",
         )
         self.send_button = builder.get_object("buttonSend")
 
         try:
             self.main_window.set_icon_from_file(
-                os.path.join(whisperBack.utils.get_pixmapdir(), "whisperback.svg")
+                os.path.join(whisperBack.utils.get_pixmapdir(), "whisperback.svg"),
             )
         except GObject.GError as e:
             print(e)
@@ -128,18 +127,18 @@ class WhisperBackUI:
             self.backend = whisperBack.whisperback.WhisperBackBackend(
                 debugging_info=debugging_info,
                 bug_specific_text=self.bug_specific_details.get_buffer().get_property(
-                    "text"
+                    "text",
                 ),
             )
         except whisperBack.exceptions.MisconfigurationException as e:
             self.show_exception_dialog(
-                _("Unable to load a valid configuration."), e, self.cb_close_application
+                _("Unable to load a valid configuration."), e, self.cb_close_application,
             )
             return
 
         # Shows the debugging details
         self.prepended_details.get_buffer().set_text(
-            self.backend.prepended_data.rstrip()
+            self.backend.prepended_data.rstrip(),
         )
         self.appended_details.get_buffer().set_text(self.backend.appended_data.rstrip())
 
@@ -178,7 +177,7 @@ class WhisperBackUI:
                     message.get_buffer().get_start_iter(),
                     message.get_buffer().get_end_iter(),
                     include_hidden_chars=False,
-                )
+                ),
             )
         message_text = ""
         for title, part in zip(titles, parts):
@@ -192,10 +191,10 @@ class WhisperBackUI:
                 self.backend.contact_email = self.contact_email.get_text()
             except ValueError as e:
                 self.show_exception_dialog(
-                    _("The contact email address doesn't seem valid."), e
+                    _("The contact email address doesn't seem valid."), e,
                 )
                 self.progression_dialog.hide()
-                return
+                return None
 
         if not self.include_prepended_details.get_active():
             self.backend.prepended_data = ""
@@ -227,7 +226,7 @@ class WhisperBackUI:
 The bug report could not be sent, likely due to network problems. \
 Please try to reconnect to the network and click send again.\n\
 \n\
-If it does not work, you will be offered to save the bug report."
+If it does not work, you will be offered to save the bug report.",
                     ),
                     e,
                 )

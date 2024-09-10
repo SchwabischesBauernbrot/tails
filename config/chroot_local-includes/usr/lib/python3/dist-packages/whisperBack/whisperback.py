@@ -28,9 +28,6 @@ import logging
 import os
 import re
 import threading
-from typing import Optional
-
-import gi
 
 from gi.repository import GLib
 
@@ -86,7 +83,7 @@ class WhisperBackBackend:
     def __init__(
         self,
         debugging_info: str,
-        bug_specific_text: Optional[str],
+        bug_specific_text: str | None,
         subject="",
         message="",
     ):
@@ -117,7 +114,7 @@ class WhisperBackBackend:
 
         # Get additional info through the callbacks and sanitize it
         self.prepended_data = whisperBack.utils.sanitize_hardware_info(
-            self.mail_prepended_info()
+            self.mail_prepended_info(),
         )
         self.bug_specific_text = bug_specific_text
         self.appended_data = self.__get_debug_info(debugging_info)
@@ -138,13 +135,13 @@ class WhisperBackBackend:
         LOG.debug("Loading conf from %s", config_file_path)
         f = None
         try:
-            f = open(config_file_path, "r")
+            f = open(config_file_path)
             code = f.read()
-        except IOError:
+        except OSError:
             # There's no problem if one of the configuration files is not
             # present
-            LOG.warn("Failed to load conf %s", config_file_path)
-            return None
+            LOG.warning("Failed to load conf %s", config_file_path)
+            return
         finally:
             if f:
                 f.close()
@@ -163,7 +160,7 @@ class WhisperBackBackend:
         for debug_info in all_info:
             if prefix:
                 result += "\n{} === content of {} ===\n".format(
-                    prefix, debug_info["key"]
+                    prefix, debug_info["key"],
                 )
             else:
                 result += "\n======= content of {} =======\n".format(debug_info["key"])
@@ -171,11 +168,11 @@ class WhisperBackBackend:
                 for line in debug_info["content"]:
                     if isinstance(line, dict):
                         result += self.__get_debug_info(
-                            json.dumps([line]), prefix + "> "
+                            json.dumps([line]), prefix + "> ",
                         )
                     else:
                         sanitized = "{}{}\n".format(
-                            prefix, whisperBack.utils.sanitize_hardware_info(line)
+                            prefix, whisperBack.utils.sanitize_hardware_info(line),
                         )
                         result += re.sub(r"^--\s*", "", sanitized)
             else:
@@ -291,10 +288,7 @@ class WhisperBackBackend:
                 body += "OpenPGP-Key: %s\n" % self.contact_gpgkey
             else:
                 body += "OpenPGP-Key: included below\n"
-        if self.bug_specific_text is None:
-            prefill_extra = ""
-        else:
-            prefill_extra = self.bug_specific_text
+        prefill_extra = "" if self.bug_specific_text is None else self.bug_specific_text
         body += (
             f"{self.prepended_data.rstrip()}\n"
             f"{prefill_extra}"
@@ -313,7 +307,7 @@ class WhisperBackBackend:
         encrypter = whisperBack.encryption.Encryption(keyring=self.gnupg_keyring)
 
         encrypted_mime_message = encrypter.pgp_mime_encrypt(
-            mime_message, [self.to_fingerprint]
+            mime_message, [self.to_fingerprint],
         )
 
         encrypted_mime_message["Subject"] = self.mail_subject

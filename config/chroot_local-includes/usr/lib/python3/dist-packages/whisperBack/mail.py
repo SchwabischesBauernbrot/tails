@@ -27,7 +27,6 @@ import smtplib
 import socket
 
 import socks
-
 from tailslib.tor import TOR_HAS_BOOTSTRAPPED_PATH
 
 import whisperBack.exceptions
@@ -79,7 +78,7 @@ def send_message(
         # a socket.error (https://github.com/Anorov/PySocks/commit/4081b79)
         # XXX: this workaround should be removed when a version of socks containing
         # this commit reaches Tails.
-        raise socket.error("PySocks doesn't support IPv6")
+        raise OSError("PySocks doesn't support IPv6")
 
     smtp.sendmail(from_address, [to_address], message)
     smtp.quit()

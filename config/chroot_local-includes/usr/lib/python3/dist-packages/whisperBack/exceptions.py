@@ -26,7 +26,6 @@
 class WhisperbackException(Exception):
     """Base class for all exceptions raised by WhisperBack"""
 
-    pass
 
 
 # Used in whisperback.py
@@ -43,7 +42,7 @@ class MisconfigurationException(WhisperbackException):
             self,
             _(
                 "The %s variable was not found in the configuration file: "
-                "/etc/whisperback/config.py"
+                "/etc/whisperback/config.py",
             )
             % variable,
         )
@@ -55,7 +54,6 @@ class MisconfigurationException(WhisperbackException):
 class EncryptionException(WhisperbackException):
     """This exception is raised when GnuPG fails to encrypt the data"""
 
-    pass
 
 
 class TorNotBootstrappedException(WhisperbackException):
