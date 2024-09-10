@@ -2103,14 +2103,23 @@ To login:
 Request the publication of the Tor blog post
 --------------------------------------------
 
-If you prepared a draft Tor blog post earlier, then:
+Skip this section if you haven't prepared a draft Tor blog post earlier.
 
 - If you have developer status (check
   [here](https://gitlab.torproject.org/tpo/web/blog/-/project_members))
-  then can merge it yourself. Once merged a new pipeline is started
-  whose last stage (Deploy) will require manual action: click on it to
-  open a menu where you will see "deploy-prod ▶️", then click on the ▶️
-  to deploy.
+  then can merge it yourself.
+
+  - To inspect the result, see the pipeline of the MR, in particular the
+    `deploy-review` job. On top of the job page, a message will tell "This job
+is deployed to ". Click on the link to the environment. Then click on "View
+deployment". Check if everything looks good.
+
+  - Merge!
+
+  - Once merged a new pipeline is started
+    whose last stage (Deploy) will require manual action: click on it to
+    open a menu where you will see "deploy-prod ▶️", then click on the ▶️
+    to deploy.
 
 - Otherwise, mark the merge request as ready by remove the `Draft:`
   prefix, and wait until someone merges it for you.
