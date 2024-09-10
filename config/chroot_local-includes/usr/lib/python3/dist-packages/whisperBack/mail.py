@@ -34,6 +34,7 @@ import whisperBack.exceptions
 
 LOG = logging.getLogger(__name__)
 
+
 # pylint: disable=R0913
 def send_message(
     from_address,
@@ -60,7 +61,6 @@ def send_message(
 
     if not TOR_HAS_BOOTSTRAPPED_PATH.exists():
         raise whisperBack.exceptions.TorNotBootstrappedException()
-
 
     LOG.debug("Sending mail")
     # Monkeypatching the entire connection through the SOCKS proxy

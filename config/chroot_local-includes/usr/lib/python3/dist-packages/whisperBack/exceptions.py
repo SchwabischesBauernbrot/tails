@@ -57,5 +57,6 @@ class EncryptionException(WhisperbackException):
 
     pass
 
+
 class TorNotBootstrappedException(WhisperbackException):
     pass

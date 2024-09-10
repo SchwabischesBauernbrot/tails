@@ -240,7 +240,10 @@ If it does not work, you will be offered to save the bug report."
                 self.progression_secondary_text.set_text("")
 
         try:
-            self.backend.send(progress_callback=cb_update_progress, finished_callback=cb_finished_progress)
+            self.backend.send(
+                progress_callback=cb_update_progress,
+                finished_callback=cb_finished_progress,
+            )
         except whisperBack.exceptions.EncryptionException as e:
             self.show_exception_dialog(_("An error occured during encryption."), e)
             self.progression_dialog.hide()
