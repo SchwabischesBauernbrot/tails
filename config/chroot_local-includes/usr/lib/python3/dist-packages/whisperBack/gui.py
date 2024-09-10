@@ -181,7 +181,7 @@ class WhisperBackUI:
                 ),
             )
         message_text = ""
-        for title, part in zip(titles, parts):
+        for title, part in zip(titles, parts, strict=True):
             message_text += title + "\n" + "-" * len(title) + "\n\n"
             message_text += f"{part}\n\n"
         message_text += "\n\n\n"

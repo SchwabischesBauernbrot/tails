@@ -54,7 +54,7 @@ class WhisperBackBackend:
             self._contact_email = email
         else:
             # XXX use a better exception
-            raise ValueError(_("Invalid contact email: %s" % email))
+            raise ValueError(_("Invalid contact email: %s") % email)
 
     # pylint: disable=W0212
     contact_email = property(lambda self: self._contact_email, set_contact_email)
@@ -73,7 +73,7 @@ class WhisperBackBackend:
         else:
             # XXX use a better exception
             if len(gpgkey.splitlines()) <= 1:
-                message = _("Invalid contact OpenPGP key: %s" % gpgkey)
+                message = _("Invalid contact OpenPGP key: %s") % gpgkey
             else:
                 message = _("Invalid contact OpenPGP public key block")
             raise ValueError(message)
@@ -147,7 +147,7 @@ class WhisperBackBackend:
             if f:
                 f.close()
         # pylint: disable=W0122
-        exec(code, self.__dict__)  # nosec exec_used
+        exec(code, self.__dict__)  # noqa: S102
 
     def __get_debug_info(self, raw_debug, prefix=""):
         """Deserializes the dicts from raw_debug and creates a string
@@ -165,7 +165,7 @@ class WhisperBackBackend:
                 )
             else:
                 result += "\n======= content of {} =======\n".format(debug_info["key"])
-            if type(debug_info["content"]) is list:
+            if isinstance(debug_info["content"], list):
                 for line in debug_info["content"]:
                     if isinstance(line, dict):
                         result += self.__get_debug_info(
