@@ -215,6 +215,8 @@ class WhisperBackUI:
                     exception_string = _("Unable to send the mail: SMTP error.")
                 elif isinstance(e, socket.error):
                     exception_string = _("Unable to connect to the server.")
+                elif isinstance(e, whisperBack.exceptions.TorNotBootstrappedException):
+                    exception_string = _("Tor is not ready yet")
                 else:
                     exception_string = _("Unable to create or to send the mail.")
 

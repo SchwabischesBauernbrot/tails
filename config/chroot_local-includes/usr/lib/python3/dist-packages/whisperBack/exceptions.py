@@ -56,3 +56,6 @@ class EncryptionException(WhisperbackException):
     """This exception is raised when GnuPG fails to encrypt the data"""
 
     pass
+
+class TorNotBootstrappedException(WhisperbackException):
+    pass

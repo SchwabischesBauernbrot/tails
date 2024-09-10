@@ -28,8 +28,11 @@ import socket
 
 import socks
 
-LOG = logging.getLogger(__name__)
+from tailslib.tor import TOR_HAS_BOOTSTRAPPED_PATH
 
+import whisperBack.exceptions
+
+LOG = logging.getLogger(__name__)
 
 # pylint: disable=R0913
 def send_message(
@@ -54,6 +57,10 @@ def send_message(
     @param socks_host The host of the SOCKS proxy to connect through
     @param socks_port The port of the SOCKS proxy to connect through
     """
+
+    if not TOR_HAS_BOOTSTRAPPED_PATH.exists():
+        raise whisperBack.exceptions.TorNotBootstrappedException()
+
 
     LOG.debug("Sending mail")
     # Monkeypatching the entire connection through the SOCKS proxy
