@@ -1,9 +1,133 @@
-tails (6.7) UNRELEASED; urgency=medium
+tails (6.8) UNRELEASED; urgency=medium
 
   * Dummy entry for next release.
-  * Dummy entry for next release.
 
- -- intrigeri <intrigeri@debian.org>  Tue, 13 Aug 2024 12:15:36 +0000
+ -- boyska <boyska@riseup.net>  Tue, 10 Sep 2024 12:06:01 +0200
+
+tails (6.7) unstable; urgency=medium
+
+  * Upgrade Thunderbird to 115.15
+
+  * Upgrade to Bookworm 12.7 (tails/tails!1676)
+
+    Closes issues:
+      - Upgrade to Bookworm 12.7 (tails/tails#20468)
+
+    Commits:
+      - Document SBAT level 5
+      - Upgrade to Bookworm 12.7
+
+  * Don't drop firewall rules when stopping the ferm service (tails/tails!1687)
+
+    Closes issues:
+      - The firewall rules are dropped while Tails is shutting down (tails/tails#20536)
+
+    Commits:
+      - Don't drop firewall rules when stopping Ferm (refs: tails#20536)
+
+  * Upgrade Tor Browser to 13.5.3 (tails/tails!1681)
+
+    Closes issues:
+      - Upgrade Tor Browser to 13.5.3 (tails/tails#20520)
+
+    Commits:
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 13.5.3-build1 (refs: tails#20520)
+
+  * Don't treat a 2500 MiB system partitions as problematic (tails/tails!1667)
+
+    Closes issues:
+      - Spurious error message on Tails sticks installed a long time ago
+        (tails/tails#20519)
+
+    Commits:
+      - Don't treat 2500 MiB system partitions as problematic
+
+  * Test suite: use same DNS server as the VM under testing when resolving
+    connectivity check hosts (tails/tails!1679)
+
+    Closes issues:
+      - Test suite: false positive leaks detected from tails-get-network-time
+        (tails/tails#20515)
+
+    Commits:
+      - Test suite: improve comment
+      - rubocop --fix
+      - Test suite: use proper URL
+      - Test suite: use same DNS server as the VM under testing when resolving
+        connectivity check hosts
+      - Test suite: resolve DNS closer to when it is needed
+
+  * Make developers responsible for QA during the release process
+    (tails/tails!1677)
+
+    Closes issues:
+      - Reconsider who does the QA during the release process (tails/tails#19018)
+
+    Commits:
+      - Encode requirements and responsibilities wrt. bare metal QA
+      - Remove duplicate
+      - Make non-RM'ing developers responsible for QA during the release process
+      - Update example
+      - Remove obsolete data point
+      - Clarify
+      - Fix typo
+
+  * Adjust needed-package-updates configuration for Bookworm (tails/tails!1661)
+
+    Commits:
+      - Adjust needed-package-updates configuration for Bookworm
+
+  * Remove confusing leftovers of ttdnsd (tails/tails!1658)
+
+    Closes issues:
+      - Remove confusing leftovers of ttdnsd (tails/tails#20513)
+
+    Commits:
+      - Remove confusing leftovers of ttdnsd
+
+  * Test suite: replace OpenDNS with Quad9 as a test recursive nameserver
+    (tails/tails!1657)
+
+    Closes issues:
+      - Some automated tests fail when run in France (tails/tails#20512)
+
+    Commits:
+      - Test suite: replace OpenDNS with Quad9 as a test recursive nameserver
+
+  * run shfmt for changed shell files (tails/tails!1649)
+
+    Closes issues:
+      - Establish a coding standards baseline for our Shell code base
+        (tails/tails#20496)
+
+    Commits:
+      - fix CI dependency
+      - Simplify check
+      - CI runs shfmt for changed files
+      - shfmt wrapper
+      - editorconfig to clarify indentation
+
+  * Upgrade to OnionShare 2.6 (tails/tails!1602)
+
+    Closes issues:
+      - Upgrade to OnionShare 2.6+, take 2 (tails/tails#20198)
+      - OnionShare has no app icon (tails/tails#20216)
+
+    Commits:
+      - Adjust needed-package-updates configuration for Bookworm
+      - Check for leftover PySide usage in OnionShare
+      - Revert "Do everything needed to install OnionShare 2.2 forward-ported from
+        bullseye (refs: tails/tails#20135)"
+      - Remove obsolete workaround
+      - Remove obsolete patch
+      - Start adjusting APT pinning for backported onionshare
+      - Also apply pinning to new onionshare-cli binary package
+      - Update explanation
+      - Enable the 20198-onionshare-2.6 APT overlay (refs: #20198).
+
+ -- Tails developers <tails@boum.org>  Mon, 09 Sep 2024 12:27:28 +0200
+>>>>>>> stable
 
 tails (6.6) unstable; urgency=medium
 
