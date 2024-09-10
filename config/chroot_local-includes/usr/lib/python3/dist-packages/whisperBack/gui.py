@@ -218,20 +218,17 @@ class WhisperBackUI:
                 else:
                     exception_string = _("Unable to create or to send the mail.")
 
-                if self.backend.send_attempts <= 1:
-                    self.show_exception_dialog(
-                        exception_string
-                        + _(
-                            "\n\n\
+                self.show_exception_dialog(
+                    exception_string
+                    + _(
+                        "\n\n\
 The bug report could not be sent, likely due to network problems. \
 Please try to reconnect to the network and click send again.\n\
 \n\
 If it does not work, you will be offered to save the bug report."
-                        ),
-                        e,
-                    )
-                else:
-                    self.show_exception_dialog_with_save(exception_string, e)
+                    ),
+                    e,
+                )
                 self.progression_dialog.hide()
             else:
                 self.main_window.set_sensitive(False)
@@ -241,13 +238,14 @@ If it does not work, you will be offered to save the bug report."
                 self.progression_secondary_text.set_text("")
 
         try:
-            self.backend.send(cb_update_progress, cb_finished_progress)
+            self.backend.send(progress_callback=cb_update_progress, finished_callback=cb_finished_progress)
         except whisperBack.exceptions.EncryptionException as e:
             self.show_exception_dialog(_("An error occured during encryption."), e)
             self.progression_dialog.hide()
 
         return False
 
+    # XXX: this is not used anymore
     def show_exception_dialog_with_save(self, message, exception):
         """Shows a dialog reporting an exception and prompting the user to
         save the debugging data as a file
