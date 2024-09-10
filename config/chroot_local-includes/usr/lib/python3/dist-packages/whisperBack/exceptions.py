@@ -22,6 +22,8 @@
 
 """
 
+from gettext import gettext as _
+
 
 class WhisperbackException(Exception):
     """Base class for all exceptions raised by WhisperBack"""

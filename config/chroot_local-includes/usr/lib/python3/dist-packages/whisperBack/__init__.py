@@ -22,8 +22,4 @@
 
 """
 
-import gettext
-
 from whisperBack.gui import WhisperBackUI
-
-gettext.install("tails", localedir="/usr/share/locale")

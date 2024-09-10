@@ -25,6 +25,7 @@
 import logging
 import smtplib
 import socket
+from gettext import gettext as _
 
 import socks
 from tailslib.tor import TOR_HAS_BOOTSTRAPPED_PATH

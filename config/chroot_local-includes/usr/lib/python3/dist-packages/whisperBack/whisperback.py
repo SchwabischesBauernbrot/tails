@@ -28,6 +28,7 @@ import logging
 import os
 import re
 import threading
+from gettext import gettext as _
 
 from gi.repository import GLib
 

@@ -6,6 +6,7 @@ import logging
 import os
 import smtplib  # for smtplib.SMTPException
 import socket  # for socket.error
+from gettext import gettext as _
 
 # GIR imports
 import gi
