@@ -270,9 +270,6 @@ class WhisperBackBackend:
         # XXX: there could be no main loop
         GLib.timeout_add(polling_freq, poll_thread, self)
 
-    # XXX: static would be best, but I get a problem with self.*
-    # execute_threaded = staticmethod(execute_threaded)
-
     def get_message_body(self):
         """Returns the content of the message body
 
