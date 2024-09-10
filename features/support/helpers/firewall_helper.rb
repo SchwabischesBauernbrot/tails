@@ -1,5 +1,7 @@
 require 'packetfu'
-require "#{GIT_DIR}/lib/ruby/vendor/packetfu/icmpv6.rb"
+unless PacketFu.constants.include?(:ICMPv6Packet)
+  require "#{GIT_DIR}/lib/ruby/vendor/packetfu/icmpv6.rb"
+end
 require 'net/dns'
 
 # Unfortunately PacketFu's ICMPv6 module does not support the embedded
