@@ -1901,7 +1901,8 @@ Feel free to skip this if you are not preparing a major release.
         ./bin/generate-Tor-blog-post "${VERSION:?}" "${TAG:?}" "${DIST:?}" "${RELEASE_DATE:?}"
 
 - Copy the introduction sentences of the body into the `summary` section of the
-  draft blog post
+  draft blog post. If there is no such sentence, this can be enough:
+  `Tails ${VERSION:?} is out.`
 
 - Proof-read the draft blog post
 
