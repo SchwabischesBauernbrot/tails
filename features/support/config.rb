@@ -122,7 +122,7 @@ SERVICES_ALLOWED_FOR_LIVE_USER =
     [IPAddr.new('127.0.0.1'),  9050],
   ].freeze
 # OpenDNS
-SOME_DNS_SERVER = '208.67.222.222'.freeze
+SOME_DNS_SERVER = '9.9.9.9'.freeze
 RTL_LANGUAGES = ['Arabic', 'Persian'].freeze
 VM_XML_PATH = "#{Dir.pwd}/features/domains".freeze
 LAN_WEB_SERVER_HELLO_MSG = 'Welcome to the LAN web server!'.freeze
@@ -134,13 +134,6 @@ WEBM_VIDEO_URL = 'https://tails.net/lib/test_suite/test.webm'.freeze
 
 # EFI System Partition
 ESP_GUID = 'c12a7328-f81f-11d2-ba4b-00a0c93ec93b'.freeze
-
-# Fedora connectivity check server, used by tails-get-network-time
-CONNECTIVITY_CHECK_HOSTNAME = 'fedoraproject.org'.freeze
-CONNECTIVITY_CHECK_HOSTS = Resolv.getaddresses(CONNECTIVITY_CHECK_HOSTNAME)
-CONNECTIVITY_CHECK_ALLOWED_NODES = (CONNECTIVITY_CHECK_HOSTS.map do |ip|
-  { address: ip, port: 80 }
-end).freeze
 
 LAN_WEB_SERVER_DATA_DIR = "#{$config['TMPDIR']}/lan-web-server".freeze
 
