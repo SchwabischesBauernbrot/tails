@@ -43,7 +43,7 @@ LOG = logging.getLogger(__name__)
 
 
 # pylint: disable=R0902
-class WhisperBack:
+class WhisperBackBackend:
     """
     This class contains the backend which actually sends the feedback
     """

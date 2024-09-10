@@ -125,7 +125,7 @@ class WhisperBackUI:
 
         # Launches the backend
         try:
-            self.backend = whisperBack.whisperback.WhisperBack(
+            self.backend = whisperBack.whisperback.WhisperBackBackend(
                 debugging_info=debugging_info,
                 bug_specific_text=self.bug_specific_details.get_buffer().get_property(
                     "text"
