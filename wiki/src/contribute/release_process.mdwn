@@ -1751,6 +1751,12 @@ Note that the Trusted Reproducer has 72 hours to complete this check,
 you do not have to wait for this to be completed, just make sure they
 are informed that the Reproducibility check can be started.
 
+    ./bin/automailer.py <<EOF
+    Subject: Trusted Reproducer for ${VERSION:?}
+    
+    You can now start the reproducibility test.
+    EOF
+
 Prepare announcements and blog posts
 ====================================
 
