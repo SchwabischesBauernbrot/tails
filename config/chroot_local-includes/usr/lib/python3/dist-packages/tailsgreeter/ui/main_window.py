@@ -476,6 +476,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             self.open_prefilled_whisperback_after_login(
                 "fsck", "Failed to repair the file system of your Persistent Storage"
             )
+            self.open_help_after_login("doc/persistent_storage/recover")
 
         def on_tps_repair_success():
             dialog.response(Gtk.ResponseType.OK)
