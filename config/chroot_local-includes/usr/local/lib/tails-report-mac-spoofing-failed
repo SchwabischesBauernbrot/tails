@@ -2,11 +2,16 @@
 
 set -eu
 
-STATE_FILE=/var/lib/live/config/tails.mac-spoofing-failed
-# The title is the first line in the state file
-TITLE="$(head -n 1 "$STATE_FILE")"
-# The text is the rest of the file
-TEXT="$(tail -n +2 "$STATE_FILE")"
+if [ "${#}" -eq 0 ]; then
+    STATE_FILE=/var/lib/live/config/tails.mac-spoofing-failed
+    # The title is the first line in the state file
+    TITLE="$(head -n 1 "$STATE_FILE")"
+    # The text is the rest of the file
+    TEXT="$(tail -n +2 "$STATE_FILE")"
+else
+    TITLE="${1}"
+    TEXT="${2}"
+fi
 
 ret=$(notify-send \
         --icon=network-wireless-offline \
