@@ -780,7 +780,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             _("Start Tails to learn how to recover your data."),
         )
         self.on_tps_activation_failed(label)
-        self.open_help_after_login("doc/persistent_storage/recover")
+        self.open_help_after_login("doc/persistent_storage/fsck")
 
     def cb_unlock_failed_with_filesystem_errors(self):
         logging.debug("Persistent Storage unlock failed due to file system errors")
@@ -796,11 +796,11 @@ Tails can try to fix these errors, but this might erase some of your data and ta
 
 If you already have an up-to-date backup of your Persistent Storage, we recommend that you try to repair.
                 
-If you don't have a backup, we recommend that you create a backup first."""
+If you don't have a backup, we recommend that you create a partition image of your Persistent Storage first."""
             ),
             cancel_label=_("Cancel"),
             ok_label=_("Repair File System"),
-            third_button_label=_("Create Backup"),
+            third_button_label=_("Create Partition Image"),
             destructive=True,
         )
         dialog.set_transient_for(self)
@@ -811,10 +811,10 @@ If you don't have a backup, we recommend that you create a backup first."""
             # it for the "Create Backup" button out of better options.
             if response == Gtk.ResponseType.REJECT:
                 label = _(
-                    "Start Tails to learn how to create a backup of your Persistent Storage."
+                    "Start Tails to learn how to create a partition image of your Persistent Storage."
                 )
                 self.on_tps_activation_failed(label)
-                self.open_help_after_login("doc/persistent_storage/recover/ddrescue")
+                self.open_help_after_login("doc/persistent_storage/fsck")
                 return
             elif response == Gtk.ResponseType.OK:
                 self.repair_tps_filesystem()
