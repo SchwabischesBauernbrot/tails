@@ -102,9 +102,9 @@ mac_spoof_panic() {
     # do that check before unloading the module, else we won't be able
     # to get the information.
     local is_wifi is_wired
-    if iw dev "${nic}" info 2>/dev/null; then
+    if iw dev "${nic}" info 2>/dev/null 1>&2; then
         is_wifi=true
-    elif ethtool "${nic}"; then
+    elif ethtool "${nic}" 2>/dev/null 1>&2; then
         is_wired=true
     fi
 
@@ -117,7 +117,7 @@ mac_spoof_panic() {
             if [ "${interface}" = "${1}" ]; then
                 continue
             fi
-            if iw dev "${interface}" info 2>/dev/null; then
+            if iw dev "${interface}" info 2>/dev/null 1>&2; then
                 other_wifi_cards=true
                 break
             fi
@@ -127,7 +127,7 @@ mac_spoof_panic() {
             if [ "${interface}" = "${1}" ]; then
                 continue
             fi
-            if ethtool "${interface}" 2>/dev/null; then
+            if ethtool "${interface}" 2>/dev/null 1>&2; then
                 other_wired_cards=true
                 break
             fi
