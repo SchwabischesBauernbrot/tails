@@ -81,20 +81,20 @@ notify_panic_success() {
     fi
 
     if [ "${is_wifi:-}" = true ] && [ "${other_wifi_cards:-}" = true ]; then
-      title=$(eval_gettext "Wi-Fi Interface Disabled")
-      text=$(eval_gettext "MAC address anonymization failed for one of your Wi-Fi interfaces, so it is temporarily disabled.")
+        title=$(eval_gettext "Wi-Fi Interface Disabled")
+        text=$(eval_gettext "MAC address anonymization failed for one of your Wi-Fi interfaces, so it is temporarily disabled.")
     elif [ "${is_wifi:-}" = true ] && [ "${other_wifi_cards:-}" != true ]; then
-      title=$(eval_gettext "Wi-Fi Disabled")
-      text=$(eval_gettext "MAC address anonymization failed for your Wi-Fi interface, so it is temporarily disabled.")
+        title=$(eval_gettext "Wi-Fi Disabled")
+        text=$(eval_gettext "MAC address anonymization failed for your Wi-Fi interface, so it is temporarily disabled.")
     elif [ "${is_wired:-}" = true ] && [ "${other_wired_cards:-}" = true ]; then
-      title=$(eval_gettext "Wired Interface Disabled")
-      text=$(eval_gettext "MAC address anonymization failed for one of your wired interfaces, so it is temporarily disabled.")
+        title=$(eval_gettext "Wired Interface Disabled")
+        text=$(eval_gettext "MAC address anonymization failed for one of your wired interfaces, so it is temporarily disabled.")
     elif [ "${is_wired:-}" = true ] && [ "${other_wired_cards:-}" != true ]; then
-      title=$(eval_gettext "Wired Network Disabled")
-      text=$(eval_gettext "MAC address anonymization failed for your wired interface, so it is temporarily disabled.")
+        title=$(eval_gettext "Wired Network Disabled")
+        text=$(eval_gettext "MAC address anonymization failed for your wired interface, so it is temporarily disabled.")
     else
-      title=$(eval_gettext "Network Interface Disabled")
-      text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces, so it is temporarily disabled.")
+        title=$(eval_gettext "Network Interface Disabled")
+        text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces, so it is temporarily disabled.")
     fi
     text="${text}\n\n$(eval_gettext "You might prefer to restart Tails and disable MAC address anonymization.")"
 
@@ -133,7 +133,7 @@ mac_spoof_panic() {
     fi
 
     echo "install ${module} /bin/true" >> \
-         /etc/modprobe.d/"${module}"-blocklist.conf
+        /etc/modprobe.d/"${module}"-blocklist.conf
     unload_module_and_rev_deps "${module}" || :
     if nic_exists "${nic}"; then
         log "Failed to unload module ${module} of NIC ${nic}."
@@ -196,10 +196,9 @@ done
 # MAC spoofing fail-safe: if $NIC's MAC address isn't spoofed at this
 # point we have to take some drastic measures in order to prevent
 # potential leaks.
-if [ -z "${OLD_MAC:-}" ] || [ -z "${NEW_MAC:-}" ] || \
-   [ "${OLD_MAC:-}" = "${NEW_MAC:-}" ] || \
-   grep -qs -w 'debug=test_mac_spoof_panic' /proc/cmdline
-then
+if [ -z "${OLD_MAC:-}" ] || [ -z "${NEW_MAC:-}" ] ||
+    [ "${OLD_MAC:-}" = "${NEW_MAC:-}" ] ||
+    grep -qs -w 'debug=test_mac_spoof_panic' /proc/cmdline; then
     log "Failed to spoof MAC address of NIC ${NIC}. Going into panic mode."
     if ! mac_spoof_panic "${NIC}"; then
         # If mac_spoof_panic() fails we're quite screwed, so we kill

@@ -14,10 +14,10 @@ else
 fi
 
 ret=$(notify-send \
-        --icon=network-wireless-offline \
-        --urgency=critical \
-        --action=open_doc="Learn About MAC Address Anonymization" \
-        -- "$TITLE" "$TEXT")
+    --icon=network-wireless-offline \
+    --urgency=critical \
+    --action=open_doc="Learn About MAC Address Anonymization" \
+    -- "$TITLE" "$TEXT")
 
 if [ "$ret" = "open_doc" ]; then
     tails-documentation doc/first_steps/welcome_screen/mac_spoofing
