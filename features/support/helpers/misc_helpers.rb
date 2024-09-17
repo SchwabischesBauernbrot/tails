@@ -252,10 +252,21 @@ def save_tor_journal
 end
 
 def wait_until_tor_is_working
+  # This ID can be used to get the journal for only the current run of
+  # arti.service, which is necessary below where we look for a string
+  # in its journal and don't want it to be from a previous run.
+  arti_current_invocation = $vm.execute_successfully(
+    'systemctl show -p InvocationID --value arti.service'
+  ).stdout.chomp
   try_for(270) do
-    $vm.execute(
+    $vm.execute_successfully(
       '/bin/systemctl --quiet is-active tails-tor-has-bootstrapped.target'
-    ).success?
+    )
+    $vm.execute_successfully(
+      "journalctl _SYSTEMD_INVOCATION_ID=#{arti_current_invocation} | " \
+      "grep -q 'arti: Sufficiently bootstrapped; system SOCKS now functional.'"
+    )
+    true
   end
 rescue Timeout::Error
   raise TorBootstrapFailure, 'Tor failed to bootstrap'
@@ -293,7 +304,18 @@ def convert_from_bytes(size, unit)
   size.to_f / convert_bytes_mod(unit)
 end
 
-def cmd_helper(cmd, env: {})
+# Raised when cmd_helper() ran a command that exited with non-zero
+# status
+class CommandFailed < StandardError
+  attr_reader :command_output
+
+  def initialize(message, command_output)
+    super(message)
+    @command_output = command_output
+  end
+end
+
+def cmd_helper(cmd, env: {}, suppress_output: false)
   if cmd.instance_of?(Array)
     cmd << { err: [:child, :out] }
   elsif cmd.instance_of?(String)
@@ -304,7 +326,11 @@ def cmd_helper(cmd, env: {})
     out = p.read
     Process.wait(p.pid)
     ret = $CHILD_STATUS
-    assert_equal(0, ret, "Command failed (returned #{ret}): #{cmd}:\n#{out}")
+    if ret.exitstatus != 0
+      message = "Command failed (#{ret}): #{cmd}"
+      message += ":\n#{out}" unless suppress_output
+      raise CommandFailed.new(message, out)
+    end
     return out
   end
 end

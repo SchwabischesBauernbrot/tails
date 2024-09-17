@@ -358,7 +358,7 @@ After('@product') do |scenario|
     elsif scenario.exception.is_a?(TestSuiteRuntimeError)
       info_log("Scenario must be retried: #{scenario.name}")
       record_scenario_skipped(scenario)
-    elsif [TorBootstrapFailure, TimeSyncingError].any? \
+    elsif [ChutneyBootstrapFailure, TorBootstrapFailure, TimeSyncingError].any? \
           { |c| scenario.exception.is_a?(c) }
       if File.exist?("#{$config['TMPDIR']}/chutney-data")
         chutney_logs = sanitize_filename(
@@ -452,11 +452,7 @@ After('@product') do |scenario|
       info_log_artifact_location(desc, artifact_path)
     end
     if config_bool('INTERACTIVE_DEBUGGING')
-      pause(
-        "Scenario failed: #{scenario.name}. " \
-        "The error was: #{scenario.exception.class.name}: #{scenario.exception}",
-        exception: scenario.exception
-      )
+      pause('Interactive debugging', exception: scenario.exception)
     end
   elsif @video_path && File.exist?(@video_path) && !config_bool('CAPTURE_ALL')
     FileUtils.rm(@video_path)

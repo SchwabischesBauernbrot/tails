@@ -142,7 +142,7 @@ def listening_services
     proto = splitted[0]
     next unless ['tcp', 'udp'].include?(proto)
 
-    addr, port = splitted[4].split(':')
+    addr, _, port = splitted[4].rpartition(':')
     users = splitted[6].match(
       /users:\(\("(?<proc>[^"]+)",pid=(?<pid>\d+),fd=(?<fd>\d+)\)\)/
     )

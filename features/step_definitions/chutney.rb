@@ -1,3 +1,6 @@
+class ChutneyBootstrapFailure < StandardError
+end
+
 def chutney_status_log(cmd)
   action = case cmd
            when 'start'
@@ -25,15 +28,16 @@ def chutney_env
     # The default value (60s) is too short for "chutney wait_for_bootstrap"
     # to succeed reliably.
     'CHUTNEY_START_TIME'     => ENV['CHUTNEY_START_TIME'] || '600',
+    'CHUTNEY_TOR_SANDBOX'    => '0',
   }
 end
 
-def chutney_cmd(cmd)
+def chutney_cmd(cmd, **opts)
   chutney_script = "#{GIT_DIR}/features/scripts/chutney"
   network_definition = "#{GIT_DIR}/features/chutney/test-network"
   chutney_status_log(cmd)
   cmd = 'stop' if cmd == 'stop_old'
-  cmd_helper([chutney_script, cmd, network_definition], env: chutney_env)
+  cmd_helper([chutney_script, cmd, network_definition], env: chutney_env, **opts)
 end
 
 def chutney_data_dir_cleanup
@@ -42,6 +46,7 @@ def chutney_data_dir_cleanup
   end
 end
 
+# rubocop:disable Metrics/MethodLength
 def initialize_chutney
   # Ensure that a fresh chutney instance is running, and that it will
   # be cleaned upon exit. We only do it once, though, since the same
@@ -53,11 +58,37 @@ def initialize_chutney
   # are about to use. If chutney's data dir also was removed, this
   # will prevent chutney from starting the network unless the tor
   # processes are killed manually.
-  begin
-    cmd_helper(['pkill', '--full', '--exact',
-                "tor -f #{chutney_env['CHUTNEY_DATA_DIR']}/nodes/.*/torrc --quiet",])
-  rescue StandardError
-    # Nothing to kill
+  if File.directory?(chutney_env['CHUTNEY_DATA_DIR'])
+    chutney_cmd('stop_old')
+  else
+    args = [
+      '--full',
+      '--exact',
+      "tor -f #{chutney_env['CHUTNEY_DATA_DIR']}/nodes/.*/torrc --quiet",
+    ]
+    begin
+      cmd_helper(['pkill', *args])
+    rescue CommandFailed
+      # Nothing to kill
+    else
+      begin
+        try_for(30) do
+          assert_raise(CommandFailed) { cmd_helper(['pgrep', *args]) }
+          true
+        end
+      rescue Timeout::Error
+        begin
+          cmd_helper(['pkill', '-KILL', *args])
+        rescue CommandFailed
+          # Nothing to kill
+        else
+          try_for(30) do
+            assert_raise(CommandFailed) { cmd_helper(['pgrep', *args]) }
+            true
+          end
+        end
+      end
+    end
   end
 
   if KEEP_CHUTNEY
@@ -68,7 +99,7 @@ def initialize_chutney
     end
     begin
       chutney_cmd('start')
-    rescue Test::Unit::AssertionFailedError => e
+    rescue CommandFailed => e
       if File.directory?(chutney_env['CHUTNEY_DATA_DIR'])
         raise e, %{#{e.message}
 
@@ -89,7 +120,6 @@ want to delete Chutney's data directory and all test suite snapshots:
       end
     end
   else
-    chutney_cmd('stop_old')
     chutney_data_dir_cleanup
     chutney_cmd('configure')
     chutney_cmd('start')
@@ -102,6 +132,7 @@ want to delete Chutney's data directory and all test suite snapshots:
 
   $chutney_initialized = true
 end
+# rubocop:enable Metrics/MethodLength
 
 def wait_until_chutney_is_working
   return if $chutney_working
@@ -109,7 +140,16 @@ def wait_until_chutney_is_working
   initialize_chutney
 
   # Documentation: submodules/chutney/README, "Waiting for the network" section
-  chutney_cmd('wait_for_bootstrap')
+  begin
+    chutney_cmd('wait_for_bootstrap', suppress_output: true)
+  rescue CommandFailed => e
+    # raise ChutneyBootstrapFailure.new(e.message)
+
+    # The output from this command is massive, so let's just keep the
+    # last status report from the failed command's output.
+    message = "#{e.message}\n#{e.command_output[/^Bootstrap failed:.*/m]}"
+    raise ChutneyBootstrapFailure, message
+  end
 
   # We have to sanity check that all nodes are running because
   # `chutney start` will return success even if some nodes fail.
@@ -126,6 +166,8 @@ def wait_until_chutney_is_working
   # those with pluggable transports) to become usable.
   try_for(120) do
     Dir.glob("#{$config['TMPDIR']}/chutney-data/nodes/*") do |node_dir|
+      next unless File.directory?(node_dir)
+
       torrc = File.read("#{node_dir}/torrc")
       next unless torrc[/BridgeRelay 1/]
 
@@ -202,8 +244,20 @@ def configure_simulated_Tor_network # rubocop:disable Naming/MethodName
   end
   client_torrc_lines.concat(dir_auth_lines)
   $vm.file_append('/etc/tor/torrc', client_torrc_lines)
-
   $vm.execute_successfully('systemctl restart tor@default.service')
+
+  # Append Chutney's generated arti config to ours, extracting only
+  # the lines from (and including) [path_rules] until (and not
+  # including) [bridges].
+  chutney_sample_arti_config_file = "#{chutney_env['CHUTNEY_DATA_DIR']}/nodes/arti.toml"
+  chutney_arti_config = "\n"
+  keep = false
+  File.open(chutney_sample_arti_config_file).each_line do |line|
+    keep = true if line.chomp == '[path_rules]'
+    keep = false if line.chomp == '[bridges]'
+    chutney_arti_config += line if keep
+  end
+  $vm.file_append('/etc/arti/arti.toml', chutney_arti_config)
 end
 
 # This is for things that must be run after Chutney's network is

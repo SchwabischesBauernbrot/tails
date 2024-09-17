@@ -108,7 +108,7 @@ SERVICES_EXPECTED_ON_ALL_IFACES =
   [
     ['cups-browsed', IPAddr.new('0.0.0.0'),    631],
     ['onion-grater', IPAddr.new('0.0.0.0'),    951],
-    ['tor',          IPAddr.new('10.200.1.1'), 9050],
+    ['arti',         IPAddr.new('10.200.1.1'), 9050],
   ].freeze
 SERVICES_ALLOWED_FOR_LIVE_USER =
   [
@@ -120,6 +120,7 @@ SERVICES_ALLOWED_FOR_LIVE_USER =
     [IPAddr.new('127.0.0.1'),  9062],
     [IPAddr.new('127.0.0.1'),  9040],
     [IPAddr.new('127.0.0.1'),  9050],
+    [IPAddr.new('127.0.0.1'),  19050],
   ].freeze
 # OpenDNS
 SOME_DNS_SERVER = '208.67.222.222'.freeze
