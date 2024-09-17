@@ -1733,3 +1733,14 @@ Then /^the system journal includes message "([^"]+)"$/ do |message|
 
   assert(lines.any? { |l| l.include?(message) })
 end
+
+Then /^WhisperBack is prefilled for (.*) with summary: "(.*)"$/ do |app, summary|
+  whisperback = Dogtail::Application.new('whisperback')
+  prefilled_checkbox = whisperback.child('information about the error being reported',
+                                         showingOnly: false)
+  assert(prefilled_checkbox.checked)
+  prefilled_text = prefilled_checkbox.parent.child(roleName:    'text',
+                                                   showingOnly: false).text
+  assert_equal("Bug-specific app: #{app}\nBug-specific summary: #{summary}\n",
+               prefilled_text)
+end

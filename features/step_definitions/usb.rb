@@ -1736,6 +1736,14 @@ Then(/^the Welcome Screen tells me that filesystem errors were found on the Pers
   end
 end
 
+Then /^the Welcome Screen tells me that it failed to repair the Persistent Storage$/ do
+  greeter.child(
+    "Failed to repair the file system of your Persistent Storage.\n\n" \
+    'Start Tails to send an error report and learn how to recover your data.',
+    roleName: 'label'
+  )
+end
+
 Then /^the Persistent Storage settings tell me that the Persistent Folder feature couldn't be activated$/ do
   launch_persistent_storage
 
@@ -1788,6 +1796,15 @@ Given(/^I corrupt the Persistent Storage filesystem on USB drive "([^"]*)"( in a
 
   # Lock the Persistent Storage
   $vm.execute_successfully('cryptsetup luksClose TailsData_unlocked')
+end
+
+Given(/^the Persistent Storage filesystem is corrupted beyond what e2fsck can repair$/) do
+  fsck_fail_script = <<~SCRIPT
+    #!/bin/sh
+    exit 4
+  SCRIPT
+  $vm.file_overwrite('/usr/sbin/e2fsck', fsck_fail_script)
+  $vm.execute_successfully('chmod a+rx /usr/sbin/e2fsck')
 end
 
 Then(/^the filesystem of the Persistent Storage was repaired$/) do
