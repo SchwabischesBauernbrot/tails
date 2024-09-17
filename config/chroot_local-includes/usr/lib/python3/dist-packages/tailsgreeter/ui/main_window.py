@@ -628,10 +628,9 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
 
     def cb_entry_storage_passphrase_activated(self, entry, user_data=None):
         # Don't try to unlock if the entry is empty
-        if not entry.get_text():
-            return False
+        if entry.get_text():
+            self.unlock_tps()
 
-        self.unlock_tps()
         return False
 
     def cb_entry_storage_passphrase_changed(self, editable, user_data=None):
