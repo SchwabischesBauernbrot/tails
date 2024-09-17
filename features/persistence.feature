@@ -189,4 +189,4 @@ Feature: Tails persistence
     When I log in to a new session
     And all notifications have disappeared
     Then the Tor Browser starts
-    And "Tails - Recovering the Persistent Storage of a broken Tails" has loaded in the Tor Browser
+    And "Tails - Recovering data from the Persistent Storage, if the Persistent Storage doesn't unlock" has loaded in the Tor Browser
