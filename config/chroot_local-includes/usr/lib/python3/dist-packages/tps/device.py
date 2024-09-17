@@ -828,7 +828,7 @@ class CleartextDevice:
         finally:
             self.fsck_process = None
 
-    def mount(self, forceful_fsck: bool = False):
+    def mount(self):
         # Ensure that the mount point exists
         self.mount_point.mkdir(mode=0o770, parents=True, exist_ok=True)
 
@@ -846,7 +846,7 @@ class CleartextDevice:
                 # again if mounting fails (maybe it causes the
                 # filesystem to be marked as unclean and then e2fsck
                 # finds errors to correct?).
-                self.fsck(forceful_fsck)
+                self.fsck()
                 # Try to mount again
                 executil.check_call(mount_cmd)
             else:

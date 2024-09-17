@@ -87,7 +87,7 @@ class PersistentStorageSettings:
         if "Device" in keys:
             self.device = changed_properties["Device"]
 
-    def unlock(self, passphrase: str, forceful_fsck: bool = False):
+    def unlock(self, passphrase: str):
         """Unlock the Persistent Storage partition
 
         Raises:
@@ -100,7 +100,7 @@ class PersistentStorageSettings:
         try:
             self.service_proxy.call_sync(
                 method_name="Unlock",
-                parameters=GLib.Variant("(sb)", (passphrase, forceful_fsck)),
+                parameters=GLib.Variant("(s)", (passphrase,)),
                 flags=Gio.DBusCallFlags.NONE,
                 # In some cases, the default timeout of 25 seconds was not
                 # enough, especially since we now run fsck as part of the unlock

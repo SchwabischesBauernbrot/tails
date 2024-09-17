@@ -95,7 +95,6 @@ class Service(DBusObject, ServiceUsingJobs):
                 <method name='Activate'/>
                 <method name='Unlock'>
                     <arg name='passphrase' direction='in' type='s'/>
-                    <arg name='forceful_fsck' direction='in' type='b'/>
                 </method>
                 <method name='UpgradeLUKS'>
                     <arg name='passphrase' direction='in' type='s'/>
@@ -362,7 +361,7 @@ class Service(DBusObject, ServiceUsingJobs):
             msg = ":".join(failed_feature_names)
             raise FeatureActivationFailedError(msg)
 
-    def Unlock(self, passphrase: str, forceful_fsck: bool):
+    def Unlock(self, passphrase: str):
         """Unlock and mount the Persistent Storage"""
 
         logger.info("Unlocking Persistent Storage...")
@@ -376,7 +375,7 @@ class Service(DBusObject, ServiceUsingJobs):
             raise FailedPreconditionError(msg)
 
         try:
-            self.do_unlock(passphrase, forceful_fsck)
+            self.do_unlock(passphrase)
         finally:
             self.refresh_state(overwrite_in_progress=True)
             # We don't refresh the features here to avoid that any errors
@@ -389,7 +388,7 @@ class Service(DBusObject, ServiceUsingJobs):
 
         logger.info("Done unlocking Persistent Storage")
 
-    def do_unlock(self, passphrase: str, forceful_fsck: bool):
+    def do_unlock(self, passphrase: str):
         self.state = State.UNLOCKING
 
         # Unlock the Persistent Storage
@@ -400,8 +399,8 @@ class Service(DBusObject, ServiceUsingJobs):
         cleartext_device = self._tps_partition.get_cleartext_device()
         try:
             if not cleartext_device.is_mounted():
-                cleartext_device.fsck(forceful_fsck)
-                cleartext_device.mount(forceful_fsck)
+                cleartext_device.fsck()
+                cleartext_device.mount()
         except FilesystemErrorsLeftUncorrectedError as e:
             # Check if there are I/O errors for the device, in which
             # case we want to raise a different error

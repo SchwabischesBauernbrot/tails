@@ -376,7 +376,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         self.button_start.grab_focus()
         self.get_root_window().set_cursor(Gdk.Cursor.new(Gdk.CursorType.ARROW))
 
-    def unlock_tps(self, forceful_fsck: bool = False):
+    def unlock_tps(self, already_attempted_forceful_fsck: bool = False):
         self.box_storage_unlock.set_visible(False)
         self.label_storage_unlock_status.set_label(_("Unlocking…"))
         self.label_storage_unlock_status.set_visible(True)
@@ -389,12 +389,15 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         passphrase = self.entry_storage_passphrase.get_text()
 
         # Let's execute the unlocking in a thread
-        def do_unlock_tps(forceful_fsck: bool):
+        def do_unlock_tps():
             try:
-                # First, upgrade the storage if needed (skip if we're
-                # doing a forceful fsck, because then we already tried
-                # to upgrade)
-                if not self.persistence_setting.is_upgraded and not forceful_fsck:
+                # First, upgrade the storage if needed (skip if we
+                # already attempted a forceful fsck, because then we
+                # already ran this code and tried to upgrade)
+                if (
+                    not self.persistence_setting.is_upgraded
+                    and not already_attempted_forceful_fsck
+                ):
                     try:
                         glib_idle_add_once(self.on_tps_upgrading)
                         self.persistence_setting.upgrade_luks(passphrase)
@@ -422,7 +425,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
 
                 # Then, unlock the storage
                 try:
-                    self.persistence_setting.unlock(passphrase, forceful_fsck)
+                    self.persistence_setting.unlock(passphrase)
                 finally:
                     GLib.source_remove(timeout_cb_id)
                 glib_idle_add_once(self.cb_tps_unlocked)
@@ -431,9 +434,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             except IOErrorsDetectedError:
                 glib_idle_add_once(self.cb_tps_unlock_failed_with_io_errors)
             except FilesystemErrorsLeftUncorrectedError:
-                if forceful_fsck:
-                    # We already tried to unlock the storage with a forceful fsck
-                    # and it still failed, so we give up
+                if already_attempted_forceful_fsck:
                     glib_idle_add_once(self.on_tps_unlock_failed)
                 else:
                     glib_idle_add_once(self.cb_unlock_failed_with_filesystem_errors)
@@ -442,7 +443,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                 glib_idle_add_once(self.on_tps_unlock_failed)
                 return
 
-        unlocking_thread = threading.Thread(target=do_unlock_tps, args=(forceful_fsck,))
+        unlocking_thread = threading.Thread(target=do_unlock_tps)
         unlocking_thread.start()
 
     def repair_tps_filesystem(self):
@@ -518,7 +519,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         def on_repairing_dialog_response(dialog, response):
             dialog.destroy()
             if response == Gtk.ResponseType.OK:
-                self.unlock_tps(forceful_fsck=True)
+                self.unlock_tps(already_attempted_forceful_fsck=True)
             else:
                 cancellable.cancel()
 
