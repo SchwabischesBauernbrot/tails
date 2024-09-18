@@ -85,6 +85,11 @@ if [ "${TAILS_BUILD_FAILURE_RESCUE}" != 1 ]; then
 	remove_build_dirs
 fi
 
+# Required by jenkins isoworkers since git 2.39.5-0+deb12u1.
+for dir in /amnesia.git/.git /amnesia.git/.git/modules/submodules/*; do
+    git config --global --add safe.directory "${dir}"
+done
+
 TAILS_GIT_DIR="/home/vagrant/amnesia"
 rm -rf "${TAILS_GIT_DIR}"
 # We use --shared as an time/space optimization, and it is safe
