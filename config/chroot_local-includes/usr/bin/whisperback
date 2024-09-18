@@ -45,7 +45,17 @@ if len(sys.argv) > 2:
     sys.exit(2)
 if len(sys.argv) > 1:
     prefill = json.load(open(sys.argv[1]))
-    os.unlink(sys.argv[1])
+    try:
+        os.unlink(sys.argv[1])
+    except PermissionError:
+        try:
+            with open(sys.argv[1], "w") as f:
+                f.truncate(0)
+        except PermissionError:
+            print(
+                f"Warning: failed to remove input file '{sys.argv[1]}'", file=sys.stderr
+            )
+
 else:
     prefill = None
 
