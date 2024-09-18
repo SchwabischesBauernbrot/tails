@@ -20,6 +20,7 @@ from typing import TYPE_CHECKING
 import gi
 import json
 import os
+import subprocess
 
 import tailsgreeter  # NOQA: E402
 from tailsgreeter import config  # NOQA: E402
@@ -42,6 +43,7 @@ from tailsgreeter.ui.help_window import GreeterHelpWindow
 from tailsgreeter.ui.region_settings import LocalizationSettingUI
 from tailsgreeter.utils import glib_idle_add_once
 from tailsgreeter import TRANSLATION_DOMAIN
+from tailslib import LIVE_USERNAME
 from tps import InvalidBootDeviceErrorType
 
 gi.require_version("Gdk", "3.0")
@@ -528,7 +530,8 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
         dialog.show_all()
 
     def open_prefilled_whisperback_after_login(self, app: str, summary: str):
-        with open("/var/lib/gdm3/post-greeter-whisperback.json", "w") as f:
+        path = "/var/lib/gdm3/post-greeter-whisperback.json"
+        with open(path, "w") as f:
             json.dump(
                 {
                     "app": app,
@@ -536,6 +539,9 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
                 },
                 f,
             )
+        # Make file not only readable but also writable by the user
+        # that will run WhisperBack, so it can be redacted.
+        subprocess.check_call(["/usr/bin/setfacl", "-m", f"u:{LIVE_USERNAME}:rw", path])
 
     def open_help_after_login(self, doc: str):
         with open("/var/lib/gdm3/post-greeter-docs.url", "w") as f:
