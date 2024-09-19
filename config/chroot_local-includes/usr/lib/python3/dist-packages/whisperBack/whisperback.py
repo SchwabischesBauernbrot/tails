@@ -161,7 +161,8 @@ class WhisperBackBackend:
         for debug_info in all_info:
             if prefix:
                 result += "\n{} === content of {} ===\n".format(
-                    prefix, debug_info["key"],
+                    prefix,
+                    debug_info["key"],
                 )
             else:
                 result += "\n======= content of {} =======\n".format(debug_info["key"])
@@ -169,11 +170,13 @@ class WhisperBackBackend:
                 for line in debug_info["content"]:
                     if isinstance(line, dict):
                         result += self.__get_debug_info(
-                            json.dumps([line]), prefix + "> ",
+                            json.dumps([line]),
+                            prefix + "> ",
                         )
                     else:
                         sanitized = "{}{}\n".format(
-                            prefix, whisperBack.utils.sanitize_hardware_info(line),
+                            prefix,
+                            whisperBack.utils.sanitize_hardware_info(line),
                         )
                         result += re.sub(r"^--\s*", "", sanitized)
             else:
@@ -305,7 +308,8 @@ class WhisperBackBackend:
         encrypter = whisperBack.encryption.Encryption(keyring=self.gnupg_keyring)
 
         encrypted_mime_message = encrypter.pgp_mime_encrypt(
-            mime_message, [self.to_fingerprint],
+            mime_message,
+            [self.to_fingerprint],
         )
 
         encrypted_mime_message["Subject"] = self.mail_subject

@@ -29,7 +29,6 @@ class WhisperbackException(Exception):
     """Base class for all exceptions raised by WhisperBack"""
 
 
-
 # Used in whisperback.py
 
 
@@ -55,7 +54,6 @@ class MisconfigurationException(WhisperbackException):
 
 class EncryptionException(WhisperbackException):
     """This exception is raised when GnuPG fails to encrypt the data"""
-
 
 
 class TorNotBootstrappedException(WhisperbackException):

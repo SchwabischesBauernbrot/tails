@@ -133,7 +133,9 @@ class WhisperBackUI:
             )
         except whisperBack.exceptions.MisconfigurationException as e:
             self.show_exception_dialog(
-                _("Unable to load a valid configuration."), e, self.cb_close_application,
+                _("Unable to load a valid configuration."),
+                e,
+                self.cb_close_application,
             )
             return
 
@@ -192,7 +194,8 @@ class WhisperBackUI:
                 self.backend.contact_email = self.contact_email.get_text()
             except ValueError as e:
                 self.show_exception_dialog(
-                    _("The contact email address doesn't seem valid."), e,
+                    _("The contact email address doesn't seem valid."),
+                    e,
                 )
                 self.progression_dialog.hide()
                 return None
