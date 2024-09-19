@@ -85,7 +85,15 @@ if [ "${TAILS_BUILD_FAILURE_RESCUE}" != 1 ]; then
     remove_build_dirs
 fi
 
-# Required by jenkins isoworkers since git 2.39.5-0+deb12u1.
+# In git 2.39.5 an ownership check was introduced when cloning local
+# repositories in order to handle CVE-2024-32004. The host's Git dir
+# is shared into the tails-builder VM in such a way that it is owned
+# by the same (numeric) uid inside the VM as on the host, and if it is
+# different than the vagrant user's uid (1000), then the `git clone`
+# below would fail due to the ownership check (tails#20560) unless we
+# explicitly tell Git that the source dir is safe. For most of us this
+# won't be a problem since our main user has uid 1000, but this is for
+# instance not the case on jenkins.
 for dir in /amnesia.git/.git /amnesia.git/.git/modules/submodules/*; do
     git config --global --add safe.directory "${dir}"
 done
