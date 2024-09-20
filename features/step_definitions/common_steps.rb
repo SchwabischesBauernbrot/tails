@@ -202,7 +202,7 @@ def expand_gnome_shell_menu_section(label)
                                       .button('')
   try_for(5) do
     expand_button.grabFocus
-    expand_button.focused
+    expand_button.focused?
   end
   @screen.press('Return')
 end
@@ -938,7 +938,7 @@ When /^I run "([^"]+)" in GNOME Terminal$/ do |command|
   try_for(5) do
     terminal.text['amnesia@amnesia:']
     terminal.grabFocus
-    terminal.focused
+    terminal.focused?
   end
 
   try_for(20) do
@@ -1663,9 +1663,9 @@ def select_path_in_file_chooser(file_chooser, path, button_label: 'Open')
     file_chooser.focused_child.roleName == 'text'
   end
   file_chooser.focused_child.text = path
-  try_for(10) { file_chooser.button(button_label).sensitive }
+  try_for(10) { file_chooser.button(button_label).sensitive? }
   file_chooser.button(button_label).click
-  try_for(10) { !file_chooser.showing }
+  try_for(10) { !file_chooser.showing? }
 end
 
 def save_qrcode(str)
@@ -1743,7 +1743,7 @@ Then /^WhisperBack is prefilled for (.*) with summary: "(.*)"$/ do |app, summary
   whisperback = Dogtail::Application.new('whisperback')
   prefilled_checkbox = whisperback.child('information about the error being reported',
                                          showingOnly: false)
-  assert(prefilled_checkbox.checked)
+  assert(prefilled_checkbox.checked?)
   prefilled_text = prefilled_checkbox.parent.child(roleName:    'text',
                                                    showingOnly: false).text
   assert_equal("Bug-specific app: #{app}\nBug-specific summary: #{summary}\n",

@@ -285,7 +285,7 @@ When /^I download some file in the Tor Browser$/ do
   button = @torbrowser
            .child("Opening #{@some_file}")
            .button('Save File')
-  try_for(10) { button.sensitive }
+  try_for(10) { button.sensitive? }
   button.press
   @torbrowser
     .child(roleName: 'file chooser')
