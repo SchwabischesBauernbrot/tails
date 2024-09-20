@@ -572,8 +572,6 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
   if should_work
     try_for(20,
             msg: "The page was not saved to #{output_dir}/#{output_file}") do
-      # List the content of the output directory for debugging #20356
-      $vm.execute("ls -l '#{output_dir}'")
       $vm.file_exist?("#{output_dir}/#{output_file}")
     end
   else
