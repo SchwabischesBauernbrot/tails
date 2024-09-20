@@ -533,41 +533,31 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
 
   file_dialog = save_page_as
 
-  case output_dir
-  when 'persistent Tor Browser'
-    output_dir = "/home/#{LIVE_USER}/Persistent/Tor Browser"
-    # Select the "Tor Browser (persistent)" bookmark in the file chooser's
-    # sidebar. It doesn't expose an action via the accessibility API, so we
-    # have to grab focus and use the keyboard to activate it.
+  output_dir = case output_dir
+               when 'persistent Tor Browser'
+                 "/home/#{LIVE_USER}/Persistent/Tor Browser"
+               when 'default downloads'
+                 "/home/#{LIVE_USER}/Tor Browser"
+               else
+                 "/home/#{LIVE_USER}/#{output_dir}"
+               end
+
+  if is_gnome_bookmark
     output_dir_bookmark = file_dialog.child(description: output_dir,
-                                            roleName: 'list item')
+                                            roleName:    'list item')
     output_dir_bookmark.grabFocus
     try_for(10) do
       @screen.press('Space')
       sleep 1
       output_dir_bookmark.selected?
     end
-  when 'default downloads'
-    output_dir = "/home/#{LIVE_USER}/Tor Browser"
   else
-    if is_gnome_bookmark
-      output_dir = "/home/#{LIVE_USER}/#{output_dir}"
-      output_dir_bookmark = file_dialog.child(description: output_dir,
-                                              roleName: 'list item')
-      output_dir_bookmark.grabFocus
-      try_for(10) do
-        @screen.press('Space')
-        sleep 1
-        output_dir_bookmark.selected?
-      end
-    else
-      # Enter the output directory in the text entry
-      text_entry = file_dialog.child('Name', roleName: 'label').labelee
-      text_entry.text = output_dir
-      # Do the "activate" action of the text entry (same effect as
-      # pressing Enter) to open the directory.
-      text_entry.activate
-    end
+    # Enter the output directory in the text entry
+    text_entry = file_dialog.child('Name', roleName: 'label').labelee
+    text_entry.text = output_dir
+    # Do the "activate" action of the text entry (same effect as
+    # pressing Enter) to open the directory.
+    text_entry.activate
   end
 
   # Enter the output filename in the text entry
