@@ -546,6 +546,9 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
     output_dir_bookmark = file_dialog.child(description: output_dir,
                                             roleName:    'list item')
     output_dir_bookmark.grabFocus
+    # We have had problems with the Space press not causing the
+    # bookmark to be selected despite it being focused (tails#20356,
+    # tails#20159)
     try_for(10) do
       @screen.press('Space')
       sleep 1
