@@ -539,21 +539,27 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
     # Select the "Tor Browser (persistent)" bookmark in the file chooser's
     # sidebar. It doesn't expose an action via the accessibility API, so we
     # have to grab focus and use the keyboard to activate it.
-    file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
-    # Give the UI some time to update the selection. This is workaround
-    # for #20159.
-    sleep 3
-    @screen.press('Space')
+    output_dir_bookmark = file_dialog.child(description: output_dir,
+                                            roleName: 'list item')
+    output_dir_bookmark.grabFocus
+    try_for(10) do
+      @screen.press('Space')
+      sleep 1
+      output_dir_bookmark.selected?
+    end
   when 'default downloads'
     output_dir = "/home/#{LIVE_USER}/Tor Browser"
   else
     if is_gnome_bookmark
       output_dir = "/home/#{LIVE_USER}/#{output_dir}"
-      file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
-      # Give the UI some time to update the selection. This is workaround
-      # for #20159.
-      sleep 3
-      @screen.press('Space')
+      output_dir_bookmark = file_dialog.child(description: output_dir,
+                                              roleName: 'list item')
+      output_dir_bookmark.grabFocus
+      try_for(10) do
+        @screen.press('Space')
+        sleep 1
+        output_dir_bookmark.selected?
+      end
     else
       # Enter the output directory in the text entry
       text_entry = file_dialog.child('Name', roleName: 'label').labelee

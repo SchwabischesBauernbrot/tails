@@ -229,6 +229,10 @@ module Dogtail
       get_field('focused') == 'True'
     end
 
+    def selected?
+      get_field('selected') == 'True'
+    end
+
     def sensitive?
       get_field('sensitive') == 'True'
     end
