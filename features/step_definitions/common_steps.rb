@@ -200,10 +200,7 @@ def expand_gnome_shell_menu_section(label)
                                       .child(label, roleName: 'label')
                                       .parent
                                       .button('')
-  try_for(5) do
-    expand_button.grabFocus
-    expand_button.focused?
-  end
+  expand_button.grabFocus
   @screen.press('Return')
 end
 
@@ -934,13 +931,7 @@ When /^I run "([^"]+)" in GNOME Terminal$/ do |command|
           launch_gnome_terminal
         end
   terminal = app.child('Terminal', roleName: 'terminal')
-
-  try_for(5) do
-    terminal.text['amnesia@amnesia:']
-    terminal.grabFocus
-    terminal.focused?
-  end
-
+  terminal.grabFocus
   try_for(20) do
     @screen.paste(command, app: :terminal)
     if terminal.text[command]
