@@ -566,7 +566,11 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
   # Enter the output filename in the text entry
   text_entry = file_dialog.child('Name', roleName: 'label').labelee
   text_entry.text = output_file
-  file_dialog.child('Save', roleName: 'push button').click
+  save_button = file_dialog.child('Save', roleName: 'push button')
+  # When changing output directory the Save button turns insensitive
+  # for a few moments
+  try_for(10) { save_button.sensitive? }
+  save_button.click
 
   if should_work
     try_for(20,
