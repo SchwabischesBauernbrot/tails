@@ -23,7 +23,7 @@ Terminology used in this document
 - Production server: the server that hosts our website
 
 - translate.lizard: the VM that hosts our Weblate web interface, the
-  corresponding Git repositories, as well as the [staging website](https://staging.tails.boum.org/).
+  corresponding Git repositories, as well as the [staging website](https://staging.tails.net/).
 
 Setup and integration with our infrastructure
 =============================================
@@ -33,7 +33,7 @@ We are using our own [Weblate instance](https://translate.tails.net/).
 Weblate uses a clone of the Tails main Git repository, to which
 translations get committed and pushed once they have been approved by a user with
 reviewer status. Non-approved translations live on Weblate's database
-only, until they get reviewed. A [staging website](https://staging.tails.boum.org/) allows translators to
+only, until they get reviewed. A [staging website](https://staging.tails.net/) allows translators to
 preview non-reviewed translations in context.
 
 Approved changes are automatically fed back into our canonical Git
@@ -317,7 +317,7 @@ Staging website
 
 In order to allow translators to see their non committed suggestions as
 well as languages which are not activated on <https://tails.net>, we
-have put in place a [staging website](https://staging.tails.boum.org/).
+have put in place a [staging website](https://staging.tails.net/).
 It is a clone of our production website and is regularly refreshed.
 
 On top of what our production website has, it includes:
@@ -356,7 +356,7 @@ should not.
 
 We automatically perform some sanity checks on this staging website.
 The last report of these checks is published on
-<https://staging.tails.boum.org/update-staging-website.txt>.
+<https://staging.tails.net/update-staging-website.txt>.
 
 Machine translation
 -------------------
