@@ -31,7 +31,7 @@ class FakeVM
     end
   end
 
-  def virtio_channel_socket(channel)
+  def virtio_channel_socket_path(channel)
     rexml = REXML::Document.new(@domain_xml)
     rexml.elements.each('domain/devices/channel') do |e|
       target = e.elements['target']

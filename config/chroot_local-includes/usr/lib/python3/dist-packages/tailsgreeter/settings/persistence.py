@@ -40,7 +40,7 @@ class PersistentStorageSettings:
     """Controller for settings related to Persistent Storage"""
 
     def __init__(self) -> None:
-        self.failed_with_unexpected_error = False
+        self.failed_with_unrecoverable_error = False
         self.cleartext_name = "TailsData_unlocked"
         self.cleartext_device = "/dev/mapper/" + self.cleartext_name
         self.service_proxy = Gio.DBusProxy.new_sync(
@@ -87,17 +87,15 @@ class PersistentStorageSettings:
         if "Device" in keys:
             self.device = changed_properties["Device"]
 
-    def unlock(self, passphrase):
+    def unlock(self, passphrase: str):
         """Unlock the Persistent Storage partition
 
         Raises:
-            WrongPassphraseError if the passphrase is incorrect.
-            PersistentStorageError if something else went wrong."""
+            * WrongPassphraseError if the passphrase is incorrect.
+            * FilesystemErrorsLeftUncorrectedError if `e2fsck -f -p`
+              found some errors that it could not correct.
+            * PersistentStorageError if something else went wrong."""
         logging.debug("Unlocking Persistent Storage")
-        if os.path.exists(self.cleartext_device):
-            logging.warning(f"Cleartext device {self.cleartext_device} already exists")
-            self.is_unlocked = True
-            return
 
         try:
             self.service_proxy.call_sync(
@@ -113,7 +111,16 @@ class PersistentStorageSettings:
             if tps_errors.IncorrectPassphraseError.is_instance(err):
                 raise tailsgreeter.errors.WrongPassphraseError from err
 
-            self.failed_with_unexpected_error = True
+            # All of the following errors are considered unrecoverable
+            # (so we don't ask the user to unlock before starting Tails)
+            self.failed_with_unrecoverable_error = True
+
+            if tps_errors.IOErrorsDetectedError.is_instance(err):
+                raise tailsgreeter.errors.IOErrorsDetectedError from err
+
+            if tps_errors.FilesystemErrorsLeftUncorrectedError.is_instance(err):
+                raise tailsgreeter.errors.FilesystemErrorsLeftUncorrectedError from err
+
             raise tailsgreeter.errors.PersistentStorageError(
                 _("Error unlocking Persistent Storage: {}").format(err)
             ) from err
@@ -138,7 +145,7 @@ class PersistentStorageSettings:
         except GLib.GError as err:
             if tps_errors.IncorrectPassphraseError.is_instance(err):
                 raise tailsgreeter.errors.WrongPassphraseError from err
-            self.failed_with_unexpected_error = True
+            self.failed_with_unrecoverable_error = True
             raise tailsgreeter.errors.PersistentStorageError(
                 _("Error upgrading Persistent Storage: {}").format(err)
             ) from err
@@ -169,7 +176,56 @@ class PersistentStorageSettings:
                     "Failed to activate some features of the Persistent Storage: {features}."
                 ).format(features=", ".join(features))
                 raise tailsgreeter.errors.FeatureActivationFailedError(msg) from err
-            self.failed_with_unexpected_error = True
+            self.failed_with_unrecoverable_error = True
             raise tailsgreeter.errors.PersistentStorageError(
                 _("Error activating Persistent Storage: {}").format(err)
             ) from err
+
+    def abort_repair_filesystem(self):
+        """Abort any ongoing filesystem check on the Persistent
+        Storage.
+
+        Raises PersistentStorageError if something went wrong."""
+
+        try:
+            self.service_proxy.call_sync(
+                method_name="AbortRepairFilesystem",
+                parameters=None,
+                flags=Gio.DBusCallFlags.NONE,
+                # GLib.MAXINT (largest 32-bit signed integer) disables
+                # the timeout
+                timeout_msec=GLib.MAXINT,
+            )
+        except GLib.GError as err:
+            raise tailsgreeter.errors.PersistentStorageError(
+                _(
+                    "Failed to abort when repairing Persistent Storage filesystem: {}"
+                ).format(err)
+            ) from err
+
+    def repair_filesystem(self, finish_callback: callable) -> Gio.Cancellable:
+        """Asynchronously start a forceful filesystem check (e2fsck -f -y)
+        on the Persistent Storage.
+
+        The finish_callback is called once the operation has finished
+        and will receive any errors raised during the operation.
+
+        Returns a Gio.Cancellable so the caller can abort the
+        filesystem check by calling its cancel() method.
+
+        Raises PersistentStorageError if something went wrong."""
+
+        cancellable = Gio.Cancellable()
+
+        self.service_proxy.call(
+            method_name="RepairFilesystem",
+            parameters=None,
+            flags=Gio.DBusCallFlags.NONE,
+            # GLib.MAXINT (largest 32-bit signed integer) disables
+            # the timeout
+            timeout_msec=GLib.MAXINT,
+            cancellable=cancellable,
+            callback=finish_callback,
+        )
+
+        return cancellable

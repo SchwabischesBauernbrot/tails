@@ -63,7 +63,9 @@ if __name__ == "__main__":
     try:
         flagfile.touch(exist_ok=False)
     except FileExistsError:
-        logging.error("Spawning a second greeter instance prevented")  # noqa: TRY400
+        logging.error(
+            "Spawning a second greeter instance prevented. Remove /var/lib/gdm3/tails.greeter-seen to spawn another greeter instance."
+        )  # noqa: TRY400
         sys.exit(1)
     GLib.set_prgname(tailsgreeter.APPLICATION_TITLE)
     GLib.set_application_name(_(tailsgreeter.APPLICATION_TITLE))
