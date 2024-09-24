@@ -77,7 +77,7 @@ is the simplest way of creating a partition image of your Persistent Storage.
 
    A new disk appears in the sidebar of the *Files* utility.
 
-1. Right-click (on Mac, click with two fingers) on the new partition that
+1. Right-click (on Mac, click with two fingers) on the new volume that
    appeared in the sidebar of the *Files* utility and choose *Properties* in
    the shortcut menu.
 
@@ -97,26 +97,22 @@ is the simplest way of creating a partition image of your Persistent Storage.
    USB stick.
 
 1. In the right pane, this storage device should have 2 volumes, corresponding
-   to 2 partitions.
+   to 2 partitions on the USB stick.
 
-   - Partition 1 with a **TAILS** label and **FAT** content.
+   - 1 volume with a **TAILS** label and **FAT** content.
 
-     This partition corresponds to the system partition of your Tails USB
-     stick.
+     This volume corresponds to the system partition of your Tails.
 
-   - Partition 2 with a **TailsData** label and **LUKS** content.
+   - 1 volume with a **TailsData** label and **LUKS** content.
 
-     This partition corresponds to the Persistent Storage of your Tails USB
-     stick. 
+     This volume corresponds to the encrypted version of your Persistent Storage.
 
    [[!img disks.png link="no" class="screenshot" alt=""]]
 
-1. In the right pane, click on the partition that corresponds to your
+1. In the right pane, click on the volume that corresponds to your
    Persistent Storage.
 
-   Verify that the content of the partition is of type **LUKS Encryption**.
-
-   This partition corresponds to the encrypted version of your Persistent Storage.
+   Verify that the content of the volume is of type **LUKS Encryption**.
 
 <h3 id="unlock">Unlocking your Persistent Storage in the <i>Disks</i> utility</h3>
 
@@ -141,12 +137,12 @@ unencrypted version of your Persistent Storage. To do so:
 
    </div>
 
-1. In the right page, click on the new partition that appears below the
-   **LUKS** partition.
+1. In the right page, click on the new volume that appears below the
+   **LUKS** volume.
 
-   Verify that the content of the new partition is of type **Ext4**.
+   Verify that the content of the new volume is of type **Ext4**.
 
-   This partition corresponds to the unencrypted version of your Persistent Storage.
+   This volume corresponds to the unencrypted version of your Persistent Storage.
 
    XXX: Add notes about using unencrypted data?
 
