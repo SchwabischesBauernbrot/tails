@@ -44,18 +44,20 @@ the same size as your Tails USB stick, but writing to a USB stick is usually
 much slower than writing to a hard disk.
 
 We are presenting here 2 different techniques to create a partition image of
-your Persistent Storage. We recommend that you try both techniques one after
-the other.
+your Persistent Storage.
 
 1. [[Create a partition image using the *Disks* utility|fsck#disks]]
 
-   If the hardware of your USB stick is not failing, using the *Disks* utility is easier.
+   Try this technique first if the hardware of your USB stick is not failing.
+
+   Using the *Disks* utility is easier.
 
 1. [[Create a partition image using `ddrescue` on the command line|fsck#ddrescue]]
 
-   If the hardware of your USB stick is failing, using `ddrescue` is more
-   technical but copies all the data that can still be recovered from your USB
-   stick.
+   Try this technique first if the hardware of your USB stick is failing.
+
+   Using `ddrescue` is more technical but copies all the data that can still be
+   recovered from your USB stick.
 
 <h2 id="disks">Creating a partition image using the <i>Disks</i> utility</h2>
 
