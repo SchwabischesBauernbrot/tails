@@ -226,11 +226,8 @@ class WhisperBackUI:
                 self.show_exception_dialog(
                     exception_string
                     + _(
-                        "\n\n\
-The bug report could not be sent, likely due to network problems. \
-Please try to reconnect to the network and click send again.\n\
-\n\
-If it does not work, you will be offered to save the bug report.",
+                        "\n\n"
+                        "Make sure that you are connected to Tor and click send again.",
                     ),
                     e,
                 )
