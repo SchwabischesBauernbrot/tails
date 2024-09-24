@@ -974,6 +974,11 @@ When /^the file "([^"]+)" does not exist$/ do |file|
   assert(!$vm.file_exist?(file))
 end
 
+When /^the file "([^"]+)" is empty$/ do |file|
+  assert($vm.file_exist?(file))
+  assert($vm.file_empty?(file))
+end
+
 When /^the directory "([^"]+)" exists$/ do |directory|
   assert($vm.directory_exist?(directory))
 end

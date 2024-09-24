@@ -195,6 +195,7 @@ Feature: Tails persistence
     # not, so we first deal with WhisperBack and then kill it to
     # ensure that Tor Browser is focused.
     Then WhisperBack is prefilled for fsck with summary: "Failed to repair the file system of your Persistent Storage"
+    And the file "/var/lib/gdm3/post-greeter-whisperback.json" is empty
     When I close the "whisperback" window
     Then the Tor Browser starts
     And "Tails - Recovering data from the Persistent Storage, if the Persistent Storage doesn't unlock" has loaded in the Tor Browser
