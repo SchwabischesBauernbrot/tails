@@ -283,33 +283,105 @@ from the Welcome Screen is likely the easiest technique.
    - If the repair failed, try to [[copy the partition image to a new USB
      stick|fsck#copy]] as described below.
 
-     If the hardware of your USB stick is failing, you might still be able to
-     repair the file system of your Persistent Storage after copying the
-     partition image to a new USB stick.
-
 <h2 id="copy">Copying the partition image to a new USB stick</h2>
 
-XXX: Redact GNOME Disks
+If the hardware of your USB stick is failing, you might still be able to
+repair the file system of your Persistent Storage after copying the
+partition image to a new USB stick.
 
-Only relevant if hardware is failing.
+<h3 id="install">Creating a new Tails USB stick with Persistent Storage</h3>
 
-XXX: I also thought about documenting how to attach the partition image for
-repair, but disk images are only mounted as read-only through a loop device, so
-that won't work for e2fsck.
+1. [[Install Tails|install]] on a new USB stick.
 
-1. Start on new Tails USB stick.
+   The new USB stick must be at least as large as your current Tails USB stick.
 
-1. Create Persistent Storage.
+1. Start on the new Tails.
 
-In Disks:
+1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
 
-1. Unmount /media/amnesia/TailsData.
+1. Create a Persistent Storage on the new Tails.
 
-1. Gears → Restore Partition Image in Disks.
+1. Close the Persistent Storage settings after creation, when the list of
+   features is displayed.
 
-1. Restart on new Tails USB stick.
+   The process described below overrides the configuration of the Persistent
+   Storage. So, it does not matter which features you turn on after creating
+   the Persistent Storage.
 
-1. Repair from Welcome Screen.
+<h3 id="restore">Copying the partition image onto the new USB stick</h3>
+
+1. Choose **Applications&nbsp;▸ Utilities&nbsp;▸ Disks** to open the *Disks*
+   utility.
+
+1. In the left pane of the *Disks* utility, identify your new Tails USB stick in
+   the list of storage devices.
+
+   Verify its brand and size.
+
+1. In the left pane, click on the storage device that corresponds to your new Tails
+   USB stick.
+
+1. In the right pane, this storage device should have 3 volumes.
+
+   - 1 volume with a **TAILS** label and **FAT** content.
+
+     This volume corresponds to the system partition of your Tails.
+
+   - 1 volume with a **TailsData** label and **LUKS** content.
+
+     This volume corresponds to the encrypted version of your Persistent Storage.
+
+   - 1 volume with a **TailsData** label and **Ext4** content.
+
+     This volume corresponds to the unencrypted version of your Persistent Storage.
+
+1. In the right pane, click on the **Ext4** volume, which is the one that
+   corresponds to the unencrypted version of your Persistent Storage.
+
+   In the attributes listed below the volume, verify that the content of the
+   volume is mounted at */home/amnesia/Persistent*.
+
+1. Click on the [[!img lib/media-playback-stop.png link="no" class="symbolic"
+   alt="Unmount selected partition"]] button to unmount the Persistent Storage.
+
+1. Plug in the hard disk on which you saved the partition image of your
+   Persistent Storage.
+
+1. Choose **[[!img lib/system-run.png link="no" class="symbolic"
+   alt="Additional partition options"]]&nbsp;▸ Restore Partition Image**.
+
+1. In the **Restore Disk Image** dialog, browse for the partition image on the
+   hard disk that your plugged in.
+
+1. Click on the **Start Restoring** button.
+
+1. After the restoration finishes, restart on the new Tails USB stick.
+
+<h3 id="fix">Fixing the file system errors on the new USB stick</h3>
+
+1. In the Welcome Screen, try to unlock the Persistent Storage.
+
+1. If an error message about file system errors appears, click on the **Repair
+   File System** button.
+
+   [[!img repair.png link="no" class="screenshot" alt="File System Errors dialog in Welcome Screen"]]
+
+1. The repair of the file system starts.
+
+   The repair can take a long time, from a few seconds to several hours.
+
+   [[!img repairing.png link="no" class="screenshot" alt=""]]
+
+1. After the repair finishes:
+
+   - If the repair succeeded, start Tails and verify the content of your
+     Persistent Storage.
+
+     If some files are missing, you might be able to recover them by
+     [[analyzing the partition image using *Autopsy*|fsck#autopsy]].
+
+   - If the repair failed, try to [[analyze the partition image using
+     *Autopsy*|fsck#copy]] as described below.
 
 <h2 id="autopsy">Analyzing the partition image using <i>Autopsy</i></h2>
 
