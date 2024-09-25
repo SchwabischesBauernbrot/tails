@@ -254,7 +254,38 @@ recommend that you try the 3 techniques one after the other.
 
 <h2 id="welcome">Repairing the file system from the Welcome Screen</h2>
 
-XXX: Redact Welcome Screen
+If the hardware of your USB stick is not failing, repairing the file system
+from the Welcome Screen is likely the easiest technique.
+
+1. Start on the Tails USB stick that has file system errors.
+
+1. In the Welcome Screen, try to unlock the Persistent Storage.
+
+1. When the error message about file system errors appears, click on the
+   **Repair File System** button.
+
+   [[!img repair.png link="no" class="screenshot" alt="File System Errors dialog in Welcome Screen"]]
+
+1. The repair of the file system starts.
+
+   The repair can take a long time, from a few seconds to several hours.
+
+   [[!img repairing.png link="no" class="screenshot" alt=""]]
+
+1. After the repair finishes:
+
+   - If the repair succeeded, start Tails and verify the content of your
+     Persistent Storage.
+
+     If some files are missing, you might be able to recover them by
+     [[analyzing the partition image using *Autopsy*|fsck#autopsy]].
+
+   - If the repair failed, try to [[copy the partition image to a new USB
+     stick|fsck#copy]] as described below.
+
+     If the hardware of your USB stick is failing, you might still be able to
+     repair the file system of your Persistent Storage after copying the
+     partition image to a new USB stick.
 
 <h2 id="copy">Copying the partition image to a new USB stick</h2>
 
