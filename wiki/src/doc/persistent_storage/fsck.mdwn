@@ -41,6 +41,16 @@ with as much free space as the size of your Persistent Storage, usually
 the same size as your Tails USB stick, but writing to a USB stick is usually
 much slower than writing to a hard disk.
 
+<div class="caution">
+
+<p>The partition image contains an <i>unencrypted</i> version of your
+Persistent Storage.</p>
+
+<p>We recommend that you save the partition image to an [[encrypted hard
+disk|encryption_and_privacy/encrypted_volumes]].</p>
+
+</div>
+
 We are presenting here 2 different techniques to create a partition image of
 your Persistent Storage.
 
@@ -412,6 +422,14 @@ get help from someone with more experience in data recovery.
 
 You can also read the [Autopsy User
 Documentation](http://sleuthkit.org/autopsy/docs/user-docs/latest).
+
+<div class="caution">
+
+<p>Analyzing the partition image with <i>Autopsy</i> leaves traces of the
+content of your Persistent Storage on the operating system where <i>Autopsy</i>
+is used.</p>
+
+</div>
 
 The general steps are:
 
