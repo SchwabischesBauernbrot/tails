@@ -252,6 +252,9 @@ recommend that you try the 3 techniques one after the other.
 
 1. [[Analyzing the partition image using *Autopsy*|fsck#autopsy]]
 
+   [*Autopsy*](https://www.autopsy.com/) is an advanced digital forensics tool
+   that allows recovering files, even from broken file systems.
+
 <h2 id="welcome">Repairing the file system from the Welcome Screen</h2>
 
 If the hardware of your USB stick is not failing, repairing the file system
@@ -385,15 +388,47 @@ partition image to a new USB stick.
 
 <h2 id="autopsy">Analyzing the partition image using <i>Autopsy</i></h2>
 
-XXX: Redact Autopsy
+[*Autopsy*](https://www.autopsy.com/) is an advanced digital forensics tool
+that allows recovering files, even from broken file systems.
 
-Big download but easy to install on Windows!
+*Autopsy* is open source and available for free on Windows, macOS, and Linux.
 
-Hard to install on Linux.
+<div class="bug">
 
-XXX: Test installing on Tails.
+<p>Our team failed to start <i>Autopsy</i> in Tails, even though the
+<a href="https://github.com/sleuthkit/autopsy/blob/develop/Running_Linux_OSX.md">installation
+instructions for Linux</a> worked.</p>
 
-Pretty easy to use! I won't give step-by-step instructions but rather general
-indications and some screenshots.
+<p>If you manage to start <i>Autopsy</i> in Tails, [[please let us
+know|support/talk]]!</p>
 
-XXX: Make screenshots of a Persistent Storage analyzed with Autopsy.
+</div>
+
+We are not providing step-by-step instructions on installing and using
+*Autopsy*.
+
+If you don't feel confident using *Autopsy* on your own, we recommend that you
+get help from someone with more experience in data recovery.
+
+You can also read the [Autopsy User
+Documentation](http://sleuthkit.org/autopsy/docs/user-docs/latest).
+
+The general steps are:
+
+1. [Download and install *Autopsy*.](https://www.autopsy.com/download/)
+
+1. Start *Autopsy*.
+
+1. Open a new case.
+
+1. Add the partition image of the Persistent Storage as a data source.
+
+1. Autopsy analyzes the data source.
+
+   After the analysis finishes, the files that were recovered are listed in
+   different ways in the left sidebar. For example, both as a file system tree
+   and by type of files.
+
+   [[!img autopsy.png link="no" class="screenshot" alt="Autopsy in Windows showing files recovered from the partition image of a Persistent Storage"]]
+
+1. Extract the files that you want to recover to the case folder.
