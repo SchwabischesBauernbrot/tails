@@ -6,7 +6,7 @@ Persistent Storage when unlocking encryption.
 <div class="next">
 
 <p>If instead, your Tails USB stick doesn't start, refer to our instructions on
-[[recovering data from the Persistent Storage, if the Tails USB stick doesn't
+[[recovering data from the Persistent Storage when Tails doesn't
 start|recover]].</p>
 
 </div>
@@ -131,12 +131,12 @@ unencrypted version of your Persistent Storage. To do so:
 
 1. Click [[!img lib/unlock.png link="no" class="symbolic" alt="Unlock selected encrypted partition"]].
 
-1. In the dialog **Enter passphrase to unlock**, enter the passphrase of your
+1. In the **Enter passphrase to unlock** dialog, enter the passphrase of your
    Persistent Storage.
 
 1. Click **Unlock**.
 
-1. In the dialog **Authentication Required**, enter your administration
+1. In the **Authentication Required** dialog, enter your administration
    password.
 
    <div class="bug">
@@ -147,7 +147,7 @@ unencrypted version of your Persistent Storage. To do so:
 
    </div>
 
-1. In the right page, click on the new volume that appears below the
+1. In the right pane, click on the new volume that appears below the
    **LUKS** volume.
 
    Verify that the content of the new volume is of type **Ext4**.
@@ -168,9 +168,9 @@ unencrypted version of your Persistent Storage. To do so:
 
 1. In the **Create Disk Image** dialog:
 
-   - In the field, **Name** specify *persistent-storage.img*.
+   - In the **Name** field, specify *persistent-storage.img*.
 
-   - In the menu **Save in Folder**, choose the external disk to which you want
+   - In the **Save in Folder** menu, choose the external disk to which you want
      to save the partition image.
 
    Click the **Start Creating** button.
@@ -221,18 +221,18 @@ can run `ddrescue` again to try to copy the parts that failed the first time.
                                      time since last successful read:          0s
        Copying non-tried blocks... Pass 1 (forwards)
 
-   The section about **bad areas** refer to errors reading the data of your
+   The section about **bad areas** refers to errors reading the data of your
    Persistent Storage, most likely because of hardware failures.
 
 1. After `ddrescue` finishes:
 
-   - If bad areas were reported, you can try leaving your USB stick to rest for
-     some minutes and executing the same `ddrescue` command again to copy more data.
+   - If bad areas were reported, try leaving your USB stick to rest for some
+     minutes and executing the same `ddrescue` command again to copy more data.
 
      We recommend that you replace your USB stick and [[copy the partition image
-     to a new USB stick|fsck#copy]] after you executed `ddrescue` several times.
+     to a new USB stick|fsck#copy]] after you execute `ddrescue` several times.
 
-   - If no bad areas were reported of if the same bad areas were reported after
+   - If no bad areas were reported or if the same bad areas were reported after
      several executions of the `ddrescue` command, it means that all the data
      that could be rescued was copied to the partition image.
 
@@ -241,8 +241,7 @@ can run `ddrescue` again to try to copy the parts that failed the first time.
 <h1 id="recover">Recovering data from the Persistent Storage</h1>
 
 After [[creating a partition image|fsck#image]], you can safely try to recover
-data from your Persistent Storage without risking to erase more data in the
-process.
+data from your Persistent Storage without risking erasing more data.
 
 We are presenting here 3 recovery techniques that work in different cases. We
 recommend that you try the 3 techniques one after the other.
@@ -362,7 +361,7 @@ partition image to a new USB stick.
    alt="Additional partition options"]]&nbsp;▸ Restore Partition Image**.
 
 1. In the **Restore Disk Image** dialog, browse for the partition image on the
-   hard disk that your plugged in.
+   hard disk that you plugged in.
 
 1. Click on the **Start Restoring** button.
 
@@ -403,16 +402,16 @@ that allows recovering files, even from broken file systems.
 
 <div class="bug">
 
-<p>Our team failed to start <i>Autopsy</i> in Tails, even though the
-<a href="https://github.com/sleuthkit/autopsy/blob/develop/Running_Linux_OSX.md">installation
-instructions for Linux</a> worked.</p>
-
 <p>If you manage to start <i>Autopsy</i> in Tails, [[please let us
 know|support/talk]]!</p>
 
+<p>We failed to start <i>Autopsy</i> in Tails, even though the
+<a href="https://github.com/sleuthkit/autopsy/blob/develop/Running_Linux_OSX.md">installation
+instructions</a> worked.</p>
+
 </div>
 
-We are not providing step-by-step instructions on installing and using
+We are not providing step-by-step instructions on how to install and use
 *Autopsy*.
 
 If you don't feel confident using *Autopsy* on your own, we recommend that you
@@ -442,7 +441,7 @@ The general steps are:
 1. Autopsy analyzes the data source.
 
    After the analysis finishes, the files that were recovered are listed in
-   different ways in the left sidebar. For example, both as a file system tree
+   different ways in the left sidebar, for example, both as a file system tree
    and by type of files.
 
    [[!img autopsy.png link="no" class="screenshot" alt="Autopsy in Windows showing files recovered from the partition image of a Persistent Storage"]]
