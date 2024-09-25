@@ -26,6 +26,7 @@ from tca.torutils import (
 from tca.timeutils import GET_NETWORK_TIME_RETURN_CODE
 from tca.ui.asyncutils import GJsonRpcClient
 from tailslib.logutils import configure_logging
+from tailslib.tor import TOR_HAS_BOOTSTRAPPED_PATH
 
 
 gi.require_version("GLib", "2.0")
@@ -34,8 +35,6 @@ from gi.repository import GLib, Gtk, Gio  # noqa: E402
 
 
 dbus.mainloop.glib.DBusGMainLoop(set_as_default=True)
-
-TOR_HAS_BOOTSTRAPPED_PATH = Path("/run/tor-has-bootstrapped/done")
 
 
 class TCAApplication(Gtk.Application):

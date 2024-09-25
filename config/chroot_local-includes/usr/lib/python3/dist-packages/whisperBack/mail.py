@@ -25,8 +25,12 @@
 import logging
 import smtplib
 import socket
+from gettext import gettext as _
 
 import socks
+from tailslib.tor import TOR_HAS_BOOTSTRAPPED_PATH
+
+import whisperBack.exceptions
 
 LOG = logging.getLogger(__name__)
 
@@ -55,6 +59,9 @@ def send_message(
     @param socks_port The port of the SOCKS proxy to connect through
     """
 
+    if not TOR_HAS_BOOTSTRAPPED_PATH.exists():
+        raise whisperBack.exceptions.TorNotBootstrappedException()
+
     LOG.debug("Sending mail")
     # Monkeypatching the entire connection through the SOCKS proxy
     socks.set_default_proxy(socks.SOCKS5, socks_host, socks_port)
@@ -63,7 +70,7 @@ def send_message(
     try:
         # We set a long timeout because Tor is slow
         smtp = smtplib.SMTP(timeout=120, host=host, port=port)
-    except ValueError:
+    except ValueError as exc:
         # socks assumes the host resolves to AF_INET and triggers a ValueError
         # if it's not the case. If a .onion address is given, it resolves to an
         # AF_INET address and to an AF_INET6 address. If the 1st doesn't connect,
@@ -72,7 +79,7 @@ def send_message(
         # a socket.error (https://github.com/Anorov/PySocks/commit/4081b79)
         # XXX: this workaround should be removed when a version of socks containing
         # this commit reaches Tails.
-        raise socket.error("PySocks doesn't support IPv6")
+        raise OSError("PySocks doesn't support IPv6") from exc
 
     smtp.sendmail(from_address, [to_address], message)
     smtp.quit()
