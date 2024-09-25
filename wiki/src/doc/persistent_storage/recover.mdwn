@@ -139,4 +139,18 @@ If unlocking your Persistent Storage from another Tails USB stick fails, you
 might be able to recover some or most of your data from a partition image
 using advanced forensics tools.
 
-XXX: Point to fsck or remix to create the partition from the other Tails?
+We are not providing step-by-step instructions, but you can adapt our
+instructions on [[recovering data from the Persistent Storage when it has file
+system errors|fsck]]:
+
+1. Start on your new Tails and save a partition image of the Persistent Storage
+   of your broken Tails to an external hard disk.
+
+   Try the technique using the [[*Disks* utility|fsck#disks]] first, then the
+   technique using [[`ddrescue`|fsck#ddrescue]] if needed.
+
+1. After you created the partition image, try to recover your data.
+
+   Try the technique to [[copy the partition image to a new USB
+   stick|fsck#copy]] first, then the technique using
+   [[*Autopsy*|fsck#autopsy]].
