@@ -1,0 +1,91 @@
+[[!meta title="Onboarding info for new Sysadmins"]]
+[[!meta robots="noindex"]]
+
+[[!toc levels=1]]
+
+<a id="important-repositories"></a>
+
+# Important repositories
+
+We have a [meta-repository](https://gitlab.tails.boum.org/sysadmin-team/repos)
+that documents all important repositories. During the onboarding process, you
+should receive a signed copy of the `known_hosts` file in that repository to
+bootstrap trust on those SSH server.
+
+# Documentation
+
+See our [[role description|/contribute/working_together/roles/sysadmins]] as it
+gives insight on the way we currently organize. Check the pages linked from
+there for info about services and some important pages in GitLab which we need
+to keep an eye on.
+
+Besides that, we also have documentation in the [[!tails_gitlab
+tails/sysadmin-private]] repository:
+
+- This is an encrypted repository: you need to have `git-remote-crypt`
+  installed before cloning it AND run some commands from the `README` as soon
+  as you clone it.
+
+- It contains emergency contacts, doc on some of our proceses, meeting notes,
+  and info about machines and upstream providers.
+
+# GitLab
+
+Historically, Sysadmin and Development in Tails were very coupled, and
+even though this has been slowly changing it still reflects in our use
+of GitLab:
+
+- [[!tails_gitlab tails/sysadmin/-/boards/3 desc="Sysadmin board"]]  ("Open" are untriaged)
+- [[!tails_gitlab tails/sysadmin-private/-/issues desc="Sysadmin private issues"]]
+- [Tails board filtered by ~"Core Work:Sysadmin"](https://gitlab.tails.boum.org/groups/tails/-/boards?label_name[]=Core%20Work%3ASysadmin)
+- [Tails issues with all labels we need to pay attention to](https://gitlab.tails.boum.org/groups/tails/-/issues/?sort=updated_desc&state=opened&or%5Blabel_name%5D%5B%5D=C%3AInfrastructure&or%5Blabel_name%5D%5B%5D=C%3AServer&or%5Blabel_name%5D%5B%5D=Core%20Work%3ASysadmin&or%5Blabel_name%5D%5B%5D=C%3AGitLab&first_page_size=20)
+
+# Monitoring
+
+We use Icinga2 with the
+[Icingaweb2](https://icingaweb2.tails.boum.org/icingaweb2) web interface. The
+shared passphrase can be found in the Password Store (see the [Important
+repositories](#important-repositories) section).
+
+```
+pass tails-sysadmins/services/icingaweb2.tails.boum.org/icingaadmin
+```
+
+# SSH access
+
+Once you have confirmed the `known_hosts` file (see the [Important
+repositories](#important-repositories) section), you can fetch a list of all
+hosts from the Puppet Server:
+
+```
+ssh -p 3005 lizard.tails.net sudo puppetserver ca list --all
+```
+
+You can also fetch SSH fingerprints for know hosts:
+
+```
+mkdir -p ~/.ssh/tails
+scp -P 3005 lizard.tails.net:/etc/ssh/ssh_known_hosts ~/.ssh/tails/known_hosts
+```
+
+An example SSH config file can be seen in
+`sysadmin-private.git:systems/ssh_config`.
+
+All public systems are reachable via the `tails.net` namespace and, once
+inside, all private VMs are accessible via their hostnames and FQDNs. TCP
+forwaring works so you can use any public system as a jumphost.
+
+Physical servers all have OOB access and instructions for those can be found in
+`sysadmin-private.git:systems/`.
+
+
+# Mailing lists
+
+We currently use the following mailing lists:
+
+- `sysadmins at tails.net`, a Schleuder list used for:
+  - accounts in external services
+  - communication with upstream providers
+  - general requests (eg. GitLab accounts, occasional bug reports)
+  - cron reports which eventually need acting upon
+- `tails-notifications at lists.puscii.nl`, used for Icinga2 notifications
