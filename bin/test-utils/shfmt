@@ -108,11 +108,19 @@ while IFS= read -r file; do
     fi
 done <<<"${all_files}"
 
-errors=0
+filesWithErrors=()
 for file in "${files_to_check[@]}"; do
     if ! check "$file"; then
-        errors=1
+        filesWithErrors+=("$file")
     fi
 done
 
-exit $errors
+if [ "${#filesWithErrors[@]}" = 0 ]; then
+    exit 0
+fi
+
+echo "${#filesWithErrors[@]} files have errors:"
+for file in "${filesWithErrors[@]}"; do
+    echo "ERROR: $file"
+done
+exit 1
