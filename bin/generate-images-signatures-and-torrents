@@ -4,12 +4,12 @@ set -eu
 set -x
 
 mkdir -p "${ISOS:?}/tails-amd64-${VERSION:?}"
-for type in iso img ; do
+for type in iso img; do
     cd "${ISOS:?}/tails-amd64-${VERSION:?}"
     mv "${ARTIFACTS:?}/tails-amd64-${VERSION:?}.${type:?}" .
     echo "Please sign ${type}"
     gpg --armor --default-key "${TAILS_SIGNATURE_KEY:?}" \
-	--detach-sign -- *".${type:?}"
+        --detach-sign -- *".${type:?}"
     rename 's,\.asc$,.sig,' -- *.asc
     tmp="$(mktemp -d)"
     mkdir -p "${tmp:?}/tails-amd64-${VERSION:?}-${type:?}"
@@ -20,7 +20,7 @@ for type in iso img ; do
     done
     mktorrent \
         -o "${ISOS:?}/tails-amd64-${VERSION:?}.${type:?}.torrent" \
-        -a 'udp://tracker.torrent.eu.org:451'   \
+        -a 'udp://tracker.torrent.eu.org:451' \
         -a 'udp://tracker.coppersurfer.tk:6969' \
         "${tmp:?}/tails-amd64-${VERSION:?}-${type:?}"
     transmission-show "${ISOS:?}/tails-amd64-${VERSION:?}.${type:?}.torrent"
@@ -28,5 +28,5 @@ for type in iso img ; do
     rm -rf "${tmp:?}"
 done
 mv "${ARTIFACTS:?}/tails-amd64-${VERSION:?}".{apt-sources,build-manifest,buildlog,packages} \
-   "${ISOS:?}/tails-amd64-${VERSION:?}"
+    "${ISOS:?}/tails-amd64-${VERSION:?}"
 cd "${RELEASE_CHECKOUT?:}"
