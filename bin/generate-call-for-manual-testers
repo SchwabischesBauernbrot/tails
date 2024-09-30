@@ -13,7 +13,11 @@ def end_date() -> str:
 
 def call_for_testing_contents(args) -> str:
     jinja2_env = jinja2.Environment(  # nosec jinja2_autoescape_false
-        loader=jinja2.FileSystemLoader("config/release_management/templates")
+        loader=jinja2.FileSystemLoader("config/release_management/templates"),
+        autoescape=jinja2.select_autoescape(
+            enabled_extensions=("html", "xml"),
+            default_for_string=False,
+        ),
     )
 
     return jinja2_env.get_template("call_for_manual_testers.mdwn").render(
