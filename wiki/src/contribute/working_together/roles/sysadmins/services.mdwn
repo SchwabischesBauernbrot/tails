@@ -133,9 +133,9 @@ Below, importance level is evaluated based on:
 
 * configuration:
 
-  - [[!tails_gitweb_puppet_tails manifests/pdns.pp
+  - [[!tails_gitweb_puppet_tails manifests/profile/dns/primary.pp
     desc="`tails::pdns` class"]]
-    and [[!tails_gitlab tails/puppet-tails/-/tree/master/manifests/pdns
+    and [[!tails_gitlab tails/puppet-tails/-/tree/master/manifests/profile/dns
     desc="`tails::pdns::*` resources"]]
 
   - [`powerdns` Puppet module](https://github.com/sensson/puppet-powerdns)
@@ -194,7 +194,7 @@ Below, importance level is evaluated based on:
 * tools: [[!debpts gitolite3]]
 
 * configuration:
-  [[!tails_gitweb_puppet_tails manifests/gitolite.pp
+  [[!tails_gitweb_puppet_tails manifests/profile/gitolite.pp
   desc="`tails::gitolite` class"]]
 
 * importance: high (needed to release Tails)
@@ -213,7 +213,7 @@ Below, importance level is evaluated based on:
   - [[!tails_gitweb_puppet_tails manifests/git_annex.pp
     desc="`tails::git_annex` class"]]
 
-  - [[!tails_gitweb_puppet_tails manifests/gitolite.pp
+  - [[!tails_gitweb_puppet_tails manifests/profile/gitolite.pp
     desc="`tails::gitolite` class"]]
 
   - [[!tails_gitweb_puppet_tails manifests/git_annex/mirror.pp
@@ -275,18 +275,18 @@ Below, importance level is evaluated based on:
 * purpose: handle incoming and outgoing email for some of our
   [[Schleuder lists|sysadmins/services#schleuder]]
 
-* access: public MTA listening on `mail.tails.boum.org`
+* access: public MTA's listening on `mail.tails.boum.org` and `mta.tails.net`
 
-* tools: [[!debpts postfix]], [[!debpts amavisd-new]], [[!debpts spamassassin]]
+* tools: [[!debpts postfix]], [[!debpts rspamd]]
 
 * configuration:
-  [[!tails_gitweb_puppet_tails manifests/postfix.pp
-  desc="`tails::postfix`"]],
-  [[!tails_gitweb_puppet_tails manifests/amavisd_new.pp
-  desc="`tails::amavisd_new`"]],
+  [[!tails_gitweb_puppet_tails manifests/profile/mta.pp
+  desc="`tails::profile::mta`"]],
+  [[!tails_gitweb_puppet_tails manifests/profile/rspamd.pp
+  desc="`tails::profile::rspamd`"]],
   and
-  [[!tails_gitweb_puppet_tails manifests/spamassassin.pp
-  desc="`tails::spamassassin`"]]
+  [[!tails_gitweb_puppet_tails manifests/profile/mtasts.pp
+  desc="`tails::profile::mtasts`"]]
   classes
 
 * importance: high (at least because WhisperBack bug reports go through this MTA)
@@ -360,8 +360,8 @@ Below, importance level is evaluated based on:
 
 * configuration:
 
-  - [[!tails_gitweb_puppet_tails manifests/rsync.pp
-    desc="`tails::rsync`"]]
+  - [[!tails_gitweb_puppet_tails manifests/profile/rsync.pp
+    desc="`tails::profile::rsync`"]]
 
   - users and credentials are managed with the `tails_secrets_rsync`
     Puppet module
@@ -380,10 +380,10 @@ Below, importance level is evaluated based on:
 
 * configuration:
 
-  - [[!tails_gitweb_puppet_tails manifests/schleuder.pp
-    desc="`tails::schleuder` class"]]
+  - [[!tails_gitweb_puppet_tails manifests/profile/schleuder.pp
+    desc="`tails::profile::schleuder` class"]]
 
-  - `tails::schleuder::lists` Hiera setting
+  - `tails::profile::schleuder::lists` Hiera setting
 
 * importance: high (at least because WhisperBack bug reports go through this service)
 
@@ -399,8 +399,8 @@ Below, importance level is evaluated based on:
 
 * configuration:
 
-  - [[!tails_gitweb_puppet_tails manifests/apt/repository/torproject.pp
-    desc="`tails::apt::repository::torproject`"]]
+  - [[!tails_gitweb_puppet_tails manifests/profile/bridge.pp
+    desc="`tails::profile::bridge`"]]
 
   - [[!tails_gitlab tails/puppet-tor/-/blob/master/manifests/daemon/relay.pp
     desc="`tor::daemon::relay`"]]
@@ -457,8 +457,8 @@ Below, importance level is evaluated based on:
 
 * configuration:
 
-  - [[!tails_gitweb_puppet_tails manifests/weblate.pp
-    desc="`tails::weblate` class"]]
+  - [[!tails_gitweb_puppet_tails manifests/profile/weblate.pp
+    desc="`tails::profile::weblate` class"]]
 
 * importance: to be defined
 
@@ -472,10 +472,7 @@ Below, importance level is evaluated based on:
 
 * configuration:
 
-  - [[!tails_gitweb_puppet_tails manifests/whisperback/relay.pp
-    desc="`tails::whisperback::relay` class"]]
-
-  - private keys are managed with the `tails_secrets_whisperback`
-    Puppet module
+  - [[!tails_gitweb_puppet_tails manifests/profile/whisperback.pp
+    desc="`tails::profile::whisperback` class"]]
 
 * importance: high
