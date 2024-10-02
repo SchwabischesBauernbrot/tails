@@ -50,7 +50,7 @@ while IFS= read -r file; do
     if "$(dirname "$0")/is-file-type" check python "${file}"; then
         files_to_check="${files_to_check}${file}"$'\n'
     fi
-done <<< "${all_files}"
+done <<<"${all_files}"
 
 # Remove the trailing newline (if any)
 files_to_check="${files_to_check%$'\n'}"
