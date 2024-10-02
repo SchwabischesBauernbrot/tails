@@ -400,37 +400,59 @@ that allows recovering files, even from broken file systems.
 
 *Autopsy* is open source and available for free on Windows, macOS, and Linux.
 
-<div class="bug">
-
-<p>If you manage to start <i>Autopsy</i> in Tails, [[please let us
-know|support/talk]]!</p>
-
-<p>We failed to start <i>Autopsy</i> in Tails, even though the
-<a href="https://github.com/sleuthkit/autopsy/blob/develop/Running_Linux_OSX.md">installation
-instructions</a> worked.</p>
-
-</div>
+To avoid leaving traces of the content of your Persistent Storage on the
+operating system where *Autopsy* is used, we recommend that you use *Autopsy*
+in Tails. But, *Autopsy* is easier to install in Windows than in Tails.
 
 We are not providing step-by-step instructions on how to install and use
 *Autopsy*.
 
-If you don't feel confident using *Autopsy* on your own, we recommend that you
-get help from someone with more experience in data recovery.
+If you don't feel confident installing and using *Autopsy* on your own, we
+recommend that you get help from someone with more experience with Linux and
+data recovery.
 
 You can also read the [Autopsy User
 Documentation](http://sleuthkit.org/autopsy/docs/user-docs/latest).
 
-<div class="caution">
-
-<p>Analyzing the partition image with <i>Autopsy</i> leaves traces of the
-content of your Persistent Storage on the operating system where <i>Autopsy</i>
-is used.</p>
-
-</div>
+### Installing *Autopsy* in Tails
 
 The general steps are:
 
-1. [Download and install *Autopsy*.](https://www.autopsy.com/download/)
+1. From the [download page](https://www.autopsy.com/download/), download the 2
+   binaries needed to run *Autopsy*:
+
+   - The DEB file of *The Sleuth Kit*.
+
+   - The ZIP file of *Autopsy*.
+
+1. From the [installation instructions of *Autopsy* for
+   Linux](https://github.com/sleuthkit/autopsy/blob/develop/Running_Linux_OSX.md),
+   download the 2 scripts needed for the installation:
+
+   - `install_prereqs_ubuntu.sh`
+
+   - `install_application.sh`
+
+1. Execute the following commands in a *Terminal*. You might have to adjust to
+   newer versions of *Autopsy*.
+
+   <p class="command">bash install_prereqs_ubuntu.sh</p>
+
+   <p class="command">sudo apt install libsqlite3-dev libc3p0-java unzip</p>
+
+   <p class="command">sudo dpkg -i sleuthkit-java_4.12.1-1_amd64.deb</p>
+
+   <p class="command">bash install_application.sh -z autopsy-4.21.0.zip -i ~/autopsy -j /usr/lib/jvm/java-17-openjdk-amd64</p>
+
+   <p class="command">/home/amnesia/autopsy/autopsy-4.21.0/bin/autopsy</p>
+
+1. When starting for the first time, *Autopsy* freezes on **Starting modules**.
+
+   Press **Enter** to continue.
+
+### Using *Autopsy* to analyze the partition image
+
+The general steps are:
 
 1. Start *Autopsy*.
 
@@ -444,6 +466,6 @@ The general steps are:
    different ways in the left sidebar, for example, both as a file system tree
    and by type of files.
 
-   [[!img autopsy.png link="no" class="screenshot" alt="Autopsy in Windows showing files recovered from the partition image of a Persistent Storage"]]
+   [[!img autopsy.png link="no" class="screenshot" alt="Autopsy in Tails showing files recovered from the partition image of a Persistent Storage"]]
 
 1. Extract the files that you want to recover to the case folder.
