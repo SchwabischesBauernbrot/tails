@@ -180,12 +180,19 @@ decrypted version of your Persistent Storage. To do so:
 1. In the **Authentication Required** dialog, enter your administration
    password.
 
-   If the *Disks* utility returns errors while saving the partition image, try
-   the second technique described below to create a partition image using
-   `ddrescue` on the command line instead.
+1. After the creation of the partition image finishes:
 
-1. After the partition image is created successfully, close the *Disks*
-   utility.
+   - If the creation failed, try the second technique described below to
+     [[create a partition image using `ddrescue` on the command
+     line|fsck#ddrescue]] instead.
+
+   - If the creation succeeded, click **[[!img lib/media-playback-start.png
+     alt="Mount selected partition" class=symbolic link="no"]]** to mount the
+     Persistent Storage.
+
+     If mounting succeeded, this might already perform some repair operations.
+
+     Whether or not mounting succeeded, shutdown Tails.
 
 <h2 id="ddrescue">Creating a partition image using <span class="code">ddrescue</span> on the command line</h2>
 
