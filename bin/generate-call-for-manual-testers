@@ -6,8 +6,8 @@ from subprocess import check_output
 
 
 def end_date() -> str:
-    when = "now + 30 hours"
-    cmd = ["env", "LC_ALL=C", "TZ=UTC", "date", "-d", when, "+%A %H:00 %Z"]
+    when = "tomorrow 10:00 UTC"
+    cmd = ["env", "LC_ALL=C", "TZ=UTC", "date", "-d", when, "+%A %H:%M %Z"]
     return check_output(cmd).decode("utf8").strip()
 
 
