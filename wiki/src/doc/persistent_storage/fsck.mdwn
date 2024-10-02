@@ -43,7 +43,7 @@ much slower than writing to a hard disk.
 
 <div class="caution">
 
-<p>The partition image contains an <i>unencrypted</i> version of your
+<p>The partition image contains a <i>decrypted</i> version of your
 Persistent Storage.</p>
 
 <p>We recommend that you save the partition image to an [[encrypted hard
@@ -127,7 +127,7 @@ is the simplest way of creating a partition image of your Persistent Storage.
 <h3 id="unlock">Unlocking your Persistent Storage in the <i>Disks</i> utility</h3>
 
 Before creating the partition image, unlock the encryption to access the
-unencrypted version of your Persistent Storage. To do so:
+decrypted version of your Persistent Storage. To do so:
 
 1. Click [[!img lib/unlock.png link="no" class="symbolic" alt="Unlock selected encrypted partition"]].
 
@@ -152,9 +152,9 @@ unencrypted version of your Persistent Storage. To do so:
 
    Verify that the content of the new volume is of type **Ext4**.
 
-   This volume corresponds to the unencrypted version of your Persistent Storage.
+   This volume corresponds to the decrypted version of your Persistent Storage.
 
-1. Verify that the size of your unencrypted Persistent Storage is smaller than the
+1. Verify that the size of your decrypted Persistent Storage is smaller than the
    available free space in the external hard disk.
 
 1. Take note of the device name of your Persistent Storage.
@@ -343,10 +343,10 @@ partition image to a new USB stick.
 
    - 1 volume with a **TailsData** label and **Ext4** content.
 
-     This volume corresponds to the unencrypted version of your Persistent Storage.
+     This volume corresponds to the decrypted version of your Persistent Storage.
 
 1. In the right pane, click on the **Ext4** volume, which is the one that
-   corresponds to the unencrypted version of your Persistent Storage.
+   corresponds to the decrypted version of your Persistent Storage.
 
    In the attributes listed below the volume, verify that the content of the
    volume is mounted at */home/amnesia/Persistent*.
