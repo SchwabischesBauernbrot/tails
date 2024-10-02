@@ -5,10 +5,12 @@ set -x
 
 ORIG_DISK_GUID="17B81DA0-8B1E-4269-9C39-FE5C7B9B58A3"
 
-# The minimum size of the system partition in bytes. We've seen sgdisk
-# create a partition with fewer sectors than requested, so we subtract
-# 4096 sectors from the expected size to account for that.
-MIN_SYSTEM_PARTITION_SIZE=$((4096 * 1024 * 1024 - 4096 * 512))
+# The minimum size of the system partition in bytes.
+# We support Tails systems installed back when Tails Installer created
+# 2500 MiB system partitions, minus 4 MiB because sometimes partitioning
+# software has its own opinion on the exact size things should have,
+# e.g. to align on physical sectors.
+MIN_SYSTEM_PARTITION_SIZE=$((2500 * 1024 * 1024 - 4 * 1024 * 1024))
 
 PARENT_DEVICE="$1"
 REPARTITIONING_ERROR_FLAG_FILE="$2"

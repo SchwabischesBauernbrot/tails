@@ -34,9 +34,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-12 09:47+0200\n"
-"PO-Revision-Date: 2024-05-26 20:09+0000\n"
-"Last-Translator: Oğuz Ersen <oguz@ersen.moe>\n"
+"POT-Creation-Date: 2024-09-03 16:21+0200\n"
+"PO-Revision-Date: 2024-08-28 04:09+0000\n"
+"Last-Translator: Kaya Zeren <kayazeren@gmail.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tor/tails-gui/tr/"
 ">\n"
 "Language: tr\n"
@@ -44,7 +44,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.6-dev\n"
+"X-Generator: Weblate 5.7.1-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
@@ -109,8 +109,8 @@ msgstr ""
 "birimi oluşturarak <b>Ek uygulamalar</b> özelliğini etkinleştirebilirsiniz."
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:81
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:342
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:270
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:289
 msgid "Create Persistent Storage"
 msgstr "Kalıcı depolama birimi oluştur"
 
@@ -150,7 +150,9 @@ msgstr "Kaldır"
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:176
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:453
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:800
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:38
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
@@ -805,40 +807,22 @@ msgstr "Kapalı"
 msgid "Off (default)"
 msgstr "Kapalı (varsayılan)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:167
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
 msgid "Persistent Storage Still Locked"
 msgstr "Kalıcı depolama birimi hala kilitli"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:169
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:174
 msgid ""
 "Do you really want to start Tails without unlocking your Persistent Storage?"
 msgstr ""
 "Tails sistemini kalıcı depolama biriminizin kilidini açmadan yeniden "
 "başlatmak istediğinize emin misiniz?"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:177
 msgid "Start Without Persistent Storage"
 msgstr "Kalıcı depolama birimi olmadan başla"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:118
-msgid "Error unlocking Persistent Storage: {}"
-msgstr "Kalıcı depolama biriminin kilidi açılırken sorun çıktı: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:143
-msgid "Error upgrading Persistent Storage: {}"
-msgstr "Kalıcı depolama birimi yükseltilirken sorun çıktı: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:169
-#, python-brace-format
-msgid "Failed to activate some features of the Persistent Storage: {features}."
-msgstr ""
-"Kalıcı depolama biriminizin bazı özellikleri yapılandırılamadı: {features}."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:174
-msgid "Error activating Persistent Storage: {}"
-msgstr "Kalıcı depolama birimi etkinleştirilirken sorun çıktı: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:89
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:243
 msgid ""
 "Impossible to unlock the Persistent Storage because the USB stick is read-"
 "only."
@@ -846,22 +830,125 @@ msgstr ""
 "USB bellek salt okunur olduğu için kalıcı depolama biriminin kilidi "
 "açılamadı."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:104
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:381
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:409
 msgid "Unlocking…"
 msgstr "Kilit açılıyor…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:142
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:176
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:517
-msgid "Unlock Encryption"
-msgstr "Şifreleme kilidini aç"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:416
+#, fuzzy
+msgid "Checking the file system…"
+msgstr "Dosya sistemi biçimlendiriliyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:147
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:41
-msgid "Cannot unlock encrypted storage with this passphrase."
-msgstr "Bu parola ile şifreli depolama alanının kilidi açılamadı."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:451
+#, fuzzy
+msgid "Repairing the File System"
+msgstr "Dosya sistemi biçimlendiriliyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:158
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:452
+#, fuzzy
+msgid "This might take a long time..."
+msgstr "Bu işlem biraz zaman alabilir..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:470
+#, fuzzy
+msgid "Failed to repair the file system of your Persistent Storage."
+msgstr "Kalıcı depolama biriminiz yapılandırılamadı"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:472
+msgid "Start Tails to send an error report and learn how to recover your data."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:485
+msgid "File System Repaired Successfully"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:487
+msgid ""
+"It's possible that some data was lost during the repair. Please check the "
+"contents of your Persistent Storage and restore any lost data from a backup."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:491
+#, fuzzy
+msgid "Close"
+msgstr "_Kapat"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:506
+msgid ""
+"You aborted the repair of the file system. You can either start Tails "
+"without Persistent Storage or restart the computer to try repairing the file "
+"system again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:722
+msgid "Start Tails and open the Persistent Storage settings to find out more."
+msgstr ""
+"Ayrıntılı bilgi almak için Tails sistemini başlatın ve kalıcı depolama "
+"birimi ayarlarını açın."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:751
+msgid ""
+"Your Persistent Storage is unlocked. Its content will be available until you "
+"shut down Tails."
+msgstr ""
+"Kalıcı depolama biriminizin kilidi açıldı. İçeriği Tails sistemi kapatılana "
+"kadar kullanılabilir."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:766
+msgid "Incorrect passphrase. Please try again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:777
+#, fuzzy
+msgid ""
+"Error reading data from your Persistent Storage. The hardware of your USB "
+"stick is probably failing."
+msgstr "USB belleğinizin donanımı büyük olasılıkla arızalanıyor."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:779
+msgid "Start Tails to learn how to recover your data."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:790
+msgid "File System Errors"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:792
+msgid ""
+"Errors were detected in the file system of your Persistent Storage.\n"
+"                \n"
+"Tails can try to fix these errors, but this might erase some of your data "
+"and take a long time.\n"
+"\n"
+"If you already have an up-to-date backup of your Persistent Storage, we "
+"recommend that you try to repair.\n"
+"                \n"
+"If you don't have a backup, we recommend that you create a backup first."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:801
+msgid "Repair File System"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:802
+#, fuzzy
+msgid "Create Backup"
+msgstr "Oluştur"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:813
+#, fuzzy
+msgid "Start Tails to learn how to create a backup of your Persistent Storage."
+msgstr "Kalıcı depolama birimi oluşturulamadı"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:822
+#, fuzzy
+msgid "Failed to unlock the Persistent Storage due to file system errors."
+msgstr ""
+"Kalıcı depolama biriminin kilidi açılamadı. Lütfen Tails sistemini başlatın "
+"ve bir hata bildirimi gönderin."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:831
 msgid ""
 "Failed to upgrade the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -869,7 +956,7 @@ msgstr ""
 "Kalıcı depolama birimi yükseltilemedi. Lütfen Tails sistemini başlatın ve "
 "bir hata bildirimi gönderin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:165
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
 msgid ""
 "Failed to unlock the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -877,7 +964,7 @@ msgstr ""
 "Kalıcı depolama biriminin kilidi açılamadı. Lütfen Tails sistemini başlatın "
 "ve bir hata bildirimi gönderin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:846
 msgid ""
 "Failed to activate the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -885,15 +972,33 @@ msgstr ""
 "Kalıcı depolama birimi etkinleştirilemedi. Lütfen Tails sistemini başlatın "
 "ve bir hata bildirimi gönderin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:184
-msgid "Upgrading the Persistent Storage. This may take a while…"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:857
+#, fuzzy
+msgid "Upgrading the Persistent Storage. This might take a while…"
 msgstr "Kalıcı depolama birimi yükseltiliyor. Bu işlem biraz zaman alabilir…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:199
-msgid "Start Tails and open the Persistent Storage settings to find out more."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:125
+msgid "Error unlocking Persistent Storage: {}"
+msgstr "Kalıcı depolama biriminin kilidi açılırken sorun çıktı: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:150
+msgid "Error upgrading Persistent Storage: {}"
+msgstr "Kalıcı depolama birimi yükseltilirken sorun çıktı: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:176
+#, python-brace-format
+msgid "Failed to activate some features of the Persistent Storage: {features}."
 msgstr ""
-"Ayrıntılı bilgi almak için Tails sistemini başlatın ve kalıcı depolama "
-"birimi ayarlarını açın."
+"Kalıcı depolama biriminizin bazı özellikleri yapılandırılamadı: {features}."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:181
+msgid "Error activating Persistent Storage: {}"
+msgstr "Kalıcı depolama birimi etkinleştirilirken sorun çıktı: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:202
+#, fuzzy
+msgid "Failed to abort when repairing Persistent Storage filesystem: {}"
+msgstr "Kalıcı depolama birimi hizmeti başlatılamadı"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
@@ -1001,9 +1106,8 @@ msgid "No mount points found"
 msgstr "Bir takılma noktası bulunamadı"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:805
-#, fuzzy
 msgid "Target device has opened files"
-msgstr "Aygıta %(speed)d MB/s hızında yazılıyor"
+msgstr "Hedef aygıtta açık dosyalar var"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:833
 #, python-format
@@ -1079,7 +1183,7 @@ msgstr "%s üzerindeki ana ön yükleme kaydı (MBR) sıfırlanıyor"
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1313
 #, python-format
 msgid "Writing random seed to LBA 34 of %s"
-msgstr ""
+msgstr "%s LBA 34 bölümüne rastgele tohum yazılıyor"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/creator.py:1320
 msgid "Drive is a loopback, skipping MBR reset"
@@ -1095,6 +1199,9 @@ msgid ""
 "Unable to clone because the target USB stick is being used. Close all open "
 "files on the target USB stick, restart Tails Cloner, and try to clone again."
 msgstr ""
+"Hedef USB bellek kullanıldığından kopyalanamadı. Hedef USB bellekteki tüm "
+"açık dosyaları kapatın, Tails kopyalayıcıyı yeniden başlatın ve yeniden "
+"kopyalamayı deneyin."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:180
 msgid ""
@@ -1384,7 +1491,7 @@ msgstr "su komutu devre dışı bırakılmış. Lütfen yerine sudo komutunu kul
 
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-ioerrors:3
 msgid "Error Reading Data from Tails USB Stick"
-msgstr "Tails USB Belleğinden Veri Okunurken Hata Oluştu"
+msgstr "Tails USB belleğinden veri okunurken sorun çıktı"
 
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-ioerrors:4
 msgid "The hardware of your USB stick is probably failing."
@@ -1392,15 +1499,15 @@ msgstr "USB belleğinizin donanımı büyük olasılıkla arızalanıyor."
 
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-ioerrors:5
 msgid "We recommend that you reinstall Tails on a different USB stick."
-msgstr "Tails'i farklı bir USB belleğe yeniden kurmanızı tavsiye ederiz."
+msgstr "Başka bir USB belleğe yeniden Tails kurmanız önerilir."
 
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-ioerrors:7
 msgid ""
 "We recommend that you reinstall Tails on a different USB stick\n"
 "and recover the data from your Persistent Storage as soon as possible."
 msgstr ""
-"Tails'i farklı bir USB belleğe yeniden kurmanızı ve verileri Kalıcı\n"
-"Depolama Biriminizden mümkün olan en kısa sürede kurtarmanızı tavsiye ederiz."
+"Başka bir USB belleğe yeniden Tails kurmanız ve kalıcı depolama\n"
+"biriminizdeki verileri olabilecek en kısa sürede kurtarmanız önerilir."
 
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-ioerrors:10
 msgid "Dismiss"
@@ -1413,14 +1520,15 @@ msgstr "Ayrıntılı bilgi alın"
 
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:16
 msgid "Disk partitioning errors"
-msgstr ""
+msgstr "Disk bölümleme sorunu"
 
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:22
-#, fuzzy
 msgid ""
 "Something went wrong when starting your Tails USB stick for the first time: "
 "resizing the system partition failed"
-msgstr "Tails USB diskiniz ilk kez başlatılırken bir sorun çıktı."
+msgstr ""
+"Tails USB diskiniz ilk kez başlatılırken bir sorun çıktı. Sistem bölümünün "
+"boyutu değiştirilemedi"
 
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:27
 msgid ""
@@ -1585,9 +1693,8 @@ msgid "[package not available]"
 msgstr "[paket kullanılamıyor]"
 
 #: config/chroot_local-includes/usr/local/bin/tails-additional-software-config:300
-#, fuzzy
 msgid "[description not available]"
-msgstr "[paket kullanılamıyor]"
+msgstr "[açıklama yok]"
 
 #: config/chroot_local-includes/usr/local/lib/tails-htp-notify-user:68
 msgid "Failed to synchronize the clock!"
@@ -1622,7 +1729,7 @@ msgstr "Bilinen güvenlik sorunları"
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:76
 #, sh-format
 msgid "Wi-Fi Interface Disabled"
-msgstr ""
+msgstr "Wi-Fi arayüzü devre dışı"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:77
 #, sh-format
@@ -1630,11 +1737,13 @@ msgid ""
 "MAC address anonymization failed for one of your Wi-Fi interfaces, so it is "
 "temporarily disabled."
 msgstr ""
+"Wi-Fi arayüzlerinizden biri, MAC adresi anonimleştirmesi yapılamadığından "
+"geçici olarak devre dışı bırakıldı."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:79
-#, fuzzy, sh-format
+#, sh-format
 msgid "Wi-Fi Disabled"
-msgstr "Devre dışı"
+msgstr "Wi-Fi devre dışı"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:80
 #, sh-format
@@ -1642,11 +1751,13 @@ msgid ""
 "MAC address anonymization failed for your Wi-Fi interface, so it is "
 "temporarily disabled."
 msgstr ""
+"Wi-Fi arayüzünüz, MAC adresi anonimleştirmesi yapılamadığından geçici olarak "
+"devre dışı bırakıldı."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:82
 #, sh-format
 msgid "Wired Interface Disabled"
-msgstr ""
+msgstr "Kablolu arayüz devre dışı"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:83
 #, sh-format
@@ -1654,11 +1765,13 @@ msgid ""
 "MAC address anonymization failed for one of your wired interfaces, so it is "
 "temporarily disabled."
 msgstr ""
+"Kablolu arayüzlerinizden biri, MAC adresi anonimleştirmesi yapılamadığından "
+"geçici olarak devre dışı bırakıldı."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:85
-#, fuzzy, sh-format
+#, sh-format
 msgid "Wired Network Disabled"
-msgstr "Tüm ağ devre dışı"
+msgstr "Kablolu ağ devre dışı"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:86
 #, sh-format
@@ -1666,11 +1779,13 @@ msgid ""
 "MAC address anonymization failed for your wired interface, so it is "
 "temporarily disabled."
 msgstr ""
+"Kablolu arayüzünüz, MAC adresi anonimleştirmesi yapılamadığından geçici "
+"olarak devre dışı bırakıldı."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:88
-#, fuzzy, sh-format
+#, sh-format
 msgid "Network Interface Disabled"
-msgstr "${nic} ağ kartı devre dışı"
+msgstr "Ağ arayüzü devre dışı bırakıldı"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
 #, sh-format
@@ -1678,28 +1793,31 @@ msgid ""
 "MAC address anonymization failed for one of your network interfaces, so it "
 "is temporarily disabled."
 msgstr ""
+"Ağ arayüzlerinizden biri, MAC adresi anonimleştirmesi yapılamadığından "
+"geçici olarak devre dışı bırakıldı."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:91
 #, sh-format
 msgid ""
 "You might prefer to restart Tails and disable MAC address anonymization."
 msgstr ""
+"Tails uygulamasını yeniden başlatarak MAC adresi anonimleştirmesini devre "
+"dışı bırakabilirsiniz."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:98
-#, fuzzy
 msgid "All Networking Disabled"
 msgstr "Tüm ağ devre dışı"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:99
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
 "error recovery also failed, so all networking is disabled.\n"
 "\n"
 "You might prefer to restart Tails and disable MAC address anonymization."
 msgstr ""
-"${nic_name} (${nic}) ağ kartı için MAC adresi anonimleştirmesi yapılamadı. "
-"Hata giderme girişimi de başarısız olduğundan tüm ağ devre dışı bırakıldı.\n"
+"Bir ağ arayüzü için MAC adresi anonimleştirmesi yapılamadı. Hatayı giderme "
+"girişimi de başarısız olduğundan tüm ağ devre dışı bırakıldı.\n"
 "\n"
 "Tails sistemini yeniden başlatmanız ve MAC adresi anonimleştirmesini devre "
 "dışı bırakmanız gerekebilir."
@@ -1934,7 +2052,7 @@ msgstr "Tor durumu"
 msgid "Open Onion Circuits"
 msgstr "Açık onion devreleri"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:344
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:348
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1948,11 +2066,11 @@ msgstr ""
 "Bazı uygulamaları kapattıktan ya da yeniden başlattıkran sonra yeniden "
 "deneyin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:358
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:362
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Kalıcı depolama birimi için bir bölüm oluşturuluyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:380
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:384
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
@@ -1960,23 +2078,23 @@ msgstr ""
 "LUKS şifrelemesi başlatılıyor... Bilgisayar bir kaç saniye yanıt vermeyi "
 "durdurabilir."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:409
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:413
 msgid "Unlocking the encryption..."
 msgstr "Şifreleme kilidi açılıyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:417
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:421
 msgid "Formatting the file system..."
 msgstr "Dosya sistemi biçimlendiriliyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:435
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
 msgid "Activating the Persistent Storage..."
 msgstr "Kalıcı depolama birimi etkinleştiriliyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:440
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:444
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Kalıcı depolama biriminin kurulumu tamamlanıyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:695
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:699
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1988,7 +2106,7 @@ msgstr ""
 "yaramazsaTails sistemini yeniden başlatıp kilidini açmadan kalıcı depolama "
 "birimini silmeyi deneyin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:728
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:732
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -2009,8 +2127,6 @@ msgstr ""
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:30
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:48
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:390
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:25
 msgid "Persistent Storage"
 msgstr "Kalıcı depolama birimi"
@@ -2057,7 +2173,7 @@ msgstr "{} özelliği etkinleştirilirken sorun çıktı"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:297
 msgid "An error occurred while activating the feature."
-msgstr "Özellik etkinleştirilirken bir hata oluştu."
+msgstr "Özellik etkinleştirilirken bir sorun çıktı."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:298
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:347
@@ -2075,7 +2191,7 @@ msgstr "{} özelliği etkisizleştirilirken sorun çıktı"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:346
 msgid "An error occurred while deactivating the feature."
-msgstr "Özellik etkisizleştirilirken bir hata oluştu."
+msgstr "Özellik etkisizleştirilirken bir sorun çıktı."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:366
 msgid ""
@@ -2099,7 +2215,7 @@ msgstr "{} özelliğinin verileri silinirken sorun çıktı"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:408
 msgid "An error occurred while deleting the data of feature {}."
-msgstr "{} özelliğinin verileri silinirken bir hata oluştu."
+msgstr "{} özelliğinin verileri silinirken bir sorun çıktı."
 
 #. Translators: Don't translate {applications}, it's a placeholder
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/feature.py:515
@@ -2142,7 +2258,7 @@ msgstr "Parola ifadesi değiştirilemedi"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/change_passphrase_dialog.py:114
 msgid "An error occurred while changing the passphrase."
-msgstr "Parola ifadesi değiştirilirken bir hata oluştu."
+msgstr "Parola ifadesi değiştirilirken bir sorun çıktı."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/passphrase_strength_hint.py:44
 msgid "Weak"
@@ -2255,7 +2371,7 @@ msgstr "Kalıcı depolama birimi oluşturulamadı"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:260
 msgid "An error occurred while creating the Persistent Storage."
-msgstr "Kalıcı Depolama Birimi oluşturulurken bir hata oluştu."
+msgstr "Kalıcı depolama birimi oluşturulurken bir sorun çıktı."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:280
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:287
@@ -2264,16 +2380,15 @@ msgstr "Kalıcı depolama birimi silinirken sorun çıktı"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:288
 msgid "An error occurred while deleting the Persistent Storage."
-msgstr "Kalıcı Depolama Birimi silinirken bir hata oluştu."
+msgstr "Kalıcı depolama birimi silinirken bir sorun çıktı."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:325
 msgid "Details (command output)"
 msgstr "Ayrıntılar (komut çıktısı)"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:340
-#, fuzzy
 msgid "Failed to open the documentation"
-msgstr "Tails belgeleri"
+msgstr "Belgeler açılamadı"
 
 #. Translators: Don't translate {volume_label} or {volume_size},
 #. they are placeholders and will be replaced. They need
@@ -2755,7 +2870,7 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:18
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:56
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:836
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:758
 msgid "Administration Password"
 msgstr "Yönetim parolası"
 
@@ -2781,7 +2896,7 @@ msgid "Disable"
 msgstr "Devre dışı bırak"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:186
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:840
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:762
 msgid "MAC Address Anonymization"
 msgstr "MAC adresi anonimleştirme"
 
@@ -2807,7 +2922,7 @@ msgid "Don't anonymize MAC addresses"
 msgstr "MAC adresleri anonimleştirilmesin"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:343
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:844
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:766
 msgid "Network Configuration"
 msgstr "Ağ yapılandırması"
 
@@ -2882,23 +2997,28 @@ msgstr "Unsafe Browser kullanılsın (varsayılan)"
 msgid "Disable the Unsafe Browser"
 msgstr "Unsafe Browser kullanılmasın"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:101
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:46
 msgid "Settings were loaded from the Persistent Storage."
 msgstr "Ayarlar kalıcı depolama biriminden yüklendi."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:153
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:98
 msgid "Welcome to Tails!"
 msgstr "Tails sistemine hoş geldiniz!"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:186
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:131
 msgid "Language and Formats"
-msgstr "Dil ve Biçimler"
+msgstr "Dil ve biçimler"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:222
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:167
 msgid "Default Settings"
 msgstr "Varsayılan ayarlar"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:298
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:225
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:337
+msgid "_Persistent Storage"
+msgstr "_Kalıcı depolama birimi"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:245
 msgid ""
 "You can save some of your files and configuration in an encrypted Persistent "
 "Storage on your Tails USB stick: your documents, browser bookmarks, Wi-Fi "
@@ -2908,49 +3028,46 @@ msgstr ""
 "şifrelenmiş kalıcı depolama birimine kaydedebilirsiniz: Belgeleriniz, "
 "tarayıcı yer imleriniz, Wi-Fi parolalarınız gibi bilgiler."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:325
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:272
 msgid "Create and configure a Persistent Storage after starting Tails"
 msgstr ""
 "Tails sistemini başlattıktan sonra kalıcı depolama biriminizi oluşturun ve "
 "yapılandırın"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:429
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:364
 msgid "Show Passphrase"
 msgstr "Parola görüntülensin"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:481
-msgid "_Passphrase"
-msgstr "_Parola"
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:421
+#, fuzzy
+msgid "Enter your passphrase"
+msgstr "Parola Onayı:"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:558
-msgid ""
-"Your Persistent Storage is unlocked. Its content will be available until you "
-"shut down Tails."
-msgstr ""
-"Kalıcı depolama biriminizin kilidi açıldı. İçeriği Tails sistemi kapatılana "
-"kadar kullanılabilir."
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:436
+msgid "Unlock Encryption"
+msgstr "Şifreleme kilidini aç"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:581
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:503
 msgid "Impossible to unlock the Persistent Storage."
 msgstr "Kalıcı depolama biriminin kilidi açılamadı."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:640
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:562
 msgid "_Additional Settings"
 msgstr "_Ek ayarlar"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:723
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:645
 msgid "Add an additional setting"
 msgstr "Bir ek ayar ekle"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:770
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:692
 msgid "Shutdown"
 msgstr "Kapat"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:779
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:701
 msgid "_Start Tails"
 msgstr "Tails _başlat"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:808
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:730
 msgid ""
 "The default settings are safe in most situations. To add a custom setting, "
 "press the \"+\" button below."
@@ -3932,6 +4049,12 @@ msgstr "Aralık"
 msgid "Clock"
 msgstr "Saat"
 
+#~ msgid "Cannot unlock encrypted storage with this passphrase."
+#~ msgstr "Bu parola ile şifreli depolama alanının kilidi açılamadı."
+
+#~ msgid "_Passphrase"
+#~ msgstr "_Parola"
+
 #~ msgid "Resizing System Partition Failed"
 #~ msgstr "Sistem bölümü yeniden boyutlandırılamadı"
 
@@ -4100,9 +4223,6 @@ msgstr "Saat"
 #~ msgid "Unlock"
 #~ msgstr "Kilidi aç"
 
-#~ msgid "_Persistent Storage"
-#~ msgstr "_Kalıcı depolama birimi"
-
 #~ msgid "Encrypted _Persistent Storage"
 #~ msgstr "Şifrelenmiş _kalıcı depolama birimi"
 
@@ -4232,9 +4352,6 @@ msgstr "Saat"
 #~ "birimi oluşturulacak. Buradaki veriler parola ile şifrelenmiş olarak "
 #~ "depolanacak."
 
-#~ msgid "Create"
-#~ msgstr "Oluştur"
-
 #~ msgid ""
 #~ "<b>Beware!</b> Using persistence has consequences that must be well "
 #~ "understood. Tails can't help you if you use it wrong! See the "
@@ -4245,9 +4362,6 @@ msgstr "Saat"
 #~ "Yanlış kullanırsanız Tails uygulamasının size yardımı olmaz. Ayrıntılı "
 #~ "bilgi almak için Tails belgelerindeki <i>Şifrelenmiş kaıcılık</i> "
 #~ "bölümüne bakabilirsiniz."
-
-#~ msgid "Verify Passphrase:"
-#~ msgstr "Parola Onayı:"
 
 #~ msgid "Passphrase can't be empty"
 #~ msgstr "Parola boş bırakılamaz"

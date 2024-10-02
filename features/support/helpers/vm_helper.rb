@@ -441,9 +441,8 @@ class VM
     raise 'unsupported OS loader type' unless type == 'UEFI'
 
     update do |xml|
-      xml.elements['domain/os'].add_element(
-        REXML::Document.new('<loader>/usr/share/ovmf/OVMF.fd</loader>')
-      )
+      xml.elements['domain/os'].add_attribute('firmware', 'efi')
+      xml.elements['domain/os'].add_element('loader', { 'secure' => 'yes' })
     end
   end
 

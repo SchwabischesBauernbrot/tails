@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-12 09:47+0200\n"
+"POT-Creation-Date: 2024-09-03 16:21+0200\n"
 "PO-Revision-Date: 2024-07-16 16:41+0000\n"
 "Last-Translator: emma peel <emma.peel@riseup.net>\n"
 "Language-Team: Malayalam <https://hosted.weblate.org/projects/tor/tails-gui/"
@@ -86,8 +86,8 @@ msgstr ""
 "സംഭരണം സൃഷ്ടിക്കാനും <b>അധിക സോഫ്റ്റ്വെയർ </b>സവിശേഷത സജീവമാക്കാനും കഴിയും."
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:81
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:342
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:270
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:289
 msgid "Create Persistent Storage"
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
@@ -128,7 +128,9 @@ msgstr "ഒഴിവാക്കുക"
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:176
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:453
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:800
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:38
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
@@ -742,88 +744,187 @@ msgstr "ഓഫ്"
 msgid "Off (default)"
 msgstr "ഓഫ് (സ്ഥിരസ്ഥിതി)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:167
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
 #, fuzzy
 msgid "Persistent Storage Still Locked"
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:169
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:174
 #, fuzzy
 msgid ""
 "Do you really want to start Tails without unlocking your Persistent Storage?"
 msgstr "സ്ഥിരമായ സംഭരണം അൺലോക്കുചെയ്യുന്നതിന് നിങ്ങളുടെ പാസ്‌ഫ്രെയ്‌സ് നൽകുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:177
 #, fuzzy
 msgid "Start Without Persistent Storage"
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:118
-#, fuzzy
-msgid "Error unlocking Persistent Storage: {}"
-msgstr "എൻക്രിപ്റ്റുചെയ്‌ത _പെർസിസ്റ്റന്റ് സ്റ്റോറേജ്"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:143
-#, fuzzy
-msgid "Error upgrading Persistent Storage: {}"
-msgstr "എൻക്രിപ്റ്റുചെയ്‌ത _പെർസിസ്റ്റന്റ് സ്റ്റോറേജ്"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:169
-#, python-brace-format
-msgid "Failed to activate some features of the Persistent Storage: {features}."
-msgstr ""
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:174
-#, fuzzy
-msgid "Error activating Persistent Storage: {}"
-msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:89
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:243
 msgid ""
 "Impossible to unlock the Persistent Storage because the USB stick is read-"
 "only."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:104
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:381
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:409
 msgid "Unlocking…"
 msgstr "അൺലോക്കുചെയ്യുന്നു…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:142
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:176
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:517
-msgid "Unlock Encryption"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:416
+#, fuzzy
+msgid "Checking the file system…"
+msgstr "ഫയൽസിസ്റ്റം പരിശോധിക്കുന്നു ..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:451
+#, fuzzy
+msgid "Repairing the File System"
+msgstr "ഫയൽസിസ്റ്റം പരിശോധിക്കുന്നു ..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:452
+#, fuzzy
+msgid "This might take a long time..."
+msgstr "ഇതൊരല്പം സമയം എടുക്കും..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:470
+#, fuzzy
+msgid "Failed to repair the file system of your Persistent Storage."
+msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:472
+msgid "Start Tails to send an error report and learn how to recover your data."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:147
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:41
-msgid "Cannot unlock encrypted storage with this passphrase."
-msgstr "ഈ പാസ്‌ഫ്രെയ്‌സ് ഉപയോഗിച്ച് എൻക്രിപ്റ്റുചെയ്‌ത സംഭരണം അൺലോക്കുചെയ്യാൻ കഴിയില്ല."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:485
+msgid "File System Repaired Successfully"
+msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:158
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:487
+msgid ""
+"It's possible that some data was lost during the repair. Please check the "
+"contents of your Persistent Storage and restore any lost data from a backup."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:491
+msgid "Close"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:506
+msgid ""
+"You aborted the repair of the file system. You can either start Tails "
+"without Persistent Storage or restart the computer to try repairing the file "
+"system again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:722
+msgid "Start Tails and open the Persistent Storage settings to find out more."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:751
+#, fuzzy
+msgid ""
+"Your Persistent Storage is unlocked. Its content will be available until you "
+"shut down Tails."
+msgstr ""
+"നിങ്ങളുടെ സ്ഥിരമായ സംഭരണം അൺലോക്കുചെയ്‌തു. ഇത് വീണ്ടും ലോക്കുചെയ്യാൻ വാലുകൾ പുനരാരംഭിക്കുക."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:766
+msgid "Incorrect passphrase. Please try again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:777
+msgid ""
+"Error reading data from your Persistent Storage. The hardware of your USB "
+"stick is probably failing."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:779
+msgid "Start Tails to learn how to recover your data."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:790
+msgid "File System Errors"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:792
+msgid ""
+"Errors were detected in the file system of your Persistent Storage.\n"
+"                \n"
+"Tails can try to fix these errors, but this might erase some of your data "
+"and take a long time.\n"
+"\n"
+"If you already have an up-to-date backup of your Persistent Storage, we "
+"recommend that you try to repair.\n"
+"                \n"
+"If you don't have a backup, we recommend that you create a backup first."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:801
+msgid "Repair File System"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:802
+#, fuzzy
+msgid "Create Backup"
+msgstr "ഉണ്ടാക്കുക "
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:813
+#, fuzzy
+msgid "Start Tails to learn how to create a backup of your Persistent Storage."
+msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:822
+#, fuzzy
+msgid "Failed to unlock the Persistent Storage due to file system errors."
+msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:831
 msgid ""
 "Failed to upgrade the Persistent Storage. Please start Tails and send an "
 "error report."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:165
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
 msgid ""
 "Failed to unlock the Persistent Storage. Please start Tails and send an "
 "error report."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:846
 msgid ""
 "Failed to activate the Persistent Storage. Please start Tails and send an "
 "error report."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:184
-msgid "Upgrading the Persistent Storage. This may take a while…"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:857
+#, fuzzy
+msgid "Upgrading the Persistent Storage. This might take a while…"
+msgstr "നിങ്ങളുടെ സ്ഥിരമായ സംഭരണം സൃഷ്‌ടിക്കുന്നത് പരാജയപ്പെട്ടു."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:125
+#, fuzzy
+msgid "Error unlocking Persistent Storage: {}"
+msgstr "എൻക്രിപ്റ്റുചെയ്‌ത _പെർസിസ്റ്റന്റ് സ്റ്റോറേജ്"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:150
+#, fuzzy
+msgid "Error upgrading Persistent Storage: {}"
+msgstr "എൻക്രിപ്റ്റുചെയ്‌ത _പെർസിസ്റ്റന്റ് സ്റ്റോറേജ്"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:176
+#, python-brace-format
+msgid "Failed to activate some features of the Persistent Storage: {features}."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:199
-msgid "Start Tails and open the Persistent Storage settings to find out more."
-msgstr ""
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:181
+#, fuzzy
+msgid "Error activating Persistent Storage: {}"
+msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:202
+#, fuzzy
+msgid "Failed to abort when repairing Persistent Storage filesystem: {}"
+msgstr "സിസ്റ്റം പുനരാരംഭിക്കുന്നതിൽ പരാജയപ്പെട്ടു"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
@@ -1799,7 +1900,7 @@ msgstr "ടോർ സ്ഥിതിഗതികൾ"
 msgid "Open Onion Circuits"
 msgstr "ഒണിയൻ സർക്യൂട്ടുകൾ തുറക്കുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:344
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:348
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1808,37 +1909,37 @@ msgid ""
 "Try again after closing some applications or rebooting."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:358
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:362
 #, fuzzy
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "പെർസിസ്റ്റന്റ് വോളിയത്തിന്റെ അനുവദനീയത ശെരിയാക്കുന്നു ."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:380
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:384
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:409
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:413
 msgid "Unlocking the encryption..."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:417
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:421
 #, fuzzy
 msgid "Formatting the file system..."
 msgstr "ഫയൽസിസ്റ്റം പരിശോധിക്കുന്നു ..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:435
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
 #, fuzzy
 msgid "Activating the Persistent Storage..."
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:440
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:444
 #, fuzzy
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:695
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:699
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1846,7 +1947,7 @@ msgid ""
 "unlocking it."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:728
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:732
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -1862,8 +1963,6 @@ msgstr ""
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:30
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:48
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:390
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:25
 #, fuzzy
 msgid "Persistent Storage"
@@ -2602,7 +2701,7 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:18
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:56
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:836
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:758
 msgid "Administration Password"
 msgstr "അഡ്മിനിസ്ട്രേഷൻ പാസ്‌വേഡ്"
 
@@ -2628,7 +2727,7 @@ msgid "Disable"
 msgstr "പ്രവർത്തനരഹിതമാക്കു"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:186
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:840
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:762
 msgid "MAC Address Anonymization"
 msgstr ""
 
@@ -2649,7 +2748,7 @@ msgid "Don't anonymize MAC addresses"
 msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:343
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:844
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:766
 msgid "Network Configuration"
 msgstr "നെറ്റ്‌വർക്ക് കോൺഫിഗറേഷൻ"
 
@@ -2702,77 +2801,79 @@ msgstr "സുരക്ഷിതമല്ലാത്ത ബ്രൌസർ ആ�
 msgid "Disable the Unsafe Browser"
 msgstr "സുരക്ഷിതമല്ലാത്ത ബ്രൌസർ ആരംഭിക്കുന്നു ..."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:101
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:46
 #, fuzzy
 msgid "Settings were loaded from the Persistent Storage."
 msgstr "പെർസിസ്റ്റന്റ് വോളിയത്തിന്റെ അനുവദനീയത ശെരിയാക്കുന്നു ."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:153
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:98
 msgid "Welcome to Tails!"
 msgstr "ടൈൽസിലേക്കു സ്വാഗതം!"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:186
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:131
 msgid "Language and Formats"
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:222
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:167
 msgid "Default Settings"
 msgstr "സ്ഥിരസ്ഥിതി ക്രമീകരണങ്ങൾ"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:298
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:225
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:337
+#, fuzzy
+msgid "_Persistent Storage"
+msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:245
 msgid ""
 "You can save some of your files and configuration in an encrypted Persistent "
 "Storage on your Tails USB stick: your documents, browser bookmarks, Wi-Fi "
 "passwords, and so on."
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:325
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:272
 #, fuzzy
 msgid "Create and configure a Persistent Storage after starting Tails"
 msgstr ""
 "ടൈൽസ് ആരംഭിക്കുമ്പോൾ നിങ്ങളുടെ സ്ഥിരമായ സംഭരണത്തിൽ നിന്ന് ഇത് യാന്ത്രികമായി ഇൻസ്റ്റാൾ "
 "ചെയ്യുന്നതിന്."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:429
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:364
 msgid "Show Passphrase"
 msgstr "പാസ്‌ഫ്രെയ്‌സ് കാണിക്കുക"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:481
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:421
 #, fuzzy
-msgid "_Passphrase"
-msgstr "താങ്കളുടെ രഹസ്യ വാചകം :"
+msgid "Enter your passphrase"
+msgstr "രഹസ്യ വാചകം  നിര്‍ണ്ണയിക്കുക: "
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:558
-#, fuzzy
-msgid ""
-"Your Persistent Storage is unlocked. Its content will be available until you "
-"shut down Tails."
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:436
+msgid "Unlock Encryption"
 msgstr ""
-"നിങ്ങളുടെ സ്ഥിരമായ സംഭരണം അൺലോക്കുചെയ്‌തു. ഇത് വീണ്ടും ലോക്കുചെയ്യാൻ വാലുകൾ പുനരാരംഭിക്കുക."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:581
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:503
 #, fuzzy
 msgid "Impossible to unlock the Persistent Storage."
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:640
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:562
 msgid "_Additional Settings"
 msgstr "_ അധിക ക്രമീകരണങ്ങൾ"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:723
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:645
 msgid "Add an additional setting"
 msgstr "ഒരു അധിക ക്രമീകരണം ചേർക്കുക"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:770
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:692
 #, fuzzy
 msgid "Shutdown"
 msgstr "Shutdown"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:779
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:701
 msgid "_Start Tails"
 msgstr "_സ്റ്റാർട്ട് ടെയിൽസ്"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:808
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:730
 msgid ""
 "The default settings are safe in most situations. To add a custom setting, "
 "press the \"+\" button below."
@@ -3690,6 +3791,13 @@ msgstr ""
 msgid "Clock"
 msgstr ""
 
+#~ msgid "Cannot unlock encrypted storage with this passphrase."
+#~ msgstr "ഈ പാസ്‌ഫ്രെയ്‌സ് ഉപയോഗിച്ച് എൻക്രിപ്റ്റുചെയ്‌ത സംഭരണം അൺലോക്കുചെയ്യാൻ കഴിയില്ല."
+
+#, fuzzy
+#~ msgid "_Passphrase"
+#~ msgstr "താങ്കളുടെ രഹസ്യ വാചകം :"
+
 #~ msgid "Failed to setup chroot."
 #~ msgstr "chroot സജ്ജീകരിക്കുന്നതിൽ പരാജയപ്പെട്ടു."
 
@@ -3795,10 +3903,6 @@ msgstr ""
 
 #~ msgid "Unlock"
 #~ msgstr "അൺലോക്കുചെയ്യുക"
-
-#, fuzzy
-#~ msgid "_Persistent Storage"
-#~ msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
 #~ msgid "Encrypted _Persistent Storage"
 #~ msgstr "എൻക്രിപ്റ്റുചെയ്‌ത _പെർസിസ്റ്റന്റ് സ്റ്റോറേജ്"
@@ -3915,9 +4019,6 @@ msgstr ""
 #~ msgid "Persistence wizard - Persistent volume creation"
 #~ msgstr "പെർസിസ്റ്റന്റ് വിസാർഡ് - പെർസിസ്റ്റന്റ്  വോളിയം നിർമ്മാണം "
 
-#~ msgid "Create"
-#~ msgstr "ഉണ്ടാക്കുക "
-
 #~ msgid ""
 #~ "<b>Beware!</b> Using persistence has consequences that must be well "
 #~ "understood. Tails can't help you if you use it wrong! See the "
@@ -3928,9 +4029,6 @@ msgstr ""
 #~ "മനസ്സിലാക്കാക്കിയിരിക്കണം . നിങ്ങൾ തെറ്റായ രീതിയിൽ ഉപയോഗിച്ചാൽ ടൈൽസിനു "
 #~ "സഹായിക്കാനകില്ല ! കൂടുതൽ അറിയാനായി ടൈൽസിന്റെ <i>എൻക്രിപ്റ്റഡ് പെർസിസ്റ്റൻസ് </"
 #~ "i>ഡോക്യൂമെന്റഷന് കാണുക ."
-
-#~ msgid "Verify Passphrase:"
-#~ msgstr "രഹസ്യ വാചകം  നിര്‍ണ്ണയിക്കുക: "
 
 #~ msgid "Passphrase can't be empty"
 #~ msgstr "രഹസ്യ വാചകം ശൂന്യമായിരിക്കാൻ സാധ്യമല്ല "

@@ -18,7 +18,7 @@ are responsible for:
   unplanned Tor Browser releases for security issues that require
   urgent care);
 
-* making sure automatic and manual testers are covered during each
+* making sure automatic and manual tests are done during each
   release process;
 
 * being in the loop when major changes land in release branches, so
@@ -34,10 +34,6 @@ they have also been responsible for:
 
 This responsibility might get shifted to the Foundations Team in the
 near future though.
-
-Also historically, the Release Manager for a given Tails release deals
-with integrating the target Tor Browser version, even if that's one of
-the Foundations Team's duties.
 
 <a id="shift"></a>
 
@@ -62,7 +58,10 @@ the Foundations Team's duties.
 
   - If this will be a major release: the release schedule for its RC.
 
-- Ask for a _Trusted Reproducer_:
+- Ensure a _Trusted Reproducer_ is encoded in the release calendar
+
+  This should have been done while scheduling the Release Manager shift.
+  If we forgot, ask someone to do it:
 
         ./bin/generate-call-for-trusted-reproducer \
            --version VERSION_YOU_WILL_RELEASE
@@ -103,6 +102,23 @@ the Foundations Team's duties.
         git annex sync --no-content
         (cd ${TAILS_GIT_REPO:?}; ./bin/iuk-source-versions "${VERSION:?}" | tr ' ' '\n' | sed -e 's/^/tails-amd64-/') | xargs -r git annex get
 
+- If you don't usually attend the weekly team planning meetings
+
+  - Plan to attend part of one such meeting during your RM shift, to maintain
+    a connection with the team and get an idea of what changes we're preparing
+    for the release you will publish.
+  - Tell the team when you will attend.
+
+- Ensure someone will be able to do the bare metal part of the manual QA
+
+  This requires spare hardware with UEFI and legacy BIOS support.
+
+  1. Either commit to do the release in a location where you can easily
+     do these tests yourself. Else:
+  2. Ensure someone else is able to commit to do these tests. If that fails:
+  3. Worst case, ensure you will bring the needed hardware with you,
+     wherever you'll prepare the release.
+
 - Ensure the next steps are tracked in your preferred personal
   organization tool.
 
@@ -111,9 +127,7 @@ the Foundations Team's duties.
 - Ensure you have found a _Trusted Reproducer_ and write who this is
   in the [[contribute/calendar]].
 
-- Check if you have enough manual testers registered.
-  If not, ping the usual testers and warn the Foundations Team
-  that you may need their help.
+- Check that enough developers have booked time for manual tests.
 
 ## The Friday before the release date
 

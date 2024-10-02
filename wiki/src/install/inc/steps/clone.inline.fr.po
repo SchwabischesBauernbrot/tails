@@ -6,9 +6,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Tails\n"
-"POT-Creation-Date: 2024-06-04 11:39+0000\n"
-"PO-Revision-Date: 2024-06-05 05:54+0000\n"
-"Last-Translator: xin <xin@riseup.net>\n"
+"POT-Creation-Date: 2024-09-23 12:44+0000\n"
+"PO-Revision-Date: 2024-09-28 21:24+0000\n"
+"Last-Translator: Chre <tor@renaudineau.org>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
 "Language: fr\n"
 "MIME-Version: 1.0\n"
@@ -26,10 +26,12 @@ msgstr "[[!meta robots=\"noindex\"]]\n"
 #, no-wrap
 msgid ""
 "<h1 id=\"install\" class=\"step pc-clone mac-clone\">Install Tails by cloning</h1>\n"
-"<h1 id=\"upgrade\" class=\"step upgrade\">Upgrade your Tails by cloning</h1>\n"
+"<h1 id=\"upgrade\" class=\"step upgrade\">Upgrade your primary Tails by cloning</h1>\n"
 msgstr ""
-"<h1 id=\"install\" class=\"step pc-clone mac-clone\">Installer Tails en clonant</h1>\n"
-"<h1 id=\"upgrade\" class=\"step upgrade\">Mettre à jour votre Tails en clonant</h1>\n"
+"<h1 id=\"install\" class=\"step pc-clone mac-clone\">Installer Tails en "
+"clonant</h1>\n"
+"<h1 id=\"upgrade\" class=\"step upgrade\">Mettre à jour votre Tails "
+"principal en clonant</h1>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -50,28 +52,31 @@ msgstr "</div>\n"
 #, no-wrap
 msgid ""
 "<p class=\"upgrade\">\n"
-"  In this step, you will upgrade your Tails from the\n"
+"  In this step, you will upgrade your primary Tails from the\n"
 "  <span class=\"upgrade-clone\">other</span>\n"
 "  <span class=\"upgrade-tails upgrade-os\">intermediary</span>\n"
 "  Tails using\n"
-"  <span class=\"application\">Tails Cloner</span>.\n"
+"  <i>Tails Cloner</i>.\n"
 "</p>\n"
 msgstr ""
 "<p class=\"upgrade\">\n"
-"  À cette étape, vous devrez mettre à jour votre Tails depuis\n"
+"  À cette étape, vous devrez mettre à jour votre Tails principal depuis\n"
 "  <span class=\"upgrade-clone\">un autre Tails</span>\n"
 "  <span class=\"upgrade-tails upgrade-os\">un Tails intermédiaire</span>\n"
 "  en utilisant\n"
-"  l'<span class=\"application\">Tails Cloner</span>.\n"
+"  <i>Tails Cloner</i>.\n"
 "</p>\n"
 
 #. type: Bullet: '1. '
 msgid ""
 "Plug <span class=\"pc-clone mac-clone\">the new</span> <span "
-"class=\"upgrade\">your Tails</span> USB stick into the computer."
+"class=\"upgrade\">your primary Tails</span> USB stick <span "
+"class=\"upgrade\">in addition to the intermediary Tails</span> into the "
+"computer."
 msgstr ""
 "Connectez <span class=\"pc-clone mac-clone\">la nouvelle clé USB</span> "
-"<span class=\"upgrade\">votre clé USB Tails</span> dans l'ordinateur."
+"<span class=\"upgrade\">votre clé USB Tails principale</span> <span class="
+"\"upgrade\">en plus du Tails intermédiaire</span> dans l'ordinateur."
 
 #. type: Plain text
 #, no-wrap
@@ -114,16 +119,14 @@ msgid "   [[!img install/inc/screenshots/tails_cloner_upgrade.png link=\"no\" cl
 msgstr "   [[!img install/inc/screenshots/tails_cloner_upgrade.png link=\"no\" class=\"upgrade screenshot\" alt=\"Tails Cloner : 'Cloner le Tails utilisé actuellement'\"]]\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "   <p>If the other Tails has a Persistent Storage, another option <b>Clone the\n"
-#| "   current Persistent Storage</b> is available.</p>\n"
+#, no-wrap
 msgid ""
 "   <p>If the Tails that you are cloning from has a Persistent Storage, another\n"
 "   option <b>Clone the current Persistent Storage</b> is available.</p>\n"
 msgstr ""
-"   <p>Si l'autre Tails a un stockage persistant, une autre option <b>Cloner le\n"
-"   stockage persistant actuel</b> est disponible.</p>\n"
+"   <p>Si le Tails depuis lequel vous êtes en train de cloner a un stockage "
+"persistant, une autre\n"
+"   option <b>Cloner le stockage persistant actuel</b> est disponible.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -145,21 +148,17 @@ msgid "   <div class=\"pc-clone mac-clone\">\n"
 msgstr "   <div class=\"pc-clone mac-clone\">\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "   <li><p>If you select the option <b>Clone the current Persistent Storage</b>,\n"
-#| "   the Persistent Storage of the other Tails will also be copied when\n"
-#| "   upgrading. You will lose all the data in your Persistent Storage, if you\n"
-#| "   have one.</p></li>\n"
+#, no-wrap
 msgid ""
 "   <p>If you select the option <b>Clone the current Persistent Storage</b>, the\n"
 "   Persistent Storage of the Tails USB stick that you are cloning from will\n"
 "   also be copied.</p>\n"
 msgstr ""
-"   <li><p>Si vous sélectionnez l'option <b>Cloner le stockage persistant actuel</b>,\n"
-"   le stockage persistant de l'autre Tails sera également copié lors de\n"
-"   la mise à jour. Vous perdrez toutes les données de votre stockage persistant, si vous\n"
-"   en aviez.</p></li>\n"
+"   <p>Si vous sélectionnez l'option <b>Cloner le stockage persistant actuel</"
+"b>, le\n"
+"   stockage persistant de la clé USB Tails que vous êtes en train de cloner "
+"sera\n"
+"   également copié.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -172,21 +171,17 @@ msgid "   <div class=\"upgrade\">\n"
 msgstr "   <div class=\"upgrade\">\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "   <li><p>If you select the option <b>Clone the current Persistent Storage</b>,\n"
-#| "   the Persistent Storage of the other Tails will also be copied when\n"
-#| "   upgrading. You will lose all the data in your Persistent Storage, if you\n"
-#| "   have one.</p></li>\n"
+#, no-wrap
 msgid ""
 "   <p>If you select the option <b>Clone the current Persistent Storage</b>, the\n"
 "   <b>Upgrade</b> button becomes unavailable and you can only\n"
 "   [[reinstall|install/clone]] and delete all data on the target USB stick.</p>\n"
 msgstr ""
-"   <li><p>Si vous sélectionnez l'option <b>Cloner le stockage persistant actuel</b>,\n"
-"   le stockage persistant de l'autre Tails sera également copié lors de\n"
-"   la mise à jour. Vous perdrez toutes les données de votre stockage persistant, si vous\n"
-"   en aviez.</p></li>\n"
+"   <p>Si vous sélectionnez l'option <b>Cloner le stockage persistant actuel</"
+"b>, le\n"
+"   bouton<b>Mettre à jour</b> devient indisponible et vous pouvez seulement\n"
+"   [[réinstaller|install/clone]] et supprimer toutes les données de la clé "
+"USB cible.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -200,6 +195,12 @@ msgid ""
 "   upgrading as well, for example to make it quicker to update a [[backup Tails\n"
 "   USB stick|doc/persistent_storage/backup]]. ([[!tails_ticket 20362]])</p>\n"
 msgstr ""
+"   <p>À l'avenir, nous voulons permettre de cloner le stockage persistant "
+"également lors\n"
+"   d'une mise à jour, par exemple pour rendre plus rapide la mise à jour "
+"d'une [[clé USB Tails\n"
+"   de sauvegarde|doc/persistent_storage/backup]]. ([[!tails_ticket "
+"20362]])</p>\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -256,19 +257,12 @@ msgstr ""
 "   </div>\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "   The\n"
-#| "   <span class=\"pc-clone mac-clone\">installation</span>\n"
-#| "   <span class=\"upgrade\">upgrade</span>\n"
-#| "   takes a few minutes.\n"
 msgid ""
 "After the <span class=\"pc-clone mac-clone\">installation</span> <span "
 "class=\"upgrade\">upgrade</span> finishes, close <i>Tails Cloner</i>"
 msgstr ""
-"   <span class=\"pc-clone mac-clone\">L'installation</span>\n"
-"   <span class=\"upgrade\">La mise à jour</span>\n"
-"   prend quelques minutes.\n"
+"Une fois <span class=\"pc-clone mac-clone\">l'installation</span> <span "
+"class=\"upgrade\">la mise à jour</span> terminée, fermez <i>Tails Cloner</i>"
 
 #. type: Plain text
 #, no-wrap

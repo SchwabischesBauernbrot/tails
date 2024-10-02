@@ -1,9 +1,17 @@
-[[!meta title="Recovering the Persistent Storage of a broken Tails"]]
+[[!meta title="Recovering data from the Persistent Storage, if the Tails USB stick doesn't start"]]
 
 <!-- XXX: These instructions should be kept in sync with backup.mdwn -->
 
 If your Tails becomes broken, for example, if it no longer starts, follow
 these instructions to try to recover data from your Persistent Storage.
+
+<div class="next">
+
+<p>If instead, your Tails USB stick does start but the Persistent Storage fails
+to unlock, refer to our instructions on [[recovering data from the Persistent
+Storage, if the Persistent Storage doesn't unlock|fsck]].</p>
+
+</div>
 
 <div class="tip">
 
@@ -13,6 +21,47 @@ how to back up your Persistent Storage to another Tails USB
 stick|backup]].</p>
 
 </div>
+
+We are presenting here 3 recovery techniques that work in different cases. We
+recommend that you try the 3 techniques one after the other.
+
+1. [[Doing a manual upgrade|recover#upgrade]]
+
+   Doing a manual upgrade of your broken Tails might allow you to start your
+   USB stick again and use your Persistent Storage like before.
+
+1. [[Unlocking from another Tails and copying using `rsync`|recover#rsync]]
+
+   If doing a manual upgrade doesn't work, you might be able to unlock your
+   Persistent Storage from another Tails USB stick and copy its content using
+   `rsync` on the command line.
+
+1. [[Recovering from a partition image using forensics tools|recover#image]]
+
+   If unlocking your Persistent Storage from another Tails USB stick fails, you
+   might be able to recover some or most of your data from a partition image
+   using advanced forensics tools.
+
+<h1 id="upgrade">Doing a manual upgrade</h1>
+
+Doing a manual upgrade of your broken Tails might allow you to start your USB
+stick again and use your Persistent Storage like before.
+
+Refer to our instructions on how to do a manual upgrade, either:
+
+- [[Downloading and upgrading from Windows|upgrade/windows]]
+
+- [[Downloading and upgrading from macOS|upgrade/mac]]
+
+- [[Downloading and upgrading from Linux|upgrade/linux]]
+
+- [[Upgrading by cloning from another Tails|doc/upgrade/#clone]]
+
+<h1 id="rsync">Unlocking from another Tails and copying using <span class="code">rsync</span></h1>
+
+If doing a manual upgrade doesn't work, you might be able to unlock your
+Persistent Storage from another Tails USB stick and copy its content using
+`rsync` on the command line.
 
 1. Install Tails on a new USB stick onto which you want to recover your Persistent
    Storage. Make sure that this new USB stick is at least
@@ -53,13 +102,15 @@ stick|backup]].</p>
 
    <div class="bug">
 
-   <p>If no encrypted volume appears, then you might not be able to
-   recover the Persistent Storage of your broken Tails.</p>
-
-   <p>Try to [[check the file system of the Persistent Storage|check]] on your
-   broken Tails.</p>
+   <p>If no encrypted volume appears, try [[recovering from a partition image
+   using forensics tools|recover#image]].</p>
 
    </div>
+
+   XXX: Let's pretend that's enough to replace /doc/persistent_storage/check.
+   We're leaving out people who cannot do a manual upgrade (weird partition
+   table) and cannot unlock from Files (corrupted Persistent Storage). These
+   people can try recovering from a partition image.
 
 1. Choose
    <span class="menuchoice">
@@ -88,3 +139,11 @@ from the *Files* browser. To do so, execute the following command from the
 *Root Terminal*:
 
    <p class="command-root">nautilus</p>
+
+<h1 id="image">Recovering from a partition image using forensics tools</h1>
+
+If unlocking your Persistent Storage from another Tails USB stick fails, you
+might be able to recover some or most of your data from a partition image
+using advanced forensics tools.
+
+XXX: Point to fsck or remix to create the partition from the other Tails?

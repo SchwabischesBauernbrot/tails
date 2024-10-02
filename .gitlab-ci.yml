@@ -1,8 +1,3 @@
-stages:
-  - test
-  - build-website
-  - deploy-website
-
 workflow:
   rules:
     - if: $CI_FORCE_RUN
@@ -27,7 +22,6 @@ before_script:
   - git clone https://gitlab.tails.boum.org/tails/jenkins-tools.git /tmp/jenkins-tools
 
 build-website:
-  stage: build-website
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
       variables:
@@ -78,7 +72,7 @@ build-website:
         --set-yaml add_underlays="['${UNDERLAYS_DIR}/etcher-binary','${UNDERLAYS_DIR}/promotion-material']"
 
 deploy-website:
-  stage: deploy-website
+  needs: [build-website, lint-po, check-website-core-pages, check-po-msgfmt, check-po-meta-date, check-translatable-live-website-urls]
   rules:
     - if: '$CI_COMMIT_BRANCH == "master"'
   image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/rsync:bookworm
@@ -238,6 +232,22 @@ shellcheck:
     when: always
     reports:
       junit: shellcheck.xml
+
+shfmt-changed-files:
+  only:
+    - merge_requests
+
+  variables:
+    GIT_STRATEGY: clone
+    GIT_DEPTH: 0
+
+  image: registry.gitlab.tails.boum.org/sysadmin-team/container-images/debian:sid
+
+  script:
+    - apt-get -qy install shfmt findutils git python3
+    - shfmt --version
+    - git fetch origin "${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
+    - ./bin/test-utils/shfmt -s "origin/${CI_MERGE_REQUEST_TARGET_BRANCH_NAME:?}"
 
 test-persistent-storage-config-file:
   script:

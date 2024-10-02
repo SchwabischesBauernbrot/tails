@@ -107,8 +107,11 @@ h4 {
   font-weight: bold;
 }
 
-p, h1, h2, h3, h4, h5, h6, blockquote {
+p, h1, h2, h3, h4, h5, h6, blockquote, hr {
   max-width: 45em; /* Avoid super-long lines */
+}
+hr {
+    margin: 2em 0;
 }
 
 li > p {
@@ -167,10 +170,17 @@ blockquote {
   border: 1px solid var(--light-gray);
   padding: 15px 30px;
   border-radius: 5px;
+  margin-bottom: 0;
+  margin-top: 0;
 }
 
 blockquote p:last-child {
   margin: 0;
+}
+
+blockquote p.signature {
+    text-align: right;
+    font-style: italic;
 }
 
 /* Tables */

@@ -241,25 +241,10 @@ Pre-freeze
 Check the Release Manager role
 ------------------------------
 
-Check the [[contribute/working_together/roles/release_manager]] role
-documentation: it has more tasks that should be done early enough.
-
-Sometimes some of these are forgotten, and for emergency releases they
-will always be last minute, so let's make sure that the release will
-not be blocked later.
-
-### Make sure there are enough manual testers
-
-Check your if you have enough manual testers registered. If not, ping
-the usual testers (manual-testers@tails.net) and warn the
-Foundations Team that you may need their help.
-
-### Make sure there is a Trusted Reproducer
-
-Check that the <https://tails.net/contribute/calendar/> has a _Trusted
-Reproducer_ assigned for this release, otherwise try to find one among
-the manual testers (manual-testers@tails.net) or FT (XMPP,
-foundations@tails.net).
+Make sure all the shift preparation steps, in the
+[[contribute/working_together/roles/release_manager]] role documentation, have
+been done. Fill the gaps if needed, otherwise the release process will be
+blocked later.
 
 Coordinate with Debian security updates
 ---------------------------------------
@@ -1013,11 +998,10 @@ files metadata:
 Get the internal manual testing started
 =======================================
 
-Email <manual-testers@tails.net> that tests
-may start. Remember to encrypt and sign your email!
+Tell testers that they can start testing. Remember to encrypt and sign your email!
 
     ./bin/automailer.py <<EOF
-    To: manual-testers@tails.net
+    To: rm@tails.net, sajolida@pimienta.org
     Subject: Testing Tails ${VERSION:?}
     X-Attach: $(/bin/ls -1 "$ISOS/tails-amd64-${VERSION:?}/tails-amd64-${VERSION:?}.packages" "$ISOS/tails-amd64-${VERSION:?}/"tails-amd64-${VERSION:?}.{iso,img}.sig "$ISOS/tails-amd64-${VERSION:?}".{iso,img}.torrent | tr '\n' ,)
 
@@ -1315,26 +1299,14 @@ Prepare upgrade-description files
       in the example command below do. You do not need to modify them.
 
     2. For every recent previous release that's _not_ listed in
-       `$IUK_SOURCE_VERSIONS` (for example those based on an older Debian
-       release): tell the users of that old version they need to
+       `$IUK_SOURCE_VERSIONS`: tell the users of that old version they need to
        manually upgrade to the version being released.
 
+       The example command below only does it automatically to notify users of
+       N.x that they should upgrade to (N+1).y. But in other cases, you need to
+       do this manually.
+
        To do so, pass this previous version to `--previous_version`.
-       You need to do this manually as the example command below won't
-       do it automatically.
-
-       In particular, when releasing a new major version `(N+1).0`
-       (i.e. when Tails is upgraded to a new Debian major release) we
-       pass all of the previous major version's Tails releases with
-       `--previous_version`:
-
-            find ${RELEASE_CHECKOUT:?}/wiki/src/upgrade/v2/Tails \
-                 -type d \
-                 -name "$((${VERSION%%.*}-1)).*" \
-                 -printf '--previous_version %f '
-
-       We do so for a few releases, say until `(N+1).2`, in order to
-       notify users with really old versions to upgrade
 
    Run this command, after adjusting it if needed as explained above:
 
@@ -1357,6 +1329,12 @@ Prepare upgrade-description files
                 for version in $(echo ${IUK_SOURCE_VERSIONS:?}); do
                    echo "--previous_version ${version:?}"
                 done \
+            ) \
+            $( \
+                find ${RELEASE_CHECKOUT:?}/wiki/src/upgrade/v2/Tails \
+                   -type d \
+                   -name "$((${VERSION%%.*}-1)).*" \
+                   -printf '--previous_version %f ' \
             ) \
             --iso "${ISO_PATH:?}" \
             --iuks "${IUKS_DIR:?}" \
@@ -1879,8 +1857,6 @@ Draft the Tor blog post
 
 Skip this if you are not preparing a stable release.
 
-Feel free to skip this if you are not preparing a major release.
-
 - Generate the draft blog post:
 
         ./bin/generate-Tor-blog-post "${VERSION:?}" "${TAG:?}" "${DIST:?}" "${RELEASE_DATE:?}"
@@ -2317,12 +2293,10 @@ Check that you are indeed preparing a final release:
    <tails-dev@boum.org>, <rm@tails.net>, and explicitly Cc the
    designated RM for that upcoming release.
 
-1. Announce the date of the next release on <tails-dev@boum.org> and
-   <tails-l10n@boum.org>.
+1. Announce the date of the next release:
 
          ./bin/automailer.py <<EOF
          To: tails-dev@boum.org,tails-l10n@boum.org
-         Cc: manual-testers@tails.net
          Subject: Release schedule for Tails ${NEXT_PLANNED_VERSION:?}
 
          Hi,
@@ -2334,22 +2308,35 @@ Check that you are indeed preparing a final release:
           - Monday, XXX: build images, start testing
           - Tuesday, XXX: release
 
-         @testers, please let the RM know how much time you'll have for manual QA
-         from Monday 15:00 to Tuesday 11:00 (Europe/Berlin)
+         Developers, please:
 
-         @developers, please don't push any change to the branch used for the release
-         on these days.
+           - Book time for automated and manual QA during office hours,
+             from Monday 15:00 to Tuesday 11:00 (Europe/Berlin).
+             If you can't, please let the RM know.
+
+           - During these 2 days, don't push any change to the branch
+             used for the release.
 
          EOF
 
    - If a release candidate is planned, include it in the release schedule
      and the call for manual testers.
 
-1. If you don't know who will be the release managers for the next **2** releases, open
-   an issue per missing RM so you don't forget.
+1. If you don't know who will be the release managers and trusted reproducers for the next **2** releases, open
+   an issue per missing RM so we don't forget.
 
        /label ~"C:Release management" ~"Core Work:Foundations Team" ~"To Do" ~"P:Elevated" 
        /milestone %"Tails_${NEXT_PLANNED_VERSION:?}" 
+
+   Include this information:
+
+   - For the Trusted Reproducer
+     - Your job will be to reproduce the ISO and USB images for the RC (if
+       applicable) and final release within 72 hours after the RM has
+       unplugged their smartcard.
+     - If you volunteer, you must immediately read the "Preparation" section of
+       the instructions:
+       https://tails.net/contribute/release_process/reproducibility/#preparation
 
 1. If you are the release manager for the next release too, look at the
    tasks that must be done at the beginning of your shift in the

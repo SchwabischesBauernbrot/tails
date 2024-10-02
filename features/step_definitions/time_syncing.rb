@@ -53,7 +53,7 @@ end
 
 When /^I make sure time sync before Tor connects (fails|times out|indicates a captive portal|uses a fake connectivity check service)$/ do |failure_mode|
   if failure_mode == 'fails'
-    url = 'localhost:666'
+    url = 'http://localhost:666'
   else
     step 'a web server is running on the LAN'
     endpoint = case failure_mode

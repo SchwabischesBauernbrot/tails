@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-04-05 11:23+0000\n"
-"PO-Revision-Date: 2024-05-20 18:00+0000\n"
-"Last-Translator: xin <xin@riseup.net>\n"
+"PO-Revision-Date: 2024-10-01 19:10+0000\n"
+"Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -47,6 +47,8 @@ msgstr "[[!meta stylesheet=\"inc/stylesheets/steps\" rel=\"stylesheet\" title=\"
 #, no-wrap
 msgid "[[!meta stylesheet=\"inc/stylesheets/expert\" rel=\"stylesheet\" title=\"\"]]\n"
 msgstr ""
+"[[!meta stylesheet=\"inc/stylesheets/expert\" rel=\"stylesheet\" title=\"\"]]"
+"\n"
 
 #. type: Plain text
 #, no-wrap
@@ -62,6 +64,8 @@ msgstr "[[!inline pages=\"install/inc/steps/warnings.inline.de\" raw=\"yes\" sor
 #, no-wrap
 msgid "<h1 id=\"verify-key\" class=\"step\">Verify the Tails signing key</h1>\n"
 msgstr ""
+"<h1 id=\"verify-key\" class=\"step\">Überprüfen Sie den Tails-"
+"Signierschlüssel</h1>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -128,12 +132,12 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">wget https://tails.net/tails-signing.key</p>\n"
-msgstr ""
+msgstr "   <p class=\"command\">wget https://tails.net/tails-signing.key</p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">gpg --import < tails-signing.key</p>\n"
-msgstr ""
+msgstr "   <p class=\"command\">gpg --import < tails-signing.key</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -141,11 +145,15 @@ msgid ""
 "Install the Debian keyring. It contains the OpenPGP keys of all Debian "
 "developers:"
 msgstr ""
+"Installieren Sie den Debian-Keyring. Er enthält die OpenPGP-Schlüssel aller "
+"Debian-Entwickler:"
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">sudo apt update && sudo apt install debian-keyring</p>\n"
 msgstr ""
+"   <p class=\"command\">sudo apt update && sudo apt install debian-"
+"keyring</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -159,6 +167,8 @@ msgstr ""
 #, no-wrap
 msgid "   <p class=\"command\">gpg --keyring=/usr/share/keyrings/debian-keyring.gpg --export chris@chris-lamb.co.uk | gpg --import</p>\n"
 msgstr ""
+"   <p class=\"command\">gpg --keyring=/usr/share/keyrings/debian-keyring.gpg "
+"--export chris@chris-lamb.co.uk | gpg --import</p>\n"
 
 #
 #. type: Bullet: '1. '
@@ -169,6 +179,8 @@ msgstr ""
 #, no-wrap
 msgid "   <p class=\"command\">gpg --keyid-format 0xlong --check-sigs A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 msgstr ""
+"   <p class=\"command\">gpg --keyid-format 0xlong --check-sigs "
+"A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -179,6 +191,8 @@ msgstr ""
 #, no-wrap
 msgid "       sig!2        0x1E953E27D4311E58 2020-03-19  Chris Lamb <chris@chris-lamb.co.uk>\n"
 msgstr ""
+"       sig!2        0x1E953E27D4311E58 2020-03-19  Chris Lamb <chris@chris-"
+"lamb.co.uk>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -225,6 +239,8 @@ msgstr ""
 #, no-wrap
 msgid "   <p class=\"command\">gpg --lsign-key A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 msgstr ""
+"   <p class=\"command\">gpg --lsign-key "
+"A490D0F4D311A4153E2BB7CADBB802B258ACD84F</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -235,11 +251,13 @@ msgstr ""
 #, no-wrap
 msgid "<div class=\"step-image\">[[!img inc/infography/download.png link=\"no\" alt=\"\"]]</div>\n"
 msgstr ""
+"<div class=\"step-image\">[[!img inc/infography/download.png link=\"no\" alt="
+"\"\"]]</div>\n"
 
 #
 #. type: Bullet: '1. '
 msgid "Download the USB image:"
-msgstr ""
+msgstr "Laden Sie das USB-Image herunter:"
 
 #. type: Plain text
 #, no-wrap
@@ -257,6 +275,8 @@ msgstr ""
 #, no-wrap
 msgid "<div class=\"step-image\">[[!img inc/infography/verify.png link=\"no\" alt=\"\"]]</div>\n"
 msgstr ""
+"<div class=\"step-image\">[[!img inc/infography/verify.png link=\"no\" alt=\""
+"\"]]</div>\n"
 
 #
 #. type: Plain text
@@ -282,10 +302,11 @@ msgid "Verify that the USB image is signed by the Tails signing key:"
 msgstr ""
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "[[!inline pages=\"install/inc/overview\" raw=\"yes\" sort=\"age\"]]\n"
+#, no-wrap
 msgid "   <p class=\"command\">[[!inline pages=\"inc/stable_amd64_img_gpg_verify\" raw=\"yes\" sort=\"age\"]]</p>\n"
-msgstr "[[!inline pages=\"install/inc/overview.de\" raw=\"yes\" sort=\"age\"]]\n"
+msgstr ""
+"   <p class=\"command\">[[!inline pages=\"inc/stable_amd64_img_gpg_verify\" "
+"raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -293,10 +314,11 @@ msgid "   The output of this command should be the following:\n"
 msgstr ""
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "[[!inline pages=\"install/inc/overview\" raw=\"yes\" sort=\"age\"]]\n"
+#, no-wrap
 msgid "   <p class=\"code\">[[!inline pages=\"inc/stable_amd64_img_gpg_signature_output\" raw=\"yes\" sort=\"age\"]]</p>\n"
-msgstr "[[!inline pages=\"install/inc/overview.de\" raw=\"yes\" sort=\"age\"]]\n"
+msgstr ""
+"   <p class=\"code\">[[!inline pages=\"inc/"
+"stable_amd64_img_gpg_signature_output\" raw=\"yes\" sort=\"age\"]]</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -323,6 +345,8 @@ msgstr ""
 #, no-wrap
 msgid "<div class=\"step-image\">[[!img inc/infography/install-tails.png link=\"no\" alt=\"\"]]</div>\n"
 msgstr ""
+"<div class=\"step-image\">[[!img inc/infography/install-tails.png link=\"no\""
+" alt=\"\"]]</div>\n"
 
 #
 #. type: Bullet: '1. '
@@ -338,7 +362,7 @@ msgstr "Führen Sie den folgenden Befehl aus:"
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command\">ls -1 /dev/sd?</p>\n"
-msgstr ""
+msgstr "   <p class=\"command\">ls -1 /dev/sd?</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -348,7 +372,7 @@ msgstr "   Es wird eine Liste der Speichermedien des Systems ausgegeben. Zum Bei
 #. type: Plain text
 #, no-wrap
 msgid "       dev/sda\n"
-msgstr ""
+msgstr "       dev/sda\n"
 
 #
 #. type: Bullet: '1. '
@@ -376,6 +400,8 @@ msgid ""
 "       /dev/sda\n"
 "       /dev/sdb\n"
 msgstr ""
+"       /dev/sda\n"
+"       /dev/sdb\n"
 
 #
 #. type: Bullet: '1. '
@@ -498,4 +524,6 @@ msgstr "[[!inline pages=\"install/inc/steps/restart_first_time.inline.de\" raw=\
 #. type: Plain text
 #, no-wrap
 msgid "[[!inline pages=\"install/inc/steps/welcome.inline\" raw=\"yes\" sort=\"age\"]]\n"
-msgstr "[[!inline pages=\"install/inc/steps/welcome.inline\" raw=\"yes\" sort=\"age\"]]\n"
+msgstr ""
+"[[!inline pages=\"install/inc/steps/welcome.inline.de\" raw=\"yes\" sort="
+"\"age\"]]\n"

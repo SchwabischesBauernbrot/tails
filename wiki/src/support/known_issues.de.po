@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
-"POT-Creation-Date: 2024-04-03 00:55+0000\n"
-"PO-Revision-Date: 2024-04-27 12:36+0000\n"
-"Last-Translator: xin <xin@riseup.net>\n"
+"POT-Creation-Date: 2024-09-09 10:55+0200\n"
+"PO-Revision-Date: 2024-10-01 19:09+0000\n"
+"Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -27,17 +27,21 @@ msgstr "[[!meta title=\"Bekannte Probleme\"]]\n"
 msgid ""
 "- To learn what you can do with Tails, refer to our [[documentation|doc]]."
 msgstr ""
+"- Weitere Informationen zu den Möglichkeiten mit Tails finden sich in "
+"unserer [[Dokumentation|doc]]."
 
 #. type: Plain text
 msgid ""
 "- For more general questions about Tails, refer to our [[FAQ|support/faq]]."
-msgstr ""
+msgstr "- Für allgemeinere Fragen zu Tails, siehe unsere [[FAQ|support/faq]]."
 
 #. type: Plain text
 msgid ""
 "- For issues with graphics cards, see our [[known issues with graphics cards|"
 "known_issues/graphics]]."
 msgstr ""
+"- Bei Problemen mit Grafikkarten siehe unsere [[bekannten Probleme mit "
+"Grafikkarten|known_issues/graphics]]."
 
 #. type: Plain text
 #, no-wrap
@@ -57,12 +61,15 @@ msgstr "<h2 id=\"mac-not-at-all\">Mac</h2>\n"
 #. type: Plain text
 msgid "This section lists known problems with specific hardware."
 msgstr ""
+"Dieser Abschnitt listet bekannte Probleme mit spezifischer Hardware auf."
 
 #. type: Plain text
 msgid ""
 "Tails does not start at all on Mac models that use the Apple M1 chip and on "
 "many other Mac models."
 msgstr ""
+"Tails startet überhaupt nicht auf Mac-Modellen, die den Apple M1-Chip oder "
+"neuer verwenden, und auf vielen anderen Mac-Modellen."
 
 #. type: Plain text
 msgid ""
@@ -71,6 +78,11 @@ msgid ""
 "working with Linux, and thus Tails. PC hardware tends to be more open and "
 "work better with Linux."
 msgstr ""
+"Apple priorisiert die Zusammenarbeit mit Free Software-Projekten nicht. Ihre "
+"neueste Hardware ist in der Regel sehr schwer für Entwickler von Free "
+"Software zum Laufen zu bringen, insbesondere unter Linux und somit auch "
+"unter Tails. PC-Hardware ist tendenziell offener und funktioniert besser mit "
+"Linux."
 
 #. type: Plain text
 #, no-wrap
@@ -129,7 +141,7 @@ msgstr "Startet nicht auf Tails USB-Sticks."
 #. type: Plain text
 #, no-wrap
 msgid "<h3 id=\"dell-latitude-e6430\">Dell Latitude E6430 and E6230</h3>\n"
-msgstr ""
+msgstr "<h3 id=\"dell-latitude-e6430\">Dell Latitude E6430 und E6230</h3>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -252,6 +264,8 @@ msgid ""
 "To start Tails successfully, [[add the following boot option when starting "
 "Tails|doc/advanced_topics/boot_options]]:"
 msgstr ""
+"Um Tails erfolgreich zu starten, [[fügen Sie die folgende Boot-Option hinzu, "
+"wenn Sie Tails starten|doc/advanced_topics/boot_options]]:"
 
 #. type: Plain text
 #, no-wrap
@@ -333,6 +347,92 @@ msgstr ""
 msgid ""
 "The keyboard and mouse do not work on this laptop.  If you find a "
 "workaround, please let us know."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid "<h2 id=\"sbat\">Shim SBAT verification error</h2>\n"
+msgstr ""
+
+#. type: Plain text
+msgid ""
+"This section applies if you get the following error message, either when "
+"starting Tails or when restarting your regular Linux operating system after "
+"starting Tails."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p class=\"code\">\n"
+"Verifying shim SBAT data failed: Security Policy Violation<br>\n"
+"Something has gone seriously wrong: SBAT self-check failed: Security Policy Violation\n"
+"</p>\n"
+msgstr ""
+
+#. type: Plain text
+msgid "Or"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"<p class=\"code\">\n"
+"Verifiying shim SBAT data failed: Security Policy Violation<br>\n"
+"Something has gone seriously wrong: SBAT self-check failed: Security Policy Violation\n"
+"</p>\n"
+msgstr ""
+
+#. type: Bullet: '- '
+msgid ""
+"If you get this error message when starting Tails, then do a [[manual "
+"upgrade|upgrade#manual]] of your Tails USB to Tails 6.7 or later."
+msgstr ""
+
+#. type: Bullet: '- '
+msgid ""
+"If you get this error message when starting your regular Linux operating "
+"system, then it means that your Linux operating system is outdated."
+msgstr ""
+
+#. type: Bullet: '  1. '
+msgid "Edit your UEFI settings to disable Secure Boot."
+msgstr "Bearbeiten Sie Ihre UEFI-Einstellungen, um Secure Boot zu deaktivieren."
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"     With Secure Boot disabled, your regular Linux operating system should\n"
+"     start again.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"     To learn how to edit the BIOS or UEFI settings, search for the user manual\n"
+"     of the computer on the support website of the manufacturer.\n"
+msgstr ""
+
+#. type: Bullet: '  1. '
+msgid "Update your regular Linux operating system."
+msgstr ""
+
+#. type: Bullet: '  1. '
+msgid "Try to enable Secure Boot again in your UEFI settings."
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"     If your regular Linux operating system still doesn't start, then disable\n"
+"     Secure Boot again. You can try to enable Secure Boot again in the future.\n"
+msgstr ""
+
+#. type: Plain text
+#, no-wrap
+msgid ""
+"     It might take several months for your Linux distribution to provide updates\n"
+"     before you can enable Secure Boot again.\n"
 msgstr ""
 
 #. type: Plain text

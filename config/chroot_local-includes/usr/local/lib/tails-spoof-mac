@@ -38,6 +38,14 @@ stop_and_disable_NM() {
     log "Networking disabled"
 }
 
+notify_live_user() {
+    if systemctl --user --machine="${LIVE_USERNAME}"@ is-active gnome-session.target; then
+        /usr/local/lib/run-with-user-env /usr/local/lib/tails-report-mac-spoofing-failed "${1}" "${2}"
+    else
+        printf "%s\n%s" "${1}" "${2}" >"${MAC_SPOOFING_FAILED_STATE_FILE}"
+    fi
+}
+
 notify_panic_success() {
     local nic nic_name is_wifi is_wired title text other_wifi_cards other_wired_cards
     nic="${1}"
@@ -67,7 +75,7 @@ notify_panic_success() {
         text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces, so it is temporarily disabled.")
     fi
 
-    printf "%s\n%s" "${title}" "${text}" >"${MAC_SPOOFING_FAILED_STATE_FILE}"
+    notify_live_user "${title}" "${text}"
 }
 
 notify_panic_failure() {
@@ -83,7 +91,7 @@ notify_panic_failure() {
     else
         text=$(eval_gettext "MAC address anonymization failed for your network interfaces. The error recovery also failed, so all networking is disabled.")
     fi
-    printf "%s\n%s" "${title}" "${text}" >"${MAC_SPOOFING_FAILED_STATE_FILE}"
+    notify_live_user "${title}" "${text}"
 }
 
 mac_spoof_panic() {
