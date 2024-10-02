@@ -13,6 +13,7 @@ from tps import (
     InvalidBootDeviceErrorType,
     SYSTEM_PARTITION_MOUNT_POINT,
     LUKS_HEADER_BACKUP_PATH,
+    IO_ERRORS_FLAG_FILE_PATH,
 )
 from tps.configuration import features
 from tps.configuration.config_file import ConfigFile, InvalidStatError
@@ -23,6 +24,8 @@ from tps.dbus.errors import (
     FeatureActivationFailedError,
     ActivationFailedError,
     DeactivationFailedError,
+    FilesystemErrorsLeftUncorrectedError,
+    IOErrorsDetectedError,
 )
 from tps.dbus.object import DBusObject
 from tps.device import (
@@ -31,6 +34,7 @@ from tps.device import (
     TPSPartition,
     InvalidBootDeviceError,
     InvalidPartitionError,
+    PartitionNotUnlockedError,
 )
 from tps.job import ServiceUsingJobs
 from tps import (
@@ -95,6 +99,8 @@ class Service(DBusObject, ServiceUsingJobs):
                 <method name='UpgradeLUKS'>
                     <arg name='passphrase' direction='in' type='s'/>
                 </method>
+                <method name='RepairFilesystem'/>
+                <method name='AbortRepairFilesystem'/>
                 <property name="State" type="s" access="read" />
                 <property name="Error" type="u" access="read" />
                 <property name="IsCreated" type="b" access="read"/>
@@ -120,6 +126,7 @@ class Service(DBusObject, ServiceUsingJobs):
         self.bus_id = None
         self.features: list[Feature] = []
         self._tps_partition = None  # type: Optional[TPSPartition]
+        self._cleartext_device = None
         self._device = ""
         self.state = State.UNKNOWN
         self._error: int = 0
@@ -359,8 +366,11 @@ class Service(DBusObject, ServiceUsingJobs):
 
         logger.info("Unlocking Persistent Storage...")
 
-        # Check if we can unlock the Persistent Storage
-        if self.state != State.NOT_UNLOCKED:
+        # Check if we can unlock the Persistent Storage. We also support
+        # unlocking when the state is UNLOCKED to allow the caller to
+        # retry unlocking after an incomplete unlock attempt (e.g. when
+        # filesystem errors were left uncorrected).
+        if self.state not in (State.NOT_UNLOCKED, State.UNLOCKED):
             msg = "Can't unlock when state is '%s'" % self.state.name
             raise FailedPreconditionError(msg)
 
@@ -387,9 +397,24 @@ class Service(DBusObject, ServiceUsingJobs):
 
         # Mount the Persistent Storage
         cleartext_device = self._tps_partition.get_cleartext_device()
-        if not cleartext_device.is_mounted():
-            cleartext_device.fsck()
-            cleartext_device.mount()
+        try:
+            if not cleartext_device.is_mounted():
+                cleartext_device.fsck()
+                cleartext_device.mount()
+        except FilesystemErrorsLeftUncorrectedError as e:
+            # Check if there are I/O errors for the device, in which
+            # case we want to raise a different error
+            io_errors_flag_file = Path(IO_ERRORS_FLAG_FILE_PATH)
+            # If the flag file already exists, we don't need to check
+            # the journal for I/O errors
+            if io_errors_flag_file.exists():
+                raise IOErrorsDetectedError() from e
+            # Check the journal messages for IO errors
+            executil.check_call(["tails-detect-disk-ioerrors", "--oneshot"])
+            if io_errors_flag_file.exists():
+                raise IOErrorsDetectedError() from e
+            # If there are no I/O errors, we raise the original error
+            raise e
 
         # Remove the LUKS header backup if it exists. It's not needed
         # anymore and we don't want to keep it around to avoid that the
@@ -487,6 +512,47 @@ class Service(DBusObject, ServiceUsingJobs):
         partition.change_passphrase(passphrase, new_passphrase)
 
         logger.info("Done changing passphrase")
+
+    def RepairFilesystem(self):
+        """Do a forceful filesystem check (e2fsck -f -y). Requires the
+        Persistent Storage to be unlocked and not mounted."""
+        logger.info("Repairing filesystem")
+
+        try:
+            partition = TPSPartition.find()
+        except (InvalidBootDeviceError, InvalidPartitionError) as e:
+            raise NotCreatedError("No Persistent Storage found") from e
+
+        try:
+            self._cleartext_device = partition.get_cleartext_device()
+        except PartitionNotUnlockedError as e:
+            raise NotUnlockedError("Persistent Storage is not unlocked") from e
+
+        try:
+            self._cleartext_device.fsck(forceful=True)
+        finally:
+            self._cleartext_device = None
+
+        logger.info("Done repairing filesystem")
+
+    def AbortRepairFilesystem(self):
+        """Abort any ongoing filesystem check of the Persistent
+        Storage"""
+
+        if (
+            self._cleartext_device is None
+            or self._cleartext_device.fsck_process is None
+        ):
+            logger.warning(
+                "Attempted to abort reparation of filesystem while none was running"
+            )
+            return
+
+        logger.info("Aborting reparation of filesystem")
+
+        self._cleartext_device.abort_fsck()
+
+        logger.info("Done aborting reparation of filesystem")
 
     # ----- Exported properties ----- #
 

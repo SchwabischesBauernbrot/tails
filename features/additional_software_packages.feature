@@ -87,6 +87,9 @@ Feature: Additional software
     # We need to add back this custom APT source for the Additional Software
     # install step, as it was not saved in persistence
     And I configure APT to prefer an old version of cowsay
+    # Prevent the "Warning: virtual machine detected!" notification from racing
+    # with the one we'll be interacting with below.
+    And I disable the tails-virt-notify-user.service user unit
     And I log in to a new session
     And the installed version of package "cowsay" is "3.03+dfsg2-1" after Additional Software has been started
     And I revert the APT tweaks that made it prefer an old version of cowsay
@@ -95,12 +98,6 @@ Feature: Additional software
     And I prepare the Additional Software upgrade process to fail
     And the network is plugged
     And Tor is ready
-    # Note: the next step races against the appearance of the "The
-    # upgrade of your additional software failed" notification.
-    # It should win most of the time, which is good, but there's no
-    # guarantee it does. If it loses, then it'll remove the notification
-    # we'll be trying to interact with below ("I can open…")
-    And all notifications have disappeared
     And available upgrades have been checked
     And I see the "The upgrade of your additional software failed" notification after at most 300 seconds
     And I can open the Additional Software configuration window from the notification

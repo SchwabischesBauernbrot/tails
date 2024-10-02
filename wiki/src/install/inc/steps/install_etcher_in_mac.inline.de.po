@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "POT-Creation-Date: 2024-02-26 12:26+0100\n"
-"PO-Revision-Date: 2024-05-21 20:53+0000\n"
-"Last-Translator: xin <xin@riseup.net>\n"
+"PO-Revision-Date: 2024-10-01 21:09+0000\n"
+"Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: \n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
@@ -51,6 +51,9 @@ msgstr ""
 #, no-wrap
 msgid "<p><a href=\"https://etcher.balena.io/\"><i>balenaEtcher</i></a> is the Free Software tool that we recommend to install Tails on USB sticks.</p>\n"
 msgstr ""
+"<p><a href=\"https://etcher.balena.io/\"><i>balenaEtcher</i></a> ist das "
+"freie Software-Tool, das wir empfehlen, um Tails auf USB-Sticks zu "
+"installieren.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -59,6 +62,9 @@ msgid ""
 "also [[!toggle id=\"dd\" text=\"install Tails using `dd` on the command\n"
 "line\"]].\n"
 msgstr ""
+"Anstelle von <span class=\"application\">balenaEtcher</span> können\n"
+"Sie Tails auch [[!toggle id=\"dd\" text=\"mit `dd` über die Kommandozeile "
+"installieren\"]].\n"
 
 #. type: Plain text
 #, no-wrap
@@ -80,12 +86,12 @@ msgstr "Stellen Sie sicher, dass der erste USB-Stick nicht angeschlossen ist."
 msgid ""
 "Open the **Terminal** utility from **Applications**&nbsp;▸ **Utilities**."
 msgstr ""
+"Öffnen Sie das **Terminal**-Dienstprogramm über **Anwendungen** &nbsp;▸ "
+"**Dienstprogramme**."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid "Execute the following command:"
 msgid "Execute the following command."
-msgstr "Führen Sie den folgenden Befehl aus:"
+msgstr "Führen Sie den folgenden Befehl aus."
 
 #. type: Plain text
 #, no-wrap
@@ -151,15 +157,17 @@ msgstr ""
 
 #. type: Bullet: '1. '
 msgid "Take note of the device name of your USB stick."
-msgstr ""
+msgstr "Notieren Sie sich den Gerätenamen Ihres USB-Sticks."
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "Take note of the *device name* of your USB stick.  In this example, the USB stick is 8.0 GB and its device name is <span class=\"code\">/dev/disk1</span>.  Yours might be different."
+#, no-wrap
 msgid ""
 "   In this example, the USB stick is 8.0 GB and its device name is <span class=\"command-placeholder\">/dev/disk1</span>.\n"
 "   Yours might be different.\n"
-msgstr "Notieren Sie ich den *Gerätenamen* Ihres USB-Sticks. In diesem Beispiel ist der USB-Stick 8.0 GB groß und der Gerätename lautet <span class=\"code\">/dev/disk1</span>. Ihrer weicht möglicherweise ab."
+msgstr ""
+"   In diesem Beispiel hat der USB-Stick eine Größe von 8,0 GB und sein "
+"Gerätename ist <span class=\"command-placeholder\">/dev/disk1</span>. \n"
+" Ihr Gerätename könnte anders sein.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -264,10 +272,11 @@ msgid "   You should get something like this:\n"
 msgstr "   Sie sollten etwas wie folgt erhalten:\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   <p class=\"pre command-example\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
+#, no-wrap
 msgid "   <p class=\"command-template\">dd if=/Users/me/tails-amd64-3.12.img of=/dev/rdisk9 bs=16m && sync</p>\n"
-msgstr "   <p class=\"pre command-example\">dd if=/Users/me/tails-amd64-3.0.iso of=/dev/rdisk9 bs=16m && sync</p>\n"
+msgstr ""
+"   <p class=\"command-template\">dd if=/Users/me/tails-amd64-3.12.img of=/"
+"dev/rdisk9 bs=16m && sync</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -300,22 +309,21 @@ msgid "   <p class=\"command-template\">sudo dd if=<span class=\"command-placeho
 msgstr "   <p class=\"pre command\">sudo dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16m && sync</p>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "   <p>If you get an <span class=\"guilabel\">invalid number ‘16m’</span> error, try\n"
-#| "   using <code>16M</code> instead:</p>\n"
+#, no-wrap
 msgid ""
 "   <p>If you get an <code>invalid number ‘16m’</code> error, try\n"
 "   using <code>16M</code> instead:</p>\n"
 msgstr ""
-"   <p>Falls Sie die Fehlermeldung <span class=\"guilabel\">invalid number ‘16m’</span> erhalten, versuchen\n"
-"     Sie es stattdessen mit <code>16M</code>:</p>\n"
+"   <p>Wenn Sie einen Fehler <code>ungültige Zahl '16m'</code> erhalten, \n"
+"   versuchen Sie es stattdessen mit <code>16M</code>:</p>\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
+#, no-wrap
 msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
-msgstr "   <p class=\"pre command\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M && sync</p>\n"
+msgstr ""
+"   <p class=\"command-template\">dd if=<span class=\"command-placeholder\""
+">tails.img</span> of=<span class=\"command-placeholder\">device</span> "
+"bs=16M && sync</p>\n"
 
 #. type: Plain text
 #, no-wrap

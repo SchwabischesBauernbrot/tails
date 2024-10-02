@@ -8,61 +8,6 @@
     <property name="can-focus">False</property>
     <property name="orientation">vertical</property>
     <child>
-      <object class="GtkInfoBar" id="infobar_persistence">
-        <property name="can-focus">False</property>
-        <property name="message-type">warning</property>
-        <property name="show-close-button">True</property>
-        <signal name="close" handler="cb_infobar_close" swapped="no"/>
-        <signal name="response" handler="cb_infobar_response" swapped="no"/>
-        <child internal-child="action_area">
-          <object class="GtkButtonBox" id="infobar_persistence-action_area">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="spacing">6</property>
-            <property name="layout-style">end</property>
-            <child>
-              <placeholder/>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">False</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child internal-child="content_area">
-          <object class="GtkBox" id="infobar_persistence-content_area">
-            <property name="can-focus">False</property>
-            <property name="spacing">16</property>
-            <child>
-              <object class="GtkLabel" id="label_infobar_persistence">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="label" translatable="yes">Cannot unlock encrypted storage with this passphrase.</property>
-                <property name="wrap">True</property>
-                <property name="xalign">0</property>
-              </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">True</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="expand">False</property>
-        <property name="fill">True</property>
-        <property name="position">0</property>
-      </packing>
-    </child>
-    <child>
       <object class="GtkInfoBar" id="infobar_settings_loaded">
         <property name="app-paintable">True</property>
         <property name="can-focus">False</property>
@@ -277,7 +222,9 @@
                 <property name="visible">True</property>
                 <property name="can-focus">False</property>
                 <property name="halign">start</property>
-                <property name="label" translatable="yes">Persistent Storage</property>
+                <property name="label" translatable="yes">_Persistent Storage</property>
+                <property name="use-underline">True</property>
+                <property name="mnemonic-widget">create_tps_switch</property>
                 <attributes>
                   <attribute name="weight" value="bold"/>
                 </attributes>
@@ -387,7 +334,9 @@
                   <object class="GtkLabel" id="label_storage_header_title">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Persistent Storage</property>
+                    <property name="label" translatable="yes">_Persistent Storage</property>
+                    <property name="use-underline">True</property>
+                    <property name="mnemonic-widget">entry_storage_passphrase</property>
                     <attributes>
                       <attribute name="weight" value="bold"/>
                     </attributes>
@@ -408,20 +357,6 @@
                     <property name="expand">False</property>
                     <property name="fill">True</property>
                     <property name="position">1</property>
-                  </packing>
-                </child>
-                <child>
-                  <object class="GtkSpinner" id="spinner_storage_unlock">
-                    <property name="can-focus">False</property>
-                    <property name="active">True</property>
-                    <style>
-                      <class name="suggested-action"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">2</property>
                   </packing>
                 </child>
                 <child>
@@ -475,23 +410,6 @@
                 <property name="can-focus">False</property>
                 <property name="spacing">6</property>
                 <child>
-                  <object class="GtkLabel" id="label_passphrase">
-                    <property name="visible">True</property>
-                    <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">_Passphrase</property>
-                    <property name="use-underline">True</property>
-                    <property name="mnemonic-widget">entry_storage_passphrase</property>
-                    <style>
-                      <class name="dim-label"/>
-                    </style>
-                  </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">0</property>
-                  </packing>
-                </child>
-                <child>
                   <object class="GtkBox">
                     <property name="visible">True</property>
                     <property name="can-focus">False</property>
@@ -500,6 +418,7 @@
                         <property name="visible">True</property>
                         <property name="can-focus">True</property>
                         <property name="visibility">False</property>
+                        <property name="placeholder-text" translatable="yes">Enter your passphrase</property>
                         <signal name="activate" handler="cb_entry_storage_passphrase_activated" swapped="no"/>
                         <signal name="changed" handler="cb_entry_storage_passphrase_changed" swapped="no"/>
                         <style>
@@ -549,27 +468,30 @@
               </packing>
             </child>
             <child>
-              <object class="GtkBox" id="box_storage_unlocked">
+              <object class="GtkBox" id="box_storage_unlock_status">
                 <property name="can-focus">False</property>
+                <property name="spacing">5</property>
                 <child>
-                  <object class="GtkLabel" id="label_storage_unlocked">
-                    <property name="visible">True</property>
+                  <object class="GtkImage" id="image_storage_unlock_failed">
                     <property name="can-focus">False</property>
-                    <property name="label" translatable="yes">Your Persistent Storage is unlocked. Its content will be available until you shut down Tails.</property>
-                    <property name="xalign">0</property>
+                    <property name="icon-name">dialog-warning</property>
+                    <property name="valign">start</property>
                   </object>
-                  <packing>
-                    <property name="expand">False</property>
-                    <property name="fill">True</property>
-                    <property name="position">1</property>
-                  </packing>
+                </child>
+                <child>
+                  <object class="GtkSpinner" id="spinner_storage_unlock">
+                    <property name="can-focus">False</property>
+                    <property name="active">True</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkLabel" id="label_storage_unlock_status">
+                    <property name="can-focus">False</property>
+                    <property name="xalign">0</property>
+                    <property name="wrap">True</property>
+                  </object>
                 </child>
               </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">3</property>
-              </packing>
             </child>
             <child>
               <object class="GtkBox" id="box_storage_error">

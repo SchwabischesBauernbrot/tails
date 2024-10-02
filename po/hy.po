@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-12 09:47+0200\n"
+"POT-Creation-Date: 2024-09-03 16:21+0200\n"
 "PO-Revision-Date: 2024-07-16 16:41+0000\n"
 "Last-Translator: emma peel <emma.peel@riseup.net>\n"
 "Language-Team: Armenian <https://hosted.weblate.org/projects/tor/tails-gui/"
@@ -79,8 +79,8 @@ msgid ""
 msgstr ""
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:81
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:342
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:270
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:289
 msgid "Create Persistent Storage"
 msgstr "Ստեղծել հաստատակամ պահեստարան"
 
@@ -121,7 +121,9 @@ msgstr "Հեռացնել"
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:176
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:453
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:800
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:38
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
@@ -712,62 +714,146 @@ msgstr "Անջ."
 msgid "Off (default)"
 msgstr "Անջ. (լռելայն)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:167
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
 msgid "Persistent Storage Still Locked"
 msgstr "Հաստատակամ պահուտը դեռ կողպված է"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:169
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:174
 msgid ""
 "Do you really want to start Tails without unlocking your Persistent Storage?"
 msgstr ""
 "Դուք իրո՞ք ցանկանում եք սկսել Tails-ն առանց Ձեր հաստատակամ պահեստարանը "
 "ապակողպելու:"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:177
 msgid "Start Without Persistent Storage"
 msgstr "Մեկնարկել առանց հաստատակամ պահեստարանի"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:118
-msgid "Error unlocking Persistent Storage: {}"
-msgstr "Հաստատակամ պահեստարան ապակողպման սխալ. {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:143
-msgid "Error upgrading Persistent Storage: {}"
-msgstr "Հաստատակամ պահեստարանի արդիացման սխալ. {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:169
-#, python-brace-format
-msgid "Failed to activate some features of the Persistent Storage: {features}."
-msgstr ""
-"Չստացվեց գործարկել Ձեր հաստատակամ պահեստարանի որոշ հատկություններ. "
-"{features}:"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:174
-msgid "Error activating Persistent Storage: {}"
-msgstr "Հաստատակամ պահեստարանի գործարկման սխալ. {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:89
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:243
 msgid ""
 "Impossible to unlock the Persistent Storage because the USB stick is read-"
 "only."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:104
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:381
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:409
 msgid "Unlocking…"
 msgstr "Ապակողպում…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:142
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:176
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:517
-msgid "Unlock Encryption"
-msgstr "Ապակողպել գաղտնագրումը"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:416
+#, fuzzy
+msgid "Checking the file system…"
+msgstr "Համակարգի արդիացում"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:147
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:41
-msgid "Cannot unlock encrypted storage with this passphrase."
-msgstr "Հնարավոր չէ ապակողպել գաղտնագրված պահեստարանը այս գաղտնադարձածքով:"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:451
+#, fuzzy
+msgid "Repairing the File System"
+msgstr "Համակարգի արդիացում"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:158
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:452
+#, fuzzy
+msgid "This might take a long time..."
+msgstr "Սա կարող մի փոքր շատ տևել..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:470
+#, fuzzy
+msgid "Failed to repair the file system of your Persistent Storage."
+msgstr "Չստացվեց կարգավորել Ձեր հաստատակամ պահեստարանը"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:472
+msgid "Start Tails to send an error report and learn how to recover your data."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:485
+msgid "File System Repaired Successfully"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:487
+msgid ""
+"It's possible that some data was lost during the repair. Please check the "
+"contents of your Persistent Storage and restore any lost data from a backup."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:491
+#, fuzzy
+msgid "Close"
+msgstr "_Փակել"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:506
+msgid ""
+"You aborted the repair of the file system. You can either start Tails "
+"without Persistent Storage or restart the computer to try repairing the file "
+"system again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:722
+msgid "Start Tails and open the Persistent Storage settings to find out more."
+msgstr ""
+"Մեկնարկեք Tails-ը և բացեք հաստատակամ պահեստարանի կարգավորումները՝ ավելին "
+"պարզելու համար:"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:751
+#, fuzzy
+msgid ""
+"Your Persistent Storage is unlocked. Its content will be available until you "
+"shut down Tails."
+msgstr ""
+"Ձեր հաստատակամ պահեստարանը արգելաբացվել է: Նորից արգելափակելու համար "
+"վերսկսեք Tails-ը:"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:766
+msgid "Incorrect passphrase. Please try again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:777
+msgid ""
+"Error reading data from your Persistent Storage. The hardware of your USB "
+"stick is probably failing."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:779
+msgid "Start Tails to learn how to recover your data."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:790
+msgid "File System Errors"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:792
+msgid ""
+"Errors were detected in the file system of your Persistent Storage.\n"
+"                \n"
+"Tails can try to fix these errors, but this might erase some of your data "
+"and take a long time.\n"
+"\n"
+"If you already have an up-to-date backup of your Persistent Storage, we "
+"recommend that you try to repair.\n"
+"                \n"
+"If you don't have a backup, we recommend that you create a backup first."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:801
+msgid "Repair File System"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:802
+#, fuzzy
+msgid "Create Backup"
+msgstr "Ստեղծել"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:813
+#, fuzzy
+msgid "Start Tails to learn how to create a backup of your Persistent Storage."
+msgstr "Չստացվեց ստեղծել հաստատակամ պահեստարանը"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:822
+#, fuzzy
+msgid "Failed to unlock the Persistent Storage due to file system errors."
+msgstr ""
+"Հաստատակամ պահեստարանի ապակողպումը ձախողվեց: Խնդրում ենք սկսել Tails-ը և "
+"ուղարկել զեկույց սխալի մասին:"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:831
 msgid ""
 "Failed to upgrade the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -775,7 +861,7 @@ msgstr ""
 "Հաստատակամ պահեստարանի արդիացումը ձախողվեց: Խնդրում ենք սկսել Tails-ը և "
 "ուղարկել զեկույց սխալի մասին:"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:165
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
 msgid ""
 "Failed to unlock the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -783,7 +869,7 @@ msgstr ""
 "Հաստատակամ պահեստարանի ապակողպումը ձախողվեց: Խնդրում ենք սկսել Tails-ը և "
 "ուղարկել զեկույց սխալի մասին:"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:846
 msgid ""
 "Failed to activate the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -791,15 +877,34 @@ msgstr ""
 "Հաստատակամ պահեստարանի գործարկումը ձախողվեց: Խնդրում ենք սկսել Tails-ը և "
 "ուղարկել զեկույց սխալի մասին:"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:184
-msgid "Upgrading the Persistent Storage. This may take a while…"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:857
+#, fuzzy
+msgid "Upgrading the Persistent Storage. This might take a while…"
 msgstr "Արդիացվում է հաստատակամ պահեստարանը: Սա կարող է երկար տևել…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:199
-msgid "Start Tails and open the Persistent Storage settings to find out more."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:125
+msgid "Error unlocking Persistent Storage: {}"
+msgstr "Հաստատակամ պահեստարան ապակողպման սխալ. {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:150
+msgid "Error upgrading Persistent Storage: {}"
+msgstr "Հաստատակամ պահեստարանի արդիացման սխալ. {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:176
+#, python-brace-format
+msgid "Failed to activate some features of the Persistent Storage: {features}."
 msgstr ""
-"Մեկնարկեք Tails-ը և բացեք հաստատակամ պահեստարանի կարգավորումները՝ ավելին "
-"պարզելու համար:"
+"Չստացվեց գործարկել Ձեր հաստատակամ պահեստարանի որոշ հատկություններ. "
+"{features}:"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:181
+msgid "Error activating Persistent Storage: {}"
+msgstr "Հաստատակամ պահեստարանի գործարկման սխալ. {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:202
+#, fuzzy
+msgid "Failed to abort when repairing Persistent Storage filesystem: {}"
+msgstr "Չստացվեց սկսել հաստատակամ պահեստարանի ծառայությունը"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
@@ -1759,7 +1864,7 @@ msgstr "Tor-ի կարգավիճակը"
 msgid "Open Onion Circuits"
 msgstr "Բացել Onion շղթաներ"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:344
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:348
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1768,35 +1873,35 @@ msgid ""
 "Try again after closing some applications or rebooting."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:358
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:362
 #, fuzzy
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Ստեղծել հաստատակամ պահեստարան"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:380
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:384
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:409
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:413
 msgid "Unlocking the encryption..."
 msgstr "Ապակողպվում է գաղտնագրումը..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:417
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:421
 #, fuzzy
 msgid "Formatting the file system..."
 msgstr "Համակարգի արդիացում"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:435
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
 msgid "Activating the Persistent Storage..."
 msgstr "Գործածվում է հաստատակամ պահեստարանը..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:440
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:444
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Ավարտվում է հաստատակամ պահեստարանի սահմանումը..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:695
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:699
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1804,7 +1909,7 @@ msgid ""
 "unlocking it."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:728
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:732
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -1820,8 +1925,6 @@ msgstr ""
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:30
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:48
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:390
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:25
 msgid "Persistent Storage"
 msgstr "Հաստատակամ պահեստարան"
@@ -2546,7 +2649,7 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:18
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:56
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:836
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:758
 msgid "Administration Password"
 msgstr ""
 
@@ -2570,7 +2673,7 @@ msgid "Disable"
 msgstr "Կարողազրկել"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:186
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:840
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:762
 msgid "MAC Address Anonymization"
 msgstr "MAC հասցեի անանունացում"
 
@@ -2591,7 +2694,7 @@ msgid "Don't anonymize MAC addresses"
 msgstr "Չանանունացնել MAC հասցեները"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:343
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:844
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:766
 msgid "Network Configuration"
 msgstr "Ցանցի կարգավորում"
 
@@ -2642,24 +2745,30 @@ msgstr "Կարողացնել անապահով դիտարկիչը (լռելայն
 msgid "Disable the Unsafe Browser"
 msgstr "Կարողազրկել անապահով դիտարկիչը"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:101
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:46
 #, fuzzy
 msgid "Settings were loaded from the Persistent Storage."
 msgstr "Կարգավորումները բեռնված են հաստատկամ պահեստարարանից:"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:153
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:98
 msgid "Welcome to Tails!"
 msgstr "Բարի գալուս՜տ Tails:"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:186
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:131
 msgid "Language and Formats"
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:222
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:167
 msgid "Default Settings"
 msgstr "Լռելայն կարգավորումներ"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:298
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:225
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:337
+#, fuzzy
+msgid "_Persistent Storage"
+msgstr "Ստեղծել հաստատակամ պահեստարան"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:245
 msgid ""
 "You can save some of your files and configuration in an encrypted Persistent "
 "Storage on your Tails USB stick: your documents, browser bookmarks, Wi-Fi "
@@ -2669,48 +2778,44 @@ msgstr ""
 "հաստատակամ պահեստարանում. Ձեր փաստաթղթերը, դիտարկիչի էջանիշները, Wi-Fi "
 "գաղտնաբառերը, և այդպես շարունակ:"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:325
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:272
 msgid "Create and configure a Persistent Storage after starting Tails"
 msgstr "Ստեղծել և կարգավորել հաստատակամ պահեստարանը Tails-ի մեկնարկից հետո"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:429
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:364
 msgid "Show Passphrase"
 msgstr "Ցույց տալ գաղտնադարձվածքը"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:481
-msgid "_Passphrase"
-msgstr "_Գաղտնադարձվածք"
-
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:558
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:421
 #, fuzzy
-msgid ""
-"Your Persistent Storage is unlocked. Its content will be available until you "
-"shut down Tails."
-msgstr ""
-"Ձեր հաստատակամ պահեստարանը արգելաբացվել է: Նորից արգելափակելու համար "
-"վերսկսեք Tails-ը:"
+msgid "Enter your passphrase"
+msgstr "Հաստատել գաղտնադարձվածքը՝"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:581
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:436
+msgid "Unlock Encryption"
+msgstr "Ապակողպել գաղտնագրումը"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:503
 msgid "Impossible to unlock the Persistent Storage."
 msgstr "Անհնար է ապակողպել հաստատակամ պահեստարանը:"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:640
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:562
 msgid "_Additional Settings"
 msgstr "_Հավելյալ կարգավորումներ"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:723
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:645
 msgid "Add an additional setting"
 msgstr "Ավելացնել հավելյալ կարգավորում"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:770
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:692
 msgid "Shutdown"
 msgstr "Վերջացում"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:779
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:701
 msgid "_Start Tails"
 msgstr "_Սկսել Tails-ը"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:808
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:730
 msgid ""
 "The default settings are safe in most situations. To add a custom setting, "
 "press the \"+\" button below."
@@ -3622,6 +3727,12 @@ msgstr "Դեկտեմբեր"
 msgid "Clock"
 msgstr "Ժամացույց"
 
+#~ msgid "Cannot unlock encrypted storage with this passphrase."
+#~ msgstr "Հնարավոր չէ ապակողպել գաղտնագրված պահեստարանը այս գաղտնադարձածքով:"
+
+#~ msgid "_Passphrase"
+#~ msgstr "_Գաղտնադարձվածք"
+
 #~ msgid "Failed to configure browser."
 #~ msgstr "Դիտարկիչի կարգվարումը ձախողվեց:"
 
@@ -3677,10 +3788,6 @@ msgstr "Ժամացույց"
 #~ msgid "Email address (if you want an answer from us)"
 #~ msgstr "Էլեկտրոնային հասցե (եթե մեզանից պատասխան եք ցանկանում)"
 
-#, fuzzy
-#~ msgid "_Persistent Storage"
-#~ msgstr "Ստեղծել հաստատակամ պահեստարան"
-
 #~ msgid "Encrypted _Persistent Storage"
 #~ msgstr "Գաղտնագրված _հաստատակամ պահեստարան"
 
@@ -3700,12 +3807,6 @@ msgstr "Ժամացույց"
 
 #~ msgid "Enabled"
 #~ msgstr "Կարողացված"
-
-#~ msgid "Create"
-#~ msgstr "Ստեղծել"
-
-#~ msgid "Verify Passphrase:"
-#~ msgstr "Հաստատել գաղտնադարձվածքը՝"
 
 #~ msgid "Passphrase can't be empty"
 #~ msgstr "Գաղտնադարձվածքը չի կարող դատարկ լինել"
