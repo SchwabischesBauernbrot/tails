@@ -89,7 +89,7 @@ notify_panic_failure() {
         text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces. The error recovery also failed, so all networking is disabled.")
         text="${text}\n\n${nic}: ${nic_name}"
     else
-        text=$(eval_gettext "MAC address anonymization failed for your network interfaces. The error recovery also failed, so all networking is disabled.")
+        text=$(eval_gettext "MAC address anonymization failed for your network interface. The error recovery also failed, so all networking is disabled.")
     fi
     notify_live_user "${title}" "${text}"
 }
