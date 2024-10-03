@@ -550,8 +550,10 @@ class VM
       raise "The default network interface has more than one IPv#{version} address, " \
             "which isn't supported"
     elsif addrs.size == 1
-      addrs.first
+      return addrs.first
     end
+
+    nil
   end
 
   def ipv6_address
