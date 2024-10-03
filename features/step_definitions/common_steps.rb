@@ -945,6 +945,7 @@ When /^I run "([^"]+)" in GNOME Terminal$/ do |command|
       app.child('Close', roleName: 'push button').click
       app = launch_gnome_terminal
       terminal = app.child('Terminal', roleName: 'terminal')
+      terminal.text['amnesia@amnesia:']
       false
     end
   end
