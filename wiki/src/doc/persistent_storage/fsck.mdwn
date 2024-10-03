@@ -1,7 +1,52 @@
 [[!meta title="Recovering data from the Persistent Storage when it has file system errors"]]
 
-These instructions apply if errors are detected in the file system of your
-Persistent Storage when unlocking encryption.
+<!--
+
+To test this doc:
+
+1. Add in a file *config/chroot_local-includes/usr/local/sbin/e2fsck.slow*:
+
+       #!/bin/sh
+
+       if echo "${*}" | grep -w -- "-p"; then
+           # only runs for automatic fsck
+           sleep 10
+           exit 4  # File system errors left uncorrected
+       elif echo "${*}" | grep -w -- "-y"; then
+           # only runs for manual fsck
+           sleep 30
+           exit 1  # Error corrected
+       fi
+
+       exec /usr/sbin/e2fsck "${@}"
+
+1. Add in a *hook* file at the root of your Git repo:
+
+       #!/bin/sh
+
+       root="${1}"
+
+       mount -o bind \
+             "${root}/mnt/config/chroot_local-includes/usr/lib/python3/dist-packages/tps/" \
+             "${root}/usr/lib/python3/dist-packages/tps/"
+       cp "${root}/mnt/config/chroot_local-includes/usr/local/sbin/e2fsck.slow" "${root}/usr/local/sbin/"
+
+1. Edit *config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py*
+
+       diff --git a/config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py b/config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py
+       index adad9d2c6e9..e6559c26f89 100644
+       --- a/config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py
+       +++ b/config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py
+       @@ -777,7 +777,7 @@ class CleartextDevice:
+
+                try:
+                    cmd = [
+       -                "e2fsck",
+       +                "e2fsck.slow",
+
+1. When starting Tails, add the [[`early_patch`|contribute/build/early-patch]] boot option.
+
+-->
 
 <div class="next">
 
