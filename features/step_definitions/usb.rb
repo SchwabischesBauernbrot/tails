@@ -197,7 +197,7 @@ When /^I (install|reinstall|upgrade) Tails( with Persistent Storage)? (?:to|on) 
                                .child('Clone the current Persistent Storage.*',
                                       roleName: 'check box',
                                       retry:    false)
-    sensitive = clone_persistence_button.sensitive
+    sensitive = clone_persistence_button.sensitive?
   rescue Dogtail::Failure
     sensitive = false
   end
@@ -279,14 +279,14 @@ def enable_all_tps_features
   assert persistent_storage_main_frame.child('Personal Documents', roleName: 'label')
   switches = persistent_storage_main_frame.children(roleName: 'toggle button')
   switches.each do |switch|
-    if switch.checked
+    if switch.checked?
       debug_log("#{switch.name} is already enabled, skipping")
     else
       debug_log("enabling #{switch.name}")
       # To avoid having to bother with scrolling the window we just
       # send an AT-SPI action instead of clicking.
       switch.toggle
-      try_for(10) { switch.checked }
+      try_for(10) { switch.checked? }
     end
   end
 end
@@ -298,9 +298,9 @@ When /^I (enable|disable) the first tps feature$/ do |mode|
     roleName: 'toggle button'
   )
   if mode == 'enable'
-    assert !persistent_folder_switch.checked
+    assert !persistent_folder_switch.checked?
   else
-    assert persistent_folder_switch.checked
+    assert persistent_folder_switch.checked?
   end
 
   persistent_folder_switch.toggle
@@ -309,10 +309,10 @@ When /^I (enable|disable) the first tps feature$/ do |mode|
     # accessible has the "check" state when the switch is on but the
     # underlying state is false) so we check the state via D-Bus.
     if mode == 'enable'
-      assert persistent_folder_switch.checked
+      assert persistent_folder_switch.checked?
       persistent_directory_is_active
     else
-      assert !persistent_folder_switch.checked
+      assert !persistent_folder_switch.checked?
       !persistent_directory_is_active
     end
   end
@@ -1551,7 +1551,7 @@ Given /^I install a Tails USB image to the (\d+) MiB disk with GNOME Disks$/ do 
   text_entry.activate
 
   try_for(10) do
-    !select_disk_image_dialog.showing
+    !select_disk_image_dialog.showing?
   end
   # We can't use the click action here because this button causes a
   # modal dialog to be run via gtk_dialog_run() which causes the
@@ -1566,7 +1566,7 @@ Given /^I install a Tails USB image to the (\d+) MiB disk with GNOME Disks$/ do 
   # Wait until the restoration job is finished
   job = disks.child('Job', roleName: 'label')
   try_for(180) do
-    !job.showing
+    !job.showing?
   end
 end
 

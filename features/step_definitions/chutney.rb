@@ -20,7 +20,7 @@ end
 
 def chutney_env
   {
-    'CHUTNEY_LISTEN_ADDRESS' => $vmnet.bridge_ip_addr,
+    'CHUTNEY_LISTEN_ADDRESS' => $vmnet.bridge_ip_address.to_s,
     'CHUTNEY_DATA_DIR'       => "#{$config['TMPDIR']}/chutney-data",
     # The default value (60s) is too short for "chutney wait_for_bootstrap"
     # to succeed reliably.
