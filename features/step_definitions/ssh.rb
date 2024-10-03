@@ -82,7 +82,7 @@ end
 
 Given /^an SSH server is running on the LAN$/ do
   @sshd_server_port = get_free_tcp_port
-  @sshd_server_host = $vmnet.bridge_ip_addr
+  @sshd_server_host = $vmnet.bridge_ip_address.to_s
   sshd = SSHServer.new(@sshd_server_host, @sshd_server_port)
   sshd.start
   add_extra_allowed_host(@sshd_server_host, @sshd_server_port)
