@@ -549,9 +549,8 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
     # We have had problems with the Space press not causing the
     # bookmark to be selected despite it being focused (tails#20356,
     # tails#20159)
-    try_for(10) do
+    try_for(10, delay: 2) do
       @screen.press('Space')
-      sleep 1
       output_dir_bookmark.selected?
     end
   else
