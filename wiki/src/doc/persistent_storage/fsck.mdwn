@@ -182,20 +182,14 @@ decrypted version of your Persistent Storage. To do so:
 
 1. After the creation of the partition image finishes:
 
-   - If the creation failed, try the second technique described below to
-     [[create a partition image using `ddrescue` on the command
-     line|fsck#ddrescue]] instead.
-
-   - If the creation succeeded, click **[[!img lib/media-playback-start.png
-     alt="Mount selected partition" class=symbolic link="no"]]** to mount the
-     Persistent Storage.
-
-     If mounting succeeded, this might already perform some repair operations.
-
-     Whether or not mounting succeeded, shutdown Tails.
+   - If the creation succeeded, shutdown Tails.
 
      You can now safely start [[recovering data from the Persistent
      Storage|fsck#welcome]].
+
+   - If the creation failed, try the second technique described below to
+     [[create a partition image using `ddrescue` on the command
+     line|fsck#ddrescue]] instead.
 
 <h2 id="ddrescue">Creating a partition image using <span class="code">ddrescue</span> on the command line</h2>
 
