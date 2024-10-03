@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2024-07-31 11:16+0000\n"
-"PO-Revision-Date: 2023-11-28 14:43+0000\n"
+"PO-Revision-Date: 2024-09-30 21:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -15,13 +15,13 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 4.9.1\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "[[!meta title=\"Rescuing the Persistent Storage of a broken Tails\"]]\n"
+#, no-wrap
 msgid "[[!meta title=\"Recovering the Persistent Storage of a broken Tails\"]]\n"
-msgstr "[[!meta title=\"Rettung des beständigen Speichers eines defekten Tails\"]]\n"
+msgstr ""
+"[[!meta title=\"Rettung des persistenten Speichers eines defekten Tails\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -29,10 +29,6 @@ msgid "<!-- XXX: These instructions should be kept in sync with backup.mdwn -->\
 msgstr "<!-- XXX: Diese Anweisungen sollten mit backup.mdwn synchronisiert werden -->\n"
 
 #. type: Plain text
-#, fuzzy
-#| msgid ""
-#| "If your Tails becomes broken, for example, it no longer starts, you can "
-#| "follow these instructions to try to rescue your Persistent Storage."
 msgid ""
 "If your Tails becomes broken, for example, if it no longer starts, follow "
 "these instructions to try to recover data from your Persistent Storage."
@@ -47,20 +43,17 @@ msgid "<div class=\"tip\">\n"
 msgstr "<div class=\"tip\">\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<p>It is advisable to keep a current backup of your Persistent Storage. To learn\n"
-#| "how to create a backup of your Persistent Storage, see our [[instructions on\n"
-#| "how to back up your Persistent Storage to another Tails USB\n"
-#| "stick|backup]].</p>\n"
+#, no-wrap
 msgid ""
 "<p>We recommend you always keep a current backup of your Persistent Storage. To learn\n"
 "how to create a backup of your Persistent Storage, see our [[instructions on\n"
 "how to back up your Persistent Storage to another Tails USB\n"
 "stick|backup]].</p>\n"
 msgstr ""
-"<p>Es ist ratsam, ein aktuelles Backup Ihres persistenten Speichers zu erstellen. Um zu erfahren\n"
-"wie Sie eine Sicherungskopie Ihres persistenten Speichers erstellen können, lesen Sie bitte unsere [[Anleitung zur\n"
+"<p>Wir empfehlen, immer ein aktuelles Backup Ihres persistenten Speichers zu "
+"erstellen. Um zu erfahren\n"
+"wie Sie eine Sicherungskopie Ihres persistenten Speichers erstellen können, "
+"lesen Sie bitte unsere [[Anleitung zur\n"
 "Sicherung Ihres persistenten Speichers auf einem anderen Tails USB\n"
 "Stick|backup]].</p>\n"
 
@@ -90,16 +83,20 @@ msgid ""
 "When starting Tails, [[set up an administration password|doc/first_steps/"
 "welcome_screen/administration_password]]."
 msgstr ""
+"Beim Starten von Tails [[richten Sie ein Administrationspasswort ein|doc/"
+"first_steps/welcome_screen/administration_password]]."
 
 #. type: Bullet: '1. '
 msgid "[[Create a Persistent Storage.|persistent_storage/create]]"
-msgstr ""
+msgstr "[[Einen persistenten Speicher erstellen.|persistent_storage/create]]"
 
 #. type: Bullet: '1. '
 msgid ""
 "Close the Persistent Storage settings after creation, when the list of "
 "features is displayed."
 msgstr ""
+"Schließen Sie die Einstellungen für den persistenten Speicher nach der "
+"Erstellung, wenn die Liste der Funktionen angezeigt wird."
 
 #. type: Plain text
 #, no-wrap
@@ -209,6 +206,8 @@ msgstr ""
 #, no-wrap
 msgid "   <p class=\"command-root\">rsync -PaSHAXv --del /media/amnesia/TailsData/ /live/persistence/TailsData_unlocked</p>\n"
 msgstr ""
+"   <p class=\"command-root\">rsync -PaSHAXv --del /media/amnesia/TailsData/ /"
+"live/persistence/TailsData_unlocked</p>\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -250,7 +249,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-root\">nautilus</p>\n"
-msgstr ""
+msgstr "   <p class=\"command-root\">nautilus</p>\n"
 
 #, fuzzy, no-wrap
 #~| msgid ""

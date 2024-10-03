@@ -40,6 +40,8 @@ LUKS_HEADER_BACKUP_PATH = SYSTEM_PARTITION_MOUNT_POINT + "/luks-header-backup"
 ON_ACTIVATED_HOOKS_DIR = "/usr/local/lib/persistent-storage/on-activated-hooks"
 ON_DEACTIVATED_HOOKS_DIR = "/usr/local/lib/persistent-storage/on-deactivated-hooks"
 
+IO_ERRORS_FLAG_FILE_PATH = "/var/lib/live/tails.disk.ioerrors"
+
 
 class State(Enum):
     UNKNOWN = 0

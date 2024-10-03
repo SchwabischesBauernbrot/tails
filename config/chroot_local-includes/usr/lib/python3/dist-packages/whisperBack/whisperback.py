@@ -28,9 +28,7 @@ import logging
 import os
 import re
 import threading
-from typing import Optional
-
-import gi
+from gettext import gettext as _
 
 from gi.repository import GLib
 
@@ -43,7 +41,7 @@ LOG = logging.getLogger(__name__)
 
 
 # pylint: disable=R0902
-class WhisperBack:
+class WhisperBackBackend:
     """
     This class contains the backend which actually sends the feedback
     """
@@ -56,7 +54,7 @@ class WhisperBack:
             self._contact_email = email
         else:
             # XXX use a better exception
-            raise ValueError(_("Invalid contact email: %s" % email))
+            raise ValueError(_("Invalid contact email: %s") % email)
 
     # pylint: disable=W0212
     contact_email = property(lambda self: self._contact_email, set_contact_email)
@@ -75,7 +73,7 @@ class WhisperBack:
         else:
             # XXX use a better exception
             if len(gpgkey.splitlines()) <= 1:
-                message = _("Invalid contact OpenPGP key: %s" % gpgkey)
+                message = _("Invalid contact OpenPGP key: %s") % gpgkey
             else:
                 message = _("Invalid contact OpenPGP public key block")
             raise ValueError(message)
@@ -86,7 +84,7 @@ class WhisperBack:
     def __init__(
         self,
         debugging_info: str,
-        bug_specific_text: Optional[str],
+        bug_specific_text: str | None,
         subject="",
         message="",
     ):
@@ -117,7 +115,7 @@ class WhisperBack:
 
         # Get additional info through the callbacks and sanitize it
         self.prepended_data = whisperBack.utils.sanitize_hardware_info(
-            self.mail_prepended_info()
+            self.mail_prepended_info(),
         )
         self.bug_specific_text = bug_specific_text
         self.appended_data = self.__get_debug_info(debugging_info)
@@ -127,7 +125,6 @@ class WhisperBack:
         self.message = message
         self._contact_email = None
         self._contact_gpgkey = None
-        self.send_attempts = 0
 
     def __load_conf(self, config_file_path):
         """Loads a configuration file from config_file_path and executes it
@@ -139,18 +136,18 @@ class WhisperBack:
         LOG.debug("Loading conf from %s", config_file_path)
         f = None
         try:
-            f = open(config_file_path, "r")
+            f = open(config_file_path)
             code = f.read()
-        except IOError:
+        except OSError:
             # There's no problem if one of the configuration files is not
             # present
-            LOG.warn("Failed to load conf %s", config_file_path)
-            return None
+            LOG.warning("Failed to load conf %s", config_file_path)
+            return
         finally:
             if f:
                 f.close()
         # pylint: disable=W0122
-        exec(code, self.__dict__)  # nosec exec_used
+        exec(code, self.__dict__)  # noqa: S102
 
     def __get_debug_info(self, raw_debug, prefix=""):
         """Deserializes the dicts from raw_debug and creates a string
@@ -164,19 +161,22 @@ class WhisperBack:
         for debug_info in all_info:
             if prefix:
                 result += "\n{} === content of {} ===\n".format(
-                    prefix, debug_info["key"]
+                    prefix,
+                    debug_info["key"],
                 )
             else:
                 result += "\n======= content of {} =======\n".format(debug_info["key"])
-            if type(debug_info["content"]) is list:
+            if isinstance(debug_info["content"], list):
                 for line in debug_info["content"]:
                     if isinstance(line, dict):
                         result += self.__get_debug_info(
-                            json.dumps([line]), prefix + "> "
+                            json.dumps([line]),
+                            prefix + "> ",
                         )
                     else:
                         sanitized = "{}{}\n".format(
-                            prefix, whisperBack.utils.sanitize_hardware_info(line)
+                            prefix,
+                            whisperBack.utils.sanitize_hardware_info(line),
                         )
                         result += re.sub(r"^--\s*", "", sanitized)
             else:
@@ -274,9 +274,6 @@ class WhisperBack:
         # XXX: there could be no main loop
         GLib.timeout_add(polling_freq, poll_thread, self)
 
-    # XXX: static would be best, but I get a problem with self.*
-    # execute_threaded = staticmethod(execute_threaded)
-
     def get_message_body(self):
         """Returns the content of the message body
 
@@ -292,10 +289,7 @@ class WhisperBack:
                 body += "OpenPGP-Key: %s\n" % self.contact_gpgkey
             else:
                 body += "OpenPGP-Key: included below\n"
-        if self.bug_specific_text is None:
-            prefill_extra = ""
-        else:
-            prefill_extra = self.bug_specific_text
+        prefill_extra = "" if self.bug_specific_text is None else self.bug_specific_text
         body += (
             f"{self.prepended_data.rstrip()}\n"
             f"{prefill_extra}"
@@ -314,7 +308,8 @@ class WhisperBack:
         encrypter = whisperBack.encryption.Encryption(keyring=self.gnupg_keyring)
 
         encrypted_mime_message = encrypter.pgp_mime_encrypt(
-            mime_message, [self.to_fingerprint]
+            mime_message,
+            [self.to_fingerprint],
         )
 
         encrypted_mime_message["Subject"] = self.mail_subject
@@ -343,8 +338,6 @@ class WhisperBack:
         LOG.debug("Sending message")
         # XXX: It's really strange that some exceptions from this method are
         #      raised and some other transmitted to finished_callback…
-
-        self.send_attempts = self.send_attempts + 1
 
         mime_message = self.get_mime_message().as_string()
 

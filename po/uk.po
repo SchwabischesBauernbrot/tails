@@ -20,7 +20,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-12 09:47+0200\n"
+"POT-Creation-Date: 2024-09-03 16:21+0200\n"
 "PO-Revision-Date: 2024-08-30 15:09+0000\n"
 "Last-Translator: Ihor Hordiichuk <igor_ck@outlook.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tor/tails-gui/"
@@ -99,8 +99,8 @@ msgstr ""
 "забезпечення</b>."
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:81
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:342
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:270
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:289
 msgid "Create Persistent Storage"
 msgstr "Створити Постійне Сховище"
 
@@ -140,7 +140,9 @@ msgstr "Вилучити"
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:176
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:453
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:800
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:38
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
@@ -806,38 +808,21 @@ msgstr "Вимк."
 msgid "Off (default)"
 msgstr "Вимкнуто (за промовчанням)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:167
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
 msgid "Persistent Storage Still Locked"
 msgstr "Постійне сховище досі заблоковано"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:169
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:174
 msgid ""
 "Do you really want to start Tails without unlocking your Persistent Storage?"
 msgstr ""
 "Ви справді хочете запустити Tails без розблокування постійного сховища?"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:177
 msgid "Start Without Persistent Storage"
 msgstr "Розпочати без Постійного сховища"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:118
-msgid "Error unlocking Persistent Storage: {}"
-msgstr "Помилка розблокування постійного сховища: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:143
-msgid "Error upgrading Persistent Storage: {}"
-msgstr "Помилка оновлення Постійного сховища: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:169
-#, python-brace-format
-msgid "Failed to activate some features of the Persistent Storage: {features}."
-msgstr "Не вдалося активувати деякі функції Постійного Сховища: {features}."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:174
-msgid "Error activating Persistent Storage: {}"
-msgstr "Помилка активування постійного сховища: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:89
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:243
 msgid ""
 "Impossible to unlock the Persistent Storage because the USB stick is read-"
 "only."
@@ -845,22 +830,125 @@ msgstr ""
 "Неможливо розблокувати Постійне сховище, оскільки USB-накопичувач доступний "
 "лише для читання."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:104
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:381
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:409
 msgid "Unlocking…"
 msgstr "Розблокування…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:142
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:176
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:517
-msgid "Unlock Encryption"
-msgstr "Розблокувати шифрування"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:416
+#, fuzzy
+msgid "Checking the file system…"
+msgstr "Форматування файлової системи..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:147
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:41
-msgid "Cannot unlock encrypted storage with this passphrase."
-msgstr "Неможливо розблокувати зашифроване сховище цим паролем."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:451
+#, fuzzy
+msgid "Repairing the File System"
+msgstr "Форматування файлової системи..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:158
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:452
+#, fuzzy
+msgid "This might take a long time..."
+msgstr "Це може зайняти деякий час..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:470
+#, fuzzy
+msgid "Failed to repair the file system of your Persistent Storage."
+msgstr "Не вдалося налаштувати Постійне Сховище"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:472
+msgid "Start Tails to send an error report and learn how to recover your data."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:485
+msgid "File System Repaired Successfully"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:487
+msgid ""
+"It's possible that some data was lost during the repair. Please check the "
+"contents of your Persistent Storage and restore any lost data from a backup."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:491
+#, fuzzy
+msgid "Close"
+msgstr "_Закрити"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:506
+msgid ""
+"You aborted the repair of the file system. You can either start Tails "
+"without Persistent Storage or restart the computer to try repairing the file "
+"system again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:722
+msgid "Start Tails and open the Persistent Storage settings to find out more."
+msgstr ""
+"Запустіть Tails і відкрийте налаштування Постійного сховища, щоб дізнатися "
+"більше."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:751
+msgid ""
+"Your Persistent Storage is unlocked. Its content will be available until you "
+"shut down Tails."
+msgstr ""
+"Ваше Постійне сховище розблоковане. Його вміст буде доступним, доки ви не "
+"вимкнете Tails."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:766
+msgid "Incorrect passphrase. Please try again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:777
+#, fuzzy
+msgid ""
+"Error reading data from your Persistent Storage. The hardware of your USB "
+"stick is probably failing."
+msgstr "Можливо апаратне забезпечення вашого USB-накопичувача вийшло з ладу."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:779
+msgid "Start Tails to learn how to recover your data."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:790
+msgid "File System Errors"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:792
+msgid ""
+"Errors were detected in the file system of your Persistent Storage.\n"
+"                \n"
+"Tails can try to fix these errors, but this might erase some of your data "
+"and take a long time.\n"
+"\n"
+"If you already have an up-to-date backup of your Persistent Storage, we "
+"recommend that you try to repair.\n"
+"                \n"
+"If you don't have a backup, we recommend that you create a backup first."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:801
+msgid "Repair File System"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:802
+#, fuzzy
+msgid "Create Backup"
+msgstr "Створити"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:813
+#, fuzzy
+msgid "Start Tails to learn how to create a backup of your Persistent Storage."
+msgstr "Не вдалося створити Постійне сховище"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:822
+#, fuzzy
+msgid "Failed to unlock the Persistent Storage due to file system errors."
+msgstr ""
+"Не вдалося розблокувати постійне сховище. Будь ласка, запустіть Tails і "
+"надішліть звіт про помилку."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:831
 msgid ""
 "Failed to upgrade the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -868,7 +956,7 @@ msgstr ""
 "Не вдалося оновити Постійне сховище. Запустіть Tails і надішліть звіт про "
 "помилку."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:165
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
 msgid ""
 "Failed to unlock the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -876,7 +964,7 @@ msgstr ""
 "Не вдалося розблокувати постійне сховище. Будь ласка, запустіть Tails і "
 "надішліть звіт про помилку."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:846
 msgid ""
 "Failed to activate the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -884,15 +972,32 @@ msgstr ""
 "Не вдалося активувати постійне сховище. Будь ласка, запустіть Tails і "
 "надішліть звіт про помилку."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:184
-msgid "Upgrading the Persistent Storage. This may take a while…"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:857
+#, fuzzy
+msgid "Upgrading the Persistent Storage. This might take a while…"
 msgstr "Оновлення Постійного сховища. Це може тривати деякий час…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:199
-msgid "Start Tails and open the Persistent Storage settings to find out more."
-msgstr ""
-"Запустіть Tails і відкрийте налаштування Постійного сховища, щоб дізнатися "
-"більше."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:125
+msgid "Error unlocking Persistent Storage: {}"
+msgstr "Помилка розблокування постійного сховища: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:150
+msgid "Error upgrading Persistent Storage: {}"
+msgstr "Помилка оновлення Постійного сховища: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:176
+#, python-brace-format
+msgid "Failed to activate some features of the Persistent Storage: {features}."
+msgstr "Не вдалося активувати деякі функції Постійного Сховища: {features}."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:181
+msgid "Error activating Persistent Storage: {}"
+msgstr "Помилка активування постійного сховища: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:202
+#, fuzzy
+msgid "Failed to abort when repairing Persistent Storage filesystem: {}"
+msgstr "Не вдалося запустити службу Постійного Сховища"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
@@ -1942,7 +2047,7 @@ msgstr "Стан Tor"
 msgid "Open Onion Circuits"
 msgstr "Відкриті схеми Onion"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:344
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:348
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1955,11 +2060,11 @@ msgstr ""
 "\n"
 "Спробуйте ще раз після закриття деяких застосунків або перезавантаження."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:358
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:362
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Створення розділу для Постійного сховища..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:380
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:384
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
@@ -1967,23 +2072,23 @@ msgstr ""
 "Ініціалізація шифрування LUKS... Комп'ютер може перестати відповідати на "
 "кілька секунд."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:409
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:413
 msgid "Unlocking the encryption..."
 msgstr "Розблокування шифрування..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:417
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:421
 msgid "Formatting the file system..."
 msgstr "Форматування файлової системи..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:435
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
 msgid "Activating the Persistent Storage..."
 msgstr "Активування постійного сховища..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:440
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:444
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Завершення налаштування постійного сховища..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:695
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:699
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1995,7 +2100,7 @@ msgstr ""
 "спробу. Якщо це не допоможе, перезапустіть Tails і спробуйте видалити "
 "Постійне сховище, не розблоковуючи його."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:728
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:732
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -2016,8 +2121,6 @@ msgstr ""
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:30
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:48
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:390
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:25
 msgid "Persistent Storage"
 msgstr "Постійне сховище"
@@ -2763,7 +2866,7 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:18
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:56
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:836
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:758
 msgid "Administration Password"
 msgstr "Пароль адміністратора"
 
@@ -2789,7 +2892,7 @@ msgid "Disable"
 msgstr "Вимкнути"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:186
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:840
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:762
 msgid "MAC Address Anonymization"
 msgstr "Анонімізувати MAC-адреси"
 
@@ -2815,7 +2918,7 @@ msgid "Don't anonymize MAC addresses"
 msgstr "Не анонімізувати MAC-адреси"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:343
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:844
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:766
 msgid "Network Configuration"
 msgstr "Налаштування мережі"
 
@@ -2889,23 +2992,28 @@ msgstr "Увімкнути небезпечний браузер (типово)"
 msgid "Disable the Unsafe Browser"
 msgstr "Вимкнути небезпечний браузер"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:101
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:46
 msgid "Settings were loaded from the Persistent Storage."
 msgstr "Налаштування завантажено з Постійного сховища."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:153
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:98
 msgid "Welcome to Tails!"
 msgstr "Ласкаво просимо до Tails!"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:186
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:131
 msgid "Language and Formats"
 msgstr "Мова і формати"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:222
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:167
 msgid "Default Settings"
 msgstr "Типові налаштування"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:298
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:225
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:337
+msgid "_Persistent Storage"
+msgstr "_Постійне сховище"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:245
 msgid ""
 "You can save some of your files and configuration in an encrypted Persistent "
 "Storage on your Tails USB stick: your documents, browser bookmarks, Wi-Fi "
@@ -2915,47 +3023,44 @@ msgstr ""
 "сховищі на USB-накопичувачі Tails: ваші документи, закладки браузера, паролі "
 "Wi-Fi тощо."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:325
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:272
 msgid "Create and configure a Persistent Storage after starting Tails"
 msgstr "Створіть і налаштуйте Постійне сховище після запуску Tails"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:429
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:364
 msgid "Show Passphrase"
 msgstr "Показати пароль"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:481
-msgid "_Passphrase"
-msgstr "_Парольна фраза"
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:421
+#, fuzzy
+msgid "Enter your passphrase"
+msgstr "Перевірити пароль:"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:558
-msgid ""
-"Your Persistent Storage is unlocked. Its content will be available until you "
-"shut down Tails."
-msgstr ""
-"Ваше Постійне сховище розблоковане. Його вміст буде доступним, доки ви не "
-"вимкнете Tails."
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:436
+msgid "Unlock Encryption"
+msgstr "Розблокувати шифрування"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:581
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:503
 msgid "Impossible to unlock the Persistent Storage."
 msgstr "Неможливо розблокувати Постійне сховище."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:640
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:562
 msgid "_Additional Settings"
 msgstr "_Додаткові налаштування"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:723
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:645
 msgid "Add an additional setting"
 msgstr "Додати ще одне додаткове налаштування"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:770
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:692
 msgid "Shutdown"
 msgstr "Вимкнення"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:779
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:701
 msgid "_Start Tails"
 msgstr "_Запустити Tails"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:808
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:730
 msgid ""
 "The default settings are safe in most situations. To add a custom setting, "
 "press the \"+\" button below."
@@ -3934,6 +4039,12 @@ msgstr "Грудень"
 msgid "Clock"
 msgstr "Годинник"
 
+#~ msgid "Cannot unlock encrypted storage with this passphrase."
+#~ msgstr "Неможливо розблокувати зашифроване сховище цим паролем."
+
+#~ msgid "_Passphrase"
+#~ msgstr "_Парольна фраза"
+
 #~ msgid "Resizing System Partition Failed"
 #~ msgstr "Не вдалося змінити розмір системного розділу"
 
@@ -4114,9 +4225,6 @@ msgstr "Годинник"
 #~ msgid "Unlock"
 #~ msgstr "Розблокувати"
 
-#~ msgid "_Persistent Storage"
-#~ msgstr "_Постійне сховище"
-
 #~ msgid "Encrypted _Persistent Storage"
 #~ msgstr "Зашифроване _Постійне Сховище"
 
@@ -4247,9 +4355,6 @@ msgstr "Годинник"
 #~ "b>. Дані в цьому розділі будуть зберігатися в зашифрованому вигляді під "
 #~ "захистом пароля."
 
-#~ msgid "Create"
-#~ msgstr "Створити"
-
 #~ msgid ""
 #~ "<b>Beware!</b> Using persistence has consequences that must be well "
 #~ "understood. Tails can't help you if you use it wrong! See the "
@@ -4260,9 +4365,6 @@ msgstr "Годинник"
 #~ "постійного сховища. Tails не зможе вам допомогти, якщо ви неправильно ним "
 #~ "користуватиметесь! Перегляньте сторінку <i>Зашифроване постійне сховище</"
 #~ "i> в документації Tails, щоб дізнатися більше."
-
-#~ msgid "Verify Passphrase:"
-#~ msgstr "Перевірити пароль:"
 
 #~ msgid "Passphrase can't be empty"
 #~ msgstr "Ключова фраза не може бути порожною"

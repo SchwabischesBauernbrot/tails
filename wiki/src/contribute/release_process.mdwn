@@ -163,10 +163,14 @@ To release Tails you need:
 
    - In the `TailsRM` section, set the value of the `private_token` option to
      the `role-release-automation` GitLab user's API token, which you'll find in
-     `rm.git`'s keyringer.
+     `rm.git`'s keyringer. Test it with:
+
+         python-gitlab --gitlab TailsRM -o json  project-issue get --project-id 3 --iid 18122 | jq .title
 
    - In the `Tails` section, set the value of the `private_token` option to a
-     GitLab API token for your own user.
+     GitLab API token for your own user. Test it with:
+
+         python-gitlab --gitlab Tails -o json  project-issue get --project-id 3 --iid 18122 | jq .title
 
 * `~/.config/tails/release_management/local.yml`
 
@@ -823,8 +827,6 @@ Create tagged snapshots of upstream APT repositories:
 Note:
 
   - This command takes a while (about a dozen minutes).
-    While it's running, if you don't feel the need to take a break,
-    you can proceed with the "SquashFS file order" section below.
 
   - It's expected that the packages that were pulled from our
     [[custom APT repository|APT_repository/custom]] are
@@ -863,7 +865,8 @@ Jenkins workers.
    one to be safe.
 
 1. Make sure the Jenkins build is right: you can recognize this is the case,
-   when you see Jenkins starts building the website. Jenkins will take
+   when you see Jenkins starts building the website (which should happen in
+   \~2-3 minutes, at least on `dragon`). Jenkins will take
    20-65 minutes to complete the build, depending on the `isoworkerN`
    that is used.
 
@@ -1017,6 +1020,10 @@ Tell testers that they can start testing. Remember to encrypt and sign your emai
     Please note that the attached Torrents don't work yet.
     EOF
 
+Send a message on XMPP, too:
+
+    Manual testers, please check your inbox and get the QA started!
+
 <a id="prepare-iuk"></a>
 
 Prepare incremental upgrades
@@ -1051,6 +1058,7 @@ Verify there's enough free disk space in `$IUKS_DIR`:
 
 To build the IUKS, run this command:
 
+    (
     IUK_CREATION_LOG=$(mktemp --tmpdir=/var/tmp wrap_tails_create_iuks.XXXXXXXX.log)
     (
        set -eu
@@ -1078,6 +1086,7 @@ To build the IUKS, run this command:
     ) && \
      cd "${IUKS_DIR?:}" && \
      sha256sum Tails_amd64_*_to_${VERSION?:}.iuk > "${IUKS_HASHES?:}"
+    )
 
 This command takes a long time. In parallel, while it is running,
 you can follow the next steps:
@@ -1720,6 +1729,12 @@ Note that the Trusted Reproducer has 72 hours to complete this check,
 you do not have to wait for this to be completed, just make sure they
 are informed that the Reproducibility check can be started.
 
+    ./bin/automailer.py <<EOF
+    Subject: Trusted Reproducer for ${VERSION:?}
+    
+    You can now start the reproducibility test.
+    EOF
+
 Prepare announcements and blog posts
 ====================================
 
@@ -1862,7 +1877,8 @@ Skip this if you are not preparing a stable release.
         ./bin/generate-Tor-blog-post "${VERSION:?}" "${TAG:?}" "${DIST:?}" "${RELEASE_DATE:?}"
 
 - Copy the introduction sentences of the body into the `summary` section of the
-  draft blog post
+  draft blog post. If there is no such sentence, this can be enough:
+  `Tails ${VERSION:?} is out.`
 
 - Proof-read the draft blog post
 
@@ -2065,21 +2081,27 @@ Request the publication of the Tor blog post
 
 Skip this section unless you have prepared a draft Tor blog post earlier.
 
-1. Check if you have developer status in the
-  [list of project members](https://gitlab.torproject.org/tpo/web/blog/-/project_members).
+Check if you have developer status on
+https://gitlab.torproject.org/tpo/web/blog/-/project_members
 
-2. If you have developer status, then you can merge and deploy yourself:
+### If you have developer status
 
-     - Merge your draft MR
-     - Open the page of the new pipeline that is started after you've merged
-     - Wait until the `deploy-staging` job succeeds
-     - Check on the [staging blog](https://blog.staging.torproject.net/) that the new blog post appears and looks OK
-     - On the pipeline page, click on the ▶️ button for the `deploy-prod` job
+  - To inspect the result, see the pipeline of the MR, in particular the
+    `deploy-review` job. On top of the job page, a message will tell "This job
+is deployed to ". Click on the link to the environment. Then click on "View
+deployment". Check if everything looks good.
 
-   Otherwise:
+  - Merge!
 
-     - Mark the merge request as ready: remove the `Draft:` prefix
-     - Request a review from one of your fellow RMs who has Developer status
+  - Once merged a new pipeline is started
+    whose last stage (Deploy) will require manual action: click on it to
+    open a menu where you will see "deploy-prod ▶️", then click on the ▶️
+    to deploy.
+
+### Else
+
+Mark the merge request as ready by remove the `Draft:`
+prefix, and request a review from one of your fellow RMs who has Developer status
 
 Amnesia news
 ------------
