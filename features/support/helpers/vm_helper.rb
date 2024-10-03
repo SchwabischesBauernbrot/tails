@@ -547,7 +547,7 @@ class VM
     addrs = nmcli_info.scan(%r{^IP#{version}.ADDRESS(?:\[\d+\])?:\s*(.+)/\d+$})
                       .flatten.map { |addr| IPAddr.new(addr) }
     if addrs.size > 1
-      raise "The default network iterface has more than one IPv#{version} address, " \
+      raise "The default network interface has more than one IPv#{version} address, " \
             "which isn't supported"
     elsif addrs.size == 1
       addrs.first
