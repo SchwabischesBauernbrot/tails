@@ -1,15 +1,13 @@
-[[!meta title="Recovering data from the Persistent Storage, if the Tails USB stick doesn't start"]]
-
-<!-- XXX: These instructions should be kept in sync with backup.mdwn -->
+[[!meta title="Recovering data from the Persistent Storage when Tails doesn't start"]]
 
 If your Tails becomes broken, for example, if it no longer starts, follow
-these instructions to try to recover data from your Persistent Storage.
+these instructions to recover data from your Persistent Storage.
 
 <div class="next">
 
 <p>If instead, your Tails USB stick does start but the Persistent Storage fails
 to unlock, refer to our instructions on [[recovering data from the Persistent
-Storage, if the Persistent Storage doesn't unlock|fsck]].</p>
+Storage when it has file system errors|fsck]].</p>
 
 </div>
 
@@ -75,7 +73,7 @@ Persistent Storage from another Tails USB stick and copy its content using
 1. Close the Persistent Storage settings after creation, when the list of
    features is displayed.
 
-   The process described below overrides the configuration of the Persistent
+   The process described below overwrites the contents and configuration of the new Persistent
    Storage. So, it does not matter which features you turn on after creating
    the Persistent Storage.
 
@@ -106,11 +104,6 @@ Persistent Storage from another Tails USB stick and copy its content using
    using forensics tools|recover#image]].</p>
 
    </div>
-
-   XXX: Let's pretend that's enough to replace /doc/persistent_storage/check.
-   We're leaving out people who cannot do a manual upgrade (weird partition
-   table) and cannot unlock from Files (corrupted Persistent Storage). These
-   people can try recovering from a partition image.
 
 1. Choose
    <span class="menuchoice">
@@ -146,4 +139,18 @@ If unlocking your Persistent Storage from another Tails USB stick fails, you
 might be able to recover some or most of your data from a partition image
 using advanced forensics tools.
 
-XXX: Point to fsck or remix to create the partition from the other Tails?
+We are not providing step-by-step instructions, but you can adapt our
+instructions on [[recovering data from the Persistent Storage when it has file
+system errors|fsck]]:
+
+1. Start on your new Tails and save a partition image of the Persistent Storage
+   of your broken Tails to an external hard disk.
+
+   Try the technique using the [[*Disks* utility|fsck#disks]] first, then the
+   technique using [[`ddrescue`|fsck#ddrescue]] if needed.
+
+1. After you create the partition image, try to recover your data.
+
+   Try the technique to [[copy the partition image to a new USB
+   stick|fsck#copy]] first, then the technique using
+   [[*Autopsy*|fsck#autopsy]].

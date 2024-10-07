@@ -1,19 +1,62 @@
-[[!meta title="Recovering data from the Persistent Storage, if the Persistent Storage doesn't unlock"]]
+[[!meta title="Recovering data from the Persistent Storage when it has file system errors"]]
 
-These instructions apply if errors are detected in the file system of your
-Persistent Storage when unlocking.
+<!--
+
+To test this doc:
+
+1. Add in a file *config/chroot_local-includes/usr/local/sbin/e2fsck.slow*:
+
+       #!/bin/sh
+
+       if echo "${*}" | grep -w -- "-p"; then
+           # only runs for automatic fsck
+           sleep 10
+           exit 4  # File system errors left uncorrected
+       elif echo "${*}" | grep -w -- "-y"; then
+           # only runs for manual fsck
+           sleep 30
+           exit 1  # Error corrected
+       fi
+
+       exec /usr/sbin/e2fsck "${@}"
+
+1. Add in a *hook* file at the root of your Git repo:
+
+       #!/bin/sh
+
+       root="${1}"
+
+       mount -o bind \
+             "${root}/mnt/config/chroot_local-includes/usr/lib/python3/dist-packages/tps/" \
+             "${root}/usr/lib/python3/dist-packages/tps/"
+       cp "${root}/mnt/config/chroot_local-includes/usr/local/sbin/e2fsck.slow" "${root}/usr/local/sbin/"
+
+1. Edit *config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py*
+
+       diff --git a/config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py b/config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py
+       index adad9d2c6e9..e6559c26f89 100644
+       --- a/config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py
+       +++ b/config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py
+       @@ -777,7 +777,7 @@ class CleartextDevice:
+
+                try:
+                    cmd = [
+       -                "e2fsck",
+       +                "e2fsck.slow",
+
+1. When starting Tails, add the [[`early_patch`|contribute/build/early-patch]] boot option.
+
+-->
 
 <div class="next">
 
 <p>If instead, your Tails USB stick doesn't start, refer to our instructions on
-[[recovering data from the Persistent Storage, if the Tails USB stick doesn't
+[[recovering data from the Persistent Storage when Tails doesn't
 start|recover]].</p>
 
 </div>
 
 [[!img repair.png link="no" class="screenshot" alt="File System Errors dialog in Welcome Screen"]]
-
-XXX: Update screenshot to new wording
 
 Tails can try to fix these errors, but this might erase some of your data and
 take a long time.
@@ -43,19 +86,29 @@ with as much free space as the size of your Persistent Storage, usually
 the same size as your Tails USB stick, but writing to a USB stick is usually
 much slower than writing to a hard disk.
 
+<div class="caution">
+
+<p>The partition image contains a <i>decrypted</i> version of your
+Persistent Storage.</p>
+
+<p>We recommend that you save the partition image to an [[encrypted hard
+disk|encryption_and_privacy/encrypted_volumes]].</p>
+
+</div>
+
 We are presenting here 2 different techniques to create a partition image of
-your Persistent Storage. We recommend that you try both techniques one after
-the other.
+your Persistent Storage.
 
 1. [[Create a partition image using the *Disks* utility|fsck#disks]]
 
-   If the hardware of your USB stick is not failing, using the *Disks* utility is easier.
+   Try this technique first if the hardware of your USB stick is not failing.
 
 1. [[Create a partition image using `ddrescue` on the command line|fsck#ddrescue]]
 
-   If the hardware of your USB stick is failing, using `ddrescue` is more
-   technical but copies all the data that can still be recovered from your USB
-   stick.
+   Try this technique first if the hardware of your USB stick is failing.
+
+   Using `ddrescue` is more difficult but is better than the *Disks* utility to
+   recover data if the hardware of your USB stick is failing.
 
 <h2 id="disks">Creating a partition image using the <i>Disks</i> utility</h2>
 
@@ -66,8 +119,12 @@ is the simplest way of creating a partition image of your Persistent Storage.
 
 1. Start Tails.
 
-   When starting Tails, choose to start without unlocking your Persistent
-   Storage in the Welcome Screen.
+1. In the Welcome Screen:
+
+   1. [[Set up an administration
+      password|doc/first_steps/welcome_screen/administration_password]].
+
+   2. Choose to start without unlocking your Persistent Storage.
 
 1. Choose **Applications&nbsp;▸ Files** to open the *Files* utility.
 
@@ -77,7 +134,7 @@ is the simplest way of creating a partition image of your Persistent Storage.
 
    A new disk appears in the sidebar of the *Files* utility.
 
-1. Right-click (on Mac, click with two fingers) on the new partition that
+1. Right-click (on Mac, click with two fingers) on the new volume that
    appeared in the sidebar of the *Files* utility and choose *Properties* in
    the shortcut menu.
 
@@ -97,60 +154,54 @@ is the simplest way of creating a partition image of your Persistent Storage.
    USB stick.
 
 1. In the right pane, this storage device should have 2 volumes, corresponding
-   to 2 partitions.
+   to 2 partitions on the USB stick.
 
-   - Partition 1 with a **TAILS** label and **FAT** content.
+   - 1 volume with a **TAILS** label and **FAT** content.
 
-     This partition corresponds to the system partition of your Tails USB
-     stick.
+     This volume corresponds to the system partition of your Tails.
 
-   - Partition 2 with a **TailsData** label and **LUKS** content.
+   - 1 volume with a **TailsData** label and **LUKS** content.
 
-     This partition corresponds to the Persistent Storage of your Tails USB
-     stick. 
+     This volume corresponds to the encrypted version of your Persistent Storage.
 
    [[!img disks.png link="no" class="screenshot" alt=""]]
 
-1. In the right pane, click on the partition that corresponds to your
+1. In the right pane, click on the volume that corresponds to your
    Persistent Storage.
 
-   Verify that the content of the partition is of type **LUKS Encryption**.
-
-   This partition corresponds to the encrypted version of your Persistent Storage.
+   Verify that the content of the volume is of type **LUKS Encryption**.
 
 <h3 id="unlock">Unlocking your Persistent Storage in the <i>Disks</i> utility</h3>
 
 Before creating the partition image, unlock the encryption to access the
-encrypted version of your Persistent Storage. To do so:
+decrypted version of your Persistent Storage. To do so:
 
-1. Click [[!img unlock.png link="no" class="screenshot" alt="Unlock selected encrypted partition"]].
+1. Click [[!img lib/unlock.png link="no" class="symbolic" alt="Unlock selected encrypted partition"]].
 
-1. In the dialog **Enter passphrase to unlock**, enter the passphrase of your
+1. In the **Enter passphrase to unlock** dialog, enter the passphrase of your
    Persistent Storage.
 
 1. Click **Unlock**.
 
-1. In the dialog **Authentication Required**, enter your administration
+1. In the **Authentication Required** dialog, enter your administration
    password.
 
    <div class="bug">
 
-   <p>If unlocking your Persistent Storage fails at this step, it is
-   unfortunately impossible to recover as it would mean breaking the encryption
-   of your Persistent Storage.</p>
+   <p>If unlocking fails at this step, your Persistent Storage is so damaged
+   that decryption is impossible, making all your data completely
+   unrecoverable.</p>
 
    </div>
 
-1. In the right page, click on the new partition that appears below the
-   **LUKS** partition.
+1. In the right pane, click on the new volume that appears below the
+   **LUKS** volume.
 
-   Verify that the content of the new partition is of type **Ext4**.
+   Verify that the content of the new volume is of type **Ext4**.
 
-   This partition corresponds to the unencrypted version of your Persistent Storage.
+   This volume corresponds to the decrypted version of your Persistent Storage.
 
-   XXX: Add notes about using unencrypted data?
-
-1. Verify that the size of your unencrypted Persistent Storage is smaller than the
+1. Verify that the size of your decrypted Persistent Storage is smaller than the
    available free space in the external hard disk.
 
 1. Take note of the device name of your Persistent Storage.
@@ -164,19 +215,26 @@ encrypted version of your Persistent Storage. To do so:
 
 1. In the **Create Disk Image** dialog:
 
-   - In the field, **Name** specify *persistent-storage.img*.
+   - In the **Name** field, specify *persistent-storage.img*.
 
-   - In the menu **Save in Folder**, choose the external disk to which you want
+   - In the **Save in Folder** menu, choose the external disk to which you want
      to save the partition image.
 
    Click the **Start Creating** button.
 
-   If the *Disks* utility returns errors while saving the partition image, try
-   the second technique described below to create a partition image using
-   `ddrescue` on the command line instead.
+1. In the **Authentication Required** dialog, enter your administration
+   password.
 
-1. After the partition image is created successfully, close the *Disks*
-   utility.
+1. After the creation of the partition image finishes:
+
+   - If the creation succeeded, shutdown Tails.
+
+     You can now safely start [[recovering data from the Persistent
+     Storage|fsck#welcome]].
+
+   - If the creation failed, try the second technique described below to
+     [[create a partition image using `ddrescue` on the command
+     line|fsck#ddrescue]] instead.
 
 <h2 id="ddrescue">Creating a partition image using <span class="code">ddrescue</span> on the command line</h2>
 
@@ -217,27 +275,30 @@ can run `ddrescue` again to try to copy the parts that failed the first time.
                                      time since last successful read:          0s
        Copying non-tried blocks... Pass 1 (forwards)
 
-   The section about **bad areas** refer to errors reading the data of your
+   The section about **bad areas** refers to errors reading the data of your
    Persistent Storage, most likely because of hardware failures.
 
 1. After `ddrescue` finishes:
 
-   - If bad areas were reported, you can try leaving your USB stick to rest for
-     some minutes and executing the same `ddrescue` command again to copy more data.
+   - If bad areas were reported, try leaving your USB stick to rest for some
+     minutes and executing the same `ddrescue` command again to copy more data.
 
-     XXX: Hardware failure. Change USB stick.
+     We recommend that you replace your USB stick and [[copy the partition image
+     to a new USB stick|fsck#copy]] after you execute `ddrescue` several times.
 
-   - If no bad areas were reported of if the same bad areas were reported after
+   - If no bad areas were reported or if the same bad areas were reported after
      several executions of the `ddrescue` command, it means that all the data
      that could be rescued was copied to the partition image.
 
 1. Shut down Tails.
 
+   You can now safely start [[recovering data from the Persistent
+   Storage|fsck#welcome]].
+
 <h1 id="recover">Recovering data from the Persistent Storage</h1>
 
 After [[creating a partition image|fsck#image]], you can safely try to recover
-data from your Persistent Storage without risking to erase more data in the
-process.
+data from your Persistent Storage without risking erasing more data.
 
 We are presenting here 3 recovery techniques that work in different cases. We
 recommend that you try the 3 techniques one after the other.
@@ -255,45 +316,233 @@ recommend that you try the 3 techniques one after the other.
 
 1. [[Analyzing the partition image using *Autopsy*|fsck#autopsy]]
 
+   [*Autopsy*](https://www.autopsy.com/) is an advanced digital forensics tool
+   that allows recovering files, even from broken file systems.
+
 <h2 id="welcome">Repairing the file system from the Welcome Screen</h2>
 
-XXX: Redact Welcome Screen
+If the hardware of your USB stick is not failing, repairing the file system
+from the Welcome Screen is likely the easiest technique.
 
-<h2 id="attach">Copying the partition image to a new USB stick</h2>
+1. Start on the Tails USB stick that has file system errors.
 
-XXX: Redact GNOME Disks
+1. In the Welcome Screen, try to unlock the Persistent Storage.
 
-Only relevant if hardware is failing.
+1. When the error message about file system errors appears, click on the
+   **Repair File System** button.
 
-XXX: I also thought about documenting how to attach the partition image for
-repair, but disk images are only mounted as read-only through a loop device, so
-that won't work for e2fsck.
+   [[!img repair.png link="no" class="screenshot" alt="File System Errors dialog in Welcome Screen"]]
 
-1. Start on new Tails USB stick.
+1. The repair of the file system starts.
 
-1. Create Persistent Storage.
+   The repair can take a long time, from a few seconds to several hours.
 
-In Disks:
+   If the repair takes more than a day, shutdown Tails and try [[analyzing the
+   partition image using *Autopsy*|fsck#autopsy]] instead.
 
-1. Unmount /media/amnesia/TailsData.
+   [[!img repairing.png link="no" class="screenshot" alt=""]]
 
-1. Gears → Restore Partition Image in Disks.
+1. After the repair finishes:
 
-1. Restart on new Tails USB stick.
+   - If the repair succeeded, start Tails and verify the content of your
+     Persistent Storage.
 
-1. Repair from Welcome Screen.
+     <div class="tip">
+
+     <p>We recommend that you keep the partition image for some time.</p>
+
+     <p>If you realize later on that some files are missing or damaged, you
+     might be able to recover them by [[analyzing the partition image using
+     <i>Autopsy</i>|fsck#autopsy]].</p>
+
+     </div>
+
+   - If the repair failed, try to [[copy the partition image to a new USB
+     stick|fsck#copy]] as described below.
+
+<h2 id="copy">Copying the partition image to a new USB stick</h2>
+
+If the hardware of your USB stick is failing, you might still be able to
+repair the file system of your Persistent Storage after copying the
+partition image to a new USB stick.
+
+<h3 id="install">Creating a new Tails USB stick with Persistent Storage</h3>
+
+1. [[Install Tails|install]] on a new USB stick.
+
+   The new USB stick must be at least as large as your current Tails USB stick.
+
+1. Start on the new Tails.
+
+1. When starting Tails, [[set up an administration password|doc/first_steps/welcome_screen/administration_password]].
+
+1. Create a Persistent Storage on the new Tails.
+
+1. Close the Persistent Storage settings after creation, when the list of
+   features is displayed.
+
+   The process described below overwrites the contents and configuration of the new Persistent
+   Storage. So, it does not matter which features you turn on after creating
+   the Persistent Storage.
+
+<h3 id="restore">Copying the partition image onto the new USB stick</h3>
+
+1. Choose **Applications&nbsp;▸ Utilities&nbsp;▸ Disks** to open the *Disks*
+   utility.
+
+1. In the left pane of the *Disks* utility, identify your new Tails USB stick in
+   the list of storage devices.
+
+   Verify its brand and size.
+
+1. In the left pane, click on the storage device that corresponds to your new Tails
+   USB stick.
+
+1. In the right pane, this storage device should have 3 volumes.
+
+   - 1 volume with a **TAILS** label and **FAT** content.
+
+     This volume corresponds to the system partition of your Tails.
+
+   - 1 volume with a **TailsData** label and **LUKS** content.
+
+     This volume corresponds to the encrypted version of your Persistent Storage.
+
+   - 1 volume with a **TailsData** label and **Ext4** content.
+
+     This volume corresponds to the decrypted version of your Persistent Storage.
+
+1. In the right pane, click on the **Ext4** volume, which is the one that
+   corresponds to the decrypted version of your Persistent Storage.
+
+   In the attributes listed below the volume, verify that the content of the
+   volume is mounted at */home/amnesia/Persistent*.
+
+1. Click on the [[!img lib/media-playback-stop.png link="no" class="symbolic"
+   alt="Unmount selected partition"]] button to unmount the Persistent Storage.
+
+1. Plug in the hard disk on which you saved the partition image of your
+   Persistent Storage.
+
+1. Choose **[[!img lib/system-run.png link="no" class="symbolic"
+   alt="Additional partition options"]]&nbsp;▸ Restore Partition Image**.
+
+1. In the **Restore Disk Image** dialog, browse for the partition image on the
+   hard disk that you plugged in.
+
+1. Click on the **Start Restoring** button.
+
+1. After the restoration finishes, restart on the new Tails USB stick.
+
+<h3 id="fix">Fixing the file system errors on the new USB stick</h3>
+
+1. In the Welcome Screen, try to unlock the Persistent Storage.
+
+1. If an error message about file system errors appears, click on the **Repair
+   File System** button.
+
+   [[!img repair.png link="no" class="screenshot" alt="File System Errors dialog in Welcome Screen"]]
+
+1. The repair of the file system starts.
+
+   The repair can take a long time, from a few seconds to several hours.
+
+   If the repair takes more than a day, shutdown Tails and try [[analyzing the
+   partition image using *Autopsy*|fsck#autopsy]] instead.
+
+   [[!img repairing.png link="no" class="screenshot" alt=""]]
+
+1. After the repair finishes:
+
+   - If the repair succeeded, start Tails and verify the content of your
+     Persistent Storage.
+
+     <div class="tip">
+
+     <p>We recommend that you keep the partition image for some time.</p>
+
+     <p>If you realize later on that some files are missing or damaged, you
+     might be able to recover them by [[analyzing the partition image using
+     <i>Autopsy</i>|fsck#autopsy]].</p>
+
+     </div>
+
+   - If the repair failed, try to [[analyze the partition image using
+     *Autopsy*|fsck#copy]] as described below.
 
 <h2 id="autopsy">Analyzing the partition image using <i>Autopsy</i></h2>
 
-XXX: Redact Autopsy
+[*Autopsy*](https://www.autopsy.com/) is an advanced digital forensics tool
+that allows recovering files, even from broken file systems.
 
-Big download but easy to install on Windows!
+*Autopsy* is open source and available for free on Windows, macOS, and Linux.
 
-Hard to install on Linux.
+To avoid leaving traces of the content of your Persistent Storage on the
+operating system where *Autopsy* is used, we recommend that you use *Autopsy*
+in Tails. But, *Autopsy* is easier to install in Windows than in Tails.
 
-XXX: Test installing on Tails.
+We are not providing step-by-step instructions on how to install and use
+*Autopsy*.
 
-Pretty easy to use! I won't give step-by-step instructions but rather general
-indications and some screenshots.
+If you don't feel confident installing and using *Autopsy* on your own, we
+recommend that you get help from someone with more experience with Linux and
+data recovery.
 
-XXX: Make screenshots of a Persistent Storage analyzed with Autopsy.
+You can also read the [Autopsy User
+Documentation](http://sleuthkit.org/autopsy/docs/user-docs/latest).
+
+### Installing *Autopsy* in Tails
+
+The general steps are:
+
+1. From the [download page](https://www.autopsy.com/download/), download the 2
+   binaries needed to run *Autopsy*:
+
+   - The DEB file of *The Sleuth Kit*.
+
+   - The ZIP file of *Autopsy*.
+
+1. From the [installation instructions of *Autopsy* for
+   Linux](https://github.com/sleuthkit/autopsy/blob/develop/Running_Linux_OSX.md),
+   download the 2 scripts needed for the installation:
+
+   - `install_prereqs_ubuntu.sh`
+
+   - `install_application.sh`
+
+1. Execute the following commands in a *Terminal*. You might have to adjust to
+   newer versions of *Autopsy*.
+
+   <p class="command">bash install_prereqs_ubuntu.sh</p>
+
+   <p class="command">sudo apt install libsqlite3-dev libc3p0-java unzip</p>
+
+   <p class="command">sudo dpkg -i sleuthkit-java_4.12.1-1_amd64.deb</p>
+
+   <p class="command">bash install_application.sh -z autopsy-4.21.0.zip -i ~/Persistent/autopsy -j /usr/lib/jvm/java-17-openjdk-amd64</p>
+
+   <p class="command">/home/amnesia/Persistent/autopsy/autopsy-4.21.0/bin/autopsy</p>
+
+1. When starting for the first time, *Autopsy* freezes on **Starting modules**.
+
+   Press **Enter** to continue.
+
+### Using *Autopsy* to analyze the partition image
+
+The general steps are:
+
+1. Start *Autopsy*.
+
+1. Open a new case.
+
+1. Add the partition image of the Persistent Storage as a data source.
+
+1. *Autopsy* analyzes the data source.
+
+   After the analysis finishes, the files that were recovered are listed in
+   different ways in the left sidebar, for example, both as a file system tree
+   and by type of files.
+
+   [[!img autopsy.png link="no" class="screenshot" alt="Autopsy in Tails showing files recovered from the partition image of a Persistent Storage"]]
+
+1. Extract the files that you want to recover to the case folder.

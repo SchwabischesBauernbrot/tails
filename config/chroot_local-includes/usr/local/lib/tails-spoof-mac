@@ -47,48 +47,26 @@ notify_live_user() {
 }
 
 notify_panic_success() {
-    local nic nic_name is_wifi is_wired title text
+    local nic nic_name is_wifi is_wired title text other_wifi_cards other_wired_cards
     nic="${1}"
     # Print the NIC name with quotes
     nic_name="\"${2}\""
     is_wifi="${3}"
     is_wired="${4}"
-
-    interfaces=$(ip link show | awk -F: '/^[0-9]+: [a-z]/ {print $2}' | tr -d ' ')
-
-    # Check if there are other WiFi or wired cards
-    local other_wifi_cards other_wired_cards
-    if [ "${is_wifi:-}" = true ]; then
-        for interface in ${interfaces}; do
-            if [ "${interface}" != "${1}" ]; then
-                continue
-            fi
-            if iw dev "${interface}" info 2>/dev/null; then
-                other_wifi_cards=true
-                break
-            fi
-        done
-    elif [ "${is_wired:-}" = true ]; then
-        for interface in ${interfaces}; do
-            if [ "${interface}" = "${1}" ] || [ "${interface}" = "lo" ]; then
-                continue
-            fi
-            if ethtool "${interface}" 2>/dev/null; then
-                other_wired_cards=true
-                break
-            fi
-        done
-    fi
+    other_wifi_cards="${5}"
+    other_wired_cards="${6}"
 
     if [ "${is_wifi:-}" = true ] && [ "${other_wifi_cards:-}" = true ]; then
         title=$(eval_gettext "Wi-Fi Interface Disabled")
         text=$(eval_gettext "MAC address anonymization failed for one of your Wi-Fi interfaces, so it is temporarily disabled.")
+        text="${text}\n\n${nic}: ${nic_name}"
     elif [ "${is_wifi:-}" = true ] && [ "${other_wifi_cards:-}" != true ]; then
         title=$(eval_gettext "Wi-Fi Disabled")
         text=$(eval_gettext "MAC address anonymization failed for your Wi-Fi interface, so it is temporarily disabled.")
     elif [ "${is_wired:-}" = true ] && [ "${other_wired_cards:-}" = true ]; then
         title=$(eval_gettext "Wired Interface Disabled")
         text=$(eval_gettext "MAC address anonymization failed for one of your wired interfaces, so it is temporarily disabled.")
+        text="${text}\n\n${nic}: ${nic_name}"
     elif [ "${is_wired:-}" = true ] && [ "${other_wired_cards:-}" != true ]; then
         title=$(eval_gettext "Wired Network Disabled")
         text=$(eval_gettext "MAC address anonymization failed for your wired interface, so it is temporarily disabled.")
@@ -96,17 +74,23 @@ notify_panic_success() {
         title=$(eval_gettext "Network Interface Disabled")
         text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces, so it is temporarily disabled.")
     fi
-    text="${text}\n\n$(eval_gettext "You might prefer to restart Tails and disable MAC address anonymization.")"
 
     notify_live_user "${title}" "${text}"
 }
 
 notify_panic_failure() {
-    local title text
+    local nic nic_name title text
+    nic="${1}"
+    # Print the NIC name with quotes
+    nic_name="\"${2}\""
+    other_nics="${3}"
     title=$(gettext "All Networking Disabled")
-    text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces. The error recovery also failed, so all networking is disabled.
-
-You might prefer to restart Tails and disable MAC address anonymization.")
+    if [ "${other_nics:-}" = true ]; then
+        text=$(eval_gettext "MAC address anonymization failed for one of your network interfaces. The error recovery also failed, so all networking is disabled.")
+        text="${text}\n\n${nic}: ${nic_name}"
+    else
+        text=$(eval_gettext "MAC address anonymization failed for your network interface. The error recovery also failed, so all networking is disabled.")
+    fi
     notify_live_user "${title}" "${text}"
 }
 
@@ -126,10 +110,40 @@ mac_spoof_panic() {
     # do that check before unloading the module, else we won't be able
     # to get the information.
     local is_wifi is_wired
-    if iw dev "${nic}" info 2>/dev/null; then
+    if iw dev "${nic}" info 2>/dev/null 1>&2; then
         is_wifi=true
-    elif ethtool "${nic}"; then
+    elif ethtool "${nic}" 2>/dev/null 1>&2; then
         is_wired=true
+    fi
+
+    interfaces=$(get_all_ethernet_nics)
+
+    # Check if there are other WiFi or wired cards
+    local other_wifi_cards other_wired_cards
+    if [ "${is_wifi:-}" = true ]; then
+        for interface in ${interfaces}; do
+            if [ "${interface}" = "${1}" ]; then
+                continue
+            fi
+            if iw dev "${interface}" info 2>/dev/null 1>&2; then
+                other_wifi_cards=true
+                break
+            fi
+        done
+    elif [ "${is_wired:-}" = true ]; then
+        for interface in ${interfaces}; do
+            if [ "${interface}" = "${1}" ]; then
+                continue
+            fi
+            if ethtool "${interface}" 2>/dev/null 1>&2; then
+                other_wired_cards=true
+                break
+            fi
+        done
+    fi
+    local other_nics
+    if [ "${other_wifi_cards:-}" = true ] || [ "${other_wired_cards:-}" = true ]; then
+        other_nics=true
     fi
 
     echo "install ${module} /bin/true" >> \
@@ -138,10 +152,11 @@ mac_spoof_panic() {
     if nic_exists "${nic}"; then
         log "Failed to unload module ${module} of NIC ${nic}."
         stop_and_disable_NM
-        notify_panic_failure
+        notify_panic_failure "${nic}" "${nic_name}" "${other_nics:-}"
     else
         log "Successfully unloaded module ${module} of NIC ${nic}."
-        notify_panic_success "${nic}" "${nic_name}" "${is_wifi:-}" "${is_wired:-}"
+        notify_panic_success "${nic}" "${nic_name}" "${is_wifi:-}" "${is_wired:-}" \
+            "${other_wifi_cards:-}" "${other_wired_cards:-}"
     fi
 }
 
