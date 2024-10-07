@@ -59,12 +59,16 @@ class VMNet
     @net.bridge_name
   end
 
-  def bridge_ip_addr
-    IPAddr.new(net_xml.elements['network/ip'].attributes['address']).to_s
+  def bridge_ip_address
+    IPAddr.new(net_xml.elements['network/ip[@family="ipv4"]'].attributes['address'])
   end
 
-  def bridge_mac
-    File.open("/sys/class/net/#{bridge_name}/address", 'rb').read.chomp
+  def bridge_ipv6_address
+    IPAddr.new(net_xml.elements['network/ip[@family="ipv6"]'].attributes['address'])
+  end
+
+  def bridge_mac_address
+    net_xml.elements['network/mac'].attributes['address']
   end
 end
 
@@ -537,10 +541,26 @@ class VM
     execute_successfully("timedatectl set-time '#{host_time}'")
   end
 
+  def ip_address(version: 4)
+    nmcli_info = $vm.execute_successfully('nmcli device show eth0').stdout
+    addrs = nmcli_info.scan(%r{^IP#{version}.ADDRESS(?:\[\d+\])?:\s*(.+)/\d+$})
+                      .flatten.map { |addr| IPAddr.new(addr) }
+    if addrs.size > 1
+      raise "The default network interface has more than one IPv#{version} address, " \
+            "which isn't supported"
+    elsif addrs.size == 1
+      return addrs.first
+    end
+
+    nil
+  end
+
+  def ipv6_address
+    ip_address(version: 6)
+  end
+
   def connected_to_network?
-    nmcli_info = execute('nmcli device show eth0').stdout
-    has_ipv4_addr = %r{^IP4.ADDRESS(\[\d+\])?:\s*([0-9./]+)$}.match(nmcli_info)
-    network_link_state == 'up' && has_ipv4_addr
+    network_link_state == 'up' && ip_address
   end
 
   def process_running?(process)
