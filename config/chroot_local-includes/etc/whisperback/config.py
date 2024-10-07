@@ -22,7 +22,7 @@ gnupg_keyring = "/usr/share/keyrings/whisperback-keyring.gpg"
 # This section defines the recepient parameters
 
 # The address of the recipient
-to_address = "tails-bugs@boum.org"
+to_address = "support@tails.net"
 
 # The fingerprint of the recipient's GPG key
 to_fingerprint = "1F56EDD30741048035DAC1C5EC57B56EF0C43132"
