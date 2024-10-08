@@ -120,7 +120,7 @@ class UDD:
             fields = ", ".join(UDDPackageRow.__dataclass_fields__.keys())
 
             curs.execute(
-                f"SELECT {fields}"
+                f"SELECT {fields}" # noqa: S608 (derived from data hard-coded in this script)
                 " FROM packages"
                 " WHERE distribution = 'debian'"
                 " and release in %s"
