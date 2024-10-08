@@ -34,9 +34,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-12 09:47+0200\n"
-"PO-Revision-Date: 2024-08-28 04:09+0000\n"
-"Last-Translator: Kaya Zeren <kayazeren@gmail.com>\n"
+"POT-Creation-Date: 2024-10-07 09:59+0200\n"
+"PO-Revision-Date: 2024-10-03 12:15+0000\n"
+"Last-Translator: \"T. E. Kalaycı\" <tekrei@tutanota.com>\n"
 "Language-Team: Turkish <https://hosted.weblate.org/projects/tor/tails-gui/tr/"
 ">\n"
 "Language: tr\n"
@@ -44,7 +44,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n > 1;\n"
-"X-Generator: Weblate 5.7.1-dev\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
@@ -109,8 +109,8 @@ msgstr ""
 "birimi oluşturarak <b>Ek uygulamalar</b> özelliğini etkinleştirebilirsiniz."
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:81
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:342
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:270
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:289
 msgid "Create Persistent Storage"
 msgstr "Kalıcı depolama birimi oluştur"
 
@@ -150,7 +150,9 @@ msgstr "Kaldır"
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:178
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:456
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:807
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:38
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
@@ -805,40 +807,22 @@ msgstr "Kapalı"
 msgid "Off (default)"
 msgstr "Kapalı (varsayılan)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:167
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:174
 msgid "Persistent Storage Still Locked"
 msgstr "Kalıcı depolama birimi hala kilitli"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:169
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:176
 msgid ""
 "Do you really want to start Tails without unlocking your Persistent Storage?"
 msgstr ""
 "Tails sistemini kalıcı depolama biriminizin kilidini açmadan yeniden "
 "başlatmak istediğinize emin misiniz?"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:179
 msgid "Start Without Persistent Storage"
 msgstr "Kalıcı depolama birimi olmadan başla"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:118
-msgid "Error unlocking Persistent Storage: {}"
-msgstr "Kalıcı depolama biriminin kilidi açılırken sorun çıktı: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:143
-msgid "Error upgrading Persistent Storage: {}"
-msgstr "Kalıcı depolama birimi yükseltilirken sorun çıktı: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:169
-#, python-brace-format
-msgid "Failed to activate some features of the Persistent Storage: {features}."
-msgstr ""
-"Kalıcı depolama biriminizin bazı özellikleri yapılandırılamadı: {features}."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:174
-msgid "Error activating Persistent Storage: {}"
-msgstr "Kalıcı depolama birimi etkinleştirilirken sorun çıktı: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:89
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:245
 msgid ""
 "Impossible to unlock the Persistent Storage because the USB stick is read-"
 "only."
@@ -846,22 +830,143 @@ msgstr ""
 "USB bellek salt okunur olduğu için kalıcı depolama biriminin kilidi "
 "açılamadı."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:104
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:383
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:414
 msgid "Unlocking…"
 msgstr "Kilit açılıyor…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:142
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:176
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:517
-msgid "Unlock Encryption"
-msgstr "Şifreleme kilidini aç"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:421
+msgid "Checking the file system…"
+msgstr "Dosya sistemi denetleniyor…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:147
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:41
-msgid "Cannot unlock encrypted storage with this passphrase."
-msgstr "Bu parola ile şifreli depolama alanının kilidi açılamadı."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:454
+msgid "Repairing the File System"
+msgstr "Dosya sistemi onarılıyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:158
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:455
+#, fuzzy
+msgid "This might take a long time..."
+msgstr "Bu işlem biraz zaman alabilir..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:473
+msgid "Failed to repair the file system of your Persistent Storage."
+msgstr "Kalıcı Depolama biriminizin dosya sistemi onarılamadı"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:475
+msgid "Start Tails to send an error report and learn how to recover your data."
+msgstr ""
+"Bir hata bildirimi göndermek ve verinizi nasıl kurtarabileceğinizi öğrenmek "
+"için Tails'i başlatın."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:489
+msgid "File System Repaired Successfully"
+msgstr "Dosya Sistemi Başarıyla Onarıldı"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:491
+msgid ""
+"It's possible that some data was lost during the repair. Please check the "
+"contents of your Persistent Storage and restore any lost data from a backup."
+msgstr ""
+"Onarım sırasında verinin bir kısmı kaybolmuş olabilir. Lütfen Kalıcı "
+"Depolama biriminizin içeriğini denetleyin ve kayıp veri varsa bir yedekten "
+"kurtarın."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:495
+msgid "Close"
+msgstr "Kapat"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:510
+msgid ""
+"You aborted the repair of the file system. You can either start Tails "
+"without Persistent Storage or restart the computer to try repairing the file "
+"system again."
+msgstr ""
+"Dosya sistemi onarımını iptal ettiniz. Tails'i Kalıcı Depolama birimi "
+"olmadan başlatabilir veya dosya sistemini onarmayı yeniden denemek için "
+"bilgisayarı tekrar başlatabilirsiniz."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:729
+msgid "Start Tails and open the Persistent Storage settings to find out more."
+msgstr ""
+"Ayrıntılı bilgi almak için Tails sistemini başlatın ve kalıcı depolama "
+"birimi ayarlarını açın."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:758
+msgid ""
+"Your Persistent Storage is unlocked. Its content will be available until you "
+"shut down Tails."
+msgstr ""
+"Kalıcı depolama biriminizin kilidi açıldı. İçeriği Tails sistemi kapatılana "
+"kadar kullanılabilir."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:773
+msgid "Incorrect passphrase. Please try again."
+msgstr "Hatalı parola ifadesi. Lütfen tekrar deneyin."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:784
+msgid ""
+"Error reading data from your Persistent Storage. The hardware of your USB "
+"stick is probably failing."
+msgstr ""
+"Kalıcı Depolama biriminden veri okuma hatası. USB belleğinizin donanımı "
+"büyük olasılıkla arızalanıyor."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:786
+msgid "Start Tails to learn how to recover your data."
+msgstr "Verinizi nasıl kurtarabileceğinizi öğrenmek için Tails'i başlatın."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:797
+msgid "File System Errors"
+msgstr "Dosya Sistemi Hataları"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:799
+#, fuzzy
+msgid ""
+"Errors were detected in the file system of your Persistent Storage.\n"
+"                \n"
+"Tails can try to fix these errors, but this might erase some of your data "
+"and take a long time.\n"
+"\n"
+"If you already have an up-to-date backup of your Persistent Storage, we "
+"recommend that you try to repair.\n"
+"                \n"
+"If you don't have a backup, we recommend that you create a partition image "
+"of your Persistent Storage first."
+msgstr ""
+"Kalıcı Depolama biriminizin dosya sisteminde hatalar tespit edildi..\n"
+"                \n"
+"Tails bu hataları düzeltmeye çalışabilir, ancak bu verinizin bir kısmını "
+"silebilir ve oldukça uzun sürebilir.\n"
+"\n"
+"Eğer halihazırda güncel bir Kalıcı Depolama birimi yedeğiniz varsa, onarmayı "
+"denemenizi öneriyoruz.\n"
+"                \n"
+"Eğer yedeğiniz yoksa, ilk olarak bir yedek oluşturmanızı öneriyoruz."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:808
+msgid "Repair File System"
+msgstr "Dosya Sistemini Onar"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:809
+#, fuzzy
+msgid "Create Partition Image"
+msgstr "Kalıcı depolama birimi oluştur"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:820
+#, fuzzy
+msgid ""
+"Start Tails to learn how to create a partition image of your Persistent "
+"Storage."
+msgstr ""
+"Kalıcı Depolama biriminin yedeğini oluşturmayı öğrenmek için Tails'i "
+"başlatın."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:829
+msgid "Failed to unlock the Persistent Storage due to file system errors."
+msgstr ""
+"Dosya sistemi hataları nedeniyle Kalıcı depolama biriminin kilidi açılamadı."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
 msgid ""
 "Failed to upgrade the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -869,7 +974,7 @@ msgstr ""
 "Kalıcı depolama birimi yükseltilemedi. Lütfen Tails sistemini başlatın ve "
 "bir hata bildirimi gönderin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:165
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:845
 msgid ""
 "Failed to unlock the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -877,7 +982,7 @@ msgstr ""
 "Kalıcı depolama biriminin kilidi açılamadı. Lütfen Tails sistemini başlatın "
 "ve bir hata bildirimi gönderin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:853
 msgid ""
 "Failed to activate the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -885,15 +990,32 @@ msgstr ""
 "Kalıcı depolama birimi etkinleştirilemedi. Lütfen Tails sistemini başlatın "
 "ve bir hata bildirimi gönderin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:184
-msgid "Upgrading the Persistent Storage. This may take a while…"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:864
+#, fuzzy
+msgid "Upgrading the Persistent Storage. This might take a while…"
 msgstr "Kalıcı depolama birimi yükseltiliyor. Bu işlem biraz zaman alabilir…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:199
-msgid "Start Tails and open the Persistent Storage settings to find out more."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:125
+msgid "Error unlocking Persistent Storage: {}"
+msgstr "Kalıcı depolama biriminin kilidi açılırken sorun çıktı: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:150
+msgid "Error upgrading Persistent Storage: {}"
+msgstr "Kalıcı depolama birimi yükseltilirken sorun çıktı: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:176
+#, python-brace-format
+msgid "Failed to activate some features of the Persistent Storage: {features}."
 msgstr ""
-"Ayrıntılı bilgi almak için Tails sistemini başlatın ve kalıcı depolama "
-"birimi ayarlarını açın."
+"Kalıcı depolama biriminizin bazı özellikleri yapılandırılamadı: {features}."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:181
+msgid "Error activating Persistent Storage: {}"
+msgstr "Kalıcı depolama birimi etkinleştirilirken sorun çıktı: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:202
+msgid "Failed to abort when repairing Persistent Storage filesystem: {}"
+msgstr "Kalıcı depolama birimi dosya sistemi onarılırken iptal edilemedi: {}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
@@ -1621,12 +1743,12 @@ msgstr "Bu Tails sürümünde bilinen bazı güvenlik sorunları var:"
 msgid "Known security issues"
 msgstr "Bilinen güvenlik sorunları"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:76
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:60
 #, sh-format
 msgid "Wi-Fi Interface Disabled"
 msgstr "Wi-Fi arayüzü devre dışı"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:77
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:61
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your Wi-Fi interfaces, so it is "
@@ -1635,12 +1757,12 @@ msgstr ""
 "Wi-Fi arayüzlerinizden biri, MAC adresi anonimleştirmesi yapılamadığından "
 "geçici olarak devre dışı bırakıldı."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:79
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:64
 #, sh-format
 msgid "Wi-Fi Disabled"
 msgstr "Wi-Fi devre dışı"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:80
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:65
 #, sh-format
 msgid ""
 "MAC address anonymization failed for your Wi-Fi interface, so it is "
@@ -1649,12 +1771,12 @@ msgstr ""
 "Wi-Fi arayüzünüz, MAC adresi anonimleştirmesi yapılamadığından geçici olarak "
 "devre dışı bırakıldı."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:82
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:67
 #, sh-format
 msgid "Wired Interface Disabled"
 msgstr "Kablolu arayüz devre dışı"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:83
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:68
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your wired interfaces, so it is "
@@ -1663,12 +1785,12 @@ msgstr ""
 "Kablolu arayüzlerinizden biri, MAC adresi anonimleştirmesi yapılamadığından "
 "geçici olarak devre dışı bırakıldı."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:85
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:71
 #, sh-format
 msgid "Wired Network Disabled"
 msgstr "Kablolu ağ devre dışı"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:86
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:72
 #, sh-format
 msgid ""
 "MAC address anonymization failed for your wired interface, so it is "
@@ -1677,12 +1799,12 @@ msgstr ""
 "Kablolu arayüzünüz, MAC adresi anonimleştirmesi yapılamadığından geçici "
 "olarak devre dışı bırakıldı."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:88
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:74
 #, sh-format
 msgid "Network Interface Disabled"
 msgstr "Ağ arayüzü devre dışı bırakıldı"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:75
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces, so it "
@@ -1691,25 +1813,27 @@ msgstr ""
 "Ağ arayüzlerinizden biri, MAC adresi anonimleştirmesi yapılamadığından "
 "geçici olarak devre dışı bırakıldı."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:91
-#, sh-format
-msgid ""
-"You might prefer to restart Tails and disable MAC address anonymization."
-msgstr ""
-"Tails uygulamasını yeniden başlatarak MAC adresi anonimleştirmesini devre "
-"dışı bırakabilirsiniz."
-
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:98
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:87
 msgid "All Networking Disabled"
 msgstr "Tüm ağ devre dışı"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:99
-#, sh-format
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
+#, fuzzy, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
-"error recovery also failed, so all networking is disabled.\n"
+"error recovery also failed, so all networking is disabled."
+msgstr ""
+"Bir ağ arayüzü için MAC adresi anonimleştirmesi yapılamadı. Hatayı giderme "
+"girişimi de başarısız olduğundan tüm ağ devre dışı bırakıldı.\n"
 "\n"
-"You might prefer to restart Tails and disable MAC address anonymization."
+"Tails sistemini yeniden başlatmanız ve MAC adresi anonimleştirmesini devre "
+"dışı bırakmanız gerekebilir."
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:92
+#, fuzzy, sh-format
+msgid ""
+"MAC address anonymization failed for your network interface. The error "
+"recovery also failed, so all networking is disabled."
 msgstr ""
 "Bir ağ arayüzü için MAC adresi anonimleştirmesi yapılamadı. Hatayı giderme "
 "girişimi de başarısız olduğundan tüm ağ devre dışı bırakıldı.\n"
@@ -1947,7 +2071,7 @@ msgstr "Tor durumu"
 msgid "Open Onion Circuits"
 msgstr "Açık onion devreleri"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:344
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:348
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1961,11 +2085,11 @@ msgstr ""
 "Bazı uygulamaları kapattıktan ya da yeniden başlattıkran sonra yeniden "
 "deneyin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:358
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:362
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Kalıcı depolama birimi için bir bölüm oluşturuluyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:380
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:384
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
@@ -1973,23 +2097,23 @@ msgstr ""
 "LUKS şifrelemesi başlatılıyor... Bilgisayar bir kaç saniye yanıt vermeyi "
 "durdurabilir."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:409
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:413
 msgid "Unlocking the encryption..."
 msgstr "Şifreleme kilidi açılıyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:417
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:421
 msgid "Formatting the file system..."
 msgstr "Dosya sistemi biçimlendiriliyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:435
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
 msgid "Activating the Persistent Storage..."
 msgstr "Kalıcı depolama birimi etkinleştiriliyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:440
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:444
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Kalıcı depolama biriminin kurulumu tamamlanıyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:695
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:699
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -2001,7 +2125,7 @@ msgstr ""
 "yaramazsaTails sistemini yeniden başlatıp kilidini açmadan kalıcı depolama "
 "birimini silmeyi deneyin."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:728
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:732
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -2022,8 +2146,6 @@ msgstr ""
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:30
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:48
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:390
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:25
 msgid "Persistent Storage"
 msgstr "Kalıcı depolama birimi"
@@ -2551,101 +2673,69 @@ msgstr ""
 msgid "Unable to load a valid configuration."
 msgstr "Geçerli bir ayar yüklenemedi."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:160
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:162
 msgid "Sending mail..."
 msgstr "E-posta gönderiliyor..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:161
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:163
 msgid "Sending mail"
 msgstr "E-posta gönderiliyor"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:163
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:165
 msgid "This could take a while..."
 msgstr "Bu işlem biraz zaman alabilir..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:195
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:197
 msgid "The contact email address doesn't seem valid."
 msgstr "İletişim e-posta adresi geçerli gibi görünmüyor."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:215
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:218
 msgid "Unable to send the mail: SMTP error."
 msgstr "E-posta gönderilemedi: SMTP sorunu."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:217
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:220
 msgid "Unable to connect to the server."
 msgstr "Sunucu ile bağlantı kurulamadı."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:219
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:222
+#, fuzzy
+msgid "Tor is not ready yet"
+msgstr "Tor hazır değil"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:224
 msgid "Unable to create or to send the mail."
 msgstr "E-posta oluşturulamadı ya da gönderilemedi."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:225
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:229
 msgid ""
 "\n"
 "\n"
-"The bug report could not be sent, likely due to network problems. Please try "
-"to reconnect to the network and click send again.\n"
-"\n"
-"If it does not work, you will be offered to save the bug report."
+"Make sure that you are connected to Tor and click send again."
 msgstr ""
-"\n"
-"\n"
-"Hata bildirimi ağ sorunları nedeniyle gönderilemedi. Lütfen ağ bağlantısını "
-"yeniden kurduktan sonra e-postayı yeniden göndermeyi deneyin.\n"
-"\n"
-"İşe yaramazsa hata bildiriminizi kaydetmeniz önerilir."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:240
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:239
 msgid "Your message has been sent."
 msgstr "İletiniz gönderildi."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:246
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:248
 msgid "An error occured during encryption."
 msgstr "Şifreleme sırasında bir sorun çıktı."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:268
-#, python-format
-msgid "Unable to save %s."
-msgstr "%s kaydedilemedi."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:298
-#, python-format
-msgid ""
-"The bug report could not be sent, likely due to network problems.\n"
-"\n"
-"As a work-around you can save the bug report as a file on a USB drive and "
-"try to send it to us at %s from your email account using another system. "
-"Note that your bug report will not be anonymous when doing so unless you "
-"take further steps yourself (e.g. using Tor with a throw-away email "
-"account).\n"
-"\n"
-"Do you want to save the bug report to a file?"
-msgstr ""
-"Ağ sorunları nedeniyle hata bildirimi gönderilemedi.\n"
-"\n"
-"Geçici bir çözüm olarak, hata bildirimini bir USB belleğe dosya olarak "
-"kaydedip başka bir sistem üzerinden ve kendi e-posta hesabınızdan %s "
-"adresini kullanarak bize gönderebilirsiniz. Bu işlemi yaparken kendi "
-"önlemlerinizi almazsanız anonimliğiniz ortadan kalkar (Tor uygulamasını ve "
-"tek kullanımlık bir e-posta adresini kullanmak gibi). \n"
-"\n"
-"Hata bildiriminin dosya olarak kaydedilmesini ister misiniz?"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:383
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:317
 msgid "This doesn't seem to be a valid URL or OpenPGP key."
 msgstr "Bu geçerli bir İnternet adresine ya da OpenPGP anahtarına benzemiyor."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:59
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:57
 #, python-format
 msgid "Invalid contact email: %s"
 msgstr "İletişim e-posta adresi geçersiz: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:78
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:76
 #, python-format
 msgid "Invalid contact OpenPGP key: %s"
 msgstr "İletişim OpenPGP anahtarı geçersiz: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:80
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:78
 msgid "Invalid contact OpenPGP public key block"
 msgstr "İletişim OpenPGP herkese açık anahtar bloğu geçersiz"
 
@@ -2767,7 +2857,7 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:18
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:56
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:836
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:758
 msgid "Administration Password"
 msgstr "Yönetim parolası"
 
@@ -2793,7 +2883,7 @@ msgid "Disable"
 msgstr "Devre dışı bırak"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:186
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:840
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:762
 msgid "MAC Address Anonymization"
 msgstr "MAC adresi anonimleştirme"
 
@@ -2819,7 +2909,7 @@ msgid "Don't anonymize MAC addresses"
 msgstr "MAC adresleri anonimleştirilmesin"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:343
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:844
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:766
 msgid "Network Configuration"
 msgstr "Ağ yapılandırması"
 
@@ -2894,23 +2984,28 @@ msgstr "Unsafe Browser kullanılsın (varsayılan)"
 msgid "Disable the Unsafe Browser"
 msgstr "Unsafe Browser kullanılmasın"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:101
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:46
 msgid "Settings were loaded from the Persistent Storage."
 msgstr "Ayarlar kalıcı depolama biriminden yüklendi."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:153
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:98
 msgid "Welcome to Tails!"
 msgstr "Tails sistemine hoş geldiniz!"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:186
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:131
 msgid "Language and Formats"
 msgstr "Dil ve biçimler"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:222
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:167
 msgid "Default Settings"
 msgstr "Varsayılan ayarlar"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:298
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:225
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:337
+msgid "_Persistent Storage"
+msgstr "_Kalıcı depolama birimi"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:245
 msgid ""
 "You can save some of your files and configuration in an encrypted Persistent "
 "Storage on your Tails USB stick: your documents, browser bookmarks, Wi-Fi "
@@ -2920,49 +3015,45 @@ msgstr ""
 "şifrelenmiş kalıcı depolama birimine kaydedebilirsiniz: Belgeleriniz, "
 "tarayıcı yer imleriniz, Wi-Fi parolalarınız gibi bilgiler."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:325
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:272
 msgid "Create and configure a Persistent Storage after starting Tails"
 msgstr ""
 "Tails sistemini başlattıktan sonra kalıcı depolama biriminizi oluşturun ve "
 "yapılandırın"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:429
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:364
 msgid "Show Passphrase"
 msgstr "Parola görüntülensin"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:481
-msgid "_Passphrase"
-msgstr "_Parola"
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:421
+msgid "Enter your passphrase"
+msgstr "Parola ifadenizi girin"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:558
-msgid ""
-"Your Persistent Storage is unlocked. Its content will be available until you "
-"shut down Tails."
-msgstr ""
-"Kalıcı depolama biriminizin kilidi açıldı. İçeriği Tails sistemi kapatılana "
-"kadar kullanılabilir."
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:436
+msgid "Unlock Encryption"
+msgstr "Şifreleme kilidini aç"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:581
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:503
 msgid "Impossible to unlock the Persistent Storage."
 msgstr "Kalıcı depolama biriminin kilidi açılamadı."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:640
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:562
 msgid "_Additional Settings"
 msgstr "_Ek ayarlar"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:723
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:645
 msgid "Add an additional setting"
 msgstr "Bir ek ayar ekle"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:770
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:692
 msgid "Shutdown"
 msgstr "Kapat"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:779
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:701
 msgid "_Start Tails"
 msgstr "Tails _başlat"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:808
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:730
 msgid ""
 "The default settings are safe in most situations. To add a custom setting, "
 "press the \"+\" button below."
@@ -3403,11 +3494,11 @@ msgstr "WhisperBack"
 msgid "Summary"
 msgstr "Özet"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:288
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:294
 msgid "What were you trying to achieve?"
 msgstr "Ne yapmaya çalışıyordunuz?"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:328
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:340
 msgid ""
 "<b>What happened instead?</b>\n"
 "Describe the error with as many details as possible."
@@ -3415,7 +3506,7 @@ msgstr ""
 "<b>Onun yerine ne oldu? </b>\n"
 "Hatayı olabildiğince ayrıntılı olarak açıklayın."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:367
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:385
 msgid ""
 "<b>What did you do that triggered this error?</b>\n"
 "Describe the exact steps that caused the error, so we can try to make it "
@@ -3427,11 +3518,11 @@ msgstr ""
 "çıkmasını sağlayabiliriz.\n"
 "Yoksa sorunu gideremeyiz ve çözemeyiz."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:403
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:427
 msgid "Error reporting guidelines"
 msgstr "Hata bildirme yönergeleri"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:421
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:445
 msgid ""
 "<b>Email address</b>\n"
 "So we can answer you or ask for more details."
@@ -3439,11 +3530,11 @@ msgstr ""
 "<b>E-posta adresi</b>\n"
 "Böylece size yanıt verebilir veya başka bilgiler isteyebiliriz."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:453
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:480
 msgid "Optional PGP Key…"
 msgstr "İsteğe bağlı PGP anahtarı…"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:478
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:505
 msgid ""
 "Even if we are not able to reply to every report, we analyze all reports to "
 "improve Tails."
@@ -3451,31 +3542,31 @@ msgstr ""
 "Her bildirme yanıt veremesek bile, Tails uygulamasını iyileştirmek için tüm "
 "bildirimlere bakıyoruz."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:493
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:520
 msgid "Description"
 msgstr "Açıklama"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:510
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:537
 msgid "Technical Details"
 msgstr "Teknik bilgiler"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:549
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:576
 msgid "Headers"
 msgstr "Üst bilgiler"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:594
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:621
 msgid "information about the error being reported"
 msgstr "bildirilen hata ile ilgili bilgiler"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:642
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:669
 msgid "Debugging Information"
 msgstr "Hata ayıklama bilgileri"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:667
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:694
 msgid "Technical details to include"
 msgstr "Katılacak teknik ayrıntılar"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:703
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:730
 msgid "_Send"
 msgstr "_Gönder"
 
@@ -3944,6 +4035,64 @@ msgstr "Aralık"
 msgid "Clock"
 msgstr "Saat"
 
+#~ msgid "Create Backup"
+#~ msgstr "Yedek Oluştur"
+
+#, sh-format
+#~ msgid ""
+#~ "You might prefer to restart Tails and disable MAC address anonymization."
+#~ msgstr ""
+#~ "Tails uygulamasını yeniden başlatarak MAC adresi anonimleştirmesini devre "
+#~ "dışı bırakabilirsiniz."
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "The bug report could not be sent, likely due to network problems. Please "
+#~ "try to reconnect to the network and click send again.\n"
+#~ "\n"
+#~ "If it does not work, you will be offered to save the bug report."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Hata bildirimi ağ sorunları nedeniyle gönderilemedi. Lütfen ağ "
+#~ "bağlantısını yeniden kurduktan sonra e-postayı yeniden göndermeyi "
+#~ "deneyin.\n"
+#~ "\n"
+#~ "İşe yaramazsa hata bildiriminizi kaydetmeniz önerilir."
+
+#, python-format
+#~ msgid "Unable to save %s."
+#~ msgstr "%s kaydedilemedi."
+
+#, python-format
+#~ msgid ""
+#~ "The bug report could not be sent, likely due to network problems.\n"
+#~ "\n"
+#~ "As a work-around you can save the bug report as a file on a USB drive and "
+#~ "try to send it to us at %s from your email account using another system. "
+#~ "Note that your bug report will not be anonymous when doing so unless you "
+#~ "take further steps yourself (e.g. using Tor with a throw-away email "
+#~ "account).\n"
+#~ "\n"
+#~ "Do you want to save the bug report to a file?"
+#~ msgstr ""
+#~ "Ağ sorunları nedeniyle hata bildirimi gönderilemedi.\n"
+#~ "\n"
+#~ "Geçici bir çözüm olarak, hata bildirimini bir USB belleğe dosya olarak "
+#~ "kaydedip başka bir sistem üzerinden ve kendi e-posta hesabınızdan %s "
+#~ "adresini kullanarak bize gönderebilirsiniz. Bu işlemi yaparken kendi "
+#~ "önlemlerinizi almazsanız anonimliğiniz ortadan kalkar (Tor uygulamasını "
+#~ "ve tek kullanımlık bir e-posta adresini kullanmak gibi). \n"
+#~ "\n"
+#~ "Hata bildiriminin dosya olarak kaydedilmesini ister misiniz?"
+
+#~ msgid "Cannot unlock encrypted storage with this passphrase."
+#~ msgstr "Bu parola ile şifreli depolama alanının kilidi açılamadı."
+
+#~ msgid "_Passphrase"
+#~ msgstr "_Parola"
+
 #~ msgid "Resizing System Partition Failed"
 #~ msgstr "Sistem bölümü yeniden boyutlandırılamadı"
 
@@ -4112,9 +4261,6 @@ msgstr "Saat"
 #~ msgid "Unlock"
 #~ msgstr "Kilidi aç"
 
-#~ msgid "_Persistent Storage"
-#~ msgstr "_Kalıcı depolama birimi"
-
 #~ msgid "Encrypted _Persistent Storage"
 #~ msgstr "Şifrelenmiş _kalıcı depolama birimi"
 
@@ -4244,9 +4390,6 @@ msgstr "Saat"
 #~ "birimi oluşturulacak. Buradaki veriler parola ile şifrelenmiş olarak "
 #~ "depolanacak."
 
-#~ msgid "Create"
-#~ msgstr "Oluştur"
-
 #~ msgid ""
 #~ "<b>Beware!</b> Using persistence has consequences that must be well "
 #~ "understood. Tails can't help you if you use it wrong! See the "
@@ -4257,9 +4400,6 @@ msgstr "Saat"
 #~ "Yanlış kullanırsanız Tails uygulamasının size yardımı olmaz. Ayrıntılı "
 #~ "bilgi almak için Tails belgelerindeki <i>Şifrelenmiş kaıcılık</i> "
 #~ "bölümüne bakabilirsiniz."
-
-#~ msgid "Verify Passphrase:"
-#~ msgstr "Parola Onayı:"
 
 #~ msgid "Passphrase can't be empty"
 #~ msgstr "Parola boş bırakılamaz"

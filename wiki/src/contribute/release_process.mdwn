@@ -1308,26 +1308,14 @@ Prepare upgrade-description files
       in the example command below do. You do not need to modify them.
 
     2. For every recent previous release that's _not_ listed in
-       `$IUK_SOURCE_VERSIONS` (for example those based on an older Debian
-       release): tell the users of that old version they need to
+       `$IUK_SOURCE_VERSIONS`: tell the users of that old version they need to
        manually upgrade to the version being released.
 
+       The example command below only does it automatically to notify users of
+       N.x that they should upgrade to (N+1).y. But in other cases, you need to
+       do this manually.
+
        To do so, pass this previous version to `--previous_version`.
-       You need to do this manually as the example command below won't
-       do it automatically.
-
-       In particular, when releasing a new major version `(N+1).0`
-       (i.e. when Tails is upgraded to a new Debian major release) we
-       pass all of the previous major version's Tails releases with
-       `--previous_version`:
-
-            find ${RELEASE_CHECKOUT:?}/wiki/src/upgrade/v2/Tails \
-                 -type d \
-                 -name "$((${VERSION%%.*}-1)).*" \
-                 -printf '--previous_version %f '
-
-       We do so for a few releases, say until `(N+1).2`, in order to
-       notify users with really old versions to upgrade
 
    Run this command, after adjusting it if needed as explained above:
 
@@ -1350,6 +1338,12 @@ Prepare upgrade-description files
                 for version in $(echo ${IUK_SOURCE_VERSIONS:?}); do
                    echo "--previous_version ${version:?}"
                 done \
+            ) \
+            $( \
+                find ${RELEASE_CHECKOUT:?}/wiki/src/upgrade/v2/Tails \
+                   -type d \
+                   -name "$((${VERSION%%.*}-1)).*" \
+                   -printf '--previous_version %f ' \
             ) \
             --iso "${ISO_PATH:?}" \
             --iuks "${IUKS_DIR:?}" \

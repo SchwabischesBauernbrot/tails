@@ -221,15 +221,19 @@ module Dogtail
       set_field('combovalue', value)
     end
 
-    def checked
+    def checked?
       get_field('checked') == 'True'
     end
 
-    def focused
+    def focused?
       get_field('focused') == 'True'
     end
 
-    def sensitive
+    def selected?
+      get_field('selected') == 'True'
+    end
+
+    def sensitive?
       get_field('sensitive') == 'True'
     end
 
@@ -249,7 +253,7 @@ module Dogtail
       get_field('roleName')
     end
 
-    def showing
+    def showing?
       get_field('showing') == 'True'
     end
 
@@ -352,7 +356,7 @@ module Dogtail
       # actually focused.
       try_for(10) do
         call_tree_node_method('grabFocus')
-        focused
+        focused?
       end
     end
 

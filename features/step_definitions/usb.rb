@@ -197,7 +197,7 @@ When /^I (install|reinstall|upgrade) Tails( with Persistent Storage)? (?:to|on) 
                                .child('Clone the current Persistent Storage.*',
                                       roleName: 'check box',
                                       retry:    false)
-    sensitive = clone_persistence_button.sensitive
+    sensitive = clone_persistence_button.sensitive?
   rescue Dogtail::Failure
     sensitive = false
   end
@@ -279,14 +279,14 @@ def enable_all_tps_features
   assert persistent_storage_main_frame.child('Personal Documents', roleName: 'label')
   switches = persistent_storage_main_frame.children(roleName: 'toggle button')
   switches.each do |switch|
-    if switch.checked
+    if switch.checked?
       debug_log("#{switch.name} is already enabled, skipping")
     else
       debug_log("enabling #{switch.name}")
       # To avoid having to bother with scrolling the window we just
       # send an AT-SPI action instead of clicking.
       switch.toggle
-      try_for(10) { switch.checked }
+      try_for(10) { switch.checked? }
     end
   end
 end
@@ -298,9 +298,9 @@ When /^I (enable|disable) the first tps feature$/ do |mode|
     roleName: 'toggle button'
   )
   if mode == 'enable'
-    assert !persistent_folder_switch.checked
+    assert !persistent_folder_switch.checked?
   else
-    assert persistent_folder_switch.checked
+    assert persistent_folder_switch.checked?
   end
 
   persistent_folder_switch.toggle
@@ -309,10 +309,10 @@ When /^I (enable|disable) the first tps feature$/ do |mode|
     # accessible has the "check" state when the switch is on but the
     # underlying state is false) so we check the state via D-Bus.
     if mode == 'enable'
-      assert persistent_folder_switch.checked
+      assert persistent_folder_switch.checked?
       persistent_directory_is_active
     else
-      assert !persistent_folder_switch.checked
+      assert !persistent_folder_switch.checked?
       !persistent_directory_is_active
     end
   end
@@ -676,22 +676,30 @@ Given /^I try to enable persistence( with the changed passphrase)?$/ do |with_ch
   @screen.press('Return')
 end
 
-Given /^I enable persistence( with the changed passphrase)?$/ do |with_changed_passphrase|
-  step "I try to enable persistence#{with_changed_passphrase}"
-
-  # Wait until the Persistent Storage was unlocked. We use the fact that
-  # the unlock button is made invisible when the Persistent Storage is
-  # unlocked.
+Then /^persistence is successfully enabled$/ do
+  # Wait until the Persistent Storage was unlocked. We don't know which
+  # language is set in the Welcome Screen after the Persistent Storage
+  # was unlocked, so we check the backend directly.
   try_for(120) do
-    !greeter.child?('Unlock Encryption',
-                    roleName: 'push button', retry: false) && \
-      !greeter.child?('Unlocking…',
-                      roleName: 'push button', retry: false)
+    tails_persistence_enabled?
   end
 
   # Figure out which language is set now that the Persistent Storage is
   # unlocked
   $language, $lang_code = greeter_language
+
+  # Check that the status label says that the Persistent Storage was
+  # successfully unlocked. We do that *after* figuring out the language
+  # because the `child` method translates the label into the language
+  # designated by $lang_code.
+  greeter.child('Your Persistent Storage is unlocked. ' \
+                      'Its content will be available until you shut down Tails.',
+                roleName: 'label')
+end
+
+Given /^I enable persistence( with the changed passphrase)?$/ do |with_changed_passphrase|
+  step "I try to enable persistence#{with_changed_passphrase}"
+  step 'persistence is successfully enabled'
 end
 
 Given /^I enable persistence but something goes wrong during the LUKS header upgrade$/ do
@@ -1543,7 +1551,7 @@ Given /^I install a Tails USB image to the (\d+) MiB disk with GNOME Disks$/ do 
   text_entry.activate
 
   try_for(10) do
-    !select_disk_image_dialog.showing
+    !select_disk_image_dialog.showing?
   end
   # We can't use the click action here because this button causes a
   # modal dialog to be run via gtk_dialog_run() which causes the
@@ -1558,7 +1566,7 @@ Given /^I install a Tails USB image to the (\d+) MiB disk with GNOME Disks$/ do 
   # Wait until the restoration job is finished
   job = disks.child('Job', roleName: 'label')
   try_for(180) do
-    !job.showing
+    !job.showing?
   end
 end
 
@@ -1721,6 +1729,21 @@ Then /^the Welcome Screen tells me that the Persistent Folder feature couldn't b
   end
 end
 
+Then(/^the Welcome Screen tells me that filesystem errors were found on the Persistent Storage$/) do
+  try_for(60) do
+    greeter.child?('File System Errors', roleName: 'label') && \
+      greeter.child?('Repair File System', roleName: 'push button')
+  end
+end
+
+Then /^the Welcome Screen tells me that it failed to repair the Persistent Storage$/ do
+  greeter.child(
+    "Failed to repair the file system of your Persistent Storage.\n\n" \
+    'Start Tails to send an error report and learn how to recover your data.',
+    roleName: 'label'
+  )
+end
+
 Then /^the Persistent Storage settings tell me that the Persistent Folder feature couldn't be activated$/ do
   launch_persistent_storage
 
@@ -1746,4 +1769,73 @@ end
 
 Given /^I reload tails-persistent-storage.service$/ do
   $vm.execute_successfully('systemctl reload tails-persistent-storage.service')
+end
+
+Given(/^I corrupt the Persistent Storage filesystem on USB drive "([^"]*)"( in a way which can't be automatically repaired)?$/) do |name, requires_manual_repair|
+  # Unlock the Persistent Storage
+  $vm.execute_successfully(
+    "echo -n #{@persistence_password} | " \
+      'cryptsetup luksOpen --batch-mode --key-file=- ' \
+      "#{$vm.persistent_storage_dev_on_disk(name)} TailsData_unlocked"
+  )
+
+  if requires_manual_repair
+    # Corrupt the filesystem
+    $vm.execute_successfully(
+      'dd if=/dev/zero of=/dev/mapper/TailsData_unlocked bs=1k count=4k seek=10'
+    )
+  else
+    # Mount the filesystem
+    $vm.execute_successfully('mkdir -p /tmp/persistence')
+    $vm.execute_successfully('mount /dev/mapper/TailsData_unlocked /tmp/persistence')
+    # Corrupt the filesystem
+    $vm.execute_successfully('rm -rf /tmp/persistence/lost+found')
+    # Unmount the filesystem
+    $vm.execute_successfully('umount /tmp/persistence')
+  end
+
+  # Lock the Persistent Storage
+  $vm.execute_successfully('cryptsetup luksClose TailsData_unlocked')
+end
+
+Given(/^the Persistent Storage filesystem is corrupted beyond what e2fsck can repair$/) do
+  fsck_fail_script = <<~SCRIPT
+    #!/bin/sh
+    exit 4
+  SCRIPT
+  $vm.file_overwrite('/usr/sbin/e2fsck', fsck_fail_script)
+  $vm.execute_successfully('chmod a+rx /usr/sbin/e2fsck')
+end
+
+Then(/^the filesystem of the Persistent Storage was repaired$/) do
+  $vm.execute_successfully(
+    'journalctl -u tails-persistent-storage.service | ' \
+      'grep -q "e2fsck corrected file system errors"'
+  )
+end
+
+When(/^I repair the filesystem of the Persistent Storage$/) do
+  greeter.child('Repair File System', roleName: 'push button').click
+end
+
+Then(/^the Welcome Screen tells me that the filesystem was repaired successfully$/) do
+  try_for(60) do
+    greeter.child?('File System Repaired Successfully', roleName: 'label')
+  end
+end
+
+When(/^I close the filesystem repair dialog$/) do
+  greeter.child('Close', roleName: 'push button').click
+end
+
+Then(/^the Persistent Storage is successfully unlocked$/) do
+  pending
+end
+
+Then(/^the Welcome Screen tells me that my hardware is probably failing$/) do
+  try_for(60) do
+    greeter.child?('Error reading data from your Persistent Storage. ' \
+                     'The hardware of your USB stick is probably failing.\n\n.*',
+                   roleName: 'label')
+  end
 end

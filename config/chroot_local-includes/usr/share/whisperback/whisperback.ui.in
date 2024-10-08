@@ -258,6 +258,9 @@
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
+                        <accessibility>
+                          <relation type="label-for" target="entrySubject"/>
+                        </accessibility>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -272,6 +275,9 @@
                         <property name="invisible-char">●</property>
                         <property name="primary-icon-activatable">False</property>
                         <property name="secondary-icon-activatable">False</property>
+                        <accessibility>
+                          <relation type="labelled-by" target="labelSubject"/>
+                        </accessibility>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -291,6 +297,9 @@
                         <attributes>
                           <attribute name="weight" value="bold"/>
                         </attributes>
+                        <accessibility>
+                          <relation type="label-for" target="textviewGoal"/>
+                        </accessibility>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -310,6 +319,9 @@
                             <property name="wrap-mode">word</property>
                             <property name="accepts-tab">False</property>
                             <property name="monospace">True</property>
+                            <accessibility>
+                              <relation type="labelled-by" target="labelMessage"/>
+                            </accessibility>
                           </object>
                         </child>
                       </object>
@@ -330,6 +342,9 @@ Describe the error with as many details as possible.</property>
                         <property name="use-markup">True</property>
                         <property name="xalign">0</property>
                         <property name="yalign">0</property>
+                        <accessibility>
+                          <relation type="label-for" target="textviewProblem"/>
+                        </accessibility>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -349,6 +364,9 @@ Describe the error with as many details as possible.</property>
                             <property name="wrap-mode">word</property>
                             <property name="accepts-tab">False</property>
                             <property name="monospace">True</property>
+                            <accessibility>
+                              <relation type="labelled-by" target="labelMessage1"/>
+                            </accessibility>
                           </object>
                         </child>
                       </object>
@@ -370,6 +388,9 @@ Otherwise, we won't be able to troubleshoot and solve it.</property>
                         <property name="use-markup">True</property>
                         <property name="xalign">0</property>
                         <property name="yalign">0</property>
+                        <accessibility>
+                          <relation type="label-for" target="textviewSteps"/>
+                        </accessibility>
                       </object>
                       <packing>
                         <property name="expand">False</property>
@@ -389,6 +410,9 @@ Otherwise, we won't be able to troubleshoot and solve it.</property>
                             <property name="wrap-mode">word</property>
                             <property name="accepts-tab">False</property>
                             <property name="monospace">True</property>
+                            <accessibility>
+                              <relation type="labelled-by" target="labelMessage2"/>
+                            </accessibility>
                           </object>
                         </child>
                       </object>
@@ -441,6 +465,9 @@ So we can answer you or ask for more details.</property>
                             <property name="invisible-char">●</property>
                             <property name="primary-icon-activatable">False</property>
                             <property name="secondary-icon-activatable">False</property>
+                            <accessibility>
+                              <relation type="labelled-by" target="labelMail"/>
+                            </accessibility>
                           </object>
                           <packing>
                             <property name="expand">True</property>
@@ -707,6 +734,9 @@ So we can answer you or ask for more details.</property>
                 <property name="image">iconSend</property>
                 <property name="use-underline">True</property>
                 <signal name="clicked" handler="cb_send_message" swapped="no"/>
+                <style>
+                  <class name="suggested-action"/>
+                </style>
               </object>
               <packing>
                 <property name="expand">False</property>
