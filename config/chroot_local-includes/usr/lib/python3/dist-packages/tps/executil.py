@@ -39,7 +39,7 @@ def _run(cmd: list, *args, **kwargs) -> subprocess.CompletedProcess:
         print(p.stderr, file=sys.stderr)
         return p
     finally:
-        logger.debug("Done executing command", stacklevel=3)
+        logger.debug(f"Done executing command {' '.join(cmd)}", stacklevel=3)
 
 
 def run(cmd: list, *args, **kwargs) -> subprocess.CompletedProcess:
@@ -55,7 +55,7 @@ def check_output(cmd: list, *args, **kwargs) -> str:
     return p.stdout
 
 
-def execute_hooks(hooks_dir: Union[str, PathLike]):
+def execute_hooks(hooks_dir: str | PathLike):
     """
     Execute all regular files in the specified directory, in (locale) lexicographic order.
 

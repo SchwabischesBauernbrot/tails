@@ -9,7 +9,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-12 09:47+0200\n"
+"POT-Creation-Date: 2024-10-07 09:59+0200\n"
 "PO-Revision-Date: 2024-07-16 16:41+0000\n"
 "Last-Translator: emma peel <emma.peel@riseup.net>\n"
 "Language-Team: Malayalam <https://hosted.weblate.org/projects/tor/tails-gui/"
@@ -86,8 +86,8 @@ msgstr ""
 "സംഭരണം സൃഷ്ടിക്കാനും <b>അധിക സോഫ്റ്റ്വെയർ </b>സവിശേഷത സജീവമാക്കാനും കഴിയും."
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:81
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:342
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:270
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:289
 msgid "Create Persistent Storage"
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
@@ -128,7 +128,9 @@ msgstr "ഒഴിവാക്കുക"
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:178
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:456
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:807
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:38
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
@@ -742,88 +744,190 @@ msgstr "ഓഫ്"
 msgid "Off (default)"
 msgstr "ഓഫ് (സ്ഥിരസ്ഥിതി)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:167
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:174
 #, fuzzy
 msgid "Persistent Storage Still Locked"
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:169
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:176
 #, fuzzy
 msgid ""
 "Do you really want to start Tails without unlocking your Persistent Storage?"
 msgstr "സ്ഥിരമായ സംഭരണം അൺലോക്കുചെയ്യുന്നതിന് നിങ്ങളുടെ പാസ്‌ഫ്രെയ്‌സ് നൽകുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:179
 #, fuzzy
 msgid "Start Without Persistent Storage"
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:118
-#, fuzzy
-msgid "Error unlocking Persistent Storage: {}"
-msgstr "എൻക്രിപ്റ്റുചെയ്‌ത _പെർസിസ്റ്റന്റ് സ്റ്റോറേജ്"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:143
-#, fuzzy
-msgid "Error upgrading Persistent Storage: {}"
-msgstr "എൻക്രിപ്റ്റുചെയ്‌ത _പെർസിസ്റ്റന്റ് സ്റ്റോറേജ്"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:169
-#, python-brace-format
-msgid "Failed to activate some features of the Persistent Storage: {features}."
-msgstr ""
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:174
-#, fuzzy
-msgid "Error activating Persistent Storage: {}"
-msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:89
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:245
 msgid ""
 "Impossible to unlock the Persistent Storage because the USB stick is read-"
 "only."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:104
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:383
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:414
 msgid "Unlocking…"
 msgstr "അൺലോക്കുചെയ്യുന്നു…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:142
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:176
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:517
-msgid "Unlock Encryption"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:421
+#, fuzzy
+msgid "Checking the file system…"
+msgstr "ഫയൽസിസ്റ്റം പരിശോധിക്കുന്നു ..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:454
+#, fuzzy
+msgid "Repairing the File System"
+msgstr "ഫയൽസിസ്റ്റം പരിശോധിക്കുന്നു ..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:455
+#, fuzzy
+msgid "This might take a long time..."
+msgstr "ഇതൊരല്പം സമയം എടുക്കും..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:473
+#, fuzzy
+msgid "Failed to repair the file system of your Persistent Storage."
+msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:475
+msgid "Start Tails to send an error report and learn how to recover your data."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:147
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:41
-msgid "Cannot unlock encrypted storage with this passphrase."
-msgstr "ഈ പാസ്‌ഫ്രെയ്‌സ് ഉപയോഗിച്ച് എൻക്രിപ്റ്റുചെയ്‌ത സംഭരണം അൺലോക്കുചെയ്യാൻ കഴിയില്ല."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:489
+msgid "File System Repaired Successfully"
+msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:158
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:491
+msgid ""
+"It's possible that some data was lost during the repair. Please check the "
+"contents of your Persistent Storage and restore any lost data from a backup."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:495
+msgid "Close"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:510
+msgid ""
+"You aborted the repair of the file system. You can either start Tails "
+"without Persistent Storage or restart the computer to try repairing the file "
+"system again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:729
+msgid "Start Tails and open the Persistent Storage settings to find out more."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:758
+#, fuzzy
+msgid ""
+"Your Persistent Storage is unlocked. Its content will be available until you "
+"shut down Tails."
+msgstr ""
+"നിങ്ങളുടെ സ്ഥിരമായ സംഭരണം അൺലോക്കുചെയ്‌തു. ഇത് വീണ്ടും ലോക്കുചെയ്യാൻ വാലുകൾ പുനരാരംഭിക്കുക."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:773
+msgid "Incorrect passphrase. Please try again."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:784
+msgid ""
+"Error reading data from your Persistent Storage. The hardware of your USB "
+"stick is probably failing."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:786
+msgid "Start Tails to learn how to recover your data."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:797
+msgid "File System Errors"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:799
+msgid ""
+"Errors were detected in the file system of your Persistent Storage.\n"
+"                \n"
+"Tails can try to fix these errors, but this might erase some of your data "
+"and take a long time.\n"
+"\n"
+"If you already have an up-to-date backup of your Persistent Storage, we "
+"recommend that you try to repair.\n"
+"                \n"
+"If you don't have a backup, we recommend that you create a partition image "
+"of your Persistent Storage first."
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:808
+msgid "Repair File System"
+msgstr ""
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:809
+#, fuzzy
+msgid "Create Partition Image"
+msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:820
+#, fuzzy
+msgid ""
+"Start Tails to learn how to create a partition image of your Persistent "
+"Storage."
+msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:829
+#, fuzzy
+msgid "Failed to unlock the Persistent Storage due to file system errors."
+msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
 msgid ""
 "Failed to upgrade the Persistent Storage. Please start Tails and send an "
 "error report."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:165
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:845
 msgid ""
 "Failed to unlock the Persistent Storage. Please start Tails and send an "
 "error report."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:853
 msgid ""
 "Failed to activate the Persistent Storage. Please start Tails and send an "
 "error report."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:184
-msgid "Upgrading the Persistent Storage. This may take a while…"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:864
+#, fuzzy
+msgid "Upgrading the Persistent Storage. This might take a while…"
+msgstr "നിങ്ങളുടെ സ്ഥിരമായ സംഭരണം സൃഷ്‌ടിക്കുന്നത് പരാജയപ്പെട്ടു."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:125
+#, fuzzy
+msgid "Error unlocking Persistent Storage: {}"
+msgstr "എൻക്രിപ്റ്റുചെയ്‌ത _പെർസിസ്റ്റന്റ് സ്റ്റോറേജ്"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:150
+#, fuzzy
+msgid "Error upgrading Persistent Storage: {}"
+msgstr "എൻക്രിപ്റ്റുചെയ്‌ത _പെർസിസ്റ്റന്റ് സ്റ്റോറേജ്"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:176
+#, python-brace-format
+msgid "Failed to activate some features of the Persistent Storage: {features}."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:199
-msgid "Start Tails and open the Persistent Storage settings to find out more."
-msgstr ""
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:181
+#, fuzzy
+msgid "Error activating Persistent Storage: {}"
+msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:202
+#, fuzzy
+msgid "Failed to abort when repairing Persistent Storage filesystem: {}"
+msgstr "സിസ്റ്റം പുനരാരംഭിക്കുന്നതിൽ പരാജയപ്പെട്ടു"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
@@ -1516,84 +1620,83 @@ msgstr "ടെയിൽ‌സിന്റെ ഈ പതിപ്പിന് അ
 msgid "Known security issues"
 msgstr "അറിയപ്പെടുന്ന സുരക്ഷാ പ്രശ്നങ്ങൾ"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:76
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:60
 #, sh-format
 msgid "Wi-Fi Interface Disabled"
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:77
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:61
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your Wi-Fi interfaces, so it is "
 "temporarily disabled."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:79
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:64
 #, fuzzy, sh-format
 msgid "Wi-Fi Disabled"
 msgstr "പ്രവർത്തനരഹിതമാക്കു"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:80
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:65
 #, sh-format
 msgid ""
 "MAC address anonymization failed for your Wi-Fi interface, so it is "
 "temporarily disabled."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:82
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:67
 #, sh-format
 msgid "Wired Interface Disabled"
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:83
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:68
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your wired interfaces, so it is "
 "temporarily disabled."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:85
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:71
 #, fuzzy, sh-format
 msgid "Wired Network Disabled"
 msgstr "എല്ലാ നെറ്റ്‌വർക്കിംഗും പ്രവർത്തനരഹിതമാക്കി"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:86
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:72
 #, sh-format
 msgid ""
 "MAC address anonymization failed for your wired interface, so it is "
 "temporarily disabled."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:88
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:74
 #, fuzzy, sh-format
 msgid "Network Interface Disabled"
 msgstr "നെറ്റ്‌വർക്ക് കാർഡ് ${nic} പ്രവർത്തനരഹിതമാക്കി"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:75
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces, so it "
 "is temporarily disabled."
 msgstr ""
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:91
-#, sh-format
-msgid ""
-"You might prefer to restart Tails and disable MAC address anonymization."
-msgstr ""
-
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:98
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:87
 #, fuzzy
 msgid "All Networking Disabled"
 msgstr "എല്ലാ നെറ്റ്‌വർക്കിംഗും പ്രവർത്തനരഹിതമാക്കി"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:99
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
-"error recovery also failed, so all networking is disabled.\n"
-"\n"
-"You might prefer to restart Tails and disable MAC address anonymization."
+"error recovery also failed, so all networking is disabled."
+msgstr ""
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:92
+#, sh-format
+msgid ""
+"MAC address anonymization failed for your network interface. The error "
+"recovery also failed, so all networking is disabled."
 msgstr ""
 
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:36
@@ -1799,7 +1902,7 @@ msgstr "ടോർ സ്ഥിതിഗതികൾ"
 msgid "Open Onion Circuits"
 msgstr "ഒണിയൻ സർക്യൂട്ടുകൾ തുറക്കുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:344
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:348
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1808,37 +1911,37 @@ msgid ""
 "Try again after closing some applications or rebooting."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:358
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:362
 #, fuzzy
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "പെർസിസ്റ്റന്റ് വോളിയത്തിന്റെ അനുവദനീയത ശെരിയാക്കുന്നു ."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:380
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:384
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:409
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:413
 msgid "Unlocking the encryption..."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:417
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:421
 #, fuzzy
 msgid "Formatting the file system..."
 msgstr "ഫയൽസിസ്റ്റം പരിശോധിക്കുന്നു ..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:435
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
 #, fuzzy
 msgid "Activating the Persistent Storage..."
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:440
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:444
 #, fuzzy
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:695
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:699
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1846,7 +1949,7 @@ msgid ""
 "unlocking it."
 msgstr ""
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:728
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:732
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -1862,8 +1965,6 @@ msgstr ""
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:30
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:48
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:390
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:25
 #, fuzzy
 msgid "Persistent Storage"
@@ -2388,102 +2489,71 @@ msgstr ""
 msgid "Unable to load a valid configuration."
 msgstr "ശരിയായ ക്രമീകരണങ്ങൾ എടുത്തുപയോഗിക്കാൻ കഴിയുന്നില്ല"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:160
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:162
 msgid "Sending mail..."
 msgstr "മെയിൽ അയക്കുന്നു..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:161
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:163
 msgid "Sending mail"
 msgstr "മെയിൽ അയയ്ക്കുന്നു"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:163
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:165
 msgid "This could take a while..."
 msgstr "ഇതൊരല്പം സമയം എടുക്കും..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:195
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:197
 msgid "The contact email address doesn't seem valid."
 msgstr "കോൺ‌ടാക്റ്റ് ഇമെയിൽ വിലാസം സാധുതയുള്ളതായി തോന്നുന്നില്ല."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:215
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:218
 msgid "Unable to send the mail: SMTP error."
 msgstr "മെയിൽ അയയ്ക്കാനായില്ല: എസ് എം ടി പി പിശക്."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:217
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:220
 #, fuzzy
 msgid "Unable to connect to the server."
 msgstr "സർവറുമായി ബന്ധപ്പെടാൻ കഴിയുന്നില്ല"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:219
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:222
+#, fuzzy
+msgid "Tor is not ready yet"
+msgstr "ടോർ തയ്യാറല്ല"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:224
 msgid "Unable to create or to send the mail."
 msgstr "മെയിൽ സൃഷ്ടിക്കാനോ അയയ്ക്കാനോ കഴിയില്ല."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:225
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:229
 msgid ""
 "\n"
 "\n"
-"The bug report could not be sent, likely due to network problems. Please try "
-"to reconnect to the network and click send again.\n"
-"\n"
-"If it does not work, you will be offered to save the bug report."
+"Make sure that you are connected to Tor and click send again."
 msgstr ""
-"\n"
-"\n"
-"നെറ്റ്‌വർക്ക് പ്രശ്‌നങ്ങൾ കാരണം ബഗ് റിപ്പോർട്ട് അയയ്‌ക്കാൻ കഴിഞ്ഞില്ല. നെറ്റ്‌വർക്കിലേക്ക് വീണ്ടും "
-"കണക്റ്റുചെയ്യാൻ ശ്രമിക്കുക, വീണ്ടും അയയ്‌ക്കുക ക്ലിക്കുചെയ്യുക.\n"
-"\n"
-"ഇത് പ്രവർത്തിക്കുന്നില്ലെങ്കിൽ, ബഗ് റിപ്പോർട്ട് സംരക്ഷിക്കാൻ നിങ്ങൾക്ക് വാഗ്ദാനം ചെയ്യും."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:240
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:239
 #, fuzzy
 msgid "Your message has been sent."
 msgstr "താങ്കളുടെ സന്ദേശം അയച്ചുകഴിഞ്ഞു"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:246
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:248
 msgid "An error occured during encryption."
 msgstr "എൻ‌ക്രിപ്ഷൻ സമയത്ത് ഒരു പിശക് സംഭവിച്ചു."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:268
-#, python-format
-msgid "Unable to save %s."
-msgstr "സംരക്ഷിക്കാനായില്ല%s."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:298
-#, python-format
-msgid ""
-"The bug report could not be sent, likely due to network problems.\n"
-"\n"
-"As a work-around you can save the bug report as a file on a USB drive and "
-"try to send it to us at %s from your email account using another system. "
-"Note that your bug report will not be anonymous when doing so unless you "
-"take further steps yourself (e.g. using Tor with a throw-away email "
-"account).\n"
-"\n"
-"Do you want to save the bug report to a file?"
-msgstr ""
-"നെറ്റ്‌വർക്ക് പ്രശ്‌നങ്ങൾ കാരണം ബഗ് റിപ്പോർട്ട് അയയ്‌ക്കാൻ കഴിഞ്ഞില്ല.\n"
-"\n"
-"ഒരു യുഎസ്ബി ഡ്രൈവിലെ ഒരു ഫയലായി ബഗ് റിപ്പോർട്ട് സംരക്ഷിക്കാനും മറ്റൊരു സിസ്റ്റം ഉപയോഗിച്ച് "
-"നിങ്ങളുടെ ഇമെയിൽ അക്കൗണ്ടിൽ നിന്ന് ഞങ്ങൾക്ക് അയയ്ക്കാനും %sശ്രമിക്കാം. നിങ്ങൾ സ്വയം കൂടുതൽ "
-"നടപടികൾ കൈക്കൊള്ളുന്നില്ലെങ്കിൽ നിങ്ങളുടെ ബഗ് റിപ്പോർട്ട് അജ്ഞാതമാകില്ലെന്നത് ശ്രദ്ധിക്കുക (ഉദാ. "
-"എറിയുന്ന ഇമെയിൽ അക്കൗണ്ട് ഉപയോഗിച്ച് ടോർ ഉപയോഗിക്കുന്നു).\n"
-"\n"
-"ബഗ് റിപ്പോർട്ട് ഒരു ഫയലിലേക്ക് സംരക്ഷിക്കാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:383
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:317
 msgid "This doesn't seem to be a valid URL or OpenPGP key."
 msgstr "ഇതൊരു സാധുവായ യൂ ആർ എൽ അല്ലെങ്കിൽ ഓപ്പൺ പി ജി പി കീ ആണെന്ന് തോന്നുന്നില്ല."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:59
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:57
 #, python-format
 msgid "Invalid contact email: %s"
 msgstr "തെറ്റായ ഈ-മെയിൽ: 1%s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:78
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:76
 #, python-format
 msgid "Invalid contact OpenPGP key: %s"
 msgstr "അസാധുവായ കോൺ‌ടാക്റ്റ് ഓപ്പൺ പി ജി പി കീ: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:80
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:78
 msgid "Invalid contact OpenPGP public key block"
 msgstr "കോൺ‌ടാക്റ്റ് അസാധുവാണ് ഓപ്പൺ‌പി‌ജി‌പി പബ്ലിക് കീ ബ്ലോക്ക്"
 
@@ -2602,7 +2672,7 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:18
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:56
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:836
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:758
 msgid "Administration Password"
 msgstr "അഡ്മിനിസ്ട്രേഷൻ പാസ്‌വേഡ്"
 
@@ -2628,7 +2698,7 @@ msgid "Disable"
 msgstr "പ്രവർത്തനരഹിതമാക്കു"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:186
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:840
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:762
 msgid "MAC Address Anonymization"
 msgstr ""
 
@@ -2649,7 +2719,7 @@ msgid "Don't anonymize MAC addresses"
 msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:343
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:844
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:766
 msgid "Network Configuration"
 msgstr "നെറ്റ്‌വർക്ക് കോൺഫിഗറേഷൻ"
 
@@ -2702,77 +2772,79 @@ msgstr "സുരക്ഷിതമല്ലാത്ത ബ്രൌസർ ആ�
 msgid "Disable the Unsafe Browser"
 msgstr "സുരക്ഷിതമല്ലാത്ത ബ്രൌസർ ആരംഭിക്കുന്നു ..."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:101
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:46
 #, fuzzy
 msgid "Settings were loaded from the Persistent Storage."
 msgstr "പെർസിസ്റ്റന്റ് വോളിയത്തിന്റെ അനുവദനീയത ശെരിയാക്കുന്നു ."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:153
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:98
 msgid "Welcome to Tails!"
 msgstr "ടൈൽസിലേക്കു സ്വാഗതം!"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:186
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:131
 msgid "Language and Formats"
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:222
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:167
 msgid "Default Settings"
 msgstr "സ്ഥിരസ്ഥിതി ക്രമീകരണങ്ങൾ"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:298
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:225
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:337
+#, fuzzy
+msgid "_Persistent Storage"
+msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:245
 msgid ""
 "You can save some of your files and configuration in an encrypted Persistent "
 "Storage on your Tails USB stick: your documents, browser bookmarks, Wi-Fi "
 "passwords, and so on."
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:325
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:272
 #, fuzzy
 msgid "Create and configure a Persistent Storage after starting Tails"
 msgstr ""
 "ടൈൽസ് ആരംഭിക്കുമ്പോൾ നിങ്ങളുടെ സ്ഥിരമായ സംഭരണത്തിൽ നിന്ന് ഇത് യാന്ത്രികമായി ഇൻസ്റ്റാൾ "
 "ചെയ്യുന്നതിന്."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:429
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:364
 msgid "Show Passphrase"
 msgstr "പാസ്‌ഫ്രെയ്‌സ് കാണിക്കുക"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:481
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:421
 #, fuzzy
-msgid "_Passphrase"
-msgstr "താങ്കളുടെ രഹസ്യ വാചകം :"
+msgid "Enter your passphrase"
+msgstr "രഹസ്യ വാചകം  നിര്‍ണ്ണയിക്കുക: "
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:558
-#, fuzzy
-msgid ""
-"Your Persistent Storage is unlocked. Its content will be available until you "
-"shut down Tails."
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:436
+msgid "Unlock Encryption"
 msgstr ""
-"നിങ്ങളുടെ സ്ഥിരമായ സംഭരണം അൺലോക്കുചെയ്‌തു. ഇത് വീണ്ടും ലോക്കുചെയ്യാൻ വാലുകൾ പുനരാരംഭിക്കുക."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:581
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:503
 #, fuzzy
 msgid "Impossible to unlock the Persistent Storage."
 msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:640
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:562
 msgid "_Additional Settings"
 msgstr "_ അധിക ക്രമീകരണങ്ങൾ"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:723
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:645
 msgid "Add an additional setting"
 msgstr "ഒരു അധിക ക്രമീകരണം ചേർക്കുക"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:770
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:692
 #, fuzzy
 msgid "Shutdown"
 msgstr "Shutdown"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:779
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:701
 msgid "_Start Tails"
 msgstr "_സ്റ്റാർട്ട് ടെയിൽസ്"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:808
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:730
 msgid ""
 "The default settings are safe in most situations. To add a custom setting, "
 "press the \"+\" button below."
@@ -3205,17 +3277,17 @@ msgstr "വിസ്പർബാക്ക്"
 msgid "Summary"
 msgstr "ഉള്ളടക്കം"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:288
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:294
 msgid "What were you trying to achieve?"
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:328
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:340
 msgid ""
 "<b>What happened instead?</b>\n"
 "Describe the error with as many details as possible."
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:367
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:385
 msgid ""
 "<b>What did you do that triggered this error?</b>\n"
 "Describe the exact steps that caused the error, so we can try to make it "
@@ -3223,57 +3295,57 @@ msgid ""
 "Otherwise, we won't be able to troubleshoot and solve it."
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:403
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:427
 #, fuzzy
 msgid "Error reporting guidelines"
 msgstr "ഞങ്ങളുടെ ബഗ് റിപ്പോർട്ടിംഗ് മാർഗ്ഗനിർദ്ദേശങ്ങൾ വായിക്കുക."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:421
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:445
 msgid ""
 "<b>Email address</b>\n"
 "So we can answer you or ask for more details."
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:453
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:480
 #, fuzzy
 msgid "Optional PGP Key…"
 msgstr "ഓപ്‌ഷണൽ പി‌ജി‌പി കീ"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:478
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:505
 msgid ""
 "Even if we are not able to reply to every report, we analyze all reports to "
 "improve Tails."
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:493
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:520
 #, fuzzy
 msgid "Description"
 msgstr "ബഗ് വിവരണം"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:510
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:537
 #, fuzzy
 msgid "Technical Details"
 msgstr "ഉൾപ്പെടുത്താനുള്ള സാങ്കേതിക വിശദാംശങ്ങൾ"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:549
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:576
 #, fuzzy
 msgid "Headers"
 msgstr "തലക്കെട്ടുകൾ"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:594
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:621
 msgid "information about the error being reported"
 msgstr ""
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:642
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:669
 #, fuzzy
 msgid "Debugging Information"
 msgstr "ഡീബഗ്ഗിംഗ് വിവരങ്ങൾ"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:667
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:694
 msgid "Technical details to include"
 msgstr "ഉൾപ്പെടുത്താനുള്ള സാങ്കേതിക വിശദാംശങ്ങൾ"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:703
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:730
 #, fuzzy
 msgid "_Send"
 msgstr "അയയ്‌ക്കുക"
@@ -3690,6 +3762,57 @@ msgstr ""
 msgid "Clock"
 msgstr ""
 
+#, fuzzy
+#~ msgid "Create Backup"
+#~ msgstr "ഉണ്ടാക്കുക "
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "The bug report could not be sent, likely due to network problems. Please "
+#~ "try to reconnect to the network and click send again.\n"
+#~ "\n"
+#~ "If it does not work, you will be offered to save the bug report."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "നെറ്റ്‌വർക്ക് പ്രശ്‌നങ്ങൾ കാരണം ബഗ് റിപ്പോർട്ട് അയയ്‌ക്കാൻ കഴിഞ്ഞില്ല. നെറ്റ്‌വർക്കിലേക്ക് വീണ്ടും "
+#~ "കണക്റ്റുചെയ്യാൻ ശ്രമിക്കുക, വീണ്ടും അയയ്‌ക്കുക ക്ലിക്കുചെയ്യുക.\n"
+#~ "\n"
+#~ "ഇത് പ്രവർത്തിക്കുന്നില്ലെങ്കിൽ, ബഗ് റിപ്പോർട്ട് സംരക്ഷിക്കാൻ നിങ്ങൾക്ക് വാഗ്ദാനം ചെയ്യും."
+
+#, python-format
+#~ msgid "Unable to save %s."
+#~ msgstr "സംരക്ഷിക്കാനായില്ല%s."
+
+#, python-format
+#~ msgid ""
+#~ "The bug report could not be sent, likely due to network problems.\n"
+#~ "\n"
+#~ "As a work-around you can save the bug report as a file on a USB drive and "
+#~ "try to send it to us at %s from your email account using another system. "
+#~ "Note that your bug report will not be anonymous when doing so unless you "
+#~ "take further steps yourself (e.g. using Tor with a throw-away email "
+#~ "account).\n"
+#~ "\n"
+#~ "Do you want to save the bug report to a file?"
+#~ msgstr ""
+#~ "നെറ്റ്‌വർക്ക് പ്രശ്‌നങ്ങൾ കാരണം ബഗ് റിപ്പോർട്ട് അയയ്‌ക്കാൻ കഴിഞ്ഞില്ല.\n"
+#~ "\n"
+#~ "ഒരു യുഎസ്ബി ഡ്രൈവിലെ ഒരു ഫയലായി ബഗ് റിപ്പോർട്ട് സംരക്ഷിക്കാനും മറ്റൊരു സിസ്റ്റം ഉപയോഗിച്ച് "
+#~ "നിങ്ങളുടെ ഇമെയിൽ അക്കൗണ്ടിൽ നിന്ന് ഞങ്ങൾക്ക് അയയ്ക്കാനും %sശ്രമിക്കാം. നിങ്ങൾ സ്വയം കൂടുതൽ "
+#~ "നടപടികൾ കൈക്കൊള്ളുന്നില്ലെങ്കിൽ നിങ്ങളുടെ ബഗ് റിപ്പോർട്ട് അജ്ഞാതമാകില്ലെന്നത് ശ്രദ്ധിക്കുക "
+#~ "(ഉദാ. എറിയുന്ന ഇമെയിൽ അക്കൗണ്ട് ഉപയോഗിച്ച് ടോർ ഉപയോഗിക്കുന്നു).\n"
+#~ "\n"
+#~ "ബഗ് റിപ്പോർട്ട് ഒരു ഫയലിലേക്ക് സംരക്ഷിക്കാൻ നിങ്ങൾ ആഗ്രഹിക്കുന്നുണ്ടോ?"
+
+#~ msgid "Cannot unlock encrypted storage with this passphrase."
+#~ msgstr "ഈ പാസ്‌ഫ്രെയ്‌സ് ഉപയോഗിച്ച് എൻക്രിപ്റ്റുചെയ്‌ത സംഭരണം അൺലോക്കുചെയ്യാൻ കഴിയില്ല."
+
+#, fuzzy
+#~ msgid "_Passphrase"
+#~ msgstr "താങ്കളുടെ രഹസ്യ വാചകം :"
+
 #~ msgid "Failed to setup chroot."
 #~ msgstr "chroot സജ്ജീകരിക്കുന്നതിൽ പരാജയപ്പെട്ടു."
 
@@ -3795,10 +3918,6 @@ msgstr ""
 
 #~ msgid "Unlock"
 #~ msgstr "അൺലോക്കുചെയ്യുക"
-
-#, fuzzy
-#~ msgid "_Persistent Storage"
-#~ msgstr "സ്ഥിരമായ സംഭരണം സൃഷ്ടിക്കുക"
 
 #~ msgid "Encrypted _Persistent Storage"
 #~ msgstr "എൻക്രിപ്റ്റുചെയ്‌ത _പെർസിസ്റ്റന്റ് സ്റ്റോറേജ്"
@@ -3915,9 +4034,6 @@ msgstr ""
 #~ msgid "Persistence wizard - Persistent volume creation"
 #~ msgstr "പെർസിസ്റ്റന്റ് വിസാർഡ് - പെർസിസ്റ്റന്റ്  വോളിയം നിർമ്മാണം "
 
-#~ msgid "Create"
-#~ msgstr "ഉണ്ടാക്കുക "
-
 #~ msgid ""
 #~ "<b>Beware!</b> Using persistence has consequences that must be well "
 #~ "understood. Tails can't help you if you use it wrong! See the "
@@ -3928,9 +4044,6 @@ msgstr ""
 #~ "മനസ്സിലാക്കാക്കിയിരിക്കണം . നിങ്ങൾ തെറ്റായ രീതിയിൽ ഉപയോഗിച്ചാൽ ടൈൽസിനു "
 #~ "സഹായിക്കാനകില്ല ! കൂടുതൽ അറിയാനായി ടൈൽസിന്റെ <i>എൻക്രിപ്റ്റഡ് പെർസിസ്റ്റൻസ് </"
 #~ "i>ഡോക്യൂമെന്റഷന് കാണുക ."
-
-#~ msgid "Verify Passphrase:"
-#~ msgstr "രഹസ്യ വാചകം  നിര്‍ണ്ണയിക്കുക: "
 
 #~ msgid "Passphrase can't be empty"
 #~ msgstr "രഹസ്യ വാചകം ശൂന്യമായിരിക്കാൻ സാധ്യമല്ല "

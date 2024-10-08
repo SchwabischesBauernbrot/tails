@@ -5,6 +5,7 @@ import tempfile
 from pathlib import Path
 import time
 import re
+import signal
 import stat
 from typing import Optional
 from collections.abc import Callable
@@ -22,6 +23,9 @@ from tps.dbus.errors import (
     IncorrectPassphraseError,
     TargetIsBusyError,
     NotEnoughMemoryError,
+    FilesystemRepairFailure,
+    FilesystemErrorsLeftUncorrectedError,
+    FilesystemRepairAborted,
 )
 from tps.job import Job
 
@@ -742,6 +746,7 @@ class CleartextDevice:
             raise InvalidCleartextDeviceError("Device is not a block device")
         self.device_path = self.block.props.device
         self.mount_point = Path(TPS_MOUNT_POINT)
+        self.fsck_process = None
 
     def is_mounted(self):
         p = executil.run(
@@ -759,30 +764,93 @@ class CleartextDevice:
         # happened, so we raise a CalledProcessException
         p.check_returncode()
 
-    def fsck(self):
+    def fsck(self, forceful: bool = False):
+        assert self.fsck_process is None
+        if forceful:
+            # Assume an answer of `yes' to all questions, i.e.
+            # tell e2fsck to try to fix all errors which it asks
+            # confirmation for.
+            mode = "-y"
+        else:
+            # Only fix problems that can be safely fixed.
+            mode = "-p"
+
         try:
-            executil.check_call(
-                [
-                    "e2fsck",
-                    # Force checking even if the file system seems clean:
-                    # some filesystems are corrupted in a way that fsck
-                    # won't spot it without this option, and then mount
-                    # will fail.
-                    "-f",
-                    # Fix any problems that can be safely fixed.
-                    "-p",
-                    self.device_path,
-                ]
-            )
-        except subprocess.CalledProcessError as e:
-            logger.warning("e2fsck returned %i", e.returncode)
+            cmd = [
+                "e2fsck",
+                # Force checking even if the file system seems clean:
+                # some filesystems are corrupted in a way that fsck
+                # won't spot it without this option, and then mount
+                # will fail.
+                "-f",
+                mode,
+                self.device_path,
+            ]
+            logger.info(f"Executing command {' '.join(cmd)}", stacklevel=3)
+            p = subprocess.Popen(cmd, stderr=subprocess.PIPE, text=True)
+            self.fsck_process = p
+            p.communicate()
+            logger.debug(f"Done executing command {' '.join(cmd)}", stacklevel=3)
+            if p.returncode == 0:
+                return
+            elif p.returncode == 1:
+                # Exit code 1 means "File system errors corrected".
+                logger.info("e2fsck corrected file system errors")
+            elif p.returncode == -15:
+                # -15 = SIGTERM
+                raise FilesystemRepairAborted("e2fsck was aborted by the user")
+            # e2fsck returns a sum, so we need to use bitwise AND to
+            # check the exit code.
+            elif p.returncode & 4:
+                # Exit code 4 means "File system errors left uncorrected".
+                # We can try to fix them by running e2fsck again with `-y`
+                # instead of `-p`, but that is a potentially destructive
+                # action, so we raise an exception and let the caller
+                # ask the user for confirmation first.
+                # Note that it's also possible that the filesystem can
+                # be mounted successfully if we don't fix the errors. We
+                # decided on #15451 that we still want to try to fix the
+                # errors before trying to mount, because mounting a
+                # corrupted filesystem might cause further data loss.
+                raise FilesystemErrorsLeftUncorrectedError(
+                    f"e2fsck could not correct all errors, returned {p.returncode}"
+                )
+            else:
+                raise FilesystemRepairFailure(f"e2fsck returned {p.returncode}")
+        finally:
+            self.fsck_process = None
+
+    def abort_fsck(self):
+        if self.fsck_process is None:
+            return
+        try:
+            self.fsck_process.send_signal(signal.SIGTERM)
+        finally:
+            self.fsck_process = None
 
     def mount(self):
         # Ensure that the mount point exists
         self.mount_point.mkdir(mode=0o770, parents=True, exist_ok=True)
 
         # Mount the Persistent Storage partition
-        executil.check_call(["mount", "-o", "acl", self.device_path, self.mount_point])
+        mount_cmd = ["mount", "-o", "acl", self.device_path, self.mount_point]
+        try:
+            executil.check_call(mount_cmd)
+        except subprocess.CalledProcessError as e:
+            if e.returncode == 32:
+                # Exit code 32 means "Mount failure". This happens when
+                # the file system is corrupted. We run e2fsck to try to
+                # fix the file system. Yes, in do_unlock() we already
+                # ran e2fsck before calling mount(), but on #15451 we
+                # decided that we want to try to fix the filesystem
+                # again if mounting fails (maybe it causes the
+                # filesystem to be marked as unclean and then e2fsck
+                # finds errors to correct?).
+                self.fsck()
+                # Try to mount again
+                executil.check_call(mount_cmd)
+            else:
+                raise
 
         # Ensure that the mount point has the correct owner, permissions
         # and ACL.

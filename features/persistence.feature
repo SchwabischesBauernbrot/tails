@@ -161,3 +161,52 @@ Feature: Tails persistence
     Given I have started Tails without network from a USB drive with a LUKS 1 persistent partition and stopped at Tails Greeter's login screen
     And I enable persistence but something goes wrong during the LUKS header upgrade
     Then the Tails persistence partition on USB drive "__internal" still has LUKS version 1
+
+  Scenario: Automatic filesystem repair
+    Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
+    And I corrupt the Persistent Storage filesystem on USB drive "__internal"
+    When I enable persistence
+    Then the filesystem of the Persistent Storage was repaired
+    And persistence is successfully enabled
+
+  Scenario: Manual filesystem repair is successful
+    Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
+    And I corrupt the Persistent Storage filesystem on USB drive "__internal" in a way which can't be automatically repaired
+    When I try to enable persistence
+    Then the Welcome Screen tells me that filesystem errors were found on the Persistent Storage
+    When I repair the filesystem of the Persistent Storage
+    Then the Welcome Screen tells me that the filesystem was repaired successfully
+    And the filesystem of the Persistent Storage was repaired
+    When I close the filesystem repair dialog
+    Then persistence is successfully enabled
+
+  Scenario: Manual filesystem repair fails
+    Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
+    And the Persistent Storage filesystem is corrupted beyond what e2fsck can repair
+    When I try to enable persistence
+    Then the Welcome Screen tells me that filesystem errors were found on the Persistent Storage
+    When I repair the filesystem of the Persistent Storage
+    Then the Welcome Screen tells me that it failed to repair the Persistent Storage
+    When I log in to a new session
+    And all notifications have disappeared
+    # Now both WhisperBack and Tor Browser has started at the same
+    # time, so we do not know which window is focused. The steps about
+    # Tor Browser care about that, but the ones about WhisperBack do
+    # not, so we first deal with WhisperBack and then kill it to
+    # ensure that Tor Browser is focused.
+    Then WhisperBack is prefilled for fsck with summary: "Failed to repair the file system of your Persistent Storage"
+    And the file "/var/lib/gdm3/post-greeter-whisperback.json" is empty
+    When I close the "whisperback" window
+    Then the Tor Browser starts
+    And "Tails - Recovering data from the Persistent Storage when it has file system errors" has loaded in the Tor Browser
+
+  Scenario: Filesystem and I/O errors
+    Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
+    And I corrupt the Persistent Storage filesystem on USB drive "__internal" in a way which can't be automatically repaired
+    And Tails detects disk read failures on the boot device
+    When I try to enable persistence
+    Then the Welcome Screen tells me that my hardware is probably failing
+    When I log in to a new session
+    And all notifications have disappeared
+    Then the Tor Browser starts
+    And "Tails - Recovering data from the Persistent Storage when it has file system errors" has loaded in the Tor Browser

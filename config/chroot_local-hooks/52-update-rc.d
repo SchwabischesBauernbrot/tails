@@ -44,6 +44,8 @@ systemctl --global enable tails-create-persistent-storage.service
 systemctl --global enable tails-htpdate-notify-user.service
 systemctl --global enable tails-dump-user-env.service
 systemctl --global enable tails-start-system-gnome-session-target.service
+systemctl --global enable tails-post-greeter-docs.service
+systemctl --global enable tails-post-greeter-whisperback.service
 
 # This causes the proxies to run during the whole session, instead of
 # being started and stopped when needed. The only app which needs
@@ -55,7 +57,7 @@ systemctl --global enable "tails-ibus-proxy.service"
 
 # Use socket activation only, to delay the startup of cupsd.
 systemctl disable cups.service
-systemctl enable  cups.socket
+systemctl enable cups.socket
 
 # We're starting NetworkManager and Tor ourselves.
 systemctl disable NetworkManager.service
@@ -101,4 +103,3 @@ systemctl mask man-db.timer
 # before we enable it
 systemctl mask avahi-daemon.socket
 systemctl mask avahi-daemon.service
-

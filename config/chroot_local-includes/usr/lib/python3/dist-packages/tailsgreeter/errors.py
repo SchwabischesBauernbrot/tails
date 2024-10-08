@@ -26,11 +26,19 @@ class PersistentStorageError(TailsGreeterError):
     pass
 
 
-class FeatureActivationFailedError(TailsGreeterError):
+class FeatureActivationFailedError(PersistentStorageError):
     pass
 
 
-class WrongPassphraseError(TailsGreeterError):
+class WrongPassphraseError(PersistentStorageError):
+    pass
+
+
+class FilesystemErrorsLeftUncorrectedError(PersistentStorageError):
+    pass
+
+
+class IOErrorsDetectedError(PersistentStorageError):
     pass
 
 

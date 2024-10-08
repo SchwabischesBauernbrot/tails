@@ -8,7 +8,14 @@ set -u
 #  - touch /var/lib/live/tails.disk.ioerrors
 #  - rm /root/etc/systemd/system/multi-user.target.wants/tails-detect-disk-ioerrors.service
 
-if [ -f /var/lib/live/tails.disk.ioerrors ]; then
+# This script will be run by Debian-gdm when the Welcome Screen
+# starts, and by the Live user when logging in. We only want to kill
+# GDM in the first case, since that indicates that I/O errors were
+# encountered while touching the stuff necessary to boot. If the I/O
+# errors occur during the Welcome Screen it likely is when attempting
+# to unlock the Persistent Storage, and then we want them to be able
+# to log in so we can show them recovery instructions.
+if [ "${USER}" = Debian-gdm ] && [ -f /var/lib/live/tails.disk.ioerrors ]; then
     echo "I/O errors detected, stopping GDM"
     sudo -n /bin/systemctl kill --signal=9 gdm
     exit 2
@@ -25,7 +32,7 @@ fi
 
 RET=$?
 
-if [ $RET -ne 0 ] ; then
+if [ $RET -ne 0 ]; then
     echo "gdm-wayland-session failed, stopping GDM"
     # killing gdm will trigger OnFailure=tails-gdm-failed-to-start.service
     sudo -n /bin/systemctl kill --signal=9 gdm
