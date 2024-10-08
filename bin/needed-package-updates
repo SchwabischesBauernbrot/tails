@@ -120,7 +120,7 @@ class UDD:
             fields = ", ".join(UDDPackageRow.__dataclass_fields__.keys())
 
             curs.execute(
-                f"SELECT {fields}" # noqa: S608 (derived from data hard-coded in this script)
+                f"SELECT {fields}"  # noqa: S608 (derived from data hard-coded in this script)
                 " FROM packages"
                 " WHERE distribution = 'debian'"
                 " and release in %s"
@@ -176,7 +176,7 @@ class UDD:
                 return (suite, suite_version)
         raise NotFoundError(
             f"{name}: the package version({version}) is higher than the version on {suite} ({suite_version})",
-            )
+        )
 
     def packages_by_source(self, source: str, suite: str) -> set[str]:
         ret = set()
@@ -247,7 +247,10 @@ def get_issues(udd: UDD, package_dict: dict[str, Version]) -> Iterator[NewVersio
 
 
 def check_build_manifest(
-    build_manifest: dict, config: dict, suites: tuple[str], verbose: bool,
+    build_manifest: dict,
+    config: dict,
+    suites: tuple[str],
+    verbose: bool,
 ) -> bool:
     ignore = config.get("ignore", {})
     general_ignore = ignore.get("general", [])
@@ -260,7 +263,9 @@ def check_build_manifest(
         if pkg_dict.get(p):
             logger.debug(
                 "%s: multiple entries, so only considering max(%s, %s)",
-                p, v, pkg_dict[p],
+                p,
+                v,
+                pkg_dict[p],
             )
             if pkg_dict.get(p) > v:
                 logger.debug("%s: %s > %s, so ignoring %s", p, pkg_dict.get(p), v, v)
@@ -308,7 +313,8 @@ def check_build_manifest(
 
     def _log(issues):
         for source, i in itertools.groupby(
-            issues, key=operator.attrgetter("source"),
+            issues,
+            key=operator.attrgetter("source"),
         ):
             yield log_group(source, list(i))
 
