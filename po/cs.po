@@ -28,8 +28,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-08-12 09:47+0200\n"
-"PO-Revision-Date: 2024-09-05 14:09+0000\n"
+"POT-Creation-Date: 2024-10-07 09:59+0200\n"
+"PO-Revision-Date: 2024-10-04 07:00+0000\n"
 "Last-Translator: slrslr <adm@prnet.info>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tor/tails-gui/cs/"
 ">\n"
@@ -103,8 +103,8 @@ msgstr ""
 "Úložiště a aktivovat funkci <b>Dodatečný software</b>."
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:81
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:323
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:342
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:270
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:289
 msgid "Create Persistent Storage"
 msgstr "Vytvořit trvalé úložiště"
 
@@ -144,7 +144,9 @@ msgstr "Odstranit"
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:171
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:178
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:456
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:807
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:38
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
@@ -811,59 +813,154 @@ msgstr "Vypnuto"
 msgid "Off (default)"
 msgstr "Vypnuto (výchozí)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:167
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:174
 msgid "Persistent Storage Still Locked"
 msgstr "Trvalé úložiště není odemčeno"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:169
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:176
 msgid ""
 "Do you really want to start Tails without unlocking your Persistent Storage?"
 msgstr "Skutečně si přejete spustit Tails bez odemčení trvalého úložiště?"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:179
 msgid "Start Without Persistent Storage"
 msgstr "Pokračovat bez trvalého úložiště"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:118
-msgid "Error unlocking Persistent Storage: {}"
-msgstr "Chyba odemykání šifrovaného úložiště: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:143
-msgid "Error upgrading Persistent Storage: {}"
-msgstr "Chyba aktualizace šifrovaného úložiště: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:169
-#, python-brace-format
-msgid "Failed to activate some features of the Persistent Storage: {features}."
-msgstr "Nastavení trvalého úložiště selhalo: {features}."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:174
-msgid "Error activating Persistent Storage: {}"
-msgstr "Chyba aktivace trvalého úložiště: {}"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:89
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:245
 msgid ""
 "Impossible to unlock the Persistent Storage because the USB stick is read-"
 "only."
 msgstr ""
 "Je nemožné odemknout Trvalé Úložiště, protože USB disk je pouze pro čtení."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:104
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:383
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:414
 msgid "Unlocking…"
 msgstr "Odemykání…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:142
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:176
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:517
-msgid "Unlock Encryption"
-msgstr "Odemknout šifru"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:421
+msgid "Checking the file system…"
+msgstr "Kontrola systému souborů…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:147
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:41
-msgid "Cannot unlock encrypted storage with this passphrase."
-msgstr "S tímto přístupovým heslem nelze šifrované úložiště odemknout."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:454
+msgid "Repairing the File System"
+msgstr "Oprava systému souborů"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:158
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:455
+msgid "This might take a long time..."
+msgstr "Může to trvat delší dobu..."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:473
+msgid "Failed to repair the file system of your Persistent Storage."
+msgstr "Selhala oprava systému souborů vašeho trvalého úložiště."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:475
+msgid "Start Tails to send an error report and learn how to recover your data."
+msgstr ""
+"Spusťte Tails pro odeslání chybového hlášení a zjistěte jak obnovit svá data."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:489
+msgid "File System Repaired Successfully"
+msgstr "Systém souborů byl úspěšně opraven"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:491
+msgid ""
+"It's possible that some data was lost during the repair. Please check the "
+"contents of your Persistent Storage and restore any lost data from a backup."
+msgstr ""
+"Je možné, že během opravy došlo ke ztrátě některých dat. Zkontrolujte obsah "
+"svého trvalého úložiště a obnovte případná ztracená data ze zálohy."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:495
+msgid "Close"
+msgstr "Zavřít"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:510
+msgid ""
+"You aborted the repair of the file system. You can either start Tails "
+"without Persistent Storage or restart the computer to try repairing the file "
+"system again."
+msgstr ""
+"Přerušili jste opravu systému souborů. Můžete spustit Tails bez trvalého "
+"úložiště nebo restartovat počítač a zkusit opravit souborový systém znovu."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:729
+msgid "Start Tails and open the Persistent Storage settings to find out more."
+msgstr ""
+"Spusťte Tails a otevřte nastavení Trvalého úložiště, kde se dozvíte více."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:758
+msgid ""
+"Your Persistent Storage is unlocked. Its content will be available until you "
+"shut down Tails."
+msgstr ""
+"Trvalé úložiště je odemčeno. Jeho obsah bude dostupný dokud nevypnete Tails."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:773
+msgid "Incorrect passphrase. Please try again."
+msgstr "Nesprávné heslo. Zkuste to prosím znovu."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:784
+msgid ""
+"Error reading data from your Persistent Storage. The hardware of your USB "
+"stick is probably failing."
+msgstr ""
+"Chyba při čtení dat z vašeho trvalého úložiště. Pravděpodobně dochází k "
+"selhání hardwaru vašeho USB flash disku."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:786
+msgid "Start Tails to learn how to recover your data."
+msgstr "Spusťte Tails a zjistěte, jak můžete obnovit vaše data."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:797
+msgid "File System Errors"
+msgstr "Chyby systému souborů"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:799
+#, fuzzy
+msgid ""
+"Errors were detected in the file system of your Persistent Storage.\n"
+"                \n"
+"Tails can try to fix these errors, but this might erase some of your data "
+"and take a long time.\n"
+"\n"
+"If you already have an up-to-date backup of your Persistent Storage, we "
+"recommend that you try to repair.\n"
+"                \n"
+"If you don't have a backup, we recommend that you create a partition image "
+"of your Persistent Storage first."
+msgstr ""
+"V systému souborů vašeho trvalého úložiště byly zjištěny chyby.\n"
+"                \n"
+"Tails se může pokusit tyto chyby opravit, ale může dojít ke smazání "
+"některých vašich dat a může to trvat dlouho.\n"
+"\n"
+"Pokud již máte aktuální zálohu svého trvalého úložiště, doporučujeme pokusit "
+"se o opravu.\n"
+"                \n"
+"Pokud zálohu nemáte, doporučujeme ji nejprve vytvořit."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:808
+msgid "Repair File System"
+msgstr "Opravit systém souborů"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:809
+#, fuzzy
+msgid "Create Partition Image"
+msgstr "Vytvořit trvalé úložiště"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:820
+#, fuzzy
+msgid ""
+"Start Tails to learn how to create a partition image of your Persistent "
+"Storage."
+msgstr "Spusťte Tail a zjistěte jak vytvořit zálohu vašeho trvalého úložiště."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:829
+msgid "Failed to unlock the Persistent Storage due to file system errors."
+msgstr "Selhalo odemčení trvalého úložiště kvůli chybám systému souborů."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
 msgid ""
 "Failed to upgrade the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -871,7 +968,7 @@ msgstr ""
 "Nepodařilo se aktualizovat Trvalé úložiště. Spusťte prosím Tails a odešlete "
 "zpětnou vazbu."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:165
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:845
 msgid ""
 "Failed to unlock the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -879,7 +976,7 @@ msgstr ""
 "Selhalo odemčení trvalého úložiště. Prosím spusťte Tails a odešlete hlášení "
 "chyby."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:173
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:853
 msgid ""
 "Failed to activate the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -887,14 +984,30 @@ msgstr ""
 "Selhala aktivace trvalého úložiště. Prosím spusťte Tails a odešlete hlášení "
 "chyby."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:184
-msgid "Upgrading the Persistent Storage. This may take a while…"
-msgstr "Odemykání trvalého úložiště. Může to chvíli trvat…"
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:864
+msgid "Upgrading the Persistent Storage. This might take a while…"
+msgstr "Probíhá upgrade trvalého úložiště. Může to chvíli trvat…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py:199
-msgid "Start Tails and open the Persistent Storage settings to find out more."
-msgstr ""
-"Spusťte Tails a otevřte nastavení Trvalého úložiště, kde se dozvíte více."
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:125
+msgid "Error unlocking Persistent Storage: {}"
+msgstr "Chyba odemykání šifrovaného úložiště: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:150
+msgid "Error upgrading Persistent Storage: {}"
+msgstr "Chyba aktualizace šifrovaného úložiště: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:176
+#, python-brace-format
+msgid "Failed to activate some features of the Persistent Storage: {features}."
+msgstr "Nastavení trvalého úložiště selhalo: {features}."
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:181
+msgid "Error activating Persistent Storage: {}"
+msgstr "Chyba aktivace trvalého úložiště: {}"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:202
+msgid "Failed to abort when repairing Persistent Storage filesystem: {}"
+msgstr "Selhalo přerušení při opravě souborového systému trvalého úložiště: {}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
@@ -1616,12 +1729,12 @@ msgstr "Tato verze Tails obsahuje následující známé bezpečnostní problém
 msgid "Known security issues"
 msgstr "Známé bezpečnostní problémy"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:76
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:60
 #, sh-format
 msgid "Wi-Fi Interface Disabled"
 msgstr "Wi-Fi rozhraní je zakázáno"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:77
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:61
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your Wi-Fi interfaces, so it is "
@@ -1630,12 +1743,12 @@ msgstr ""
 "Anonymizace MAC adresy se nezdařilo pro jedno z vaších Wi-Fi rozhraní, tak "
 "je dočasně zakázáno."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:79
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:64
 #, sh-format
 msgid "Wi-Fi Disabled"
 msgstr "Wi-Fi Zakázáno"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:80
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:65
 #, sh-format
 msgid ""
 "MAC address anonymization failed for your Wi-Fi interface, so it is "
@@ -1644,12 +1757,12 @@ msgstr ""
 "Anononymizace MAC adresy se nezdařilo pro jedno z vašich Wi-Fi rozhraních, "
 "takže je dočasně zakázané."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:82
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:67
 #, sh-format
 msgid "Wired Interface Disabled"
 msgstr "Kabelové rozhraní zakázané"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:83
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:68
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your wired interfaces, so it is "
@@ -1658,12 +1771,12 @@ msgstr ""
 "Selhala anonymizace adres MAC u jednoho z vašich kabelových síťových "
 "rozhraní, takže je dočasně zakázána."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:85
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:71
 #, sh-format
 msgid "Wired Network Disabled"
 msgstr "Kabelové připojení zakázáno"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:86
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:72
 #, sh-format
 msgid ""
 "MAC address anonymization failed for your wired interface, so it is "
@@ -1672,12 +1785,12 @@ msgstr ""
 "Selhala anonymizace adresy MAC u vašeho kabelového síťového rozhraní, takže "
 "je dočasně zakázána."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:88
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:74
 #, sh-format
 msgid "Network Interface Disabled"
 msgstr "Síťové rozhraní zakázáno"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:75
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces, so it "
@@ -1686,24 +1799,27 @@ msgstr ""
 "Selhala anonymizace adresy MAC u jednoho z vašich síťových rozhraní, takže "
 "je dočasně zakázána."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:91
-#, sh-format
-msgid ""
-"You might prefer to restart Tails and disable MAC address anonymization."
-msgstr ""
-"Možná budete preferovat restartování Tails a vypnutí anonymizace MAC adresy."
-
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:98
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:87
 msgid "All Networking Disabled"
 msgstr "Všechny sítě zakázané"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:99
-#, sh-format
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
+#, fuzzy, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
-"error recovery also failed, so all networking is disabled.\n"
+"error recovery also failed, so all networking is disabled."
+msgstr ""
+"Selhala anonymizace adresy MAC u jednoho z vašich síťových rozhraní. Selhalo "
+"také zotavení z chyby, takže je zakázán veškerý síťový provoz.\n"
 "\n"
-"You might prefer to restart Tails and disable MAC address anonymization."
+"Možná byste teď upřednostnili restartování Tails a vypnutí anonymizace "
+"adresy MAC."
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:92
+#, fuzzy, sh-format
+msgid ""
+"MAC address anonymization failed for your network interface. The error "
+"recovery also failed, so all networking is disabled."
 msgstr ""
 "Selhala anonymizace adresy MAC u jednoho z vašich síťových rozhraní. Selhalo "
 "také zotavení z chyby, takže je zakázán veškerý síťový provoz.\n"
@@ -1938,7 +2054,7 @@ msgstr "Stav sítě Tor"
 msgid "Open Onion Circuits"
 msgstr "Otevřít Onion řetězce"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:344
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:348
 #, python-brace-format
 msgid ""
 "Only {available_memory} KiB of memory is available, need at least "
@@ -1951,34 +2067,34 @@ msgstr ""
 "\n"
 "Zkuste to znovu po uzavření nepotřebných aplikací nebo po restartování."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:358
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:362
 msgid "Creating a partition for the Persistent Storage..."
 msgstr "Probíhá vytváření oddílu pro Trvalé Uložiště..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:380
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:384
 msgid ""
 "Initializing the LUKS encryption... The computer might stop responding for a "
 "few seconds."
 msgstr ""
 "Spouštění LUKS šifrování... Počítač může přestat fungovat na pár sekund..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:409
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:413
 msgid "Unlocking the encryption..."
 msgstr "Odemikání šifry..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:417
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:421
 msgid "Formatting the file system..."
 msgstr "Formátování systému souborů..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:435
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:439
 msgid "Activating the Persistent Storage..."
 msgstr "Aktivování Trvalého Uložiště..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:440
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:444
 msgid "Finishing setting up the Persistent Storage..."
 msgstr "Dokončování nastavování Trvalého Uložiště..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:695
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:699
 msgid ""
 "Can't unmount Persistent Storage, some process is still using it. Please "
 "close all applications that could be accessing it and try again. If that "
@@ -1990,7 +2106,7 @@ msgstr ""
 "znovu. Pokud to nepomůže, restartujte Tails a zkuste odstranit Trvalé "
 "úložiště bez jeho odemčení."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:728
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tps/device.py:732
 msgid ""
 "Not enough memory to change the passphrase of the Persistent Storage. Try "
 "again after closing some applications or rebooting."
@@ -2010,8 +2126,6 @@ msgstr ""
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/application.py:30
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tps_frontend/window.py:48
 #: ../config/chroot_local-includes/usr/share/applications/org.boum.tails.PersistentStorage.desktop.in.h:1
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:280
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:390
 #: ../config/chroot_local-includes/usr/share/tails/persistent-storage/window.ui.in:25
 msgid "Persistent Storage"
 msgstr "Trvalé úložiště"
@@ -2536,102 +2650,69 @@ msgstr ""
 msgid "Unable to load a valid configuration."
 msgstr "Nelze nahrát platnou konfiguraci."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:160
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:162
 msgid "Sending mail..."
 msgstr "Odesílání pošty..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:161
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:163
 msgid "Sending mail"
 msgstr "Odesílání pošty"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:163
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:165
 msgid "This could take a while..."
 msgstr "Může to chvíli trvat..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:195
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:197
 msgid "The contact email address doesn't seem valid."
 msgstr "Zdá se, že kontaktní e-mailová adresa není platná."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:215
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:218
 msgid "Unable to send the mail: SMTP error."
 msgstr "Poštu nelze odeslat: chyba SMTP."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:217
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:220
 msgid "Unable to connect to the server."
 msgstr "Nelze se připojit k serveru."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:219
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:222
+#, fuzzy
+msgid "Tor is not ready yet"
+msgstr "Síť Tor není připravena"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:224
 msgid "Unable to create or to send the mail."
 msgstr "Poštu nelze vytvořit nebo odeslat."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:225
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:229
 msgid ""
 "\n"
 "\n"
-"The bug report could not be sent, likely due to network problems. Please try "
-"to reconnect to the network and click send again.\n"
-"\n"
-"If it does not work, you will be offered to save the bug report."
+"Make sure that you are connected to Tor and click send again."
 msgstr ""
-"\n"
-"\n"
-"Hlášení o problému nebylo možné odeslat, pravděpodobně kvůli problémům sítě. "
-"Zkuste se prosím znovu připojit k síti a znovu klepnout na tlačítko "
-"Odeslat.\n"
-"\n"
-"Pokud to nebude fungovat, bude vám nabídnuta možnost hlášení o problému "
-"uložit."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:240
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:239
 msgid "Your message has been sent."
 msgstr "Vaše zpráva byla úspěšně odeslána."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:246
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:248
 msgid "An error occured during encryption."
 msgstr "Během šifrování došlo k chybě."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:268
-#, python-format
-msgid "Unable to save %s."
-msgstr "%s nelze uložit."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:298
-#, python-format
-msgid ""
-"The bug report could not be sent, likely due to network problems.\n"
-"\n"
-"As a work-around you can save the bug report as a file on a USB drive and "
-"try to send it to us at %s from your email account using another system. "
-"Note that your bug report will not be anonymous when doing so unless you "
-"take further steps yourself (e.g. using Tor with a throw-away email "
-"account).\n"
-"\n"
-"Do you want to save the bug report to a file?"
-msgstr ""
-"Hlášení problému nebylo možné odeslat, pravděpodobně kvůli síťové chybě. \n"
-"\n"
-"Řešením může být hlášení uložit na USB disk a poslat nám ho na %s z jiného "
-"počítače. Pamatujte, že vaše hlášení v tomto případě nebude anonymní, pokud "
-"o anonymizaci nepostaráte sami (například připojením přes Tor a použitím "
-"jednorázově založené e-mailové schránky).\n"
-"\n"
-"Chcete uložit toto hlášení problému do souboru?"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:383
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:317
 msgid "This doesn't seem to be a valid URL or OpenPGP key."
 msgstr "Toto není správná URL adresa ani OpenPGP klíč."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:59
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:57
 #, python-format
 msgid "Invalid contact email: %s"
 msgstr "Neplatný kontaktní e-mail: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:78
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:76
 #, python-format
 msgid "Invalid contact OpenPGP key: %s"
 msgstr "Neplatný kontaktní OpenPGP klíč: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:80
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:78
 msgid "Invalid contact OpenPGP public key block"
 msgstr "Neplatný blok veřejného OpenPGP klíče"
 
@@ -2728,7 +2809,7 @@ msgstr "Odeslat zpětnou vazbu šifrovaným e-mailem"
 
 #: ../config/chroot_local-includes/usr/share/applications/whisperback.desktop.in.h:3
 msgid "feedback;bug;report;tails;error;"
-msgstr "feedback;bug;report;tails;error;"
+msgstr "zpětná vazba;chyba;hlášení;tails;chyba;"
 
 #: ../config/chroot_local-includes/usr/share/desktop-directories/Tails.directory.in.h:2
 msgid "Tails specific tools"
@@ -2752,7 +2833,7 @@ msgstr ""
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:18
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:56
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:836
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:758
 msgid "Administration Password"
 msgstr "Heslo pro správu"
 
@@ -2778,7 +2859,7 @@ msgid "Disable"
 msgstr "Zakázat"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:186
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:840
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:762
 msgid "MAC Address Anonymization"
 msgstr "Anonymizace MAC adresy"
 
@@ -2803,7 +2884,7 @@ msgid "Don't anonymize MAC addresses"
 msgstr "Neanonymizovat MAC adresy"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/additional_settings.ui.in:343
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:844
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:766
 msgid "Network Configuration"
 msgstr "Konfigurace sítě"
 
@@ -2876,23 +2957,28 @@ msgstr "Zapnout nezabezpečený prohlížeč (výchozí)"
 msgid "Disable the Unsafe Browser"
 msgstr "Vypnout nezabezpečený prohlížeč"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:101
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:46
 msgid "Settings were loaded from the Persistent Storage."
 msgstr "Nastavení bylo načteno z Trvalého Úložiště."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:153
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:98
 msgid "Welcome to Tails!"
 msgstr "Vítejte v Tails!"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:186
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:131
 msgid "Language and Formats"
 msgstr "Jazyk a Formáty"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:222
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:167
 msgid "Default Settings"
 msgstr "Výchozí nastavení"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:298
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:225
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:337
+msgid "_Persistent Storage"
+msgstr "_Trvalé úložiště"
+
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:245
 msgid ""
 "You can save some of your files and configuration in an encrypted Persistent "
 "Storage on your Tails USB stick: your documents, browser bookmarks, Wi-Fi "
@@ -2902,46 +2988,43 @@ msgstr ""
 "z vašich souborů a nastavení: dokumenty, záložky internetového prohlížeče, "
 "Wi-Fi hesla, a tak dále."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:325
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:272
 msgid "Create and configure a Persistent Storage after starting Tails"
 msgstr "Vytvořte a nastavte Trvalalé úložiště po zapnutí Tails"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:429
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:364
 msgid "Show Passphrase"
 msgstr "Zobrazit heslo"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:481
-msgid "_Passphrase"
-msgstr "_Heslo"
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:421
+msgid "Enter your passphrase"
+msgstr "Zadejte vaše heslo"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:558
-msgid ""
-"Your Persistent Storage is unlocked. Its content will be available until you "
-"shut down Tails."
-msgstr ""
-"Trvalé úložiště je odemčeno. Jeho obsah bude dostupný dokud nevypnete Tails."
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:436
+msgid "Unlock Encryption"
+msgstr "Odemknout šifru"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:581
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:503
 msgid "Impossible to unlock the Persistent Storage."
 msgstr "Je nemožné odemknout Trvalé Úložiště."
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:640
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:562
 msgid "_Additional Settings"
 msgstr "_Další nastavení"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:723
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:645
 msgid "Add an additional setting"
 msgstr "Přidat další nastavení"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:770
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:692
 msgid "Shutdown"
 msgstr "Vypnout"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:779
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:701
 msgid "_Start Tails"
 msgstr "_Spustit Tails"
 
-#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:808
+#: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:730
 msgid ""
 "The default settings are safe in most situations. To add a custom setting, "
 "press the \"+\" button below."
@@ -3374,11 +3457,11 @@ msgstr "WhisperBack"
 msgid "Summary"
 msgstr "Shrnutí"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:288
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:294
 msgid "What were you trying to achieve?"
 msgstr "Čeho jste se snažili dosáhnout?"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:328
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:340
 msgid ""
 "<b>What happened instead?</b>\n"
 "Describe the error with as many details as possible."
@@ -3386,7 +3469,7 @@ msgstr ""
 "<b>Co se místo toho stalo?</b>\n"
 "Popište chybu co nejpodrobnějším způsobem."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:367
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:385
 msgid ""
 "<b>What did you do that triggered this error?</b>\n"
 "Describe the exact steps that caused the error, so we can try to make it "
@@ -3398,11 +3481,11 @@ msgstr ""
 "vyvolat.\n"
 "Jinak nebudeme moci chybu najít a vyřešit."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:403
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:427
 msgid "Error reporting guidelines"
 msgstr "Pokyny pro hlášení chyb"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:421
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:445
 msgid ""
 "<b>Email address</b>\n"
 "So we can answer you or ask for more details."
@@ -3410,11 +3493,11 @@ msgstr ""
 "<b>E-mailová adresa</b>\n"
 "Abychom vám mohli odpovědět a zeptat se na podrobnosti."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:453
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:480
 msgid "Optional PGP Key…"
 msgstr "PGP klíč (nepovinné)…"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:478
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:505
 msgid ""
 "Even if we are not able to reply to every report, we analyze all reports to "
 "improve Tails."
@@ -3422,31 +3505,31 @@ msgstr ""
 "I když nejsme schopni odpovědět na každé hlášení, zkoumáme všechna hlášení s "
 "cílem vylepšit Tails."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:493
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:520
 msgid "Description"
 msgstr "Popis"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:510
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:537
 msgid "Technical Details"
 msgstr "Technické podrobnosti"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:549
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:576
 msgid "Headers"
 msgstr "Hlavičky"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:594
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:621
 msgid "information about the error being reported"
 msgstr "informace o hlášené chybě"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:642
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:669
 msgid "Debugging Information"
 msgstr "Informace pro ladění"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:667
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:694
 msgid "Technical details to include"
 msgstr "Technické podrobnosti k přiložení"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:703
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:730
 msgid "_Send"
 msgstr "_Odeslat"
 
@@ -3909,6 +3992,65 @@ msgstr "Prosinec"
 msgid "Clock"
 msgstr "Hodiny"
 
+#~ msgid "Create Backup"
+#~ msgstr "Vytvořit zálohu"
+
+#, sh-format
+#~ msgid ""
+#~ "You might prefer to restart Tails and disable MAC address anonymization."
+#~ msgstr ""
+#~ "Možná budete preferovat restartování Tails a vypnutí anonymizace MAC "
+#~ "adresy."
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "The bug report could not be sent, likely due to network problems. Please "
+#~ "try to reconnect to the network and click send again.\n"
+#~ "\n"
+#~ "If it does not work, you will be offered to save the bug report."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "Hlášení o problému nebylo možné odeslat, pravděpodobně kvůli problémům "
+#~ "sítě. Zkuste se prosím znovu připojit k síti a znovu klepnout na tlačítko "
+#~ "Odeslat.\n"
+#~ "\n"
+#~ "Pokud to nebude fungovat, bude vám nabídnuta možnost hlášení o problému "
+#~ "uložit."
+
+#, python-format
+#~ msgid "Unable to save %s."
+#~ msgstr "%s nelze uložit."
+
+#, python-format
+#~ msgid ""
+#~ "The bug report could not be sent, likely due to network problems.\n"
+#~ "\n"
+#~ "As a work-around you can save the bug report as a file on a USB drive and "
+#~ "try to send it to us at %s from your email account using another system. "
+#~ "Note that your bug report will not be anonymous when doing so unless you "
+#~ "take further steps yourself (e.g. using Tor with a throw-away email "
+#~ "account).\n"
+#~ "\n"
+#~ "Do you want to save the bug report to a file?"
+#~ msgstr ""
+#~ "Hlášení problému nebylo možné odeslat, pravděpodobně kvůli síťové "
+#~ "chybě. \n"
+#~ "\n"
+#~ "Řešením může být hlášení uložit na USB disk a poslat nám ho na %s z "
+#~ "jiného počítače. Pamatujte, že vaše hlášení v tomto případě nebude "
+#~ "anonymní, pokud o anonymizaci nepostaráte sami (například připojením přes "
+#~ "Tor a použitím jednorázově založené e-mailové schránky).\n"
+#~ "\n"
+#~ "Chcete uložit toto hlášení problému do souboru?"
+
+#~ msgid "Cannot unlock encrypted storage with this passphrase."
+#~ msgstr "S tímto přístupovým heslem nelze šifrované úložiště odemknout."
+
+#~ msgid "_Passphrase"
+#~ msgstr "_Heslo"
+
 #~ msgid "Resizing System Partition Failed"
 #~ msgstr "Změna velikosti systémového oddílu selhala"
 
@@ -4080,9 +4222,6 @@ msgstr "Hodiny"
 #~ msgid "Unlock"
 #~ msgstr "Odemknout"
 
-#~ msgid "_Persistent Storage"
-#~ msgstr "_Trvalé úložiště"
-
 #~ msgid "Encrypted _Persistent Storage"
 #~ msgstr "Šifrované _Trvalé úložiště"
 
@@ -4201,9 +4340,6 @@ msgstr "Hodiny"
 #~ "{model}</b>. Data na tomto svazku budou uložena v šifrované podobě "
 #~ "chráněné heslem."
 
-#~ msgid "Create"
-#~ msgstr "Vytvořit"
-
 #~ msgid ""
 #~ "<b>Beware!</b> Using persistence has consequences that must be well "
 #~ "understood. Tails can't help you if you use it wrong! See the "
@@ -4214,9 +4350,6 @@ msgstr "Hodiny"
 #~ "rozumět. Tails vám nemůže pomoci, pokud jej používáte špatně! Pro více "
 #~ "informací si přečtěte stránku<i>Encrypted persistence</i> v dokumentaci "
 #~ "Tails."
-
-#~ msgid "Verify Passphrase:"
-#~ msgstr "Potvrďte heslo:"
 
 #~ msgid "Passphrase can't be empty"
 #~ msgstr "Heslo nesmí být prázdné"

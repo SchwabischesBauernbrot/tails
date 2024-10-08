@@ -5,16 +5,18 @@ set -u
 
 PERL_PROGS="/usr/local/bin/tails-security-check \
     /usr/local/lib/tails-htp-notify-user \
-    $(find \
-         config/chroot_local-includes/usr/src/iuk/bin \
-         -type f \
-         | perl -p -E 's{^config/chroot_local-includes}{}' \
-    ) \
-    $(find \
-      config/chroot_local-includes/usr/src/iuk/lib \
-      config/chroot_local-includes/usr/src/perl5lib/lib \
-      -type f -name '*.pm' \
-      | perl -p -E 's{^config/chroot_local-includes}{}' \
+    $(
+    find \
+        config/chroot_local-includes/usr/src/iuk/bin \
+        -type f |
+        perl -p -E 's{^config/chroot_local-includes}{}'
+) \
+    $(
+    find \
+        config/chroot_local-includes/usr/src/iuk/lib \
+        config/chroot_local-includes/usr/src/perl5lib/lib \
+        -type f -name '*.pm' |
+        perl -p -E 's{^config/chroot_local-includes}{}'
 )"
 PYTHON_PROGS="\
     /usr/local/bin/electrum \
@@ -33,7 +35,6 @@ PYTHON_PROGS="\
     /usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py \
     /usr/lib/python3/dist-packages/tailsgreeter/ui/additional_settings.py \
     /usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py \
-    /usr/lib/python3/dist-packages/tailsgreeter/ui/persistent_storage.py \
     /usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py \
     /usr/lib/python3/dist-packages/tca/config.py \
     /usr/lib/python3/dist-packages/tca/ui/main_window.py \
@@ -82,55 +83,55 @@ LOCALE_BASEDIR=config/chroot_local-includes/usr/share/locale
 
 ### Functions
 
-normalize_pot () {
+normalize_pot() {
     sed --regexp-extended \
         -i 's@^"Content-Type: text/plain; charset=CHARSET\\n"@"Content-Type: text/plain; charset=UTF-8\\n"@' \
         "${@}"
 }
 
-prog_potfile () {
+prog_potfile() {
     prog=$1
 
     progpath="config/chroot_local-includes$prog"
     case $prog in
-        /usr/share/gnome-shell/extensions/status-menu-helper@tails.boum.org/extension.js)
-            domain=status-menu-helper-extension.js
-            ;;
-	/usr/share/gnome-shell/extensions/torstatus@tails.boum.org/extension.js)
-            domain=torstatus-extension.js
-            ;;
-        /usr/lib/python3/dist-packages/tps/*)
-            domain="tps-$(basename "$prog")"
-            ;;
-        /usr/lib/python3/dist-packages/tps_frontend/*)
-            domain="tps-frontend-$(basename "$prog")"
-            ;;
-        /usr/lib/python3/dist-packages/unlock_veracrypt_volumes/*)
-            domain="unlock-veracrypt-volumes-$(basename "$prog")"
-            ;;
-        /usr/lib/python3/dist-packages/tailsgreeter/*)
-            domain="greeter-$(basename "$prog")"
-            ;;
-        /usr/lib/python*/dist-packages/tails_installer/*)
-            domain="installer-$(basename "$prog")"
-            ;;
-        /usr/lib/python*/dist-packages/tca/*)
-            domain="tca-$(basename "$prog")"
-            ;;
-        /usr/local/bin/tca)
-            domain="tca-bin"
-            ;;
-        /usr/lib/python3/dist-packages/whisperBack/*)
-            domain="whisperBack-$(basename "$prog")"
-            ;;
-        *)
-            domain=$(basename "$prog")
-            ;;
+    /usr/share/gnome-shell/extensions/status-menu-helper@tails.boum.org/extension.js)
+        domain=status-menu-helper-extension.js
+        ;;
+    /usr/share/gnome-shell/extensions/torstatus@tails.boum.org/extension.js)
+        domain=torstatus-extension.js
+        ;;
+    /usr/lib/python3/dist-packages/tps/*)
+        domain="tps-$(basename "$prog")"
+        ;;
+    /usr/lib/python3/dist-packages/tps_frontend/*)
+        domain="tps-frontend-$(basename "$prog")"
+        ;;
+    /usr/lib/python3/dist-packages/unlock_veracrypt_volumes/*)
+        domain="unlock-veracrypt-volumes-$(basename "$prog")"
+        ;;
+    /usr/lib/python3/dist-packages/tailsgreeter/*)
+        domain="greeter-$(basename "$prog")"
+        ;;
+    /usr/lib/python*/dist-packages/tails_installer/*)
+        domain="installer-$(basename "$prog")"
+        ;;
+    /usr/lib/python*/dist-packages/tca/*)
+        domain="tca-$(basename "$prog")"
+        ;;
+    /usr/local/bin/tca)
+        domain="tca-bin"
+        ;;
+    /usr/lib/python3/dist-packages/whisperBack/*)
+        domain="whisperBack-$(basename "$prog")"
+        ;;
+    *)
+        domain=$(basename "$prog")
+        ;;
     esac
     echo "tmp/pot/${domain}.pot"
 }
 
-create_pot () {
+create_pot() {
     prog=$1
     proglang=$2
     progpath="config/chroot_local-includes${prog}"
@@ -138,58 +139,58 @@ create_pot () {
         pot="$(prog_potfile "${prog}")"
         mkdir -p "$(dirname "${pot}")"
         case "$proglang" in
-            Perl)
-                # XXX: once we can assume libintl-perl 1.28+,
-                # generate this list of options with:
-                # perl -MLocale::TextDomain -E 'print Locale::TextDomain->options'
-                xgettext_args='--keyword'
-                xgettext_args="$xgettext_args --keyword=__"
-                xgettext_args="$xgettext_args --keyword='\$__'"
-                xgettext_args="$xgettext_args --keyword=__x"
-                xgettext_args="$xgettext_args --keyword=__n:1,2"
-                xgettext_args="$xgettext_args --keyword=__nx:1,2"
-                xgettext_args="$xgettext_args --keyword=__xn:1,2"
-                xgettext_args="$xgettext_args --keyword=__p:1c,2"
-                xgettext_args="$xgettext_args --keyword=__np:1c,2,3"
-                xgettext_args="$xgettext_args --keyword=__npx:1c,2,3"
-                xgettext_args="$xgettext_args --keyword=N__"
-                xgettext_args="$xgettext_args --keyword=N__n:1,2"
-                xgettext_args="$xgettext_args --keyword=N__p:1c,2"
-                xgettext_args="$xgettext_args --keyword=N__np:1c,2,3"
-                xgettext_args="$xgettext_args --keyword=%__'"
-                ;;
-            *)
-                xgettext_args=
-                ;;
+        Perl)
+            # XXX: once we can assume libintl-perl 1.28+,
+            # generate this list of options with:
+            # perl -MLocale::TextDomain -E 'print Locale::TextDomain->options'
+            xgettext_args='--keyword'
+            xgettext_args="$xgettext_args --keyword=__"
+            xgettext_args="$xgettext_args --keyword='\$__'"
+            xgettext_args="$xgettext_args --keyword=__x"
+            xgettext_args="$xgettext_args --keyword=__n:1,2"
+            xgettext_args="$xgettext_args --keyword=__nx:1,2"
+            xgettext_args="$xgettext_args --keyword=__xn:1,2"
+            xgettext_args="$xgettext_args --keyword=__p:1c,2"
+            xgettext_args="$xgettext_args --keyword=__np:1c,2,3"
+            xgettext_args="$xgettext_args --keyword=__npx:1c,2,3"
+            xgettext_args="$xgettext_args --keyword=N__"
+            xgettext_args="$xgettext_args --keyword=N__n:1,2"
+            xgettext_args="$xgettext_args --keyword=N__p:1c,2"
+            xgettext_args="$xgettext_args --keyword=N__np:1c,2,3"
+            xgettext_args="$xgettext_args --keyword=%__'"
+            ;;
+        *)
+            xgettext_args=
+            ;;
         esac
-	# shellcheck disable=SC2086
+        # shellcheck disable=SC2086
         xgettext --language="${proglang}" --from-code=UTF-8 \
-                 $xgettext_args \
-                 --add-comments="Translators:" -o "${pot}" "${progpath}"
+            $xgettext_args \
+            --add-comments="Translators:" -o "${pot}" "${progpath}"
         if [ -f "${pot}" ]; then
             normalize_pot "${pot}"
         fi
     else
         echo "error: We are supposed to create a POT file for '${prog}'" \
-             "but '${progpath}' does not exist"
+            "but '${progpath}' does not exist"
         exit 1
     fi
 }
 
-po_file () {
+po_file() {
     locale=$1
 
     echo "po/${locale}.po"
 }
 
-mo_file () {
+mo_file() {
     locale=$1
 
     echo "${LOCALE_BASEDIR}/${locale}/LC_MESSAGES/tails.mo"
 }
 
-refresh_mo () {
-    for locale in "$@" ; do
+refresh_mo() {
+    for locale in "$@"; do
         po=$(po_file "$locale")
         mo=$(mo_file "$locale")
         mkdir -p "$(dirname "$mo")"
@@ -205,13 +206,13 @@ refresh_mo () {
     done
 }
 
-no_left_out_files () {
+no_left_out_files() {
     (cd po && intltool-update --maintain)
     [ ! -e po/missing ] || return 1
     return 0
 }
 
-intltool_update_pot () {
+intltool_update_pot() {
     (
         cd po
         cp -a tails.pot tails.pot.orig
@@ -231,22 +232,22 @@ intltool_update_pot () {
     )
 }
 
-intltool_merge_desktop () {
+intltool_merge_desktop() {
     extract_from_file_between_markers po/POTFILES.in \
-        '^# Files updated by intltool-merge --desktop-style' '^$' \
-        | while read -r infile ; do
-              intltool-merge --quiet --desktop-style --utf8 \
-                             po "$infile" "${infile%.in}"
-          done
+        '^# Files updated by intltool-merge --desktop-style' '^$' |
+        while read -r infile; do
+            intltool-merge --quiet --desktop-style --utf8 \
+                po "$infile" "${infile%.in}"
+        done
 }
 
-intltool_merge_xml () {
+intltool_merge_xml() {
     extract_from_file_between_markers po/POTFILES.in \
-        '^# Files updated by intltool-merge --xml-style' '^$' \
-        | while read -r infile ; do
-              intltool-merge --quiet --xml-style --utf8 \
-                             po "$infile" "${infile%.in}"
-          done
+        '^# Files updated by intltool-merge --xml-style' '^$' |
+        while read -r infile; do
+            intltool-merge --quiet --xml-style --utf8 \
+                po "$infile" "${infile%.in}"
+        done
 }
 
 ### Main
@@ -255,16 +256,16 @@ FORCE=no
 KEEP_TMP_POT=no
 while [ -n "${1:-}" ]; do
     case "${1:-}" in
-        '--force')
-            FORCE=yes
-            ;;
-        '--keep-tmp-pot')
-            KEEP_TMP_POT=yes
-            ;;
-        *)
-            echo "Unknown option: ${1}"
-            exit 1
-            ;;
+    '--force')
+        FORCE=yes
+        ;;
+    '--keep-tmp-pot')
+        KEEP_TMP_POT=yes
+        ;;
+    *)
+        echo "Unknown option: ${1}"
+        exit 1
+        ;;
     esac
     shift
 done
@@ -276,11 +277,11 @@ trap "echo refresh-translations: failed" ERR
 
 # Update POT files
 mkdir -p tmp/pot
-for prog in $PERL_PROGS   ; do create_pot "$prog" Perl   ; done
-for prog in $PYTHON_PROGS ; do create_pot "$prog" Python ; done
-for prog in $SHELL_PROGS  ; do create_pot "$prog" Shell  ; done
-for prog in $JAVASCRIPT_PROGS  ; do create_pot "$prog" JavaScript ; done
-for prog in $GLADE_UI     ; do create_pot "$prog" Glade  ; done
+for prog in $PERL_PROGS; do create_pot "$prog" Perl; done
+for prog in $PYTHON_PROGS; do create_pot "$prog" Python; done
+for prog in $SHELL_PROGS; do create_pot "$prog" Shell; done
+for prog in $JAVASCRIPT_PROGS; do create_pot "$prog" JavaScript; done
+for prog in $GLADE_UI; do create_pot "$prog" Glade; done
 intltool_update_pot
 
 # If left out files are detected, intltool-update --maintain writes

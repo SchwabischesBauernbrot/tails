@@ -23,17 +23,18 @@
 """
 
 import gettext
-import os
-import sys
-import logging
-import logging.config
 import gi
 import json
+import logging
+import logging.config
+import os
+import sys
+import whisperBack
 
 gi.require_version("Gtk", "3.0")
-from gi.repository import Gtk
+from gi.repository import Gtk  # NOQA: E402
 
-from tailslib import LIVE_USER_UID
+from tailslib import LIVE_USER_UID  # NOQA: E402
 
 if os.getuid() != LIVE_USER_UID:
     print("Not running as amnesia, aborting", file=sys.stderr)
@@ -44,7 +45,17 @@ if len(sys.argv) > 2:
     sys.exit(2)
 if len(sys.argv) > 1:
     prefill = json.load(open(sys.argv[1]))
-    os.unlink(sys.argv[1])
+    try:
+        os.unlink(sys.argv[1])
+    except PermissionError:
+        try:
+            with open(sys.argv[1], "w") as f:
+                f.truncate(0)
+        except PermissionError:
+            print(
+                f"Warning: failed to remove input file '{sys.argv[1]}'", file=sys.stderr
+            )
+
 else:
     prefill = None
 
@@ -56,9 +67,6 @@ if "debug" in CMDLINE.split():
     logging.getLogger().setLevel(logging.DEBUG)
 
 debugging_info = sys.stdin.read()
-
-
-import whisperBack
 
 ui = whisperBack.WhisperBackUI(debugging_info=debugging_info, prefill=prefill)
 Gtk.main()
