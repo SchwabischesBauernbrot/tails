@@ -174,9 +174,8 @@ class UDD:
                 continue
             if version <= suite_version:
                 return (suite, suite_version)
-        else:
-            raise NotFoundError(
-                f"{name}: the package version({version}) is higher than the version on {suite} ({suite_version})",
+        raise NotFoundError(
+            f"{name}: the package version({version}) is higher than the version on {suite} ({suite_version})",
             )
 
     def packages_by_source(self, source: str, suite: str) -> set[str]:
