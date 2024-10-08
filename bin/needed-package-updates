@@ -313,12 +313,12 @@ def check_build_manifest(
             yield log_group(source, list(i))
 
     if forked:
-        l = "\n  - ".join(sorted(_log(forked)))
-        logger.info(f"Need to upgrade our own forked package:\n  - {l}")
+        line = "\n  - ".join(sorted(_log(forked)))
+        logger.info(f"Need to upgrade our own forked package:\n  - {line}")
 
     if non_forked:
-        l = "\n  - ".join(sorted(_log(non_forked)))
-        logger.info(f"Need to upgrade to a new APT snapshot:\n  - {l}")
+        line = "\n  - ".join(sorted(_log(non_forked)))
+        logger.info(f"Need to upgrade to a new APT snapshot:\n  - {line}")
 
     # Check if we have at least one non ignored issue
     try:
