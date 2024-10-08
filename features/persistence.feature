@@ -198,7 +198,7 @@ Feature: Tails persistence
     And the file "/var/lib/gdm3/post-greeter-whisperback.json" is empty
     When I close the "whisperback" window
     Then the Tor Browser starts
-    And "Tails - Recovering data from the Persistent Storage, if the Persistent Storage doesn't unlock" has loaded in the Tor Browser
+    And "Tails - Recovering data from the Persistent Storage when it has file system errors" has loaded in the Tor Browser
 
   Scenario: Filesystem and I/O errors
     Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
@@ -209,4 +209,4 @@ Feature: Tails persistence
     When I log in to a new session
     And all notifications have disappeared
     Then the Tor Browser starts
-    And "Tails - Recovering data from the Persistent Storage, if the Persistent Storage doesn't unlock" has loaded in the Tor Browser
+    And "Tails - Recovering data from the Persistent Storage when it has file system errors" has loaded in the Tor Browser
