@@ -11,23 +11,28 @@ https://nightly.tails.boum.org/build_Tails_ISO_stable/lastSuccessful/archive/bui
 
 import argparse
 import collections
-from dataclasses import dataclass
 import itertools
 import logging
 import operator
 import re
 import sys
-from typing import Iterator, Sequence
 import urllib
+from collections.abc import Iterator, Sequence
+from dataclasses import dataclass
 
+import debian.debian_support
+import distro_info  # type: ignore[import]
 import psycopg2
 import requests
 import yaml
 
-import distro_info  # type: ignore[import]
-from debian.debian_support import Version
-
 logger = logging.getLogger()
+
+
+class Version(debian.debian_support.Version):
+    def _compare(self, other):
+        assert isinstance(other, type(self))
+        return super()._compare(other)
 
 
 def partition(pred, iterable):
@@ -62,7 +67,8 @@ def get_build_manifest(suite: str) -> dict:
     base_url = f"https://nightly.tails.boum.org/build_Tails_ISO_{suite}/lastSuccessful/archive/build-artifacts/"
 
     shasum_response = requests.get(
-        urllib.parse.urljoin(base_url, "tails-build-artifacts.shasum")
+        urllib.parse.urljoin(base_url, "tails-build-artifacts.shasum"),
+        timeout=10,
     )
 
     try:
@@ -111,32 +117,31 @@ class UDD:
     def _request(self, packages: Sequence[str]) -> dict[str, dict[str, UDDPackageRow]]:
         ret: dict[str, dict[str, UDDPackageRow]] = collections.defaultdict(dict)
         with psycopg2.connect(
-            "postgresql://udd-mirror:udd-mirror@udd-mirror.debian.net/udd"
-        ) as conn:
-            with conn.cursor() as curs:
-                archs = ("all", "amd64")
-                components = ("main", "contrib", "non-free", "non-free-firmware")
-                pkgs = tuple(packages)
-                fields = ", ".join(UDDPackageRow.__dataclass_fields__.keys())
+            "postgresql://udd-mirror:udd-mirror@udd-mirror.debian.net/udd",
+        ) as conn, conn.cursor() as curs:
+            archs = ("all", "amd64")
+            components = ("main", "contrib", "non-free", "non-free-firmware")
+            pkgs = tuple(packages)
+            fields = ", ".join(UDDPackageRow.__dataclass_fields__.keys())
 
-                curs.execute(
-                    f"SELECT {fields}"
-                    " FROM packages"
-                    " WHERE distribution = 'debian'"
-                    " and release in %s"
-                    " and architecture in %s"
-                    " and component in %s"
-                    " and package in %s;",
-                    (self.suites, archs, components, pkgs),
-                )
-                for r in curs:
-                    row = UDDPackageRow(*r)
-                    row.version = Version(row.version)
-                    row.source_version = Version(row.source_version)
-                    if row.release in ret[row.package]:
-                        if ret[row.package][row.release].version > row.version:
-                            continue
-                    ret[row.package][row.release] = row
+            curs.execute(
+                f"SELECT {fields}"  # noqa: S608 (derived from data hard-coded in this script)
+                " FROM packages"
+                " WHERE distribution = 'debian'"
+                " and release in %s"
+                " and architecture in %s"
+                " and component in %s"
+                " and package in %s;",
+                (self.suites, archs, components, pkgs),
+            )
+            for r in curs:
+                row = UDDPackageRow(*r)
+                row.version = Version(row.version)
+                row.source_version = Version(row.source_version)
+                if row.release in ret[row.package]:
+                    if ret[row.package][row.release].version > row.version:
+                        continue
+                ret[row.package][row.release] = row
         return ret
 
     def package(self, name: str) -> dict[str, UDDPackageRow]:
@@ -174,10 +179,9 @@ class UDD:
                 continue
             if version <= suite_version:
                 return (suite, suite_version)
-        else:
-            raise NotFoundError(
-                f"{name}: the package version({version}) is higher than the version on {suite} ({suite_version})"
-            )
+        raise NotFoundError(
+            f"{name}: the package version({version}) is higher than the version on {suite} ({suite_version})",
+        )
 
     def packages_by_source(self, source: str, suite: str) -> set[str]:
         ret = set()
@@ -248,20 +252,38 @@ def get_issues(udd: UDD, package_dict: dict[str, Version]) -> Iterator[NewVersio
 
 
 def check_build_manifest(
-    build_manifest: dict, config: dict, suites: tuple[str], verbose: bool
+    build_manifest: dict,
+    config: dict,
+    suites: tuple[str],
+    verbose: bool,
 ) -> bool:
     ignore = config.get("ignore", {})
     general_ignore = ignore.get("general", [])
     tmp_ignore = ignore.get("temporary", {})
 
-    pkg_dict: dict[str, Version] = dict()
+    pkg_dict: dict[str, Version] = {}
     for pkg in build_manifest["packages"]["binary"]:
         p = pkg["package"]
         v = Version(pkg["version"])
         if pkg_dict.get(p):
-            logger.debug(f"multiple entries for {p}: select max({v}, {pkg_dict[p]}).")
-        if pkg_dict.get(p) > v:
-            continue
+            logger.debug(
+                "%(p)s: multiple entries, so only considering max(%(v)s, %(seen)s)",
+                {
+                    "p": p,
+                    "v": v,
+                    "seen": pkg_dict[p],
+                },
+            )
+            if pkg_dict.get(p) > v:
+                logger.debug(
+                    "%(p)s: %(seen)s > %(v)s, so ignoring %(v)s",
+                    {
+                        "p": p,
+                        "seen": pkg_dict.get(p),
+                        "v": v,
+                    },
+                )
+                continue
         pkg_dict[p] = v
 
     udd = get_udd(pkg_dict, suites)
@@ -297,7 +319,7 @@ def check_build_manifest(
     def log_group(source, issues):
         issue = issues[0]
         suite = issue.suite
-        names = set(i.name for i in issues)
+        names = {i.name for i in issues}
         if names != udd.packages_by_source(source, suite):
             issue.log_binaries = names
 
@@ -305,17 +327,18 @@ def check_build_manifest(
 
     def _log(issues):
         for source, i in itertools.groupby(
-            issues, key=operator.attrgetter("source")
+            issues,
+            key=operator.attrgetter("source"),
         ):
             yield log_group(source, list(i))
 
     if forked:
-        l = "\n  - ".join(sorted(_log(forked)))
-        logger.info(f"Need to upgrade our own forked package:\n  - {l}")
+        line = "\n  - ".join(sorted(_log(forked)))
+        logger.info(f"Need to upgrade our own forked package:\n  - {line}")
 
     if non_forked:
-        l = "\n  - ".join(sorted(_log(non_forked)))
-        logger.info(f"Need to upgrade to a new APT snapshot:\n  - {l}")
+        line = "\n  - ".join(sorted(_log(non_forked)))
+        logger.info(f"Need to upgrade to a new APT snapshot:\n  - {line}")
 
     # Check if we have at least one non ignored issue
     try:
@@ -347,7 +370,7 @@ def get_suites(min_codename: str) -> list:
                     f"{suite}-updates",
                     f"{suite}-proposed-updates",
                     f"{suite}-backports",
-                ]
+                ],
             )
 
     return suites
