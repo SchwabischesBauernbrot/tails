@@ -262,13 +262,22 @@ def check_build_manifest(
         v = Version(pkg["version"])
         if pkg_dict.get(p):
             logger.debug(
-                "%s: multiple entries, so only considering max(%s, %s)",
-                p,
-                v,
-                pkg_dict[p],
+                "%(p)s: multiple entries, so only considering max(%(v)s, %(seen)s)",
+                {
+                    "p": p,
+                    "v": v,
+                    "seen": pkg_dict[p],
+                },
             )
             if pkg_dict.get(p) > v:
-                logger.debug("%s: %s > %s, so ignoring %s", p, pkg_dict.get(p), v, v)
+                logger.debug(
+                    "%(p)s: %(seen)s > %(v)s, so ignoring %(v)s",
+                    {
+                        "p": p,
+                        "seen": pkg_dict.get(p),
+                        "v": v,
+                    },
+                )
                 continue
         pkg_dict[p] = v
 
