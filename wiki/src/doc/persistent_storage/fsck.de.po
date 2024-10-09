@@ -3,18 +3,20 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-10-07 10:47+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2024-10-09 09:14+0000\n"
+"Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Generator: Weblate 5.3\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -22,26 +24,30 @@ msgid ""
 "[[!meta title=\"Recovering data from the Persistent Storage when it has file "
 "system errors\"]]\n"
 msgstr ""
+"[[!meta title=“Wiederherstellung von Daten aus dem beständigen Datenspeicher "
+"bei Dateisystemfehlern”]]\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "<!--\n"
-msgstr ""
+msgstr "<!--\n"
 
 #. type: Plain text
 #, markdown-text
 msgid "To test this doc:"
-msgstr ""
+msgstr "Um dieses Dokument zu testen:"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Add in a file *config/chroot_local-includes/usr/local/sbin/e2fsck.slow*:"
 msgstr ""
+"Fügen Sie in eine Datei *config/chroot_local-includes/usr/local/sbin/e2fsck."
+"slow* ein:"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "       #!/bin/sh\n"
-msgstr ""
+msgstr "       #!/bin/sh\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -56,11 +62,20 @@ msgid ""
 "           exit 1  # Error corrected\n"
 "       fi\n"
 msgstr ""
+"       if echo \"${*}\" | grep -w -- \"-p\"; then\n"
+"           # only runs for automatic fsck\n"
+"           sleep 10\n"
+"           exit 4  # File system errors left uncorrected\n"
+"       elif echo \"${*}\" | grep -w -- \"-y\"; then\n"
+"           # only runs for manual fsck\n"
+"           sleep 30\n"
+"           exit 1  # Error corrected\n"
+"       fi\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "       exec /usr/sbin/e2fsck \"${@}\"\n"
-msgstr ""
+msgstr "       exec /usr/sbin/e2fsck \"${@}\"\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
