@@ -20,14 +20,19 @@ import urllib
 from collections.abc import Iterator, Sequence
 from dataclasses import dataclass
 
+import debian.debian_support
 import distro_info  # type: ignore[import]
 import psycopg2
 import requests
 import yaml
 
-from debian.debian_support import Version
-
 logger = logging.getLogger()
+
+
+class Version(debian.debian_support.Version):
+    def _compare(self, other):
+        assert isinstance(other, type(self))
+        return super()._compare(other)
 
 
 def partition(pred, iterable):
