@@ -134,9 +134,10 @@ Examples of useful packages to drop in here are:
   `early_patch` again.
 * There are issues with permissions and ownership that are good to be
   aware of:
-  - All bind-mounted files will be owned by root inside Tails, which
+  - Most bind-mounted files will be owned by root inside Tails, which
     can cause issues for files that need a specific owner (like
-    `/etc/tor/torrc`).
+    `/etc/tor/torrc`). The only exception to this are files under
+    `/home/amensia` which will be owned by the `amnesia` user.
   - Writing to the bind-mounted files from inside Tails requires that
     you grant write permissions to the source file in your Git
     checkout to the libvirt-qemu user.
