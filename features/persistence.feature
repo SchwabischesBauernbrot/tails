@@ -180,6 +180,7 @@ Feature: Tails persistence
     When I close the filesystem repair dialog
     Then persistence is successfully enabled
 
+  @doc
   Scenario: Manual filesystem repair fails
     Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
     And the Persistent Storage filesystem is corrupted beyond what e2fsck can repair
@@ -200,6 +201,7 @@ Feature: Tails persistence
     Then the Tor Browser starts
     And "Tails - Recovering data from the Persistent Storage when it has file system errors" has loaded in the Tor Browser
 
+  @doc
   Scenario: Filesystem and I/O errors
     Given I have started Tails without network from a USB drive with a persistent partition and stopped at Tails Greeter's login screen
     And I corrupt the Persistent Storage filesystem on USB drive "__internal" in a way which can't be automatically repaired

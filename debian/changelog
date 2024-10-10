@@ -1,3 +1,42 @@
+tails (6.8.1) unstable; urgency=medium
+
+  * Upgrade to Tor Browser 13.5.7 (tails/tails!1738)
+
+    Closes issues:
+      - Upgrade to Tor Browser 13.5.7 (tails/tails#20596)
+
+    Commits:
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 13.5.7-build3 (refs: tails#20596)
+
+  * Test suite: add missing @doc tags (tails/tails!1736)
+
+    Commits:
+      - Test suite: add missing @doc tags
+
+  * needed-package-updates: don't skip tons of relevant packages (tails/tails!1733)
+
+    Commits:
+      - needed-package-updates: prevent future issues with Version comparisons
+      - Use named logging string parameters when there's 3+ of them
+      - Ruff format
+      - Fix Ruff E741
+      - Fix Ruff PLW0120
+      - Silence a Ruff false positive
+      - Fix Ruff S113
+      - Lint
+      - Ignore onionshare 2.6.2-4
+      - needed-package-updates: improve debug logging
+      - needed-package-updates: don't skip tons of relevant packages
+
+  * test-utils/shfmt improvements (tails/tails!1724)
+
+    Commits:
+      - test-utils/shfmt reports offending files
+      - test-utils/shfmt can autofix
+
+ -- Tails developers <tails@boum.org>  Thu, 10 Oct 2024 09:57:33 +0000
+
 tails (6.8) unstable; urgency=medium
 
   * Upgrade to Linux 6.1.112-1 (tails/tails!1730)
