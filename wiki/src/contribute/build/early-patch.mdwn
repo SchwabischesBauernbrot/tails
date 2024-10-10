@@ -114,12 +114,15 @@ Examples of useful packages to drop in here are:
   into the Tails filesystem, including uncommitted and untracked
   changes.
 0. All patches in `config/chroot_local-patches` are reapplied.
-0. It essentially re-runs some build hooks in order to make certain
-   potential changes from the bind-mounts have their intended effect:
+0. It does various clever things in order to make certain changes from
+   bind-mounts have their intended effect:
    - Re-run `dconf update` if there are changes to
      `config/chroot_local-includes/etc/dconf`.
    - Re-run `config/chroot_local-hooks/52-update-systemd-units`
      if it has changed.
+   - Applies changes to `.in` files to the files they are input for
+     (e.g. you can hack on `.ui.in` files and the changes will be
+     applied to the `.ui` file).
 
 #### Limitations
 
@@ -143,6 +146,9 @@ Examples of useful packages to drop in here are:
   - Changes to the initramfs.
   - Changes to `config/chroot_local-packageslists` (but you can
     manually do it through `01-install-packages`).
+* The special treatment of `.in` files doesn't work for _all_ kind of
+  `.in` files. As an example `.desktop.in` files do not work properly
+  because the translatable keys are prefixed with an `_`.
 
 ### 05-bind-rw-includes
 
