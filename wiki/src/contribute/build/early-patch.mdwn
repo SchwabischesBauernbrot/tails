@@ -116,9 +116,9 @@ Examples of useful packages to drop in here are:
 0. All patches in `config/chroot_local-patches` are reapplied.
 0. It does various clever things in order to make certain changes from
    bind-mounts have their intended effect:
-   - Re-run `dconf update` if there are changes to
+   - Re-runs `dconf update` if there are changes to
      `config/chroot_local-includes/etc/dconf`.
-   - Re-run `config/chroot_local-hooks/52-update-systemd-units`
+   - Re-runs `config/chroot_local-hooks/52-update-systemd-units`
      if it has changed.
    - Applies changes to `.in` files to the files they are input for
      (e.g. you can hack on `.ui.in` files and the changes will be
