@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-01-23 00:41+0000\n"
-"PO-Revision-Date: 2024-10-02 12:10+0000\n"
+"PO-Revision-Date: 2024-10-09 14:10+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -69,6 +69,8 @@ msgid ""
 "      If your encrypted volume already uses LUKS2 and Argon2id, you can stop\n"
 "      here.\n"
 msgstr ""
+"      Wenn Ihr verschlüsseltes Volume bereits LUKS2 und Argon2id verwendet, "
+"können Sie hier aufhören.\n"
 
 #. type: Bullet: '   1. '
 msgid "Execute the following command to do a backup of your LUKS1 header."
@@ -90,16 +92,22 @@ msgid ""
 "      If something goes wrong, you will be able to restore your LUKS1 header\n"
 "      from this backup with:\n"
 msgstr ""
+"      Wenn etwas schiefgeht, können Sie Ihren LUKS1-Header \n"
+"        aus diesem Backup wiederherstellen mit:\n"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "      <p class=\"pre command\">cryptsetup luksDump /dev/<span class=\"command-placeholder\">[partition]</span></p>\n"
+#, no-wrap
 msgid "      <p class=\"pre command-template\">cryptsetup luksHeaderRestore /dev/<span class=\"command-placeholder\">[partition]</span> --header-backup-file /home/amnesia/luks1header</p>\n"
-msgstr "      <p class=\"pre command\">cryptsetup luksDump /dev/<span class=\"command-placeholder\">[partition]</span></p>\n"
+msgstr ""
+"      <p class=\"pre command-template\">cryptsetup luksHeaderRestore /dev/"
+"<span class=\"command-placeholder\">[partition]</span> --header-backup-file /"
+"home/amnesia/luks1header</p>\n"
 
 #. type: Bullet: '   1. '
 msgid "To update your LUKS header to LUKS2, execute the following command."
 msgstr ""
+"Um Ihren LUKS-Header auf LUKS2 zu aktualisieren, führen Sie den folgenden "
+"Befehl aus."
 
 #. type: Plain text
 #, no-wrap
