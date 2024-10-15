@@ -1066,6 +1066,10 @@ To build the IUKS, run this command:
        PUPPET_TAILS_REMOTE=$(echo -n "${TAILS_REMOTE?:}" | perl -p -E 's,:tails/tails(?:[.]git)?\z,:tails/puppet-tails,')
        cd "${WORK_DIR?:}"
        git clone "$PUPPET_TAILS_REMOTE"
+       TMPFILES_CONF=/etc/tmpfiles.d/tails-create-iuks.conf
+       OUR_TMPDIR=/var/tmp/tails-create-iuks
+       echo "D ${OUR_TMPDIR} 0755 root root -" | sudo tee "$TMPFILES_CONF"
+       sudo systemd-tmpfiles --remove --create "$TMPFILES_CONF"
        time                                                                   \
        sudo                                                                   \
        nice                                                                   \
@@ -1074,7 +1078,7 @@ To build the IUKS, run this command:
            --tails-git-commit "${TAG?:}"                                      \
            --source-date-epoch "${SOURCE_DATE_EPOCH?:}"                       \
            --local-isos-dir "${ISOS?:}"                                       \
-           --tmp-dir "${TMPDIR:-/tmp}"                                        \
+           --tmp-dir "${TMPDIR:-${OUR_TMPDIR}}"                                        \
            --output-dir "${IUKS_DIR?:}"                                       \
            --source-versions "${IUK_SOURCE_VERSIONS?:}"                       \
            --new-version "${VERSION?:}"                                       \
