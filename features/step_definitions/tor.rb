@@ -452,7 +452,7 @@ def connectivity_check_hosts
   # We locally resolve using the same dnsmasq instance as the VM under
   # testing will use when resolving the connectivity check hostname,
   # to increase the chances that we get the same results (tails#20515).
-  Resolv::DNS.new(nameserver: [$vmnet.bridge_ip_addr])
+  Resolv::DNS.new(nameserver: [$vmnet.bridge_ip_address.to_s])
              .getaddresses(connectivity_check_hostname)
              .map(&:to_s)
 end
@@ -494,7 +494,7 @@ def tca_configure(mode, connect: true, &block)
   )
   try_for(10) do
     radio_button.click
-    radio_button.checked
+    radio_button.checked?
   end
   block.call if block_given?
   return unless connect
@@ -525,7 +525,7 @@ When(/^I look at the hide mode but then I go back$/) do
       '_Back',
       roleName: 'push button'
     )
-    assert btn.sensitive
+    assert btn.sensitive?
     btn.click
   end
 end
@@ -537,7 +537,7 @@ def chutney_bridges(bridge_type, chutney_tag: nil)
   )
   assert(bridge_dirs.size.positive?, "No bridges of type '#{chutney_tag}' found")
   bridge_dirs.map do |bridge_dir|
-    address = $vmnet.bridge_ip_addr
+    address = $vmnet.bridge_ip_address.to_s
     port = nil
     fingerprint = nil
     extra = nil
@@ -709,9 +709,9 @@ When /^I configure (?:some|the) (persistent )?(\w+) bridges (from a QR code )?in
           'Save bridge to Persistent Storage',
           roleName: 'toggle button'
         )
-        assert(!toggle_button.checked)
+        assert(!toggle_button.checked?)
         toggle_button.toggle
-        try_for(10) { toggle_button.checked }
+        try_for(10) { toggle_button.checked? }
       end
     end
   end
@@ -744,9 +744,9 @@ When /^I disable saving bridges to Persistent Storage$/ do
     'Save bridge to Persistent Storage',
     roleName: 'toggle button'
   )
-  assert(toggle_button.checked)
+  assert(toggle_button.checked?)
   toggle_button.toggle
-  try_for(10) { !toggle_button.checked }
+  try_for(10) { !toggle_button.checked? }
 end
 
 When /^I unsuccessfully configure (a direct connection|some .* bridges) in the Tor Connection Assistant$/ do |conntype|
@@ -778,12 +778,12 @@ When /^I accept Tor Connection's offer to use my persistent bridges$/ do
   assert(
     tor_connection_assistant.child('Configure a Tor bridge',
                                    roleName: 'check box')
-                            .checked
+                            .checked?
   )
   click_connect_to_tor
   assert(
     tor_connection_assistant.child('Use a bridge that you already know',
-                                   roleName: 'radio button').checked
+                                   roleName: 'radio button').checked?
   )
   persistent_bridges_lines = [
     tor_connection_assistant.child(roleName: 'text')
@@ -797,7 +797,7 @@ Then(/^Tor Connection does not propose me to use Tor bridges$/) do
     false,
     tor_connection_assistant.child('Configure a Tor bridge',
                                    roleName: 'check box')
-                            .checked
+                            .checked?
   )
 end
 
@@ -828,7 +828,7 @@ def click_connect_to_tor
       '_Connect to Tor',
       roleName: 'push button'
     )
-    btn.sensitive
+    btn.sensitive?
   end
   assert !btn.nil?
   btn.click
@@ -839,7 +839,7 @@ When /^(?:I click "Connect to Tor"|I retry connecting to Tor)$/ do
 end
 
 Then /^I cannot click the "Connect to Tor" button$/ do
-  assert !tor_connection_assistant.child('_Connect to Tor').sensitive
+  assert !tor_connection_assistant.child('_Connect to Tor').sensitive?
 end
 
 When /^I set the time zone in Tor Connection to "([^"]*)"$/ do |timezone|
@@ -936,7 +936,7 @@ Then /^all Internet traffic has only flowed through (Tor|the \w+ bridges)( or (?
       # Allow connections to the local DNS resolver, used by
       # tails-get-network-time to resolve the hostname of the
       # connectivity check service
-      allowed_hosts << { address: $vmnet.bridge_ip_addr, port: 53 }
+      allowed_hosts << { address: $vmnet.bridge_ip_address.to_s, port: 53 }
       allowed_hosts += connectivity_check_allowed_nodes
       allowed_dns_queries = ["#{connectivity_check_hostname}."]
     end

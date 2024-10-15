@@ -200,7 +200,7 @@ end
 
 def add_dns_to_extra_allowed_host
   # Allow connections to the local DNS resolver
-  add_extra_allowed_host($vmnet.bridge_ip_addr, 53)
+  add_extra_allowed_host($vmnet.bridge_ip_address.to_s, 53)
 end
 
 BeforeFeature('@product') do

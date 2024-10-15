@@ -1,8 +1,245 @@
-tails (6.8) UNRELEASED; urgency=medium
+tails (6.9) UNRELEASED; urgency=medium
 
   * Dummy entry for next release.
 
- -- boyska <boyska@riseup.net>  Tue, 10 Sep 2024 12:06:01 +0200
+ -- intrigeri <intrigeri@debian.org>  Thu, 10 Oct 2024 16:59:04 +0000
+
+tails (6.8.1) unstable; urgency=medium
+
+  * Upgrade to Tor Browser 13.5.7 (tails/tails!1738)
+
+    Closes issues:
+      - Upgrade to Tor Browser 13.5.7 (tails/tails#20596)
+
+    Commits:
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 13.5.7-build3 (refs: tails#20596)
+
+  * Test suite: add missing @doc tags (tails/tails!1736)
+
+    Commits:
+      - Test suite: add missing @doc tags
+
+  * needed-package-updates: don't skip tons of relevant packages (tails/tails!1733)
+
+    Commits:
+      - needed-package-updates: prevent future issues with Version comparisons
+      - Use named logging string parameters when there's 3+ of them
+      - Ruff format
+      - Fix Ruff E741
+      - Fix Ruff PLW0120
+      - Silence a Ruff false positive
+      - Fix Ruff S113
+      - Lint
+      - Ignore onionshare 2.6.2-4
+      - needed-package-updates: improve debug logging
+      - needed-package-updates: don't skip tons of relevant packages
+
+  * test-utils/shfmt improvements (tails/tails!1724)
+
+    Commits:
+      - test-utils/shfmt reports offending files
+      - test-utils/shfmt can autofix
+
+ -- Tails developers <tails@boum.org>  Thu, 10 Oct 2024 09:57:33 +0000
+
+tails (6.8) unstable; urgency=medium
+
+  * Upgrade to Linux 6.1.112-1 (tails/tails!1730)
+
+    Closes issues:
+      - Upgrade to Linux 6.1.112-1 (DSA 5782-1) (tails/tails#20589)
+
+    Commits:
+      - Upgrade kernel to 6.1.112-1 (refs: tails/tails#20589)
+
+  * Support repairing Persistent Storage filesystem (tails/tails!1586)
+
+    Closes issues:
+      - Provide fsck from Welcome Screen when the file system of the Persistent Storage is corrupted (tails/tails#15451)
+      - Hide shown password while unlocking Persistent Storage (tails/tails#20498)
+
+  * Upgrade Tor Browser to 13.5.6-build1 (tails/tails!1723)
+
+    Closes issues:
+      - Upgrade to Tor Browser 13.5.6 based on Firefox 115.16.0esr (tails/tails#20579)
+
+    Commits:
+      - Upgrade Tor Browser to 13.5.6-build1 (refs: tails#20579)
+
+  * hopefully faster builds on master (tails/tails!1717)
+
+    Closes issues:
+      - Reduce time to deploy website (tails/tails#20567)
+
+    Commits:
+      - build-website is slow, so let's start it first
+      - hopefully faster builds on master
+
+  * Test suite: avoid GNOME notification race condition (refs: tails#20286)
+    (tails/tails!1710)
+
+    Closes issues:
+      - Step "I can open the Additional Software configuration window from the
+        notification" is fragile (tails/tails#20286)
+
+    Commits:
+      - Test suite: avoid GNOME notification race condition (refs: tails#20286)
+
+  * Test suite: fix fragile GNOME bookmark selection in save dialog
+    (tails/tails!1709)
+
+    Closes issues:
+      - Step "I can save the current page as ..." is fragile (tails/tails#20356)
+
+    Commits:
+      - Test suite: be more explicit about how long we're waiting between iterations
+      - Test suite: also wait for shell prompt when retrying
+      - Test suite: bring back waiting for shell prompt
+      - Test suite: don't click button while it is insensitive
+      - Test suite: add comment
+      - Test suite: refactor
+      - Test suite: fix fragile GNOME bookmark selection in save dialog (refs:
+        tails#20356)
+      - Revert "Test suite: Add debug output for #20356"
+      - Test suite: clean up a bunch of .grabFocus + .focused?
+      - Test suite: rubify Dogtail boolean method names
+
+  * Build system: fix FTBFS on jenkins due to Git safe.directory violation (refs
+    tails#20560) (tails/tails!1706)
+
+    Commits:
+      - Appease shfmt
+      - Build system: fix FTBFS on jenkins due to Git safe.directory violation (refs
+        tails#20560)
+
+  * Show MAC spoofing panic notification after logging in too (tails/tails!1698)
+
+    Closes issues:
+      - MAC spoofing panic notifications not shown for hotplugged devices after logging
+        in (tails/tails#20555)
+
+    Commits:
+      - Appease shfmt
+      - Show MAC spoofing panic notification after logging in too (refs: tails#20555)
+
+  * WhisperBack: better handle failures in sending messages (tails/tails!1693)
+
+    Closes issues:
+      - WhisperBack is fragile when user is not connected to Tor (tails/tails#19731)
+      - WhisperBack text input fields are not read by Orca (tails/tails#19903)
+
+    Commits:
+      - fix message: we're not offering to save anymore
+      - Whisperback: Link labels and entries
+      - ruff format
+      - appease ruff
+      - ruff: actually import _
+      - appease ruff
+      - ruff --fix
+      - ruff reformat
+      - remove dead code
+      - TCA use the same variable as Whisperback
+      - blue button for send
+      - don't even try when tor is not ready
+      - no difference based on send_attempts
+      - make code easier to follow
+
+  * Test suite: configure UEFI boot using the "automatic" method (refs:
+    tails#20549) (tails/tails!1692)
+
+    Closes issues:
+      - Test suite: fix UEFI boot on recent Debian Sid with AppArmor enabled
+        (tails/tails#20549)
+
+    Commits:
+      - Test suite: configure UEFI boot using the "automatic" method (refs:
+        tails#20549)
+
+  * Increase timeout for unlock & fsck of the Persistent Storage, again
+    (tails/tails!1689)
+
+    Commits:
+      - Increase timeout for unlock & fsck of the Persistent Storage, again
+
+  * Explicitly enable ip6-privacy (tails/tails!1678)
+
+    Closes issues:
+      - Ensure we don't leak the physical MAC address of the NIC via IPv6
+        (tails/tails#20478)
+
+    Commits:
+      - Test suite: explicitly return nil when no address is found
+      - Test suite: fix typo
+      - Test suite: only import our PacketFu ICMPv6 copy if necessary
+      - Test suite: promote usage of IPAddr since it is better for comparisons
+      - Test suite: only consider SLAAC not a leak, not all of ICMPv6
+      - Test suite: add VM getters for IPv{4,6} addresses
+      - Test suite: mac → mac_address for readability and consistency
+      - Test suite: explicitly set VMNet bridge's MAC address
+      - Test suite: addr → address in method names for readability and consistency
+      - Test suite: expose the VMNet bridge's IPv6 address
+      - Remove unnecessary punctuation
+      - RuboCop: don't look at lib/ruby/vendor
+      - Design: document IPv6 configuration (refs: tails#20478)
+      - NetworkManager: enable ip6-privacy for all connections (refs: tails#20478)
+      - Test suite: make PacketFu ICMPv6 copy work in our environment, and import it
+      - Test suite: import fixes for our copy of PacketFu's ICMPv6 module
+      - Test suite: copy in ICMPv6 support for PacketFu
+      - Test suite: do not consider ICMPv6 packets as leaks (refs: tails#20478)
+      - Test suite: refactor and simplify
+      - Test suite: use modern Ruby keyword arguments
+
+  * Test suite: configure arti to use chutney (tails/tails!1653)
+
+    Commits:
+      - Test suite: allow the live user to access tor's 19050 SocksPort
+      - Chutney: improve handling leftover tor processes from previous runs
+      - Test suite: adapt parsing from torrc to arti.toml
+      - Test suite: Arti is allowed full access to the network
+      - Arti: don't listen on IPv6 DNS
+      - fixup! Test suite: don't repeat scenario name and exception with --interactive-
+        debugging
+      - Test suite: expect arti to listen on 10.200.1.1:9050
+      - Test suite: support IPv6 listening services
+      - Chutney: Stop checking descriptor status when waiting for bootstrap
+      - Revert "fixup! Update chutney to get better support for arti"
+      - Revert "Test suite: configure the Chutney client node to launch after the Tor
+        network is bootstrapped"
+      - Test suite: configure the Chutney client node to launch after the Tor network
+        is bootstrapped
+      - fixup! Update chutney to get better support for arti
+      - Test suite: don't repeat scenario name and exception with --interactive-
+        debugging
+      - Test suite: don't log full exception during snapshot generation
+      - Test suite: make the output on Chutney bootstrap failure more manageble
+      - Test suite: also save the Chutney data directory as artifact on Chutney
+        bootstrap failure
+      - Test suite: add option to make cmd_helper() less verbose on error
+      - Test suite: raise new CommandFailed exception on cmd_helper() failure
+      - Test suite: make wait_until_tor_is_working also wait for arti
+      - Test suite: also restart arti when restoring from a snapshot
+      - Test suite: configure arti to use chutney (refs: tails#20504)
+      - Update chutney to get better support for arti
+
+  * Update error message in tails-spoof-mac (tails/tails!1643)
+
+    Closes issues:
+      - Implement new MAC spoofing failure notification design (tails/tails#20489)
+
+    Commits:
+      - Apply 1 suggestion(s) to 1 file(s)
+      - appease shfmt
+      - tails-spoof-mac: fully silence ethtool/iw when used in conditionals
+      - Only look at real ethernet NICs when considering MAC spoofing panic
+        notification message
+      - Fix command to extract network interface names
+      - Different error messages in "All Network Disabled" case
+      - Fix detection of other wifi interfaces
+      - Include NIC name in some cases in the error message in tails-spoof-mac
+      - Update error message in tails-spoof-mac
+
+ -- Tails developers <tails@boum.org>  Mon, 07 Oct 2024 15:23:57 +0200
 
 tails (6.7) unstable; urgency=medium
 

@@ -285,7 +285,7 @@ When /^I download some file in the Tor Browser$/ do
   button = @torbrowser
            .child("Opening #{@some_file}")
            .button('Save File')
-  try_for(10) { button.sensitive }
+  try_for(10) { button.sensitive? }
   button.press
   @torbrowser
     .child(roleName: 'file chooser')
@@ -539,47 +539,47 @@ When /^I (can|cannot) save the current page as "([^"]+[.]html)" to the (.*) (dir
 
   file_dialog = save_page_as
 
-  case output_dir
-  when 'persistent Tor Browser'
-    output_dir = "/home/#{LIVE_USER}/Persistent/Tor Browser"
-    # Select the "Tor Browser (persistent)" bookmark in the file chooser's
-    # sidebar. It doesn't expose an action via the accessibility API, so we
-    # have to grab focus and use the keyboard to activate it.
-    file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
-    # Give the UI some time to update the selection. This is workaround
-    # for #20159.
-    sleep 3
-    @screen.press('Space')
-  when 'default downloads'
-    output_dir = "/home/#{LIVE_USER}/Tor Browser"
-  else
-    if is_gnome_bookmark
-      output_dir = "/home/#{LIVE_USER}/#{output_dir}"
-      file_dialog.child(description: output_dir, roleName: 'list item').grabFocus
-      # Give the UI some time to update the selection. This is workaround
-      # for #20159.
-      sleep 3
+  output_dir = case output_dir
+               when 'persistent Tor Browser'
+                 "/home/#{LIVE_USER}/Persistent/Tor Browser"
+               when 'default downloads'
+                 "/home/#{LIVE_USER}/Tor Browser"
+               else
+                 "/home/#{LIVE_USER}/#{output_dir}"
+               end
+
+  if is_gnome_bookmark
+    output_dir_bookmark = file_dialog.child(description: output_dir,
+                                            roleName:    'list item')
+    output_dir_bookmark.grabFocus
+    # We have had problems with the Space press not causing the
+    # bookmark to be selected despite it being focused (tails#20356,
+    # tails#20159)
+    try_for(10, delay: 2) do
       @screen.press('Space')
-    else
-      # Enter the output directory in the text entry
-      text_entry = file_dialog.child('Name', roleName: 'label').labelee
-      text_entry.text = output_dir
-      # Do the "activate" action of the text entry (same effect as
-      # pressing Enter) to open the directory.
-      text_entry.activate
+      output_dir_bookmark.selected?
     end
+  else
+    # Enter the output directory in the text entry
+    text_entry = file_dialog.child('Name', roleName: 'label').labelee
+    text_entry.text = output_dir
+    # Do the "activate" action of the text entry (same effect as
+    # pressing Enter) to open the directory.
+    text_entry.activate
   end
 
   # Enter the output filename in the text entry
   text_entry = file_dialog.child('Name', roleName: 'label').labelee
   text_entry.text = output_file
-  file_dialog.child('Save', roleName: 'push button').click
+  save_button = file_dialog.child('Save', roleName: 'push button')
+  # When changing output directory the Save button turns insensitive
+  # for a few moments
+  try_for(10) { save_button.sensitive? }
+  save_button.click
 
   if should_work
     try_for(20,
             msg: "The page was not saved to #{output_dir}/#{output_file}") do
-      # List the content of the output directory for debugging #20356
-      $vm.execute("ls -l '#{output_dir}'")
       $vm.file_exist?("#{output_dir}/#{output_file}")
     end
   else

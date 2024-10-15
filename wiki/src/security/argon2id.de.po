@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-05-14 22:38+0000\n"
-"PO-Revision-Date: 2024-10-01 21:09+0000\n"
+"PO-Revision-Date: 2024-10-10 13:10+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -66,7 +66,7 @@ msgstr "[[!toc levels=2]]\n"
 #. type: Plain text
 #, no-wrap
 msgid "<h1 id=\"understanding\">Understanding the weakness and its solution</h1>\n"
-msgstr ""
+msgstr "<h1 id=\"understanding\">Verstehen der Schwäche und ihrer Lösung</h1>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -92,6 +92,8 @@ msgid ""
 "A strong password makes brute-force attacks slower and more expensive. The "
 "longer the passphrase, the more expensive the brute-force attack becomes."
 msgstr ""
+"Ein starkes Passwort macht Brute-Force-Angriffe langsamer und teurer. Je "
+"länger die Passphrase ist, desto teurer wird der Brute-Force-Angriff."
 
 #. type: Plain text
 msgid ""
@@ -100,6 +102,11 @@ msgid ""
 "complicated calculations on each passphrase before being able to try to "
 "unlock the encryption with the result of this calculation."
 msgstr ""
+"Einige kryptografische Parameter können auch jede Vermutung eines Brute-"
+"Force-Angriffs langsamer und teurer machen, indem beispielsweise "
+"komplizierte Berechnungen für jede Passphrase durchgeführt werden müssen, "
+"bevor versucht werden kann, die Verschlüsselung mit dem Ergebnis dieser "
+"Berechnung zu entsperren."
 
 #. type: Plain text
 msgid ""
@@ -108,6 +115,11 @@ msgid ""
 "encryption fast and usable by users while making brute-force attacks as "
 "expensive as possible for attackers."
 msgstr ""
+"Im Laufe der Jahre werden Computer schneller und günstiger. "
+"Verschlüsselungstechnologien aktualisieren regelmäßig ihre Parameter, um ein "
+"Gleichgewicht zwischen schneller und benutzerfreundlicher Verschlüsselung "
+"für die Benutzer und gleichzeitig möglichst hohen Kosten für Angreifer bei "
+"Brute-Force-Angriffen zu finden."
 
 #. type: Plain text
 msgid ""
@@ -129,6 +141,10 @@ msgid ""
 "(LUKS1)  with PBKDF2 as *key derivation function*, a calculation run on the "
 "passphrase before trying to unlock the encryption with the result."
 msgstr ""
+"Bis Tails 5.12 (19. April 2023) erstellte Tails LUKS-Geräte der Version 1 "
+"(LUKS1) mit PBKDF2 als *Schlüsselableitungsfunktion*, einer Berechnung, die "
+"auf der Passphrase ausgeführt wird, bevor versucht wird, die Verschlüsselung "
+"mit dem Ergebnis zu entsperren."
 
 #. type: Plain text
 msgid ""
@@ -848,7 +864,7 @@ msgstr ""
 #. type: Title ###
 #, no-wrap
 msgid "Persistent Storage"
-msgstr "Der beständige Speicher"
+msgstr "Beständiger Datenspeicher"
 
 #. type: Bullet: '   1. '
 msgid ""
@@ -894,6 +910,16 @@ msgid ""
 "            └─TailsData_unlocked 253:0    0    3G  0 crypt /run/nosymfollow/live/persistence/TailsData_un...\n"
 "          zram0                  254:0    0  2.8G  0 disk  [SWAP]\n"
 msgstr ""
+"          NAME                   MAJ:MIN RM  SIZE RO TYPE  MOUNTPOINT\n"
+"          loop0                    7:0    0  1.2G  1 loop  /lib/live/mount/"
+"rootfs/filesystem.squashfs\n"
+"          sda                      8:0    1    7G  0 disk\n"
+"          ├─sda1                   8:1    1    4G  0 part  /lib/live/mount/"
+"medium\n"
+"          └─sda2                   8:2    1    3G  0 part\n"
+"            └─TailsData_unlocked 253:0    0    3G  0 crypt /run/nosymfollow/"
+"live/persistence/TailsData_un...\n"
+"          zram0                  254:0    0  2.8G  0 disk  [SWAP]\n"
 
 #. type: Plain text
 #, no-wrap

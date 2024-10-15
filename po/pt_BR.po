@@ -38,8 +38,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-09-03 16:21+0200\n"
-"PO-Revision-Date: 2024-08-19 18:09+0000\n"
+"POT-Creation-Date: 2024-10-07 09:59+0200\n"
+"PO-Revision-Date: 2024-10-03 02:15+0000\n"
 "Last-Translator: Jose Delvani <jsdelvani@users.noreply.hosted.weblate.org>\n"
 "Language-Team: Portuguese (Brazil) <https://hosted.weblate.org/projects/tor/"
 "tails-gui/pt_BR/>\n"
@@ -49,7 +49,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 0 || n == 1) ? 0 : n != 0 && n % "
 "1000000 == 0 ? 1 : 2;\n"
-"X-Generator: Weblate 5.7\n"
+"X-Generator: Weblate 5.8-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
@@ -158,9 +158,9 @@ msgstr "Remover"
 
 #: config/chroot_local-includes/usr/local/lib/additional-software/asp-handle-package-changes:166
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/add_settings_dialog.py:40
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:176
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:453
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:800
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:178
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:456
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:807
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tails_installer/gui.py:728
 #: config/chroot_local-includes/usr/local/lib/tails-report-disk-resize-errors:38
 #: config/chroot_local-includes/usr/local/bin/tails-screen-locker:119
@@ -825,22 +825,22 @@ msgstr "Desativar"
 msgid "Off (default)"
 msgstr "Desativar (padrão)"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:172
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:174
 msgid "Persistent Storage Still Locked"
 msgstr "Armazenamento persistente ainda bloqueado"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:174
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:176
 msgid ""
 "Do you really want to start Tails without unlocking your Persistent Storage?"
 msgstr ""
 "Você realmente deseja iniciar o Tails sem desbloquear seu armazenamento "
 "persistente?"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:177
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:179
 msgid "Start Without Persistent Storage"
 msgstr "Começar sem armazenamento persistente"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:243
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:245
 msgid ""
 "Impossible to unlock the Persistent Storage because the USB stick is read-"
 "only."
@@ -848,64 +848,68 @@ msgstr ""
 "Impossível desbloquear o Armazenamento Persistente porque o pendrive é "
 "somente leitura."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:381
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:409
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:383
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:414
 msgid "Unlocking…"
 msgstr "Desbloqueando…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:416
-#, fuzzy
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:421
 msgid "Checking the file system…"
-msgstr "Formatando o sistema de arquivos..."
+msgstr "Verificando o sistema de arquivos…"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:451
-#, fuzzy
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:454
 msgid "Repairing the File System"
-msgstr "Formatando o sistema de arquivos..."
+msgstr "Reparando o sistema de arquivos"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:452
-#, fuzzy
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:455
 msgid "This might take a long time..."
-msgstr "Isto pode demorar algum tempo..."
+msgstr "Isso pode levar muito tempo..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:470
-#, fuzzy
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:473
 msgid "Failed to repair the file system of your Persistent Storage."
-msgstr "Falha ao configurar seu Armazenamento Persistente"
+msgstr ""
+"Falha ao reparar o sistema de arquivos do seu Armazenamento Persistente."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:472
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:475
 msgid "Start Tails to send an error report and learn how to recover your data."
 msgstr ""
+"Inicie o Tails para enviar um relatório de erros e aprender como recuperar "
+"seus dados."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:485
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:489
 msgid "File System Repaired Successfully"
-msgstr ""
+msgstr "Sistema de arquivos reparado com sucesso"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:487
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:491
 msgid ""
 "It's possible that some data was lost during the repair. Please check the "
 "contents of your Persistent Storage and restore any lost data from a backup."
 msgstr ""
+"É possível que alguns dados tenham sido perdidos durante o reparo. Verifique "
+"o conteúdo do seu Armazenamento Persistente e restaure todos os dados "
+"perdidos de um backup."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:491
-#, fuzzy
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:495
 msgid "Close"
-msgstr "_Fechar"
+msgstr "Fechar"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:506
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:510
 msgid ""
 "You aborted the repair of the file system. You can either start Tails "
 "without Persistent Storage or restart the computer to try repairing the file "
 "system again."
 msgstr ""
+"Você cancelou o reparo do sistema de arquivos. Você pode iniciar o Tails sem "
+"Armazenamento Persistente ou reiniciar o computador para tentar reparar o "
+"sistema de arquivos novamente."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:722
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:729
 msgid "Start Tails and open the Persistent Storage settings to find out more."
 msgstr ""
 "Inicie o Tails e abra as configurações de armazenamento persistente para "
 "saber mais."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:751
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:758
 msgid ""
 "Your Persistent Storage is unlocked. Its content will be available until you "
 "shut down Tails."
@@ -913,26 +917,28 @@ msgstr ""
 "Seu Armazenamento Persistente está desbloqueado. Seu conteúdo estará "
 "disponível até você desligar o Tails."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:766
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:773
 msgid "Incorrect passphrase. Please try again."
-msgstr ""
+msgstr "Senha incorreta. Por favor, tente novamente."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:777
-#, fuzzy
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:784
 msgid ""
 "Error reading data from your Persistent Storage. The hardware of your USB "
 "stick is probably failing."
-msgstr "O hardware do seu pendrive provavelmente está falhando."
+msgstr ""
+"Erro ao ler dados do seu Armazenamento Persistente. O hardware do seu "
+"pendrive provavelmente está falhando."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:779
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:786
 msgid "Start Tails to learn how to recover your data."
-msgstr ""
+msgstr "Inicie o Tails para aprender como recuperar seus dados."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:790
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:797
 msgid "File System Errors"
-msgstr ""
+msgstr "Erros do sistema de arquivos"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:792
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:799
+#, fuzzy
 msgid ""
 "Errors were detected in the file system of your Persistent Storage.\n"
 "                \n"
@@ -942,31 +948,45 @@ msgid ""
 "If you already have an up-to-date backup of your Persistent Storage, we "
 "recommend that you try to repair.\n"
 "                \n"
-"If you don't have a backup, we recommend that you create a backup first."
+"If you don't have a backup, we recommend that you create a partition image "
+"of your Persistent Storage first."
 msgstr ""
+"Foram detectados erros no sistema de arquivos do seu Armazenamento "
+"Persistente.\n"
+"                \n"
+"O Tails pode tentar corrigir esses erros, mas isso pode apagar alguns de "
+"seus dados e levar muito tempo.\n"
+"\n"
+"Se já tiver um backup atualizado do seu Armazenamento Persistente, "
+"recomendamos que tente reparar.\n"
+"                \n"
+"Se não tiver um backup, recomendamos que você crie um backup primeiro."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:801
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:808
 msgid "Repair File System"
+msgstr "Reparar sistema de arquivos"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:809
+#, fuzzy
+msgid "Create Partition Image"
+msgstr "Crie Armazenamento Persistente"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:820
+#, fuzzy
+msgid ""
+"Start Tails to learn how to create a partition image of your Persistent "
+"Storage."
 msgstr ""
+"Inicie o Tails para aprender como criar um backup do seu Armazenamento "
+"Persistente."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:802
-#, fuzzy
-msgid "Create Backup"
-msgstr "Criar"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:813
-#, fuzzy
-msgid "Start Tails to learn how to create a backup of your Persistent Storage."
-msgstr "Falha ao criar Armazenamento Persistente"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:822
-#, fuzzy
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:829
 msgid "Failed to unlock the Persistent Storage due to file system errors."
 msgstr ""
-"Falha ao desbloquear o armazenamento persistente. Por favor, inicie o Tails "
-"e envie um relatório de erro."
+"Falha ao desbloquear o Armazenamento Persistente devido a erros no sistema "
+"de arquivos."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:831
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
 msgid ""
 "Failed to upgrade the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -974,7 +994,7 @@ msgstr ""
 "Falha ao atualizar o armazenamento persistente. Por favor, inicie o Tails e "
 "envie um relatório de erro."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:845
 msgid ""
 "Failed to unlock the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -982,7 +1002,7 @@ msgstr ""
 "Falha ao desbloquear o armazenamento persistente. Por favor, inicie o Tails "
 "e envie um relatório de erro."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:846
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:853
 msgid ""
 "Failed to activate the Persistent Storage. Please start Tails and send an "
 "error report."
@@ -990,10 +1010,9 @@ msgstr ""
 "Falha ao ativar o armazenamento persistente. Por favor, inicie o Tails e "
 "envie um relatório de erro."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:857
-#, fuzzy
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:864
 msgid "Upgrading the Persistent Storage. This might take a while…"
-msgstr "Atualizando o armazenamento persistente. Isso pode demorar um pouco…"
+msgstr "Atualizando o Armazenamento Persistente. Isso pode demorar um pouco…"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:125
 msgid "Error unlocking Persistent Storage: {}"
@@ -1014,9 +1033,10 @@ msgid "Error activating Persistent Storage: {}"
 msgstr "Erro ao ativar armazenamento persistente: {}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:202
-#, fuzzy
 msgid "Failed to abort when repairing Persistent Storage filesystem: {}"
-msgstr "Falha ao iniciar o serviço de Armazenamento Persistente"
+msgstr ""
+"Falha ao cancelar o reparo de sistema de arquivos do seu Armazenamento "
+"Persistente: {}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
@@ -1748,12 +1768,12 @@ msgstr "Esta versão do Tails tem problemas de segurança conhecidos:"
 msgid "Known security issues"
 msgstr "Problemas de segurança conhecidos"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:76
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:60
 #, sh-format
 msgid "Wi-Fi Interface Disabled"
 msgstr "Interface Wi-Fi desabilitada"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:77
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:61
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your Wi-Fi interfaces, so it is "
@@ -1762,12 +1782,12 @@ msgstr ""
 "O anonimato do endereço MAC falhou para uma de suas interfaces Wi-Fi, por "
 "isso está temporariamente desabilitado."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:79
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:64
 #, sh-format
 msgid "Wi-Fi Disabled"
 msgstr "Wi-Fi desabilitado"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:80
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:65
 #, sh-format
 msgid ""
 "MAC address anonymization failed for your Wi-Fi interface, so it is "
@@ -1776,12 +1796,12 @@ msgstr ""
 "O anonimato do endereço MAC falhou para sua interface Wi-Fi, por isso está "
 "temporariamente desabilitado."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:82
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:67
 #, sh-format
 msgid "Wired Interface Disabled"
 msgstr "Interface por cabo desabilitada"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:83
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:68
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your wired interfaces, so it is "
@@ -1790,12 +1810,12 @@ msgstr ""
 "O anonimato do endereço MAC falhou para uma de suas interfaces com fio, por "
 "isso está temporariamente desabilitado."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:85
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:71
 #, sh-format
 msgid "Wired Network Disabled"
 msgstr "Rede por cabo desabilitada"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:86
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:72
 #, sh-format
 msgid ""
 "MAC address anonymization failed for your wired interface, so it is "
@@ -1804,12 +1824,12 @@ msgstr ""
 "O anonimato do endereço MAC falhou para sua interface por cabo, por isso "
 "está temporariamente desabilitado."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:88
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:74
 #, sh-format
 msgid "Network Interface Disabled"
 msgstr "Interface de rede desabilitada"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:75
 #, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces, so it "
@@ -1818,25 +1838,27 @@ msgstr ""
 "O anonimato do endereço MAC falhou para uma de suas interfaces de rede, por "
 "isso está temporariamente desabilitado."
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:91
-#, sh-format
-msgid ""
-"You might prefer to restart Tails and disable MAC address anonymization."
-msgstr ""
-"Você pode preferir reiniciar o Tails e desabilitar o anonimato do endereço "
-"MAC."
-
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:98
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:87
 msgid "All Networking Disabled"
 msgstr "Todas as redes foram desabilitadas"
 
-#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:99
-#, sh-format
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
+#, fuzzy, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
-"error recovery also failed, so all networking is disabled.\n"
+"error recovery also failed, so all networking is disabled."
+msgstr ""
+"O anonimato do endereço MAC falhou em uma de suas interfaces de rede. A "
+"recuperação de erros também falhou, portanto toda a rede está desabilitada.\n"
 "\n"
-"You might prefer to restart Tails and disable MAC address anonymization."
+"Talvez você prefira reiniciar o Tails e desabilitar o anonimato de endereço "
+"MAC."
+
+#: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:92
+#, fuzzy, sh-format
+msgid ""
+"MAC address anonymization failed for your network interface. The error "
+"recovery also failed, so all networking is disabled."
 msgstr ""
 "O anonimato do endereço MAC falhou em uma de suas interfaces de rede. A "
 "recuperação de erros também falhou, portanto toda a rede está desabilitada.\n"
@@ -2681,103 +2703,69 @@ msgstr ""
 msgid "Unable to load a valid configuration."
 msgstr "Não foi possível carregar uma configuração válida."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:160
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:162
 msgid "Sending mail..."
 msgstr "Enviando email..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:161
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:163
 msgid "Sending mail"
 msgstr "Enviando email"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:163
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:165
 msgid "This could take a while..."
 msgstr "Isto pode demorar algum tempo..."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:195
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:197
 msgid "The contact email address doesn't seem valid."
 msgstr "O endereço de email para contato não parece ser válido."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:215
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:218
 msgid "Unable to send the mail: SMTP error."
 msgstr "Não foi possível enviar o email: erro de SMTP."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:217
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:220
 msgid "Unable to connect to the server."
 msgstr "Não foi possível conectar ao servidor."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:219
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:222
+#, fuzzy
+msgid "Tor is not ready yet"
+msgstr "O Tor não está pronto"
+
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:224
 msgid "Unable to create or to send the mail."
 msgstr "Não foi possível criar ou enviar o email."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:225
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:229
 msgid ""
 "\n"
 "\n"
-"The bug report could not be sent, likely due to network problems. Please try "
-"to reconnect to the network and click send again.\n"
-"\n"
-"If it does not work, you will be offered to save the bug report."
+"Make sure that you are connected to Tor and click send again."
 msgstr ""
-"\n"
-"\n"
-"O relatório de bug não pôde ser enviado, provavelmente por causa de "
-"problemas de rede. Por favor, tente se reconectar à rede e clique novamente "
-"em enviar.\n"
-"\n"
-"Se isso não funcionar, você terá a opção de salvar o relatório de bug."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:240
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:239
 msgid "Your message has been sent."
 msgstr "Sua mensagem foi enviada."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:246
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:248
 msgid "An error occured during encryption."
 msgstr "Um erro ocorreu ao criptografar."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:268
-#, python-format
-msgid "Unable to save %s."
-msgstr "Não foi possível salvar %s."
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:298
-#, python-format
-msgid ""
-"The bug report could not be sent, likely due to network problems.\n"
-"\n"
-"As a work-around you can save the bug report as a file on a USB drive and "
-"try to send it to us at %s from your email account using another system. "
-"Note that your bug report will not be anonymous when doing so unless you "
-"take further steps yourself (e.g. using Tor with a throw-away email "
-"account).\n"
-"\n"
-"Do you want to save the bug report to a file?"
-msgstr ""
-"O relatório de bug não foi enviado, provavelmente devido a problemas de "
-"rede.\n"
-"\n"
-"Como alternativa, você pode salvar o relatório como um arquivo em um "
-"pendrive USB e nos enviar para o endereço %s a partir da sua conta de email, "
-"usando um outro sistema. Lembre-se que ao fazer isso seu relatório de bug "
-"não será anônimo, a menos que você o anonimize por conta própria (por "
-"exemplo, usando Tor e uma conta de e-mail descartável).\n"
-"\n"
-"Você quer salvar o relatório de bug em um arquivo?"
-
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:383
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:317
 msgid "This doesn't seem to be a valid URL or OpenPGP key."
 msgstr "A URL ou chave OpenPGP não parecem ser válidas."
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:59
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:57
 #, python-format
 msgid "Invalid contact email: %s"
 msgstr "Email de contato inválido: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:78
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:76
 #, python-format
 msgid "Invalid contact OpenPGP key: %s"
 msgstr "Chave OpenPGP para contato inválida: %s"
 
-#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:80
+#: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/whisperback.py:78
 msgid "Invalid contact OpenPGP public key block"
 msgstr "Bloco de chave pública de contato OpenPGP inválido"
 
@@ -3068,9 +3056,8 @@ msgid "Show Passphrase"
 msgstr "Mostrar Senha"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:421
-#, fuzzy
 msgid "Enter your passphrase"
-msgstr "Verifique a Senha:"
+msgstr "Digite sua senha"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:436
 msgid "Unlock Encryption"
@@ -3538,11 +3525,11 @@ msgstr "WhisperBack"
 msgid "Summary"
 msgstr "Resumo"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:288
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:294
 msgid "What were you trying to achieve?"
 msgstr "O que você estava tentando alcançar?"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:328
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:340
 msgid ""
 "<b>What happened instead?</b>\n"
 "Describe the error with as many details as possible."
@@ -3550,7 +3537,7 @@ msgstr ""
 "<b>O que aconteceu em vez disso?</b> \n"
 "Descreva o erro com o máximo de detalhes possível."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:367
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:385
 msgid ""
 "<b>What did you do that triggered this error?</b>\n"
 "Describe the exact steps that caused the error, so we can try to make it "
@@ -3562,11 +3549,11 @@ msgstr ""
 "fazer com que isso aconteça novamente.\n"
 "Caso contrário, não seremos capazes de solucionar o problema e resolvê-lo."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:403
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:427
 msgid "Error reporting guidelines"
 msgstr "Diretrizes para relatórios de erros"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:421
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:445
 msgid ""
 "<b>Email address</b>\n"
 "So we can answer you or ask for more details."
@@ -3574,11 +3561,11 @@ msgstr ""
 "<b>Endereço de e-mail</b>\n"
 "Assim podemos responder ou pedir mais detalhes."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:453
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:480
 msgid "Optional PGP Key…"
 msgstr "Chave PGP opcional…"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:478
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:505
 msgid ""
 "Even if we are not able to reply to every report, we analyze all reports to "
 "improve Tails."
@@ -3586,31 +3573,31 @@ msgstr ""
 "Mesmo que não consigamos responder a todos os relatórios, analisamos todos "
 "os relatórios para melhorar o Tails."
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:493
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:520
 msgid "Description"
 msgstr "Descrição"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:510
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:537
 msgid "Technical Details"
 msgstr "Detalhes técnicos"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:549
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:576
 msgid "Headers"
 msgstr "Cabeçalhos"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:594
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:621
 msgid "information about the error being reported"
 msgstr "informações sobre o erro que está sendo relatado"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:642
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:669
 msgid "Debugging Information"
 msgstr "Informações de depuração"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:667
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:694
 msgid "Technical details to include"
 msgstr "Detalhes técnicos a incluir"
 
-#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:703
+#: ../config/chroot_local-includes/usr/share/whisperback/whisperback.ui.in:730
 msgid "_Send"
 msgstr "_Enviar"
 
@@ -4079,6 +4066,59 @@ msgstr "Dezembro"
 #: ../config/chroot_local-includes/usr/share/tails/tca/time-dialog.ui.in:368
 msgid "Clock"
 msgstr "Relógio"
+
+#~ msgid "Create Backup"
+#~ msgstr "Fazer backup"
+
+#, sh-format
+#~ msgid ""
+#~ "You might prefer to restart Tails and disable MAC address anonymization."
+#~ msgstr ""
+#~ "Você pode preferir reiniciar o Tails e desabilitar o anonimato do "
+#~ "endereço MAC."
+
+#~ msgid ""
+#~ "\n"
+#~ "\n"
+#~ "The bug report could not be sent, likely due to network problems. Please "
+#~ "try to reconnect to the network and click send again.\n"
+#~ "\n"
+#~ "If it does not work, you will be offered to save the bug report."
+#~ msgstr ""
+#~ "\n"
+#~ "\n"
+#~ "O relatório de bug não pôde ser enviado, provavelmente por causa de "
+#~ "problemas de rede. Por favor, tente se reconectar à rede e clique "
+#~ "novamente em enviar.\n"
+#~ "\n"
+#~ "Se isso não funcionar, você terá a opção de salvar o relatório de bug."
+
+#, python-format
+#~ msgid "Unable to save %s."
+#~ msgstr "Não foi possível salvar %s."
+
+#, python-format
+#~ msgid ""
+#~ "The bug report could not be sent, likely due to network problems.\n"
+#~ "\n"
+#~ "As a work-around you can save the bug report as a file on a USB drive and "
+#~ "try to send it to us at %s from your email account using another system. "
+#~ "Note that your bug report will not be anonymous when doing so unless you "
+#~ "take further steps yourself (e.g. using Tor with a throw-away email "
+#~ "account).\n"
+#~ "\n"
+#~ "Do you want to save the bug report to a file?"
+#~ msgstr ""
+#~ "O relatório de bug não foi enviado, provavelmente devido a problemas de "
+#~ "rede.\n"
+#~ "\n"
+#~ "Como alternativa, você pode salvar o relatório como um arquivo em um "
+#~ "pendrive USB e nos enviar para o endereço %s a partir da sua conta de "
+#~ "email, usando um outro sistema. Lembre-se que ao fazer isso seu relatório "
+#~ "de bug não será anônimo, a menos que você o anonimize por conta própria "
+#~ "(por exemplo, usando Tor e uma conta de e-mail descartável).\n"
+#~ "\n"
+#~ "Você quer salvar o relatório de bug em um arquivo?"
 
 #~ msgid "Cannot unlock encrypted storage with this passphrase."
 #~ msgstr ""

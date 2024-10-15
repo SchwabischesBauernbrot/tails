@@ -161,11 +161,7 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with Unlock Ver
   when 'file container'
     # Clicking on this button breaks accessibility of the app,
     # so we instead use the keyboard
-    try_for(10) do
-      button = app.child('Add', roleName: 'push button')
-      button.grabFocus
-      button.focused
-    end
+    app.child('Add', roleName: 'push button').grabFocus
     @screen.press('Return')
 
     select_path_in_file_chooser(
@@ -185,18 +181,11 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with Unlock Ver
   end
   if @veracrypt_is_hidden
     checkbox = dialog.childLabelled('Hidden Volume')
-    try_for(10) do
-      checkbox.grabFocus
-      checkbox.focused
-    end
+    checkbox.grabFocus
     @screen.press('Space')
-    try_for(10) { checkbox.get_field('checked') == 'True' }
+    try_for(10) { checkbox.checked? }
   end
-  try_for(10) do
-    button = dialog.button('Unlock')
-    button.grabFocus
-    button.focused
-  end
+  dialog.button('Unlock').grabFocus
   @screen.press('Return')
   try_for(10) { !gnome_shell_unlock_dialog? }
   try_for(30) do
@@ -284,14 +273,13 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with GNOME Disk
   if @veracrypt_is_hidden
     check_box = unlock_dialog.child('Hidden', roleName: 'check box')
     check_box.click
-    try_for(10) { check_box.checked }
+    try_for(10) { check_box.checked? }
   end
   unlock_dialog.button('Unlock').click
   try_for(30, msg: 'Failed to mount the unlocked volume') do
     outer = disks.child("#{size} VeraCrypt/TrueCrypt",
                         roleName: 'panel')
     outer.grabFocus
-    try_for(10) { outer.focused }
     # Move the focus down to the "Filesystem\n#{size} FAT" item (that Dogtail
     # is not able to find) using the 'Down' arrow, in order to display
     # the "Mount selected partition" button.
@@ -299,7 +287,7 @@ When /^I unlock and mount this VeraCrypt (volume|file container) with GNOME Disk
     try_for(10) do
       disks.children(roleName: 'panel')
            .find { |c| /Filesystem\n\d+ [KM]B FAT/.match(c.name) }
-           .focused
+           .focused?
     end
     disks.child(
       '',

@@ -55,7 +55,7 @@ def assert_additional_software_persistent_storage_feature_is_enabled
     'Activate Additional Software',
     roleName: 'toggle button'
   )
-  assert additional_software_switch.checked
+  assert additional_software_switch.checked?
 end
 
 Then /^Additional Software is correctly configured for package "([^"]*)"$/ do |package|

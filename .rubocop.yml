@@ -9,6 +9,8 @@ AllCops:
     # Let's ignore this script until we start using it and maintaining
     # the corresponding doc-source-relationships.yml
     - 'bin/doc-impacted-by'
+    # Not our code
+    - 'lib/ruby/vendor/**/*'
   TargetRubyVersion: 3.1
 
 Layout/HashAlignment:
