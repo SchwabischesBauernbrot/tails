@@ -287,6 +287,7 @@ Either way, this adds a message in the Activity stream of the
 referenced issue, with a link to the referencing issue.
 
 ## Confidential issues
+<a id="confidential-issues"></a>
 
 You can make an issue
 [[!tails_gitlab help/user/project/issues/confidential_issues.html desc="confidential"]]
@@ -367,6 +368,16 @@ See:
  - [[how to propose, review, and merge changes|contribute/merge_policy]]
 
  - [[how to participate in discussions|GitLab#discussions]]
+
+## Confidential merge requests
+
+When [an issue is confidential](#confidential-issues), we make the Merge Request confidential, too. Confidential Merge Request in
+Gitlab follow a very different path:
+ - they don't happen in [[!tails_gitlab tails/tails]], but in [[!tails_gitlab tails/tails-private]]. Both the
+   source branch and the target branch must be in tails-private! Beware, if you target a branch on
+   [[!tails_gitlab tails/tails]] then your code will become public
+ - when they get merged, they are only merged to tails-private. It's then up to the release manager to merge
+   from tails-private last minute before the release.
 
 # How to request and provide input
 
