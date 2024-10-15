@@ -12,7 +12,7 @@ echo "Building DKMS modules"
 . /usr/local/lib/tails-shell-library/build.sh
 
 ensure_hook_dependency_is_installed \
-   "linux-headers-${KERNEL_VERSION}-amd64" \
+   linux-headers-amd64 \
    v4l2loopback-dkms
 
 for log in /var/lib/dkms/*/*/build/make.log; do
