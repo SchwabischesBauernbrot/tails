@@ -437,11 +437,8 @@ class TailsInstallerCreator:
 
     def space_for_backup(self, device_size_in_bytes):
         block_size = 4096 # Assume default ext4 block size in bytes
-        filesystem_size = (
-            device_size_in_bytes
-            - self.system_partition_size(device_size_in_bytes)
+        filesystem_size = device_size_in_bytes - self.system_partition_size(device_size_in_bytes) \
             - mebibytes_to_bytes(18) # 16 MiB for luks2 header, 2 MiB is free
-        )
         filesystem_block_count = filesystem_size // block_size
 
         # The following logic to calculate the journal size is based
@@ -450,8 +447,7 @@ class TailsInstallerCreator:
         # https://github.com/tytso/e2fsprogs/blob/master/lib/ext2fs/mkjournal.c#L352-L378
         def ext2fs_default_journal_size(num_blocks):
             # n.b. comments assume 4k blocks
-            if (num_blocks < 2048):
-                return -1
+            assert num_blocks >= 2048
             if (num_blocks < 32768):        # 128 MB
                 return (1024)   # 4 MB
             if (num_blocks < 256*1024):     # 1 GB
