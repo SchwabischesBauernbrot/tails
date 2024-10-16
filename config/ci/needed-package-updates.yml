@@ -8,6 +8,9 @@ ignore:
     cryptsetup:
       version: 2:2.6.1-4~deb12u1
       reason: "We install a backport of this version for Bullseye for #19728, no need to upgrade to the version from Bookworm"
+    gdisk:
+      version: 1.0.10-2
+      reason: "No relevant change compared to 1.0.10-1~bpo12+1~tails1 + incompatible with Bookworm"
     firmware-sof:
       version: 2.2.6-1
       reason: "will be fixed indirectly soon enough via #19888"
