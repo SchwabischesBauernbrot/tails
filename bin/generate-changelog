@@ -70,9 +70,9 @@ class ChangelogGenerator:
             and self.gl.project_path_with_namespace(mr.target_project_id) in PROJECTS
         ]
 
-        for mr in gl_mrs:
-            project = self.gl.project(mr.target_project_id)
-            mr = project.mergerequests.get(mr.iid)
+        for gl_mr in gl_mrs:
+            project = self.gl.project(gl_mr.target_project_id)
+            mr = project.mergerequests.get(gl_mr.iid)
             if ignore_merge_request(mr):
                 continue
             # yapf: disable
