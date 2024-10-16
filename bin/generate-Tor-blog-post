@@ -32,7 +32,6 @@ esac
 
 html_body() {
     ikiwiki --setup ikiwiki.setup \
-            --disable-plugin po \
             --libdir lib/perl5 \
             --render "$MARKDOWN_SOURCE" \
         | tidy --quiet yes \
@@ -48,7 +47,8 @@ html_body() {
         | sed 's@<a name[^<>]*></a>@@g' \
         | sed 's@href="\.\./@href="https://tails.net/@g' \
         | sed 's@src="\./@src="https://tails.net/news/@g' \
-        | sed 's@\(\.en\)\?.html@/@g'
+        | sed 's@\(\.en\)\?.html@/@g' \
+        | perl -pE 'BEGIN{undef $/;}s{<nav class="language-switcher">.*?<\/nav>}{}smg'
 
     echo '<h1>Support and feedback</h1>'
     echo '<p>For support and feedback, visit the <a href="https://tails.net/support/">Support section</a> on the Tails website.</p>'
