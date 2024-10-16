@@ -98,11 +98,14 @@ class ChangelogGenerator(object):
 
     def changes(self) -> dict:
         milestone_title = "Tails_" + self.version
-        milestone = [
+        milestones = [
             m for m in self.group.milestones.list(search=milestone_title)
             # Disambiguate between milestones whose names share a common prefix
             if m.title == milestone_title
-        ][0]
+        ]
+        if len(milestones) != 1:
+            raise ValueError(f"Need exactly 1 milestone called '{milestone_title}'")
+        milestone = milestones[0]
         assert isinstance(milestone, gitlab.v4.objects.GroupMilestone)
 
         return {
