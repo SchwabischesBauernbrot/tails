@@ -174,7 +174,7 @@ if __name__ == "__main__":
     print(
         changelog_entry(
             version=args.version,
-            date=datetime.datetime.now(datetime.timezone.utc),
+            date=datetime.datetime.now(datetime.UTC),
             changes=changes,
         )
     )
