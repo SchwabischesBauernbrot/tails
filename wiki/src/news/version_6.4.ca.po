@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-08-06 18:47+0000\n"
-"PO-Revision-Date: 2024-10-10 20:12+0000\n"
+"PO-Revision-Date: 2024-10-15 19:48+0000\n"
 "Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
@@ -46,13 +46,15 @@ msgstr "<h1 id=\"features\">Noves funcionalitats</h1>\n"
 #. type: Plain text
 #, no-wrap
 msgid "<h2>Random seed</h2>\n"
-msgstr ""
+msgstr "<h2>Llavor aleatòria</h2>\n"
 
 #. type: Plain text
 msgid ""
 "Tails now stores a random seed on the USB stick to strengthen all "
 "cryptography."
 msgstr ""
+"Tails ara emmagatzema una llavor aleatòria al llapis USB per reforçar tota "
+"la criptografia."
 
 #. type: Plain text
 #, no-wrap
@@ -61,12 +63,21 @@ msgid ""
 "desc=\"secure random number generator\"]] is critical to some of the cryptography\n"
 "used in Tails, for example, in the Persistent Storage, Tor, or HTTPS.\n"
 msgstr ""
+"Tenir un generador de números pseudoaleatoris criptogràficament segur [[!"
+"wikipedia_ca\n"
+"Generador_de_números_pseudoaleatoris_criptogràficament_segur desc=\"generador"
+" segur de números aleatoris\"]]\n"
+"és fonamental per a la criptografia utilitzada a Tails, per exemple, a "
+"l'Emmagatzematge Persistent, Tor o HTTPS.\n"
 
 #. type: Plain text
 msgid ""
 "This random seed is stored [[outside of the Persistent Storage|contribute/"
 "design/random]] so that all users can benefit from stronger cryptography."
 msgstr ""
+"Aquesta llavor aleatòria s'emmagatzema [[fora de l'Emmagatzematge Persistent|"
+"contribute/design/random]] perquè tots els usuaris es puguin beneficiar "
+"d'una criptografia més forta."
 
 #. type: Plain text
 #, no-wrap
@@ -79,6 +90,9 @@ msgid ""
 "and Tails APT repositories. This makes the [[Additional Software|doc/"
 "persistent_storage/additional_software]] feature more reliable."
 msgstr ""
+"Ara s'utilitzen adreces HTTPS en lloc d'adreces onion per als repositoris "
+"APT de Debian i Tails. Això fa que la funció de [[Programari Addicional|doc/"
+"persistent_storage/additional_software]] sigui més fiable."
 
 #. type: Plain text
 msgid ""
@@ -90,7 +104,7 @@ msgstr ""
 
 #. type: Plain text
 msgid "- Update the *Tor* client to 0.4.8.12."
-msgstr ""
+msgstr "- S'ha actualitzat el client de *Tor* a la versió 0.4.8.12."
 
 #. type: Plain text
 msgid "- Update *Thunderbird* to 115.12.0."
@@ -106,24 +120,33 @@ msgid ""
 "Fix more issues when unlocking the Persistent Storage. ([[!tails_ticket "
 "20020]], [[!tails_ticket 20344]], [[!tails_ticket 19913]])"
 msgstr ""
+"S'han corregit més problemes en desbloquejar l'Emmagatzematge Persistent. ([["
+"!tails_ticket 20020]], [[!tails_ticket 20344]], [[!tails_ticket 19913]])"
 
 #. type: Bullet: '- '
 msgid ""
 "Fix connecting to a mobile broadband network on some hardware.  ([[!"
 "tails_ticket 20291]])"
 msgstr ""
+"S'ha arreglat la connexió a una xarxa de banda ampla mòbil en algun "
+"maquinari. ([[!tails_ticket 20291]])"
 
 #. type: Bullet: '- '
 msgid ""
 "Enable again the PDF reader of *Thunderbird* that we disabled in [[Tails 6.3|"
 "news/version_6.3]] for security."
 msgstr ""
+"S'ha tornat a habilitar el lector de fitxers PDF del *Thunderbird* que va "
+"ser desactivat a [[Tails 6.3|news/version_6.3]] per seguretat."
 
 #. type: Bullet: '- '
 msgid ""
 "Improve the error message of *Tails Cloner* when the target USB stick cannot "
 "be unmounted because it is being used. ([[!tails_ticket 19253]])"
 msgstr ""
+"S'ha millorat el missatge d'error del *Clonador de Tails* quan el llapis USB "
+"de destinació no es pot desmuntar perquè s'està utilitzant. ([[!tails_ticket "
+"19253]])"
 
 #. type: Bullet: '- '
 msgid ""
@@ -131,12 +154,19 @@ msgid ""
 "removes the error message `Tor Browser blocked your homepage from loading`.  "
 "([[!tails_ticket 20381]])"
 msgstr ""
+"S'ha arreglat la pàgina d'inici del *Navegador Tor* quan s'utilitza la "
+"funció de Nova identitat. Això elimina el missatge d'error «El Navegador Tor "
+"ha bloquejat la càrrega de la vostra pàgina d'inici». ([[!tails_ticket "
+"20381]])"
 
 #. type: Bullet: '- '
 msgid ""
 "Remove the redundant dialog when unlocking a VeraCrypt volume using the "
 "*Unlock VeraCrypt Volumes* utility. ([[!tails_ticket 20281]])"
 msgstr ""
+"S'ha eliminat el diàleg redundant quan es desbloqueja un volum VeraCrypt "
+"mitjançant la utilitat *Desbloqueja Volums VeraCrypt*. ([[!tails_ticket "
+"20281]])"
 
 #. type: Plain text
 msgid ""
@@ -161,6 +191,8 @@ msgstr ""
 #. type: Plain text
 msgid "- Automatic upgrades are available from Tails 6.0 or later to 6.4."
 msgstr ""
+"- Les actualitzacions automàtiques estan disponibles des de Tails 6.0 o "
+"posterior fins a la versió 6.4."
 
 #. type: Plain text
 #, no-wrap
@@ -183,7 +215,7 @@ msgstr ""
 #. type: Title ##
 #, no-wrap
 msgid "To install Tails 6.4 on a new USB stick"
-msgstr ""
+msgstr "Per instal·lar Tails 6.4 en un nou llapis USB"
 
 #. type: Plain text
 msgid "Follow our installation instructions:"
@@ -229,6 +261,8 @@ msgid ""
 "If you don't need installation or upgrade instructions, you can download "
 "Tails 6.4 directly:"
 msgstr ""
+"Si no necessiteu instruccions d'instal·lació o actualització, podeu baixar "
+"Tails 6.4 directament:"
 
 #. type: Plain text
 msgid "- [[For USB sticks (USB image)|install/download]]"

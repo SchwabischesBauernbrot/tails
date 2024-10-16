@@ -353,6 +353,11 @@ Follow this part ONLY if you are preparing a bugfix release.
 
         ./bin/merge-APT-overlays stable
 
+## In any case
+
+Look at [[!tails_gitlab tails/tails-private]]. If anything was merged there during the current development
+cycle, you need to merge.
+
 Set base branch
 ==================
 
@@ -1885,7 +1890,7 @@ Skip this if you are not preparing a stable release.
   - Follow the
     [Tor documentation](https://gitlab.torproject.org/tpo/tpa/team/-/wikis/service/blog#how-to-write-a-new-blog-post-in-gitlab).
     It's OK to create the MR on the command line instead of in the GitLab Web IDE.
-  - Take inspiration from [previous MR](https://gitlab.torproject.org/tpo/web/blog/-/merge_requests/190)
+  - Take inspiration from [previous MR](https://gitlab.torproject.org/tpo/web/blog/-/merge_requests/365)
   - Reuse our existing lead image:
     - `cd` into the directory you created for the new blog post
     - Create a symlink to the existing lead image:
@@ -1971,7 +1976,9 @@ website:
     )
 
 Wait for the release to be fully published, that is for the website to have been
-fully refreshed. To do so:
+fully refreshed. To do so, first wait for the
+[!tails_gitlab desc="GitLab CI pipeline" tails/tails/-/pipelines/]]
+triggered by your last push to build and deploy the website. And then:
 
 ### If you're publishing a final release
 
