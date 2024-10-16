@@ -54,7 +54,7 @@ class GitLabWrapper(gitlab.Gitlab):
         return self.project(project_id).path_with_namespace
 
 
-class ChangelogGenerator(object):
+class ChangelogGenerator:
     def __init__(self, gl, group, version: str):
         self.gl = gl
         self.group = group
