@@ -75,25 +75,26 @@ class ChangelogGenerator:
             mr = project.mergerequests.get(gl_mr.iid)
             if ignore_merge_request(mr):
                 continue
-            # yapf: disable
-            mrs.append({
-                "ref": mr.references['full'],
-                "title": mr.title,
-                "web_url": mr.web_url,
-                "closes_issues": [
-                    {
-                        "ref": project.issues.get(issue.iid).references['full'],
-                        "title": issue.title,
-                    }
-                    for issue in mr.closes_issues()
-                ],
-                "commit_messages": [
-                    commit.title for commit in mr.commits()
-                    # Ignore merge commits
-                    if len(project.commits.get(commit.id).parent_ids) == 1
-                ],
-            })
-            # yapf: enable
+            mrs.append(
+                {
+                    "ref": mr.references["full"],
+                    "title": mr.title,
+                    "web_url": mr.web_url,
+                    "closes_issues": [
+                        {
+                            "ref": project.issues.get(issue.iid).references["full"],
+                            "title": issue.title,
+                        }
+                        for issue in mr.closes_issues()
+                    ],
+                    "commit_messages": [
+                        commit.title
+                        for commit in mr.commits()
+                        # Ignore merge commits
+                        if len(project.commits.get(commit.id).parent_ids) == 1
+                    ],
+                }
+            )
 
         return mrs
 
