@@ -45,11 +45,11 @@ log = logging.getLogger()
 
 
 class GitLabWrapper(gitlab.Gitlab):
-    @functools.cache
+    @functools.cache  # noqa:B019
     def project(self, project_id):
         return self.projects.get(project_id)
 
-    @functools.cache
+    @functools.cache  # noqa:B019
     def project_path_with_namespace(self, project_id):
         return self.project(project_id).path_with_namespace
 
