@@ -115,6 +115,12 @@ perl -pi \
 sed -i 's@${LB_DISTRIBUTION}/updates@${LB_DISTRIBUTION}-security@' \
     /usr/share/live/build/scripts/build/lb_chroot_sources
 
+if [ -n "${KERNEL_VERSION}" ]; then
+    kernel_package="linux-image-${KERNEL_VERSION}"
+else
+    kernel_package=linux-image
+fi
+
 # set general options
 $RUN_LB_CONFIG \
     --verbose \
@@ -145,7 +151,7 @@ $RUN_LB_CONFIG \
     --mirror-chroot-security "$DEBIAN_SECURITY_MIRROR" \
     --packages-lists none \
     --tasks none \
-    --linux-packages="linux-image" \
+    --linux-packages="$kernel_package" \
     --syslinux-menu vesamenu \
     --syslinux-splash data/splash.png \
     --syslinux-timeout 4 \
