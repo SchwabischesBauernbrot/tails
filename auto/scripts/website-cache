@@ -213,7 +213,7 @@ def compute_cache_key(key_files: list[str], key_packages: list[str]) -> str:
     }
     serialized = json.dumps(input_data, sort_keys=True)
     log.debug("Serialized data: %s", serialized)
-    key = hashlib.sha1(  # nosec blacklist
+    key = hashlib.sha1(  # noqa: S324
         bytes(serialized, encoding="utf-8")
     ).hexdigest()
     return key
