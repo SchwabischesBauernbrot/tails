@@ -8,7 +8,7 @@ import os
 import shutil
 import subprocess
 import sys
-from datetime import datetime, timedelta
+from datetime import UTC, datetime, timedelta
 from pathlib import Path
 
 LOG_FORMAT = "%(asctime)-15s %(levelname)s %(message)s"
@@ -155,10 +155,10 @@ def gc(args):
         for d in Path(args.cache_base_dir).iterdir()
         if d.is_dir() and d.name != "lost+found"
     ]
-    delete_before = datetime.utcnow() - timedelta(days=args.max_days)
+    delete_before = datetime.now(UTC) - timedelta(days=args.max_days)
     log.debug("Will delete data created before %s", delete_before)
     for cache_dir in cache_dirs:
-        mtime = datetime.utcfromtimestamp(cache_dir.stat().st_mtime)
+        mtime = datetime.fromtimestamp(cache_dir.stat().st_mtime, UTC)
         if mtime < delete_before:
             log.info(" - Deleting cache for %s with mtime %s", cache_dir.name, mtime)
             shutil.rmtree(cache_dir)
