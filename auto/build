@@ -15,7 +15,7 @@ umask 022
 ### Clone all output, from this point on, to the log file
 
 BUILD_LOG="${BUILD_BASENAME}.buildlog"
-exec >  >(tee -a "$BUILD_LOG")
+exec > >(tee -a "$BUILD_LOG")
 # shellcheck disable=SC2064
 trap "kill -9 $! 2>/dev/null" EXIT HUP INT QUIT TERM
 exec 2> >(tee -a "$BUILD_LOG" >&2)
@@ -24,18 +24,18 @@ trap "kill -9 $! 2>/dev/null" EXIT HUP INT QUIT TERM
 
 ### functions
 
-print_iso_size () {
-   local isofile="$1"
-   [ -f "$isofile" ] || return 23
-   size=$(stat --printf='%s' "$isofile")
-   echo "I: The ISO is ${size} bytes large."
+print_iso_size() {
+    local isofile="$1"
+    [ -f "$isofile" ] || return 23
+    size=$(stat --printf='%s' "$isofile")
+    echo "I: The ISO is ${size} bytes large."
 }
 
 ### Main
 
 # we require building from git
-git rev-parse --is-inside-work-tree &> /dev/null \
-   || fatal "${PWD} is not a Git tree."
+git rev-parse --is-inside-work-tree &>/dev/null ||
+    fatal "${PWD} is not a Git tree."
 
 . config/variables
 
@@ -50,26 +50,26 @@ rm -rf cache/stages_rootfs
 
 # save variables that are needed by chroot_local-hooks
 {
-   echo "KERNEL_VERSION=${KERNEL_VERSION}"
-   echo "LB_DISTRIBUTION=${LB_DISTRIBUTION}"
-   echo "POTFILES_DOT_IN='$(
-           /bin/grep -E --no-filename '[^ #]*\.in$' po/POTFILES.in \
-           | sed -e 's,^config/chroot_local-includes,,' | tr "\n" ' '
-         )'"
-} >> config/chroot_local-includes/usr/share/tails/build/variables
+    echo "KERNEL_VERSION=${KERNEL_VERSION}"
+    echo "LB_DISTRIBUTION=${LB_DISTRIBUTION}"
+    echo "POTFILES_DOT_IN='$(
+        /bin/grep -E --no-filename '[^ #]*\.in$' po/POTFILES.in |
+            sed -e 's,^config/chroot_local-includes,,' | tr "\n" ' '
+    )'"
+} >>config/chroot_local-includes/usr/share/tails/build/variables
 
 # fix permissions on some source files that will be copied as is to the chroot.
 # they may be wrong, e.g. if the Git repository was cloned with a strict umask.
-chown    0:0   config/chroot_local-includes/etc/resolv.conf
+chown 0:0 config/chroot_local-includes/etc/resolv.conf
 chmod -R go+rX config/binary_local-includes/
 chmod -R go+rX config/chroot_local-includes/etc
-chmod    0440  config/chroot_local-includes/etc/sudoers.d/*
-chmod    go+rX config/chroot_local-includes/lib
-chmod    go+rX config/chroot_local-includes/lib/live
+chmod 0440 config/chroot_local-includes/etc/sudoers.d/*
+chmod go+rX config/chroot_local-includes/lib
+chmod go+rX config/chroot_local-includes/lib/live
 chmod -R go+rx config/chroot_local-includes/lib/live/config
-chmod    go+rX config/chroot_local-includes/lib/live/mount
+chmod go+rX config/chroot_local-includes/lib/live/mount
 chmod -R go+rX config/chroot_local-includes/lib/systemd
-chmod    go+rX config/chroot_local-includes/live
+chmod go+rX config/chroot_local-includes/live
 chmod -R go+rX config/chroot_local-includes/usr
 chmod -R go+rx config/chroot_local-includes/usr/local/bin
 chmod -R go+rx config/chroot_local-includes/usr/local/sbin
@@ -80,10 +80,10 @@ chmod -R go+rX config/chroot_sources
 
 # normalize file timestamps
 find \
-   config/binary_local-includes \
-   config/chroot_local-includes \
-   wiki/src \
-   -exec touch --no-dereference --date="@$SOURCE_DATE_EPOCH" '{}' \;
+    config/binary_local-includes \
+    config/chroot_local-includes \
+    wiki/src \
+    -exec touch --no-dereference --date="@$SOURCE_DATE_EPOCH" '{}' \;
 
 # build the image
 
@@ -96,8 +96,8 @@ gpg --homedir "$DEBOOTSTRAP_GNUPG_HOMEDIR" \
     --no-tty \
     --import config/chroot_sources/tails.chroot.gpg
 DEBOOTSTRAP_GNUPG_KEYRING="$DEBOOTSTRAP_GNUPG_HOMEDIR/pubring.kbx"
-[ -e "$DEBOOTSTRAP_GNUPG_KEYRING" ] \
-   || fatal "No debootstrap GnuPG keyring was created."
+[ -e "$DEBOOTSTRAP_GNUPG_KEYRING" ] ||
+    fatal "No debootstrap GnuPG keyring was created."
 DEBOOTSTRAP_OPTIONS="$DEBOOTSTRAP_OPTIONS --keyring=$DEBOOTSTRAP_GNUPG_KEYRING"
 
 export DEBOOTSTRAP_OPTIONS
@@ -109,30 +109,36 @@ export MKSQUASHFS_OPTIONS
 
 # build the doc wiki
 if [ "${TAILS_WEBSITE_CACHE:-0}" = 1 ]; then
-   export WEBSITE_DEST_DIR=.
-   export WEBSITE_CACHE_BASEDIR
+    export WEBSITE_DEST_DIR=.
+    export WEBSITE_CACHE_BASEDIR
 
-   echo "Website cache filesystem usage before garbage collection:"
-   df "$WEBSITE_CACHE_BASEDIR"
-   df --inodes "$WEBSITE_CACHE_BASEDIR"
+    echo "Website cache filesystem usage before migration:"
+    df "$WEBSITE_CACHE_BASEDIR"
+    df --inodes "$WEBSITE_CACHE_BASEDIR"
 
-   website-cache gc
+    website-cache migrate
 
-   echo "Website cache filesystem usage after garbage collection:"
-   df "$WEBSITE_CACHE_BASEDIR"
-   df --inodes "$WEBSITE_CACHE_BASEDIR"
+    echo "Website cache filesystem usage before garbage collection:"
+    df "$WEBSITE_CACHE_BASEDIR"
+    df --inodes "$WEBSITE_CACHE_BASEDIR"
 
-   WEBSITE_CACHE_KEY=$(website-cache key)
-   if ! website-cache get "$WEBSITE_CACHE_KEY"; then
-      ./build-website
-      WEBSITE_BUILD_DIR="config/chroot_local-includes/usr/share/doc/tails/website"
-      echo "Website cache entry size: $(du --apparent-size --summarize "${WEBSITE_BUILD_DIR}" | cut -f1)"
-      echo "Website cache entry inodes: $(du --inodes --summarize "${WEBSITE_BUILD_DIR}" | cut -f1)"
+    website-cache gc
 
-      if ! website-cache put "$WEBSITE_CACHE_KEY"; then
-         # Delete incomplete cache entry
-         rm -rf "${WEBSITE_CACHE_BASEDIR:?}/${WEBSITE_CACHE_KEY:?}"
-         cat <<EOF
+    echo "Website cache filesystem usage after garbage collection:"
+    df "$WEBSITE_CACHE_BASEDIR"
+    df --inodes "$WEBSITE_CACHE_BASEDIR"
+
+    WEBSITE_CACHE_KEY=$(website-cache key)
+    if ! website-cache get "$WEBSITE_CACHE_KEY"; then
+        ./build-website
+        WEBSITE_BUILD_DIR="config/chroot_local-includes/usr/share/doc/tails/website"
+        echo "Website cache entry size: $(du --apparent-size --summarize "${WEBSITE_BUILD_DIR}" | cut -f1)"
+        echo "Website cache entry inodes: $(du --inodes --summarize "${WEBSITE_BUILD_DIR}" | cut -f1)"
+
+        if ! website-cache put "$WEBSITE_CACHE_KEY"; then
+            # Delete incomplete cache entry
+            rm -rf "${WEBSITE_CACHE_BASEDIR:?}/${WEBSITE_CACHE_KEY:?}"
+            cat <<EOF
 If this has started to fail with "No space left on device",
 check whether we're short on actual disk space or on inodes. And then:
 
@@ -146,14 +152,14 @@ check whether we're short on actual disk space or on inodes. And then:
 
 For more context, see #20150.
 EOF
-         exit 1
-      fi
-      echo "Website cache filesystem usage after storing new cache entry:"
-      df "$WEBSITE_CACHE_BASEDIR"
-      df --inodes "$WEBSITE_CACHE_BASEDIR"
-   fi
+            exit 1
+        fi
+        echo "Website cache filesystem usage after storing new cache entry:"
+        df "$WEBSITE_CACHE_BASEDIR"
+        df --inodes "$WEBSITE_CACHE_BASEDIR"
+    fi
 else
-   ./build-website
+    ./build-website
 fi
 
 # refresh translations of our programs
@@ -169,13 +175,13 @@ BUILD_PACKAGES="${BUILD_BASENAME}.packages"
 BUILD_USB_IMAGE_FILENAME="${BUILD_BASENAME}.img"
 
 (
-   echo "Mirrors:"
-   apt-mirror debian
-   apt-mirror debian-security
-   apt-mirror torproject
-   echo "Additional sources:"
-   cat config/chroot_sources/*.chroot
-) > "$BUILD_APT_SOURCES"
+    echo "Mirrors:"
+    apt-mirror debian
+    apt-mirror debian-security
+    apt-mirror torproject
+    echo "Additional sources:"
+    cat config/chroot_sources/*.chroot
+) >"$BUILD_APT_SOURCES"
 
 # make submodules available in the chroot:
 SUBMODULES_SRC="submodules/tails-workarounds"
@@ -187,9 +193,9 @@ cp -a $SUBMODULES_SRC "$SUBMODULES_DST"/
 # Inject the Tor Browser AppArmor policy into the chroot
 APPARMOR_D="config/chroot_local-includes/etc/apparmor.d"
 cp submodules/torbrowser-launcher/apparmor/torbrowser.Browser.firefox \
-   "$APPARMOR_D"/
+    "$APPARMOR_D"/
 cp submodules/torbrowser-launcher/apparmor/tunables/* \
-   "$APPARMOR_D"/tunables/
+    "$APPARMOR_D"/tunables/
 
 echo "I: Building ISO image ${BUILD_ISO_FILENAME}..."
 time lb build noauto "${@}"

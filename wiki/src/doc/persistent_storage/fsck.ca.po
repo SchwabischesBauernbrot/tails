@@ -8,8 +8,8 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-10-07 10:47+0200\n"
-"PO-Revision-Date: 2024-10-10 15:10+0000\n"
-"Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
+"PO-Revision-Date: 2024-10-15 23:04+0000\n"
+"Last-Translator: Ricard Rodríguez <rcard@insicuri.net>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: ca\n"
 "MIME-Version: 1.0\n"
@@ -24,6 +24,8 @@ msgid ""
 "[[!meta title=\"Recovering data from the Persistent Storage when it has file "
 "system errors\"]]\n"
 msgstr ""
+"[[!meta title=\"Recuperació de dades de l'Emmagatzematge Persistent quan té "
+"errors del sistema de fitxers\"]]\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -175,6 +177,10 @@ msgid ""
 "[[recovering data from the Persistent Storage when Tails doesn't\n"
 "start|recover]].</p>\n"
 msgstr ""
+"<p>Si, en canvi, el vostre llapis USB de Tails no s'engega, consulteu les "
+"nostres instruccions\n"
+"de [[recuperació de dades de l'Emmagatzematge Persistent quan Tails no\n"
+"s'inicia|recover]].</p>\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -187,6 +193,8 @@ msgid ""
 "[[!img repair.png link=\"no\" class=\"screenshot\" alt=\"File System Errors "
 "dialog in Welcome Screen\"]]\n"
 msgstr ""
+"[[!img repair.png link=\"no\" class=\"screenshot\" alt=\"Diàleg d'errors del "
+"sistema de fitxers a la Pantalla de Benvinguda\"]]\n"
 
 #. type: Plain text
 #, markdown-text
@@ -194,6 +202,8 @@ msgid ""
 "Tails can try to fix these errors, but this might erase some of your data "
 "and take a long time."
 msgstr ""
+"Tails pot intentar solucionar aquests errors, però això podria esborrar "
+"algunes de les vostres dades i trigar molt de temps."
 
 #. type: Plain text
 #, markdown-text
@@ -203,6 +213,10 @@ msgid ""
 "attempting to repair the file system of your Persistent Storage from the "
 "Welcome Screen."
 msgstr ""
+"Per això, si no podeu restaurar des d'una [[còpia de seguretat|backup]] "
+"recent, us recomanem que creeu una *imatge de partició* del vostre "
+"Emmagatzematge Persistent *abans* d'intentar reparar el sistema de fitxers "
+"del vostre Emmagatzematge Persistent des de la Pantalla de Benvinguda."
 
 #. type: Plain text
 #, markdown-text
@@ -210,6 +224,8 @@ msgid ""
 "Most of the time, repairing the file system will work fine and will be "
 "enough to fix your Persistent Storage."
 msgstr ""
+"La majoria de les vegades, la reparació del sistema de fitxers funcionarà bé "
+"i serà suficient per arreglar el vostre Emmagatzematge Persistent."
 
 #. type: Plain text
 #, markdown-text
@@ -219,6 +235,11 @@ msgid ""
 "advanced forensics tools. This recovery process is very technical and you "
 "might need help from someone experienced with data recovery."
 msgstr ""
+"En els casos poc habituals en què la reparació del sistema de fitxers no "
+"funcioni, és possible que pugueu recuperar part o la majoria de les vostres "
+"dades d'aquesta imatge de partició mitjançant eines forenses avançades. "
+"Aquest procés de recuperació és molt tècnic i és possible que necessiteu "
+"ajuda d'algú amb experiència en la recuperació de dades."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -231,6 +252,8 @@ msgid ""
 "<h1 id=\"image\">Creating a partition image of your Persistent "
 "Storage</h1>\n"
 msgstr ""
+"<h1 id=\"image\">Creació d'una imatge de partició del vostre Emmagatzematge "
+"Persistent</h1>\n"
 
 #. type: Plain text
 #, markdown-text
@@ -238,6 +261,9 @@ msgid ""
 "A partition image is a copy of your entire Persistent Storage in a single "
 "file that you can save to an external hard disk from Tails."
 msgstr ""
+"Una imatge de partició és una còpia de tot el vostre Emmagatzematge "
+"Persistent en un únic fitxer que podeu desar en un disc dur extern des de "
+"Tails."
 
 #. type: Plain text
 #, markdown-text
@@ -248,6 +274,12 @@ msgid ""
 "of the same size as your Tails USB stick, but writing to a USB stick is "
 "usually much slower than writing to a hard disk."
 msgstr ""
+"Per desar la imatge de la partició fora de Tails, necessiteu un disc dur "
+"extern amb tant d'espai lliure com la mida del vostre Emmagatzematge "
+"Persistent, normalment 8&nbsp;GB menys que el vostre llapis USB de Tails. "
+"També podeu utilitzar un altre llapis USB de la mateixa mida que el vostre "
+"llapis USB de Tails, però escriure en un llapis USB sol ser molt més lent "
+"que escriure en un disc dur."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -260,6 +292,9 @@ msgid ""
 "<p>The partition image contains a <i>decrypted</i> version of your\n"
 "Persistent Storage.</p>\n"
 msgstr ""
+"<p>La imatge de la partició conté una versió <i>desencriptada</i> del "
+"vostre\n"
+"Emmagatzematge Persistent.</p>\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -267,6 +302,8 @@ msgid ""
 "<p>We recommend that you save the partition image to an [[encrypted hard\n"
 "disk|encryption_and_privacy/encrypted_volumes]].</p>\n"
 msgstr ""
+"<p>Us recomanem que deseu la imatge de la partició en un [[disc dur\n"
+"encriptat|encryption_and_privacy/encrypted_volumes]].</p>\n"
 
 #. type: Plain text
 #, markdown-text
@@ -274,11 +311,13 @@ msgid ""
 "We are presenting here 2 different techniques to create a partition image of "
 "your Persistent Storage."
 msgstr ""
+"Us presentem aquí dues tècniques diferents per crear una imatge de partició "
+"del vostre Emmagatzematge Persistent."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "[[Create a partition image using the *Disks* utility|fsck#disks]]"
-msgstr ""
+msgstr "[[Crear una imatge de partició amb la utilitat *Discs*|fsck#disks]]"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -286,6 +325,8 @@ msgid ""
 "   Try this technique first if the hardware of your USB stick is not "
 "failing.\n"
 msgstr ""
+"   Proveu aquesta tècnica primer si el maquinari del vostre llapis USB no "
+"falla.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -293,11 +334,15 @@ msgid ""
 "[[Create a partition image using `ddrescue` on the command "
 "line|fsck#ddrescue]]"
 msgstr ""
+"[[Crear una imatge de partició utilitzant `ddrescue` a la línia "
+"d'ordres|fsck#ddrescue]]"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   Try this technique first if the hardware of your USB stick is failing.\n"
 msgstr ""
+"   Proveu aquesta tècnica primer si el maquinari del vostre llapis USB falla."
+"\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -306,6 +351,9 @@ msgid ""
 "to\n"
 "   recover data if the hardware of your USB stick is failing.\n"
 msgstr ""
+"   Utilitzar `ddrescue` és més difícil, però és millor que la utilitat "
+"*Discs* per\n"
+"   recuperar les dades si el maquinari del vostre llapis USB falla.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -313,6 +361,8 @@ msgid ""
 "<h2 id=\"disks\">Creating a partition image using the <i>Disks</i> "
 "utility</h2>\n"
 msgstr ""
+"<h2 id=\"disks\">Creació d'una imatge de partició mitjançant la utilitat "
+"<i>Discs</i></h2>\n"
 
 #. type: Plain text
 #, markdown-text
@@ -321,11 +371,14 @@ msgid ""
 "utility is the simplest way of creating a partition image of your Persistent "
 "Storage."
 msgstr ""
+"Quan el maquinari del vostre llapis USB no falla, utilitzar la utilitat "
+"*Discs* és la forma més senzilla de crear una imatge de partició del vostre "
+"Emmagatzematge Persistent."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "<h3 id=\"external\">Preparing the external hard disk</h3>\n"
-msgstr ""
+msgstr "<h3 id=\"external\">Preparació del disc dur extern</h3>\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -335,7 +388,7 @@ msgstr "Inicieu Tails."
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "In the Welcome Screen:"
-msgstr ""
+msgstr "A la Pantalla de Benvinguda:"
 
 #. type: Bullet: '   1. '
 #, markdown-text
@@ -343,16 +396,18 @@ msgid ""
 "[[Set up an administration "
 "password|doc/first_steps/welcome_screen/administration_password]]."
 msgstr ""
+"[[Configureu una contrasenya d'administració|doc/first_steps/welcome_screen/"
+"administration_password]]."
 
 #. type: Bullet: '   2. '
 #, markdown-text
 msgid "Choose to start without unlocking your Persistent Storage."
-msgstr ""
+msgstr "Trieu iniciar sense desbloquejar el vostre Emmagatzematge Persistent."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Choose **Applications&nbsp;▸ Files** to open the *Files* utility."
-msgstr ""
+msgstr "Trieu **Aplicacions&nbsp;▸ Fitxers** per obrir la utilitat *Fitxers*."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -361,11 +416,15 @@ msgid ""
 "Persistent Storage. You need as much free space as the size of your "
 "Persistent Storage, usually 8&nbsp;GB less than your Tails USB stick."
 msgstr ""
+"Connecteu el disc dur on voleu desar la imatge de partició del vostre "
+"Emmagatzematge Persistent. Necessiteu tant espai lliure com la mida del "
+"vostre Emmagatzematge Persistent, normalment 8&nbsp;GB menys que el vostre "
+"llapis USB de Tails."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   A new disk appears in the sidebar of the *Files* utility.\n"
-msgstr ""
+msgstr "   Apareix un disc nou a la barra lateral de la utilitat *Fitxers*.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -374,11 +433,14 @@ msgid ""
 "in the sidebar of the *Files* utility and choose *Properties* in the "
 "shortcut menu."
 msgstr ""
+"Feu clic amb el botó dret (a Mac, feu clic amb dos dits) al nou volum que ha "
+"aparegut a la barra lateral de la utilitat *Fitxers* i trieu *Propietats* al "
+"menú de drecera."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   Take note of the free space in the disk.\n"
-msgstr ""
+msgstr "   Preneu nota de l'espai lliure al disc.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -386,6 +448,8 @@ msgid ""
 "<h3 id=\"identify\">Identifying your Persistent Storage in the <i>Disks</i> "
 "utility</h3>\n"
 msgstr ""
+"<h3 id=\"identify\">Identificació del vostre Emmagatzematge Persistent a la "
+"utilitat <i>Discs</i></h3>\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -393,6 +457,8 @@ msgid ""
 "Choose **Applications&nbsp;▸ Utilities&nbsp;▸ Disks** to open the *Disks* "
 "utility."
 msgstr ""
+"Trieu **Aplicacions&nbsp;▸ Utilitats&nbsp;▸ Discs** per obrir la utilitat "
+"*Discs*."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -400,11 +466,13 @@ msgid ""
 "In the left pane of the *Disks* utility, identify your Tails USB stick in "
 "the list of storage devices."
 msgstr ""
+"Al panell esquerre de la utilitat *Discs*, identifiqueu el vostre llapis USB "
+"de Tails a la llista de dispositius d'emmagatzematge."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   Verify its brand and size.\n"
-msgstr ""
+msgstr "   Verifiqueu la seva marca i mida.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -412,6 +480,8 @@ msgid ""
 "In the left pane, click on the storage device that corresponds to your Tails "
 "USB stick."
 msgstr ""
+"Al panell esquerre, feu clic al dispositiu d'emmagatzematge que correspon al "
+"vostre llapis USB de Tails."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -419,21 +489,24 @@ msgid ""
 "In the right pane, this storage device should have 2 volumes, corresponding "
 "to 2 partitions on the USB stick."
 msgstr ""
+"Al panell dret, aquest dispositiu d'emmagatzematge hauria de tenir dos "
+"volums, corresponents a dues particions del llapis USB."
 
 #. type: Bullet: '   - '
 #, markdown-text
 msgid "1 volume with a **TAILS** label and **FAT** content."
-msgstr ""
+msgstr "1 volum anomenat **TAILS** i amb contingut **FAT**."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "     This volume corresponds to the system partition of your Tails.\n"
 msgstr ""
+"     Aquest volum correspon a la partició del sistema del vostre Tails.\n"
 
 #. type: Bullet: '   - '
 #, markdown-text
 msgid "1 volume with a **TailsData** label and **LUKS** content."
-msgstr ""
+msgstr "1 volum anomenat **TailsData** i amb contingut **LUKS**."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -441,11 +514,13 @@ msgid ""
 "     This volume corresponds to the encrypted version of your Persistent "
 "Storage.\n"
 msgstr ""
+"     Aquest volum correspon a la versió encriptada del vostre Emmagatzematge "
+"Persistent.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   [[!img disks.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
-msgstr ""
+msgstr "   [[!img disks.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -453,6 +528,8 @@ msgid ""
 "In the right pane, click on the volume that corresponds to your Persistent "
 "Storage."
 msgstr ""
+"Al panell dret, feu clic al volum que correspon al vostre Emmagatzematge "
+"Persistent."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -465,6 +542,8 @@ msgid ""
 "<h3 id=\"unlock\">Unlocking your Persistent Storage in the <i>Disks</i> "
 "utility</h3>\n"
 msgstr ""
+"<h3 id=\"unlock\">Desbloquejar el vostre Emmagatzematge Persistent a la "
+"utilitat <i>Discs</i></h3>\n"
 
 #. type: Plain text
 #, markdown-text
@@ -472,6 +551,9 @@ msgid ""
 "Before creating the partition image, unlock the encryption to access the "
 "decrypted version of your Persistent Storage. To do so:"
 msgstr ""
+"Abans de crear la imatge de la partició, desbloquegeu l'encriptatge per "
+"accedir a la versió desencriptada del vostre Emmagatzematge Persistent. Per "
+"fer-ho:"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -479,6 +561,8 @@ msgid ""
 "Click [[!img lib/unlock.png link=\"no\" class=\"symbolic\" alt=\"Unlock "
 "selected encrypted partition\"]]."
 msgstr ""
+"Feu clic a [[!img lib/unlock.png link=\"no\" class=\"symbolic\" alt="
+"\"Desbloqueja la partició xifrada seleccionada\"]]."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -956,6 +1040,8 @@ msgid ""
 "When starting Tails, [[set up an administration "
 "password|doc/first_steps/welcome_screen/administration_password]]."
 msgstr ""
+"En iniciar Tails, [[configureu una contrasenya d'administració|doc/"
+"first_steps/welcome_screen/administration_password]]."
 
 #. type: Bullet: '1. '
 #, markdown-text
