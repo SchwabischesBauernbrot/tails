@@ -112,6 +112,12 @@ if [ "${TAILS_WEBSITE_CACHE:-0}" = 1 ]; then
    export WEBSITE_DEST_DIR=.
    export WEBSITE_CACHE_BASEDIR
 
+   echo "Website cache filesystem usage before migration:"
+   df "$WEBSITE_CACHE_BASEDIR"
+   df --inodes "$WEBSITE_CACHE_BASEDIR"
+
+   website-cache migrate
+
    echo "Website cache filesystem usage before garbage collection:"
    df "$WEBSITE_CACHE_BASEDIR"
    df --inodes "$WEBSITE_CACHE_BASEDIR"

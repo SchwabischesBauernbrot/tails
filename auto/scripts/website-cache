@@ -63,6 +63,11 @@ def main():
     parser.add_argument("--debug", action="store_true", help="debug output")
     subparsers = parser.add_subparsers(help="sub-command help", dest="command")
 
+    parser_migrate = subparsers.add_parser(
+        "migrate", help="Convert cache to new format",
+    )
+    parser_migrate.set_defaults(func=migrate)
+
     parser_gc = subparsers.add_parser(
         "gc", help="Garbage collect expired data from the cache",
     )
@@ -116,6 +121,20 @@ def main():
         parser.print_help()
     else:
         args.func(args)
+
+
+def migrate(args):
+    log.info("Remove data stored in outdated format from the cache…")
+    cache_dirs = [
+        d
+        for d in Path(args.cache_base_dir).iterdir()
+        if d.is_dir() and d.name != "lost+found"
+    ]
+    for cache_dir in cache_dirs:
+        if Path(cache_dir, CACHED_FILES[0]).exists():
+            # cache_dir uses the old, copying cached files as-is, format
+            log.info(" - Deleting cache for %s", cache_dir.name)
+            shutil.rmtree(cache_dir)
 
 
 def gc(args):
