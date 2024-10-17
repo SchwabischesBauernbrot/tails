@@ -353,6 +353,11 @@ Follow this part ONLY if you are preparing a bugfix release.
 
         ./bin/merge-APT-overlays stable
 
+## In any case
+
+Look at [[!tails_gitlab tails/tails-private]]. If anything was merged there during the current development
+cycle, you need to merge.
+
 Set base branch
 ==================
 
@@ -1066,6 +1071,18 @@ To build the IUKS, run this command:
        PUPPET_TAILS_REMOTE=$(echo -n "${TAILS_REMOTE?:}" | perl -p -E 's,:tails/tails(?:[.]git)?\z,:tails/puppet-tails,')
        cd "${WORK_DIR?:}"
        git clone "$PUPPET_TAILS_REMOTE"
+       TMPFILES_CONF=/etc/tmpfiles.d/tails-create-iuks.conf
+       OUR_TMPDIR=/var/tmp/tails-create-iuks
+       echo "D ${OUR_TMPDIR} 0755 root root -" | sudo tee "$TMPFILES_CONF"
+       sudo systemd-tmpfiles --remove --create "$TMPFILES_CONF"
+       N_IUKS="$(echo ${IUK_SOURCE_VERSIONS?:} | wc -w)"
+       MIN_DISK_SPACE=$((N_IUKS * 3000))
+       FREE_DISK_SPACE=$(/bin/df --block-size=M --output=avail "${OUR_TMPDIR:?}" \
+          | tail -n1 | sed --regexp-extended 's,M$,,')
+       if [ "$FREE_DISK_SPACE" -lt "$MIN_DISK_SPACE" ]; then
+          echo "ERROR! Not enough free space in ${OUR_TMPDIR:?}"
+          exit 2
+       fi
        time                                                                   \
        sudo                                                                   \
        nice                                                                   \
@@ -1074,7 +1091,7 @@ To build the IUKS, run this command:
            --tails-git-commit "${TAG?:}"                                      \
            --source-date-epoch "${SOURCE_DATE_EPOCH?:}"                       \
            --local-isos-dir "${ISOS?:}"                                       \
-           --tmp-dir "${TMPDIR:-/tmp}"                                        \
+           --tmp-dir "${TMPDIR:-${OUR_TMPDIR}}"                                        \
            --output-dir "${IUKS_DIR?:}"                                       \
            --source-versions "${IUK_SOURCE_VERSIONS?:}"                       \
            --new-version "${VERSION?:}"                                       \
@@ -1885,7 +1902,7 @@ Skip this if you are not preparing a stable release.
   - Follow the
     [Tor documentation](https://gitlab.torproject.org/tpo/tpa/team/-/wikis/service/blog#how-to-write-a-new-blog-post-in-gitlab).
     It's OK to create the MR on the command line instead of in the GitLab Web IDE.
-  - Take inspiration from [previous MR](https://gitlab.torproject.org/tpo/web/blog/-/merge_requests/190)
+  - Take inspiration from [previous MR](https://gitlab.torproject.org/tpo/web/blog/-/merge_requests/365)
   - Reuse our existing lead image:
     - `cd` into the directory you created for the new blog post
     - Create a symlink to the existing lead image:
@@ -1971,7 +1988,9 @@ website:
     )
 
 Wait for the release to be fully published, that is for the website to have been
-fully refreshed. To do so:
+fully refreshed. To do so, first wait for the
+[!tails_gitlab desc="GitLab CI pipeline" tails/tails/-/pipelines/]]
+triggered by your last push to build and deploy the website. And then:
 
 ### If you're publishing a final release
 
