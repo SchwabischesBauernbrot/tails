@@ -69,12 +69,14 @@ def main():
     subparsers = parser.add_subparsers(help="sub-command help", dest="command")
 
     parser_migrate = subparsers.add_parser(
-        "migrate", help="Convert cache to new format",
+        "migrate",
+        help="Convert cache to new format",
     )
     parser_migrate.set_defaults(func=migrate)
 
     parser_gc = subparsers.add_parser(
-        "gc", help="Garbage collect expired data from the cache",
+        "gc",
+        help="Garbage collect expired data from the cache",
     )
     parser_gc.add_argument(
         "--max-days",
@@ -94,7 +96,8 @@ def main():
     parser_put.set_defaults(func=put)
 
     parser_key = subparsers.add_parser(
-        "key", help="Computing cache key for the source tree and build environment",
+        "key",
+        help="Computing cache key for the source tree and build environment",
     )
     parser_key.set_defaults(func=key)
 
@@ -231,8 +234,7 @@ def compute_cache_key(key_files: list[str], key_packages: list[str]) -> str:
             check=True,
         ).stdout.rstrip(),
         "packages": {
-            package: package_version(package)
-            for package in sorted(key_packages)
+            package: package_version(package) for package in sorted(key_packages)
         },
     }
     serialized = json.dumps(input_data, sort_keys=True)
