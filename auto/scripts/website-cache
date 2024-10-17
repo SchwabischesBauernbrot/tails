@@ -198,10 +198,10 @@ def put(args):
         log.debug("Caching %s with key %s", file_to_cache, args.cache_key)
         if Path(file_to_cache).is_dir():
             shutil.make_archive(
-                Path(cache_dir, Path(archive_name).stem),
-                "zip",
-                ".",
-                file_to_cache,
+                base_name=Path(cache_dir, Path(archive_name).stem),
+                format="zip",
+                root_dir=".",
+                base_dir=file_to_cache,
             )
         else:
             raise NotImplementedError("Caching non-directories is not supported yet")
