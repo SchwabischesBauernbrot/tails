@@ -109,7 +109,7 @@ def main():
         log.error("Please pass --dest-dir or set $WEBSITE_DEST_DIR")
         sys.exit(1)
 
-    for key_file in KEY_FILES + [args.cache_base_dir]:
+    for key_file in [*KEY_FILES, args.cache_base_dir]:
         if not Path(key_file).exists():
             log.error("%s does not exist", key_file)
             sys.exit(1)
