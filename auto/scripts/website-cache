@@ -153,7 +153,7 @@ def get(args):
             )
         if not cached_file.exists():
             raise FileNotFoundError(
-                "Found no cached %s for key %s" % (file_to_get, args.cache_key)
+                f"Found no cached {file_to_get} for key {args.cache_key}"
             )
 
         log.debug("Copying %s from the cache", file_to_get)
