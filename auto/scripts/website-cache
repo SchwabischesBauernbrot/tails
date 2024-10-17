@@ -39,9 +39,14 @@ KEY_PACKAGES = [
 ]
 
 # Files to cache, relative to the root of this very Git repository
-CACHED_FILES = [
-    "config/chroot_local-includes/usr/share/doc/tails/website",
-]
+CACHED_FILES = {
+    "website.zip": "config/chroot_local-includes/usr/share/doc/tails/website",
+}
+
+
+class CacheArchiveNotFound(FileNotFoundError):
+    def __init__(self, archive_name: str, cache_key: str):
+        super().__init__(f"Found no cached {archive_name} for key {cache_key}")
 
 
 def main():
@@ -131,7 +136,10 @@ def migrate(args):
         if d.is_dir() and d.name != "lost+found"
     ]
     for cache_dir in cache_dirs:
-        if Path(cache_dir, CACHED_FILES[0]).exists():
+        if any(
+            Path(cache_dir, cached_file).exists()
+            for cached_file in CACHED_FILES.values()
+        ):
             # cache_dir uses the old, copying cached files as-is, format
             log.info(" - Deleting cache for %s", cache_dir.name)
             shutil.rmtree(cache_dir)
@@ -160,41 +168,38 @@ def get(args):
     if not cache_dir.exists():
         raise LookupError("Found no cache dir for key %s" % (args.cache_key))
 
-    for file_to_get in [Path(f) for f in CACHED_FILES]:
-        cached_file = Path(cache_dir, file_to_get)
+    for archive_name, file_to_get in CACHED_FILES.items():
+        archive = Path(cache_dir, archive_name)
         dest_file = Path(args.dest_dir, file_to_get)
 
         if dest_file.exists():
             raise FileExistsError(
                 "%s already exists locally, not overwriting" % (dest_file),
             )
-        if not cached_file.exists():
-            raise FileNotFoundError(
-                f"Found no cached {file_to_get} for key {args.cache_key}",
-            )
+        if not archive.exists():
+            raise CacheArchiveNotFound(archive_name, args.cache_key)
 
-        log.debug("Copying %s from the cache", file_to_get)
-        if cached_file.is_dir():
-            shutil.copytree(src=cached_file, dst=dest_file, symlinks=True)
-        else:
-            raise NotImplementedError("Retrieving non-directories is not supported yet")
+        log.debug("Extracting %s from the cache", archive_name)
+        shutil.unpack_archive(archive, args.dest_dir)
 
 
 def put(args):
     cache_dir = Path(args.cache_base_dir, args.cache_key)
     cache_dir.mkdir()
-    for file_to_cache in [Path(f) for f in CACHED_FILES]:
-        cached_file = Path(cache_dir, file_to_cache)
-
-        if not file_to_cache.exists():
+    for archive_name, file_to_cache in CACHED_FILES.items():
+        if not Path(file_to_cache).exists():
             raise FileNotFoundError(
                 "Cannot store non-existing %s in the cache" % file_to_cache,
             )
 
         log.debug("Caching %s with key %s", file_to_cache, args.cache_key)
-        cached_file.parent.mkdir(parents=True)
-        if file_to_cache.is_dir():
-            shutil.copytree(src=file_to_cache, dst=cached_file, symlinks=True)
+        if Path(file_to_cache).is_dir():
+            shutil.make_archive(
+                Path(cache_dir, Path(archive_name).stem),
+                "zip",
+                ".",
+                file_to_cache,
+            )
         else:
             raise NotImplementedError("Caching non-directories is not supported yet")
 
