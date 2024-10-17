@@ -10,6 +10,8 @@ usage() {
     echo "   $0 -f FILENAME"
     echo "  Check Shell files changed since REF"
     echo "   $0 -s REF"
+    echo "  Fix instead of checking"
+    echo "   $0 -w -s REF"
     echo "Options:"
     echo "   -x     run with set -x"
 }
@@ -17,6 +19,9 @@ usage() {
 shfmtArgs=(--indent 4)
 
 check() {
+    if $fix; then
+        shfmt "${shfmtArgs[@]}" --write "$1"
+    fi
     shfmt "${shfmtArgs[@]}" --diff "$1"
 }
 
@@ -34,13 +39,17 @@ check_all() {
 fileToCheck=
 checkSince=
 trace=false
-while getopts ':f:s:x' opt; do
+fix=false
+while getopts ':f:s:xw' opt; do
     case "$opt" in
     f)
         fileToCheck=$OPTARG
         ;;
     s)
         checkSince=$OPTARG
+        ;;
+    w)
+        fix=true
         ;;
     x)
         trace=true
@@ -99,11 +108,19 @@ while IFS= read -r file; do
     fi
 done <<<"${all_files}"
 
-errors=0
+filesWithErrors=()
 for file in "${files_to_check[@]}"; do
     if ! check "$file"; then
-        errors=1
+        filesWithErrors+=("$file")
     fi
 done
 
-exit $errors
+if [ "${#filesWithErrors[@]}" = 0 ]; then
+    exit 0
+fi
+
+echo "${#filesWithErrors[@]} files have errors:"
+for file in "${filesWithErrors[@]}"; do
+    echo "ERROR: $file"
+done
+exit 1
