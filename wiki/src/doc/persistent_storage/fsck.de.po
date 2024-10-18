@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-10-07 10:47+0200\n"
-"PO-Revision-Date: 2024-10-18 11:09+0000\n"
+"PO-Revision-Date: 2024-10-18 13:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -985,11 +985,14 @@ msgid ""
 "   repair the file system of your Persistent Storage after copying the\n"
 "   partition image to a new USB stick.\n"
 msgstr ""
+"   Wenn die Hardware Ihres USB-Sticks ausfällt, könnten Sie möglicherweise \n"
+"   das Dateisystem Ihres beständigen Datenspeichers reparieren, nachdem\n"
+"   Sie das Partition-Image auf einen neuen USB-Stick kopiert haben.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "[[Analyzing the partition image using *Autopsy*|fsck#autopsy]]"
-msgstr ""
+msgstr "[[Analysieren des Partition-Images mit *Autopsy*|fsck#autopsy]]"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -998,11 +1001,17 @@ msgid ""
 "tool\n"
 "   that allows recovering files, even from broken file systems.\n"
 msgstr ""
+"   [*Autopsy*](https://www.autopsy.com/) ist ein fortgeschrittenes digitales "
+"forensisches Tool,\n"
+"    das die Wiederherstellung von Dateien ermöglicht, selbst aus "
+"beschädigten Dateisystemen.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "<h2 id=\"welcome\">Repairing the file system from the Welcome Screen</h2>\n"
 msgstr ""
+"<h2 id=\"welcome\">Reparieren des Dateisystems vom Willkommensbildschirm</h2>"
+"\n"
 
 #. type: Plain text
 #, markdown-text
@@ -1010,16 +1019,20 @@ msgid ""
 "If the hardware of your USB stick is not failing, repairing the file system "
 "from the Welcome Screen is likely the easiest technique."
 msgstr ""
+"Wenn die Hardware Ihres USB-Sticks nicht ausfällt, ist das Reparieren des "
+"Dateisystems vom Willkommensbildschirm wahrscheinlich die einfachste Technik."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Start on the Tails USB stick that has file system errors."
-msgstr ""
+msgstr "Starten Sie mit dem Tails-USB-Stick, der Dateisystemfehler aufweist."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "In the Welcome Screen, try to unlock the Persistent Storage."
 msgstr ""
+"Versuchen Sie im Willkommensbildschirm, den beständigen Datenspeicher zu "
+"entsperren."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1027,6 +1040,8 @@ msgid ""
 "When the error message about file system errors appears, click on the "
 "**Repair File System** button."
 msgstr ""
+"Wenn die Fehlermeldung über Dateisystemfehler erscheint, klicken Sie auf die "
+"Schaltfläche **Dateisystem reparieren**."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1034,16 +1049,20 @@ msgid ""
 "   [[!img repair.png link=\"no\" class=\"screenshot\" alt=\"File System "
 "Errors dialog in Welcome Screen\"]]\n"
 msgstr ""
+"   [[!img repair.png link=\"no\" class=\"screenshot\" alt=\"Dialog für "
+"Dateisystemfehler im Willkommensbildschirm\"]]\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "The repair of the file system starts."
-msgstr ""
+msgstr "Die Reparatur des Dateisystems beginnt."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   The repair can take a long time, from a few seconds to several hours.\n"
 msgstr ""
+"   Die Reparatur kann lange dauern, von wenigen Sekunden bis zu mehreren "
+"Stunden.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1052,16 +1071,20 @@ msgid ""
 "the\n"
 "   partition image using *Autopsy*|fsck#autopsy]] instead.\n"
 msgstr ""
+"   Wenn die Reparatur mehr als einen Tag dauert, fahren Sie Tails herunter "
+"und versuchen Sie\n"
+"   stattdessen [[das Partition-Image mit *Autopsy* zu "
+"analysieren|fsck#autopsy]].\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   [[!img repairing.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
-msgstr ""
+msgstr "   [[!img repairing.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "After the repair finishes:"
-msgstr ""
+msgstr "Nachdem die Reparatur abgeschlossen ist:"
 
 #. type: Bullet: '   - '
 #, markdown-text
@@ -1069,16 +1092,20 @@ msgid ""
 "If the repair succeeded, start Tails and verify the content of your "
 "Persistent Storage."
 msgstr ""
+"Wenn die Reparatur erfolgreich war, starten Sie Tails und überprüfen Sie den "
+"Inhalt Ihres beständigen Datenspeichers."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "     <div class=\"tip\">\n"
-msgstr ""
+msgstr "     <div class=\"tip\">\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "     <p>We recommend that you keep the partition image for some time.</p>\n"
 msgstr ""
+"     <p>Wir empfehlen, das Partition-Image für einige Zeit aufzubewahren.</p>"
+"\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1089,11 +1116,16 @@ msgid ""
 "using\n"
 "     <i>Autopsy</i>|fsck#autopsy]].</p>\n"
 msgstr ""
+"     <p>Wenn Sie später feststellen, dass einige Dateien fehlen oder "
+"beschädigt sind,\n"
+"     können Sie möglicherweise versuchen, diese durch [[Analysieren des "
+"Partition-Images\n"
+"     mit <i>Autopsy</i>|fsck#autopsy]] wiederherzustellen.</p>\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "     </div>\n"
-msgstr ""
+msgstr "     </div>\n"
 
 #. type: Bullet: '   - '
 #, markdown-text
@@ -1101,11 +1133,15 @@ msgid ""
 "If the repair failed, try to [[copy the partition image to a new USB "
 "stick|fsck#copy]] as described below."
 msgstr ""
+"Wenn die Reparatur fehlgeschlagen ist, versuchen Sie, [[das Partition-Image "
+"auf einen neuen USB-Stick zu kopieren|fsck#copy]], wie unten beschrieben."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "<h2 id=\"copy\">Copying the partition image to a new USB stick</h2>\n"
 msgstr ""
+"<h2 id=\"copy\">Kopieren des Partition-Images auf einen neuen USB-Stick</h2>"
+"\n"
 
 #. type: Plain text
 #, markdown-text
@@ -1114,6 +1150,9 @@ msgid ""
 "repair the file system of your Persistent Storage after copying the "
 "partition image to a new USB stick."
 msgstr ""
+"Wenn die Hardware Ihres USB-Sticks ausfällt, könnten Sie möglicherweise das "
+"Dateisystem Ihres beständigen Datenspeichers reparieren, nachdem Sie das "
+"Partition-Image auf einen neuen USB-Stick kopiert haben."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1121,11 +1160,13 @@ msgid ""
 "<h3 id=\"install\">Creating a new Tails USB stick with Persistent "
 "Storage</h3>\n"
 msgstr ""
+"<h3 id=\"install\">Erstellen eines neuen Tails-USB-Sticks mit beständigem "
+"Datenspeicher</h3>\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "[[Install Tails|install]] on a new USB stick."
-msgstr ""
+msgstr "[[Installieren Sie Tails|install]] auf einem neuen USB-Stick."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1133,11 +1174,13 @@ msgid ""
 "   The new USB stick must be at least as large as your current Tails USB "
 "stick.\n"
 msgstr ""
+"   Der neue USB-Stick muss mindestens so groß sein wie Ihr aktueller Tails-"
+"USB-Stick.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Start on the new Tails."
-msgstr ""
+msgstr "Starten Sie mit dem neuen Tails."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1145,11 +1188,13 @@ msgid ""
 "When starting Tails, [[set up an administration "
 "password|doc/first_steps/welcome_screen/administration_password]]."
 msgstr ""
+"Beim Starten von Tails [[richten Sie ein Administrationspasswort ein|doc/"
+"first_steps/welcome_screen/administration_password]]."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Create a Persistent Storage on the new Tails."
-msgstr ""
+msgstr "Erstellen Sie einen beständigen Datenspeicher auf dem neuen Tails."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1157,6 +1202,8 @@ msgid ""
 "Close the Persistent Storage settings after creation, when the list of "
 "features is displayed."
 msgstr ""
+"Schließen Sie die Einstellungen für den beständigen Datenspeicher nach der "
+"Erstellung, wenn die Liste der Funktionen angezeigt wird."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1167,11 +1214,18 @@ msgid ""
 "creating\n"
 "   the Persistent Storage.\n"
 msgstr ""
+"   Der nachfolgend beschriebene Prozess überschreibt den Inhalt und die "
+"Konfiguration des neuen\n"
+"   beständigen Datenspeichers. Daher ist es irrelevant, welche Funktionen "
+"Sie nach der Erstellung des\n"
+" beständigen Datenspeichers aktivieren.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "<h3 id=\"restore\">Copying the partition image onto the new USB stick</h3>\n"
 msgstr ""
+"<h3 id=\"restore\">Kopieren des Partition-Images auf den neuen USB-Stick</h3>"
+"\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1179,6 +1233,8 @@ msgid ""
 "In the left pane of the *Disks* utility, identify your new Tails USB stick "
 "in the list of storage devices."
 msgstr ""
+"Identifizieren Sie im linken Bereich des *Festplatten*-Dienstprogramms Ihren "
+"neuen Tails-USB-Stick in der Liste der Speichermedien."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1186,16 +1242,18 @@ msgid ""
 "In the left pane, click on the storage device that corresponds to your new "
 "Tails USB stick."
 msgstr ""
+"Klicken Sie im linken Bereich auf das Speichermedium, das Ihrem neuen Tails-"
+"USB-Stick entspricht."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "In the right pane, this storage device should have 3 volumes."
-msgstr ""
+msgstr "Im rechten Bereich sollte dieses Speichermedium 3 Volumes aufweisen."
 
 #. type: Bullet: '   - '
 #, markdown-text
 msgid "1 volume with a **TailsData** label and **Ext4** content."
-msgstr ""
+msgstr "1 Volume mit einem **TailsData**-Label und **Ext4**-Inhalt."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1203,6 +1261,8 @@ msgid ""
 "     This volume corresponds to the decrypted version of your Persistent "
 "Storage.\n"
 msgstr ""
+"     Dieses Volume entspricht der entschlüsselten Version Ihres beständigen "
+"Datenspeichers.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1210,6 +1270,8 @@ msgid ""
 "In the right pane, click on the **Ext4** volume, which is the one that "
 "corresponds to the decrypted version of your Persistent Storage."
 msgstr ""
+"Klicken Sie im rechten Bereich auf das **Ext4**-Volume, das der "
+"entschlüsselten Version Ihres beständigen Datenspeichers entspricht."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1218,6 +1280,9 @@ msgid ""
 "the\n"
 "   volume is mounted at */home/amnesia/Persistent*.\n"
 msgstr ""
+"   Überprüfen Sie in den unten aufgeführten Attributen, dass der Inhalt des "
+"Volumes\n"
+"   unter */home/amnesia/Persistent* gemountet ist.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1226,6 +1291,9 @@ msgid ""
 "class=\"symbolic\" alt=\"Unmount selected partition\"]] button to unmount "
 "the Persistent Storage."
 msgstr ""
+"Klicken Sie auf die Schaltfläche [[!img lib/media-playback-stop.png link=\"no"
+"\" class=\"symbolic\" alt=\"Ausgewählte Partition aushängen\"]], um den "
+"beständigen Datenspeicher auszuhängen."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1233,6 +1301,8 @@ msgid ""
 "Plug in the hard disk on which you saved the partition image of your "
 "Persistent Storage."
 msgstr ""
+"Schließen Sie die Festplatte an, auf der Sie das Partition-Image Ihres "
+"beständigen Datenspeichers gespeichert haben."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1240,6 +1310,9 @@ msgid ""
 "Choose **[[!img lib/system-run.png link=\"no\" class=\"symbolic\" "
 "alt=\"Additional partition options\"]]&nbsp;▸ Restore Partition Image**."
 msgstr ""
+"Wählen Sie **[[!img lib/system-run.png link=\"no\" class=\"symbolic\" alt="
+"\"Zusätzliche Partition-Optionen\"]]&nbsp;▸ Partition-Image "
+"wiederherstellen**."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1247,21 +1320,26 @@ msgid ""
 "In the **Restore Disk Image** dialog, browse for the partition image on the "
 "hard disk that you plugged in."
 msgstr ""
+"Durchsuchen Sie im Dialogfeld **Disk-Image wiederherstellen** die "
+"Festplatte, die Sie angeschlossen haben, nach dem Partition-Image."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Click on the **Start Restoring** button."
-msgstr ""
+msgstr "Klicken Sie auf die Schaltfläche **Wiederherstellung starten**."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "After the restoration finishes, restart on the new Tails USB stick."
 msgstr ""
+"Nachdem die Wiederherstellung abgeschlossen ist, starten Sie mit dem neuen "
+"Tails-USB-Stick."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "<h3 id=\"fix\">Fixing the file system errors on the new USB stick</h3>\n"
 msgstr ""
+"<h3 id=\"fix\">Beheben der Dateisystemfehler auf dem neuen USB-Stick</h3>\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1269,6 +1347,8 @@ msgid ""
 "If an error message about file system errors appears, click on the **Repair "
 "File System** button."
 msgstr ""
+"Wenn eine Fehlermeldung über Dateisystemfehler erscheint, klicken Sie auf "
+"die Schaltfläche **Dateisystem reparieren**."
 
 #. type: Bullet: '   - '
 #, markdown-text
@@ -1276,11 +1356,14 @@ msgid ""
 "If the repair failed, try to [[analyze the partition image using "
 "*Autopsy*|fsck#copy]] as described below."
 msgstr ""
+"Wenn die Reparatur fehlgeschlagen ist, versuchen Sie, [[das Partition-Image "
+"mit *Autopsy* zu analysieren|fsck#copy]], wie unten beschrieben."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "<h2 id=\"autopsy\">Analyzing the partition image using <i>Autopsy</i></h2>\n"
 msgstr ""
+"<h2 id=\"autopsy\">Analysieren des Partition-Images mit <i>Autopsy</i></h2>\n"
 
 #. type: Plain text
 #, markdown-text
@@ -1288,6 +1371,9 @@ msgid ""
 "[*Autopsy*](https://www.autopsy.com/) is an advanced digital forensics tool "
 "that allows recovering files, even from broken file systems."
 msgstr ""
+"[*Autopsy*](https://www.autopsy.com/) ist ein fortgeschrittenes digitales "
+"forensisches Tool, das die Wiederherstellung von Dateien ermöglicht, selbst "
+"aus beschädigten Dateisystemen."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1295,6 +1381,8 @@ msgid ""
 "*Autopsy* is open source and available for free on Windows, macOS, and "
 "Linux.\n"
 msgstr ""
+"*Autopsy* ist Open Source und kostenlos für Windows, macOS und Linux "
+"verfügbar.\n"
 
 #. type: Plain text
 #, markdown-text
@@ -1304,6 +1392,10 @@ msgid ""
 "*Autopsy* in Tails. But, *Autopsy* is easier to install in Windows than in "
 "Tails."
 msgstr ""
+"Um zu vermeiden, dass Spuren des Inhalts Ihres beständigen Datenspeichers im "
+"Betriebssystem, auf dem *Autopsy* verwendet wird, zurückbleiben, empfehlen "
+"wir, *Autopsy* in Tails zu verwenden. Allerdings ist *Autopsy* in Windows "
+"einfacher zu installieren als in Tails."
 
 #. type: Plain text
 #, markdown-text
@@ -1311,6 +1403,8 @@ msgid ""
 "We are not providing step-by-step instructions on how to install and use "
 "*Autopsy*."
 msgstr ""
+"Wir geben keine Schritt-für-Schritt-Anleitungen zur Installation und "
+"Verwendung von *Autopsy*."
 
 #. type: Plain text
 #, markdown-text
@@ -1319,6 +1413,9 @@ msgid ""
 "recommend that you get help from someone with more experience with Linux and "
 "data recovery."
 msgstr ""
+"Wenn Sie sich unsicher sind, *Autopsy* selbst zu installieren und zu "
+"verwenden, empfehlen wir, sich Hilfe von jemandem zu holen, der mehr "
+"Erfahrung mit Linux und Datenwiederherstellung hat."
 
 #. type: Plain text
 #, markdown-text
@@ -1326,16 +1423,18 @@ msgid ""
 "You can also read the [Autopsy User "
 "Documentation](http://sleuthkit.org/autopsy/docs/user-docs/latest)."
 msgstr ""
+"Sie können auch die [Autopsy-Benutzerdokumentation](http://sleuthkit.org/"
+"autopsy/docs/user-docs/latest) lesen."
 
 #. type: Title ###
 #, markdown-text, no-wrap
 msgid "Installing *Autopsy* in Tails"
-msgstr ""
+msgstr "Installation von *Autopsy* in Tails"
 
 #. type: Plain text
 #, markdown-text
 msgid "The general steps are:"
-msgstr ""
+msgstr "Die allgemeinen Schritte sind:"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1343,16 +1442,18 @@ msgid ""
 "From the [download page](https://www.autopsy.com/download/), download the 2 "
 "binaries needed to run *Autopsy*:"
 msgstr ""
+"Laden Sie von der [Download-Seite](https://www.autopsy.com/download/) die 2 "
+"benötigten Binärdateien herunter, um *Autopsy* auszuführen:"
 
 #. type: Bullet: '   - '
 #, markdown-text
 msgid "The DEB file of *The Sleuth Kit*."
-msgstr ""
+msgstr "Die DEB-Datei von *The Sleuth Kit*."
 
 #. type: Bullet: '   - '
 #, markdown-text
 msgid "The ZIP file of *Autopsy*."
-msgstr ""
+msgstr "Die ZIP-Datei von *Autopsy*."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1361,16 +1462,19 @@ msgid ""
 "Linux](https://github.com/sleuthkit/autopsy/blob/develop/Running_Linux_OSX.md), "
 "download the 2 scripts needed for the installation:"
 msgstr ""
+"Laden Sie von den [Installationsanweisungen von *Autopsy* für "
+"Linux](https://github.com/sleuthkit/autopsy/blob/develop/Running_Linux_OSX."
+"md) die 2 Skripte herunter, die für die Installation benötigt werden:"
 
 #. type: Bullet: '   - '
 #, markdown-text
 msgid "`install_prereqs_ubuntu.sh`"
-msgstr ""
+msgstr "`install_prereqs_ubuntu.sh`"
 
 #. type: Bullet: '   - '
 #, markdown-text
 msgid "`install_application.sh`"
-msgstr ""
+msgstr "`install_application.sh`"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -1378,11 +1482,13 @@ msgid ""
 "Execute the following commands in a *Terminal*. You might have to adjust to "
 "newer versions of *Autopsy*."
 msgstr ""
+"Führen Sie die folgenden Befehle in einem *Terminal* aus. Möglicherweise "
+"müssen Sie die Befehle an neuere Versionen von *Autopsy* anpassen."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   <p class=\"command\">bash install_prereqs_ubuntu.sh</p>\n"
-msgstr ""
+msgstr "   <p class=\"command\">bash install_prereqs_ubuntu.sh</p>\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1390,11 +1496,14 @@ msgid ""
 "   <p class=\"command\">sudo apt install libsqlite3-dev libc3p0-java "
 "unzip</p>\n"
 msgstr ""
+"   <p class=\"command\">sudo apt install libsqlite3-dev libc3p0-java "
+"unzip</p>\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   <p class=\"command\">sudo dpkg -i sleuthkit-java_4.12.1-1_amd64.deb</p>\n"
 msgstr ""
+"   <p class=\"command\">sudo dpkg -i sleuthkit-java_4.12.1-1_amd64.deb</p>\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1402,6 +1511,8 @@ msgid ""
 "   <p class=\"command\">bash install_application.sh -z autopsy-4.21.0.zip -i "
 "~/Persistent/autopsy -j /usr/lib/jvm/java-17-openjdk-amd64</p>\n"
 msgstr ""
+"   <p class=\"command\">bash install_application.sh -z autopsy-4.21.0.zip -i "
+"~/Persistent/autopsy -j /usr/lib/jvm/java-17-openjdk-amd64</p>\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1409,41 +1520,47 @@ msgid ""
 "   <p "
 "class=\"command\">/home/amnesia/Persistent/autopsy/autopsy-4.21.0/bin/autopsy</p>\n"
 msgstr ""
+"   <p class=\"command\">/home/amnesia/Persistent/autopsy/autopsy-4.21.0/bin/"
+"autopsy</p>\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "When starting for the first time, *Autopsy* freezes on **Starting modules**."
 msgstr ""
+"Beim ersten Start von *Autopsy* bleibt das Programm bei **Module werden "
+"gestartet** hängen."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   Press **Enter** to continue.\n"
-msgstr ""
+msgstr "   Drücken Sie **Enter**, um fortzufahren.\n"
 
 #. type: Title ###
 #, markdown-text, no-wrap
 msgid "Using *Autopsy* to analyze the partition image"
-msgstr ""
+msgstr "*Autopsy* verwenden, um das Partition-Image zu analysieren"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Start *Autopsy*."
-msgstr ""
+msgstr "Starten Sie *Autopsy*."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Open a new case."
-msgstr ""
+msgstr "Öffnen Sie einen neuen Fall."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Add the partition image of the Persistent Storage as a data source."
 msgstr ""
+"Fügen Sie das Partition-Image des beständigen Datenspeichers als Datenquelle "
+"hinzu."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "*Autopsy* analyzes the data source."
-msgstr ""
+msgstr "*Autopsy* analysiert die Datenquelle."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1454,6 +1571,11 @@ msgid ""
 "tree\n"
 "   and by type of files.\n"
 msgstr ""
+"   Nachdem die Analyse abgeschlossen ist, werden die wiederhergestellten "
+"Dateien\n"
+"   in verschiedenen Ansichten in der linken Seitenleiste angezeigt, zum "
+"Beispiel sowohl\n"
+"   als Dateisystembaum als auch nach Dateitypen.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -1462,8 +1584,13 @@ msgid ""
 "Tails showing files recovered from the partition image of a Persistent "
 "Storage\"]]\n"
 msgstr ""
+"   [[!img autopsy.png link=\"no\" class=\"screenshot\" alt=\"Autopsy in "
+"Tails zeigt die aus dem Partition-Image eines beständigen Datenspeichers "
+"wiederhergestellten Dateien\"]]\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Extract the files that you want to recover to the case folder."
 msgstr ""
+"Extrahieren Sie die Dateien, die Sie wiederherstellen möchten, in den "
+"Fallordner."
