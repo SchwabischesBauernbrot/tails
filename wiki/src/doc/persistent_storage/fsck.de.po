@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-10-07 10:47+0200\n"
-"PO-Revision-Date: 2024-10-18 08:09+0000\n"
+"PO-Revision-Date: 2024-10-18 11:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -393,7 +393,7 @@ msgstr "Starte Tails."
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "In the Welcome Screen:"
-msgstr ""
+msgstr "Im Willkommensbildschirm:"
 
 #. type: Bullet: '   1. '
 #, markdown-text
@@ -401,16 +401,21 @@ msgid ""
 "[[Set up an administration "
 "password|doc/first_steps/welcome_screen/administration_password]]."
 msgstr ""
+"[[Einrichtung eines Administrationspassworts|doc/first_steps/welcome_screen/"
+"administration_password]]."
 
 #. type: Bullet: '   2. '
 #, markdown-text
 msgid "Choose to start without unlocking your Persistent Storage."
 msgstr ""
+"Wählen Sie, um ohne Entsperren Ihres beständigen Datenspeichers zu starten."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Choose **Applications&nbsp;▸ Files** to open the *Files* utility."
 msgstr ""
+"Wählen Sie **Anwendungen&nbsp;▸ Dateien**, um das *Dateien*-Dienstprogramm "
+"zu öffnen."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -419,11 +424,17 @@ msgid ""
 "Persistent Storage. You need as much free space as the size of your "
 "Persistent Storage, usually 8&nbsp;GB less than your Tails USB stick."
 msgstr ""
+"Schließen Sie die Festplatte an, auf der Sie das Partition-Image Ihres "
+"beständigen Datenspeichers speichern möchten. Sie benötigen so viel freien "
+"Speicherplatz wie die Größe Ihres beständigen Datenspeichers, in der Regel "
+"8&nbsp;GB weniger als Ihr Tails-USB-Stick."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   A new disk appears in the sidebar of the *Files* utility.\n"
 msgstr ""
+"   Eine neue Festplatte erscheint in der Seitenleiste des "
+"*Dateien*-Dienstprogramms.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -432,11 +443,14 @@ msgid ""
 "in the sidebar of the *Files* utility and choose *Properties* in the "
 "shortcut menu."
 msgstr ""
+"Klicken Sie mit der rechten Maustaste (bei Mac gleichzeitig mit zwei Fingern)"
+" auf das neue Volume, das in der Seitenleiste des *Dateien*-Dienstprogramms "
+"erschienen ist, und wählen Sie *Eigenschaften* im Kontextmenü aus."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   Take note of the free space in the disk.\n"
-msgstr ""
+msgstr "   Achten Sie auf den freien Speicherplatz auf der Festplatte.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -444,6 +458,8 @@ msgid ""
 "<h3 id=\"identify\">Identifying your Persistent Storage in the <i>Disks</i> "
 "utility</h3>\n"
 msgstr ""
+"<h3 id=\"identify\">Identifizierung Ihres beständigen Datenspeichers im "
+"<i>Festplatten</i>-Dienstprogramm</h3>\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -451,6 +467,8 @@ msgid ""
 "Choose **Applications&nbsp;▸ Utilities&nbsp;▸ Disks** to open the *Disks* "
 "utility."
 msgstr ""
+"Wählen Sie **Anwendungen&nbsp;▸ Dienstprogramme&nbsp;▸ Festplatten**, um das "
+"*Festplatten*-Dienstprogramm zu öffnen."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -458,11 +476,13 @@ msgid ""
 "In the left pane of the *Disks* utility, identify your Tails USB stick in "
 "the list of storage devices."
 msgstr ""
+"Identifizieren Sie im linken Bereich des *Festplatten*-Dienstprogramms Ihren "
+"Tails-USB-Stick in der Liste der Speichermedien."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   Verify its brand and size.\n"
-msgstr ""
+msgstr "   Überprüfen Sie die Marke und die Größe.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -470,6 +490,8 @@ msgid ""
 "In the left pane, click on the storage device that corresponds to your Tails "
 "USB stick."
 msgstr ""
+"Klicken Sie im linken Bereich auf das Speichermedium, das Ihrem Tails-USB-"
+"Stick entspricht."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -477,21 +499,23 @@ msgid ""
 "In the right pane, this storage device should have 2 volumes, corresponding "
 "to 2 partitions on the USB stick."
 msgstr ""
+"Im rechten Bereich sollte dieses Speichermedium 2 Volumes aufweisen, die den "
+"2 Partitionen auf dem USB-Stick entsprechen."
 
 #. type: Bullet: '   - '
 #, markdown-text
 msgid "1 volume with a **TAILS** label and **FAT** content."
-msgstr ""
+msgstr "1 Volume mit einem **TAILS**-Label und **FAT**-Inhalt."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "     This volume corresponds to the system partition of your Tails.\n"
-msgstr ""
+msgstr "     Dieses Volume entspricht der Systempartition Ihres Tails.\n"
 
 #. type: Bullet: '   - '
 #, markdown-text
 msgid "1 volume with a **TailsData** label and **LUKS** content."
-msgstr ""
+msgstr "1 Volume mit einem **TailsData**-Label und **LUKS**-Inhalt."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -499,11 +523,13 @@ msgid ""
 "     This volume corresponds to the encrypted version of your Persistent "
 "Storage.\n"
 msgstr ""
+"     Dieses Volume entspricht der verschlüsselten Version Ihres beständigen "
+"Datenspeichers.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   [[!img disks.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
-msgstr ""
+msgstr "   [[!img disks.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -511,11 +537,15 @@ msgid ""
 "In the right pane, click on the volume that corresponds to your Persistent "
 "Storage."
 msgstr ""
+"Klicken Sie im rechten Bereich auf das Volume, das Ihrem beständigen "
+"Datenspeicher entspricht."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   Verify that the content of the volume is of type **LUKS Encryption**.\n"
 msgstr ""
+"   Überprüfen Sie, dass der Inhalt des Volumes vom Typ **LUKS-"
+"Verschlüsselung** ist.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -523,6 +553,8 @@ msgid ""
 "<h3 id=\"unlock\">Unlocking your Persistent Storage in the <i>Disks</i> "
 "utility</h3>\n"
 msgstr ""
+"<h3 id=\"unlock\">Entsperrung Ihres beständigen Datenspeichers im "
+"<i>Festplatten</i>-Dienstprogramm</h3>\n"
 
 #. type: Plain text
 #, markdown-text
@@ -530,6 +562,9 @@ msgid ""
 "Before creating the partition image, unlock the encryption to access the "
 "decrypted version of your Persistent Storage. To do so:"
 msgstr ""
+"Bevor Sie das Partition-Image erstellen, entsperren Sie die Verschlüsselung, "
+"um auf die entschlüsselte Version Ihres beständigen Datenspeichers "
+"zuzugreifen. Gehen Sie dazu folgendermaßen vor:"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -537,6 +572,8 @@ msgid ""
 "Click [[!img lib/unlock.png link=\"no\" class=\"symbolic\" alt=\"Unlock "
 "selected encrypted partition\"]]."
 msgstr ""
+"Klicken Sie [[!img lib/unlock.png link=\"no\" class=\"symbolic\" alt="
+"\"Ausgewählte verschlüsselte Partition entsperren\"]]."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -544,11 +581,13 @@ msgid ""
 "In the **Enter passphrase to unlock** dialog, enter the passphrase of your "
 "Persistent Storage."
 msgstr ""
+"Geben Sie im Dialogfeld **Passphrase eingeben, um zu entsperren** die "
+"Passphrase Ihres beständigen Datenspeichers ein."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Click **Unlock**."
-msgstr ""
+msgstr "Klicken Sie auf **Entsperren**."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -556,11 +595,13 @@ msgid ""
 "In the **Authentication Required** dialog, enter your administration "
 "password."
 msgstr ""
+"Geben Sie im Dialogfeld **Authentifizierung erforderlich** Ihr "
+"Administrationspasswort ein."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   <div class=\"bug\">\n"
-msgstr ""
+msgstr "   <div class=\"bug\">\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -570,11 +611,15 @@ msgid ""
 "   that decryption is impossible, making all your data completely\n"
 "   unrecoverable.</p>\n"
 msgstr ""
+"   <p>Wenn das Entsperren an dieser Stelle fehlschlägt, ist Ihr beständiger "
+"Datenspeicher so beschädigt,\n"
+"   dass eine Dekryption unmöglich ist, wodurch alle Ihre Daten vollständig\n"
+"   unwiederherstellbar sind.</p>\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   </div>\n"
-msgstr ""
+msgstr "   </div>\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -582,11 +627,14 @@ msgid ""
 "In the right pane, click on the new volume that appears below the **LUKS** "
 "volume."
 msgstr ""
+"Klicken Sie im rechten Bereich auf das neue Volume, das unter dem **LUKS**-"
+"Volume erscheint."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   Verify that the content of the new volume is of type **Ext4**.\n"
 msgstr ""
+"   Überprüfen Sie, dass der Inhalt des neuen Volumes vom Typ **Ext4** ist.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -594,6 +642,8 @@ msgid ""
 "   This volume corresponds to the decrypted version of your Persistent "
 "Storage.\n"
 msgstr ""
+"   Dieses Volume entspricht der entschlüsselten Version Ihres beständigen "
+"Datenspeichers.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -601,11 +651,14 @@ msgid ""
 "Verify that the size of your decrypted Persistent Storage is smaller than "
 "the available free space in the external hard disk."
 msgstr ""
+"Überprüfen Sie, dass die Größe Ihres entschlüsselten beständigen "
+"Datenspeichers kleiner ist als der verfügbare freie Speicherplatz auf der "
+"externen Festplatte."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Take note of the device name of your Persistent Storage."
-msgstr ""
+msgstr "Notieren Sie sich den Gerätenamen Ihres beständigen Datenspeichers."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -613,11 +666,13 @@ msgid ""
 "   The device name is composed of `/dev/mapper/luks`, followed by letters "
 "and numbers.\n"
 msgstr ""
+"   Der Gerätename setzt sich aus `/dev/mapper/luks` zusammen, gefolgt von "
+"Buchstaben und Zahlen.\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "<h3 id=\"create\">Creating the partition image</h3>\n"
-msgstr ""
+msgstr "<h3 id=\"create\">Erstellen des Partition-Images</h3>\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -625,16 +680,18 @@ msgid ""
 "Choose **[[!img lib/system-run.png alt=\"Additional partition options\" "
 "class=symbolic link=\"no\"]]&nbsp;▸ Create Partition Image**."
 msgstr ""
+"Wählen Sie **[[!img lib/system-run.png alt=\"Zusätzliche Partition-Optionen\""
+" class=symbolic link=\"no\"]]&nbsp;▸ Partition-Image erstellen**."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "In the **Create Disk Image** dialog:"
-msgstr ""
+msgstr "Im Dialogfeld **Disk-Image erstellen**:"
 
 #. type: Bullet: '   - '
 #, markdown-text
 msgid "In the **Name** field, specify *persistent-storage.img*."
-msgstr ""
+msgstr "Geben Sie im Feld **Name** *persistent-storage.img* an."
 
 #. type: Bullet: '   - '
 #, markdown-text
@@ -642,21 +699,23 @@ msgid ""
 "In the **Save in Folder** menu, choose the external disk to which you want "
 "to save the partition image."
 msgstr ""
+"Wählen Sie im Menü **In Ordner speichern** die externe Festplatte aus, auf "
+"der Sie das Partition-Image speichern möchten."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   Click the **Start Creating** button.\n"
-msgstr ""
+msgstr "   Klicken Sie auf die Schaltfläche **Erstellen starten**.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "After the creation of the partition image finishes:"
-msgstr ""
+msgstr "Nachdem die Erstellung des Partition-Images abgeschlossen ist:"
 
 #. type: Bullet: '   - '
 #, markdown-text
 msgid "If the creation succeeded, shutdown Tails."
-msgstr ""
+msgstr "Wenn die Erstellung erfolgreich war, fahren Sie Tails herunter."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -664,6 +723,8 @@ msgid ""
 "     You can now safely start [[recovering data from the Persistent\n"
 "     Storage|fsck#welcome]].\n"
 msgstr ""
+"     Sie können jetzt sicher [[Daten aus dem beständigen\n"
+"     Datenspeicher wiederherstellen|fsck#welcome]].\n"
 
 #. type: Bullet: '   - '
 #, markdown-text
@@ -672,6 +733,9 @@ msgid ""
 "a partition image using `ddrescue` on the command line|fsck#ddrescue]] "
 "instead."
 msgstr ""
+"Wenn die Erstellung fehlschlug, versuchen Sie die zweite Technik, die unten "
+"beschrieben ist, um ein Partition-Image mit `ddrescue` in der Befehlszeile "
+"zu [[erstellen|fsck#ddrescue]]."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -679,6 +743,8 @@ msgid ""
 "<h2 id=\"ddrescue\">Creating a partition image using <span "
 "class=\"code\">ddrescue</span> on the command line</h2>\n"
 msgstr ""
+"<h2 id=\"ddrescue\">Erstellen eines Partition-Images mit <span class=\"code\""
+">ddrescue</span> in der Befehlszeile</h2>\n"
 
 #. type: Plain text
 #, markdown-text
@@ -687,6 +753,9 @@ msgid ""
 "this second technique using `ddrescue`, which can be more resilient to "
 "hardware failures."
 msgstr ""
+"Wenn das Erstellen eines Partition-Images mit dem *Festplatten*-"
+"Dienstprogramm fehlschlägt, können Sie diese zweite Technik mit `ddrescue` "
+"ausprobieren, die widerstandsfähiger gegenüber Hardwarefehlern sein kann."
 
 #. type: Plain text
 #, markdown-text
@@ -696,6 +765,11 @@ msgid ""
 "failing. After that, you can run `ddrescue` again to try to copy the parts "
 "that failed the first time."
 msgstr ""
+"Das Dienstprogramm `ddrescue` versucht, zunächst die Teile des beständigen "
+"Datenspeichers zu kopieren, die nicht fehlerhaft sind, und überspringt die "
+"Teile, die fehlerhaft sind. Danach können Sie `ddrescue` erneut ausführen, "
+"um zu versuchen, die Teile zu kopieren, die beim ersten Mal fehlgeschlagen "
+"sind."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -703,6 +777,9 @@ msgid ""
 "In the *Files* utility, navigate to the folder of the external hard where "
 "you want to save the partition image of your Persistent Storage."
 msgstr ""
+"Navigieren Sie im *Dateien*-Dienstprogramm zu dem Ordner der externen "
+"Festplatte, auf der Sie das Partition-Image Ihres beständigen Datenspeichers "
+"speichern möchten."
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -710,11 +787,15 @@ msgid ""
 "Right-click in the empty space of the right pane and choose **Open in "
 "Terminal** in the shortcut menu."
 msgstr ""
+"Klicken Sie mit der rechten Maustaste in den leeren Bereich des rechten "
+"Fensters und wählen Sie im Kontextmenü **Im Terminal öffnen**."
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   Doing so opens a terminal that is configured to operate in this folder.\n"
 msgstr ""
+"   Dadurch wird ein Terminal geöffnet, das so konfiguriert ist, dass es in "
+"diesem Ordner arbeitet.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
@@ -724,6 +805,10 @@ msgid ""
 "name found when [[identifying your *Persistent Storage* in the *Disks* "
 "utility|fsck#identify]]."
 msgstr ""
+"Führen Sie im Terminal den folgenden Befehl aus. Ersetzen Sie <span class"
+"=\"command-placeholder\">/dev/mapper/luks-xyz</span> durch den Gerätenamen, "
+"den Sie beim [[Identifizieren Ihres *Beständigen Datenspeichers* im "
+"*Festplatten*-Dienstprogramm|fsck#identify]] gefunden haben."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -732,11 +817,13 @@ msgid ""
 "class=\"command-placeholder\">/dev/mapper/luks-xyz</span> "
 "persistent-storage.img ddrescue.log</p>\n"
 msgstr ""
+"   <p class=\"command-template\">ddrescue <span class=\"command-placeholder\""
+">/dev/mapper/luks-xyz</span> persistent-storage.img ddrescue.log</p>\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "   The output of `ddrescue` looks like this:\n"
-msgstr ""
+msgstr "   Die Ausgabe von `ddrescue` sieht wie folgt aus:\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -759,6 +846,23 @@ msgid ""
 "0s\n"
 "       Copying non-tried blocks... Pass 1 (forwards)\n"
 msgstr ""
+"       GNU ddrescue 1.27\n"
+"       Press Ctrl-C to interrupt\n"
+"            ipos:  749404 kB, non-trimmed:        0 B,  current rate:  34996 "
+"kB/s\n"
+"            ipos:    1446 MB, non-trimmed:        0 B,  current rate:  24772 "
+"kB/s\n"
+"            opos:    1446 MB, non-scraped:        0 B,  average rate:  33629 "
+"kB/s\n"
+"       non-tried:    9290 MB,  bad-sector:        0 B,    error rate:       "
+"0 B/s\n"
+"         rescued:    1446 MB,   bad areas:        0,        run time:"
+"         43s\n"
+"       pct rescued:   13.46%, read errors:        0,  remaining time:      "
+"1m 31s\n"
+"                                     time since last successful read:"
+"          0s\n"
+"       Copying non-tried blocks... Pass 1 (forwards)\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -767,11 +871,14 @@ msgid ""
 "your\n"
 "   Persistent Storage, most likely because of hardware failures.\n"
 msgstr ""
+"   Der Abschnitt über **schadhafte Bereiche** bezieht sich auf Fehler beim "
+"Lesen der Daten Ihres\n"
+"   beständigen Datenspeichers, wahrscheinlich aufgrund von Hardwarefehlern.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "After `ddrescue` finishes:"
-msgstr ""
+msgstr "Nachdem `ddrescue` abgeschlossen ist:"
 
 #. type: Bullet: '   - '
 #, markdown-text
@@ -779,6 +886,9 @@ msgid ""
 "If bad areas were reported, try leaving your USB stick to rest for some "
 "minutes and executing the same `ddrescue` command again to copy more data."
 msgstr ""
+"Wenn schadhafte Bereiche gemeldet wurden, versuchen Sie, Ihren USB-Stick "
+"einige Minuten ruhen zu lassen und den gleichen `ddrescue`-Befehl erneut "
+"auszuführen, um weitere Daten zu kopieren."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -788,6 +898,10 @@ msgid ""
 "     to a new USB stick|fsck#copy]] after you execute `ddrescue` several "
 "times.\n"
 msgstr ""
+"     Wir empfehlen, Ihren USB-Stick zu ersetzen und [[das Partition-Image "
+"auf\n"
+"     einen neuen USB-Stick zu kopieren|fsck#copy]], nachdem Sie `ddrescue` "
+"mehrere Male ausgeführt haben.\n"
 
 #. type: Bullet: '   - '
 #, markdown-text
@@ -796,11 +910,15 @@ msgid ""
 "several executions of the `ddrescue` command, it means that all the data "
 "that could be rescued was copied to the partition image."
 msgstr ""
+"Wenn keine schadhaften Bereiche gemeldet wurden oder wenn nach mehreren "
+"Ausführungen des `ddrescue`-Befehls die gleichen schadhaften Bereiche "
+"gemeldet wurden, bedeutet dies, dass alle Daten, die gerettet werden "
+"konnten, in das Partition-Image kopiert wurden."
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "Shut down Tails."
-msgstr ""
+msgstr "Fahren Sie Tails herunter."
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -808,11 +926,15 @@ msgid ""
 "   You can now safely start [[recovering data from the Persistent\n"
 "   Storage|fsck#welcome]].\n"
 msgstr ""
+"   Sie können jetzt sicher [[Daten aus dem beständigen\n"
+"   Datenspeicher wiederherstellen|fsck#welcome]].\n"
 
 #. type: Plain text
 #, markdown-text, no-wrap
 msgid "<h1 id=\"recover\">Recovering data from the Persistent Storage</h1>\n"
 msgstr ""
+"<h1 id=\"recover\">Wiederherstellung von Daten aus dem beständigen "
+"Datenspeicher</h1>\n"
 
 #. type: Plain text
 #, markdown-text
@@ -820,6 +942,9 @@ msgid ""
 "After [[creating a partition image|fsck#image]], you can safely try to "
 "recover data from your Persistent Storage without risking erasing more data."
 msgstr ""
+"Nachdem Sie [[ein Partition-Image erstellt haben|fsck#image]], können Sie "
+"sicher versuchen, Daten aus Ihrem beständigen Datenspeicher "
+"wiederherzustellen, ohne das Risiko einzugehen, weitere Daten zu löschen."
 
 #. type: Plain text
 #, markdown-text
@@ -834,7 +959,7 @@ msgstr ""
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "[[Repairing the file system from the Welcome Screen|fsck#welcome]]"
-msgstr ""
+msgstr "[[Reparieren des Dateisystems vom Willkommensbildschirm|fsck#welcome]]"
 
 #. type: Plain text
 #, markdown-text, no-wrap
@@ -843,11 +968,14 @@ msgid ""
 "system\n"
 "   from the Welcome Screen is likely the easiest technique.\n"
 msgstr ""
+"   Wenn die Hardware Ihres USB-Sticks nicht ausfällt, ist das Reparieren des "
+"Dateisystems\n"
+"   vom Willkommensbildschirm wahrscheinlich die einfachste Technik.\n"
 
 #. type: Bullet: '1. '
 #, markdown-text
 msgid "[[Copying the partition image to a new USB stick|fsck#copy]]"
-msgstr ""
+msgstr "[[Kopieren des Partition-Images auf einen neuen USB-Stick|fsck#copy]]"
 
 #. type: Plain text
 #, markdown-text, no-wrap
