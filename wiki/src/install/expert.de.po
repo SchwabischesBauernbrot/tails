@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-04-05 11:23+0000\n"
-"PO-Revision-Date: 2024-10-10 13:09+0000\n"
+"PO-Revision-Date: 2024-10-20 20:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -284,7 +284,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h1 id=\"verify\" class=\"step\">Verify your download</h1>\n"
-msgstr ""
+msgstr "<h1 id=\"verify\" class=\"step\">Überprüfen Sie Ihren Download</h1>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -298,11 +298,13 @@ msgstr ""
 msgid ""
 "In this step, you will verify your download using the Tails signing key."
 msgstr ""
+"In diesem Schritt überprüfen Sie Ihren Download mit dem Tails-"
+"Signierungsschlüssel."
 
 #
 #. type: Bullet: '1. '
 msgid "Download the signature of the USB image:"
-msgstr ""
+msgstr "Laden Sie die Signatur des USB-Images herunter:"
 
 #. type: Plain text
 #, no-wrap
@@ -315,6 +317,8 @@ msgstr ""
 #. type: Bullet: '1. '
 msgid "Verify that the USB image is signed by the Tails signing key:"
 msgstr ""
+"Überprüfen Sie, ob das USB-Image mit dem Tails-Signierungsschlüssel signiert "
+"ist:"
 
 #. type: Plain text
 #, no-wrap
@@ -326,7 +330,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   The output of this command should be the following:\n"
-msgstr ""
+msgstr "   Die Ausgabe dieses Befehls sollte wie folgt aussehen:\n"
 
 #. type: Plain text
 #, no-wrap
@@ -355,6 +359,8 @@ msgstr ""
 #, no-wrap
 msgid "<h1 id=\"install\" class=\"step\">Install Tails using <code>dd</code></h1>\n"
 msgstr ""
+"<h1 id=\"install\" class=\"step\">Tails mit <code>dd</code> installieren</h1>"
+"\n"
 
 #. type: Plain text
 #, no-wrap
@@ -368,6 +374,8 @@ msgstr ""
 msgid ""
 "Make sure that the USB stick on which you want to install Tails is unplugged."
 msgstr ""
+"Stellen Sie sicher, dass der USB-Stick, auf dem Sie Tails installieren "
+"möchten, nicht angeschlossen ist."
 
 #
 #. type: Bullet: '1. '
@@ -392,7 +400,7 @@ msgstr "       dev/sda\n"
 #
 #. type: Bullet: '1. '
 msgid "Plug in the USB stick on which you want to install Tails."
-msgstr ""
+msgstr "Stecken Sie den USB-Stick ein, auf dem Sie Tails installieren möchten."
 
 #. type: Plain text
 #, no-wrap
@@ -402,12 +410,12 @@ msgstr "   <div class=\"caution\"><p>Alle Daten auf diesem USB-Stick gehen verlo
 #
 #. type: Bullet: '1. '
 msgid "Execute again the same command:"
-msgstr ""
+msgstr "Führen Sie denselben Befehl erneut aus:"
 
 #. type: Plain text
 #, no-wrap
 msgid "   Your USB stick appears as a new device in the list.\n"
-msgstr ""
+msgstr "   Ihr USB-Stick erscheint als neues Gerät in der Liste.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -421,7 +429,7 @@ msgstr ""
 #
 #. type: Bullet: '1. '
 msgid "Take note of the *device name* of your USB stick."
-msgstr ""
+msgstr "Notieren Sie sich den *Gerätenamen* Ihres USB-Sticks."
 
 #. type: Plain text
 #, no-wrap
@@ -429,6 +437,8 @@ msgid ""
 "   In this example, the device name of the USB stick is\n"
 "   `/dev/sdb`. Yours might be different.\n"
 msgstr ""
+"   In diesem Beispiel lautet der Gerätename des USB-Sticks `/dev/sdb`. Ihrer "
+"könnte anders sein.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -463,6 +473,8 @@ msgid ""
 "<span class=\"command-placeholder\">tails.img</span> with the path to the "
 "USB image"
 msgstr ""
+"<span class=\"command-placeholder\">tails.img</span> durch den Pfad zum USB-"
+"Abbild ersetzen"
 
 #
 #. type: Bullet: '   - '
@@ -470,11 +482,16 @@ msgid ""
 "<span class=\"command-placeholder\">device</span> with the device name found "
 "in step 5"
 msgstr ""
+"<span class=\"command-placeholder\">device</span> durch den Gerätenamen "
+"ersetzen, der in Schritt 5 gefunden wurde"
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-template\">dd if=<span class=\"command-placeholder\">tails.img</span> of=<span class=\"command-placeholder\">device</span> bs=16M oflag=direct status=progress</p>\n"
 msgstr ""
+"   <p class=\"command-template\">dd if=<span class=\"command-placeholder\""
+">tails.img</span> of=<span class=\"command-placeholder\">device</span> "
+"bs=16M oflag=direct status=progress</p>\n"
 
 #. type: Plain text
 #, no-wrap

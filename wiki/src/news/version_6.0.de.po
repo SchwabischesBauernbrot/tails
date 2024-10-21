@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-02-29 11:24+0000\n"
-"PO-Revision-Date: 2024-10-12 20:09+0000\n"
+"PO-Revision-Date: 2024-10-20 20:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -105,6 +105,9 @@ msgid ""
 "[[!img test_6.0-rc1/unlock.png link=\"no\" class=\"screenshot\" alt=\"Authentication Required. A\n"
 "passphrase is needed to access encrypted data.\"]]\n"
 msgstr ""
+"[[!img test_6.0-rc1/unlock.png link=\"no\" class=\"screenshot\" alt="
+"\"Authentifizierung erforderlich.\n"
+"Ein Passwort ist erforderlich, um auf verschlüsselte Daten zuzugreifen.\"]]\n"
 
 #. type: Plain text
 msgid ""
@@ -259,6 +262,9 @@ msgid ""
 "When creating a Persistent Storage, suggested passphrases are now also "
 "generated in Catalan, German, Italian, Portuguese, and Spanish."
 msgstr ""
+"Bei der Erstellung eines beständigen Datenspeichers werden jetzt auch in "
+"Katalanisch, Deutsch, Italienisch, Portugiesisch und Spanisch vorgeschlagene "
+"Passphrasen generiert."
 
 #. type: Plain text
 msgid ""
@@ -266,36 +272,45 @@ msgid ""
 "Catalan, Italian, and Spanish for Tails, but also made them available to all "
 "users of `diceware`."
 msgstr ""
+"Danke an [[!tails_gitlab jawlensky]], der die Wortlisten für Katalanisch, "
+"Italienisch und Spanisch für Tails erstellt hat, und sie auch allen Nutzern "
+"von `diceware` zur Verfügung gestellt hat."
 
 #. type: Plain text
 #, no-wrap
 msgid "[[!img test_6.0-rc1/diceware.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 msgstr ""
+"[[!img test_6.0-rc1/diceware.png link=\"no\" class=\"screenshot\" alt=\"\"]]"
+"\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<h1 id=\"changes\">Changes and updates</h1>\n"
-msgstr "<h1 id=\"changes\">Änderungen und Updates</h1>\n"
+msgstr "<h1 id=\"changes\">Änderungen und Aktualisierungen</h1>\n"
 
 #. type: Title ##
 #, no-wrap
 msgid "Included software"
-msgstr ""
+msgstr "Inklusive Software"
 
 #. type: Plain text
 msgid ""
 "Tails 6.0 updates most of the applications included in Tails, among others:"
 msgstr ""
+"Tails 6.0 aktualisiert die meisten der in Tails enthaltenen Anwendungen, "
+"unter anderem:"
 
 #. type: Plain text
 msgid ""
 "- *Tor Browser* to [13.0.10](https://blog.torproject.org/new-release-tor-"
 "browser-13010/)."
 msgstr ""
+"- *Tor Browser* auf [13.0.10](https://blog.torproject.org/"
+"new-release-tor-browser-13010/)."
 
 #. type: Plain text
 msgid "- *Electrum* from 4.0.9 to 4.3.4"
-msgstr ""
+msgstr "- *Electrum* von 4.0.9 auf 4.3.4"
 
 #. type: Bullet: '  * '
 msgid "Improve support for the Lightning protocol and hardware wallets."
@@ -315,15 +330,15 @@ msgstr ""
 
 #. type: Bullet: '  * '
 msgid "Redesign history view."
-msgstr ""
+msgstr "Überarbeitung der Verlaufsansicht."
 
 #. type: Plain text
 msgid "- *Metadata Cleaner* from 1.0.2 to 2.4.0"
-msgstr ""
+msgstr "- *Metadata Cleaner* von 1.0.2 auf 2.4.0"
 
 #. type: Bullet: '  * '
 msgid "Redesign the whole user interface."
-msgstr ""
+msgstr "Überarbeiten Sie die gesamte Benutzeroberfläche."
 
 #. type: Bullet: '  * '
 msgid "Add support for AIFF and HEIC files."
@@ -339,24 +354,24 @@ msgstr ""
 
 #. type: Plain text
 msgid "- *Audacity* from 2.4.2 to 3.2.4"
-msgstr ""
+msgstr "- *Audacity* von 2.4.2 auf 3.2.4"
 
 #. type: Plain text
 msgid "- *Gimp* from 2.10.22 to 2.10.34"
-msgstr ""
+msgstr "- *Gimp* von 2.10.22 auf 2.10.34"
 
 #. type: Plain text
 msgid "- *Kleopatra* from 4:20.08 to 4:22.12"
-msgstr ""
+msgstr "- *Kleopatra* von 4:20.08 auf 4:22.12"
 
 #. type: Title ##
 #, no-wrap
 msgid "Removed features"
-msgstr ""
+msgstr "Entfernte Funktionen"
 
 #. type: Plain text
 msgid "- Remove the icons on the desktop."
-msgstr ""
+msgstr "- Entfernen Sie die Symbole auf dem Desktop."
 
 #. type: Plain text
 #, no-wrap
@@ -364,12 +379,17 @@ msgid ""
 "  The extension of GNOME Shell that we used to provide this feature is not well\n"
 "  integrated into GNOME and created other problems. ([[!tails_ticket 19920]])\n"
 msgstr ""
+"  Die Erweiterung von GNOME Shell, die wir verwendet haben, um diese "
+"Funktion bereitzustellen, ist nicht gut in GNOME integriert und hat andere "
+"Probleme verursacht. ([[!tails_ticket 19920]])\n"
 
 #. type: Bullet: '- '
 msgid ""
 "Remove the item **Wipe** and **Wipe available disk space** from the shortcut "
 "menu of the *Files* browser."
 msgstr ""
+"Entfernt die Elemente **Löschen** und **Verfügbaren Speicherplatz löschen** "
+"aus dem Kontextmenü des *Dateien*-Browsers."
 
 #. type: Plain text
 #, no-wrap
@@ -377,6 +397,9 @@ msgid ""
 "  Secure deletion is not reliable enough on USB sticks and Solid-State Drives\n"
 "  (SSDs) for us to keep advertising this feature.\n"
 msgstr ""
+"  Die sichere Löschung ist auf USB-Sticks und Solid-State-Laufwerken (SSDs) "
+"nicht zuverlässig genug, sodass wir diese Funktion weiterhin bewerben können."
+"\n"
 
 #. type: Plain text
 #, no-wrap
@@ -386,12 +409,18 @@ msgid ""
 "  use encrypted volumes, overwrite the entire device, or disintegrate it\n"
 "  physically.\n"
 msgstr ""
+"  Wir haben unsere Dokumentation zur [[sicheren Löschung|doc/"
+"encryption_and_privacy/secure_deletion]] auf neue Empfehlungen aktualisiert: "
+"Verwenden Sie verschlüsselte Volumes, überschreiben Sie das gesamte Gerät "
+"oder zerstören Sie es physisch.\n"
 
 #. type: Bullet: '- '
 msgid ""
 "Remove the item **Remove metadata** from the shortcut menu of the *Files* "
 "browser."
 msgstr ""
+"Entfernen Sie den Eintrag **Metadaten entfernen** aus dem Kontextmenü des "
+"*Dateien*-Browsers."
 
 #. type: Plain text
 #, no-wrap
@@ -399,10 +428,12 @@ msgid ""
 "  The developers of MAT2, the metadata removal library used by *Metadata\n"
 "  Cleaner* are not providing this option anymore.\n"
 msgstr ""
+"  Die Entwickler von MAT2, der Bibliothek zur Entfernung von Metadaten, die "
+"von *Metadata Cleaner* verwendet wird, bieten diese Option nicht mehr an.\n"
 
 #. type: Plain text
 msgid "- Remove *GtkHash*"
-msgstr ""
+msgstr "- Entfernen Sie *GtkHash*"
 
 #. type: Plain text
 #, no-wrap
@@ -410,6 +441,8 @@ msgid ""
 "  You can still install *GtkHash* as [[Additional\n"
 "  Software|doc/persistent_storage/additional_software]].\n"
 msgstr ""
+"  Sie können *GtkHash* weiterhin als [[Zusätzliche Software|doc/"
+"persistent_storage/additional_software]] installieren.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -421,14 +454,16 @@ msgid ""
 "Fix several issues with special characters and non-Latin scripts in the "
 "screen keyboard. ([[!tails_ticket 18076]])"
 msgstr ""
+"Beheben Sie mehrere Probleme mit Sonderzeichen und nicht-lateinischen "
+"Schriftarten in der Bildschirmtastatur. ([[!tails_ticket 18076]])"
 
 #. type: Plain text
 msgid ""
 "For more details, read our [[!tails_gitweb debian/changelog "
 "desc=\"changelog\"]]."
 msgstr ""
-"Für weitere Details lesen Sie bitte unser [[!tails_gitweb debian/changelog "
-"desc=\"changelog\"]]."
+"Für weitere Details lesen Sie unser [[!tails_gitweb debian/changelog desc="
+"\"Änderungsprotokoll\"]]."
 
 #. type: Plain text
 #, no-wrap
@@ -510,7 +545,7 @@ msgstr ""
 
 #. type: Plain text
 msgid "Follow our installation instructions:"
-msgstr "Folgen Sie unserer Installationsanleitung:"
+msgstr "Befolgen Sie unsere Installationsanweisungen:"
 
 #. type: Plain text
 msgid "- [[Install from Windows|install/windows]]"

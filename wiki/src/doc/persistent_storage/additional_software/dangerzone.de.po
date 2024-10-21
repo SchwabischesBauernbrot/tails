@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-10-08 12:50+0000\n"
-"PO-Revision-Date: 2024-10-10 11:10+0000\n"
+"PO-Revision-Date: 2024-10-20 20:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -249,28 +249,36 @@ msgstr ""
 #, no-wrap
 msgid "   Make sure that the **Additional Software** feature is enabled.\n"
 msgstr ""
+"   Stellen Sie sicher, dass die Funktion **Zusätzliche Software** aktiviert "
+"ist.\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   Close the Persistent Storage settings.\n"
-msgstr ""
+msgstr "   Schließen Sie die Einstellungen des beständigen Datenspeichers.\n"
 
 #. type: Bullet: '1. '
 msgid ""
 "Choose **Applications&nbsp;▸ Utilities&nbsp;▸ Terminal** to open a terminal "
 "without administration rights."
 msgstr ""
+"Wählen Sie **Anwendungen&nbsp;▸ Dienstprogramme&nbsp;▸ Terminal**, um ein "
+"Terminal ohne Administrationsrechte zu öffnen."
 
 #. type: Bullet: '1. '
 msgid ""
 "Execute the following command to open the configuration of your Persistent "
 "Storage in the *Text Editor* with administration rights."
 msgstr ""
+"Führen Sie den folgenden Befehl aus, um die Konfiguration Ihres beständigen "
+"Datenspeichers im *Texteditor* mit Administrationsrechten zu öffnen."
 
 #. type: Plain text
 #, no-wrap
 msgid "       gnome-text-editor admin:///live/persistence/TailsData_unlocked/persistence.conf\n"
 msgstr ""
+"       gnome-text-editor admin:///live/persistence/TailsData_unlocked/"
+"persistence.conf\n"
 
 #. type: Plain text
 #, no-wrap
@@ -282,7 +290,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "       /etc/apt/sources.list.d\tsource=apt/sources,link\n"
-msgstr ""
+msgstr "       /etc/apt/sources.list.d\tsource=apt/sources,link\n"
 
 #. type: Plain text
 #, no-wrap
@@ -291,11 +299,16 @@ msgid ""
 "   Storage. [*Podman*](https://podman.io/) is the containerization technology\n"
 "   used by *Dangerzone*.\n"
 msgstr ""
+"   Fügen Sie die folgende Zeile hinzu, um *Podman*-Container in Ihrem "
+"beständigen\n"
+"   Datenspeicher zu speichern. [*Podman*](https://podman.io/) ist die "
+"Containerisierungs-Technologie,\n"
+"   die von *Dangerzone* verwendet wird.\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "       /home/amnesia/.local/share/containers\tsource=podman\n"
-msgstr ""
+msgstr "       /home/amnesia/.local/share/containers\tsource=podman\n"
 
 #. type: Plain text
 #, no-wrap
@@ -313,6 +326,8 @@ msgid ""
 "Execute the following commands to configure the *Dangerzone* repository as "
 "additional APT repository."
 msgstr ""
+"Führen Sie die folgenden Befehle aus, um das *Dangerzone*-Repository als "
+"zusätzliches APT-Repository zu konfigurieren."
 
 #. type: Plain text
 #, no-wrap
@@ -327,7 +342,7 @@ msgstr "   <p class=\"command-root\">ln -s /usr/share/tails/apt/dangerzone.sourc
 #. type: Plain text
 #, no-wrap
 msgid "   <div class=\"caution\">\n"
-msgstr ""
+msgstr "   <div class=\"caution\">\n"
 
 #. type: Plain text
 #, no-wrap
@@ -352,26 +367,28 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   </div>\n"
-msgstr ""
+msgstr "   </div>\n"
 
 #. type: Bullet: '1. '
 msgid "Restart Tails."
-msgstr ""
+msgstr "Starten Sie Tails neu."
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"install\">Install the <i>Dangerzone</i> package</h2>\n"
-msgstr ""
+msgstr "<h2 id=\"install\">Installieren Sie das <i>Dangerzone</i>-Paket</h2>\n"
 
 #. type: Bullet: '1. '
 msgid "[[Connect to the Tor network|doc/anonymous_internet/tor]]."
-msgstr ""
+msgstr "[[Mit dem Tor-Netzwerk verbinden|doc/anonymous_internet/tor]]."
 
 #. type: Bullet: '1. '
 msgid ""
 "Execute the following commands to install the `dangerzone` package and its "
 "dependencies."
 msgstr ""
+"Führen Sie die folgenden Befehle aus, um das Paket `dangerzone` und seine "
+"Abhängigkeiten zu installieren."
 
 #. type: Plain text
 #, no-wrap
@@ -389,51 +406,60 @@ msgid ""
 "to install `dangerzone`, `fuse-overlayfs`, and `uidmap` every time you start "
 "Tails in the future."
 msgstr ""
+"Nachdem die Pakete installiert sind, erscheint eine Benachrichtigung, die "
+"fragt, ob Sie `dangerzone`, `fuse-overlayfs` und `uidmap` jedes Mal "
+"installieren möchten, wenn Sie Tails in Zukunft starten."
 
 #. type: Plain text
 #, no-wrap
 msgid "   Choose to **Install Every Time**.\n"
-msgstr ""
+msgstr "   Wählen Sie **Jedes Mal installieren**.\n"
 
 #. type: Bullet: '1. '
 msgid "Close the *Root Terminal*."
-msgstr ""
+msgstr "Schließen Sie das *Root-Terminal*."
 
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"test\">Convert a test document</h2>\n"
-msgstr ""
+msgstr "<h2 id=\"test\">Ein Testdokument konvertieren</h2>\n"
 
 #. type: Bullet: '1. '
 msgid ""
 "Choose **Applications&nbsp;▸ Office&nbsp;▸ Dangerzone** to start "
 "*Dangerzone*."
 msgstr ""
+"Wählen Sie **Anwendungen&nbsp;▸ Büro&nbsp;▸ Dangerzone**, um *Dangerzone* zu "
+"starten."
 
 #. type: Plain text
 #, no-wrap
 msgid "   When started for the first time, *Dangerzone* installs its container.\n"
 msgstr ""
+"   Wenn *Dangerzone* zum ersten Mal gestartet wird, installiert es seinen "
+"Container.\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   This operation can take several minutes.\n"
-msgstr ""
+msgstr "   Dieser Vorgang kann mehrere Minuten in Anspruch nehmen.\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   After the setup finishes, *Dangerzone* opens.\n"
 msgstr ""
+"   Nachdem die Einrichtung abgeschlossen ist, wird *Dangerzone* geöffnet.\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   Click the button **Select suspicious documents**.\n"
 msgstr ""
+"   Klicken Sie auf die Schaltfläche **Verdächtige Dokumente auswählen**.\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   [[!img dangerzone.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
-msgstr ""
+msgstr "   [[!img dangerzone.png link=\"no\" class=\"screenshot\" alt=\"\"]]\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -451,7 +477,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   <div class=\"bug\">\n"
-msgstr ""
+msgstr "   <div class=\"bug\">\n"
 
 #. type: Plain text
 #, no-wrap

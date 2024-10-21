@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-01-31 15:45+0100\n"
-"PO-Revision-Date: 2024-10-10 11:09+0000\n"
+"PO-Revision-Date: 2024-10-18 02:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
 "Language: de\n"
@@ -99,18 +99,15 @@ msgid "To reset the USB stick:"
 msgstr "Um den USB-Stick zurückzusetzen:"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "    a. If there is an <span class=\"guilabel\">Erase</span> tab\n"
-#| "    in the right pane, click on it and then click on the <span class=\"bold\">\n"
-#| "    Erase</span> button on the bottom right\n"
+#, no-wrap
 msgid ""
 "   a. If there is an <span class=\"guilabel\">Erase</span> tab\n"
 "   in the right pane, click on it and then click on the <span class=\"bold\">\n"
 "   Erase</span> button on the bottom right\n"
 msgstr ""
-"    a. Wenn es einen <span class=\"guilabel\">Löschen</span>-Reiter\n"
-"    im rechten Fensterbereich gibt, klicken Sie darauf und dann auf den <span class=\"bold\">\n"
+"   a. Wenn es einen <span class=\"guilabel\">Löschen</span>-Reiter\n"
+"    im rechten Fensterbereich gibt, klicken Sie darauf und dann auf den "
+"<span class=\"bold\">\n"
 "    Löschen</span>-Knopf unten rechts\n"
 
 #. type: Plain text
@@ -135,14 +132,16 @@ msgid ""
 "In the **Erase** dialog, if you want the USB stick to also work on Windows "
 "and Linux, specify:"
 msgstr ""
+"Im **Löschen**-Dialog, wenn Sie möchten, dass der USB-Stick auch unter "
+"Windows und Linux funktioniert, geben Sie Folgendes an:"
 
 #. type: Bullet: '   - '
 msgid "**Format**: **MS-DOS (FAT)**"
-msgstr ""
+msgstr "**Format**: **MS-DOS (FAT)**"
 
 #. type: Bullet: '   - '
 msgid "**Scheme**: **Master Boot Record**"
-msgstr ""
+msgstr "**Scheme**: **Master Boot Record**"
 
 #. type: Bullet: '1. '
 msgid "Click **Erase**."
@@ -171,13 +170,12 @@ msgstr "[[!toggleable id=\"format\" text=\"\"\"\n"
 #. type: Plain text
 #, no-wrap
 msgid "<span class=\"hide\">[[!toggle id=\"format\" text=\"\"]]</span>\n"
-msgstr ""
+msgstr "<span class=\"hide\">[[!toggle id=\"format\" text=\"\"]]</span>\n"
 
 #. type: Title =
-#, fuzzy, no-wrap
-#| msgid "[[!meta title=\"Resetting a USB stick using macOS\"]]\n"
+#, no-wrap
 msgid "Resetting a USB stick using the command line"
-msgstr "[[!meta title=\" Einen USB-Stick oder eine SD-Karte unter macOS zurücksetzen\"]]\n"
+msgstr "Zurücksetzen eines USB-Sticks über die Befehlszeile"
 
 #. type: Plain text
 #, no-wrap
@@ -187,12 +185,8 @@ msgstr ""
 "steps/install_etcher_in_mac.inline. -->\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid "Plug the USB stick or SD card that you want to reset."
 msgid "Unplug the USB stick from the computer."
-msgstr ""
-"Schließen Sie den USB-Stick oder die SD-Karte an, die Sie zurücksetzen "
-"möchten."
+msgstr "Ziehen Sie den USB-Stick vom Computer ab."
 
 #. type: Bullet: '1. '
 msgid ""
@@ -235,10 +229,8 @@ msgstr ""
 "        4:     Microsoft Basic Data BOOTCAMP     115.5 GB  disk0s4\n"
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid "Execute again the same command:"
 msgid "Execute again the same command."
-msgstr "Führen Sie den Befehl erneut aus:"
+msgstr "Führen Sie den Befehl erneut aus."
 
 #. type: Plain text
 #, no-wrap
@@ -295,11 +287,16 @@ msgid ""
 "class=\"command-placeholder\">device</span> with the device name found in "
 "step 6."
 msgstr ""
+"Führen Sie den folgenden Befehl aus, um den USB-Stick sicher auszuwerfen. "
+"Ersetzen Sie <span class=\"command-placeholder\">device</span> durch den "
+"Gerätenamen, der in Schritt 6 gefunden wurde."
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-placeholder\">device</span></p>\n"
 msgstr ""
+"   <p class=\"command-template\">diskutil unmountDisk <span class=\"command-"
+"placeholder\">device</span></p>\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -307,17 +304,24 @@ msgid ""
 "class=\"command-placeholder\">device</span> with the device name found in "
 "step 6."
 msgstr ""
+"Führen Sie den folgenden Befehl aus, um den USB-Stick zu formatieren. "
+"Ersetzen Sie <span class=\"command-placeholder\">device</span> durch den "
+"Gerätenamen, der in Schritt 6 gefunden wurde."
 
 #. type: Plain text
 #, no-wrap
 msgid "   <p class=\"command-template\">sudo fdisk -iy <span class=\"command-placeholder\">device</span></p>\n"
 msgstr ""
+"   <p class=\"command-template\">sudo fdisk -iy <span class=\"command-"
+"placeholder\">device</span></p>\n"
 
 #. type: Bullet: '1. '
 msgid ""
 "You can try to reset the USB stick again using <span "
 "class=\"application\">Disk Utility</span> from the beginning of this page."
 msgstr ""
+"Sie können versuchen, den USB-Stick erneut über <span class=\"application\""
+">Festplattendienstprogramm</span> von Anfang dieser Seite zurückzusetzen."
 
 #, no-wrap
 #~ msgid "Troubleshooting"

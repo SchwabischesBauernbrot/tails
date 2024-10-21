@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: Tails\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-05-06 23:46+0000\n"
-"PO-Revision-Date: 2024-10-09 13:07+0000\n"
+"PO-Revision-Date: 2024-10-20 20:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: Tails translators <tails@boum.org>\n"
 "Language: de\n"
@@ -337,6 +337,12 @@ msgid ""
 "feature. Replace <span class=\"command-placeholder\">lang</span> with the code\n"
 "for your language. For example, `vi` for Vietnamese.\n"
 msgstr ""
+"Um *Thunderbird* in einer anderen Sprache zu verwenden, können Sie das <code"
+">thunderbird-l10n-<span class=\"command-placeholder\">lang</span></code>-"
+"Paket mit der [[Zusätzliche Software|persistent_storage/"
+"additional_software]]-Funktion installieren. Ersetzen Sie <span class"
+"=\"command-placeholder\">lang</span> durch den Code für Ihre Sprache. Zum "
+"Beispiel `vi` für Vietnamesisch.\n"
 
 #. type: Plain text
 msgid ""
@@ -353,11 +359,13 @@ msgid ""
 "[List of available *Thunderbird* language packages](https://packages.debian."
 "org/search?keywords=thunderbird-l10n&searchon=names&suite=stable&section=all)"
 msgstr ""
+"[Liste der verfügbaren *Thunderbird*-Sprachpakete](https://packages.debian."
+"org/search?keywords=thunderbird-l10n&searchon=names&suite=stable&section=all)"
 
 #. type: Plain text
 #, no-wrap
 msgid "<h1 id=\"openpgp\">OpenPGP encryption</h1>\n"
-msgstr ""
+msgstr "<h1 id=\"openpgp\">OpenPGP-Verschlüsselung</h1>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -372,6 +380,12 @@ msgid ""
 "<i>Kleopatra</i> instead of <i>Thunderbird</i> if you want to exchange encrypted text and files, but\n"
 "not by email.</p>\n"
 msgstr ""
+"<p><i>GnuPG</i> und <i>[[Kleopatra|encryption_and_privacy/kleopatra]]</i>\n"
+" ermöglichen Ihnen die Arbeit mit OpenPGP-verschlüsseltem Text und Dateien. "
+"Erwägen Sie die Verwendung von\n"
+"<i>Kleopatra</i> anstelle von <i>Thunderbird</i>, wenn Sie verschlüsselten "
+"Text und Dateien austauschen möchten,\n"
+"jedoch nicht per E-Mail.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -379,6 +393,9 @@ msgid ""
 "<p>The OpenPGP keys stored in <i>GnuPG</i> and <i>Kleopatra</i> are separate from the keys\n"
 "stored in <i>Thunderbird</i>.</p>\n"
 msgstr ""
+"<p>Die in <i>GnuPG</i> und <i>Kleopatra</i> gespeicherten OpenPGP-Schlüssel "
+"sind getrennt von den\n"
+"in <i>Thunderbird</i> gespeicherten Schlüsseln.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -388,6 +405,11 @@ msgid ""
 "you used <em>Enigmail</em> before Tails 4.13, follow our [[migration\n"
 "instructions|openpgp_migration]].</p>\n"
 msgstr ""
+"<p>Seit Tails 4.13 (November 2020) ersetzt <em>Thunderbird</em> 78 die  \n"
+"<em>Enigmail</em>-Erweiterung durch eine integrierte Unterstützung für "
+"OpenPGP-Verschlüsselung. Wenn  \n"
+"Sie <em>Enigmail</em> vor Tails 4.13 verwendet haben, folgen Sie unseren "
+"[[Migrationsanweisungen|openpgp_migration]].</p>\n"
 
 #. type: Plain text
 msgid ""
@@ -423,19 +445,19 @@ msgid ""
 "Choose **[[!img lib/open-menu.png alt=\"Menu\" class=\"symbolic\" "
 "link=\"no\"]]&nbsp;▸ Settings**."
 msgstr ""
+"Wählen Sie **[[!img lib/open-menu.png alt=\"Menü\" class=\"symbolic\" link="
+"\"no\"]]&nbsp;▸ Einstellungen** aus."
 
 #. type: Bullet: '1. '
 msgid "Choose **Privacy & Security**."
 msgstr "**Datenschutz& Sicherheit** auswählen."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "In the **Passwords** section, select the option **Use a master password**."
 msgid ""
 "In the **Passwords** section, select the option **Use a Primary Password**."
 msgstr ""
-"Unter **Passwörter** die Option **Ein Master Passwort verwenden** auswählen."
+"Wählen Sie im Abschnitt **Passwörter** die Option **Ein primäres Passwort "
+"verwenden** aus."
 
 #. type: Bullet: '1. '
 #, fuzzy
@@ -465,11 +487,15 @@ msgid ""
 "the instructions below to export it from *GnuPG* and import it into "
 "*Thunderbird*."
 msgstr ""
+"Wenn Sie bereits einen OpenPGP-Privatschlüssel außerhalb von *Thunderbird* "
+"haben, folgen Sie bitte den Anweisungen unten, um ihn aus *GnuPG* zu "
+"exportieren und in *Thunderbird* zu importieren."
 
 #. type: Plain text
 #, no-wrap
 msgid "<h3>Export your private key using <em>Kleopatra</em></h3>\n"
 msgstr ""
+"<h3>Exportieren Sie Ihren privaten Schlüssel mit <em>Kleopatra</em></h3>\n"
 
 #. type: Plain text
 msgid "From the desktop:"
@@ -501,6 +527,7 @@ msgstr "Schließe *Kleopatra*."
 #, no-wrap
 msgid "<h3>Import your private key in <em>Thunderbird</em></h3>\n"
 msgstr ""
+"<h3>Importieren Sie Ihren privaten Schlüssel in <em>Thunderbird</em></h3>\n"
 
 #. type: Plain text
 msgid "In *Thunderbird*:"
@@ -511,6 +538,8 @@ msgid ""
 "Choose **[[!img lib/open-menu.png alt=\"Menu\" class=\"symbolic\" "
 "link=\"no\"]]&nbsp;▸ Account Settings**."
 msgstr ""
+"Wählen Sie **[[!img lib/open-menu.png alt=\"Menü\" class=\"symbolic\" link="
+"\"no\"]]&nbsp;▸ Kontoeinstellungen** aus."
 
 #. type: Bullet: '1. '
 msgid ""
@@ -527,10 +556,6 @@ msgstr ""
 "hinzufügen...**."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "In the **Add a Personal OpenPGP Key** dialog, choose **Import an existing "
-#| "OpenPGP Key** and click **Continue**."
 msgid ""
 "In the **Add a Personal OpenPGP Key** dialog, choose **Import an existing "
 "OpenPGP Key** and click **Continue**."
@@ -543,6 +568,9 @@ msgid ""
 "Click the **Select File to Import…** button and choose the private key that "
 "your exported from *Kleopatra*."
 msgstr ""
+"Klicken Sie auf die Schaltfläche **Datei zum Importieren auswählen...** und "
+"wählen Sie den privaten Schlüssel aus, den Sie aus *Kleopatra* exportiert "
+"haben."
 
 #. type: Bullet: '1. '
 msgid ""

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-09-09 10:55+0200\n"
-"PO-Revision-Date: 2024-10-10 13:09+0000\n"
+"PO-Revision-Date: 2024-10-20 20:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -284,6 +284,8 @@ msgid ""
 "Still, the trackpad and keyboard might not work. You can use an external "
 "mouse and keyboard."
 msgstr ""
+"Trotzdem funktionieren das Touchpad und die Tastatur möglicherweise nicht. "
+"Sie können eine externe Maus und Tastatur verwenden."
 
 #. type: Plain text
 #, no-wrap
@@ -296,11 +298,14 @@ msgid ""
 "<p>See our instructions on [[starting Tails on PC|doc/first_steps/start/pc#not-entirely]]\n"
 "for general troubleshooting tips.</p>\n"
 msgstr ""
+"<p>Siehe unsere Anweisungen zum [[Starten von Tails auf PC|doc/first_steps/"
+"start/pc#not-entirely]]\n"
+"für allgemeine Tipps zur Fehlerbehebung.</p>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "<h3 id=\"lockup\">\"Soft lockup\" error</h3>\n"
-msgstr ""
+msgstr "<h3 id=\"lockup\">\"Soft lockup\"-Fehler</h3>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -318,16 +323,19 @@ msgid "On some laptops, Tails starts with the following error:"
 msgstr "Auf einigen Laptops startet Tails mit dem folgenden Fehler:"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<p class=\"pre\">soft lockup - CPU#<span class=\"command-placeholder\">N</span> stuck for <span class=\"command-placeholder\">N</span>s</p>\n"
+#, no-wrap
 msgid "<p class=\"code\">soft lockup - CPU#<span class=\"command-placeholder\">N</span> stuck for <span class=\"command-placeholder\">N</span>s</p>\n"
-msgstr "<p class=\"pre\">Soft Lockup - CPU#<span class=\"command-placeholder\">N</span> stuck for <span class=\"command-placeholder\">N</span>s</p>\n"
+msgstr ""
+"<p class=\"code\">soft lockup - CPU#<span class=\"command-placeholder\">N</"
+"span> festgefahren für <span class=\"command-placeholder\">N</span>s</p>\n"
 
 #. type: Plain text
 msgid ""
 "To start Tails successfully, try to [[add the following boot option when "
 "starting Tails|doc/advanced_topics/boot_options]]:"
 msgstr ""
+"Um Tails erfolgreich zu starten, versuchen Sie, [[die folgende Boot-Option "
+"beim Starten von Tails hinzuzufügen|doc/advanced_topics/boot_options]]:"
 
 #. type: Plain text
 #, no-wrap
@@ -338,6 +346,7 @@ msgstr "    acpi_rev_override=1\n"
 #, no-wrap
 msgid "<h3 id=\"microsoft-surface-laptop\">Microsoft Surface Laptop 3 and 4</h3>\n"
 msgstr ""
+"<h3 id=\"microsoft-surface-laptop\">Microsoft Surface Laptop 3 und 4</h3>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -359,7 +368,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"sbat\">Shim SBAT verification error</h2>\n"
-msgstr ""
+msgstr "<h2 id=\"sbat\">Shim SBAT-Überprüfungsfehler</h2>\n"
 
 #. type: Plain text
 msgid ""
@@ -367,6 +376,9 @@ msgid ""
 "starting Tails or when restarting your regular Linux operating system after "
 "starting Tails."
 msgstr ""
+"Dieser Abschnitt gilt, wenn Sie die folgende Fehlermeldung erhalten, "
+"entweder beim Starten von Tails oder beim Neustarten Ihres regulären Linux-"
+"Betriebssystems nach dem Starten von Tails."
 
 #. type: Plain text
 #, no-wrap
@@ -376,6 +388,12 @@ msgid ""
 "Something has gone seriously wrong: SBAT self-check failed: Security Policy Violation\n"
 "</p>\n"
 msgstr ""
+"<p class=\"code\">\n"
+"Überprüfung der shim SBAT-Daten fehlgeschlagen: "
+"Sicherheitsrichtlinienverletzung<br>\n"
+"Etwas ist ernsthaft schiefgelaufen: SBAT-Selbstprüfung fehlgeschlagen: "
+"Sicherheitsrichtlinienverletzung\n"
+"</p>\n"
 
 #. type: Plain text
 msgid "Or"
@@ -401,6 +419,9 @@ msgid ""
 "If you get this error message when starting your regular Linux operating "
 "system, then it means that your Linux operating system is outdated."
 msgstr ""
+"Wenn Sie diese Fehlermeldung beim Start Ihres regulären Linux-"
+"Betriebssystems erhalten, bedeutet das, dass Ihr Linux-Betriebssystem "
+"veraltet ist."
 
 #. type: Bullet: '  1. '
 msgid "Edit your UEFI settings to disable Secure Boot."
@@ -412,6 +433,8 @@ msgid ""
 "     With Secure Boot disabled, your regular Linux operating system should\n"
 "     start again.\n"
 msgstr ""
+"     Mit deaktiviertem Secure Boot sollte Ihr reguläres Linux-Betriebssystem "
+"wieder starten.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -419,14 +442,18 @@ msgid ""
 "     To learn how to edit the BIOS or UEFI settings, search for the user manual\n"
 "     of the computer on the support website of the manufacturer.\n"
 msgstr ""
+"     Um zu erfahren, wie Sie die BIOS- oder UEFI-Einstellungen bearbeiten, "
+"suchen Sie im Support-Bereich der Website des Herstellers nach dem "
+"Benutzerhandbuch des Computers.\n"
 
 #. type: Bullet: '  1. '
 msgid "Update your regular Linux operating system."
-msgstr ""
+msgstr "Aktualisieren Sie Ihr reguläres Linux-Betriebssystem."
 
 #. type: Bullet: '  1. '
 msgid "Try to enable Secure Boot again in your UEFI settings."
 msgstr ""
+"Versuchen Sie, Secure Boot erneut in Ihren UEFI-Einstellungen zu aktivieren."
 
 #. type: Plain text
 #, no-wrap
@@ -434,6 +461,9 @@ msgid ""
 "     If your regular Linux operating system still doesn't start, then disable\n"
 "     Secure Boot again. You can try to enable Secure Boot again in the future.\n"
 msgstr ""
+"     Wenn Ihr reguläres Linux-Betriebssystem immer noch nicht startet, "
+"deaktivieren Sie Secure Boot erneut. Sie können versuchen, Secure Boot in "
+"Zukunft erneut zu aktivieren.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -441,6 +471,8 @@ msgid ""
 "     It might take several months for your Linux distribution to provide updates\n"
 "     before you can enable Secure Boot again.\n"
 msgstr ""
+"     Es kann mehrere Monate dauern, bis Ihre Linux-Distribution Updates "
+"bereitstellt, bevor Sie Secure Boot erneut aktivieren können.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -457,10 +489,12 @@ msgid ""
 "Check in this section if there is a workaround to get your Wi-Fi interface "
 "work in Tails."
 msgstr ""
+"Überprüfen Sie in diesem Abschnitt, ob es eine Lösung gibt, um Ihre Wi-Fi-"
+"Schnittstelle in Tails zum Laufen zu bringen."
 
 #. type: Plain text
 msgid "To know the model of your Wi-Fi interface:"
-msgstr ""
+msgstr "Um das Modell Ihrer Wi-Fi-Schnittstelle zu erfahren:"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -631,7 +665,7 @@ msgstr ""
 
 #. type: Bullet: '1. '
 msgid "Start Tails."
-msgstr "Starten Sie Tails."
+msgstr "Starte Tails."
 
 #. type: Bullet: '1. '
 msgid ""
