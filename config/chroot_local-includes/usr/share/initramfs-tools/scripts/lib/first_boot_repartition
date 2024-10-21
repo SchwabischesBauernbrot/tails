@@ -1,5 +1,16 @@
 #!/bin/sh
 
+PREREQS=""
+
+prereqs() { echo "$PREREQS"; }
+
+case "$1" in
+prereqs)
+    prereqs
+    exit 0
+    ;;
+esac
+
 . /scripts/functions
 
 set -eu
