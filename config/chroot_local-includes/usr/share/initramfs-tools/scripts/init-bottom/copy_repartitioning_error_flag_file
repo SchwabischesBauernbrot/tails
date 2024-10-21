@@ -17,7 +17,7 @@ INITRAMFS_FLAG_FILE=/run/repartitioning-failed
 ROOTFS_FLAG_FILE=/root/var/lib/live/config/tails.disk-resize-errors
 
 if [ -f "${INITRAMFS_FLAG_FILE}" ]; then
-  echo "Repartitioning failed"
-  mkdir -p "$(dirname "${ROOTFS_FLAG_FILE}")"
-  cp "${INITRAMFS_FLAG_FILE}" "${ROOTFS_FLAG_FILE}"
+    echo "Repartitioning failed"
+    mkdir -p "$(dirname "${ROOTFS_FLAG_FILE}")"
+    cp "${INITRAMFS_FLAG_FILE}" "${ROOTFS_FLAG_FILE}"
 fi

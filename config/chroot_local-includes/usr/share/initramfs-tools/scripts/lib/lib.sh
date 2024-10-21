@@ -11,6 +11,6 @@ prereqs)
     ;;
 esac
 
-log(){
-  echo "$(date "+%H:%M:%S.%3N") $*"
+log() {
+    echo "$(date "+%H:%M:%S.%3N") $*"
 }
