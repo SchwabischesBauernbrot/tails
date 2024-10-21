@@ -15,7 +15,14 @@ CMDLINE_APPEND="live-media=removable ${CMDLINE_APPEND_NON_REMOVABLE}"
 ISOHYBRID_OPTS="-h 255 -s 63 --id 42 --verbose"
 
 # Kernel version
-KERNEL_VERSION='6.1.0-26'
+#
+# Example: 6.1.0-26
+#
+# If this variable is set to the empty string, the version of the
+# kernel that's installed is determined by which linux-image-amd64
+# meta-package is the top candidate according to APT sources +
+# pinning, and the dependencies encoded in that meta-package.
+KERNEL_VERSION=''
 
 ### You should not have to change anything below this line ####################
 
