@@ -18,7 +18,7 @@ esac
 set -eu
 
 # Check if either "patch" or "early_patch" is in the kernel command line
-option="$(tr ' ' '\n' < /proc/cmdline | grep -E '\b(early_)?patch\b')"
+option="$(tr ' ' '\n' < /proc/cmdline | grep -E '^(early_)?patch(=.*)?$')"
 
 [ -n "$option" ] || exit 0
 
