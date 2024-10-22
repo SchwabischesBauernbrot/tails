@@ -677,11 +677,11 @@ Given /^I try to enable persistence( with the changed passphrase)?$/ do |with_ch
 end
 
 Then /^persistence is successfully enabled$/ do
-  # Wait until the Persistent Storage was unlocked. We don't know which
+  # Wait until the Persistent Storage is fully activated. We don't know which
   # language is set in the Welcome Screen after the Persistent Storage
   # was unlocked, so we check the backend directly.
   try_for(120) do
-    tails_persistence_enabled?
+    tails_persistence_active?
   end
 
   # Figure out which language is set now that the Persistent Storage is
@@ -729,8 +729,15 @@ def greeter_language
   end
 end
 
-def tails_persistence_enabled?
+def tails_persistence_unlocked?
   $vm.execute('tps_is_unlocked', libs: 'libtps').success?
+end
+
+def tails_persistence_active?
+  tails_persistence_unlocked? &&
+    tps_features
+      .select { |f| tps_feature_is_enabled(f, reload: false) }
+      .all? { |f| tps_feature_is_active(f, reload: false) }
 end
 
 Then /^all tps features(| from the old Tails version)(| but the first one) are active$/ do |old_tails_str, except_first_str|
@@ -738,7 +745,7 @@ Then /^all tps features(| from the old Tails version)(| but the first one) are a
   except_first = !except_first_str.empty?
   assert(!old_tails || !except_first, 'Unsupported case.')
   try_for(120, msg: 'Persistence is disabled') do
-    tails_persistence_enabled?
+    tails_persistence_unlocked?
   end
 
   tps_reload
@@ -803,11 +810,11 @@ Then /^the "(\S+)" tps feature is(| not) enabled and(| not) active$/ do |feature
 end
 
 Then /^persistence is disabled$/ do
-  assert(!tails_persistence_enabled?, 'Persistence is enabled')
+  assert(!tails_persistence_unlocked?, 'Persistence is enabled')
 end
 
 Then /^persistence is enabled$/ do
-  assert(tails_persistence_enabled?, 'Persistence is disabled')
+  assert(tails_persistence_active?, 'Persistence is disabled')
 end
 
 def boot_device
