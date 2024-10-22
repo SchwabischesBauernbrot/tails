@@ -730,9 +730,7 @@ def greeter_language
 end
 
 def tails_persistence_enabled?
-  libtps_file = '/usr/local/lib/tails-shell-library/libtps.sh'
-  $vm.execute(". '#{libtps_file}' && " \
-              'tps_is_unlocked').success?
+  $vm.execute('tps_is_unlocked', libs: 'libtps').success?
 end
 
 Then /^all tps features(| from the old Tails version)(| but the first one) are active$/ do |old_tails_str, except_first_str|
