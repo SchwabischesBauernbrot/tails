@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2023-09-04 09:56+0200\n"
-"PO-Revision-Date: 2024-10-20 20:09+0000\n"
+"PO-Revision-Date: 2024-10-21 14:04+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -163,6 +163,11 @@ msgid ""
 "in Tails could start an invisible *Unsafe Browser*, reveal your IP address, "
 "and [[deanonymize you|doc/anonymous_internet/unsafe_browser#security]]."
 msgstr ""
+"Zum Beispiel wurde seit [[Tails 4.8|news/version_4.8]] der *Unsichere "
+"Browser* standardmäßig deaktiviert, da eine Sicherheitsanfälligkeit in einer "
+"anderen Anwendung in Tails einen unsichtbaren *Unsicheren Browser* starten, "
+"Ihre IP-Adresse offenbaren und [[Sie deanonymisieren|doc/anonymous_internet/"
+"unsafe_browser#security]] konnte."
 
 #. type: Plain text
 msgid ""
@@ -170,12 +175,17 @@ msgid ""
 "Browser* by default. You can still disable the *Unsafe Browser* in the "
 "Welcome Screen."
 msgstr ""
+"Wayland behebt diese Sicherheitsanfälligkeit und ermöglicht es, den *"
+"Unsicheren Browser* standardmäßig wieder zu aktivieren. Sie können den *"
+"Unsicheren Browser* im Begrüßungsbildschirm weiterhin deaktivieren."
 
 #. type: Plain text
 msgid ""
 "Wayland also brings in other features that were not working yet in the "
 "*Unsafe Browser*:"
 msgstr ""
+"Wayland bringt auch andere Funktionen mit sich, die im *Unsicheren Browser* "
+"noch nicht funktionierten:"
 
 #. type: Plain text
 msgid ""
@@ -555,7 +565,7 @@ msgstr ""
 
 #. type: Bullet: '  * '
 msgid "`8086:46a8`"
-msgstr ""
+msgstr "`8086:46a8`"
 
 #. type: Bullet: '    - '
 msgid ""
@@ -563,6 +573,9 @@ msgid ""
 "boot_options]] and [let us know](mailto:tails-bugs@boum.org) whether it "
 "helps."
 msgstr ""
+"Fügen Sie die `i915.force_probe=46a8` [[Boot-Option|doc/advanced_topics/"
+"boot_options]] hinzu und [lassen Sie es uns wissen](mailto:tails-bugs@boum."
+"org), ob es hilft."
 
 #. type: Bullet: '  * '
 msgid "`8086:4e55`"
@@ -916,8 +929,8 @@ msgstr ""
 #, no-wrap
 msgid "To upgrade your Tails USB stick and keep your Persistent Storage"
 msgstr ""
-"So aktualisieren Sie Ihren Tails USB-Stick und behalten Ihren dauerhaften "
-"Speicher"
+"Um Ihren Tails-USB-Stick zu aktualisieren und Ihren beständigen "
+"Datenspeicher beizubehalten"
 
 #. type: Plain text
 msgid "- Automatic upgrades are available from Tails 5.0 or later to 5.8."
@@ -938,14 +951,14 @@ msgid ""
 "If you cannot do an automatic upgrade or if Tails fails to start after an "
 "automatic upgrade, please try to do a [[manual upgrade|doc/upgrade/#manual]]."
 msgstr ""
-"Wenn Sie kein automatisches Upgrade durchführen können oder wenn Tails nach "
-"einem automatischen Upgrade nicht startet, versuchen Sie bitte ein [["
-"manuelles Upgrade|doc/upgrade/#manual]]."
+"Wenn Sie kein automatisches Upgrade durchführen können oder Tails nach einem "
+"automatischen Upgrade nicht startet, versuchen Sie bitte, ein [[manuelles "
+"Upgrade|doc/upgrade/#manual]] durchzuführen."
 
 #. type: Title ##
 #, no-wrap
 msgid "To install Tails on a new USB stick"
-msgstr "So installieren Sie Tails auf einem neuen USB-Stick"
+msgstr "Um Tails auf einem neuen USB-Stick zu installieren"
 
 #. type: Plain text
 msgid "Follow our installation instructions:"
@@ -977,9 +990,9 @@ msgid ""
 "<div class=\"caution\"><p>The Persistent Storage on the USB stick will be lost if\n"
 "you install instead of upgrading.</p></div>\n"
 msgstr ""
-"<div class=\"caution\"><p>Der persistente Speicher auf dem USB-Stick geht "
-"verloren, \n"
-"wenn Sie installieren statt ein Upgrade durchzuführen.</p></div>\n"
+"<div class=\"caution\"><p>Der beständige Datenspeicher auf dem USB-Stick "
+"geht verloren,\n"
+"wenn Sie installieren anstelle von aktualisieren.</p></div>\n"
 
 #. type: Title ##
 #, no-wrap

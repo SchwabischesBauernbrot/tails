@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-05-14 22:38+0000\n"
-"PO-Revision-Date: 2024-10-20 20:09+0000\n"
+"PO-Revision-Date: 2024-10-21 10:10+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -212,6 +212,17 @@ msgid ""
 "<tr><td>7 random words</td><td>$1&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000</td><td>$1&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000</td></tr>\n"
 "</table>\n"
 msgstr ""
+"<table>\n"
+"<tr><th>Länge der Passwortphrase</th><th>PBKDF2</th><th>Argon2id</th></tr>\n"
+"<tr><td>3 zufällige Wörter</td><td>$0,1</td><td>$100</td></tr>\n"
+"<tr><td>4 zufällige Wörter</td><td>$1.000</td><td>$1.000.000</td></tr>\n"
+"<tr><td>5 zufällige Wörter</td><td>$10.000.000</td><td>$10.000.000."
+"000</td></tr>\n"
+"<tr><td>6 zufällige Wörter</td><td>$100.000.000.000</td><td>$100.000.000.000."
+"000</td></tr>\n"
+"<tr><td>7 zufällige Wörter</td><td>$1.000.000.000.000.000.000</td><td>$1.000."
+"000.000.000.000.000.000.000</td></tr>\n"
+"</table>\n"
 
 #. type: Plain text
 msgid ""
@@ -219,12 +230,17 @@ msgid ""
 "passphrase a very powerful adversary like a state-sponsored attacker could "
 "guess."
 msgstr ""
+"Diese Zahlen sind sehr grobe Schätzungen, geben jedoch eine Vorstellung "
+"davon, welche Länge der Passwortphrase ein sehr mächtiger Gegner wie ein "
+"staatlich geförderter Angreifer erraten könnte."
 
 #. type: Plain text
 msgid ""
 "Even if guessing a passphrase of 3 random words with LUKS1 costs very little "
 "energy, any such attack also requires:"
 msgstr ""
+"Selbst wenn das Erraten einer Passwortphrase aus 3 zufälligen Wörtern mit "
+"LUKS1 sehr wenig Energie kostet, erfordert ein solcher Angriff auch:"
 
 #. type: Plain text
 msgid ""
@@ -640,7 +656,7 @@ msgstr ""
 
 #. type: Plain text
 msgid "Congratulations on following our recommendations!"
-msgstr ""
+msgstr "Herzlichen Glückwunsch, dass Sie unseren Empfehlungen gefolgt sind!"
 
 #. type: Title ###
 #, no-wrap
