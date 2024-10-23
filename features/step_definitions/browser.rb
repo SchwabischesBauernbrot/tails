@@ -346,7 +346,7 @@ Then /^Tor Browser displays a '([^']+)' heading on the "([^"]+)" page$/ do |head
 end
 
 Then /^I can listen to an Ogg audio track in Tor Browser$/ do
-  test_url = 'https://archive.org/download/MussorgskyPicturesAtAnExhibitionorch.Ravel/09Mussorgsky_PicturesAtAnExhibition-LimogesTheMarketPlace.ogg'
+  test_url = 'https://upload.wikimedia.org/wikipedia/commons/1/1e/HTTP_cookie.ogg'
   info = xul_application_info('Tor Browser')
   open_test_url = proc do
     step "I open the address \"#{test_url}\" in the Tor Browser"

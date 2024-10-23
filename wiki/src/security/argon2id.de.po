@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-05-14 22:38+0000\n"
-"PO-Revision-Date: 2024-10-10 13:10+0000\n"
+"PO-Revision-Date: 2024-10-22 13:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -129,6 +129,11 @@ msgid ""
 "if it would take thousands of years even with the most powerful "
 "supercomputers."
 msgstr ""
+"Starke Verschlüsselungsparameter *in Kombination* mit einem starken Passwort "
+"machen Brute-Force-Angriffe so langsam und kostspielig, dass sie in der "
+"Praxis unmöglich sind. Zum Beispiel ist ein Brute-Force-Angriff in der "
+"Praxis unmöglich, wenn es selbst mit den leistungsstärksten Supercomputern "
+"Tausende von Jahren dauern würde."
 
 #. type: Plain text
 #, no-wrap
@@ -159,6 +164,10 @@ msgid ""
 "against an activist in France](https://mjg59.dreamwidth.org/66429.html) but "
 "the actual operations by the French police are kept secret."
 msgstr ""
+"Einige Kryptographen glauben, dass diese Schwäche möglicherweise bereits ["
+"gegen einen Aktivisten in Frankreich eingesetzt wurde](https://mjg59."
+"dreamwidth.org/66429.html), aber die tatsächlichen Operationen der "
+"französischen Polizei bleiben geheim."
 
 #. type: Plain text
 msgid ""
@@ -208,6 +217,17 @@ msgid ""
 "<tr><td>7 random words</td><td>$1&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000</td><td>$1&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000&#8239;000</td></tr>\n"
 "</table>\n"
 msgstr ""
+"<table>\n"
+"<tr><th>Länge der Passwortphrase</th><th>PBKDF2</th><th>Argon2id</th></tr>\n"
+"<tr><td>3 zufällige Wörter</td><td>$0,1</td><td>$100</td></tr>\n"
+"<tr><td>4 zufällige Wörter</td><td>$1.000</td><td>$1.000.000</td></tr>\n"
+"<tr><td>5 zufällige Wörter</td><td>$10.000.000</td><td>$10.000.000."
+"000</td></tr>\n"
+"<tr><td>6 zufällige Wörter</td><td>$100.000.000.000</td><td>$100.000.000.000."
+"000</td></tr>\n"
+"<tr><td>7 zufällige Wörter</td><td>$1.000.000.000.000.000.000</td><td>$1.000."
+"000.000.000.000.000.000.000</td></tr>\n"
+"</table>\n"
 
 #. type: Plain text
 msgid ""
@@ -215,12 +235,17 @@ msgid ""
 "passphrase a very powerful adversary like a state-sponsored attacker could "
 "guess."
 msgstr ""
+"Diese Zahlen sind sehr grobe Schätzungen, geben jedoch eine Vorstellung "
+"davon, welche Länge der Passwortphrase ein sehr mächtiger Gegner wie ein "
+"staatlich geförderter Angreifer erraten könnte."
 
 #. type: Plain text
 msgid ""
 "Even if guessing a passphrase of 3 random words with LUKS1 costs very little "
 "energy, any such attack also requires:"
 msgstr ""
+"Selbst wenn das Erraten einer Passwortphrase aus 3 zufälligen Wörtern mit "
+"LUKS1 sehr wenig Energie kostet, erfordert ein solcher Angriff auch:"
 
 #. type: Plain text
 msgid ""
@@ -316,16 +341,18 @@ msgstr "- Ihre Verschlüsselung ist unsicher mit LUKS1."
 #. type: Plain text
 #, no-wrap
 msgid "  You have to upgrade to LUKS2.\n"
-msgstr ""
+msgstr "  Sie müssen auf LUKS2 aktualisieren.\n"
 
 #. type: Plain text
 msgid "- Your encryption is more secure with LUKS2."
-msgstr ""
+msgstr "- Ihre Verschlüsselung ist mit LUKS2 sicherer."
 
 #. type: Plain text
 #, no-wrap
 msgid "  We still recommend changing your passphrase to be 5 random words or more.\n"
 msgstr ""
+"  Wir empfehlen weiterhin, Ihr Passwort auf 5 zufällige Wörter oder mehr zu "
+"ändern.\n"
 
 #. type: Title ###
 #, fuzzy, no-wrap
@@ -335,11 +362,11 @@ msgstr "Der beständige Speicher"
 
 #. type: Plain text
 msgid "To secure your Persistent Storage:"
-msgstr ""
+msgstr "Um Ihren beständigen Datenspeicher zu sichern:"
 
 #. type: Bullet: '1. '
 msgid "Update to Tails 5.14."
-msgstr ""
+msgstr "Aktualisieren Sie auf Tails 5.14."
 
 #. type: Plain text
 #, no-wrap
@@ -347,10 +374,12 @@ msgid ""
 "   When starting Tails 5.14 for the first time, Tails will automatically\n"
 "   convert your Persistent Storage to LUKS2.\n"
 msgstr ""
+"   Beim ersten Start von Tails 5.14 wird Ihr beständiger Datenspeicher\n"
+"   automatisch in LUKS2 konvertiert.\n"
 
 #. type: Bullet: '1. '
 msgid "Choose a new passphrase of 5 to 7 random words."
-msgstr ""
+msgstr "Wählen Sie ein neues Passwort aus 5 bis 7 zufälligen Wörtern."
 
 #. type: Plain text
 #, no-wrap
@@ -375,16 +404,20 @@ msgstr ""
 #, no-wrap
 msgid "   [[!toggle id=\"4_ps_passphrase\" text=\"Display the instructions to change the passphrase of your Persistent Storage.\"]]\n"
 msgstr ""
+"   [[!toggle id=\"4_ps_passphrase\" text=\"Anleitungen zur Änderung des "
+"Passworts für Ihren beständigen Datenspeicher anzeigen.\"]]\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   [[!toggleable id=\"4_ps_passphrase\" text=\"\"\"\n"
-msgstr ""
+msgstr "   [[!toggleable id=\"4_ps_passphrase\" text=\"\"\"\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   [[!inline pages=\"security/argon2id/ps_passphrase.inline\" raw=\"yes\" sort=\"age\"]]\n"
 msgstr ""
+"   [[!inline pages=\"security/argon2id/ps_passphrase.inline\" raw=\"yes\" "
+"sort=\"age\"]]\n"
 
 #. type: Bullet: '1. '
 msgid ""
@@ -410,12 +443,14 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   [[!toggleable id=\"4_ps_tails_installer\" text=\"\"\"\n"
-msgstr ""
+msgstr "   [[!toggleable id=\"4_ps_tails_installer\" text=\"\"\"\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   [[!inline pages=\"security/argon2id/tails_installer.inline\" raw=\"yes\" sort=\"age\"]]\n"
 msgstr ""
+"   [[!inline pages=\"security/argon2id/tails_installer.inline\" raw=\"yes\" "
+"sort=\"age\"]]\n"
 
 #. type: Title ###
 #, no-wrap
@@ -427,18 +462,20 @@ msgid ""
 "To secure your [[backup Tails|doc/persistent_storage/backup]], if you have "
 "one:"
 msgstr ""
+"Um Ihr [[Sicherungs-Tails|doc/persistent_storage/backup]] zu sichern, falls "
+"Sie eins haben:"
 
 #. type: Bullet: '1. '
 msgid "Start on your main Tails USB stick."
-msgstr ""
+msgstr "Starten Sie von Ihrem Haupt-Tails-USB-Stick."
 
 #. type: Bullet: '1. '
 msgid "Update your main Tails USB stick to Tails 5.14."
-msgstr ""
+msgstr "Aktualisieren Sie Ihren Haupt-Tails-USB-Stick auf Tails 5.14."
 
 #. type: Bullet: '1. '
 msgid "Create a new backup Tails using *Tails Cloner*"
-msgstr ""
+msgstr "Erstellen Sie ein neues Backup-Tails mit *Tails Cloner*"
 
 #. type: Plain text
 #, no-wrap
@@ -448,6 +485,11 @@ msgid ""
 "   destroy your old backup Tails (or at least [[securely delete the entire\n"
 "   device|doc/encryption_and_privacy/secure_deletion#device]]).\n"
 msgstr ""
+"   Wenn Sie Ihren beständigen Datenspeicher mit Tails 5.12 oder früher "
+"erstellt haben, empfehlen wir Ihnen, Ihr neues Backup-Tails auf einem "
+"anderen USB-Stick zu erstellen und Ihr altes Backup-Tails zu zerstören (oder "
+"zumindest [[das gesamte Gerät sicher zu löschen|doc/encryption_and_privacy/"
+"secure_deletion#device]]).\n"
 
 #. type: Plain text
 #, no-wrap
@@ -457,7 +499,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "   [[!toggleable id=\"4_backup_tails_installer\" text=\"\"\"\n"
-msgstr ""
+msgstr "   [[!toggleable id=\"4_backup_tails_installer\" text=\"\"\"\n"
 
 #. type: Title ###
 #, no-wrap
@@ -466,32 +508,38 @@ msgstr ""
 
 #. type: Plain text
 msgid "To secure your other encrypted volumes, if you have any:"
-msgstr ""
+msgstr "Um Ihre anderen verschlüsselten Volumes, sofern vorhanden, abzusichern:"
 
 #. type: Plain text
 #, no-wrap
 msgid "   [[!toggle id=\"4_other_keepassxc\" text=\"Display the instructions to generate a passphrase using *KeePassXC*.\"]]\n"
 msgstr ""
+"   [[!toggle id=\"4_other_keepassxc\" text=\"Anleitungen zur Generierung "
+"eines Passworts mit *KeePassXC* anzeigen.\"]]\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "   [[!toggleable id=\"4_other_keepassxc\" text=\"\"\"\n"
-msgstr ""
+msgstr "   [[!toggleable id=\"4_other_keepassxc\" text=\"\"\"\n"
 
 #. type: Plain text
 msgid ""
 "If your encrypted volume is on a traditional hard disk (not an SSD) and you "
 "can use the command line:"
 msgstr ""
+"Wenn sich Ihr verschlüsseltes Volume auf einer herkömmlichen Festplatte ("
+"nicht auf einer SSD) befindet und Sie die Befehlszeile verwenden können:"
 
 #. type: Bullet: '1. '
 msgid "Identify the partition name of your encrypted volume."
-msgstr ""
+msgstr "Bestimmen Sie den Partitionnamen Ihres verschlüsselten Volumes."
 
 #. type: Plain text
 #, no-wrap
 msgid "   [[!toggle id=\"4_other_cryptsetup_partition\" text=\"Display the instructions to identify the partition name using the command line.\"]]\n"
 msgstr ""
+"   [[!toggle id=\"4_other_cryptsetup_partition\" text=\"Anleitung zum "
+"Bestimmen des Partitionnamens mithilfe der Befehlszeile anzeigen.\"]]\n"
 
 #. type: Plain text
 #, no-wrap
@@ -613,7 +661,7 @@ msgstr ""
 
 #. type: Plain text
 msgid "Congratulations on following our recommendations!"
-msgstr ""
+msgstr "Herzlichen Glückwunsch, dass Sie unseren Empfehlungen gefolgt sind!"
 
 #. type: Title ###
 #, no-wrap

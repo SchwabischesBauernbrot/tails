@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-07-15 11:57+0200\n"
-"PO-Revision-Date: 2024-10-10 11:09+0000\n"
+"PO-Revision-Date: 2024-10-21 14:03+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -112,6 +112,8 @@ msgid ""
 "Check if your graphics card is listed below. For example, you can search for "
 "its name or ID on this page."
 msgstr ""
+"Überprüfe, ob Ihre Grafikkarte unten aufgeführt ist. Zum Beispiel können Sie "
+"ihren Namen oder ihre ID auf dieser Seite suchen."
 
 #. type: Bullet: '   - '
 msgid ""
@@ -163,6 +165,8 @@ msgid ""
 "     <p>You can send us a photo of the error message as it appears on\n"
 "     your screen.</p>\n"
 msgstr ""
+"     <p>Sie können uns ein Foto der Fehlermeldung senden, wie sie auf Ihrem "
+"Bildschirm angezeigt wird.</p>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -174,6 +178,8 @@ msgid ""
 "If your problem gets fixed in a future version of Tails, please let us know "
 "so we can update this page."
 msgstr ""
+"Wenn Ihr Problem in einer zukünftigen Version von Tails behoben wird, lassen "
+"Sie es uns bitte wissen, damit wir diese Seite aktualisieren können."
 
 #. type: Plain text
 #, no-wrap
@@ -288,7 +294,7 @@ msgstr ""
 
 #. type: Plain text
 msgid "Any graphics cards in the Radeon HD family might be affected."
-msgstr ""
+msgstr "Alle Grafikkarten der Radeon HD-Familie könnten betroffen sein."
 
 #. type: Plain text
 msgid ""
@@ -296,6 +302,10 @@ msgid ""
 "computer to use that one instead of the AMD graphics card.  For example, "
 "using the following [[boot option|doc/advanced_topics/boot_options]]:"
 msgstr ""
+"Wenn der Computer eine andere, integrierte Grafikkarte hat, versuchen Sie, "
+"den Computer so zu konfigurieren, dass diese anstelle der AMD-Grafikkarte "
+"verwendet wird. Zum Beispiel mit der folgenden [[Boot-Option|doc/"
+"advanced_topics/boot_options]]:"
 
 #. type: Plain text
 msgid "- `modprobe.blacklist=amdgpu`"
@@ -339,7 +349,7 @@ msgstr ""
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"amd-radeon-rx-400\">AMD Radeon RX 400 family</h2>\n"
-msgstr ""
+msgstr "<h2 id=\"amd-radeon-rx-400\">AMD Radeon RX 400 Familie</h2>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -349,17 +359,23 @@ msgid ""
 "<tr><td>Radeon RX 480</td><td></td><td></td></tr>\n"
 "</table>\n"
 msgstr ""
+"<table>\n"
+"<tr><th>Name</th><th>ID</th><th>Versionsnummer</th></tr>\n"
+"<tr><td>Radeon RX 480</td><td></td><td></td></tr>\n"
+"</table>\n"
 
 #. type: Plain text
 msgid ""
 "Adding `amdgpu.dc=0` to the [[boot options|doc/advanced_topics/"
 "boot_options]] might fix the issue."
 msgstr ""
+"Das Hinzufügen von `amdgpu.dc=0` zu den [[Boot-Optionen|doc/advanced_topics/"
+"boot_options]] könnte das Problem beheben."
 
 #. type: Title ###
 #, no-wrap
 msgid "Other possibly affected graphics cards"
-msgstr ""
+msgstr "Andere möglicherweise betroffene Grafikkarten"
 
 #. type: Plain text
 msgid ""
@@ -377,12 +393,16 @@ msgid ""
 "Graphics cards in the [[!wikipedia Radeon_RX_Vega_series]], as found in some "
 "AMD Ryzen processors, might be affected."
 msgstr ""
+"Grafikkarten der [[!wikipedia Radeon_RX_Vega_series]], wie sie in einigen "
+"AMD Ryzen-Prozessoren zu finden sind, könnten betroffen sein."
 
 #. type: Plain text
 msgid ""
 "Try starting Tails using the following [[boot option|doc/advanced_topics/"
 "boot_options]]:"
 msgstr ""
+"Versuchen Sie, Tails mit der folgenden [[Boot-Option|doc/advanced_topics/"
+"boot_options]] zu starten:"
 
 #. type: Plain text
 #, no-wrap
@@ -392,11 +412,12 @@ msgstr "    iommu=soft\n"
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"intel\">Intel</h2>\n"
-msgstr ""
+msgstr "<h2 id=\"intel\">Intel</h2>\n"
 
 #. type: Plain text
 msgid "Various Intel graphics card, including but not limited to:"
 msgstr ""
+"Verschiedene Intel-Grafikkarten, einschließlich, aber nicht beschränkt auf:"
 
 #. type: Plain text
 #, no-wrap
@@ -408,17 +429,28 @@ msgid ""
 "<tr><td>Intel Corporation Iris Plus Graphics G1 (Ice Lake)</td><td>[8086:8a56]</td><td></td></tr>\n"
 "</table>\n"
 msgstr ""
+"<table>\n"
+"<tr><th>Name</th><th>ID</th><th>Versionsnummer</th></tr>\n"
+"<tr><td>Intel Corporation TigerLake-LP GT2 [Iris Xe "
+"Graphics]</td><td>[8086:9a49]</td><td></td></tr>\n"
+"<tr><td>Intel Corporation JasperLake [UHD "
+"Graphics]</td><td>[8086:4e55]</td><td></td></tr>\n"
+"<tr><td>Intel Corporation Iris Plus Graphics G1 (Ice "
+"Lake)</td><td>[8086:8a56]</td><td></td></tr>\n"
+"</table>\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "        i915.force_probe=MODEL\n"
-msgstr ""
+msgstr "        i915.force_probe=MODEL\n"
 
 #. type: Plain text
 msgid ""
 "… replacing *MODEL* with the 4 characters you see after `8086:` on the error "
 "message."
 msgstr ""
+"… ersetzen Sie *MODEL* durch die 4 Zeichen, die Sie nach `8086:` in der "
+"Fehlermeldung sehen."
 
 #. type: Plain text
 msgid ""
@@ -427,10 +459,9 @@ msgid ""
 msgstr ""
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<a id=\"radeon-r5\"></a>\n"
+#, no-wrap
 msgid "<h2 id=\"intel-hdu\">Intel UHD Graphics 620 GPU</h2>\n"
-msgstr "<a id=\"$ANCHOR\"></a>\n"
+msgstr "<h2 id=\"intel-hdu\">Intel UHD Graphics 620 GPU</h2>\n"
 
 #. type: Plain text
 #, no-wrap
@@ -445,13 +476,15 @@ msgstr ""
 
 #. type: Plain text
 msgid "For example, in the Dell Latitude 7490."
-msgstr ""
+msgstr "Zum Beispiel im Dell Latitude 7490."
 
 #. type: Plain text
 msgid ""
 "Try adding the following [[boot option|doc/advanced_topics/boot_options]] "
 "when starting Tails:"
 msgstr ""
+"Versuchen Sie, die folgende [[Boot-Option|doc/advanced_topics/boot_options]] "
+"beim Starten von Tails hinzuzufügen:"
 
 #. type: Plain text
 #, no-wrap
@@ -461,17 +494,19 @@ msgstr "        i915.enable_psr=0\n"
 #. type: Plain text
 #, no-wrap
 msgid "<h2 id=\"multiple\">Multiple graphics cards</h2>\n"
-msgstr ""
+msgstr "<h2 id=\"multiple\">Mehrere Grafikkarten</h2>\n"
 
 #. type: Plain text
 msgid "If the error message lists multiple graphics cards:"
-msgstr ""
+msgstr "Wenn die Fehlermeldung mehrere Grafikkarten auflistet:"
 
 #. type: Bullet: '* '
 msgid ""
 "If possible, plug in the monitor into the motherboard's Intel graphics card, "
 "as opposed to the external Nvidia or AMD/ATI graphics card."
 msgstr ""
+"Falls möglich, schließen Sie den Monitor an die Intel-Grafikkarte des "
+"Motherboards an, anstelle der externen Nvidia- oder AMD/ATI-Grafikkarte."
 
 #. type: Bullet: '* '
 msgid ""
@@ -496,10 +531,9 @@ msgid "`nouveau.modeset=0`"
 msgstr "`nouveau.modeset=0`"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid "<a id=\"radeon-r5\"></a>\n"
+#, no-wrap
 msgid "<h2 id=\"intel-bay-trail\">Intel HD Graphics (Bay Trail)</h2>\n"
-msgstr "<a id=\"$ANCHOR\"></a>\n"
+msgstr "<h2 id=\"intel-bay-trail\">Intel HD Graphics (Bay Trail)</h2>\n"
 
 #. type: Plain text
 msgid "For example, in the Acer Aspire e13."
@@ -530,7 +564,7 @@ msgstr ""
 
 #. type: Plain text
 msgid "There are several possible workarounds for this issue:"
-msgstr ""
+msgstr "Es gibt mehrere mögliche Umgehungslösungen für dieses Problem:"
 
 #. type: Bullet: '* '
 msgid ""
@@ -597,12 +631,16 @@ msgstr ""
 #, no-wrap
 msgid "<h2 id=\"display-artifacts-intel\">Display artifact when starting Tails on Intel display</h2>\n"
 msgstr ""
+"<h2 id=\"display-artifacts-intel\">Artefakte anzeigen beim Start von Tails "
+"auf Intel-Displays</h2>\n"
 
 #. type: Plain text
 msgid ""
 "If you see screen tearing and color artifact shift through display with an "
 "Intel graphics card, try this:"
 msgstr ""
+"Wenn Sie Bildschirmzerreißen und Farbartefakte bei der Anzeige mit einer "
+"Intel-Grafikkarte sehen, versuchen Sie Folgendes:"
 
 #. type: Bullet: '1. '
 msgid "Right-click on the desktop"

@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-01-23 00:41+0000\n"
-"PO-Revision-Date: 2024-10-09 14:09+0000\n"
+"PO-Revision-Date: 2024-10-21 14:02+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -180,6 +180,10 @@ msgid ""
 "the emails and folders that are currently stored on the server. IMAP is "
 "better suited if you access your emails from different operating systems."
 msgstr ""
+"Mit IMAP synchronisiert *Claws Mail* ständig mit dem Server und zeigt die E-"
+"Mails und Ordner an, die derzeit auf dem Server gespeichert sind. IMAP ist "
+"besser geeignet, wenn Sie von verschiedenen Betriebssystemen auf Ihre E-"
+"Mails zugreifen."
 
 #. type: Bullet: '  - '
 msgid ""
@@ -187,6 +191,10 @@ msgid ""
 "server and possibly removes them from the server. POP is better suited if "
 "you access emails from Tails only and store them in the persistent volume."
 msgstr ""
+"Mit POP lädt *Claws Mail* die E-Mails herunter, die sich im Posteingang auf "
+"dem Server befinden, und entfernt sie möglicherweise vom Server. POP eignet "
+"sich besser, wenn Sie E-Mails nur von Tails aus abrufen und sie im "
+"beständigen Datenspeicher speichern."
 
 #. type: Plain text
 msgid ""
@@ -285,7 +293,7 @@ msgstr ""
 #. type: Title -
 #, no-wrap
 msgid "Use local **Drafts** and **Queue** folders"
-msgstr "Verwenden Sie lokale **Entwürfe**- und **Warteschlangen**-Ordner."
+msgstr "Verwenden Sie lokale **Entwürfe** und **Warteschlangen**-Ordner"
 
 #. type: Plain text
 msgid ""
@@ -300,6 +308,9 @@ msgid ""
 "1. Choose **Add mailbox**&nbsp;▸ **MH&hellip;** to create a local\n"
 "mailbox where to save your drafts and queued emails.\n"
 msgstr ""
+"1. Wählen Sie **Postfach hinzufügen**&nbsp;▸ **MH&hellip;**, um ein lokales\n"
+"Postfach zu erstellen, in dem Sie Ihre Entwürfe und wartenden E-Mails "
+"speichern können.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -308,10 +319,14 @@ msgid ""
 "your IMAP account in the list of accounts, and click **Edit** to edit\n"
 "its preferences.\n"
 msgstr ""
+"1. Wählen Sie **Konfiguration**&nbsp;▸ **Konten bearbeiten&hellip;**,\n"
+"wählen Sie Ihr IMAP-Konto aus der Kontenliste aus und klicken Sie auf "
+"**Bearbeiten**,\n"
+"um die Einstellungen zu ändern.\n"
 
 #. type: Bullet: '1. '
 msgid "Select **Advanced** in the left pane."
-msgstr ""
+msgstr "Wählen Sie **Erweitert** im linken Bereich aus."
 
 #. type: Plain text
 #, no-wrap
@@ -319,6 +334,9 @@ msgid ""
 "1. Select the **Put queued messages in** option, click **Browse**, and\n"
 "select the **Queue** folder of the **MH** mailbox.\n"
 msgstr ""
+"1. Wählen Sie die Option **Warteschlangen-Nachrichten in** aus, klicken Sie "
+"auf **Durchsuchen** und wählen Sie den **Warteschlangen**-Ordner des **MH**-"
+"Postfachs aus.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -326,21 +344,27 @@ msgid ""
 "1. Select the **Put draft messages in** option, click **Browse**, and\n"
 "select the **Drafts** folder of the **MH** mailbox.\n"
 msgstr ""
+"1. Wählen Sie die Option **Entwurfsmails speichern in**, klicken Sie auf "
+"**Durchsuchen** und wählen Sie den **Entwürfe**-Ordner des **MH**-Postfachs "
+"aus.\n"
 
 #. type: Plain text
 #, no-wrap
 msgid "[[!img claws_mail_leaks_plaintext_to_imap/local_folders.png link=\"no\"]]\n"
 msgstr ""
+"[[!img claws_mail_leaks_plaintext_to_imap/local_folders.png link=\"no\"]]\n"
 
 #. type: Title =
 #, no-wrap
 msgid "Long term solution"
-msgstr ""
+msgstr "Langfristige Lösung"
 
 #. type: Plain text
 msgid ""
 "As for the possible long term solutions to this problem, we are considering:"
 msgstr ""
+"Was die möglichen langfristigen Lösungen für dieses Problem betrifft, ziehen "
+"wir in Betracht:"
 
 #. type: Bullet: '- '
 msgid ""
@@ -371,6 +395,8 @@ msgstr ""
 msgid ""
 "When sending an email from an IMAP account, *Claws Mail* does the following:"
 msgstr ""
+"Beim Versenden einer E-Mail von einem IMAP-Konto führt *Claws Mail* "
+"Folgendes aus:"
 
 #. type: Plain text
 #, no-wrap
@@ -378,10 +404,12 @@ msgid ""
 "  1. It connects to the IMAP server and stores a plaintext copy of the\n"
 "  email in the **Queue** folder on the server.\n"
 msgstr ""
+"  1. Es verbindet sich mit dem IMAP-Server und speichert eine Klartextkopie "
+"der E-Mail im **Warteschlangen**-Ordner auf dem Server.\n"
 
 #. type: Bullet: '  1. '
 msgid "It encrypts the email locally."
-msgstr ""
+msgstr "Es verschlüsselt die E-Mail lokal."
 
 #. type: Bullet: '  1. '
 msgid "It sends the encrypted email through the SMTP server."
