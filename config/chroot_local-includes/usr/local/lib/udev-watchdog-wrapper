@@ -58,6 +58,12 @@ do_stop() {
 	/bin/systemctl --force poweroff
 }
 
+on_removed() {
+    if /usr/local/lib/tpscli is-unlocked; then
+        /usr/local/lib/run-with-user-env /usr/local/lib/on-stick-unplugged
+    fi
+    do_stop
+}
 
 ### Main
 
@@ -94,6 +100,5 @@ DEV_TYPE="${DEV_TYPE_LINE#*=}"
 if [ "$DEV_TYPE" = "cd" ]; then
 	eject -i on "${BOOT_DEVICE}" >/dev/null
 fi
-
 # Start udev-watchdog and stop on clean exit.
-/usr/local/sbin/udev-watchdog "$DEV_UDEV_PATH" "$DEV_TYPE" && do_stop
+/usr/local/sbin/udev-watchdog "$DEV_UDEV_PATH" "$DEV_TYPE" && on_removed
