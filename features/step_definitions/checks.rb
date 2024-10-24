@@ -243,18 +243,15 @@ Then /^the support documentation page opens in Tor Browser$/ do
   if $language == 'German'
     expected_title = 'Tails - Hilfe & Support'
     expected_heading = 'Die Dokumentation durchsuchen'
-    separator = '–'
   else
     expected_title = 'Tails - Support'
     expected_heading = 'Search the documentation'
-    separator = '—'
   end
   step "\"#{expected_title}\" has loaded in the Tor Browser"
-  browser_name = 'Tor Browser'
   try_for(60, delay: 3) do
     page_has_heading(
       @torbrowser,
-      "#{expected_title} #{separator} #{browser_name}",
+      expected_title,
       expected_heading
     )
   end
