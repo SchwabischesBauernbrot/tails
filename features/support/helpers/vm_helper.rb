@@ -110,7 +110,8 @@ class VM
       rexml.elements['domain/devices/filesystem'].add_element('target')
       rexml.elements['domain/devices/filesystem'].add_element('readonly')
       rexml.elements['domain/devices/filesystem/source'].add_attribute('dir', Dir.pwd)
-      rexml.elements['domain/devices/filesystem/target'].add_attribute('dir', 'src')
+      rexml.elements['domain/devices/filesystem/target'].add_attribute('dir',
+                                                                       'tails.git')
     end
 
     update(xml: rexml.to_s)

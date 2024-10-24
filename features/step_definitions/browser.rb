@@ -314,28 +314,34 @@ Then /^the Tails homepage loads in the Unsafe Browser$/ do
 end
 
 def headings_in_page(browser, page_title)
-  browser.child(page_title, roleName: 'frame').children(roleName: 'heading')
+  browser.child(page_title, roleName: 'document web').children(roleName: 'heading')
 end
 
 def page_has_heading(browser, page_title, heading)
-  headings_in_page(browser, page_title).any? { |h| h.text == heading }
+  headings_in_page(browser, page_title).any? { |h| h.name == heading }
 end
 
-Then /^the Tor Browser shows the "([^"]+)" error$/ do |error|
+Then /^the (Tor|Unsafe) Browser shows the "([^"]+)" error$/ do |browser_name, error|
+  browser = if browser_name == 'Tor'
+              @torbrowser
+            else
+              @unsafe_browser
+            end
+
   try_for(60, delay: 3) do
-    page_has_heading(@torbrowser, 'Problem loading page — Tor Browser', error)
+    page_has_heading(browser, 'Problem loading page', error)
   end
 end
 
 Then /^Tor Browser displays a "([^"]+)" heading on the "([^"]+)" page$/ do |heading, page_title|
   try_for(60, delay: 3) do
-    page_has_heading(@torbrowser, "#{page_title} — Tor Browser", heading)
+    page_has_heading(@torbrowser, page_title, heading)
   end
 end
 
 Then /^Tor Browser displays a '([^']+)' heading on the "([^"]+)" page$/ do |heading, page_title|
   try_for(60, delay: 3) do
-    page_has_heading(@torbrowser, "#{page_title} — Tor Browser", heading)
+    page_has_heading(@torbrowser, page_title, heading)
   end
 end
 

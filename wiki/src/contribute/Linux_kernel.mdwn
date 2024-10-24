@@ -38,10 +38,18 @@ fix is to upgrade to 5.19.6.
 
 ## _We_ need to decide
 
-Which exact Linux kernel version we ship in a given Tails release is
-a trade-off between packages availability, security fixes, limiting
-the risks of hardware support regressions, and adding support for new
-hardware. The Foundations Team has to make this decision
+Which exact Linux kernel version we ship in a given Tails release is a trade-off
+between work capacity, packages availability, security fixes, limiting the risks
+of hardware support regressions, and adding support for new hardware.
+
+Currently, Tails includes the latest Linux kernel from the Debian version it is
+based on (usually: stable). So most of the rest of this document is moot.
+It will become relevant again if we ever resume pinning a specific version of
+the Linux kernel, be it from stable, sid, or anywhere. To do that, check
+`git log -p -GKERNEL_VERSION -- auto config` to find what commit you want
+to revert.
+
+The Foundations Team has to make this decision
 during every Tails release cycle. Due to the way we manage our APT
 repositories and to the fact we don't publish release candidates for
 Tails bugfix releases, how this decision is made and implemented

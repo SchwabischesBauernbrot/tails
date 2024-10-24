@@ -101,11 +101,11 @@ Options for '@product' features:
                      config/chroot_local-includes that have changed since the
                      commit the system under testing was built from, including
                      untracked files.
-  --early-patch      Boots the system with the \"early_patch=umount\" cmdline option.
-                     See wiki/src/contribute/build/early-patch.mdwn for details
-                     This is useful when you need something to be patched early
-                     in the boot process; or if you need to run arbitrary
-                     commands, not just copying files
+  --early-patch      Boots the system with the \"early_patch=umount\" cmdline option,
+                     so all changes since the commit the system under testing was
+                     built from are copied in, including untracked, unstaged, and
+                     uncommitted changes.
+                     See wiki/src/contribute/build/early-patch.mdwn for details.
   --all-tests        Don't skip tests which have a @fragile or @skip_by_default tag.
   --tmpdir           Directory where various temporary files are written
                      during a test, e.g. VM snapshots and memory dumps,

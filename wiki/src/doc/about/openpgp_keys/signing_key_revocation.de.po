@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: tails-l10n@boum.org\n"
 "POT-Creation-Date: 2024-10-07 10:47+0200\n"
-"PO-Revision-Date: 2024-10-10 13:09+0000\n"
+"PO-Revision-Date: 2024-10-21 03:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -314,22 +314,27 @@ msgid ""
 "the revocation power is to destroy all copies of shares of 2 groups amongst "
 "B, C, or D."
 msgstr ""
+"Es gibt kein Ablaufdatum für Widerrufsbescheinigungen. Eine Möglichkeit, die "
+"Widerrufsmacht aufzuheben, besteht darin, alle Kopien der Anteile von 2 "
+"Gruppen unter B, C oder D zu vernichten."
 
 #. type: Plain text
 #, no-wrap
 msgid "<a id=\"invitation\"></a>\n"
-msgstr ""
+msgstr "<a id=\"invitation\"></a>\n"
 
 #. type: Title =
 #, no-wrap
 msgid "Invitation email"
-msgstr ""
+msgstr "Einladungs-E-Mail"
 
 #. type: Plain text
 msgid ""
 "Someone who has a personal trust relationship with the person being invited "
 "sends this email."
 msgstr ""
+"Jemand, der eine persönliche Vertrauensbeziehung zu der eingeladenen Person "
+"hat, sendet diese E-Mail."
 
 #. type: Plain text
 #, no-wrap
@@ -340,7 +345,7 @@ msgstr ""
 
 #. type: Plain text
 msgid "Hi,"
-msgstr ""
+msgstr "Hi,"
 
 #. type: Plain text
 msgid ""
@@ -356,6 +361,12 @@ msgid ""
 "signing key. This may be needed in case something really bad happens to us "
 "and we are not able to do the revocation ourselves."
 msgstr ""
+"Die Idee ist, kryptografische Anteile dieses Widerrufszertifikats an "
+"Personen zu verteilen, denen wir vertrauen. Diese kryptografischen Anteile "
+"können zusammengefügt werden, um das Widerrufszertifikat wiederherzustellen "
+"und den Tails-Signierschlüssel zu widerrufen. Dies könnte erforderlich sein, "
+"falls uns etwas Schlimmes zustößt und wir den Widerruf nicht selbst "
+"durchführen können."
 
 #. type: Plain text
 msgid "Note: In all this document, 'us' refers to the Board."
@@ -364,16 +375,20 @@ msgstr ""
 #. type: Plain text
 msgid "You can read a complete description of the distribution mechanism on:"
 msgstr ""
+"Sie können eine vollständige Beschreibung des Verteilungsmechanismus unter "
+"folgender Adresse lesen:"
 
 #. type: Plain text
 msgid "https://tails.net/doc/about/openpgp_keys/signing_key_revocation."
-msgstr ""
+msgstr "https://tails.net/doc/about/openpgp_keys/signing_key_revocation."
 
 #. type: Plain text
 msgid ""
 "The recipe is public and the only secret component is the list of people who "
 "are in possession of the cryptographic material."
 msgstr ""
+"Das Rezept ist öffentlich, und die einzige geheime Komponente ist die Liste "
+"der Personen, die im Besitz des kryptografischen Materials sind."
 
 #. type: Plain text
 msgid ""
@@ -382,10 +397,17 @@ msgid ""
 "But also because we trust you as a human being to make informed judgment on "
 "when to use your share and act only in the interest of Tails."
 msgstr ""
+"Wir schlagen dies Ihnen vor, weil wir sowohl auf Ihre technischen "
+"Fähigkeiten vertrauen, Ihren Anteil an einem sicheren Ort zu speichern und "
+"ihn bei Bedarf zu handhaben. Aber auch, weil wir Ihnen als Mensch vertrauen, "
+"informierte Entscheidungen darüber zu treffen, wann Sie Ihren Anteil "
+"verwenden und nur im Interesse von Tails zu handeln."
 
 #. type: Plain text
 msgid "The bad things that could happen if the mechanism fails are:"
 msgstr ""
+"Die schlechten Dinge, die passieren könnten, wenn der Mechanismus "
+"fehlschlägt, sind:"
 
 #. type: Plain text
 msgid ""
@@ -393,6 +415,10 @@ msgid ""
 "possible attackers to distribute malicious Tails images or publish malicious "
 "information on our name."
 msgstr ""
+"A. Der Signaturschlüssel wird nicht widerrufen, wenn er widerrufen werden "
+"sollte. Dies könnte es möglichen Angreifern ermöglichen, bösartige Tails-"
+"Images zu verbreiten oder bösartige Informationen in unserem Namen zu "
+"veröffentlichen."
 
 #. type: Plain text
 msgid ""
@@ -400,17 +426,23 @@ msgid ""
 "prevent people from verifying our images with OpenPGP until we publish a new "
 "signing key and build trust in it."
 msgstr ""
+"B. Der Signaturschlüssel wird widerrufen, obwohl dies nicht hätte geschehen "
+"dürfen. Dies würde es den Menschen verhindern, unsere Images mit OpenPGP zu "
+"verifizieren, bis wir einen neuen Signaturschlüssel veröffentlichen und "
+"Vertrauen in ihn aufbauen."
 
 #. type: Title =
 #, no-wrap
 msgid "Distribution of the shares"
-msgstr ""
+msgstr "Verteilung der Anteile"
 
 #. type: Plain text
 msgid ""
 "Each person from the Board, group A, has a *different* share, A1, A2, ..., "
 "An."
 msgstr ""
+"Jede Person aus dem Board, Gruppe A, hat einen *verschiedenen* Anteil, A1, "
+"A2, ..., An."
 
 #. type: Plain text
 msgid ""
@@ -419,24 +451,31 @@ msgid ""
 "interests and different access to information about us. You are part of one "
 "of these groups."
 msgstr ""
+"Darüber hinaus haben wir drei komplementäre Gruppen, B, C und D, von "
+"vertrauenswürdigen Personen definiert, die eine enge Beziehung zu Tails "
+"haben, jedoch unterschiedliche Interessen und unterschiedlichen Zugang zu "
+"Informationen über uns. Sie sind Teil einer dieser Gruppen."
 
 #. type: Plain text
 msgid "Everybody in group B has an *identical* share B."
-msgstr ""
+msgstr "Jeder in Gruppe B hat einen *identischen* Anteil B."
 
 #. type: Plain text
 msgid "Everybody in group C has an *identical* share C."
-msgstr ""
+msgstr "Jeder in Gruppe C hat einen *identischen* Anteil C."
 
 #. type: Plain text
 msgid "Everybody in group D has an *identical* share D."
-msgstr ""
+msgstr "Jeder in Gruppe D hat einen *identischen* Anteil D."
 
 #. type: Plain text
 msgid ""
 "Three different shares are needed to reassemble the revocation certificate. "
 "For example, shares A1, A2, and A3, or shares A1, B, and C."
 msgstr ""
+"Drei verschiedene Anteile sind erforderlich, um das Widerrufszertifikat "
+"wiederherzustellen. Zum Beispiel die Anteile A1, A2 und A3 oder die Anteile "
+"A1, B und C."
 
 #. type: Title =
 #, no-wrap
@@ -508,6 +547,10 @@ msgid ""
 "three of us are able to communicate and gather their shares. So we only need "
 "your help if no more than two of us are still able to communicate."
 msgstr ""
+"Bitte beachten Sie, dass wir den Signaturschlüssel weiterhin selbst "
+"widerrufen könnten, solange drei von uns in der Lage sind, zu kommunizieren "
+"und ihre Anteile zu sammeln. Daher benötigen wir Ihre Hilfe nur, wenn nicht "
+"mehr als zwei von uns noch kommunizieren können."
 
 #. type: Plain text
 msgid ""
@@ -569,17 +612,21 @@ msgstr ""
 #. type: Title =
 #, no-wrap
 msgid "Keeping the members of the groups B, C, and D up-to-date"
-msgstr ""
+msgstr "Die Mitglieder der Gruppen B, C und D auf dem neuesten Stand halten"
 
 #. type: Plain text
 msgid "At least every 2 years, we make sure that the mechanism still works:"
 msgstr ""
+"Mindestens alle 2 Jahre stellen wir sicher, dass der Mechanismus noch "
+"funktioniert:"
 
 #. type: Bullet: '1. '
 msgid ""
 "We review internally the list of members of each group and decide possible "
 "additions to, and removals from, each group."
 msgstr ""
+"Wir überprüfen intern die Liste der Mitglieder jeder Gruppe und entscheiden "
+"über mögliche Ergänzungen und Abnahmen in jeder Gruppe."
 
 #. type: Bullet: '1. '
 msgid ""

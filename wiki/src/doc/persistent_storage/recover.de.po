@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "POT-Creation-Date: 2024-10-07 10:47+0200\n"
-"PO-Revision-Date: 2024-10-10 11:09+0000\n"
+"PO-Revision-Date: 2024-10-21 10:09+0000\n"
 "Last-Translator: Benjamin Held <Benjamin.Held@protonmail.com>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
 "Language: de\n"
@@ -149,7 +149,7 @@ msgstr ""
 
 #. type: Plain text
 msgid "- [[Downloading and upgrading from Windows|upgrade/windows]]"
-msgstr ""
+msgstr "- [[Herunterladen und Aktualisieren von Windows|upgrade/windows]]"
 
 #. type: Plain text
 msgid "- [[Downloading and upgrading from macOS|upgrade/mac]]"
@@ -157,16 +157,18 @@ msgstr ""
 
 #. type: Plain text
 msgid "- [[Downloading and upgrading from Linux|upgrade/linux]]"
-msgstr ""
+msgstr "- [[Herunterladen und Upgrade von Linux|upgrade/linux]]"
 
 #. type: Plain text
 msgid "- [[Upgrading by cloning from another Tails|doc/upgrade/#clone]]"
-msgstr ""
+msgstr "- [[Upgrade durch Klonen von einem anderen Tails|doc/upgrade/#clone]]"
 
 #. type: Plain text
 #, no-wrap
 msgid "<h1 id=\"rsync\">Unlocking from another Tails and copying using <span class=\"code\">rsync</span></h1>\n"
 msgstr ""
+"<h1 id=\"rsync\">Entsperren von einem anderen Tails und Kopieren mit <span "
+"class=\"code\">rsync</span></h1>\n"
 
 #. type: Plain text
 msgid ""
@@ -174,22 +176,20 @@ msgid ""
 "Persistent Storage from another Tails USB stick and copy its content using "
 "`rsync` on the command line."
 msgstr ""
+"Wenn ein manuelles Upgrade nicht funktioniert, können Sie möglicherweise "
+"Ihren beständigen Datenspeicher von einem anderen Tails-USB-Stick entsperren "
+"und dessen Inhalt mithilfe von `rsync` über die Befehlszeile kopieren."
 
 #. type: Bullet: '1. '
-#, fuzzy
-#| msgid ""
-#| "Install Tails on a new USB stick on which you want to rescue your "
-#| "Persistent Storage. Make sure that this new USB stick is at least as "
-#| "large as the USB stick that has your broken Tails on it."
 msgid ""
 "Install Tails on a new USB stick onto which you want to recover your "
 "Persistent Storage. Make sure that this new USB stick is at least as large "
 "as the USB stick that has your broken Tails on it."
 msgstr ""
 "Installieren Sie Tails auf einem neuen USB-Stick, auf den Sie Ihren "
-"persistenten Speicher retten wollen. Achten Sie darauf, dass dieser neue USB-"
-"Stick mindestens so groß ist wie der USB-Stick, auf dem sich Ihr defektes "
-"Tails befindet."
+"beständigen Datenspeicher wiederherstellen möchten. Stellen Sie sicher, dass "
+"dieser neue USB-Stick mindestens so groß ist wie der USB-Stick, auf dem Ihr "
+"beschädigtes Tails gespeichert ist."
 
 #. type: Bullet: '1. '
 msgid ""
@@ -208,7 +208,7 @@ msgid ""
 "Close the Persistent Storage settings after creation, when the list of "
 "features is displayed."
 msgstr ""
-"Schließen Sie die Einstellungen für den persistenten Speicher nach der "
+"Schließen Sie die Einstellungen für den beständigen Datenspeicher nach der "
 "Erstellung, wenn die Liste der Funktionen angezeigt wird."
 
 #. type: Plain text
@@ -218,6 +218,11 @@ msgid ""
 "   Storage. So, it does not matter which features you turn on after creating\n"
 "   the Persistent Storage.\n"
 msgstr ""
+"   Der nachfolgend beschriebene Prozess überschreibt den Inhalt und die "
+"Konfiguration des neuen\n"
+"   beständigen Datenspeichers. Daher ist es irrelevant, welche Funktionen "
+"Sie nach der Erstellung des\n"
+" beständigen Datenspeichers aktivieren.\n"
 
 #. type: Plain text
 #, no-wrap
@@ -307,6 +312,8 @@ msgid ""
 "Execute the following command to recover the Persistent Storage of your "
 "broken Tails to your new Tails:"
 msgstr ""
+"Führen Sie den folgenden Befehl aus, um den beständigen Datenspeicher Ihres "
+"defekten Tails auf Ihr neues Tails wiederherzustellen:"
 
 #. type: Plain text
 #, no-wrap
@@ -318,22 +325,17 @@ msgid ""
 "When the command finishes, it displays a summary of the data that was "
 "copied. For example:"
 msgstr ""
+"Wenn der Befehl abgeschlossen ist, wird eine Zusammenfassung der kopierten "
+"Daten angezeigt. Zum Beispiel:"
 
 #. type: Plain text
-#, fuzzy, no-wrap
-#| msgid ""
-#| "<pre>\n"
-#| "sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
-#| "total size is 32.30M  speedup is 1.00\n"
-#| "</pre>\n"
+#, no-wrap
 msgid ""
 "       sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
 "       total size is 32.30M  speedup is 1.00\n"
 msgstr ""
-"<pre>\n"
-"sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
-"total size is 32.30M  speedup is 1.00\n"
-"</pre>\n"
+"       sent 32.32M bytes  received 1.69K bytes  21.55M bytes/sec\n"
+"       total size is 32.30M  speedup is 1.00\n"
 
 #. type: Plain text
 #, no-wrap
@@ -349,6 +351,9 @@ msgid ""
 "Tails from the *Files* browser. To do so, execute the following command from "
 "the *Root Terminal*:"
 msgstr ""
+"Sie können auch den Inhalt des beständigen Datenspeichers auf Ihrem defekten "
+"Tails über den *Dateien*-Browser erkunden. Führen Sie dazu den folgenden "
+"Befehl im *Root-Terminal* aus:"
 
 #. type: Plain text
 #, no-wrap
@@ -359,6 +364,8 @@ msgstr "   <p class=\"command-root\">nautilus</p>\n"
 #, no-wrap
 msgid "<h1 id=\"image\">Recovering from a partition image using forensics tools</h1>\n"
 msgstr ""
+"<h1 id=\"image\">Wiederherstellung von einer Partition-Abbild mithilfe von "
+"Forensik-Tools</h1>\n"
 
 #. type: Plain text
 msgid ""
@@ -386,10 +393,15 @@ msgid ""
 "   Try the technique using the [[*Disks* utility|fsck#disks]] first, then the\n"
 "   technique using [[`ddrescue`|fsck#ddrescue]] if needed.\n"
 msgstr ""
+"   Versuchen Sie zuerst die Technik mit dem "
+"[[*Disks*-Dienstprogramm|fsck#disks]], und verwenden Sie dann die Technik "
+"mit [[`ddrescue`|fsck#ddrescue]], falls erforderlich.\n"
 
 #. type: Bullet: '1. '
 msgid "After you create the partition image, try to recover your data."
 msgstr ""
+"Nachdem Sie das Partition-Abbild erstellt haben, versuchen Sie, Ihre Daten "
+"wiederherzustellen."
 
 #. type: Plain text
 #, no-wrap
@@ -398,6 +410,9 @@ msgid ""
 "   stick|fsck#copy]] first, then the technique using\n"
 "   [[*Autopsy*|fsck#autopsy]].\n"
 msgstr ""
+"   Versuchen Sie zuerst die Technik, um [[das Partition-Abbild auf einen "
+"neuen USB-Stick zu kopieren|fsck#copy]], und verwenden Sie dann die Technik "
+"mit [[*Autopsy*|fsck#autopsy]].\n"
 
 #, no-wrap
 #~ msgid "<!-- XXX: These instructions should be kept in sync with backup.mdwn -->\n"
