@@ -718,12 +718,12 @@ def greeter_language
   english_label = 'English - United States'
   german_label = 'Deutsch - Deutschland (German - Germany)'
   try_for(30) do
-    greeter.child(english_label, roleName: 'label')
+    greeter.child(english_label, roleName: 'label', retry: false)
     # We have to set the language to '' for English, setting it to
     # 'English' doesn't work.
     return '', 'en'
   rescue Dogtail::Failure
-    greeter.child(german_label, roleName: 'label')
+    greeter.child(german_label, roleName: 'label', retry: false)
     return 'German', 'de'
   end
 end
