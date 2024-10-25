@@ -464,50 +464,24 @@ class TPSPartition:
 
     def test_passphrase(self, passphrase: str, header_file: Path | None = None):
         """Try to unlock the encrypted partition with the given passphrase."""
-        cmd = [
-            "cryptsetup",
-            "luksOpen",
-            "--batch-mode",
-            "--key-file=-",
-            self.device_path,
-            "TailsData",
-        ]
-        if header_file:
-            cmd += ["--header", str(header_file)]
         try:
-            executil.check_call(cmd, text=True, input=passphrase)
-            # Try to mount the device to ensure that the partition was
-            # successfully unlocked and contains a valid filesystem.
-            self._test_mounting_device("/dev/mapper/TailsData")
-        except subprocess.CalledProcessError as err:
-            if err.returncode == 2:
-                raise IncorrectPassphraseError(err) from err
-            raise
+            self.unlock(passphrase, header_file=header_file)
+            # It is conceivable that a corrupt LUKS header (probably
+            # the master key) could successfully decrypt, but the
+            # cleartext would be junk. So if we see the expected
+            # filesystem we can be pretty sure it was not corrupt.
+            if self.get_cleartext_device().block.props.id_type != "ext4":
+                raise InvalidCleartextDeviceError(
+                    "Cleartext device is not an ext4 filesystem"
+                )
         finally:
-            # Close the device if it is open
             try:
-                executil.check_call(["cryptsetup", "status", "TailsData"])
-                is_open = True
-            except subprocess.CalledProcessError:
-                is_open = False
-            if is_open:
-                executil.check_call(["cryptsetup", "close", "TailsData"])
-
-    @staticmethod
-    def _test_mounting_device(device_path: str):
-        """Try to mount the specified device"""
-        with tempfile.TemporaryDirectory() as tmpdir:
-            try:
-                executil.check_call(["mount", device_path, tmpdir])
-            finally:
-                # Unmount the device if it is mounted
-                try:
-                    executil.check_call(["mountpoint", "-q", tmpdir])
-                    is_mounted = True
-                except subprocess.CalledProcessError:
-                    is_mounted = False
-                if is_mounted:
-                    executil.check_call(["umount", tmpdir])
+                self._get_encrypted().call_lock_sync(
+                    arg_options=GLib.Variant("a{sv}", {}),
+                    cancellable=None,
+                )
+            except GLib.Error:
+                pass
 
     def backup_luks_header(self):
         luks_header_backup = Path(LUKS_HEADER_BACKUP_PATH)
@@ -582,13 +556,21 @@ class TPSPartition:
             input=passphrase,
         )
 
-    def unlock(self, passphrase: str, rename_dm_device: bool = True):
+    def unlock(
+        self,
+        passphrase: str,
+        rename_dm_device: bool = True,
+        header_file: Path | None = None,
+    ):
         """Unlock the Persistent Storage encrypted partition"""
+        unlock_options = {}
+        if header_file:
+            unlock_options["header"] = GLib.Variant("s", str(header_file))
         try:
             encrypted = self._get_encrypted()
             encrypted.call_unlock_sync(
                 arg_passphrase=passphrase,
-                arg_options=GLib.Variant("a{sv}", {}),
+                arg_options=GLib.Variant("a{sv}", unlock_options),
                 cancellable=None,
             )
         except InvalidPartitionError as err:
