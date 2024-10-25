@@ -737,6 +737,7 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
             return
         if self.tps_upgrade_failed:
             self.on_tps_upgrade_failed()
+            return
 
         self.box_storage_unlock.set_visible(False)
         self.spinner_storage_unlock.set_visible(False)
