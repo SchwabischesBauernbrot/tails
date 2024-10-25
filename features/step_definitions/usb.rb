@@ -684,17 +684,16 @@ Then /^persistence is successfully enabled$/ do
     tails_persistence_active?
   end
 
-  # Figure out which language is set now that the Persistent Storage is
-  # unlocked
-  $language, $lang_code = greeter_language
-
-  # Check that the status label says that the Persistent Storage was
-  # successfully unlocked. We do that *after* figuring out the language
-  # because the `child` method translates the label into the language
-  # designated by $lang_code.
-  greeter.child('Your Persistent Storage is unlocked. ' \
-                      'Its content will be available until you shut down Tails.',
-                roleName: 'label')
+  # If the Persistent Welcome Screen options feature is enabled the
+  # GUI's language might change around this time, and we have to set
+  # the language accordingly in the test suite so Dogtail will use the
+  # translated strings.
+  try_for(30) do
+    $language, $lang_code = greeter_language
+    greeter.child('Your Persistent Storage is unlocked. ' \
+                  'Its content will be available until you shut down Tails.',
+                  roleName: 'label')
+  end
 end
 
 Given /^I enable persistence( with the changed passphrase)?$/ do |with_changed_passphrase|
