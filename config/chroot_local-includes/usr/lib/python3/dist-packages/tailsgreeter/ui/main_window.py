@@ -411,7 +411,9 @@ class GreeterMainWindow(Gtk.Window, TranslatableWindow):
 
                 # Reset the label in case it was altered by
                 # on_tps_upgrading() above.
-                self.label_storage_unlock_status.set_label(_("Unlocking…"))
+                glib_idle_add_once(
+                    self.label_storage_unlock_status.set_label, _("Unlocking…")
+                )
 
                 # If unlocking takes a long time we assume it is
                 # because the filesystem integrity check is taking a
