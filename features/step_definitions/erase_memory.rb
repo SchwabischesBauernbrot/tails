@@ -255,3 +255,8 @@ end
 When(/^I trigger shutdown$/) do
   $vm.spawn('halt')
 end
+
+Then(/^I see a window explaining me the danger of unplugging the USB stick$/) do
+  Dogtail::Application.new('zenity')
+                      .dialog('Emergency shutdown')
+end

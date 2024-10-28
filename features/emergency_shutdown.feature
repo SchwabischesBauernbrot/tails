@@ -50,6 +50,7 @@ Feature: Emergency shutdown
     And I fill a 128 MiB file with a known pattern on the persistent filesystem
     And patterns cover at least 100 MiB in the guest's memory
     When I eject the boot medium
+    Then I see a window explaining me the danger of unplugging the USB stick
     And I wait for Tails to finish wiping the memory
     Then I find very few patterns in the guest's memory
     And Tails eventually shuts down
