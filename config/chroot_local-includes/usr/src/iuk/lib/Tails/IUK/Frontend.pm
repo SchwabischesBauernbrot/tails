@@ -648,7 +648,7 @@ method get_target_files (HashRef $upgrade_path, AbsDir $destdir) {
                 \undef, \$download_out, '2>', \$stderr;
             $zenity_h = IPC::Run::start
                 [
-                    qw{zenity --progress --percentage=0 --auto-close},
+                    qw{zenity --progress --percentage=0},
                     '--title', $title, '--text', $info
                 ],
                 \$zenity_in;
