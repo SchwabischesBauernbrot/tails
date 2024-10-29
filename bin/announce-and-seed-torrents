@@ -21,7 +21,7 @@ for type in iso img ; do
         chmod 0775 "${torrent_dirname:?}"
         cd "${torrent_dirname:?}"
         wget --no-verbose --continue \
-            "https://nightly.tails.boum.org/build_Tails_ISO_${RELEASE_BRANCH:?}/builds/${MATCHING_JENKINS_IMAGES_BUILD_ID:?}/archive/build-artifacts/${image_filename:?}"
+            "https://nightly.tails.net/build_Tails_ISO_${RELEASE_BRANCH:?}/builds/${MATCHING_JENKINS_IMAGES_BUILD_ID:?}/archive/build-artifacts/${image_filename:?}"
         gpg --verify ${image_filename:?}{.sig,}
         cd
         chgrp -R debian-transmission "${torrent_dirname:?}"

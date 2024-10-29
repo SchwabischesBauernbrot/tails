@@ -101,7 +101,7 @@ unless allowed_suites.include?(options.suite)
 end
 
 if options.build_manifest.nil?
-  url = "https://nightly.tails.boum.org/build_Tails_ISO_#{options.suite}/lastSuccessful/archive/latest.build-manifest"
+  url = "https://nightly.tails.net/build_Tails_ISO_#{options.suite}/lastSuccessful/archive/latest.build-manifest"
   begin
     manifest = YAML.safe_load(
       URI.parse(url).open.read
