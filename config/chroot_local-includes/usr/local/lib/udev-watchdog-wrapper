@@ -59,9 +59,19 @@ do_stop() {
 }
 
 on_removed() {
-    if /usr/local/lib/tpscli is-unlocked; then
-        /usr/local/lib/run-with-user-env /usr/local/lib/on-stick-unplugged
+    set -x
+    echo "on_removed(): called"
+    # You might think that "/usr/local/lib/tpscli is-unlocked" is the right command to run, but it isn't
+    # In fact, when the stick is removed, it's too late to make such a check, so we resort to something
+    # simpler.
+    if [ -d /live/persistence/TailsData_unlocked ]; then
+        echo "on_removed(): persistent storage unlocked"
+        # this signal will actually show the notification
+        pkill -USR2 --uid amnesia --oldest --exact --full '/bin/sh /usr/local/lib/on-stick-unplugged'
+        # let's wait for it to be over
+        pidwait  --uid amnesia --exact --full '/bin/sh /usr/local/lib/on-stick-unplugged'
     fi
+    echo "on_removed(): shutdown no matter what"
     do_stop
 }
 

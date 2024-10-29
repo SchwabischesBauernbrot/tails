@@ -1,15 +1,27 @@
 #!/bin/sh
 
-WAIT_SECS=5
-for i in $(seq 0 $((100 / WAIT_SECS)) 100); do
-	if ! echo "$i" ; then
-		# if we're here, it means that the stdout is closed, that is, zenity exited. This happens when the
-		# user press the cancel button
-		# If we don't break out of the loop, the user will still have to wait until the whole loop is run.
-	   	break
-	fi
-    sleep 1
-done | zenity --progress \
-	--title "Emergency shutdown" \
-	--text "<b>Unplugging your USB stick can damage your Persistent Storage.</b>\n\nUse the Power Off button in the System Menu instead.\n\nTails will shut down automatically in ${WAIT_SECS} seconds.\n" \
-	--cancel-label="Shutdown Now" --ok-label="" --auto-close
+set -u
+
+progress() {
+    WAIT_SECS=5
+    for i in $(seq 0 $((100 / WAIT_SECS)) 100); do
+        if ! echo "$i" ; then
+            # if we're here, it means that the stdout is closed, that is, zenity exited. This happens when the
+            # user press the cancel button
+            # If we don't break out of the loop, the user will still have to wait until the whole loop is run.
+            break
+        fi
+        sleep 1
+    done | zenity --progress \
+        --title "Emergency shutdown" \
+        --text "<b>Unplugging your USB stick can damage your Persistent Storage.</b>\n\nUse the Power Off button in the System Menu instead.\n\nTails will shut down automatically in ${WAIT_SECS} seconds.\n" \
+        --cancel-label="Shutdown Now" --ok-label="" --auto-close
+    exit 0
+}
+
+trap 'progress' USR2
+
+# a single "sleep inf" would not work, as the trap will never be called
+while true; do
+    sleep 0.5  # this number needs to be low, as this adds to the latency
+done
