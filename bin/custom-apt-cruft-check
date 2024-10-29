@@ -21,7 +21,7 @@ class AptSources
   def initialize(suite)
     @apt_sources = []
     apt_repo_hostnames = [
-      'deb.tails.boum.org',
+      'deb.tails.net',
       'umjqavufhoix3smyq6az2sx4istmuvsgmz4bq5u5x56rnayejoo6l2qd.onion',
     ]
     ['main', 'contrib', 'non-free'].each do |repo|
@@ -39,7 +39,7 @@ class AptSources
 
     raise "could not find Tails custom APT repo's sources, " \
           "please add this to your APT sources:\n" \
-          'deb-src [arch=amd64] http://deb.tails.boum.org/ ' \
+          'deb-src [arch=amd64] http://deb.tails.net/ ' \
           "#{suite} main contrib non-free"
   end
 
