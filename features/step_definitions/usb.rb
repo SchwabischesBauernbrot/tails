@@ -813,7 +813,7 @@ Then /^persistence is disabled$/ do
 end
 
 Then /^persistence is enabled$/ do
-  assert(tails_persistence_active?, 'Persistence is disabled')
+  assert(tails_persistence_active?, 'Persistence is disabled or not active yet')
 end
 
 def boot_device
