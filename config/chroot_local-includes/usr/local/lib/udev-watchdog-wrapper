@@ -67,9 +67,9 @@ on_removed() {
     if [ -d /live/persistence/TailsData_unlocked ]; then
         echo "on_removed(): persistent storage unlocked"
         # this signal will actually show the notification
-        pkill -USR2 --uid amnesia --oldest --exact --full '/bin/sh /usr/local/lib/on-stick-unplugged'
+        pkill -USR2 --uid amnesia --oldest --exact --full '/bin/sh /usr/local/lib/tails-emergency-shutdown-warning'
         # let's wait for it to be over
-        pidwait  --uid amnesia --exact --full '/bin/sh /usr/local/lib/on-stick-unplugged'
+        pidwait --uid amnesia --exact --full '/bin/sh /usr/local/lib/tails-emergency-shutdown-warning'
     fi
     echo "on_removed(): shutdown no matter what"
     do_stop
