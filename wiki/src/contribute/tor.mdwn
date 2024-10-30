@@ -29,7 +29,7 @@ the upgrade:
 
 1. Fork a branch off `stable` called `NNNNN-tor-X.Y-force-all-tests`.
 
-2. `OLD_SERIAL="$(cat config/APT_snapshots.d/torproject/serial)"
+2. `OLD_SERIAL="$(cat config/APT_snapshots.d/torproject/serial)"`
 
 3. On that branch, bump `config/APT_snapshots.d/torproject/serial` to a snapshot
    that's recent enough to include the relevant new version of `tor`:
