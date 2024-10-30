@@ -110,9 +110,9 @@ Examples of useful packages to drop in here are:
 ### 03-bind-new-includes
 
 0. All changed files (compared to the commit the running image was
-  built from) inside `config/chroot_local-includes` are bind-mounted
-  into the Tails filesystem, including uncommitted and untracked
-  changes.
+   built from) inside `config/chroot_local-includes` are bind-mounted
+   into the Tails filesystem, including uncommitted and untracked
+   changes.
 0. All patches in `config/chroot_local-patches` are reapplied.
 0. It does various clever things in order to make certain changes from
    bind-mounts have their intended effect:
@@ -147,7 +147,7 @@ Examples of useful packages to drop in here are:
   - Changes to the initramfs.
   - Changes to `config/chroot_local-packageslists` (but you can
     manually do it through `01-install-packages`).
-* The special treatment of `.in` files doesn't work for _all_ kind of
+* The special treatment of `.in` files doesn't work for _all_ kinds of
   `.in` files. As an example `.desktop.in` files do not work properly
   because the translatable keys are prefixed with an `_`.
 

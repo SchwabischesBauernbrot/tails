@@ -23,8 +23,8 @@ msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-07 09:59+0200\n"
-"PO-Revision-Date: 2024-10-02 21:16+0000\n"
-"Last-Translator: gallegonovato <fran-carro@hotmail.es>\n"
+"PO-Revision-Date: 2024-10-23 15:15+0000\n"
+"Last-Translator: 9x14S <9x14s@protonmail.com>\n"
 "Language-Team: Spanish <https://hosted.weblate.org/projects/tor/tails-gui/es/"
 ">\n"
 "Language: es\n"
@@ -33,7 +33,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n == 1) ? 0 : ((n != 0 && n % 1000000 == "
 "0) ? 1 : 2);\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
@@ -923,7 +923,6 @@ msgid "File System Errors"
 msgstr "Errores del sistema de archivos"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:799
-#, fuzzy
 msgid ""
 "Errors were detected in the file system of your Persistent Storage.\n"
 "                \n"
@@ -937,33 +936,32 @@ msgid ""
 "of your Persistent Storage first."
 msgstr ""
 "Se han detectado errores en el sistema de archivos de tu Almacenamiento "
-"persistente.\n"
+"Persistente.\n"
 "                \n"
 "Tails puede intentar reparar estos errores, pero esto podría borrar algunos "
 "de tus datos y llevar mucho tiempo.\n"
 "\n"
-"Si ya tienes una copia de seguridad actualizada de tu almacenamiento "
+"Si ya tienes una copia de seguridad actualizada de tu Almacenamiento "
 "persistente, te recomendamos que intentes repararlo.\n"
 "                \n"
-"Si no tienes una copia de seguridad, te recomendamos que la crees primero."
+"Si no tienes una copia de seguridad, te recomendamos que primero crees una "
+"imagen de la partición de tu Almacenamiento persistente."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:808
 msgid "Repair File System"
 msgstr "Reparar el sistema de archivos"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:809
-#, fuzzy
 msgid "Create Partition Image"
-msgstr "Crear Almacenamiento Persistente"
+msgstr "Crear una imagen de la partición"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:820
-#, fuzzy
 msgid ""
 "Start Tails to learn how to create a partition image of your Persistent "
 "Storage."
 msgstr ""
-"Inicia Tails para aprender a crear una copia de seguridad de tu "
-"almacenamiento persistente."
+"Inicia Tails para aprender a crear una imagen de la partición de tu "
+"Almacenamiento persistente."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:829
 msgid "Failed to unlock the Persistent Storage due to file system errors."
@@ -1830,30 +1828,24 @@ msgid "All Networking Disabled"
 msgstr "Todas las redes desactivadas"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
 "error recovery also failed, so all networking is disabled."
 msgstr ""
-"La anonimización de la dirección MAC falló para una de tus interfaces de "
+"La anonimización de la dirección MAC falló para una de sus interfaces de "
 "red. La recuperación de errores también falló, por lo que todas las redes "
-"están deshabilitadas.\n"
-"\n"
-"Puede que prefieras reiniciar Tails y desactivar la anonimización de "
-"direcciones MAC."
+"están deshabilitadas."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:92
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for your network interface. The error "
 "recovery also failed, so all networking is disabled."
 msgstr ""
-"La anonimización de la dirección MAC falló para una de tus interfaces de "
-"red. La recuperación de errores también falló, por lo que todas las redes "
-"están deshabilitadas.\n"
-"\n"
-"Puede que prefieras reiniciar Tails y desactivar la anonimización de "
-"direcciones MAC."
+"Ha fallado la anonimización de la dirección MAC para su interfaz de red. La "
+"recuperación de errores también falló, por lo que todas las redes están "
+"deshabilitadas."
 
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:36
 #, python-brace-format
@@ -2722,9 +2714,8 @@ msgid "Unable to connect to the server."
 msgstr "No se pudo conectar al servidor."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:222
-#, fuzzy
 msgid "Tor is not ready yet"
-msgstr "Tor no está listo"
+msgstr "Tor aún no está listo"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:224
 msgid "Unable to create or to send the mail."
@@ -2736,6 +2727,9 @@ msgid ""
 "\n"
 "Make sure that you are connected to Tor and click send again."
 msgstr ""
+"\n"
+"\n"
+"Asegúrate de que estás conectado a Tor y pulsa enviar de nuevo."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:239
 msgid "Your message has been sent."

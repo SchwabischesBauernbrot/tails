@@ -39,8 +39,8 @@ msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-07 09:59+0200\n"
-"PO-Revision-Date: 2024-10-06 21:15+0000\n"
-"Last-Translator: jonnysemon <jonnysemon@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2024-10-23 15:15+0000\n"
+"Last-Translator: emma peel <emma.peel@riseup.net>\n"
 "Language-Team: Arabic <https://hosted.weblate.org/projects/tor/tails-gui/ar/"
 ">\n"
 "Language: ar\n"
@@ -49,7 +49,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=6; plural=n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 "
 "&& n%100<=10 ? 3 : n%100>=11 ? 4 : 5;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
@@ -850,7 +850,7 @@ msgstr "جارِ التحقق من نظام الملفات…"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:454
 msgid "Repairing the File System"
-msgstr "جارِ إصلاح نظام الملفات..."
+msgstr "جارِ إصلاح نظام الملفات"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:455
 msgid "This might take a long time..."
@@ -920,7 +920,6 @@ msgid "File System Errors"
 msgstr "أخطاء نظام الملفات"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:799
-#, fuzzy
 msgid ""
 "Errors were detected in the file system of your Persistent Storage.\n"
 "                \n"
@@ -941,24 +940,22 @@ msgstr ""
 "إذا كان لديك بالفعل نسخة احتياطية مُحدثة من التخزين الدائم لديك، فنوصيك "
 "بمحاولة الإصلاح.\n"
 "\n"
-"إذا لم يكن لديك نسخة احتياطية، فنوصيك بإنشاء نسخة احتياطية أولاً."
+"إذا لم يكن لديك نسخة احتياطية، نوصيك بإنشاء صورة قسم للتخزين الدائم الخاص بك "
+"أولاً."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:808
 msgid "Repair File System"
 msgstr "أصلح نظام الملفات"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:809
-#, fuzzy
 msgid "Create Partition Image"
-msgstr "أنشئ تخزين دائم"
+msgstr "أنشئ صورة القسم"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:820
-#, fuzzy
 msgid ""
 "Start Tails to learn how to create a partition image of your Persistent "
 "Storage."
-msgstr ""
-"ابدأ تشغيل Tails لتعلم كيفية إنشاء نسخة احتياطية من التخزين الدائم لديك."
+msgstr "ابدأ باستخدام Tails لتعلم كيفية إنشاء صورة قسم لتخزين الدائم."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:829
 msgid "Failed to unlock the Persistent Storage due to file system errors."
@@ -1793,26 +1790,22 @@ msgid "All Networking Disabled"
 msgstr "جميع الشبكات مُعطّلة"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
 "error recovery also failed, so all networking is disabled."
 msgstr ""
 "فشل إخفاء عنوان MAC لإحدى واجهات الشبكة لديك. فشلت أيضًا عملية استرداد "
-"الأخطاء، لذا تم تعطيل جميع الشبكات.\n"
-"\n"
-"قد تُفضل إعادة تشغيل Tails وتعطيل إخفاء هوية عنوان MAC."
+"الأخطاء، لذا تم تعطيل جميع الشبكات."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:92
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for your network interface. The error "
 "recovery also failed, so all networking is disabled."
 msgstr ""
-"فشل إخفاء عنوان MAC لإحدى واجهات الشبكة لديك. فشلت أيضًا عملية استرداد "
-"الأخطاء، لذا تم تعطيل جميع الشبكات.\n"
-"\n"
-"قد تُفضل إعادة تشغيل Tails وتعطيل إخفاء هوية عنوان MAC."
+"فشلت عملية إخفاء عنوان MAC لواجهة شبكتك. فشلت أيضًا عملية استرداد الخطأ، لذا "
+"تم تعطيل كافة الشبكات."
 
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:36
 #, python-brace-format
@@ -2648,9 +2641,8 @@ msgid "Unable to connect to the server."
 msgstr "غير قادر على الاتصال بالخادم."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:222
-#, fuzzy
 msgid "Tor is not ready yet"
-msgstr "تور غير جاهز"
+msgstr "تور ليس جاهزًا بعد"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:224
 msgid "Unable to create or to send the mail."
@@ -2662,6 +2654,9 @@ msgid ""
 "\n"
 "Make sure that you are connected to Tor and click send again."
 msgstr ""
+"\n"
+"\n"
+"تأكد من أنك متصل بشبكة تور ثم انقر فوق إرسال مرة أخرى."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:239
 msgid "Your message has been sent."

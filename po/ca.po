@@ -27,8 +27,8 @@ msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-07 09:59+0200\n"
-"PO-Revision-Date: 2024-10-02 21:16+0000\n"
-"Last-Translator: victor dargallo <victordargallo@disroot.org>\n"
+"PO-Revision-Date: 2024-10-23 15:15+0000\n"
+"Last-Translator: emma peel <emma.peel@riseup.net>\n"
 "Language-Team: Catalan <https://hosted.weblate.org/projects/tor/tails-gui/ca/"
 ">\n"
 "Language: ca\n"
@@ -36,7 +36,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
@@ -926,7 +926,6 @@ msgid "File System Errors"
 msgstr "Errors del sistema de fitxers"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:799
-#, fuzzy
 msgid ""
 "Errors were detected in the file system of your Persistent Storage.\n"
 "                \n"
@@ -948,24 +947,23 @@ msgstr ""
 "Si teniu una còpia de seguretat actualitzada del vostre Emmagatzematge "
 "Persistent, us recomanem que proveu de reparar-lo.\n"
 "                \n"
-"Si no teniu una còpia de seguretat, us recomanem que primer en creeu una."
+"Si no teniu una còpia de seguretat, us recomanem que primer creeu una imatge "
+"de partició del vostre Emmagatzematge Persistent."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:808
 msgid "Repair File System"
 msgstr "Reparació del sistema de fitxers"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:809
-#, fuzzy
 msgid "Create Partition Image"
-msgstr "Crea l'Emmagatzematge Persistent"
+msgstr "Crea una imatge de partició"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:820
-#, fuzzy
 msgid ""
 "Start Tails to learn how to create a partition image of your Persistent "
 "Storage."
 msgstr ""
-"Inicieu Tails per aprendre a crear una còpia de seguretat del vostre "
+"Inicieu Tails per aprendre a crear una imatge de partició del vostre "
 "Emmagatzematge Persistent."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:829
@@ -1839,30 +1837,24 @@ msgid "All Networking Disabled"
 msgstr "Totes les xarxes desactivades"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
 "error recovery also failed, so all networking is disabled."
 msgstr ""
 "L'anonimització de l'adreça MAC ha fallat per a una de les vostres "
 "interfícies de xarxa. La recuperació d'errors també ha fallat, de manera que "
-"totes les xarxes estan desactivades.\n"
-"\n"
-"És possible que preferiu reiniciar Tails i desactivar l'anonimització "
-"d'adreces MAC."
+"totes les xarxes estan desactivades."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:92
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for your network interface. The error "
 "recovery also failed, so all networking is disabled."
 msgstr ""
-"L'anonimització de l'adreça MAC ha fallat per a una de les vostres "
-"interfícies de xarxa. La recuperació d'errors també ha fallat, de manera que "
-"totes les xarxes estan desactivades.\n"
-"\n"
-"És possible que preferiu reiniciar Tails i desactivar l'anonimització "
-"d'adreces MAC."
+"L'anonimització de l'adreça MAC ha fallat per a la vostra interfície de "
+"xarxa. La recuperació d'errors també ha fallat, de manera que totes les "
+"xarxes estan desactivades."
 
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:36
 #, python-brace-format
@@ -2726,9 +2718,8 @@ msgid "Unable to connect to the server."
 msgstr "No s'ha pogut connectar al servidor."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:222
-#, fuzzy
 msgid "Tor is not ready yet"
-msgstr "Tor no està preparat"
+msgstr "Tor encara no està preparat"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:224
 msgid "Unable to create or to send the mail."
@@ -2740,6 +2731,9 @@ msgid ""
 "\n"
 "Make sure that you are connected to Tor and click send again."
 msgstr ""
+"\n"
+"\n"
+"Assegureu-vos que esteu connectat a Tor i feu clic a enviar de nou."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:239
 msgid "Your message has been sent."

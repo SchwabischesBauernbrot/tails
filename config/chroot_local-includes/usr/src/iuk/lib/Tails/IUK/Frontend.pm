@@ -648,7 +648,7 @@ method get_target_files (HashRef $upgrade_path, AbsDir $destdir) {
                 \undef, \$download_out, '2>', \$stderr;
             $zenity_h = IPC::Run::start
                 [
-                    qw{zenity --progress --percentage=0 --auto-close},
+                    qw{zenity --progress --percentage=0},
                     '--title', $title, '--text', $info
                 ],
                 \$zenity_in;
@@ -684,11 +684,15 @@ method get_target_files (HashRef $upgrade_path, AbsDir $destdir) {
             }
             catch {
                 $stderr = $_;
+                $self->info("Caught exception, cancelling download:\n$stderr");
                 $self->cancel_download;
             }
             finally {
+                $self->info("Killing zenity");
                 $zenity_h->kill_kill;
-                if ($zenity_h->result) {
+                my $zenity_result = $zenity_h->result;
+                if ($zenity_result) {
+                    $self->info("zenity returned non-zero, cancelling download: $zenity_result");
                     $self->cancel_download;
                     kill TERM => -getpgrp();
                 }
