@@ -29,8 +29,8 @@ msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-07 09:59+0200\n"
-"PO-Revision-Date: 2024-10-04 07:00+0000\n"
-"Last-Translator: slrslr <adm@prnet.info>\n"
+"PO-Revision-Date: 2024-10-23 15:15+0000\n"
+"Last-Translator: Ondřej Staněk <stanekondrej@skiff.com>\n"
 "Language-Team: Czech <https://hosted.weblate.org/projects/tor/tails-gui/cs/"
 ">\n"
 "Language: cs\n"
@@ -39,7 +39,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=4; plural=(n == 1 && n % 1 == 0) ? 0 : (n >= 2 && n "
 "<= 4 && n % 1 == 0) ? 1: (n % 1 != 0 ) ? 2 : 3;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
@@ -917,7 +917,6 @@ msgid "File System Errors"
 msgstr "Chyby systému souborů"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:799
-#, fuzzy
 msgid ""
 "Errors were detected in the file system of your Persistent Storage.\n"
 "                \n"
@@ -938,23 +937,23 @@ msgstr ""
 "Pokud již máte aktuální zálohu svého trvalého úložiště, doporučujeme pokusit "
 "se o opravu.\n"
 "                \n"
-"Pokud zálohu nemáte, doporučujeme ji nejprve vytvořit."
+"Pokud zálohu nemáte, doporučujeme abyste nejprve vytvořili obraz oddílu "
+"vašeho trvalého úložiště."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:808
 msgid "Repair File System"
 msgstr "Opravit systém souborů"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:809
-#, fuzzy
 msgid "Create Partition Image"
-msgstr "Vytvořit trvalé úložiště"
+msgstr "Vytvořit obraz oddílu"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:820
-#, fuzzy
 msgid ""
 "Start Tails to learn how to create a partition image of your Persistent "
 "Storage."
-msgstr "Spusťte Tail a zjistěte jak vytvořit zálohu vašeho trvalého úložiště."
+msgstr ""
+"Spusťte Tail a zjistěte jak vytvořit obraz oddílu vašeho trvalého úložiště."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:829
 msgid "Failed to unlock the Persistent Storage due to file system errors."
@@ -1804,28 +1803,22 @@ msgid "All Networking Disabled"
 msgstr "Všechny sítě zakázané"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
 "error recovery also failed, so all networking is disabled."
 msgstr ""
 "Selhala anonymizace adresy MAC u jednoho z vašich síťových rozhraní. Selhalo "
-"také zotavení z chyby, takže je zakázán veškerý síťový provoz.\n"
-"\n"
-"Možná byste teď upřednostnili restartování Tails a vypnutí anonymizace "
-"adresy MAC."
+"také zotavení z chyby, takže je zakázán veškerý síťový provoz."
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:92
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for your network interface. The error "
 "recovery also failed, so all networking is disabled."
 msgstr ""
-"Selhala anonymizace adresy MAC u jednoho z vašich síťových rozhraní. Selhalo "
-"také zotavení z chyby, takže je zakázán veškerý síťový provoz.\n"
-"\n"
-"Možná byste teď upřednostnili restartování Tails a vypnutí anonymizace "
-"adresy MAC."
+"Selhala anonymizace adresy MAC u vašeho síťového rozhraní. Selhalo také "
+"zotavení z chyby, takže je zakázán veškerý síťový provoz."
 
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:36
 #, python-brace-format
@@ -2675,9 +2668,8 @@ msgid "Unable to connect to the server."
 msgstr "Nelze se připojit k serveru."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:222
-#, fuzzy
 msgid "Tor is not ready yet"
-msgstr "Síť Tor není připravena"
+msgstr "Síť Tor ještě není připravena"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:224
 msgid "Unable to create or to send the mail."
@@ -2689,6 +2681,9 @@ msgid ""
 "\n"
 "Make sure that you are connected to Tor and click send again."
 msgstr ""
+"\n"
+"\n"
+"Ujistěte se, že jste připojeni k Tor a znovu klikněte na odeslání."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:239
 msgid "Your message has been sent."
