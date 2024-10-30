@@ -1,0 +1,45 @@
+[[!meta title="Configure VM for development"]]
+
+<div class="caution">
+VMs are for <strong>development</strong> only. Please don't use it for your regular Tails! See [[Security of virtualization|doc/advanced_topics/virtualization#security]]
+</div>
+
+The only supported development environment is libvirt+qemu. If you want to use anything else, you're on your
+own.
+
+While adding a VM on libvirt is trivial, some bits are less obvious than you'd think. So make sure you have such sections:
+
+## ISO Disk
+
+Testing with ISO is often easier, as it takes up less space (you don't need to create a 8GB file) and boots
+faster (no need to repartition). Here is a section:
+
+```xml
+<disk type="file" device="cdrom">
+  <driver name="qemu" type="raw"/>
+  <source file="filename.iso"/>
+  <target dev="hda" bus="ide"/>
+  <readonly/>
+</disk>
+```
+
+## IMG Disk
+
+<a id="img" />
+
+Sometimes, ISO is not ok. This is for example the case when testing the Persistent Storage, or the Upgrader,
+or following the Manual QA.
+
+This config makes sure that the drive is presented as a USB removable disk:
+
+```xml
+<disk type='file' device='disk'>
+  <driver name='qemu' type='raw'/>
+  <source file='filename.img'/>
+  <target dev='sdb' bus='usb' removable='on'/>
+  <boot order='2'/>
+</disk>
+```
+
+
+
