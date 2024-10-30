@@ -74,7 +74,9 @@ class TCAApplication(Gtk.Application):
         self.tor_is_working: bool = (
             self.controller.get_info("status/circuit-established") == "1"
         )
-        self.tor_info: dict[str, Any] = {"DisableNetwork": None}
+        self.tor_disable_network: bool = (
+            self.controller.get_conf("DisableNetwork") == "1"
+        )
         self.has_persistence = has_persistence()
         self.has_unlocked_persistence = has_unlocked_persistence()
         self.log.debug(
@@ -106,6 +108,27 @@ class TCAApplication(Gtk.Application):
         else:
             self.portal.call_async("stop-tor-has-bootstrapped", None)
 
+    @property
+    def tor_disable_network(self) -> bool:
+        return self._tor_disable_network
+
+    @tor_disable_network.setter
+    def tor_disable_network(self, value: bool):
+        try:
+            if self._tor_disable_network == value:
+                return
+        except AttributeError:
+            # self._tor_disable_network was not set yet
+            pass
+        self._tor_disable_network = value
+        self.log.info(
+            f"tor conf state changed: DisableNetwork={self._tor_disable_network}"
+        )
+        if hasattr(self.window, "on_tor_disable_network_changed"):
+            GLib.idle_add(
+                self.window.on_tor_disable_network_changed, self._tor_disable_network
+            )
+
     def load_configuration(self):
         """Load our configuration, possibly asynchronously."""
         if self.has_been_started_already():
@@ -133,24 +156,14 @@ class TCAApplication(Gtk.Application):
 
         return False
 
-    def check_tor_state(self, repeat: bool):
-        # this is called periodically
-        changed = set()
-        for infokey in ["DisableNetwork"]:
-            resp = self.controller.get_conf(infokey)
-            if resp is None:
-                self.log.warn("No response from tor (asking %s)", infokey)
-            else:
-                if self.tor_info[infokey] != resp:
-                    changed.add(infokey)
-                self.tor_info[infokey] = resp
+    def do_monitor_tor_conf_state(self):
+        def tor_conf_changed_cb(event):
+            if "DisableNetwork" in event.config:
+                self.tor_disable_network = event.config["DisableNetwork"] == "1"
 
-        if changed:
-            self.log.info("tor state changed: %s", ",".join(changed))
-            if hasattr(self.window, "on_tor_state_changed"):
-                GLib.idle_add(self.window.on_tor_state_changed, self.tor_info, changed)
+        self.controller.add_event_listener(tor_conf_changed_cb, EventType.CONF_CHANGED)
 
-        return repeat
+        return False
 
     @property
     def is_tor_working(self) -> bool:
@@ -224,11 +237,8 @@ class TCAApplication(Gtk.Application):
 
         # one time only
         GLib.idle_add(self.do_fetch_nm_state)
+        GLib.idle_add(self.do_monitor_tor_conf_state)
         GLib.idle_add(self.do_monitor_tor_is_working)
-        GLib.idle_add(self.check_tor_state, False)
-
-        # timers
-        GLib.timeout_add(1000, self.check_tor_state, True)
 
         try:
             systemd.daemon.notify("READY=1")
