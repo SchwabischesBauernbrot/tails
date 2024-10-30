@@ -1215,11 +1215,6 @@ class TCAMainWindow(
         self._move_to_right_step()
         log.debug(self.state["step"])
 
-    def on_tor_working_changed(self, working: bool):
-        log.info("Tor working changed %s", working)
-        self._move_to_right_step()
-        log.debug(self.state["step"])
-
     def on_tor_state_changed(self, tor_info: dict, changed: set):
         """Reacts to DisableNetwork changes."""
         log.info("DisableNetwork changed %s", tor_info["DisableNetwork"])
