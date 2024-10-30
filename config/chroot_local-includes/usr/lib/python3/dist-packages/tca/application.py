@@ -223,9 +223,9 @@ class TCAApplication(Gtk.Application):
         self.add_action(action)
 
         # one time only
-        GLib.timeout_add(1, self.do_fetch_nm_state)
-        GLib.timeout_add(1, self.do_monitor_tor_is_working)
-        GLib.timeout_add(1, self.check_tor_state, False)
+        GLib.idle_add(self.do_fetch_nm_state)
+        GLib.idle_add(self.do_monitor_tor_is_working)
+        GLib.idle_add(self.check_tor_state, False)
 
         # timers
         GLib.timeout_add(1000, self.check_tor_state, True)
