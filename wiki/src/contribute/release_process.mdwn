@@ -374,9 +374,15 @@ Manual testing coordination
 
 Bootstrap internal manual testing coordination:
 
-1. Create a pad. Here's a good name:
+1. To create a new pad, visit https://pad.tails.net/new
 
-        echo "QA-Tails_${VERSION:?}-$(pwgen 32 1)"
+1. To give the pad a clear title, add this section on top:
+
+        cat <<EOF
+        ---
+        title: Testing ${VERSION:?}
+        ---
+        EOF
 
 2. Set the `PAD` environment variable to the URL of this pad.
 
