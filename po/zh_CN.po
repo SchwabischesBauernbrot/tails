@@ -47,8 +47,8 @@ msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-07 09:59+0200\n"
-"PO-Revision-Date: 2024-10-03 02:15+0000\n"
-"Last-Translator: Sketch6580 <Sketch6580@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2024-10-23 15:16+0000\n"
+"Last-Translator: mik <ls4wl@riseup.net>\n"
 "Language-Team: Chinese (Simplified Han script) <https://hosted.weblate.org/"
 "projects/tor/tails-gui/zh_Hans/>\n"
 "Language: zh_CN\n"
@@ -56,7 +56,7 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=1; plural=0;\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
@@ -887,7 +887,6 @@ msgid "File System Errors"
 msgstr "文件系统错误"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:799
-#, fuzzy
 msgid ""
 "Errors were detected in the file system of your Persistent Storage.\n"
 "                \n"
@@ -906,23 +905,21 @@ msgstr ""
 "\n"
 "如果您已经拥有持久存储的最新备份，我们建议您尝试修复。\n"
 "                \n"
-"如果您没有备份，我们建议您先创建备份。"
+"如果您没有备份，我们建议您首先创建持久存储的分区映像。"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:808
 msgid "Repair File System"
 msgstr "修复文件系统"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:809
-#, fuzzy
 msgid "Create Partition Image"
-msgstr "创建永久存储"
+msgstr "创建分区映像"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:820
-#, fuzzy
 msgid ""
 "Start Tails to learn how to create a partition image of your Persistent "
 "Storage."
-msgstr "启动 Tails 了解如何创建持久存储的备份。"
+msgstr "启动 Tails 了解如何创建持久存储的分区映像。"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:829
 msgid "Failed to unlock the Persistent Storage due to file system errors."
@@ -1732,26 +1729,20 @@ msgid "All Networking Disabled"
 msgstr "所有网络已禁用"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:89
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for one of your network interfaces. The "
 "error recovery also failed, so all networking is disabled."
 msgstr ""
-"您的某个网络接口的 MAC 地址匿名化失败。 错误恢复也失败，所以所有网络都被禁"
-"用。\n"
-"\n"
-"您也许须重新启动 Tails 并禁用 MAC 地址匿名化。"
+"您的某个网络接口的 MAC 地址匿名化失败。错误恢复也失败，因此所有网络都被禁用。"
 
 #: config/chroot_local-includes/usr/local/lib/tails-spoof-mac:92
-#, fuzzy, sh-format
+#, sh-format
 msgid ""
 "MAC address anonymization failed for your network interface. The error "
 "recovery also failed, so all networking is disabled."
 msgstr ""
-"您的某个网络接口的 MAC 地址匿名化失败。 错误恢复也失败，所以所有网络都被禁"
-"用。\n"
-"\n"
-"您也许须重新启动 Tails 并禁用 MAC 地址匿名化。"
+"您的网络接口的 MAC 地址匿名化失败。错误恢复也失败，因此所有网络都被禁用。"
 
 #: config/chroot_local-includes/usr/local/bin/tails-upgrade-frontend-wrapper:36
 #, python-brace-format
@@ -2572,9 +2563,8 @@ msgid "Unable to connect to the server."
 msgstr "无法连接服务器。"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:222
-#, fuzzy
 msgid "Tor is not ready yet"
-msgstr "Tor 未就绪"
+msgstr "Tor 尚未准备好"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:224
 msgid "Unable to create or to send the mail."
@@ -2586,6 +2576,9 @@ msgid ""
 "\n"
 "Make sure that you are connected to Tor and click send again."
 msgstr ""
+"\n"
+"\n"
+"确保您已连接到 Tor，然后再次单击发送。"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/whisperBack/gui.py:239
 msgid "Your message has been sent."

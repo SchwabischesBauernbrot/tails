@@ -6,13 +6,10 @@
 def vm_memory_base(cpus)
   memory = 1.5 * 1024
   # mksquashfs will run one thread per CPU, and each of them uses more
-  # RAM, especially when defaulcomp (xz) is used. We very crudely
-  # adjust for that here, based on rough benchmarking (comparing peak
-  # memory usage for mksquashfs -processors 10 vs 20) that gives an
-  # estimation of a 40 MB increase per thread. We only adjust for more
-  # than 12 cpus since that's the only situation where we have
-  # observed RAM shortage. Refs: tails#20459, tails!1634.
-  memory += (cpus - 12) * 40 if cpus > 12
+  # RAM, especially when defaulcomp (xz) is used. We only adjust for
+  # more than 12 cpus since that's the only situation where we have
+  # observed RAM shortage.
+  memory += (cpus - 12) * 60 if cpus > 12
   memory
 end
 

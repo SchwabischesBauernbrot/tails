@@ -21,8 +21,8 @@ msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-07 09:59+0200\n"
-"PO-Revision-Date: 2024-10-05 18:15+0000\n"
-"Last-Translator: Kasey Ryder <Monoxide699@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2024-10-23 15:16+0000\n"
+"Last-Translator: Reseme  Verse <reseme6613@storypo.com>\n"
 "Language-Team: Ukrainian <https://hosted.weblate.org/projects/tor/tails-gui/"
 "uk/>\n"
 "Language: uk\n"
@@ -33,7 +33,7 @@ msgstr ""
 "11 ? 0 : n % 1 == 0 && n % 10 >= 2 && n % 10 <= 4 && (n % 100 < 12 || n % "
 "100 > 14) ? 1 : n % 1 == 0 && (n % 10 ==0 || (n % 10 >=5 && n % 10 <=9) || "
 "(n % 100 >=11 && n % 100 <=14 )) ? 2: 3);\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
@@ -845,7 +845,7 @@ msgstr "Виправлення файлової системи"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:455
 msgid "This might take a long time..."
-msgstr "Це може зайняти деякий час..."
+msgstr "Це може тривати деякий час..."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:473
 msgid "Failed to repair the file system of your Persistent Storage."
@@ -880,7 +880,7 @@ msgid ""
 "system again."
 msgstr ""
 "Ви перервали виправлення файлової системи. Ви можете запустити Tails без "
-"постійного сховища або перезавантажити комп'ютер, щоб спробувати відновити "
+"постійного сховища або перезапустити комп'ютер, щоб спробувати відновити "
 "файлову систему ще раз."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:729
@@ -918,6 +918,7 @@ msgid "File System Errors"
 msgstr "Помилки файлової системи"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:799
+#, fuzzy
 msgid ""
 "Errors were detected in the file system of your Persistent Storage.\n"
 "                \n"
@@ -930,10 +931,19 @@ msgid ""
 "If you don't have a backup, we recommend that you create a partition image "
 "of your Persistent Storage first."
 msgstr ""
+"Виявлено помилки у файловій системі постійного сховища.\n"
+"                \n"
+"Tails може спробувати виправити ці помилки, але це може призвести до "
+"видалення деяких даних і тривати довго.\n"
+"\n"
+"Якщо у вас уже є актуальна резервна копія постійного сховища, ми "
+"рекомендуємо спробувати виправити помилки.\n"
+"                \n"
+"Якщо у вас немає резервної копії, ми рекомендуємо спочатку створити її."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:808
 msgid "Repair File System"
-msgstr ""
+msgstr "Виправити файлову систему"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:809
 #, fuzzy
@@ -945,14 +955,14 @@ msgstr "Створити Постійне Сховище"
 msgid ""
 "Start Tails to learn how to create a partition image of your Persistent "
 "Storage."
-msgstr "Не вдалося створити Постійне сховище"
+msgstr ""
+"Запустіть Tails, щоб дізнатися, як створити резервну копію постійного "
+"сховища."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:829
-#, fuzzy
 msgid "Failed to unlock the Persistent Storage due to file system errors."
 msgstr ""
-"Не вдалося розблокувати постійне сховище. Будь ласка, запустіть Tails і "
-"надішліть звіт про помилку."
+"Не вдалося розблокувати постійне сховище через помилку файлової системи."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
 msgid ""
@@ -979,7 +989,6 @@ msgstr ""
 "надішліть звіт про помилку."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:864
-#, fuzzy
 msgid "Upgrading the Persistent Storage. This might take a while…"
 msgstr "Оновлення Постійного сховища. Це може тривати деякий час…"
 
@@ -1001,9 +1010,9 @@ msgid "Error activating Persistent Storage: {}"
 msgstr "Помилка активування постійного сховища: {}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:202
-#, fuzzy
 msgid "Failed to abort when repairing Persistent Storage filesystem: {}"
-msgstr "Не вдалося запустити службу Постійного Сховища"
+msgstr ""
+"Не вдалося перервати відновлення файлової системи постійного сховища: {}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
@@ -3007,9 +3016,8 @@ msgid "Show Passphrase"
 msgstr "Показати пароль"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:421
-#, fuzzy
 msgid "Enter your passphrase"
-msgstr "Перевірити пароль:"
+msgstr "Введіть парольну фразу"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:436
 msgid "Unlock Encryption"
@@ -4014,9 +4022,8 @@ msgstr "Грудень"
 msgid "Clock"
 msgstr "Годинник"
 
-#, fuzzy
 #~ msgid "Create Backup"
-#~ msgstr "Створити"
+#~ msgstr "Створити резервну копію"
 
 #, sh-format
 #~ msgid ""

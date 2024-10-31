@@ -89,7 +89,7 @@ install_pluggable_transports() {
     for pt in "${tmp}"/Browser/TorBrowser/Tor/PluggableTransports/*; do
         echo "I: installing $(basename "$pt") pluggable transport"
         install --owner=root --group=root --mode=755 \
-                --target-directory="$destination" "$pt"
+            --target-directory="$destination" "$pt"
     done
 
     # In Tor Browser 12.5 obfs4proxy was renamed into lyrebird, but we
@@ -102,7 +102,7 @@ install_pluggable_transports() {
     rm -r "${tmp}"
 }
 
-embed_extensions_in_omni_ja () {
+embed_extensions_in_omni_ja() {
     local tbb_install tbb_timestamp tmp
     tbb_install="${1}"
     tbb_timestamp="${2}"
@@ -112,9 +112,9 @@ embed_extensions_in_omni_ja () {
         cd "${tmp}"
         7z x -tzip "${tbb_install}/omni.ja"
         mkdir -p chrome/tails/content/extensions
-        echo "resource tails tails/" >> chrome/chrome.manifest
+        echo "resource tails tails/" >>chrome/chrome.manifest
         cp -a --target-directory=chrome/tails/content/extensions \
-           '/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/uBlock0@raymondhill.net'
+            '/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/uBlock0@raymondhill.net'
         find chrome/tails/content/extensions/ -exec touch --date="@${tbb_timestamp}" '{}' \;
         rm "${tbb_install}/omni.ja"
         7z a -mtc=off -tzip -- "${tbb_install}/omni.ja" *
@@ -128,26 +128,26 @@ embed_extensions_in_omni_ja () {
         patch --no-backup-if-mismatch -p1 <<'EOF'
 --- browser-omni.orig/modules/BrowserGlue.sys.mjs	2023-08-22 13:26:46.111806402 +0200
 +++ browser-omni/modules/BrowserGlue.sys.mjs		2023-08-22 13:29:43.462178281 +0200
-@@ -82,6 +82,7 @@
-   BrowserUIUtils: "resource:///modules/BrowserUIUtils.jsm",
-   BrowserWindowTracker: "resource:///modules/BrowserWindowTracker.jsm",
-   Discovery: "resource:///modules/Discovery.jsm",
-+  ExtensionData: "resource://gre/modules/Extension.jsm",
-   ExtensionsUI: "resource:///modules/ExtensionsUI.jsm",
-   HomePage: "resource:///modules/HomePage.jsm",
-   NetUtil: "resource://gre/modules/NetUtil.jsm",
-@@ -109,6 +110,7 @@
+@@ -37,6 +37,7 @@
+   DragDropFilter: "resource://gre/modules/DragDropFilter.sys.mjs",
+   E10SUtils: "resource://gre/modules/E10SUtils.sys.mjs",
+   ExtensionsUI: "resource:///modules/ExtensionsUI.sys.mjs",
++  ExtensionData: "resource://gre/modules/Extension.sys.mjs",
+   FeatureGate: "resource://featuregates/FeatureGate.sys.mjs",
+   FirefoxBridgeExtensionUtils:
+     "resource:///modules/FirefoxBridgeExtensionUtils.sys.mjs",
+@@ -129,6 +130,7 @@
  XPCOMUtils.defineLazyServiceGetters(lazy, {
    BrowserHandler: ["@mozilla.org/browser/clh;1", "nsIBrowserHandler"],
    PushService: ["@mozilla.org/push/Service;1", "nsIPushService"],
 +  resProto: ["@mozilla.org/network/protocol;1?name=resource", "nsISubstitutingProtocolHandler"],
  });
- 
- XPCOMUtils.defineLazyGetter(
-@@ -1328,6 +1330,29 @@
- 
+
+ ChromeUtils.defineLazyGetter(
+@@ -1674,6 +1676,29 @@
+
      lazy.BuiltInThemes.maybeInstallActiveBuiltInTheme();
- 
+
 +    (async () => {
 +      const UBLOCK_ORIGIN_ID = "uBlock0@raymondhill.net";
 +      const UBLOCK_ORIGIN_BUILTIN_URL =
@@ -201,7 +201,7 @@ apply_prefs_hacks() {
 
         # Append our custom prefs
         cat /usr/share/tails/tor-browser-prefs.js \
-            >> defaults/preferences/000-tor-browser.js
+            >>defaults/preferences/000-tor-browser.js
         touch --date="@${tbb_timestamp}" defaults/preferences/000-tor-browser.js
         rm "${tbb_install}/browser/omni.ja"
         7z a -mtc=off -tzip -- "${tbb_install}/browser/omni.ja" *
@@ -222,27 +222,27 @@ extract_default_bridges() {
         cd "${tmp}"
         7z x -tzip "${tbb_install}/omni.ja" "$pt_config_path"
 
-	echo "Input configuration file:" >&2
-	cat "$pt_config_path" >&2
+        echo "Input configuration file:" >&2
+        cat "$pt_config_path" >&2
 
-	ensure_hook_dependency_is_installed jq
+        ensure_hook_dependency_is_installed jq
         jq --raw-output '.bridges | .[] | join("\n")' \
             "$pt_config_path" \
-            > /usr/share/tails/tca/default_bridges.txt
+            >/usr/share/tails/tca/default_bridges.txt
 
-	if [ "$(wc -l < /usr/share/tails/tca/default_bridges.txt)" -lt 4 ]; then
-	    echo "Extracted fewer default bridges than expected" >&2
-	    cat /usr/share/tails/tca/default_bridges.txt >&2
-	    exit 1
-	fi
+        if [ "$(wc -l </usr/share/tails/tca/default_bridges.txt)" -lt 4 ]; then
+            echo "Extracted fewer default bridges than expected" >&2
+            cat /usr/share/tails/tca/default_bridges.txt >&2
+            exit 1
+        fi
 
-	# We currently only support obfs4 default bridges (only_type="obfs4")
-	# so let's ensure we have enough of those.
-	if [ "$(grep --extended-regexp --count '^obfs4\s+' /usr/share/tails/tca/default_bridges.txt)" -lt 4 ]; then
-	    echo "Extracted fewer obfs4 bridges than expected:" >&2
-	    cat /usr/share/tails/tca/default_bridges.txt >&2
-	    exit 1
-	fi
+        # We currently only support obfs4 default bridges (only_type="obfs4")
+        # so let's ensure we have enough of those.
+        if [ "$(grep --extended-regexp --count '^obfs4\s+' /usr/share/tails/tca/default_bridges.txt)" -lt 4 ]; then
+            echo "Extracted fewer obfs4 bridges than expected:" >&2
+            cat /usr/share/tails/tca/default_bridges.txt >&2
+            exit 1
+        fi
     )
     rm -r "${tmp}"
 }
@@ -268,7 +268,7 @@ disable_update_checks() {
     local tbb_install
     tbb_install="${1}"
     mkdir -p "${tbb_install}/distribution"
-    cat > "${tbb_install}/distribution/policies.json" <<EOF
+    cat >"${tbb_install}/distribution/policies.json" <<EOF
 {
   "policies": {
     "DisableAppUpdate": true
@@ -277,14 +277,14 @@ disable_update_checks() {
 EOF
 }
 
-strip_nondeterminism () {
+strip_nondeterminism() {
     local tbb_install tbb_timestamp
     tbb_install="${1}"
     tbb_timestamp="${2}"
 
     for archive in "${tbb_install}/omni.ja" "${tbb_install}/browser/omni.ja"; do
         strip_nondeterminism_wrapper --type zip --timestamp "${tbb_timestamp}" \
-                                     "${archive}" 2>/dev/null
+            "${archive}" 2>/dev/null
     done
 }
 
@@ -302,20 +302,20 @@ customize_ublock_assets() {
     # In dev builds, such as release candidates which are sometimes packaged in Debian,
     # the file is called assets.dev.json. Otherwise it's assets.json.
     ublock_assets=
-    for candidate in assets.json assets.dev.json ; do
-	if [ -e "${ublock_assets_dir}"/"${candidate}" ]; then
-	    ublock_assets="${ublock_assets_dir}"/"${candidate}"
-	    break
-	fi
+    for candidate in assets.json assets.dev.json; do
+        if [ -e "${ublock_assets_dir}"/"${candidate}" ]; then
+            ublock_assets="${ublock_assets_dir}"/"${candidate}"
+            break
+        fi
     done
     if [ -z "$ublock_assets" ]; then
-	echo "Failed to locate the assets JSON file" >&2
-	exit 1
+        echo "Failed to locate the assets JSON file" >&2
+        exit 1
     fi
 
     /usr/share/tails/build/customize-ublock-assets \
-	--input-file "$ublock_assets" \
-	--output-file "$ublock_assets".new
+        --input-file "$ublock_assets" \
+        --output-file "$ublock_assets".new
     mv "$ublock_assets".new "$ublock_assets"
 }
 
@@ -331,9 +331,9 @@ install_debian_extensions() {
     install_fake_package firefox "${fake_firefox_version}" web
 
     apt-get install --yes webext-ublock-origin-firefox
-    patch -p1 < /usr/share/tails/uBlock-disable-autoUpdate.diff
+    patch -p1 </usr/share/tails/uBlock-disable-autoUpdate.diff
     customize_ublock_assets \
-	'/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/uBlock0@raymondhill.net/assets'
+        '/usr/share/mozilla/extensions/{ec8030f7-c20a-464f-9b0e-13a3a9e97384}/uBlock0@raymondhill.net/assets'
 
     # Apply the same hack for our extension as the Tor Browser used to
     # for HTTPS-Everywhere in order to bypass the mandatory extension
@@ -419,5 +419,5 @@ update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/local/bi
 update-alternatives --install /usr/bin/gnome-www-browser gnome-www-browser /usr/local/bin/tor-browser 99
 sed 's/\<firefox-esr\.desktop\>/tor-browser.desktop/' \
     /usr/share/applications/gnome-mimeapps.list \
-    > /etc/xdg/gnome-mimeapps.list
+    >/etc/xdg/gnome-mimeapps.list
 chmod 644 /etc/xdg/gnome-mimeapps.list

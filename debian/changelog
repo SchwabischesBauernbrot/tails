@@ -1,3 +1,224 @@
+tails (6.9) unstable; urgency=medium
+
+  * Upgrade Thunderbird to 115.16.0esr
+
+  * Upgrade Tor Browser to 14.0.1 (tails/tails!1778)
+
+    Closes issues:
+      - Upgrade Tor Browser for Tails 6.9 (tails/tails#20590)
+
+    Commits:
+      - Upgrade Tor Browser to 14.0.1-build1 (refs: tails#20590)
+
+  * Upgrade tor to 0.4.8.13 (tails/tails!1781)
+
+    Closes issues:
+      - Upgrade tor to 0.4.8.13 (tails/tails#20638)
+
+    Commits:
+      - Upgrade tor to 0.4.8.13
+      - Fix formatting
+
+  * Tor blog posts: bring back download links (tails/tails!1753)
+
+    Commits:
+      - shfmt
+      - Tor blog posts: bring back download links
+
+  * Update the few packages that we install from Debian sid (tails/tails!1750)
+
+    Closes issues:
+      - Catch up with needed-package-updates backlog, 6.9 edition (tails/tails#20599)
+
+    Commits:
+      - Allow our current gdisk backport
+      - Sort
+      - Bump APT snapshot of the 'debian' archive to 2024101502
+      - Install intel-microcode from stable, not from sid
+
+  * Upgrader: try to fix upgrade aborting after successful download
+    (tails/tails!1777)
+
+    Commits:
+      - Upgrader: don't auto-close the zenity dialog when 100% has been reached
+      - Upgrader: send more output to the Journal to debug #20593
+      - Fix grammar
+      - Fix formatting
+
+  * Don't localize the output of commands run by tails-debugging-info
+    (tails/tails!1771)
+
+    Commits:
+      - Commands in tails-debugging-info are not localized anymore
+
+  * Switch to support@tails.net for non-Whisperback emails (tails/tails!1770)
+
+    Closes issues:
+      - Switch to support@tails.net for non-Whisperback emails (tails/tails#20562)
+
+    Commits:
+      - change old news to avoid errors in the future
+      - expand addresses to resolve ambiguity
+      - change email address one more time
+      - openpgp key has new uid: support@tails.net
+      - tails-support-private@boum.org → support@tails.net
+
+  * initramfs boot scripts: add missing support for the prereqs argument
+    (tails/tails!1763)
+
+    Closes issues:
+      - Custom initramfs libraries & scripts meant for runtime are executed while
+        building the initrd (tails/tails#20623)
+
+    Commits:
+      - shfmt
+      - initramfs boot scripts: add missing support for the prereqs argument
+
+  * generate-changelog: print an informative error message if the relevant
+    milestone does not exist (tails/tails!1755)
+
+    Closes issues:
+      - update-changelog doesn't work for emergency release without GitLab milestone
+        (tails/tails#19882)
+
+    Commits:
+      - Update silencing comment
+      - Ruff format
+      - Fix Ruff PLW2901
+      - Ignore a couple of Ruff B019
+      - Fix Ruff PLW1508
+      - Fix Ruff UP004
+      - Fix Ruff UP017
+      - Fix Ruff UP033
+      - Ruff format
+      - Be more explicit
+      - generate-changelog: print an informative error message if the relevant
+        milestone does not exist
+
+  * Re-enable i18nspector unknown-message-flag check (tails/tails!1754)
+
+    Closes issues:
+      - Re-enable i18nspector unknown-message-flag check (tails/tails#18988)
+
+    Commits:
+      - Re-enable i18nspector unknown-message-flag check
+
+  * Ship the latest Linux kernel from Debian stable-* (tails/tails!1751)
+
+    Closes issues:
+      - Automatically upgrade the Linux kernel from Debian stable security
+        (tails/tails#20595)
+
+    Commits:
+      - Bring back support for KERNEL_VERSION
+      - Reformat modified files with shfmt
+      - Ship the latest Linux kernel from Debian stable-*
+
+  * needed-package-updates: cope with packages not in Debian (tails/tails!1746)
+
+    Closes issues:
+      - needed-package-updates bails on packages not in the Debian archive
+        (tails/tails#20612)
+
+    Commits:
+      - needed-package-updates: cope with packages not in Debian
+
+  * Build system: bump RAM when more than 12 CPUs are used (refs: tails#20588)
+    (tails/tails!1740)
+
+    Closes issues:
+      - Building in RAM FTBFS due to oom with many CPUs, take 2 (tails/tails#20588)
+
+    Commits:
+      - Build system: bump RAM when more than 12 CPUs are used (refs: tails#20588)
+
+  * WhisperBack use support@tails.net as the destination address (tails/tails!1729)
+
+    Closes issues:
+      - Have WhisperBack use support@tails.net as the destination address
+        (tails/tails#20577)
+
+    Commits:
+      - Add support@tails.net UID to tails-bugs.key
+      - Send emails to support@tails.net
+
+  * Update Tor Browser to 14.0 based on Firefox 128 (tails/tails!1645)
+
+    Closes issues:
+      - Upgrade to Tor Browser 14.0 final based on Firefox 128 (tails/tails#20533)
+      - Integrate Tor Browser 14.0 alpha based on Firefox 128 (tails/tails#20448)
+
+    Commits:
+      - Test suite: bump images for Tor Browser 14.0 final (refs: tails#20448)
+      - Upgrade Tor Browser to 14.0-build1 (refs: tails#20448)
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 14.0a9 (refs: tails#20448)
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 14.0a7 (refs: tails#20448)
+      - shfmt reformat 10-tbb
+      - Upgrade Tor Browser to 14.0a6 (refs: tails#20448)
+      - bump images
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 14.0a5 (refs: tails#20448)
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 14.0a4 (refs: tails#20448)
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 14.0a3 (refs: tails#20448)
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 14.0a2 (refs: tails#20448)
+      - Test suite: convert test to Dogtail to avoid having to update the image for Tor
+        Browser 14
+      - Test suite: adjust to Tor Browser 14
+      - Test suite: make sure we search within the tab we mean to
+      - Refresh patch
+      - Fetch Tor Browser from our own archive
+      - Upgrade Tor Browser to 14.0a1
+
+  * Add additional early_patch functionality (tails/tails!1450)
+
+    Closes issues:
+      - Incorporate vm-scripts.git goodies into the early_patch machinery
+        (tails/tails#20268)
+
+    Commits:
+      - early_patch: fix kernel cmdline regex
+      - Clarify how to install packages
+      - early_patch: document ownership for files bind mounted into /home/amnesia
+      - Fix grammar
+      - early_patch: document special treatment of .in files
+      - early_patch: add code comments documenting functions useful in custom hooks
+      - early_patch: update contributor docs (refs: tails#20268)
+      - early_patch: rw-includes requires dropping <readonly/> for tails.git the
+        filesystem share
+      - early_patch: make rw-includes work for /home/amnesia
+      - early_patch: make rw-includes writable by libvirt-qemu using ACLs
+      - early_patch: map the correct group with bindfs
+      - early_patch: use uid/gid since the live user/group isn't created at initramfs
+        time
+      - early_patch: make subshells inherit `set -e` in bash scripts
+      - Test suite: explain --early-patch option better
+      - Rename functions for improved clarity
+      - early_patch: drop code that will never be relevant
+      - Pipe directly instead of using a variable and bash "here string"
+      - early_patch: move {bind,copy}_file() to lib.sh
+      - early_patch: make {bind,copy}_file() arguments a bit more convenient
+      - early_patch: make bind_file() run bindfs (at most once)
+      - early_patch: Support using virtiofs instead of 9p
+      - early_patch: Support custom hook directories beside "default" and "umount"
+      - early_patch: Ensure that full boot.log is written
+      - Install bindfs
+      - early_patch: Remove basename from xtrace output
+      - early_patch: Enable xtrace output with timestamps and basename
+      - early_patch: Support "patch" as an alias on kernel command-line
+      - early_patch: Print helpful error message when filesystem share doesn't exist
+      - early_patch: Move mountpoint to /mnt/tails.git and use tails.git as 9p source
+      - early_patch: Print the end of the boot.log
+      - early_patch: Ignore hooks ending in ".local"
+      - Add additional early_patch functionality
+      - Rename 52-update-rc.d -> 52-update-systemd-units
+
+ -- Tails developers <tails@boum.org>  Wed, 30 Oct 2024 10:50:44 +0000
+
 tails (6.8.1) unstable; urgency=medium
 
   * Upgrade to Tor Browser 13.5.7 (tails/tails!1738)

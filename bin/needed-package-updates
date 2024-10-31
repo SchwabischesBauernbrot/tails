@@ -179,9 +179,13 @@ class UDD:
                 continue
             if version <= suite_version:
                 return (suite, suite_version)
-        raise NotFoundError(
-            f"{name}: the package version({version}) is higher than the version on {suite} ({suite_version})",
-        )
+        try:
+            error_msg = f"{name}: the package version({version}) is higher than the version on {suite} ({suite_version})"
+        # Raised if suite_version is not defined, meaning that the package was not found in any of the suites
+        except NameError:
+            error_msg = f"{name}: the package was not found in any of the Debian suites"
+
+        raise NotFoundError(error_msg)
 
     def packages_by_source(self, source: str, suite: str) -> set[str]:
         ret = set()
