@@ -105,7 +105,7 @@ When /^I successfully run "?([[:alnum:] -]+)"?$/ do |command|
   end
 end
 
-When /^I run "?([[:alnum:] -]+)"?$/ do |command|
+When /^I run "?([[:alnum:] -.]+)"?$/ do |command|
   @output = `#{File.expand_path("../../../auto/scripts/#{command}", __FILE__)}`
   @exit_code = $CHILD_STATUS.exitstatus
 end
