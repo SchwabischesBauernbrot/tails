@@ -2,6 +2,8 @@
 
 set -u
 
+fifo="/run/user/$(id -u)/emergency-shutdown-ui.fifo"
+
 progress() {
     WAIT_SECS=5
     for i in $(seq 0 $((100 / WAIT_SECS)) 100); do
@@ -19,9 +21,8 @@ progress() {
     exit 0
 }
 
-trap 'progress' USR2
-
-# a single "sleep inf" would not work, as the trap will never be called
-while true; do
-    sleep 0.5 # this number needs to be low, as this adds to the latency
-done
+rm -f "$fifo"
+mkfifo -m 0600 "$fifo"
+# this read will block until a command will make any write to this FIFO
+read -r _ignored <"$fifo"
+progress
