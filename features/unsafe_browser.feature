@@ -63,7 +63,7 @@ Feature: Browsing the web using the Unsafe Browser
     When I configure the Unsafe Browser to use a local proxy
     And I successfully start the Unsafe Browser
     And I open the Tails homepage in the Unsafe Browser
-    Then I see "BrowserProxyRefused.png" after at most 60 seconds
+    Then the Unsafe Browser shows the "The proxy server is refusing connections" error
 
   @not_release_blocker @check_tor_leaks
   Scenario: The Unsafe Browser only makes user-initiated non-Torified connections

@@ -47,8 +47,8 @@ msgstr ""
 "Project-Id-Version: Tor Project\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2024-10-07 09:59+0200\n"
-"PO-Revision-Date: 2024-10-05 18:15+0000\n"
-"Last-Translator: Kasey Ryder <Monoxide699@users.noreply.hosted.weblate.org>\n"
+"PO-Revision-Date: 2024-10-23 15:16+0000\n"
+"Last-Translator: xXx <xxx_xxx_xxxxxxxxx@mail.ru>\n"
 "Language-Team: Russian <https://hosted.weblate.org/projects/tor/tails-gui/ru/"
 ">\n"
 "Language: ru\n"
@@ -58,7 +58,7 @@ msgstr ""
 "Plural-Forms: nplurals=4; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && "
 "n%10<=4 && (n%100<12 || n%100>14) ? 1 : n%10==0 || (n%10>=5 && n%10<=9) || "
 "(n%100>=11 && n%100<=14)? 2 : 3);\n"
-"X-Generator: Weblate 5.8-dev\n"
+"X-Generator: Weblate 5.8.2-dev\n"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/additional_software.py:209
 #, python-brace-format
@@ -928,7 +928,7 @@ msgstr ""
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:773
 msgid "Incorrect passphrase. Please try again."
-msgstr "Неправильная парольная фраза. Попробуйте еще раз."
+msgstr "Неправильный пароль. Попробуйте еще раз."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:784
 msgid ""
@@ -947,6 +947,7 @@ msgid "File System Errors"
 msgstr "Ошибки файловой системы"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:799
+#, fuzzy
 msgid ""
 "Errors were detected in the file system of your Persistent Storage.\n"
 "                \n"
@@ -959,10 +960,19 @@ msgid ""
 "If you don't have a backup, we recommend that you create a partition image "
 "of your Persistent Storage first."
 msgstr ""
+"Обнаружены ошибки в файловой системе постоянного хранилища.\n"
+"                \n"
+"Tails может попытаться исправить эти ошибки, но это может стереть часть "
+"ваших данных и занять много времени.\n"
+"\n"
+"Если у вас уже есть свежая резервная копия постоянного хранилища, мы "
+"рекомендуем попробовать восстановление.\n"
+"                \n"
+"Если у вас нет резервной копии, мы рекомендуем сначала сделать ее."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:808
 msgid "Repair File System"
-msgstr ""
+msgstr "Восстановить файловую систему"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:809
 #, fuzzy
@@ -974,14 +984,14 @@ msgstr "Создать постоянное хранилище"
 msgid ""
 "Start Tails to learn how to create a partition image of your Persistent "
 "Storage."
-msgstr "Не удалось создать Постоянное хранилище"
+msgstr ""
+"Запустите Tails, чтобы узнать, как создать резервную копию постоянного "
+"хранилища."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:829
-#, fuzzy
 msgid "Failed to unlock the Persistent Storage due to file system errors."
 msgstr ""
-"Не удалось разблокировать Постоянное хранилище. Пожалуйста, запустите Tails "
-"и отправьте отчёт об ошибке."
+"Не удалось разблокировать постоянное хранилище из-за ошибки файловой системы."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:838
 msgid ""
@@ -1008,9 +1018,8 @@ msgstr ""
 "отправьте отчёт об ошибке."
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/main_window.py:864
-#, fuzzy
 msgid "Upgrading the Persistent Storage. This might take a while…"
-msgstr "Обновляем Постоянное хранилище. Пожалуйста, подождите…"
+msgstr "Обновление постоянного хранилища. Пожалуйста, подождите…"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:125
 msgid "Error unlocking Persistent Storage: {}"
@@ -1031,9 +1040,9 @@ msgid "Error activating Persistent Storage: {}"
 msgstr "Ошибка при активации Постоянного хранилища: {}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/settings/persistence.py:202
-#, fuzzy
 msgid "Failed to abort when repairing Persistent Storage filesystem: {}"
-msgstr "Не удалось запустить сервис Постоянного хранилища"
+msgstr ""
+"Не удалось прервать восстановление файловой системы постоянного хранилища: {}"
 
 #: config/chroot_local-includes/usr/lib/python3/dist-packages/tailsgreeter/ui/region_settings.py:191
 msgid "_Language"
@@ -3047,9 +3056,8 @@ msgid "Show Passphrase"
 msgstr "Показать пароль"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:421
-#, fuzzy
 msgid "Enter your passphrase"
-msgstr "Проверить пароль:"
+msgstr "Введите пароль"
 
 #: ../config/chroot_local-includes/usr/share/tails/greeter/main.ui.in:436
 msgid "Unlock Encryption"
@@ -4053,9 +4061,8 @@ msgstr "Декабрь"
 msgid "Clock"
 msgstr "Часы"
 
-#, fuzzy
 #~ msgid "Create Backup"
-#~ msgstr "Создать"
+#~ msgstr "Создать резервную копию"
 
 #, sh-format
 #~ msgid ""
