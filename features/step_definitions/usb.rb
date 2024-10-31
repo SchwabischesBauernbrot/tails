@@ -677,24 +677,23 @@ Given /^I try to enable persistence( with the changed passphrase)?$/ do |with_ch
 end
 
 Then /^persistence is successfully enabled$/ do
-  # Wait until the Persistent Storage was unlocked. We don't know which
+  # Wait until the Persistent Storage is fully activated. We don't know which
   # language is set in the Welcome Screen after the Persistent Storage
   # was unlocked, so we check the backend directly.
   try_for(120) do
-    tails_persistence_enabled?
+    tails_persistence_active?
   end
 
-  # Figure out which language is set now that the Persistent Storage is
-  # unlocked
-  $language, $lang_code = greeter_language
-
-  # Check that the status label says that the Persistent Storage was
-  # successfully unlocked. We do that *after* figuring out the language
-  # because the `child` method translates the label into the language
-  # designated by $lang_code.
-  greeter.child('Your Persistent Storage is unlocked. ' \
-                      'Its content will be available until you shut down Tails.',
-                roleName: 'label')
+  # If the Persistent Welcome Screen options feature is enabled the
+  # GUI's language might change around this time, and we have to set
+  # the language accordingly in the test suite so Dogtail will use the
+  # translated strings.
+  try_for(30) do
+    $language, $lang_code = greeter_language
+    greeter.child('Your Persistent Storage is unlocked. ' \
+                  'Its content will be available until you shut down Tails.',
+                  roleName: 'label')
+  end
 end
 
 Given /^I enable persistence( with the changed passphrase)?$/ do |with_changed_passphrase|
@@ -719,20 +718,25 @@ def greeter_language
   english_label = 'English - United States'
   german_label = 'Deutsch - Deutschland (German - Germany)'
   try_for(30) do
-    greeter.child(english_label, roleName: 'label')
+    greeter.child(english_label, roleName: 'label', retry: false)
     # We have to set the language to '' for English, setting it to
     # 'English' doesn't work.
     return '', 'en'
   rescue Dogtail::Failure
-    greeter.child(german_label, roleName: 'label')
+    greeter.child(german_label, roleName: 'label', retry: false)
     return 'German', 'de'
   end
 end
 
-def tails_persistence_enabled?
-  libtps_file = '/usr/local/lib/tails-shell-library/libtps.sh'
-  $vm.execute(". '#{libtps_file}' && " \
-              'tps_is_unlocked').success?
+def tails_persistence_unlocked?
+  $vm.execute('tps_is_unlocked', libs: 'libtps').success?
+end
+
+def tails_persistence_active?
+  tails_persistence_unlocked? &&
+    tps_features
+      .select { |f| tps_feature_is_enabled(f, reload: false) }
+      .all? { |f| tps_feature_is_active(f, reload: false) }
 end
 
 Then /^all tps features(| from the old Tails version)(| but the first one) are active$/ do |old_tails_str, except_first_str|
@@ -740,7 +744,7 @@ Then /^all tps features(| from the old Tails version)(| but the first one) are a
   except_first = !except_first_str.empty?
   assert(!old_tails || !except_first, 'Unsupported case.')
   try_for(120, msg: 'Persistence is disabled') do
-    tails_persistence_enabled?
+    tails_persistence_unlocked?
   end
 
   tps_reload
@@ -805,11 +809,11 @@ Then /^the "(\S+)" tps feature is(| not) enabled and(| not) active$/ do |feature
 end
 
 Then /^persistence is disabled$/ do
-  assert(!tails_persistence_enabled?, 'Persistence is enabled')
+  assert(!tails_persistence_unlocked?, 'Persistence is enabled')
 end
 
 Then /^persistence is enabled$/ do
-  assert(tails_persistence_enabled?, 'Persistence is disabled')
+  assert(tails_persistence_active?, 'Persistence is disabled or not active yet')
 end
 
 def boot_device
