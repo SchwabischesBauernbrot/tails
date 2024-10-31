@@ -476,9 +476,23 @@ class TPSPartition:
             cmd += ["--header", str(header_file)]
         try:
             executil.check_call(cmd, text=True, input=passphrase)
-            # Try to mount the device to ensure that the partition was
-            # successfully unlocked and contains a valid filesystem.
-            self._test_mounting_device("/dev/mapper/TailsData")
+            # It is conceivable that a corrupt LUKS header could
+            # successfully decrypt, but the cleartext would be junk,
+            # e.g. if the master key is corrupted. But if we see the
+            # expected filesystem type and label we can be pretty sure
+            # it was not corrupt.
+            output = executil.check_output(
+                [
+                    "blkid",
+                    "--match-tag=LABEL",
+                    "--match-tag=TYPE",
+                    "/dev/mapper/TailsData",
+                ]
+            ).strip()
+            if output != '/dev/mapper/TailsData: LABEL="TailsData" TYPE="ext4"':
+                raise InvalidCleartextDeviceError(
+                    f"Cleartext device is not what we expect: {output}"
+                )
         except subprocess.CalledProcessError as err:
             if err.returncode == 2:
                 raise IncorrectPassphraseError(err) from err
