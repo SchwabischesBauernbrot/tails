@@ -2,11 +2,10 @@
 
 set -u
 
-fifo="/run/user/$(id -u)/emergency-shutdown-ui.fifo"
+. /etc/default/tails-emergency-shutdown-warning
 
 progress() {
-    WAIT_SECS=5
-    for i in $(seq 0 $((100 / WAIT_SECS)) 100); do
+    for i in $(seq 0 $((100 / EMERGENCY_SHUTDOWN_WAIT_SECS)) 100); do
         if ! echo "$i"; then
             # if we're here, it means that the stdout is closed, that is, zenity exited. This happens when the
             # user press the cancel button
@@ -16,13 +15,13 @@ progress() {
         sleep 1
     done | zenity --progress \
         --title "Emergency shutdown" \
-        --text "<b>Unplugging your USB stick can damage your Persistent Storage.</b>\n\nUse the Power Off button in the System Menu instead.\n\nTails will shut down automatically in ${WAIT_SECS} seconds.\n" \
+        --text "<b>Unplugging your USB stick can damage your Persistent Storage.</b>\n\nUse the Power Off button in the System Menu instead.\n\nTails will shut down automatically in ${EMERGENCY_SHUTDOWN_WAIT_SECS} seconds.\n" \
         --cancel-label="Shutdown Now" --ok-label="" --auto-close
     exit 0
 }
 
-rm -f "$fifo"
-mkfifo -m 0600 "$fifo"
+rm -f "$EMERGENCY_SHUTDOWN_FIFO"
+mkfifo -m 0600 "$EMERGENCY_SHUTDOWN_FIFO"
 # this read will block until a command will make any write to this FIFO
-read -r _ignored <"$fifo"
+read -r _ignored <"$EMERGENCY_SHUTDOWN_FIFO"
 progress

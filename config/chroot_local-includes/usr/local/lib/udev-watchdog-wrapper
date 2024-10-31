@@ -66,13 +66,14 @@ on_removed() {
     # simpler.
     if [ -d /live/persistence/TailsData_unlocked ]; then
         echo "on_removed(): persistent storage unlocked"
+        . /etc/default/tails-emergency-shutdown-warning
         # by writing to this fifo, we will actually show the UI
         # since the write itself might be blocking (and that will prevent the emergency shutdown), we do it in
         # the background
-        (echo >"/run/user/1000/emergency-shutdown-ui.fifo") &
+        (echo >"$EMERGENCY_SHUTDOWN_FIFO") &
         # let's wait for it to be over; again, this is over cautious, but we really don't want to wait too
         # much
-        timeout --kill-after=1 5 pidwait --uid amnesia --exact --full '/bin/sh /usr/local/lib/tails-emergency-shutdown-warning' || true
+        timeout --kill-after=1 "$EMERGENCY_SHUTDOWN_WAIT_SECS" pidwait --uid amnesia --exact --full '/bin/sh /usr/local/lib/tails-emergency-shutdown-warning' || true
     fi
     echo "on_removed(): shutdown no matter what"
     do_stop
