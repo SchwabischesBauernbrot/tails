@@ -76,7 +76,7 @@ Prepare your checklist
 TRAP: whenever you go AFK for long times
 ===========================================
 
-Keep this section at the top of your pad, so you don't forget
+Keep this section at the top of this copy of the release process, so you don't forget
 
 When you clock off, or take any other kind of long break, please comunicate this on XMPP. Clarify:
 
@@ -374,9 +374,15 @@ Manual testing coordination
 
 Bootstrap internal manual testing coordination:
 
-1. Create a pad. Here's a good name:
+1. To create a new pad, visit https://pad.tails.net/new
 
-        echo "QA-Tails_${VERSION:?}-$(pwgen 32 1)"
+1. To give the pad a clear title, add this section on top:
+
+        cat <<EOF
+        ---
+        title: Testing ${VERSION:?}
+        ---
+        EOF
 
 2. Set the `PAD` environment variable to the URL of this pad.
 
@@ -632,7 +638,12 @@ Enable OpenPGP signing
 If you have an OpenPGP smart card with a Tails signing subkey,
 go fetch it.
 
-Only plug it when `gpg` asks you to.
+Until you reach "Done with OpenPGP signing":
+
+ - You may leave it plugged.
+
+ - You may unplug it, when you are not signing anything with it,
+   if that's more convenient for you.
 
 ### Otherwise: importing the signing key
 
@@ -1025,7 +1036,7 @@ Tell testers that they can start testing. Remember to encrypt and sign your emai
 
 Send a message on XMPP, too:
 
-    Manual testers, please check your inbox and get the QA started!
+    Tails Team, please check your inbox and get the QA started!
 
 <a id="prepare-iuk"></a>
 
@@ -1451,6 +1462,10 @@ so it has to be started from the beginning:
   and then starts from scratch.
 
 So please try to avoid this!
+
+If you don't know, or don't remember, why plugging the smart card again would
+invalidate all that work: you're not alone. We've all been there.
+We will document this: [[!tails_ticket 20617]].
 
 Upload images
 =============
@@ -2309,9 +2324,6 @@ Check that you are indeed preparing a final release:
 1. Push the resulting branches:
 
         git push origin stable testing devel
-
-1. In our release calendar, mark the entries about the version that you've
-   just released as released by appending " - Released" to the title.
 
 1. Check the Mozilla and Tor Browser release calendars:
 
