@@ -44,7 +44,7 @@ MEMORY_LEFT_TO_SYSTEM_KIB = 200 * 1024
 # user can free up some memory by closing applications and try again.
 # It's also well within the range that's chosen by cryptsetup by default
 # (32 KiB to 1 GiB).
-MINIMUM_PBKDF_MEMORY_KIB = 256 * 1024
+MINIMUM_PBKDF_MEMORY_KIB = 200 * 1024
 
 # This is the maximum value that's chosen by cryptsetup by default and
 # it's low enough that even the lowest-end devices we support (2 GiB
