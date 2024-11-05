@@ -27,7 +27,7 @@ at best is a few months.
 
 To solve this, we host ourselves the Tor Browser tarballs we need, and
 point to [this permanent
-location](https://torbrowser-archive.tails.net/) for anything that
+location](https://torbrowser-archive.tails.boum.org/) for anything that
 we tag.
 
 Still, one can set an arbitrary download location in
@@ -334,7 +334,7 @@ Adjust the URL in the main Git repository
     current_branch=$(git branch | awk '/^\* / { print $2 }')
     for branch in "${current_branch:?}" ; do
        git checkout "${branch:?}" && \
-       echo "http://torbrowser-archive.tails.net/${TBB_VERSION:?}/" > \
+       echo "http://torbrowser-archive.tails.boum.org/${TBB_VERSION:?}/" > \
             config/chroot_local-includes/usr/share/tails/tbb-dist-url.txt && \
        git commit config/chroot_local-includes/usr/share/tails/tbb-dist-url.txt \
            -m "Fetch Tor Browser from our own archive" && \
@@ -347,7 +347,7 @@ Wait for the synchronization
 
 Before you can build Tails using Tor Browser from our own archive,
 you need to wait for the tarballs to appear on
-<https://torbrowser-archive.tails.net/?C=M&O=D>. This can take up to
+<https://torbrowser-archive.tails.boum.org/?C=M&O=D>. This can take up to
 10 minutes:
 
     (
