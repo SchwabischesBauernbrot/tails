@@ -1,17 +1,8 @@
-From 74f0d93e533fc8544db3ae8c7553d9253d14422c Mon Sep 17 00:00:00 2001
-From: anonym <anonym@riseup.net>
-Date: Wed, 27 Feb 2019 09:45:04 +0100
-Subject: [PATCH 1/2] Prefer fetched configurations using SSL over plaintext.
+Prefer fetched configurations using SSL over plaintext.
 
----
- comm/mail/components/accountcreation/readFromXML.jsm | 10 ++++++++--
- 1 file changed, 8 insertions(+), 2 deletions(-)
-
-diff --git a/comm/mail/components/accountcreation/readFromXML.jsm b/comm/mail/components/accountcreation/readFromXML.jsm
-index b853a811175..badd875dbd2 100644
---- a/comm/mail/components/accountcreation/readFromXML.jsm
-+++ b/comm/mail/components/accountcreation/readFromXML.jsm
-@@ -111,7 +111,10 @@ function readFromXML(clientConfigXML, subSource) {
+--- a/modules/accountcreation/readFromXML.sys.mjs       2010-01-01 00:00:00.000000000 +0100
++++ b/accountcreation/readFromXML.sys.mjs    2024-11-06 10:08:18.052090360 +0100
+@@ -102,7 +102,10 @@
              SSL: Ci.nsMsgSocketType.SSL,
              STARTTLS: Ci.nsMsgSocketType.alwaysSTARTTLS,
            });
@@ -23,7 +14,7 @@ index b853a811175..badd875dbd2 100644
          } catch (e) {
            exception = e;
          }
-@@ -244,7 +247,10 @@ function readFromXML(clientConfigXML, subSource) {
+@@ -225,7 +228,10 @@
              SSL: Ci.nsMsgSocketType.SSL,
              STARTTLS: Ci.nsMsgSocketType.alwaysSTARTTLS,
            });
@@ -35,6 +26,3 @@ index b853a811175..badd875dbd2 100644
          } catch (e) {
            exception = e;
          }
--- 
-2.42.0
-
