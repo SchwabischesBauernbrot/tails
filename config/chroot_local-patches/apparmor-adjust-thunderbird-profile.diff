@@ -66,17 +66,7 @@
  
    # should maybe be in abstractions
    /etc/ r,
-@@ -131,6 +121,9 @@
-   # Possibly move to an abstraction if anything else needs it.
-   deny /run/udev/data/** r,
- 
-+  # Required for Wayland display protocol support
-+  owner /dev/shm/wayland.mozilla.ipc.[0-9]* rw,
-+
-   /etc/timezone r,
-   /etc/wildmidi/wildmidi.cfg r,
- 
-@@ -153,6 +146,10 @@
+@@ -153,6 +143,10 @@
    deny /boot/vmlinuz* r,
    deny /var/cache/fontconfig/ w,
  
@@ -87,7 +77,7 @@
    # noisy file dialog:
    #
    # TODO: remove these rules when file dialogs becomes "trusted helpers" that can
-@@ -260,9 +257,10 @@
+@@ -260,9 +254,10 @@
    deny @{HOME}/#[0-9][0-9][0-9][0-9][0-9][0-9][0-9]{,[0-9]} m,
    deny @{HOME}/.nv/.gl?????? mrw,
  
@@ -101,7 +91,7 @@
    /sys/devices/pci[0-9]*/**/uevent r,
    /sys/devices/pci*/**/config r,
    /sys/devices/system/node/node[0-9]*/meminfo r,
-@@ -270,20 +268,19 @@
+@@ -270,20 +265,19 @@
    /etc/fstab r,
  
    # Needed for the crash reporter
@@ -128,7 +118,7 @@
  
    # Needed for container to work in xul builds
    /usr/lib/xulrunner-*/plugin-container ixr,
-@@ -331,10 +328,6 @@
+@@ -331,10 +325,6 @@
    deny /usr/share/mozilla/extensions/**/ w,
    deny /usr/share/mozilla/ w,
  
