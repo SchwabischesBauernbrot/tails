@@ -50,6 +50,14 @@ module Dogtail
         end
 
         a11y_bus = c.stdout.strip
+
+        cmd = "busctl --address=#{a11y_bus} tree"
+        c = RemoteShell::ShellCommand.new($vm, cmd, user:      @opts[:user],
+                                                    debug_log: false)
+        if c.returncode != 0
+          debug_log('Could not connect to a11y bus with busctl (tails#20263)')
+        end
+
         init = [
           'import os',
           "os.environ['AT_SPI_BUS_ADDRESS'] = '#{a11y_bus}'",
@@ -78,7 +86,8 @@ module Dogtail
       if init
         init = init.join("\n") if init.instance_of?(Array)
         c = RemoteShell::PythonCommand.new($vm, init, user:      @opts[:user],
-                                                      debug_log: false)
+                                                      debug_log: false,
+                                                      timeout:   5)
         if c.failure?
           msg = 'The Dogtail init script raised: ' \
                 "#{c.exception}\nSTDOUT:\n#{c.stdout}\nSTDERR:\n#{c.stderr}\n"
@@ -88,7 +97,7 @@ module Dogtail
       code = code.join("\n") if code.instance_of?(Array)
       c = RemoteShell::PythonCommand.new($vm, code, user: @opts[:user])
       if c.failure?
-        msg = 'The Dogtail init script raised: ' \
+        msg = 'The Dogtail script raised: ' \
               "#{c.exception}\nSTDOUT:\n#{c.stdout.strip}\nSTDERR:\n#{c.stderr.strip}\n"
         raise Failure, msg
       end

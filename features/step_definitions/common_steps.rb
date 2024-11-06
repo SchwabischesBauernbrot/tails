@@ -1020,7 +1020,7 @@ end
 
 def launch_app(desktop_file_name, app_name, **options)
   options[:user] ||= LIVE_USER
-  options[:timeout] ||= 30
+  options[:launch_app_timeout] ||= 30
   options[:check_started] = true unless options.key?(:check_started)
   # We use systemd-run to launch the app, because we want the app to run
   # in the active systemd login session, so that polkit rules for active
@@ -1035,7 +1035,7 @@ def launch_app(desktop_file_name, app_name, **options)
   end
 
   app = nil
-  try_for(options[:timeout]) do
+  try_for(options[:launch_app_timeout]) do
     app = Dogtail::Application.new(app_name)
   end
   app
@@ -1099,7 +1099,7 @@ def launch_unlock_veracrypt_volumes
 end
 
 def launch_unsafe_browser(**options)
-  options[:timeout] ||= 60
+  options[:launch_app_timeout] ||= 60
   launch_app(
     'unsafe-browser.desktop',
     'Firefox',

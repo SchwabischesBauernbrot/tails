@@ -40,11 +40,14 @@ import pathlib
 import signal
 import subprocess
 import sys
+
 import systemd.daemon
 import textwrap
 import time
 import traceback
 import logging
+
+import timeout_decorator
 
 from tailslib.userenv import read_user_env
 
@@ -139,7 +142,7 @@ class PythonSession:
         self.process.stdin.write(init_code)
         self.process.stdin.flush()
 
-    def execute(self, code) -> tuple[str, str, str]:
+    def execute(self, code, timeout: int | None = None) -> tuple[str, str, str]:
         # This wrapping ensures that we can run almost any reasonable
         # code and capture what it does.
         wrapper = """
@@ -175,7 +178,26 @@ class PythonSession:
             err_str = self.process.stderr.read()
             return exc_str, out_str, err_str
 
-        return_str = self.process.stdout.readline().strip()
+        @timeout_decorator.timeout(timeout)
+        def _get_output():
+            return self.process.stdout.readline().strip()
+
+        try:
+            return_str = _get_output()
+        except timeout_decorator.TimeoutError:
+            exited = self.process.poll() is not None
+            self.process.terminate()
+            self.process.wait()
+            if exited:
+                exc_str = (
+                    f"Python process exited unexpectedly with {self.process.returncode}"
+                )
+            else:
+                exc_str = f"Python process timed out after {timeout} seconds"
+            out_str = self.process.stdout.read()
+            err_str = self.process.stderr.read()
+            return exc_str, out_str, err_str
+
         try:
             exc_str, out_str, err_str = json.loads(return_str)
             return exc_str, out_str, err_str
@@ -256,11 +278,14 @@ def main():
                 # Thrown if any other signal is received.
                 pass
             continue
+        tx_id = None
         try:
-            tx_id, cmd_type, *rest = json.loads(line)
-            ret = ""
+            req = json.loads(line)
+            tx_id, cmd_type = req["tx_id"], req["cmd_type"]
             if cmd_type in ["sh_call", "sh_spawn"]:
-                user, env, cmd = rest
+                user, cmd = req["user"], req["cmd"]
+                # env is optional
+                env = req.get("env", {})
                 logging.info(f"Executing as {user}: {cmd}")
                 if cmd_type == "sh_spawn":
                     execute_cmd_as_user(cmd, env, user)
@@ -272,10 +297,20 @@ def main():
                     )
                     stdout, stderr = p.communicate()
                     returncode = p.returncode
-                    ret = json.dumps([tx_id, "success", returncode, stdout, stderr])
+                    ret = json.dumps(
+                        {
+                            "tx_id": tx_id,
+                            "status": "success",
+                            "returncode": returncode,
+                            "stdout": stdout,
+                            "stderr": stderr,
+                        }
+                    )
                     logging.info(f"Result: {ret}")
             elif cmd_type == "python_execute":
-                user, env, code = rest
+                user, code = req["user"], req["code"]
+                # timeout is optional
+                timeout = req.get("timeout", None)
                 if (
                     user not in python_sessions
                     or python_sessions[user].process.poll() is not None
@@ -283,32 +318,59 @@ def main():
                     python_sessions[user] = PythonSession(user)
                 session = python_sessions[user]
                 logging.info(f"Executing Python as {user}:\n{code}")
-                exc, out_str, err_str = session.execute(code)
-                ret = json.dumps([tx_id, "success", exc, out_str, err_str])
+                exc, out_str, err_str = session.execute(code, timeout)
+                ret = json.dumps(
+                    {
+                        "tx_id": tx_id,
+                        "status": "success",
+                        "exception": exc,
+                        "stdout": out_str,
+                        "stderr": err_str,
+                    }
+                )
                 logging.info(f"Result: {ret}")
-            elif cmd_type in ["file_read", "file_write", "file_append"]:
-                path, *rest = rest
-                open_mode = cmd_type[5] + "b"
-                logging.info(f"Opening ({open_mode}) file: {path}")
-                with open(path, open_mode) as f:
-                    if cmd_type == "file_read":
-                        assert rest == []
-                        ret = str(base64.b64encode(f.read()), "utf-8")
-                    elif cmd_type in ["file_write", "file_append"]:
-                        assert len(rest) == 1
-                        data = base64.b64decode(rest[0])
-                        ret = f.write(data)
-                        if ret != len(data):
-                            raise OSError(
-                                f"we only wrote {ret} bytes out of {len(data)}"
-                            )
-                ret = json.dumps([tx_id, "success", ret])
+            elif cmd_type == "file_read":
+                path = req["path"]
+                logging.info(f"Reading file: {path}")
+                with open(path, "rb") as f:
+                    base64_data = str(base64.b64encode(f.read()), "utf-8")
+                    ret = json.dumps(
+                        {
+                            "tx_id": tx_id,
+                            "status": "success",
+                            "data": base64_data,
+                        }
+                    )
+            elif cmd_type in ["file_write", "file_append"]:
+                path, base64_data = req["path"], req["data"]
+                data = base64.b64decode(base64_data)
+
+                if cmd_type == "file_write":
+                    logging.info(f"Writing file: {path}")
+                    with open(path, "wb") as f:
+                        bytes_written = f.write(data)
+                elif cmd_type == "file_append":
+                    logging.info(f"Appending to file: {path}")
+                    with open(path, "ab") as f:
+                        bytes_written = f.write(data)
+
+                if bytes_written != len(data):
+                    raise OSError(
+                        f"we only wrote {bytes_written} bytes out of {len(data)}"
+                    )
+                ret = json.dumps(
+                    {
+                        "tx_id": tx_id,
+                        "status": "success",
+                        "bytes_written": bytes_written,
+                    }
+                )
             elif cmd_type in ["signal_ready"]:
                 logging.info("Mark systemd service as ready.")
                 # Notify systemd that we"re ready
                 systemd.daemon.notify("READY=1")
                 systemd.daemon.notify("STATUS=Processing requests...\n")
-                ret = json.dumps([tx_id, "success"])
+                ret = json.dumps({"tx_id": tx_id, "status": "success"})
             else:
                 raise ValueError("unknown command type")
             response = (ret + "\n").encode("utf-8")
@@ -330,7 +392,12 @@ def main():
             logging.info("-----")
             sys.stderr.flush()
             exc_str = f"{type(e).__name__}: {e!s}"
-            port.write(json.dumps([tx_id, "error", exc_str]).encode("utf-8") + b"\n")
+            port.write(
+                json.dumps(
+                    {"tx_id": tx_id, "status": "error", "exception": exc_str}
+                ).encode("utf-8")
+                + b"\n"
+            )
             port.flush()
             continue
 

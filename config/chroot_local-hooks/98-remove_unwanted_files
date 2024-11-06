@@ -43,3 +43,10 @@ rm usr/share/doc/tails/website/torrents/rss.html
 
 # Documentation that's large and not that useful in Tails
 rm -r /usr/share/inkscape/examples
+
+# The at-spi bus is already started through D-Bus activation, and we
+# also have at-spi-dbus-bus.service starting it, and that service is
+# required by tails-a11y-bus-proxy.service to ensure that the at-spi
+# bus is running. Hopefully this solves the issues we have with
+# Dogtail failing to connect to the at-spi bus (tails#20263).
+rm /etc/xdg/autostart/at-spi-dbus-bus.desktop

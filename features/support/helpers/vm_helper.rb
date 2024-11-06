@@ -526,7 +526,7 @@ class VM
     Timeout.timeout(3) do
       execute_successfully("echo '#{msg}'").stdout.chomp == msg
     end
-  rescue StandardError
+  rescue Timeout::Error
     debug_log('The remote shell failed to respond within 3 seconds')
     false
   end

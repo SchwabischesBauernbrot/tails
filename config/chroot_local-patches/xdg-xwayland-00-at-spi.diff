@@ -1,0 +1,10 @@
+--- a/etc/xdg/Xwayland-session.d/00-at-spi	2024-08-29 13:18:27.492000000 +0000
++++ b/etc/xdg/Xwayland-session.d/00-at-spi	2024-08-29 13:18:37.772000000 +0000
+@@ -1,5 +1,7 @@
+ #!/bin/sh
+ 
++set -x
++
+ # Copy a11y bus address from the DBus session bus to the X11 root property.
+ # This is useful when Xwayland is started on demand and if the user has an
+ # application with X11 access that does not have access to the session bus.
