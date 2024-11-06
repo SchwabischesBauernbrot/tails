@@ -27,7 +27,7 @@
    /usr/lib/libreoffice/program/soffice Cxr -> sanitized_helper,
  
    # Allow opening links
-@@ -63,21 +63,11 @@
+@@ -63,20 +63,11 @@
    # (remove this after Debian 11 and Ubuntu 20.04)
    /usr/lib/@{multiarch}/glib-[0-9]*/gio-launch-desktop ix,
  
@@ -42,14 +42,14 @@
    ptrace (read,trace) peer=@{profile_name},
  
    /usr/lib/thunderbird/thunderbird{,-bin} ixr,
- 
+-
 -  # Pulseaudio
 -  /usr/bin/pulseaudio Pixr,
--
++  /usr/lib/thunderbird/glxtest ix,
+ 
    owner @{HOME}/.{cache,config}/dconf/user rw,
    owner @{HOME}/.cache/thumbnails/** r,
-   owner /run/user/[0-9]*/dconf/user rw,
-@@ -105,11 +95,11 @@
+@@ -105,11 +96,11 @@
    # for networking
    network inet stream,
    network inet6 stream,
@@ -66,7 +66,15 @@
  
    # should maybe be in abstractions
    /etc/ r,
-@@ -153,6 +143,10 @@
+@@ -144,6 +135,7 @@
+   /etc/gre.d/* r,
+ 
+   # noisy
++  deny /etc/os-release r,
+   deny @{MOZ_LIBDIR}/** w,
+   deny /usr/lib/thunderbird-addons/** w,
+   deny /usr/lib/xulrunner-addons/** w,
+@@ -153,6 +145,10 @@
    deny /boot/vmlinuz* r,
    deny /var/cache/fontconfig/ w,
  
@@ -77,13 +85,14 @@
    # noisy file dialog:
    #
    # TODO: remove these rules when file dialogs becomes "trusted helpers" that can
-@@ -260,9 +254,10 @@
+@@ -260,9 +256,11 @@
    deny @{HOME}/#[0-9][0-9][0-9][0-9][0-9][0-9][0-9]{,[0-9]} m,
    deny @{HOME}/.nv/.gl?????? mrw,
  
 -  owner @{PROC}/[0-9]*/mountinfo r,
 -  owner @{PROC}/[0-9]*/stat r,
 -  owner @{PROC}/[0-9]*/task/[0-9]*/stat r,
++  owner @{PROC}/@{pid}/cgroup r,
 +  owner @{PROC}/@{pid}/mountinfo r,
 +  owner @{PROC}/@{pid}/oom_score_adj rw,
 +  owner @{PROC}/@{pid}/stat r,
@@ -91,7 +100,7 @@
    /sys/devices/pci[0-9]*/**/uevent r,
    /sys/devices/pci*/**/config r,
    /sys/devices/system/node/node[0-9]*/meminfo r,
-@@ -270,20 +265,19 @@
+@@ -270,20 +268,19 @@
    /etc/fstab r,
  
    # Needed for the crash reporter
@@ -118,7 +127,7 @@
  
    # Needed for container to work in xul builds
    /usr/lib/xulrunner-*/plugin-container ixr,
-@@ -331,10 +325,6 @@
+@@ -331,10 +328,6 @@
    deny /usr/share/mozilla/extensions/**/ w,
    deny /usr/share/mozilla/ w,
  
@@ -129,7 +138,7 @@
    /usr/lib/gnupg/gpg-wks-client ix,
    /{,usr/}bin/ps                   ix,
  
-@@ -344,6 +334,11 @@
+@@ -344,6 +337,11 @@
    # Required for Wayland display protocol support
    owner /dev/shm/wayland.mozilla.ipc.[0-9]* rw,
  
