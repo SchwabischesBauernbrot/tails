@@ -192,16 +192,18 @@ Then /^I can find the email I sent to myself in my inbox$/ do
     thunderbird_main.child('Quick Filter',
                            roleName: 'toggle button')
                     .press
-    thunderbird_main.child('Filter these messages <Ctrl+Shift+K>',
+    thunderbird_main.child('Filter messages',
                            roleName: 'entry')
                     .grabFocus
     @screen.paste(@subject)
+    address = $config['Thunderbird']['address']
+    name = address.split('@').first
     message = thunderbird_main.child(
-      "#{$config['Thunderbird']['address'].split('@').first},.*, #{@subject}, Unread",
-      roleName: 'tree item'
+      "#{name} <#{address}>,.*, #{@subject}, Unread", roleName: 'table row'
     )
     # Let's clean up
-    message.activate
+    message.grabFocus
+    @screen.press('space')
     thunderbird_main.button('Delete').press
   end
 end
@@ -224,5 +226,7 @@ Then(/^the screen keyboard works in Thunderbird$/) do
   @screen.wait('ThunderbirdTextEntry.png', 20).click
   @screen.wait('ScreenKeyboard.png', 20)
   @screen.wait(osk_key, 20).click
-  @screen.wait(thunderbird_x, 20)
+  # In Russian and Turkish the the text is displayed one pixel off
+  # since Thunderbird 128, so use a slightly lower sensitivity.
+  @screen.wait(thunderbird_x, 20, sensitivity: 0.8)
 end
