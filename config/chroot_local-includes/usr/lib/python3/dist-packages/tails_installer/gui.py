@@ -70,38 +70,43 @@ class ProgressThread(threading.Thread):
     progress bar.
     """
 
-    totalsize = 0
-    tps_totalsize = 0
-    orig_free = 0
-    drive = None
-    get_free_bytes = None
+    total_bytes_system_partition = 0
+    total_bytes_tps = 0
+    orig_free_bytes_system_partition = 0
+    prior_progress = 0
+    max_progress = 0
 
     def __init__(self, parent):
         threading.Thread.__init__(self)
         self.parent = parent
         self.terminate = False
 
-    def set_data(self, size, drive, freebytes):
-        self.totalsize = size / 1024
-        self.drive = drive
-        self.get_free_bytes = freebytes
-        self.orig_free = self.get_free_bytes()
+    def set_data(self, prior_progress: float, max_progress: float):
+        self.total_bytes_system_partition = self.parent.live.source.size
+        self.orig_free_bytes_system_partition = self.parent.live.get_free_bytes()
+        self.prior_progress = prior_progress
         if self.parent.opts.clone_persistent_storage_requested:
-            self.tps_totalsize = get_persistent_storage_backup_size() / 1024
+            self.total_bytes_tps = get_persistent_storage_backup_size()
+        self.max_progress = max_progress
 
     def run(self):
-        value = 0
-        tps_value = 0
+        bytes_copied_system_partition = 0
+        bytes_copied_tps = 0
         while not self.terminate:
             if os.path.ismount("/media/amnesia/Tails/"):
-                free = self.get_free_bytes()
-                value = (self.orig_free - free) / 1024
+                free = self.parent.live.get_free_bytes()
+                bytes_copied_system_partition = (
+                    self.orig_free_bytes_system_partition - free
+                )
             if os.path.ismount("/media/amnesia/TailsData"):
-                tps_value = psutil.disk_usage("/media/amnesia/TailsData").used / 1024
-            GLib.idle_add(
-                self.parent.progress,
-                float(value + tps_value) / (self.totalsize + self.tps_totalsize),
+                bytes_copied_tps = psutil.disk_usage("/media/amnesia/TailsData").used
+            copy_progress = (bytes_copied_system_partition + bytes_copied_tps) / (
+                self.total_bytes_system_partition + self.total_bytes_tps
             )
+            total_progress = self.prior_progress + (
+                copy_progress * (self.max_progress - self.prior_progress)
+            )
+            GLib.idle_add(self.parent.set_progress, total_progress)
             sleep(0.1)
 
     def stop(self):
@@ -109,12 +114,12 @@ class ProgressThread(threading.Thread):
 
 
 class TailsInstallerThread(threading.Thread):
-    def __init__(self, live, progress, parent):
+    def __init__(self, live, progress_thread, parent):
         threading.Thread.__init__(self)
-        self.progress = progress
+        self.progress_thread = progress_thread
         self.live = live
         self.parent = parent
-        self.maximum = 0
+        self.progress = 0
 
     def status(self, text):
         GLib.idle_add(self.parent.status, text)
@@ -138,6 +143,7 @@ class TailsInstallerThread(threading.Thread):
         self.live.log.addHandler(self.handler)
         self.now = datetime.now()
         self.live.save_full_drive()
+
         try:
             if self.parent.opts.partition:
                 try:
@@ -153,6 +159,8 @@ class TailsInstallerThread(threading.Thread):
                     self.live.log.removeHandler(self.handler)
                     return
 
+                self.update_progress(0.025)
+                self.live.unmount_device()
                 if not self.live.can_read_partition_table():
                     self.live.log.info("Clearing unreadable partition table.")
                     self.live.clear_all_partition_tables()
@@ -167,10 +175,13 @@ class TailsInstallerThread(threading.Thread):
                     self.live.drives[parent_data["device"]] = parent_data
                     self.live.drive = parent_data["device"]
                     self.live.save_full_drive()
+                self.update_progress(0.05)
                 partition_udi = self.live.partition_device()
+                self.update_progress(0.45)
                 self.rescan_partition(partition_udi)
                 self.live.switch_drive_to_system_partition()
                 self.live.format_device()
+                self.update_progress(0.5)
                 self.live.mount_device()
 
             self.live.verify_filesystem()
@@ -186,13 +197,13 @@ class TailsInstallerThread(threading.Thread):
 
             self.live.check_free_space()
 
-            # Setup the progress bar
-            self.progress.set_data(
-                size=self.live.totalsize,
-                drive=self.live.drive["device"],
-                freebytes=self.live.get_free_bytes,
+            # Set up the ProgressThread to monitor the progress of the
+            # copy operation.
+            self.progress_thread.set_data(
+                prior_progress=self.progress,
+                max_progress=0.95,
             )
-            self.progress.start()
+            self.progress_thread.start()
 
             self.live.extract_iso()
             self.live.read_extracted_mbr()
@@ -205,21 +216,20 @@ class TailsInstallerThread(threading.Thread):
             if self.parent.opts.clone_persistent_storage_requested:
                 self.live.clone_persistent_storage()
 
-            # Set progress to 100% after cloning persistent storage
-            self.set_max_progress(float(1))
-            self.update_progress(1)
-
-            self.progress.stop()
+            self.progress_thread.stop()
+            self.update_progress(0.98)
 
             # Flush all filesystem buffers and unmount
             self.live.flush_buffers()
             self.live.unmount_device()
+            self.update_progress(0.99)
 
             if self.parent.opts.partition:
                 self.live.switch_back_to_full_drive()
 
             self.live.reset_mbr_and_write_random_seed()
             self.live.flush_buffers()
+            self.update_progress(1)
 
             duration = str(datetime.now() - self.now).split(".")[0]
             self.status(_("Cloning complete! (%s)") % duration)
@@ -232,13 +242,11 @@ class TailsInstallerThread(threading.Thread):
             self.live.log.debug(traceback.format_exc())
 
         self.live.log.removeHandler(self.handler)
-        self.progress.stop()
+        self.progress_thread.stop()
 
-    def set_max_progress(self, maximum):
-        self.maximum = maximum
-
-    def update_progress(self, value):
-        GLib.idle_add(self.parent.progress, float(value) / self.maximum)
+    def update_progress(self, fraction):
+        self.progress = fraction
+        GLib.idle_add(self.parent.set_progress, float(fraction))
 
 
 class TailsInstallerLogHandler(logging.Handler):
@@ -312,7 +320,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
         self.downloader = None
         self.progress_thread = ProgressThread(parent=self)
         self.live_thread = TailsInstallerThread(
-            live=self.live, progress=self.progress_thread, parent=self
+            live=self.live, progress_thread=self.progress_thread, parent=self
         )
         self.live.connect_drive_monitor(self.populate_devices)
 
@@ -649,7 +657,7 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             self.target_available = False
             self.update_start_button()
 
-    def progress(self, value):
+    def set_progress(self, value):
         self.__progressbar.set_fraction(value)
 
     def status(self, obj):
