@@ -1,27 +1,21 @@
-import subprocess
 from gi.repository import Gtk
 
 from tps_frontend import _
 
+from zxcvbn import zxcvbn
+
 
 def set_passphrase_strength_hint(progress_bar: Gtk.ProgressBar, passhrase: str):
     def get_passphrase_strength() -> float:
-        # Compute passphrase strength
-        p = subprocess.run(
-            ["pwscore"],
-            input=passhrase,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.DEVNULL,
-            text=True,
-        )
-        if p.returncode != 0:
-            # We assume that an error return code always means that the
-            # password quality check failed
-            set_progress_bar_class("weak")
-            return 0.02
+        result = zxcvbn(passhrase)
 
-        # Calculate the fraction that we'll display in the progress bar
-        return int(p.stdout) / 100
+        # Calculate the strength based on the required guesses. The
+        # values were chosen by trial and error to match our
+        # recommendation to use a passphrase with 5 to 7 random words.
+        strength = result["guesses_log10"] / 23.0 - 0.2
+        if strength < 0.0:
+            strength = 0.01
+        return strength
 
     def set_progress_bar_class(class_name: str):
         # Remove other classes
@@ -29,9 +23,7 @@ def set_passphrase_strength_hint(progress_bar: Gtk.ProgressBar, passhrase: str):
             progress_bar_style_context.remove_class(c)
         progress_bar_style_context.add_class(class_name)
 
-    progress_bar_style_context = (
-        progress_bar.get_style_context()
-    )  # type: Gtk.StyleContext
+    progress_bar_style_context = progress_bar.get_style_context()  # type: Gtk.StyleContext
 
     if len(passhrase) == 0:
         hint = ""
