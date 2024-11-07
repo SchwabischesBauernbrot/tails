@@ -531,6 +531,15 @@ When(/^I look at the hide mode but then I go back$/) do
 end
 
 def chutney_bridges(bridge_type, chutney_tag: nil)
+  if bridge_type == 'snowflake'
+    return [{
+      type:    'snowflake',
+      address: '192.0.2.3',
+      port:    1,
+      line:    'snowflake 192.0.2.3:1',
+    }]
+  end
+
   chutney_tag = bridge_type if chutney_tag.nil?
   bridge_dirs = Dir.glob(
     "#{$config['TMPDIR']}/chutney-data/nodes/*#{chutney_tag}/"
@@ -900,7 +909,34 @@ def bridges_to_ipport(file_content)
     .map { |ip, port| { address: ip, port: port.to_i } }
 end
 
-Then /^all Internet traffic has only flowed through (Tor|the \w+ bridges)( or (?:fake )?connectivity check service|)$/ do |flow_target, connectivity_check|
+def allowed_hosts_snowflake
+  ices = $vm.execute_successfully('echo ${SNOWFLAKE_ICE}', libs: 'tor').stdout.split(',').map do |ice|
+    ice.strip.delete_prefix('stun:')
+  end
+
+  ices_ipport_list = ices.flat_map do |n|
+    hostport = n.split(':')
+    port = if hostport.size > 1
+             hostport[1].to_i
+           else
+             443
+           end
+    host = hostport.first
+    Resolv.getaddresses(host).filter_map do |ip|
+      next unless IPAddr.new(ip).ipv4?
+
+      { address: ip, port: port }
+    end
+  end
+
+  ices_ipport_list
+end
+
+def whois_orgname(ipaddr)
+  `whois #{ipaddr} | grep --perl-regexp --only-matching '^OrgName:\\s*\\K.*$'`.strip
+end
+
+Then /^all Internet traffic has only flowed through (Tor|the \w+ bridges|snowflake)( or (?:fake )?connectivity check service|)$/ do |flow_target, connectivity_check|
   case flow_target
   when 'Tor'
     allowed_hosts = allowed_hosts_under_tor_enforcement
@@ -919,6 +955,8 @@ Then /^all Internet traffic has only flowed through (Tor|the \w+ bridges)( or (?
                                   "'I configure some ... bridges in the " \
                                   "Tor Connection Assistant' step")
     allowed_hosts = @bridge_hosts
+  when 'snowflake'
+    allowed_hosts = allowed_hosts_snowflake
   else
     raise "Unsupported flow target '#{flow_target}'"
   end
@@ -951,13 +989,24 @@ Then /^all Internet traffic has only flowed through (Tor|the \w+ bridges)( or (?
                     .join(', ')
   debug_log("These hosts (#{flow_target_s}) are allowed: #{allowed_hosts_s}")
   assert_all_connections(@sniffer.pcap_file) do |c|
-    allowed_hosts.include?({ address: c.daddr, port: c.dport })
+    next true if allowed_hosts.include?({ address: c.daddr, port: c.dport })
+
+    if flow_target == 'snowflake'
+      # this rule is really permissive; it would be better if we could check that it's only connecting to
+      # specific snowflake hosts.
+      # however, this only applies to the "snowflake" test, which reduces the scope of the problem
+      next true if c.protocol == 'udp'
+
+      next true if c.protocol == 'tcp' && c.dport == 443 && whois_orgname(c.daddr) == 'Fastly, Inc.'
+    end
+
+    false
   end
 
   debug_log("Allowed hosts: #{allowed_hosts}")
   debug_log("Allowed DNS queries: #{allowed_dns_queries}")
 
-  assert_no_leaks(@sniffer.pcap_file, allowed_hosts, allowed_dns_queries)
+  assert_no_leaks(@sniffer.pcap_file, allowed_hosts, allowed_dns_queries) unless flow_target == 'snowflake'
   debug_useless_dns_exceptions(@sniffer.pcap_file, allowed_dns_queries)
 end
 
@@ -1046,7 +1095,7 @@ Then /^tca.conf includes the configured bridges$/ do
     @bridge_hosts,
     tca_conf['tor']['bridges'].map do |bridge|
       bridge_parts = bridge.split
-      bridge_info = if bridge_parts[0] == 'obfs4'
+      bridge_info = if ['obfs4', 'snowflake'].include?(bridge_parts[0])
                       bridge_parts[1]
                     else
                       bridge_parts[0]
@@ -1086,4 +1135,29 @@ def allow_connecting_to_possibly_rfc1918_host(host)
   rfc1918_ips.each do |ip|
     add_extra_allowed_host(ip.to_s, 443)
   end
+end
+
+def tor_circuits_via_onioncircuits
+  step 'I start "Onion Circuits" via GNOME Activities Overview'
+  oc = Dogtail::Application.new('onioncircuits', translation_domain: 'tails')
+  circuit_header = oc.child('Circuit', roleName: 'table column header')
+  container = circuit_header.parent
+
+  circuits = container.children(roleName: 'table cell').map do |n|
+    n.text.split(',').map(&:strip)
+  end
+
+  circuits.filter do |c|
+    c.size > 1
+  end
+end
+
+Then /^OnionCircuits only show snowflake bridges$/ do
+  circuits = tor_circuits_via_onioncircuits
+  debug_log("Active circuits: #{circuits}")
+  assert_not_empty(circuits)
+
+  assert(circuits.all? do |c|
+    /^flakey\d+$/.match?(c.first)
+  end)
 end

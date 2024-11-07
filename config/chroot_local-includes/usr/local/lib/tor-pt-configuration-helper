@@ -5,7 +5,7 @@ set -u
 
 # Import try_for()
 . /usr/local/lib/tails-shell-library/common.sh
-# Import tor_set_in_torrc()
+# Import tor_set_in_torrc(), SNOWFLAKE_URL, SNOWFLAKE_FRONT, SNOWFLAKE_ICE
 . /usr/local/lib/tails-shell-library/tor.sh
 
 ENABLE_SANDBOX="${1}"
@@ -24,9 +24,16 @@ systemctl stop tor@default.service
 tor_set_in_torrc Sandbox "${ENABLE_SANDBOX}"
 sed -i '/^ClientTransportPlugin /d' /etc/tor/torrc
 if [ "${ENABLE_SANDBOX}" = 0 ]; then
-    tor_set_in_torrc \
-        ClientTransportPlugin \
-        'obfs2,obfs3,obfs4,meek_lite exec /usr/bin/obfs4proxy -enableLogging -unsafeLogging -logLevel DEBUG'
+    tor_append_to_torrc 'ClientTransportPlugin obfs2,obfs3,obfs4,meek_lite exec /usr/bin/obfs4proxy -enableLogging -unsafeLogging -logLevel DEBUG'
+
+    # Yes,this it the syntax we want: create a single, long line, over many, more readable, lines
+    # shellcheck disable=SC2140
+    snowflake_line="ClientTransportPlugin snowflake exec /usr/bin/snowflake-client "\
+"-url ${SNOWFLAKE_URL}"\
+" -front ${SNOWFLAKE_FRONT} "\
+" -ice ${SNOWFLAKE_ICE}"
+    tor_append_to_torrc "${snowflake_line}"
+
 fi
 
 systemctl start tor@default.service
