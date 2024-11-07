@@ -66,15 +66,16 @@
  
    # should maybe be in abstractions
    /etc/ r,
-@@ -144,6 +135,7 @@
+@@ -144,6 +135,8 @@
    /etc/gre.d/* r,
  
    # noisy
++  deny @{MOZ_LIBDIR}/vaapitest x,
 +  deny /etc/os-release r,
    deny @{MOZ_LIBDIR}/** w,
    deny /usr/lib/thunderbird-addons/** w,
    deny /usr/lib/xulrunner-addons/** w,
-@@ -153,6 +145,10 @@
+@@ -153,6 +146,10 @@
    deny /boot/vmlinuz* r,
    deny /var/cache/fontconfig/ w,
  
@@ -85,7 +86,7 @@
    # noisy file dialog:
    #
    # TODO: remove these rules when file dialogs becomes "trusted helpers" that can
-@@ -260,9 +256,11 @@
+@@ -260,9 +257,11 @@
    deny @{HOME}/#[0-9][0-9][0-9][0-9][0-9][0-9][0-9]{,[0-9]} m,
    deny @{HOME}/.nv/.gl?????? mrw,
  
@@ -100,7 +101,7 @@
    /sys/devices/pci[0-9]*/**/uevent r,
    /sys/devices/pci*/**/config r,
    /sys/devices/system/node/node[0-9]*/meminfo r,
-@@ -270,20 +268,19 @@
+@@ -270,20 +269,19 @@
    /etc/fstab r,
  
    # Needed for the crash reporter
@@ -127,7 +128,7 @@
  
    # Needed for container to work in xul builds
    /usr/lib/xulrunner-*/plugin-container ixr,
-@@ -331,10 +328,6 @@
+@@ -331,10 +329,6 @@
    deny /usr/share/mozilla/extensions/**/ w,
    deny /usr/share/mozilla/ w,
  
@@ -138,7 +139,7 @@
    /usr/lib/gnupg/gpg-wks-client ix,
    /{,usr/}bin/ps                   ix,
  
-@@ -344,6 +337,11 @@
+@@ -344,6 +338,11 @@
    # Required for Wayland display protocol support
    owner /dev/shm/wayland.mozilla.ipc.[0-9]* rw,
  
