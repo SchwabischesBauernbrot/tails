@@ -271,7 +271,56 @@ disable_update_checks() {
     cat >"${tbb_install}/distribution/policies.json" <<EOF
 {
   "policies": {
-    "DisableAppUpdate": true
+    "SSLVersionMin": "tls1.2",
+    "DisabledCiphers": {
+      "TLS_ECDHE_RSA_WITH_AES_128_CBC_SHA": true,
+      "TLS_ECDHE_ECDSA_WITH_AES_128_CBC_SHA": true,
+      "TLS_ECDHE_RSA_WITH_AES_256_CBC_SHA": true,
+      "TLS_ECDHE_ECDSA_WITH_AES_256_CBC_SHA": true,
+      "TLS_DHE_RSA_WITH_AES_128_CBC_SHA": true,
+      "TLS_DHE_RSA_WITH_AES_256_CBC_SHA": true,
+      "TLS_RSA_WITH_AES_128_GCM_SHA256": true,
+      "TLS_RSA_WITH_AES_256_GCM_SHA384": true,
+      "TLS_RSA_WITH_AES_128_CBC_SHA": true,
+      "TLS_RSA_WITH_AES_256_CBC_SHA": true,
+      "TLS_RSA_WITH_3DES_EDE_CBC_SHA": true
+    },
+    "DisableAppUpdate": true,
+    "DontCheckDefaultBrowser": true,
+    "DisableSystemAddonUpdate": true,
+    "DisableTelemetry": true,
+    "DisableFirefoxStudies": true,
+    "DisableFirefoxScreenshots": true,
+    "DisableFeedbackCommands": true,
+    "DisableFormHistory": true,
+    "DisableBuiltinPDFViewer": true,
+    "FirefoxHome": {
+      "Search": false,
+      "TopSites": false,
+      "SponsoredTopSites": false,
+      "Highlights": false,
+      "Pocket": false,
+      "SponsoredPocket": false,
+      "Snippets": false,
+      "Locked": true
+    },
+    "SearchEngines": {
+      "PreventInstalls": true
+    },
+    "Preferences": {
+      "dom.webnotifications.enabled": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "dom.webnotifications.serviceworker.enabled": {
+        "Value": false,
+        "Status": "locked"
+      },
+      "accessibility.force_disabled": {
+        "Value": 1,
+        "Status": "locked"
+      }
+    }
   }
 }
 EOF
