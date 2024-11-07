@@ -371,3 +371,8 @@ pref("mail.identity.default.encryptionpolicy", 2);
 // email. Attaching the key bloats the email (especially keys that
 // have many signatures) but also leaks who sent email when using Schleuder's remailing functionality.
 pref("mail.identity.default.attachPgpKey", false);
+
+// Disable remote images
+// this disabled by default already in Thunderbird
+// set to override it if user ever enables it
+pref("mailnews.message_display.disable_remote_image", true);
