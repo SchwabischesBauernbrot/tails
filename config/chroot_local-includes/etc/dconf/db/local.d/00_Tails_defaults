@@ -58,7 +58,7 @@ volumes-visible = false
 default-zoom-level = 'small'
 
 [org/gnome/settings-daemon/plugins/media-keys]
-custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/']
+custom-keybindings=['/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom0/', '/org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1/']
 screensaver=['']
 max-screencast-length=uint32 0
 
@@ -66,6 +66,11 @@ max-screencast-length=uint32 0
 binding='<Super>l'
 command='tails-screen-locker'
 name='Lock Screen'
+
+[org/gnome/settings-daemon/plugins/media-keys/custom-keybindings/custom1]
+binding='<Primary><Alt>t'
+command='gnome-terminal'
+name='Gnome Terminal'
 
 [org/gnome/settings-daemon/plugins/power]
 power-button-action = 'nothing'
