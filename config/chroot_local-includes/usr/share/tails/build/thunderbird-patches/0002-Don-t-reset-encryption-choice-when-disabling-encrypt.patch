@@ -1,11 +1,22 @@
-Don't reset encryption choice when disabling encryption controls.
+From a36159613f99c12de7778b30a982aa82d0bc392d Mon Sep 17 00:00:00 2001
+From: anonym <anonym@riseup.net>
+Date: Tue, 3 Nov 2020 12:13:10 +0100
+Subject: [PATCH 2/2] Don't reset encryption choice when disabling encryption
+ controls.
 
-Without this patch, the mail.identity.default.encryptionpolicy pref
-does not work: adding a key to an account always sets its
-encryptionpolicy to 0, no matter the desired default.
+Without this, the mail.identity.default.encryptionpolicy pref does not
+work: adding a key to an account always sets its encryptionpolicy to 0,
+no matter the desired default.
 
---- a/chrome/messenger/content/messenger/am-e2e.js      2010-01-01 00:00:00.000000000 +0100
-+++ b/messenger/content/messenger/am-e2e.js   2024-11-06 10:13:09.160790399 +0100
+https://bugzilla.mozilla.org/show_bug.cgi?id=1674995
+---
+ comm/mail/extensions/am-e2e/am-e2e.js | 3 ---
+ 1 file changed, 3 deletions(-)
+
+Index: thunderbird/comm/mail/extensions/am-e2e/am-e2e.js
+===================================================================
+--- thunderbird.orig/comm/mail/extensions/am-e2e/am-e2e.js	2024-11-07 11:07:29.593040968 +0100
++++ thunderbird/comm/mail/extensions/am-e2e/am-e2e.js	2024-11-07 11:07:29.589041027 +0100
 @@ -741,9 +741,6 @@
  function enableEncryptionControls(do_enable) {
    gDisableEncryption.disabled = !do_enable;

@@ -20,10 +20,8 @@ tmpdir="$(mktemp -d)"
       echo "I: Applying $patch"
       # shellcheck disable=SC2002
       cat "$PATCHES_DIRECTORY/$patch" \
-	 | perl -p -E 's{^(--- [ab])/comm/mail/components/accountcreation/content/}{$1/chrome/messenger/content/messenger/accountcreation/}' \
-	 | perl -p -E 's{^(--- [ab])/comm/mail/components/accountcreation/}{$1/modules/accountcreation/}' \
-	 | perl -p -E 's{^(--- [ab])/comm/mail/extensions/am-e2e/}{$1/chrome/messenger/content/messenger/}' \
-	 | perl -p -E 's{^(--- [ab])/comm/mailnews/}{$1/defaults/pref/}' \
+	 | perl -p -E 's{^(--- [^/]+)/comm/mail/components/accountcreation/modules/}{$1/modules/accountcreation/}' \
+	 | perl -p -E 's{^(--- [^/]+)/comm/mail/extensions/am-e2e/}{$1/chrome/messenger/content/messenger/}' \
 	 | patch -p1
    done < "$PATCHES_DIRECTORY"/series
    find . -name '*.js' -exec touch --date="@$SOURCE_DATE_EPOCH" '{}' \;
