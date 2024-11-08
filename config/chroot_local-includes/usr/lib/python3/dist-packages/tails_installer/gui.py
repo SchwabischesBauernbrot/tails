@@ -556,6 +556,8 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
             return
 
         def add_devices():
+            last_selected_drive = self.get_selected_drive()
+            last_liststore_target_length = len(self.__liststore_target)
             self.__liststore_target.clear()
             self.live.log.debug("drives: %s" % self.live.drives)
             target_list = []
@@ -619,9 +621,21 @@ class TailsInstallerWindow(Gtk.ApplicationWindow):
                 self.__infobar.set_visible(False)
                 for target in target_list:
                     self.__liststore_target.append(target)
+                    if target[1] == last_selected_drive:
+                        self.__combobox_target.set_active(target_list.index(target))
                 self.target_available = True
-                self.__combobox_target.set_active(0)
+                if self.__combobox_target.get_active() < 0:
+                    self.__combobox_target.set_active(0)
+                    # Grab combobox focus if last selected is removed and 2 remain
+                    if len(target_list) > 1:
+                        self.__combobox_target.grab_focus()
                 self.update_start_button()
+                if last_liststore_target_length < len(self.__liststore_target):
+                    # Otherwise grab focus only when new targets appear.
+                    if len(target_list) > 1:
+                        self.__combobox_target.grab_focus()
+                    else:
+                        self.__button_start.grab_focus()
             else:
                 self.__infobar.set_message_type(Gtk.MessageType.INFO)
                 self.__label_infobar_title.set_text(
