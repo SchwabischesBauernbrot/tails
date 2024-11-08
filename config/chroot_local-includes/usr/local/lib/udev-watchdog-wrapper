@@ -10,54 +10,74 @@ PATH="/usr/bin:${PATH}"
 ### Helper functions
 
 using_fromiso() {
-	grep -qs -w -E '(fromiso|isofrom)=' /proc/cmdline
+    grep -qs -w -E '(fromiso|isofrom)=' /proc/cmdline
 }
 
 # Returns the boot device's path in a form that can be passed to the
 # eject command, e.g. /dev/scd0 or /dev/block/NN:MM.
 boot_device() {
-	if using_fromiso ; then
-	# When booting with e.g. fromiso=/dev/sdx3/tails-XXX.iso, a loop device
-	# is mounted onto /lib/live/mount/medium => we cannot get the boot device from there.
-	# This loop device's backing file is seen by the system as
-	# /isofrom/XXX.iso, which is not available presumably because pivotroot
-	# was run => we cannot get the boot device from there either.
-	# Instead, we parse fromiso='s argument the same way live-boot does
-	# in order to extract the device path (/dev/sdx3)
-	        # shellcheck disable=SC2013
-		for ARGUMENT in $(cat /proc/cmdline) ; do
-			case "${ARGUMENT}" in
-				isofrom=*|fromiso=*)
-					FROMISO="${ARGUMENT#*=}"
-					;;
-			esac
-		done
-		dirname "$FROMISO"
-	else
-	# Refactorer, beware: the rest of this script depends on the fact that
-	# the path returned in this case is suitable to be passed as an argument
-	# to --path in "udevadm info --query" commands... which is not the case
-	# of paths in the /dev/sdxN form.
-		DEV_NUMBER="$(udevadm info --device-id-of-file=/lib/live/mount/medium)"
-		echo "/dev/block/$DEV_NUMBER"
-	fi
+    if using_fromiso; then
+        # When booting with e.g. fromiso=/dev/sdx3/tails-XXX.iso, a loop device
+        # is mounted onto /lib/live/mount/medium => we cannot get the boot device from there.
+        # This loop device's backing file is seen by the system as
+        # /isofrom/XXX.iso, which is not available presumably because pivotroot
+        # was run => we cannot get the boot device from there either.
+        # Instead, we parse fromiso='s argument the same way live-boot does
+        # in order to extract the device path (/dev/sdx3)
+        # shellcheck disable=SC2013
+        for ARGUMENT in $(cat /proc/cmdline); do
+            case "${ARGUMENT}" in
+            isofrom=* | fromiso=*)
+                FROMISO="${ARGUMENT#*=}"
+                ;;
+            esac
+        done
+        dirname "$FROMISO"
+    else
+        # Refactorer, beware: the rest of this script depends on the fact that
+        # the path returned in this case is suitable to be passed as an argument
+        # to --path in "udevadm info --query" commands... which is not the case
+        # of paths in the /dev/sdxN form.
+        DEV_NUMBER="$(udevadm info --device-id-of-file=/lib/live/mount/medium)"
+        echo "/dev/block/$DEV_NUMBER"
+    fi
 }
 
 # First clean the screen, then brutally shutdown the machine.
 do_stop() {
-	# Kill everything run by amnesia or Debian-gdm, otherwise emergency
-	# shutdown fails for some reason. Incidentally, this also allows
-	# the test suite to look for a known message ("Happy dumping!")
-	# on the screen.
-	/bin/loginctl --signal=9 kill-user amnesia || true
-	/bin/systemctl stop gdm.service || true
-	/bin/systemctl --signal=9 kill gdm.service || true
-	/bin/loginctl --signal=9 kill-user Debian-gdm || true
+    # Kill everything run by amnesia or Debian-gdm, otherwise emergency
+    # shutdown fails for some reason. Incidentally, this also allows
+    # the test suite to look for a known message ("Happy dumping!")
+    # on the screen.
+    /bin/loginctl --signal=9 kill-user amnesia || true
+    /bin/systemctl stop gdm.service || true
+    /bin/systemctl --signal=9 kill gdm.service || true
+    /bin/loginctl --signal=9 kill-user Debian-gdm || true
 
-	# Finally, return to the initramfs and poweroff the system
-	/bin/systemctl --force poweroff
+    # Finally, return to the initramfs and poweroff the system
+    /bin/systemctl --force poweroff
 }
 
+on_removed() {
+    set -x
+    echo "on_removed(): called"
+    # You might think that "/usr/local/lib/tpscli is-unlocked" is the right command to run, but it isn't
+    # In fact, when the stick is removed, it's too late to make such a check, so we resort to something
+    # simpler.
+    if [ -d /live/persistence/TailsData_unlocked ]; then
+        echo "on_removed(): persistent storage unlocked"
+        . /etc/default/tails-emergency-shutdown-warning
+        # by writing to this fifo, we will actually show the UI
+        # since the write itself might be blocking (and that will prevent the emergency shutdown), we do it in
+        # the background
+        (echo >"$EMERGENCY_SHUTDOWN_FIFO") &
+        # let's wait for it to be over; again, this is over cautious, but we really don't want to wait too
+        # much
+        timeout --kill-after=1 "$EMERGENCY_SHUTDOWN_WAIT_SECS" pidwait --uid amnesia --exact --full '/bin/sh /usr/local/lib/tails-emergency-shutdown-warning' || true
+    fi
+    echo "on_removed(): shutdown no matter what"
+    do_stop
+}
 
 ### Main
 
@@ -69,22 +89,21 @@ if test -z "$BOOT_DEVICE" || ! test -e "$BOOT_DEVICE"; then
     do_stop
 fi
 
-
 # Assign to QUERY_SELECTOR an option that can be passed as a query selector
 # to udevadm info --query commands.
-if using_fromiso ; then
-	DEV_NAME=$(basename "$BOOT_DEVICE")
-	QUERY_SELECTOR="--name $DEV_NAME"
+if using_fromiso; then
+    DEV_NAME=$(basename "$BOOT_DEVICE")
+    QUERY_SELECTOR="--name $DEV_NAME"
 else
-	QUERY_SELECTOR="--path $BOOT_DEVICE"
+    QUERY_SELECTOR="--path $BOOT_DEVICE"
 fi
 
 # shellcheck disable=SC2086
-DEV_UDEV_PATH=$(udevadm info --query path     $QUERY_SELECTOR)
+DEV_UDEV_PATH=$(udevadm info --query path $QUERY_SELECTOR)
 # SD in SDIO has no ID_TYPE, let's pretend it's a disk just like USB sticks
 # shellcheck disable=SC2086
-DEV_TYPE_LINE=$(udevadm info --query property $QUERY_SELECTOR | grep -w '^ID_TYPE') \
-	|| DEV_TYPE_LINE='ID_TYPE=disk'
+DEV_TYPE_LINE=$(udevadm info --query property $QUERY_SELECTOR | grep -w '^ID_TYPE') ||
+    DEV_TYPE_LINE='ID_TYPE=disk'
 DEV_TYPE="${DEV_TYPE_LINE#*=}"
 
 # If the world was sane we'd want to *disable* the eject lock, but it turns out
@@ -92,8 +111,7 @@ DEV_TYPE="${DEV_TYPE_LINE#*=}"
 # event. See [[bugs/sdmem_on_eject_broken_for_CD]].
 # FIXME: we might be able to do the more sane "-i off" with future kernel/udev
 if [ "$DEV_TYPE" = "cd" ]; then
-	eject -i on "${BOOT_DEVICE}" >/dev/null
+    eject -i on "${BOOT_DEVICE}" >/dev/null
 fi
-
 # Start udev-watchdog and stop on clean exit.
-/usr/local/sbin/udev-watchdog "$DEV_UDEV_PATH" "$DEV_TYPE" && do_stop
+/usr/local/sbin/udev-watchdog "$DEV_UDEV_PATH" "$DEV_TYPE" && on_removed
