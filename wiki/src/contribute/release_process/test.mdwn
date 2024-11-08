@@ -172,14 +172,30 @@ Incremental upgrades
 
 (automate: [[!tails_ticket 18004]])
 
-Follow the instructions below for each of these versions of Tails:
+Follow the instructions below for each of these versions of Tails, setting `STARTING_VERSION`:
 
 ⚠ PLACEHOLDER
 
-1. Install this version of Tails _from scratch_ to a USB stick.
-   A system that was upgraded to that version will not do.
+Make sure you have a [[VM running IMGs as USB stick|contribute/build/vm#img]] named `tails-QA-img`.
 
-2. Start from that USB stick.
+
+Run this to "flash" `$STARTING_VERSION` to this virtual USB stick:
+
+```sh
+(
+  set -eux
+  vm=tails-QA-img
+  if [ "$(virsh dumpxml "$vm"  | xmlstarlet select -t -v '/domain/devices/disk/target[@bus="usb"]/@removable')" != on ]; then
+      echo "ERROR: The VM doesn't have a removable USB disk"
+      exit 1
+  fi
+  img="$(virsh dumpxml "$vm"  | xmlstarlet select -t -v '/domain/devices/disk/source/@file')"
+  cp "${ISOS}/tails-amd64-${STARTING_VERSION}/tails-amd64-${STARTING_VERSION}.img" "$img"
+  truncate -s "8000M" "$img"
+)
+```
+
+2. Start the VM: `virsh start tails-QA-img`
 
 3. Set an administration password in the Welcome Screen.
 
