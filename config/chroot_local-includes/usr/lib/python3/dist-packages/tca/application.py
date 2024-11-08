@@ -8,7 +8,7 @@ from argparse import ArgumentParser, ArgumentDefaultsHelpFormatter
 from pathlib import Path
 from typing import Any
 
-from stem.control import Controller
+from stem.control import Controller, EventType
 import prctl
 import gi
 import dbus
@@ -26,7 +26,6 @@ from tca.torutils import (
 from tca.timeutils import GET_NETWORK_TIME_RETURN_CODE
 from tca.ui.asyncutils import GJsonRpcClient
 from tailslib.logutils import configure_logging
-from tailslib.tor import TOR_HAS_BOOTSTRAPPED_PATH
 
 
 gi.require_version("GLib", "2.0")
@@ -72,8 +71,12 @@ class TCAApplication(Gtk.Application):
         self.window = None
         self.sys_dbus = dbus.SystemBus()
         self.last_nm_state = None
-        self._tor_is_working: bool = TOR_HAS_BOOTSTRAPPED_PATH.exists()
-        self.tor_info: dict[str, Any] = {"DisableNetwork": None}
+        self.tor_is_working: bool = (
+            self.controller.get_info("status/circuit-established") == "1"
+        )
+        self.tor_disable_network: bool = (
+            self.controller.get_conf("DisableNetwork") == "1"
+        )
         self.has_persistence = has_persistence()
         self.has_unlocked_persistence = has_unlocked_persistence()
         self.log.debug(
@@ -85,6 +88,46 @@ class TCAApplication(Gtk.Application):
             "status": None,
             "reason": None,
         }
+
+    @property
+    def tor_is_working(self) -> bool:
+        return self._tor_is_working
+
+    @tor_is_working.setter
+    def tor_is_working(self, value: bool):
+        try:
+            if self._tor_is_working == value:
+                return
+        except AttributeError:
+            # self._tor_is_working was not set yet
+            pass
+        self._tor_is_working = value
+        self.log.info(f"tor_is_working = {self._tor_is_working}")
+        if self._tor_is_working:
+            self.portal.call_async("start-tor-has-bootstrapped", None)
+        else:
+            self.portal.call_async("stop-tor-has-bootstrapped", None)
+
+    @property
+    def tor_disable_network(self) -> bool:
+        return self._tor_disable_network
+
+    @tor_disable_network.setter
+    def tor_disable_network(self, value: bool):
+        try:
+            if self._tor_disable_network == value:
+                return
+        except AttributeError:
+            # self._tor_disable_network was not set yet
+            pass
+        self._tor_disable_network = value
+        self.log.info(
+            f"tor conf state changed: DisableNetwork={self._tor_disable_network}"
+        )
+        if hasattr(self.window, "on_tor_disable_network_changed"):
+            GLib.idle_add(
+                self.window.on_tor_disable_network_changed, self._tor_disable_network
+            )
 
     def load_configuration(self):
         """Load our configuration, possibly asynchronously."""
@@ -100,45 +143,31 @@ class TCAApplication(Gtk.Application):
 
     def do_monitor_tor_is_working(self):
         # init tor-ready monitoring
-        f = Gio.File.new_for_path(str(TOR_HAS_BOOTSTRAPPED_PATH))
-        monitor = f.monitor(Gio.FileMonitorFlags.NONE, None)
-        self._tor_is_working_monitor = monitor  # otherwise it will get GC'ed
-        monitor.connect("changed", self.check_tor_is_working)
+
+        def tor_client_status_event_cb(event):
+            if event.action == "BOOTSTRAP":
+                self.tor_is_working = event.arguments.get("PROGRESS") == "100"
+            elif event.action == "CIRCUIT_ESTABLISHED":
+                self.tor_is_working = True
+
+        self.controller.add_event_listener(
+            tor_client_status_event_cb, EventType.STATUS_CLIENT
+        )
 
         return False
 
-    def check_tor_is_working(self, monitor, _file, otherfile, event):
-        if event == Gio.FileMonitorEvent.CREATED:
-            self._tor_is_working = True
-        elif event == Gio.FileMonitorEvent.DELETED:
-            self._tor_is_working = False
-        else:
-            return
-        self.log.info("tor_is_working = %s", self._tor_is_working)
-        GLib.idle_add(self.window.on_tor_working_changed, self.is_tor_working)
+    def do_monitor_tor_conf_state(self):
+        def tor_conf_changed_cb(event):
+            if "DisableNetwork" in event.config:
+                self.tor_disable_network = event.config["DisableNetwork"] == "1"
 
-    def check_tor_state(self, repeat: bool):
-        # this is called periodically
-        changed = set()
-        for infokey in ["DisableNetwork"]:
-            resp = self.controller.get_conf(infokey)
-            if resp is None:
-                self.log.warn("No response from tor (asking %s)", infokey)
-            else:
-                if self.tor_info[infokey] != resp:
-                    changed.add(infokey)
-                self.tor_info[infokey] = resp
+        self.controller.add_event_listener(tor_conf_changed_cb, EventType.CONF_CHANGED)
 
-        if changed:
-            self.log.info("tor state changed: %s", ",".join(changed))
-            if hasattr(self.window, "on_tor_state_changed"):
-                GLib.idle_add(self.window.on_tor_state_changed, self.tor_info, changed)
-
-        return repeat
+        return False
 
     @property
     def is_tor_working(self) -> bool:
-        return bool(self._tor_is_working)
+        return bool(self.tor_is_working)
 
     @property
     def is_tor_over_bridges(self) -> bool:
@@ -207,12 +236,9 @@ class TCAApplication(Gtk.Application):
         self.add_action(action)
 
         # one time only
-        GLib.timeout_add(1, self.do_fetch_nm_state)
-        GLib.timeout_add(1, self.do_monitor_tor_is_working)
-        GLib.timeout_add(1, self.check_tor_state, False)
-
-        # timers
-        GLib.timeout_add(1000, self.check_tor_state, True)
+        GLib.idle_add(self.do_fetch_nm_state)
+        GLib.idle_add(self.do_monitor_tor_conf_state)
+        GLib.idle_add(self.do_monitor_tor_is_working)
 
         try:
             systemd.daemon.notify("READY=1")

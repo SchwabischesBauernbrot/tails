@@ -1158,7 +1158,7 @@ class TCAMainWindow(
         NetworkManager.
         Other state transitions happen when reacting to events such as clicking.
         """
-        disable_network = self.app.tor_info["DisableNetwork"] == "1"
+        disable_network = self.app.tor_disable_network
         up = self.app.is_network_link_ok
         tor_working = self.app.is_tor_working
         step = self.state["step"]
@@ -1215,14 +1215,9 @@ class TCAMainWindow(
         self._move_to_right_step()
         log.debug(self.state["step"])
 
-    def on_tor_working_changed(self, working: bool):
-        log.info("Tor working changed %s", working)
-        self._move_to_right_step()
-        log.debug(self.state["step"])
-
-    def on_tor_state_changed(self, tor_info: dict, changed: set):
+    def on_tor_disable_network_changed(self, disable_network: bool):
         """Reacts to DisableNetwork changes."""
-        log.info("DisableNetwork changed %s", tor_info["DisableNetwork"])
+        log.info(f"DisableNetwork changed {disable_network}")
         self._move_to_right_step()
         log.debug(self.state["step"])
 

@@ -325,6 +325,14 @@ class Handler(socketserver.StreamRequestHandler):
         "set-system-time": SetTimeCommand(),
         "read-tca-config": RootCommand(("/bin/cat", TCA_CONFIG_FILE), False),
         "write-tca-config": WriteFileCommand(TCA_CONFIG_FILE),
+        "start-tor-has-bootstrapped": RootCommand(
+            ("/bin/systemctl", "start", "tails-tor-has-bootstrapped-flag-file.service"),
+            False,
+        ),
+        "stop-tor-has-bootstrapped": RootCommand(
+            ("/bin/systemctl", "stop", "tails-tor-has-bootstrapped-flag-file.service"),
+            False,
+        ),
     }
     valid_commands: ClassVar = set(spawn_commands.keys())
 
