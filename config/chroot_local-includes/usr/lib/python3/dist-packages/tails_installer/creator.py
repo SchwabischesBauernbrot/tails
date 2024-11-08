@@ -197,7 +197,7 @@ class TailsInstallerCreator:
         self, obj: UDisks.Object, force_partitions=False
     ) -> Optional[dict]:
         """
-        Returns a dictionarty containing our own description of a udisk object
+        Returns a dictionary containing our own description of a udisk object
         """
         block = obj.props.block
         self.log.debug("looking at %s", obj.get_object_path())
@@ -232,6 +232,7 @@ class TailsInstallerCreator:
             "is_device_big_enough_for_installation": True,
             "is_device_big_enough_for_upgrade": True,
             "is_device_big_enough_for_reinstall": True,
+            "is_device_big_enough_for_backup": True,
             "removable": drive.props.removable,
         }
 
@@ -278,10 +279,17 @@ class TailsInstallerCreator:
                     "Device is too small for installation: %s" % data["device"]
                 )
                 data["is_device_big_enough_for_installation"] = False
-            # Since reinstalling is a special case where full overitting
+            # Since reinstalling is a special case where full overwriting
             # is done, the size of the device has to be bigger than
             # min_installation_device_size in all cases.
             data["is_device_big_enough_for_reinstall"] = False
+        if not self.is_device_big_enough_for_backup(
+            data["parent_size"] if data["parent_size"] else data["size"]
+        ):
+            self.log.warning(
+                "Device is too small for creating a backup: %s" % data["device"]
+            )
+            data["is_device_big_enough_for_backup"] = False
 
         # To be more accurate we would need to either mount the candidate
         # device (which causes UX problems down the road) or to recursively
@@ -414,9 +422,67 @@ class TailsInstallerCreator:
             return mebibytes_to_bytes(4 * 1024)
 
     def is_device_big_enough_for_installation(self, device_size_in_bytes):
+        if hasattr(self, "source") and self.source is not None:
+            try:
+                # We add a 5% margin to account for filesystem structures.
+                return (
+                    self.system_partition_size(device_size_in_bytes)
+                    >= self.source.size * 1.05
+                )
+            except NotImplementedError:
+                return False
         return device_size_in_bytes >= mebibytes_to_bytes(
             self.min_installation_device_size
         )
+
+    def space_for_backup(self, device_size_in_bytes):
+        block_size = 4096 # Assume default ext4 block size in bytes
+        filesystem_size = device_size_in_bytes - self.system_partition_size(device_size_in_bytes) \
+            - mebibytes_to_bytes(18) # 16 MiB for luks2 header, 2 MiB is free
+        filesystem_block_count = filesystem_size // block_size
+
+        # The following logic to calculate the journal size is based
+        # on the function ext2fs_default_journal_size() from the file
+        # mkjournal.c in the e2fsprogs library. Link for reference:
+        # https://github.com/tytso/e2fsprogs/blob/master/lib/ext2fs/mkjournal.c#L352-L378
+        def ext2fs_default_journal_size(num_blocks):
+            # n.b. comments assume 4k blocks
+            assert num_blocks >= 2048
+            if (num_blocks < 32768):        # 128 MB
+                return (1024)   # 4 MB
+            if (num_blocks < 256*1024):     # 1 GB
+                return (4096)   # 16 MB
+            if (num_blocks < 512*1024):     # 2 GB
+                return (8192)   # 32 MB
+            if (num_blocks < 4096*1024):    # 16 GB
+                return (16384)  # 64 MB
+            if (num_blocks < 8192*1024):    # 32 GB
+                return (32768)  # 128 MB
+            if (num_blocks < 16384*1024):   # 64 GB
+                return (65536)  # 256 MB
+            if (num_blocks < 32768*1024):   # 128 GB
+                return (131072) # 512 MB
+            return 262144       # 1 GB
+
+        # Calculate the journal size based on the file system size.
+        journal_size_bytes = block_size * ext2fs_default_journal_size(filesystem_block_count)
+        # There are filesystem structures beyond the journal, these
+        # constants return available space within +/- 44 MB accuracy.
+        # The division by 1.01741885526065 accounts for the reduction
+        # in filesystem capacity due to these structures, making the
+        # calculated free space more accurate over different partition
+        # sizes. A linear regression was fit to data from various sizes
+        # ranging from 3.2 to 56 GB, with the worst error being ~44 MiB
+        return (filesystem_size - journal_size_bytes - 42473767) / 1.01741885526065
+
+    def is_device_big_enough_for_backup(self, device_size_in_bytes):
+        try:
+            return (
+                self.space_for_backup(device_size_in_bytes)
+                > get_persistent_storage_backup_size(count_luks2_header=False)
+            )
+        except NotImplementedError:
+            return False
 
     def can_read_partition_table(self, device=None):
         if not device:

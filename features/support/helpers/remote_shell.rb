@@ -76,7 +76,7 @@ module RemoteShell
           end
           return rest
         else
-          debug_log('Dropped out-of-order remote shell response: ' \
+          debug_log('Remote shell: dropped out-of-order response: ' \
                     "got id #{response_id} but expected id #{id}")
         end
       end
@@ -166,15 +166,15 @@ module RemoteShell
       if opts[:debug_log]
         if !opts[:env].empty?
           env_str = opts[:env].map { |k, v| "#{k}=#{v}" }.join(' ')
-          debug_log("executing Python as #{opts[:user]} with #{env_str}: #{show_code}")
+          debug_log("Remote shell: executing Python as #{opts[:user]} with #{env_str}: #{show_code}")
         else
-          debug_log("executing Python as #{opts[:user]}: #{show_code}")
+          debug_log("Remote shell: executing Python as #{opts[:user]}: #{show_code}")
         end
       end
       ret = RemoteShell.communicate(
         vm, 'python_execute', opts[:user], opts[:env], code, **opts
       )
-      debug_log('execution complete') if opts[:debug_log]
+      debug_log("Remote shell: python_execute returned: #{ret}") if opts[:debug_log]
       ret
     end
 
@@ -230,13 +230,13 @@ module RemoteShell
   # opened in rw mode.
   class File
     def self.open(vm, mode, path, *args, **opts)
-      debug_log("opening file #{path} in '#{mode}' mode")
+      debug_log("Remote shell: opening file #{path} in '#{mode}' mode") if opts[:debug_log]
       ret = RemoteShell.communicate(vm, "file_#{mode}", path, *args, **opts)
       if ret.size != 1
         raise ServerFailure, "expected 1 value but got #{ret.size}"
       end
 
-      debug_log("#{mode} complete")
+      debug_log("Remote shell: #{mode} complete") if opts[:debug_log]
       ret.first
     end
 

@@ -41,13 +41,13 @@ Feature: Installing Tails to a USB drive
     And there is a random seed on USB drive "install"
     But there is no persistence partition on USB drive "install"
 
-  Scenario: Installing Tails with Tails Installer to a used USB drive, cloning the Persistent Storage
+  Scenario: Backing up Tails including its Persistent Storage with Tails Installer to a used USB drive
     Given I have started Tails without network from a USB drive with a persistent partition enabled and logged in
     And I create a file in the Persistent directory
     And I temporarily create a 7200 MiB disk named "install"
     And I create a gpt partition with a vfat filesystem on disk "install"
     And I plug USB drive "install"
-    And I install Tails with Persistent Storage to USB drive "install" by cloning
+    And I back up Tails to USB drive "install" by cloning
     Then the running Tails is installed on USB drive "install"
     And there is a random seed on USB drive "install"
     And there is a persistence partition on USB drive "install"

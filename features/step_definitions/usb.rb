@@ -164,7 +164,7 @@ end
 
 Then /^a suitable USB device is (?:still )?not found$/ do
   @installer.child(
-    'No device suitable to install Tails could be found', roleName: 'label'
+    'No USB stick suitable to install Tails could be found', roleName: 'label'
   )
 end
 
@@ -183,7 +183,19 @@ def persistence_exists?(name)
   $vm.execute("test -b #{data_part_dev}").success?
 end
 
-When /^I (install|reinstall|upgrade) Tails( with Persistent Storage)? (?:to|on) USB drive "([^"]+)" by cloning$/ do |action, with_persistence, name|
+When /^I (back up|install|reinstall|upgrade) Tails (?:to|on) USB drive "([^"]+)" by cloning$/ do |action, name|
+  if action == 'reinstall'
+    start_label = 'Reinstall (delete all data)'
+  else
+    # On the start button each word is capitalized
+    start_label = action.split.map(&:capitalize).join(' ')
+  end
+  if action == 'back up'
+    done_label = 'Backup complete!'
+  else
+    done_label = 'Cloning complete!'
+  end
+
   step 'I start Tails Installer'
 
   # Check that the "Clone the current Persistent Storage" check button
@@ -211,9 +223,10 @@ When /^I (install|reinstall|upgrade) Tails( with Persistent Storage)? (?:to|on) 
            '(even though no Persistent Storage exists)')
   end
 
-  if with_persistence
+  if action == 'back up'
     assert(sensitive,
-           "Can't clone with Persistent Storage: Clone button is not sensitive")
+           'Cannot back up Tails: "Clone the current Persistent Storage" ' \
+           'button is not sensitive')
     clone_persistence_button.click
   end
 
@@ -221,17 +234,27 @@ When /^I (install|reinstall|upgrade) Tails( with Persistent Storage)? (?:to|on) 
   # completely ready (so it's shown) at this stage.
   try_for(10) { tails_installer_is_device_selected?(name) }
   begin
-    label = if action == 'reinstall'
-              'Reinstall (delete all data)'
-            else
-              action.capitalize
-            end
     # We can't use the click action here because this button causes a
     # modal dialog to be run via gtk_dialog_run() which causes the
     # application to hang when triggered via a ATSPI action. See
     # https://gitlab.gnome.org/GNOME/gtk/-/issues/1281
-    @installer.button(label).grabFocus
+    @installer.button(start_label).grabFocus
     @screen.press('Enter')
+
+    if action == 'back up'
+      # Enter the passphrase in the passphrase dialog
+      passphrase_entry = @installer.child('Choose Passphrase',
+                                          roleName: 'dialog')
+                                   .child('Passphrase:', roleName: 'label')
+                                   .labelee
+      confirm_entry = @installer.child('Choose Passphrase',
+                                       roleName: 'dialog')
+                                .child('Confirm:', roleName: 'label')
+                                .labelee
+      passphrase_entry.text = @persistence_password
+      confirm_entry.text = @persistence_password
+      confirm_entry.activate
+    end
 
     unless action == 'upgrade'
       confirmation_label = if persistence_exists?(name)
@@ -261,7 +284,7 @@ When /^I (install|reinstall|upgrade) Tails( with Persistent Storage)? (?:to|on) 
     try_for(15 * 60, delay: 10) do
       @installer
         .child('Information', roleName: 'alert')
-        .child('Installation complete!', roleName: 'label')
+        .child(done_label, roleName: 'label')
       true
     end
   rescue StandardError => e
