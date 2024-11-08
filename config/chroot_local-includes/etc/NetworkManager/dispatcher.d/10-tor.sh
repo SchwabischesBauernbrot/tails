@@ -20,16 +20,6 @@ else
     exit 0
 fi
 
-# We would like Tor to be started during init time, even before the
-# network is up, and then send it a SIGHUP here to make it start
-# bootstrapping swiftly, but it doesn't work because of a bug in
-# Tor. Details:
-# * https://gitlab.torproject.org/tpo/core/tor/-/issues/1247
-# * https://gitlab.tails.boum.org/tails/tails/-/blob/7fae4a761a06e5a14048baff21e0bdb71a1f7226/wiki/src/bugs/tor_vs_networkmanager.mdwn
-# To work around this we restart Tor.
-echo >&2 "$BASENAME: $1 up: restarting tor@default.service"
-systemctl restart tor@default.service
-
 echo >&2 "$BASENAME: $1 up: starting tca.service"
 /usr/local/lib/run-with-user-env systemctl --user start tca.service
 
