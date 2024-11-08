@@ -371,3 +371,7 @@ pref("mail.identity.default.encryptionpolicy", 2);
 // email. Attaching the key bloats the email (especially keys that
 // have many signatures) but also leaks who sent email when using Schleuder's remailing functionality.
 pref("mail.identity.default.attachPgpKey", false);
+
+// Issue: #20062 - Thunderbird leaks locale via reply quote header
+// Only include "<author> wrote:" in the reply quote header to avoid locale leak
+pref("mailnews.reply_header_type", 1);
