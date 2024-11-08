@@ -41,8 +41,8 @@ ssh misc.lizard gpg --import < "wiki/src/tails-signing.key"
 ssh misc.lizard << EOF
    cd tails-amd64-${VERSION:?} && \
    wget --quiet \
-      "https://nightly.tails.boum.org/build_Tails_ISO_${RELEASE_BRANCH:?}/builds/${MATCHING_JENKINS_IMAGES_BUILD_ID:?}/archive/build-artifacts/tails-amd64-${VERSION:?}.iso" \
-      "https://nightly.tails.boum.org/build_Tails_ISO_${RELEASE_BRANCH:?}/builds/${MATCHING_JENKINS_IMAGES_BUILD_ID:?}/archive/build-artifacts/tails-amd64-${VERSION:?}.img" && \
+      "https://nightly.tails.net/build_Tails_ISO_${RELEASE_BRANCH:?}/builds/${MATCHING_JENKINS_IMAGES_BUILD_ID:?}/archive/build-artifacts/tails-amd64-${VERSION:?}.iso" \
+      "https://nightly.tails.net/build_Tails_ISO_${RELEASE_BRANCH:?}/builds/${MATCHING_JENKINS_IMAGES_BUILD_ID:?}/archive/build-artifacts/tails-amd64-${VERSION:?}.img" && \
    gpg --verify tails-amd64-${VERSION:?}.iso{.sig,} && \
    gpg --verify tails-amd64-${VERSION:?}.img{.sig,}
 EOF
